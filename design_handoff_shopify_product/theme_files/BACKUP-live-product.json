@@ -1,0 +1,57 @@
+/*
+ * BACKUP of the LIVE product template from
+ * theme "TheBakingKaur-Pink-Gold-Grey-theme" (MAIN)
+ * Pulled 2026-07-02 before any Baking Kaur design changes.
+ * To restore: copy this content back into templates/product.json.
+ */
+{
+  "sections": {
+    "main_heading_JtVyCf": {
+      "type": "main-heading",
+      "blocks": {
+        "1_r4MLdh": { "type": "1", "disabled": true, "settings": { "heading": "{{ product.title }}", "heading_size": "h3" } },
+        "2_CfLn7e": { "type": "2", "disabled": true, "settings": {} }
+      },
+      "block_order": ["1_r4MLdh", "2_CfLn7e"],
+      "name": "Heading",
+      "settings": { "color_scheme": "scheme-44e46597-7bbd-483b-9120-274512ddd57d", "spacing_hd": 5, "padding_top": 25, "padding_bottom": 25, "padding_rate": 75 }
+    },
+    "breacrumb": {
+      "type": "brc-nav-product",
+      "settings": { "back_next_pr": true, "color_scheme": "scheme-2", "padding_top": 15, "padding_bottom": 15, "padding_rate": 75 }
+    },
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "3a222052-35a9-4684-a336-6a32a56eb638": { "type": "title", "settings": {} },
+        "edac686e-a845-4ed7-9b50-51639a11cf56": { "type": "price", "settings": {} },
+        "custom_liquid_49i8Xk": { "type": "custom_liquid", "name": "Rating", "settings": { "custom_liquid": "<div class=\"cake-rating\">\n⭐ 4.8 (500+ Reviews)\n</div>\n\n<style>\n.cake-rating{\n  display:inline-flex;\n  align-items:center;\n  gap:6px;\n  width:auto;\n  background:#fff7f8;\n  border:1px solid #f2d6dd;\n  padding:8px 14px;\n  border-radius:999px;\n  font-size:14px;\n  font-weight:600;\n  color:#7a2147;\n  margin-bottom:12px;\n}\n</style>" } },
+        "custom_liquid_G7tCra": { "type": "custom_liquid", "name": "Delievery", "settings": { "custom_liquid": "<div class=\"trust-pills\">\n<span>🌿 100% Eggless</span>\n<span>🚚 Same Day Delivery</span>\n</div>\n\n<style>\n.trust-pills{\ndisplay:flex;\ngap:10px;\nflex-wrap:wrap;\nmargin:10px 0 20px;\n}\n\n.trust-pills span{\nbackground:#fff7f8;\nborder:1px solid #f2d6dd;\npadding:8px 12px;\nborder-radius:999px;\nfont-size:13px;\nfont-weight:600;\ncolor:#7a2147;\n}\n</style>" } },
+        "1248e930-5734-45b4-a1d6-a814910fdb63": { "type": "variant_picker", "settings": { "pick_mode": "no", "enable_historystate": true, "hide_sold_out": false, "color_picker_type": "image_rounded", "color_size": "small", "picker_type": "block", "size_chart_source": "image", "size_chart_page": "size-chart" } },
+        "custom_liquid_4rGhVM": { "type": "custom_liquid", "name": "Date Time Picker", "settings": { "custom_liquid": "" } },
+        "custom_liquid_m43Tt3": { "type": "custom_liquid", "name": "WhatsApp Button", "settings": { "custom_liquid": "<a href=\"https://wa.me/918218862928?text=Hi%20The%20Baking%20Kaur,%20I%20want%20to%20customize%20this%20cake\"\nclass=\"wa-custom-btn\">\n💬 Customize on WhatsApp\n</a>\n\n<style>\n.wa-custom-btn{\ndisplay:flex;\njustify-content:center;\nalign-items:center;\nbackground:#25D366;\ncolor:white;\ntext-decoration:none;\npadding:14px;\nborder-radius:14px;\nfont-weight:700;\nfont-size:16px;\nmargin:15px 0;\n}\n</style>" } },
+        "ad820e37-dee5-41f3-9692-bf46d9664103": { "type": "buy_buttons", "settings": { "show_dynamic_checkout": true, "show_gift_card_recipient": true, "show_price_variant": false, "show_wishlist": true, "show_compare": false } },
+        "8032c01b-f33a-4bef-a8ea-680044ceaaac": { "type": "linked_products", "settings": { "option_name": "Choose", "option_values": "", "product_list": [], "linked_type": "image_with_title", "linked_size": "large" } },
+        "bundle_product_dA9N8W": { "type": "bundle_product", "settings": { "bundle_prs_inner": true, "product_list": ["ralkhi-hamper"] } }
+      },
+      "block_order": ["3a222052-35a9-4684-a336-6a32a56eb638", "edac686e-a845-4ed7-9b50-51639a11cf56", "custom_liquid_49i8Xk", "custom_liquid_G7tCra", "1248e930-5734-45b4-a1d6-a814910fdb63", "custom_liquid_4rGhVM", "custom_liquid_m43Tt3", "ad820e37-dee5-41f3-9692-bf46d9664103", "8032c01b-f33a-4bef-a8ea-680044ceaaac", "bundle_product_dA9N8W"],
+      "settings": { "space_content_media": true, "media_width": 65, "desktop_media_layout": "thumbnail_left", "desktop_media_position": "left", "mobile_media_layout": "fraction", "show_first_media": false, "use_select_varaint_change_media": true, "enable_media_autoplay": true, "enable_video_looping": true, "enable_thumb_efect": true, "image_ratio": "adapt_image", "image_size": true, "image_zoom": "zoom", "image_zoom_type": "external", "zoom_level": 2, "max_zoom_lightbox": 3, "tabs_design": "tab", "enable_first_tab": false, "sticky_atc": true, "navUI": true, "nav_des": "default", "color_scheme": "scheme-f1da3d09-0651-4d7e-95e4-da5341ca228d", "padding_top": 20, "padding_bottom": 100, "padding_rate": 50 }
+    },
+    "tabs": {
+      "type": "main-product-tabs",
+      "blocks": {
+        "76effdab-2914-4a34-a303-417cde99ff0a": { "type": "tab_des", "settings": { "title": "About This Cake" } },
+        "9866bb5f-03b7-4dc7-9387-4be849a0cbf1": { "type": "tab_add", "settings": { "title": "Delivery & FAQ" } },
+        "d0839947-6bc5-42cc-85f7-9e94ce6b3e6c": { "type": "tab_html", "settings": { "title": "Return Policies", "content": "", "page": "privacy-policy" } },
+        "1bc528a7-9da8-48ec-96da-8e48c0e52faf": { "type": "tab_html", "settings": { "title": "Custom tab", "content": "", "page": "wash-care" } }
+      },
+      "block_order": ["76effdab-2914-4a34-a303-417cde99ff0a", "9866bb5f-03b7-4dc7-9387-4be849a0cbf1", "d0839947-6bc5-42cc-85f7-9e94ce6b3e6c", "1bc528a7-9da8-48ec-96da-8e48c0e52faf"],
+      "settings": { "tabs_design": "tab", "enable_first_tab": true, "color_scheme": "scheme-1", "padding_top": 0, "padding_bottom": 80, "padding_rate": 50 }
+    },
+    "related": {
+      "type": "related-products",
+      "settings": { "heading_align": "center", "sec_heading": "People Also Bought", "heading_tag": "h3", "heading_size": "h4", "limit": 10, "product_des": "1", "image_ratio": "square", "image_size": true, "col_dk": "6", "col_tb": "3", "col_mb": "2", "navUI": true, "color_scheme": "scheme-f1da3d09-0651-4d7e-95e4-da5341ca228d", "padding_top": 0, "padding_bottom": 72, "padding_rate": 75 }
+    }
+  },
+  "order": ["main_heading_JtVyCf", "breacrumb", "main", "tabs", "related", "recently"]
+}

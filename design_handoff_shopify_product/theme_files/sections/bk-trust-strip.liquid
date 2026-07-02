@@ -1,0 +1,48 @@
+{{ 'baking-kaur.css' | asset_url | stylesheet_tag }}
+<section class="bk-wrap">
+  <div class="bk-trust-strip">
+    {%- for block in section.blocks -%}
+      <div class="bk-trust-strip__item" {{ block.shopify_attributes }}>
+        <span class="bk-trust-strip__icon">
+          {%- case block.settings.icon -%}
+            {%- when 'truck' -%}<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#B23A63" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="6" width="13" height="11" rx="1.5"/><path d="M14 9h4l3 3.5V17h-7z"/><circle cx="5.5" cy="18.5" r="1.8"/><circle cx="17" cy="18.5" r="1.8"/></svg>
+            {%- when 'star' -%}<svg width="26" height="26" viewBox="0 0 24 24" fill="#BF9B43"><path d="M12 2l2.9 6.3 6.9.6-5.2 4.6 1.6 6.8L12 17.3 5.8 20.9l1.6-6.8L2.2 8.9l6.9-.6z"/></svg>
+            {%- when 'shield' -%}<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#B23A63" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.4-2.9 8.3-7 9.5C7.9 19.3 5 15.4 5 11V6z"/><path d="M9.5 12l2 2 3.5-4"/></svg>
+            {%- else -%}<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#B23A63" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16v-7H4z"/><path d="M4 13c0-2 2-3 4-3s2 1 4 1 2-1 4-1 4 1 4 3"/><path d="M12 6v3"/></svg>
+          {%- endcase -%}
+        </span>
+        <div>
+          <div class="bk-trust-strip__title">{{ block.settings.title }}</div>
+          <div class="bk-trust-strip__sub">{{ block.settings.subtitle }}</div>
+        </div>
+      </div>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "BK Trust Strip",
+  "tag": "section",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Trust item",
+      "settings": [
+        { "type": "select", "id": "icon", "label": "Icon", "default": "truck",
+          "options": [
+            { "value": "truck", "label": "Truck" },
+            { "value": "star", "label": "Star" },
+            { "value": "shield", "label": "Shield" },
+            { "value": "cake", "label": "Cake" }
+          ] },
+        { "type": "text", "id": "title", "label": "Title", "default": "Same Day Delivery" },
+        { "type": "text", "id": "subtitle", "label": "Subtitle", "default": "Fast & Reliable" }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [{ "name": "BK Trust Strip", "blocks": [{ "type": "item" }, { "type": "item" }, { "type": "item" }, { "type": "item" }] }]
+}
+{% endschema %}

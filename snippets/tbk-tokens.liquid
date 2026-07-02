@@ -1,0 +1,150 @@
+{%- comment -%}
+  snippets/tbk-tokens.liquid
+  The Baking Kaur — Global Design System v1.0
+  Render once from the header section. All CSS custom properties cascade page-wide.
+{%- endcomment -%}
+<style id="tbk-design-tokens">
+
+/* ═══════════════════════════════════════════════════════════════
+   THE BAKING KAUR — DESIGN SYSTEM TOKENS v1.0
+   Warm-luxury palette. Every spacing, color, shadow, and animation
+   token used by every TBK section lives here.
+   ═══════════════════════════════════════════════════════════════ */
+:root {
+
+  /* ── Brand Palette ──────────────────────────────────────────── */
+  --tbk-pink:          #C01457;
+  --tbk-pink-deep:     #8B0D3C;
+  --tbk-pink-mid:      #A81248;
+  --tbk-pink-glow:     rgba(192, 20, 87, 0.12);
+
+  /* ── Gold accent (luxury price, highlights) ─────────────────── */
+  --tbk-gold:          #B8852A;
+  --tbk-gold-light:    #D4A645;
+
+  /* ── Ink / Neutrals (warm-toned, not blue-grey) ─────────────── */
+  --tbk-ink:           #1A0810;
+  --tbk-ink-soft:      #3B1F2E;
+  --tbk-muted:         #876575;
+  --tbk-muted-light:   #B39BAA;
+
+  /* ── Surfaces ───────────────────────────────────────────────── */
+  --tbk-surface:       #FDFAF8;   /* warm ivory — header & drawer bg */
+  --tbk-surface-el:    #FFFFFF;   /* pure white — dropdowns, cards */
+  --tbk-surface-sub:   #F8F2F6;   /* rose-tinted — search field, mobile row */
+
+  /* ── Tints ──────────────────────────────────────────────────── */
+  --tbk-tint-1:        #FEF3F8;   /* hover washes */
+  --tbk-tint-2:        #FDEAF2;   /* active / selected */
+
+  /* ── Borders ────────────────────────────────────────────────── */
+  --tbk-border:              #EDD8E3;
+  --tbk-border-subtle:       rgba(237, 216, 227, 0.50);
+  --tbk-border-strong:       #D4ADC0;
+
+  /* ── Typography ─────────────────────────────────────────────── */
+  --tbk-font-ui:       'Poppins', -apple-system, system-ui, sans-serif;
+  --tbk-font-display:  'Playfair Display', Georgia, serif;
+
+  /* ── Type scale ─────────────────────────────────────────────── */
+  --tbk-text-2xs:   9px;
+  --tbk-text-xs:    11px;
+  --tbk-text-sm:    12.5px;
+  --tbk-text-base:  14px;
+  --tbk-text-md:    15px;
+  --tbk-text-lg:    16px;
+  --tbk-text-xl:    18px;
+  --tbk-text-2xl:   22px;
+
+  /* ── Spacing (4 px base grid) ───────────────────────────────── */
+  --tbk-sp-1:    4px;
+  --tbk-sp-2:    8px;
+  --tbk-sp-3:    12px;
+  --tbk-sp-4:    16px;
+  --tbk-sp-5:    20px;
+  --tbk-sp-6:    24px;
+  --tbk-sp-7:    28px;
+  --tbk-sp-8:    32px;
+  --tbk-sp-10:   40px;
+  --tbk-sp-12:   48px;
+
+  /* ── Border radius ──────────────────────────────────────────── */
+  --tbk-r-xs:    4px;
+  --tbk-r-sm:    8px;
+  --tbk-r-md:    12px;
+  --tbk-r-lg:    16px;
+  --tbk-r-xl:    24px;
+  --tbk-r-full:  100px;
+
+  /* ── Shadows ─────────────────────────────────────────────────── */
+  --tbk-shadow-xs:
+    0 1px 3px rgba(26, 8, 16, 0.06);
+
+  --tbk-shadow-sm:
+    0 2px 8px rgba(26, 8, 16, 0.07),
+    0 1px 2px rgba(192, 20, 87, 0.04);
+
+  --tbk-shadow-md:
+    0 4px 16px rgba(26, 8, 16, 0.08),
+    0 8px 24px rgba(192, 20, 87, 0.05);
+
+  --tbk-shadow-lg:
+    0 8px 40px rgba(26, 8, 16, 0.10),
+    0 20px 64px rgba(192, 20, 87, 0.07);
+
+  --tbk-shadow-header:
+    0 2px 16px rgba(26, 8, 16, 0.07),
+    0 6px 24px rgba(192, 20, 87, 0.05);
+
+  --tbk-shadow-dropdown:
+    0 16px 52px rgba(26, 8, 16, 0.12),
+    0 4px 12px rgba(26, 8, 16, 0.06);
+
+  --tbk-focus-ring:
+    0 0 0 3px rgba(192, 20, 87, 0.22);
+
+  --tbk-search-ring:
+    0 0 0 4px rgba(192, 20, 87, 0.12),
+    0 2px 8px rgba(26, 8, 16, 0.05);
+
+  /* ── Easing ─────────────────────────────────────────────────── */
+  --tbk-ease:        cubic-bezier(0.4, 0, 0.2, 1);
+  --tbk-ease-out:    cubic-bezier(0, 0, 0.2, 1);
+  --tbk-ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* ── Durations ──────────────────────────────────────────────── */
+  --tbk-dur-fast:    140ms;
+  --tbk-dur-base:    220ms;
+  --tbk-dur-slow:    340ms;
+  --tbk-dur-drawer:  380ms;
+
+  /* ── Icons ──────────────────────────────────────────────────── */
+  --tbk-icon-xs:    14px;
+  --tbk-icon-sm:    16px;
+  --tbk-icon-base:  20px;
+  --tbk-icon-lg:    22px;
+
+  /* ── Touch targets (WCAG 2.5.5) ────────────────────────────── */
+  --tbk-touch:    44px;
+  --tbk-touch-lg: 48px;
+
+  /* ── Component heights ──────────────────────────────────────── */
+  --tbk-search-h:    52px;
+  --tbk-search-h-mb: 48px;
+
+  /* ── Z-index scale ──────────────────────────────────────────── */
+  --tbk-z-hdr:    200;
+  --tbk-z-drawer: 400;
+  --tbk-z-toast:  600;
+}
+
+/* Honour user motion preferences at the token level */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --tbk-dur-fast:   0ms;
+    --tbk-dur-base:   0ms;
+    --tbk-dur-slow:   0ms;
+    --tbk-dur-drawer: 0ms;
+  }
+}
+</style>

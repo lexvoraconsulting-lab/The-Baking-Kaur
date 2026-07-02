@@ -1,0 +1,343 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "settings": {
+        "section_fullwidth": false,
+        "color_scheme": "scheme-375b8f36-85a2-40e9-9198-bac5f650c728",
+        "padding_top": 25,
+        "padding_bottom": 15,
+        "padding_rate": 75
+      }
+    },
+    "main_heading_zRTKqH": {
+      "type": "main-heading",
+      "blocks": {
+        "1_m8JGCw": {
+          "type": "1",
+          "settings": {
+            "heading": "What Makes The Baking Kaur Different",
+            "heading_size": "h3"
+          }
+        },
+        "2_TyJK74": {
+          "type": "2",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "1_m8JGCw",
+        "2_TyJK74"
+      ],
+      "name": "Heading",
+      "settings": {
+        "color_scheme": "",
+        "spacing_hd": 5,
+        "padding_top": 30,
+        "padding_bottom": 30,
+        "padding_rate": 75
+      }
+    },
+    "custom_liquid_wahwgn": {
+      "type": "custom-liquid",
+      "name": "t:sections.custom-liquid.presets.name",
+      "settings": {
+        "section_fullwidth": false,
+        "custom_liquid": "<div class=\"tbk-trust-text\">\n  <p>\n    <strong>The Baking Kaur</strong> is a trusted name for\n    <strong>luxury custom cakes in Meerut</strong>, known for consistent quality,\n    elegant presentation, and personalised service.\n  </p>\n\n  <ul class=\"tbk-trust-list\">\n    <li>Trusted premium cake bakery in Meerut, Uttar Pradesh</li>\n    <li>Custom-designed cakes for weddings, anniversaries & celebrations</li>\n    <li>Strict hygiene standards & temperature-controlled preparation</li>\n    <li>Reliable same-day & pre-order cake delivery in Meerut</li>\n    <li>Transparent pricing with personalised customer support</li>\n  </ul>\n\n  <p class=\"tbk-trust-note\">\n    Whether it’s an intimate celebration or a grand wedding,\n    our clients trust us to deliver cakes that look exquisite\n    and taste unforgettable.\n  </p>\n</div>\n\n<style>\n/* FORCE BULLETS TO SHOW */\n.tbk-trust-list {\n  margin-top: 16px;\n  padding-left: 22px;\n  list-style: disc !important;\n}\n\n.tbk-trust-list li {\n  display: list-item !important;\n  list-style: disc !important;\n  margin-bottom: 10px;\n  font-size: 15px;\n  line-height: 1.7;\n  color: #4a4a4a;\n}\n\n.tbk-trust-text {\n  font-size: 15px;\n  line-height: 1.8;\n  color: #4a4a4a;\n  max-width: 720px;\n}\n\n.tbk-trust-note {\n  margin-top: 14px;\n  font-style: italic;\n  color: #6a6a6a;\n}\n</style>",
+        "color_scheme": "",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "padding_rate": 75
+      }
+    },
+    "image_with_text_VfjEdD": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_hUki8b": {
+          "type": "heading",
+          "disabled": true,
+          "settings": {
+            "heading": "",
+            "heading_fs": "h3"
+          }
+        },
+        "heading_awdcyW": {
+          "type": "heading",
+          "settings": {
+            "heading": "Luxury Custom Cakes in Meerut – Crafted by The Baking Kaur",
+            "heading_fs": "h4"
+          }
+        }
+      },
+      "block_order": [
+        "heading_hUki8b",
+        "heading_awdcyW"
+      ],
+      "name": "t:sections.image_text.name",
+      "settings": {
+        "style_image": "1",
+        "image_effect": "lunc",
+        "color_scheme": "",
+        "image_last": false,
+        "content_position": "center",
+        "alignment": "center",
+        "content_pl": 0,
+        "image_last_mb": false,
+        "content_position_mb": "center",
+        "alignment_mb": "center",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "padding_rate": 75
+      }
+    },
+    "image_with_text_Ybcm49": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_JTCEpW": {
+          "type": "heading",
+          "settings": {
+            "heading": "Luxury Cakes Crafted with Precision & Passion",
+            "heading_fs": "h3"
+          }
+        },
+        "text_Bz6eY7": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Every cake at The Baking Kaur is handcrafted using premium ingredients,<br/>modern techniques, and refined artistic detailing. From elegant wedding<br/>cakes to bespoke celebration designs, we ensure each creation reflects<br/>luxury, balance, and exceptional taste.<br/></p>"
+          }
+        }
+      },
+      "block_order": [
+        "heading_JTCEpW",
+        "text_Bz6eY7"
+      ],
+      "name": "t:sections.image_text.name",
+      "settings": {
+        "style_image": "1",
+        "image_effect": "lunc",
+        "color_scheme": "",
+        "image_last": false,
+        "content_position": "center-end",
+        "alignment": "center",
+        "content_pl": 0,
+        "image_last_mb": false,
+        "content_position_mb": "center",
+        "alignment_mb": "center",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "padding_rate": 75
+      }
+    },
+    "image_with_text_zVqykw": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_3KbKHH": {
+          "type": "heading",
+          "settings": {
+            "heading": "Trusted Luxury Cake Bakery in Meerut",
+            "heading_fs": "h3"
+          }
+        },
+        "text_eDLaAJ": {
+          "type": "text",
+          "settings": {
+            "text": "<p>The Baking Kaur is a trusted luxury cake bakery in Meerut, known for premium quality, hygiene, and artistic craftsmanship. Every cake is freshly baked to order using high-quality ingredients, ensuring exceptional taste, consistent quality, and elegant presentation.<br/><br/>From bespoke wedding cakes to personalised birthday and anniversary cakes, our bakery is trusted by families, couples, and corporate clients across Meerut for timely delivery and flawless execution. Our commitment to quality, hygiene standards, and customer satisfaction makes us a preferred choice for luxury custom cakes in Meerut.<br/></p>"
+          }
+        },
+        "button_6mc6WU": {
+          "type": "button",
+          "settings": {
+            "btn_label": "View Our Custom Cakes",
+            "btn_link": "shopify://collections/all",
+            "target": false,
+            "btn_size": "base",
+            "btn_style": "solid",
+            "btn_fw": "normal",
+            "btn_icon": "1"
+          }
+        }
+      },
+      "block_order": [
+        "heading_3KbKHH",
+        "text_eDLaAJ",
+        "button_6mc6WU"
+      ],
+      "name": "t:sections.image_text.name",
+      "settings": {
+        "style_image": "1",
+        "image_effect": "lunc",
+        "color_scheme": "",
+        "image_last": false,
+        "content_position": "center-end",
+        "alignment": "left",
+        "content_pl": 0,
+        "image_last_mb": false,
+        "content_position_mb": "center",
+        "alignment_mb": "center",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "padding_rate": 75
+      }
+    },
+    "custom_liquid_GUMcLg": {
+      "type": "custom-liquid",
+      "name": "t:sections.custom-liquid.presets.name",
+      "settings": {
+        "section_fullwidth": false,
+        "custom_liquid": "<div class=\"tbk-reviews-section\">\n  <h2 class=\"tbk-reviews-heading\">\n    What Our Customers Say About The Baking Kaur\n  </h2>\n\n  <p class=\"tbk-reviews-subtext\">\n    Trusted by families, couples, and corporate clients across Meerut for premium quality,\n    elegant presentation, and unforgettable taste.\n  </p>\n\n  <!-- Judge.me Reviews Widget -->\n  <div class=\"jdgm-widget jdgm-all-reviews-widget\" data-from-snippet=\"true\"></div>\n</div>\n\n<style>\n.tbk-reviews-section {\n  max-width: 900px;\n  margin: 0 auto;\n  padding: 40px 20px;\n  text-align: center;\n}\n\n.tbk-reviews-heading {\n  font-size: 26px;\n  font-weight: 600;\n  color: #7a1f3d;\n  margin-bottom: 10px;\n}\n\n.tbk-reviews-subtext {\n  font-size: 15px;\n  color: #4a4a4a;\n  margin-bottom: 30px;\n  line-height: 1.6;\n}\n</style>",
+        "color_scheme": "",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "padding_rate": 75
+      }
+    },
+    "image_with_text_fejQT9": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_4wVEGm": {
+          "type": "heading",
+          "settings": {
+            "heading": "Our Promise to Every Celebration in Meerut",
+            "heading_fs": "h3"
+          }
+        },
+        "text_73yHnr": {
+          "type": "text",
+          "settings": {
+            "text": "<p>At The Baking Kaur, every cake is more than a dessert — it is a reflection of trust, craftsmanship, and commitment to excellence. As a luxury custom cake bakery in Meerut, we follow a meticulous process to ensure every order meets premium standards in taste, design, and delivery.<br/><br/>From consultation to final presentation, we focus on precision, hygiene, and personalised service to make your celebration truly unforgettable.</p>"
+          }
+        },
+        "button_D4VAcE": {
+          "type": "button",
+          "settings": {
+            "btn_label": "Explore Our Custom Cakes",
+            "btn_link": "shopify://collections",
+            "target": false,
+            "btn_size": "base",
+            "btn_style": "solid",
+            "btn_fw": "normal",
+            "btn_icon": "1"
+          }
+        }
+      },
+      "block_order": [
+        "heading_4wVEGm",
+        "text_73yHnr",
+        "button_D4VAcE"
+      ],
+      "name": "t:sections.image_text.name",
+      "settings": {
+        "style_image": "1",
+        "image_effect": "lunc",
+        "color_scheme": "",
+        "image_last": false,
+        "content_position": "center",
+        "alignment": "center",
+        "content_pl": 0,
+        "image_last_mb": false,
+        "content_position_mb": "center",
+        "alignment_mb": "center",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "padding_rate": 75
+      }
+    },
+    "custom_liquid_WgCb3V": {
+      "type": "custom-liquid",
+      "name": "t:sections.custom-liquid.presets.name",
+      "settings": {
+        "section_fullwidth": false,
+        "custom_liquid": "<div class=\"tbk-about-text\">\n  <ul class=\"tbk-about-list\">\n    <li>Made-to-order luxury cakes using premium-quality ingredients</li>\n    <li>100% eggless options with rich, balanced flavours</li>\n    <li>Expertise in wedding, anniversary, and designer cakes</li>\n    <li>Strict hygiene standards and professional baking practices</li>\n    <li>Reliable same-day and scheduled delivery across Meerut</li>\n  </ul>\n</div>\n\n<style>\n/* FORCE BULLETS TO SHOW */\n.tbk-about-list {\n  list-style-type: disc !important;\n  padding-left: 22px !important;\n  margin-top: 14px;\n}\n\n.tbk-about-list li {\n  display: list-item !important;\n  margin-bottom: 10px;\n  font-size: 15px;\n  line-height: 1.8;\n  color: #4a4a4a;\n}\n\n/* Mobile optimization */\n@media (max-width: 768px) {\n  .tbk-about-list {\n    padding-left: 18px !important;\n  }\n}\n</style>",
+        "color_scheme": "",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "padding_rate": 75
+      }
+    },
+    "custom_liquid_CUGUeK": {
+      "type": "custom-liquid",
+      "name": "t:sections.custom-liquid.presets.name",
+      "settings": {
+        "section_fullwidth": false,
+        "custom_liquid": "<div class=\"tbk-process-wrapper\">\n\n  <h2 class=\"tbk-process-heading\">\n    Our Custom Cake Process – From Idea to Celebration\n  </h2>\n\n  <p class=\"tbk-process-intro\">\n    At <strong>The Baking Kaur</strong>, we follow a refined, step-by-step process to create luxury custom cakes in Meerut. \n    Every order is handled with precision, hygiene, and personalised attention to deliver a flawless celebration experience.\n  </p>\n\n  <div class=\"tbk-process-steps\">\n\n    <div class=\"tbk-step\">\n      <span class=\"tbk-step-number\">01</span>\n      <h3>Consultation & Design Planning</h3>\n      <p>\n        We begin by understanding your occasion, design preferences, flavour choices, and serving size. \n        Whether it’s a wedding, anniversary, or birthday, every detail is carefully discussed.\n      </p>\n    </div>\n\n    <div class=\"tbk-step\">\n      <span class=\"tbk-step-number\">02</span>\n      <h3>Premium Ingredient Selection</h3>\n      <p>\n        All cakes are made-to-order using high-quality ingredients, with 100% eggless options available. \n        We focus on balanced sweetness, rich flavours, and consistent quality.\n      </p>\n    </div>\n\n    <div class=\"tbk-step\">\n      <span class=\"tbk-step-number\">03</span>\n      <h3>Handcrafted Baking & Detailing</h3>\n      <p>\n        Each cake is freshly baked and handcrafted by skilled professionals, ensuring refined finishing, \n        elegant aesthetics, and precise detailing.\n      </p>\n    </div>\n\n    <div class=\"tbk-step\">\n      <span class=\"tbk-step-number\">04</span>\n      <h3>Quality Check & Safe Delivery</h3>\n      <p>\n        Before dispatch, every cake goes through strict hygiene and quality checks. \n        We offer reliable same-day and scheduled delivery across Meerut for a smooth, stress-free experience.\n      </p>\n    </div>\n\n  </div>\n\n</div>\n\n<style>\n.tbk-process-wrapper {\n  max-width: 780px;\n  margin: auto;\n}\n\n.tbk-process-heading {\n  text-align: center;\n  font-size: 26px;\n  margin-bottom: 12px;\n}\n\n.tbk-process-intro {\n  text-align: center;\n  font-size: 15px;\n  line-height: 1.8;\n  color: #4a4a4a;\n  margin-bottom: 30px;\n}\n\n.tbk-process-steps {\n  display: flex;\n  flex-direction: column;\n  gap: 26px;\n}\n\n.tbk-step {\n  position: relative;\n  padding-left: 56px;\n}\n\n.tbk-step-number {\n  position: absolute;\n  left: 0;\n  top: 0;\n  font-size: 22px;\n  font-weight: 600;\n  color: #c06;\n}\n\n.tbk-step h3 {\n  font-size: 17px;\n  margin-bottom: 6px;\n}\n\n.tbk-step p {\n  font-size: 15px;\n  line-height: 1.8;\n  color: #4a4a4a;\n}\n\n/* Mobile */\n@media (max-width: 768px) {\n  .tbk-process-heading {\n    font-size: 22px;\n  }\n\n  .tbk-step {\n    padding-left: 44px;\n  }\n\n  .tbk-step-number {\n    font-size: 20px;\n  }\n}\n</style>",
+        "color_scheme": "",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "padding_rate": 75
+      }
+    },
+    "custom_liquid_rjhmzr": {
+      "type": "custom-liquid",
+      "name": "t:sections.custom-liquid.presets.name",
+      "settings": {
+        "section_fullwidth": false,
+        "custom_liquid": "<div class=\"tbk-geo-wrapper\">\n\n  <h2 class=\"tbk-geo-heading\">\n    Luxury Custom Cake Delivery in Meerut\n  </h2>\n\n  <p class=\"tbk-geo-intro\">\n    <strong>The Baking Kaur</strong> proudly serves as a trusted luxury cake bakery in Meerut, Uttar Pradesh, \n    offering freshly baked, custom-designed cakes with reliable delivery across the city.\n  </p>\n\n  <p class=\"tbk-geo-text\">\n    We provide same-day and scheduled cake delivery in major areas of Meerut, ensuring your celebrations \n    are seamless and stress-free. Every cake is prepared fresh, packaged securely, and delivered with care.\n  </p>\n\n  <ul class=\"tbk-geo-list\">\n    <li>Luxury custom cakes in <strong>Meerut Cantt</strong></li>\n    <li>Designer cakes delivery in <strong>Shastri Nagar</strong></li>\n    <li>Birthday & anniversary cakes in <strong>Pallavpuram</strong></li>\n    <li>Wedding cakes in <strong>Modipuram</strong></li>\n    <li>Same-day cake delivery in <strong>Partapur</strong></li>\n    <li>Custom cake orders across <strong>Central & South Meerut</strong></li>\n  </ul>\n\n  <p class=\"tbk-geo-footer\">\n    Whether you’re planning a wedding, birthday, anniversary, or premium celebration, \n    The Baking Kaur is your go-to destination for <strong>luxury custom cakes in Meerut</strong>.\n  </p>\n\n</div>\n\n<style>\n.tbk-geo-wrapper {\n  max-width: 780px;\n  margin: auto;\n}\n\n.tbk-geo-heading {\n  text-align: center;\n  font-size: 26px;\n  margin-bottom: 14px;\n}\n\n.tbk-geo-intro,\n.tbk-geo-text,\n.tbk-geo-footer {\n  font-size: 15px;\n  line-height: 1.8;\n  color: #4a4a4",
+        "color_scheme": "",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "padding_rate": 75
+      }
+    },
+    "custom_liquid_7CTneR": {
+      "type": "custom-liquid",
+      "name": "t:sections.custom-liquid.presets.name",
+      "settings": {
+        "section_fullwidth": false,
+        "custom_liquid": "<div class=\"tbk-trust-wrapper\">\n\n  <h2 class=\"tbk-trust-heading\">\n    Why Customers Choose The Baking Kaur\n  </h2>\n\n  <p class=\"tbk-trust-intro\">\n    At <strong>The Baking Kaur</strong>, every cake is more than a dessert — it’s a promise of quality, \n    craftsmanship, and unforgettable taste. Our customers choose us for our attention to detail, \n    premium ingredients, and reliable service across Meerut.\n  </p>\n\n  <ul class=\"tbk-trust-list\">\n    <li><strong>Luxury Custom Designs</strong> – Every cake is uniquely crafted to match your celebration</li>\n    <li><strong>Premium Ingredients</strong> – High-quality chocolates, fresh creams, and rich flavours</li>\n    <li><strong>100% Eggless Cakes</strong> – Safe, delicious, and perfect for all preference",
+        "color_scheme": "",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "padding_rate": 75
+      }
+    },
+    "custom_liquid_nNWL9P": {
+      "type": "custom-liquid",
+      "name": "t:sections.custom-liquid.presets.name",
+      "settings": {
+        "section_fullwidth": false,
+        "custom_liquid": "<div class=\"tbk-cta-wrapper\">\n\n  <h2 class=\"tbk-cta-heading\">\n    Ready to Order Your Luxury Custom Cake?\n  </h2>\n\n  <p class=\"tbk-cta-text\">\n    Whether you’re planning a wedding, birthday, anniversary, or a special celebration,\n    <strong>The Baking Kaur</strong> is here to create a cake that reflects your style,\n    taste, and occasion. Get in touch today to discuss your custom cake requirements.\n  </p>\n\n  <div class=\"tbk-cta-buttons\">\n    <a href=\"https://wa.me/91?text=Hi%20The%20Baking%20Kaur%2C%20I%20want%20to%20order%20a%20custom%20cake.\"\n       class=\"tbk-btn tbk-btn-primary\">\n      WhatsApp Us to Order\n    </a>\n\n    <a href=\"/collections/all\" class=\"tbk-btn tbk-btn-secondary\">\n      View Our Cake Collection\n    </a>\n  </div>\n\n</div>\n\n<style>\n.tbk-cta-wrapper {\n  max-width: 900px;\n  margin: 60px auto;\n  padding: 50px 30px;\n  text-align: center;\n  background: #faf7f8;\n  border-radius: 12px;\n}\n\n.tbk-cta-heading {\n  font-size: 28px;\n  margin-bottom: 14px;\n}\n\n.tbk-cta-text {\n  font-size: 15px;\n  line-height: 1.8;\n  color: #4a4a4a;\n  max-width: 680px;\n  margin: 0 auto 30px;\n}\n\n.tbk-cta-buttons {\n  display: flex;\n  justify-content: center;\n  gap: 18px;\n  flex-wrap: wrap;\n}\n\n.tbk-btn {\n  padding: 12px 26px;\n  font-size: 15px;\n  text-decoration: none;\n  border-radius: 6px;\n  font-weight: 500;\n}\n\n.tbk-btn-primary {\n  background: #7a1f3d;\n  color: #ffffff;\n}\n\n.tbk-btn-primary:hover {\n  opacity: 0.9;\n}\n\n.tbk-btn-secondary {\n  background: transparent;\n  border: 1px solid #7a1f3d;\n  color: #7a1f3d;\n}\n\n.tbk-btn-secondary:hover {\n  background: #7a1f3d;\n  color: #ffffff;\n}\n\n/* Mobile */\n@media (max-width: 768px) {\n  .tbk-cta-heading {\n    font-size: 22px;\n  }\n\n  .tbk-cta-wrapper {\n    padding: 40px 20px;\n  }\n}\n</style>",
+        "color_scheme": "",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "padding_rate": 75
+      }
+    },
+    "custom_liquid_tWfYTV": {
+      "type": "custom-liquid",
+      "name": "t:sections.custom-liquid.presets.name",
+      "settings": {
+        "section_fullwidth": false,
+        "custom_liquid": "<div class=\"tbk-faq-wrapper\">\n\n  <h2 class=\"tbk-faq-heading\">\n    Frequently Asked Questions\n  </h2>\n\n  <div class=\"tbk-faq-item\">\n    <h3>Do you make custom cakes in Meerut?</h3>\n    <p>\n      Yes, The Baking Kaur specialises in luxury custom cakes in Meerut.\n      All cakes are designed to order based on your occasion, theme, flavour,\n      and serving size requirements.\n    </p>\n  </div>\n\n  <div class=\"tbk-faq-item\">\n    <h3>Are your cakes 100% eggless?</h3>\n    <p>\n      Yes, we offer 100% eggless cakes without compromising on taste,\n      texture, or quality. Eggless options are available for all custom orders.\n    </p>\n  </div>\n\n  <div class=\"tbk-faq-item\">\n    <h3>How early should I place a custom cake order?</h3>\n    <p>\n      We recommend placing custom cake orders at least 2–3 days in advance.\n      For wedding cakes or large celebrations, earlier booking is advised.\n    </p>\n  </div>\n\n  <div class=\"tbk-faq-item\">\n    <h3>Do you provide cake delivery in Meerut?</h3>\n    <p>\n      Yes, we offer reliable same-day and scheduled cake delivery across Meerut,\n      with secure packaging to maintain freshness and design.\n    </p>\n  </div>\n\n  <div class=\"tbk-faq-item\">\n    <h3>How can I place an order with The Baking Kaur?</h3>\n    <p>\n      You can place an order by contacting us via WhatsApp or by browsing\n      our cake collections on the website and sharing your requirements.\n    </p>\n  </div>\n\n</div>\n\n<style>\n.tbk-faq-wrapper {\n  max-width: 820px;\n  margin: auto;\n}\n\n.tbk-faq-heading {\n  font-size: 26px;\n  text-align: center;\n  margin-bottom: 24px;\n}\n\n.tbk-faq-item {\n  margin-bottom: 18px;\n}\n\n.tbk-faq-item h3 {\n  font-size: 16px;\n  margin-bottom: 6px;\n}\n\n.tbk-faq-item p {\n  font-size: 15px;\n  line-height: 1.8;\n  color: #4a4a4a;\n}\n\n/* Mobile */\n@media (max-width: 768px) {\n  .tbk-faq-heading {\n    font-size: 22px;\n  }\n}\n</style>",
+        "color_scheme": "",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "padding_rate": 75
+      }
+    }
+  },
+  "order": [
+    "main",
+    "main_heading_zRTKqH",
+    "custom_liquid_wahwgn",
+    "image_with_text_VfjEdD",
+    "image_with_text_Ybcm49",
+    "image_with_text_zVqykw",
+    "custom_liquid_GUMcLg",
+    "image_with_text_fejQT9",
+    "custom_liquid_WgCb3V",
+    "custom_liquid_CUGUeK",
+    "custom_liquid_rjhmzr",
+    "custom_liquid_7CTneR",
+    "custom_liquid_nNWL9P",
+    "custom_liquid_tWfYTV"
+  ]
+}

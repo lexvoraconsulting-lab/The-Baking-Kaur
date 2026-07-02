@@ -1,0 +1,72 @@
+{
+  "sections": {
+    "main": {
+      "type": "bk-main-product",
+      "settings": {
+        "show_bestseller_badge": false,
+        "enable_whatsapp": true,
+        "whatsapp_number": "91XXXXXXXXXX",
+        "enable_sticky_bar": true,
+        "rating_value": "4.8",
+        "rating_count": "500+",
+        "message_property_label": "Message on cake",
+        "date_property_label": "Delivery date",
+        "slot_property_label": "Time slot",
+        "slot_options": "Select Time Slot, 12-3 PM, 3-6 PM, 6-9 PM, Midnight"
+      }
+    },
+    "trust-strip": {
+      "type": "bk-trust-strip",
+      "blocks": {
+        "b1": { "type": "item", "settings": { "icon": "truck", "title": "Same Day Delivery", "subtitle": "Fast & Reliable" } },
+        "b2": { "type": "item", "settings": { "icon": "star", "title": "4.8 Google Rated", "subtitle": "500+ Reviews" } },
+        "b3": { "type": "item", "settings": { "icon": "shield", "title": "FSSAI Approved", "subtitle": "100% Safe" } },
+        "b4": { "type": "item", "settings": { "icon": "cake", "title": "100% Eggless", "subtitle": "Pure & Delicious" } }
+      },
+      "block_order": ["b1", "b2", "b3", "b4"]
+    },
+    "info-cards": {
+      "type": "bk-info-cards",
+      "settings": {
+        "about_heading": "About This Cake",
+        "about_text": "A luxurious eggless strawberry cake made with fresh strawberries, soft sponge & rich cream. Perfect for birthdays, anniversaries and all special celebrations.",
+        "perfect_for": "Birthdays, Anniversaries, Surprises, Special Occasions",
+        "delivery_perks": "Same Day Delivery, Midnight Delivery, Surprise Delivery, Pickup Available"
+      }
+    },
+    "reviews": {
+      "type": "bk-reviews",
+      "settings": {
+        "heading": "What Our Customers Say",
+        "rating_value": "4.8",
+        "rating_count": "500+ Google Reviews",
+        "reviews_url": ""
+      },
+      "blocks": {
+        "r1": { "type": "review", "settings": { "name": "Neha Sharma", "text": "The cake was absolutely amazing! Super fresh & beautifully designed." } },
+        "r2": { "type": "review", "settings": { "name": "Rohit Verma", "text": "Best eggless cake in Meerut. Everyone loved the taste and presentation!" } }
+      },
+      "block_order": ["r1", "r2"]
+    },
+    "related": {
+      "type": "bk-related-products",
+      "settings": {
+        "heading": "You May Also Like",
+        "product_list": [],
+        "products_to_show": 4
+      }
+    },
+    "faq": {
+      "type": "bk-faq",
+      "settings": { "heading": "Frequently Asked Questions" },
+      "blocks": {
+        "f1": { "type": "faq", "settings": { "question": "Are your products 100% eggless?", "answer": "Yes — every cake and dessert we make is 100% eggless, prepared in a pure-vegetarian, hygienic kitchen." } },
+        "f2": { "type": "faq", "settings": { "question": "Do you deliver outside Meerut?", "answer": "We currently deliver across Meerut city and nearby areas. Contact us on WhatsApp to check availability for your location." } },
+        "f3": { "type": "faq", "settings": { "question": "How can I place a custom order?", "answer": "Choose your options here, or tap WhatsApp Customization to share a reference photo and personalise your cake with our team." } },
+        "f4": { "type": "faq", "settings": { "question": "What is the shelf life of the cake?", "answer": "Best enjoyed fresh on the day of delivery. Refrigerated, it stays good for up to 24 hours." } }
+      },
+      "block_order": ["f1", "f2", "f3", "f4"]
+    }
+  },
+  "order": ["main", "trust-strip", "info-cards", "reviews", "related", "faq"]
+}

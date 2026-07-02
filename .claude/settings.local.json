@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__e1242e90-df68-4b24-90d1-74611ac7d9c9__graphql_query",
+      "mcp__e1242e90-df68-4b24-90d1-74611ac7d9c9__validate_graphql_codeblocks",
+      "mcp__e1242e90-df68-4b24-90d1-74611ac7d9c9__graphql_mutation",
+      "Bash(git -C \"F:/Shopify/The-Baking-Kaur\" add sections/header-group.json sections/tbk-announcement-bar.liquid sections/tbk-header.liquid snippets/tbk-tokens.liquid)",
+      "Bash(git -C F:/Shopify/The-Baking-Kaur commit -m ' *)",
+      "Bash(git -C \"f:/Shopify/The-Baking-Kaur\" checkout -b draft/p1-audit-fixes)"
+    ]
+  }
+}

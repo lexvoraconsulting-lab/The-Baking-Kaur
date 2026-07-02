@@ -1,0 +1,64 @@
+{% comment %}
+  The Baking Kaur — LocalBusiness (Bakery) structured data
+  ---------------------------------------------------------
+  INSTALL: place this file in your theme's snippets/ folder,
+  then add ONE line inside the <head> of layout/theme.liquid:
+
+      {% render 'bk-local-business' %}
+
+  It renders on every page (correct for site-wide business info).
+  ⚠ Verify the geo latitude/longitude from Google Maps for your
+  exact shop pin, then update the two numbers below.
+{% endcomment %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Bakery",
+  "name": "The Baking Kaur",
+  "description": "100% eggless premium designer cake studio in Meerut. Handcrafted celebration cakes with same-day & midnight delivery across the city.",
+  "url": "https://thebakingkaur.com",
+  "telephone": "+91-82188-62928",
+  "priceRange": "₹₹",
+  "servesCuisine": "Eggless Cakes & Desserts",
+  "image": "https://thebakingkaur.com/cdn/shop/files/storefront.jpg",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Fatah Complex, Thapar Nagar Lane 7",
+    "addressLocality": "Meerut",
+    "addressRegion": "Uttar Pradesh",
+    "postalCode": "250001",
+    "addressCountry": "IN"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": "28.9931",
+    "longitude": "77.6939"
+  },
+  "areaServed": {
+    "@type": "City",
+    "name": "Meerut"
+  },
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+      "opens": "09:00",
+      "closes": "23:59"
+    }
+  ],
+  "makesOffer": {
+    "@type": "Offer",
+    "itemOffered": { "@type": "Service", "name": "Midnight Cake Delivery" },
+    "areaServed": "Meerut"
+  },
+  "sameAs": [
+    "https://www.instagram.com/thebakingkaur",
+    "https://www.facebook.com/thebakingkaur"
+  ],
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.8",
+    "reviewCount": "500"
+  }
+}
+</script>

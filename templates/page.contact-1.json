@@ -1,0 +1,122 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "heading": {
+      "type": "main-heading",
+      "blocks": {
+        "5ecb9555-19e4-433b-8817-1ccaa3a41384": {
+          "type": "1",
+          "settings": {
+            "heading": "Contact Us",
+            "heading_size": "h4"
+          }
+        }
+      },
+      "block_order": [
+        "5ecb9555-19e4-433b-8817-1ccaa3a41384"
+      ],
+      "settings": {
+        "color_scheme": "scheme-375b8f36-85a2-40e9-9198-bac5f650c728",
+        "spacing_hd": 0,
+        "padding_top": 25,
+        "padding_bottom": 25,
+        "padding_rate": 75
+      }
+    },
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "section_fullwidth": false,
+        "color_scheme": "",
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "padding_rate": 75
+      }
+    },
+    "25dc1801-3eb3-4e03-8592-6d9f8d9f6dda": {
+      "type": "map-with-text",
+      "settings": {
+        "full_width": true,
+        "color_scheme": "",
+        "map": "<div class=\"mapouter\"><div class=\"gmap_canvas\"><iframe class=\"gmap_iframe\" width=\"100%\" frameborder=\"0\" scrolling=\"no\" marginheight=\"0\" marginwidth=\"0\" src=\"https://maps.google.com/maps?width=1920&amp;height=646&amp;hl=en&amp;q=tower of london&amp;t=p&amp;z=10&amp;ie=UTF8&amp;iwloc=B&amp;output=embed\"></iframe><a href=\"https://gachanymph.com/\">Gacha Nymph Download</a></div><style>.mapouter{position:relative;text-align:right;width:100%;height:646px;}.gmap_canvas {overflow:hidden;background:none!important;width:100%;height:646px;}.gmap_iframe {height:646px!important;}</style></div>",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_rate": 75
+      }
+    },
+    "4c7802be-2c9d-4177-ac7f-fa5aaa9d9e9e": {
+      "type": "form_contact-with-text",
+      "blocks": {
+        "5de1751e-cd5c-426a-a203-c9b35a45262f": {
+          "type": "heading",
+          "settings": {
+            "heading": "Visit Our Store"
+          }
+        },
+        "2df28d7b-099f-47ed-86f4-85cd62c91eff": {
+          "type": "text",
+          "settings": {
+            "text": "<p><strong>Address</strong></p><p>66 Mott St, New York, New York, Zip Code: 10006, AS</p>"
+          }
+        },
+        "568490b0-65b7-47fa-a348-41c08177abff": {
+          "type": "text",
+          "settings": {
+            "text": "<p><strong>Phone</strong></p><p>(623) 934-2400</p>"
+          }
+        },
+        "8e05fb1c-5303-4879-a0cc-0ca953b314b6": {
+          "type": "text",
+          "settings": {
+            "text": "<p><strong>Email</strong></p><p>EComposer@example.com</p>"
+          }
+        },
+        "7887c8b2-255d-4e75-9f24-4ebbe0a9dc14": {
+          "type": "text",
+          "settings": {
+            "text": "<p><strong>Open Time</strong></p><p>Our store has re-opened for shopping, </p><p>exchange Every day 11am to 7pm</p>"
+          }
+        },
+        "d6a7c3b7-0737-4c13-a011-7aab813cf9c3": {
+          "type": "socials",
+          "settings": {
+            "socials_style": "simple",
+            "socials_size": "large"
+          }
+        }
+      },
+      "block_order": [
+        "5de1751e-cd5c-426a-a203-c9b35a45262f",
+        "2df28d7b-099f-47ed-86f4-85cd62c91eff",
+        "568490b0-65b7-47fa-a348-41c08177abff",
+        "8e05fb1c-5303-4879-a0cc-0ca953b314b6",
+        "7887c8b2-255d-4e75-9f24-4ebbe0a9dc14",
+        "d6a7c3b7-0737-4c13-a011-7aab813cf9c3"
+      ],
+      "settings": {
+        "color_scheme": "scheme-375b8f36-85a2-40e9-9198-bac5f650c728",
+        "heading": "Get in Touch",
+        "sub_heading": "If you’ve got great products your making or looking to work with us then drop us a line.",
+        "btn_full": true,
+        "padding_top": 25,
+        "padding_bottom": 25,
+        "padding_rate": 75
+      }
+    }
+  },
+  "order": [
+    "heading",
+    "main",
+    "25dc1801-3eb3-4e03-8592-6d9f8d9f6dda",
+    "4c7802be-2c9d-4177-ac7f-fa5aaa9d9e9e"
+  ]
+}

@@ -1,0 +1,274 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "heading": {
+      "type": "main-heading",
+      "blocks": {
+        "f5e0a175-c884-4746-b826-b312e2b772cb": {
+          "type": "1",
+          "settings": {
+            "heading": "Shopping Cart",
+            "heading_size": "h4"
+          }
+        }
+      },
+      "block_order": [
+        "f5e0a175-c884-4746-b826-b312e2b772cb"
+      ],
+      "settings": {
+        "color_scheme": "scheme-375b8f36-85a2-40e9-9198-bac5f650c728",
+        "spacing_hd": 5,
+        "padding_top": 25,
+        "padding_bottom": 25,
+        "padding_rate": 75
+      }
+    },
+    "main": {
+      "type": "main-cart",
+      "blocks": {
+        "5c028ba3-8ecf-4f6f-b01a-c0f0ebe27366": {
+          "type": "countdown-cart",
+          "settings": {
+            "countdown_cart_minutes": 30,
+            "countdown_cart_text": "[icon] These products are limited, checkout within [time]"
+          }
+        },
+        "b9824216-ff11-4175-bb6a-9d57e87082f5": {
+          "type": "estimate",
+          "settings": {}
+        },
+        "4bf08da5-a0fc-448d-8fd6-95b5975b90a4": {
+          "type": "line",
+          "settings": {}
+        },
+        "ba258f62-4437-4335-b200-fe979323b6f8": {
+          "type": "gift",
+          "settings": {}
+        },
+        "line_PYMedc": {
+          "type": "line",
+          "disabled": true,
+          "settings": {}
+        },
+        "8eba6407-c676-48f8-9fed-a654dce877d4": {
+          "type": "subtotal",
+          "settings": {}
+        },
+        "0d27cb3e-7bbe-43fc-8c40-cfd930e7f1e0": {
+          "type": "tax",
+          "settings": {}
+        },
+        "8f1a43a3-1ae9-45e4-a70c-80d295166a78": {
+          "type": "agree",
+          "settings": {
+            "content": "<a href=\"/pages/terms-and-conditions\" target=\"_blank\" title=\"Terms and Conditions\">I agree with the <strong>terms and conditions</strong></a>"
+          }
+        },
+        "478bc31f-ca91-4017-a20e-8d0731d43ed8": {
+          "type": "checkout_btn",
+          "settings": {
+            "btn_style_checkout": "solid",
+            "btn_fw_checkout": "normal",
+            "btn_icon_checkout": "none"
+          }
+        },
+        "a64b78c2-f247-45ae-8c41-a282ec84c580": {
+          "type": "img_trust",
+          "settings": {
+            "mess": "Guarantee Safe Checkout",
+            "source": "1",
+            "wimg": 350,
+            "svg": "visa,paypal,master,american_express,amazon_payments",
+            "height": 25
+          }
+        }
+      },
+      "block_order": [
+        "5c028ba3-8ecf-4f6f-b01a-c0f0ebe27366",
+        "b9824216-ff11-4175-bb6a-9d57e87082f5",
+        "4bf08da5-a0fc-448d-8fd6-95b5975b90a4",
+        "ba258f62-4437-4335-b200-fe979323b6f8",
+        "line_PYMedc",
+        "8eba6407-c676-48f8-9fed-a654dce877d4",
+        "0d27cb3e-7bbe-43fc-8c40-cfd930e7f1e0",
+        "8f1a43a3-1ae9-45e4-a70c-80d295166a78",
+        "478bc31f-ca91-4017-a20e-8d0731d43ed8",
+        "a64b78c2-f247-45ae-8c41-a282ec84c580"
+      ],
+      "settings": {
+        "color_scheme": "scheme-f1da3d09-0651-4d7e-95e4-da5341ca228d",
+        "show_cart_note": true,
+        "show_free_shipping_bar": true,
+        "padding_top": 92,
+        "padding_bottom": 75,
+        "padding_rate": 50
+      }
+    },
+    "622f5d6a-09b6-4b2d-ad46-6ded3943164b": {
+      "type": "testimonials",
+      "blocks": {
+        "template--20958100226352__622f5d6a-09b6-4b2d-ad46-6ded3943164b-quote-1": {
+          "type": "quote",
+          "settings": {
+            "heading": "Best Online Fashion Site",
+            "content": "<p>“ I always find something stylish and affordable on this web fashion site ”</p>",
+            "author": "Robert smith",
+            "pos": "Customer from USA",
+            "enable_verify": false,
+            "product": "jersey-thong-body",
+            "rating": 5
+          }
+        },
+        "template--20958100226352__622f5d6a-09b6-4b2d-ad46-6ded3943164b-quote-3": {
+          "type": "quote",
+          "settings": {
+            "heading": "Great Selection and Quality",
+            "content": "<p>\"I love the variety of styles and the high-quality clothing on this web fashion site.\"</p>",
+            "author": "Allen Lyn",
+            "pos": "Customer from Fance",
+            "enable_verify": false,
+            "product": "cotton-jersey-top",
+            "rating": 5
+          }
+        },
+        "template--20958100226352__622f5d6a-09b6-4b2d-ad46-6ded3943164b-quote-2": {
+          "type": "quote",
+          "settings": {
+            "heading": "Best Customer Service",
+            "content": "<p>\"I finally found a web fashion site with stylish and flattering options in my size.\"</p>",
+            "author": "Peter Rope",
+            "pos": "Customer from USA",
+            "enable_verify": false,
+            "product": "ribbed-modal-t-shirt",
+            "rating": 5
+          }
+        },
+        "4ea4d3a7-2225-4775-ab9a-7b1fbc65a543": {
+          "type": "quote",
+          "settings": {
+            "heading": "Great Selection and Quality",
+            "content": "<p>\"I love the variety of styles and the high-quality clothing on this web fashion site.\"</p>",
+            "author": "Hellen Ase",
+            "pos": "Customer from Japan",
+            "enable_verify": false,
+            "product": "ribbed-tank-top",
+            "rating": 5
+          }
+        }
+      },
+      "block_order": [
+        "template--20958100226352__622f5d6a-09b6-4b2d-ad46-6ded3943164b-quote-1",
+        "template--20958100226352__622f5d6a-09b6-4b2d-ad46-6ded3943164b-quote-3",
+        "template--20958100226352__622f5d6a-09b6-4b2d-ad46-6ded3943164b-quote-2",
+        "4ea4d3a7-2225-4775-ab9a-7b1fbc65a543"
+      ],
+      "disabled": true,
+      "settings": {
+        "heading_align": "center",
+        "sec_heading": "",
+        "heading_tag": "h4",
+        "heading_size": "h4",
+        "sec_subheading": "",
+        "subheading_size": "hdt-text-lg",
+        "heading_reverse": false,
+        "heading_gap": 18,
+        "sec_heading_spacing": 30,
+        "content_align": "start",
+        "testimonial_des": "1",
+        "col_dk": "3",
+        "col_tb": "2",
+        "col_mb": "1",
+        "navUI": true,
+        "nav_pos": "middle_out",
+        "nav_des": "outline",
+        "dotUI": false,
+        "dis_dot": 30,
+        "color_scheme": "scheme-2",
+        "pr_rating": "#ff7b54",
+        "section_fullwidth": false,
+        "padding_top": 0,
+        "padding_bottom": 80,
+        "padding_rate": 75
+      }
+    },
+    "related": {
+      "type": "related-products",
+      "disabled": true,
+      "settings": {
+        "heading_align": "center",
+        "sec_heading": "You may also like",
+        "heading_tag": "h3",
+        "heading_size": "h4",
+        "sec_subheading": "",
+        "subheading_size": "lg",
+        "heading_reverse": false,
+        "heading_gap": 18,
+        "sec_heading_spacing": 50,
+        "limit": 10,
+        "product_des": "1",
+        "image_ratio": "custom-pr",
+        "image_size": true,
+        "show_vendor": false,
+        "col_dk": "4",
+        "col_tb": "3",
+        "col_mb": "2",
+        "navUI": true,
+        "nav_des": "default",
+        "nav_pos": "middle_in",
+        "dotUI": false,
+        "section_fullwidth": false,
+        "color_scheme": "scheme-2",
+        "padding_top": 0,
+        "padding_bottom": 80,
+        "padding_rate": 75
+      }
+    },
+    "recently": {
+      "type": "recently-products",
+      "disabled": true,
+      "settings": {
+        "heading_align": "center",
+        "sec_heading": "Recently Viewed",
+        "heading_tag": "h3",
+        "heading_size": "h4",
+        "sec_subheading": "",
+        "subheading_size": "lg",
+        "heading_reverse": false,
+        "heading_gap": 18,
+        "sec_heading_spacing": 45,
+        "limit": 10,
+        "product_des": "1",
+        "image_ratio": "custom-pr",
+        "image_size": true,
+        "show_vendor": false,
+        "col_dk": "4",
+        "col_tb": "3",
+        "col_mb": "2",
+        "navUI": true,
+        "nav_des": "default",
+        "nav_pos": "middle_in",
+        "dotUI": false,
+        "section_fullwidth": false,
+        "color_scheme": "scheme-2",
+        "padding_top": 0,
+        "padding_bottom": 80,
+        "padding_rate": 75
+      }
+    }
+  },
+  "order": [
+    "heading",
+    "main",
+    "622f5d6a-09b6-4b2d-ad46-6ded3943164b",
+    "related",
+    "recently"
+  ]
+}

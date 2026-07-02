@@ -1,0 +1,36 @@
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "@id": "{{ shop.url }}{{ article.url }}#article",
+  "headline": "{{ article.title | escape }}",
+  "description": "{{ article.excerpt_or_content | strip_html | truncate: 200 | escape }}",
+  "datePublished": "{{ article.published_at | date: '%Y-%m-%dT%H:%M:%S+05:30' }}",
+  "dateModified": "{{ article.published_at | date: '%Y-%m-%dT%H:%M:%S+05:30' }}",
+  "url": "{{ shop.url }}{{ article.url }}",
+  "image": {%- if article.image -%}"{{ article.image | image_url: width: 1200 }}"{%- else -%}"{{ settings.logo | image_url: width: 1200 }}"{%- endif -%},
+  "author": {
+    "@type": "Organization",
+    "@id": "https://thebakingkaur.com/#organization",
+    "name": "The Baking Kaur"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "@id": "https://thebakingkaur.com/#organization",
+    "name": "The Baking Kaur",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "{{ settings.logo | image_url: width: 600 }}"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "{{ shop.url }}{{ article.url }}"
+  },
+  "isPartOf": {
+    "@type": "Blog",
+    "name": "{{ blog.title | escape }}",
+    "url": "{{ shop.url }}/blogs/{{ blog.handle }}"
+  }
+}
+</script>

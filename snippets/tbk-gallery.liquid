@@ -1,0 +1,19 @@
+{%- assign images = product.images -%}
+<div class="tbk-gallery-stage" data-tbk-carousel>
+  {%- if images.size > 0 -%}
+    <img src="{{ images.first | image_url: width: 1400 }}" alt="{{ product.title | escape }}" loading="lazy" data-tbk-main>
+    <div class="tbk-counter" data-tbk-counter>1 / {{ images.size }}</div>
+    <div class="tbk-zoom">⤢ Zoom</div>
+  {%- else -%}
+    <img src="{{ 'no-image.svg' | asset_url }}" alt="{{ product.title | escape }}" loading="lazy">
+  {%- endif -%}
+</div>
+{%- if images.size > 1 -%}
+  <div class="tbk-gallery-thumbs" data-tbk-thumbs>
+    {%- for img in images -%}
+      <button type="button" class="tbk-thumb {% if forloop.first %}is-active{% endif %}" data-tbk-thumb="{{ forloop.index0 }}" aria-label="View image {{ forloop.index }}">
+        <img src="{{ img | image_url: width: 260 }}" alt="{{ product.title | escape }} thumbnail {{ forloop.index }}" loading="lazy">
+      </button>
+    {%- endfor -%}
+  </div>
+{%- endif -%}
