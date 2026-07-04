@@ -49,7 +49,15 @@
       "Bash(curl -s -A \"Mozilla/5.0\" \"https://thebakingkaur.com/\" -o /tmp/final_home.html)",
       "Bash(curl -s -o /dev/null -A \"Mozilla/5.0\" -w \"HTTP:%{http_code} Time:%{time_total}s\\\\n\" \"https://thebakingkaur.com/\")",
       "Bash(git add *)",
-      "Bash(git commit -m ' *)"
+      "Bash(git commit -m ' *)",
+      "Bash(curl -s -o /dev/null -w \"accounts.shopify.com: %{http_code} time:%{time_total}s\\\\n\" --max-time 10 \"https://accounts.shopify.com\")",
+      "Bash(curl -s -o /dev/null -w \"thebakingkaur.com: %{http_code} time:%{time_total}s\\\\n\" --max-time 10 \"https://thebakingkaur.com\")",
+      "Bash(curl -s -A \"Mozilla/5.0\" \"https://thebakingkaur.com/\" -o /tmp/verify_mutobs.html)",
+      "Bash(curl -s -A \"Mozilla/5.0\" \"https://thebakingkaur.com/\" -o /tmp/verify_wa.html)",
+      "Bash(curl -s -A \"Mozilla/5.0\" \"https://thebakingkaur.com/products/celebration-glow-birthday-cake\" -o /tmp/glow.html)",
+      "Bash(curl -s -A \"Mozilla/5.0\" \"https://thebakingkaur.com/products/celebration-night-birthday-cake\" -o /tmp/prod_check2.html)",
+      "Bash(curl -s -o /dev/null -A \"Mozilla/5.0\" -w \"home: HTTP:%{http_code} time:%{time_total}s\\\\n\" \"https://thebakingkaur.com/\")",
+      "Bash(curl -s -o /dev/null -A \"Mozilla/5.0\" -w \"product: HTTP:%{http_code} time:%{time_total}s\\\\n\" \"https://thebakingkaur.com/products/celebration-night-birthday-cake\")"
     ]
   }
 }
