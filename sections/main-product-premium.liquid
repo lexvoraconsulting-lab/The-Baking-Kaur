@@ -257,13 +257,13 @@
               <div> <label class="hdt-product-form__label hdt-s-text hdt-quantity__label " style="font-weight: bold;" >Select Delivery Schedule: </label></div>
               <div class="hdt-product-form_value is-type-block tbk-delivery-container">
 " >
-                    <label class="hdt-product-form__label hdt-s-text is-type-block" for="delivery-date">Date:</label>
+                    <label class="hdt-product-form__label hdt-s-text is-type-block" for="delivery-date-{{ section.id }}">Date:</label>
                     <input
   form="{{ product_form_id }}"
-  type="file"
-  id="reference-image"
-  name="properties[Reference Image]"
-  accept="image/*"
+  type="date"
+  id="delivery-date-{{ section.id }}"
+  name="properties[Delivery Date]"
+  required
 >
                 </div>
                          <div class="hdt-product-form_value is-type-block">

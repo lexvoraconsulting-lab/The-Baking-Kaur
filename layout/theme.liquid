@@ -37,11 +37,6 @@
       {%- endunless -%}
     {%- endif -%}
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,500&family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
-
-    {% render 'bk-local-business' %}
-
     <title>
       {{ page_title }}
       {%- if current_tags %} &ndash; {{ 'general.meta.tag' | t }} "{{ current_tags | join: ', ' }}"{% endif -%}
@@ -146,10 +141,6 @@
 }
 </script>
 
-<script>
-  UPLOADCARE_PUBLIC_KEY = "5af3ec24e8ba61a78957";
-</script>
-<script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.full.min.js" charset="utf-8"></script>
 {{ 'tbk-footer.css' | asset_url | stylesheet_tag }}
 
 </head>
@@ -185,13 +176,6 @@
       render 'structured-data'
     -%}
     {%- endunless -%}
-  
-	 {% include 'shine-trust.liquid' %} 
-
-
-	 
-<!-- WebSite + Organization Schema -->
-{%- render 'tbk-schema-website' -%}
 
 <!-- LocalBusiness Schema - The Baking Kaur -->
 <script type="application/ld+json">
@@ -201,46 +185,24 @@
   "@id": "https://thebakingkaur.com/#bakery",
   "name": "The Baking Kaur",
   "url": "https://thebakingkaur.com",
-  "description": "The Baking Kaur is a luxury custom cake bakery in Meerut, Uttar Pradesh, specialising in wedding cakes, designer birthday cakes, anniversary cakes, theme cakes, and premium dessert creations with same-day and midnight delivery.",
-  "telephone": "+918218862928",
-  "logo": "{{ settings.logo | image_url: width: 600 }}",
-  "image": "{{ settings.logo | image_url: width: 600 }}",
+  "description": "The Baking Kaur is a luxury cake bakery in Meerut specialising in custom wedding cakes, designer celebration cakes and premium dessert creations.",
   "address": {
     "@type": "PostalAddress",
     "addressLocality": "Meerut",
     "addressRegion": "Uttar Pradesh",
-    "postalCode": "250001",
     "addressCountry": "IN"
   },
-  "geo": {
-    "@type": "GeoCoordinates",
-    "latitude": 28.9845,
-    "longitude": 77.7064
-  },
-  "areaServed": [
-    { "@type": "City", "name": "Meerut" },
-    { "@type": "State", "name": "Uttar Pradesh" }
-  ],
-  "openingHoursSpecification": [
-    {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
-      "opens": "09:00",
-      "closes": "21:00"
-    }
-  ],
+  "areaServed": {
+  "@type": "Place",
+  "name": "Meerut"
+},
   "servesCuisine": "Bakery",
   "priceRange": "₹₹₹",
-  "currenciesAccepted": "INR",
-  "paymentAccepted": "Cash, UPI, Credit Card, Debit Card",
   "sameAs": [
     "https://www.instagram.com/thebakingkaur"
   ]
 }
 </script>
-
-<!-- BreadcrumbList Schema -->
-{%- render 'tbk-schema-breadcrumb' -%}
 <!-- Floating WhatsApp Button - The Baking Kaur -->
 <a href="https://wa.me/918218862928?text=Hi%20The%20Baking%20Kaur%2C%20I%20want%20to%20order%20a%20custom%20cake."
    class="tbk-whatsapp-float"
@@ -374,7 +336,7 @@
   UPLOADCARE_IMAGE_SHRINK = "1600x1600";
 </script>
 
-<script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.full.min.js"></script>
+<script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.full.min.js" defer></script>
 
 <script>
 (function () {

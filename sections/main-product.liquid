@@ -273,13 +273,13 @@ class="hdt-product-info_static
               <div> <label class="hdt-product-form__label hdt-s-text hdt-quantity__label " style="font-weight: bold;" >Select Delivery Schedule: </label></div>
               <div class="hdt-product-form_value is-type-block tbk-delivery-container">
 " >
-                    <label class="hdt-product-form__label hdt-s-text is-type-block" for="delivery-date">Date:</label>
+                    <label class="hdt-product-form__label hdt-s-text is-type-block" for="delivery-date-{{ section.id }}">Date:</label>
                     <input
   form="{{ product_form_id }}"
-  type="file"
-  id="reference-image"
-  name="properties[Reference Image]"
-  accept="image/*"
+  type="date"
+  id="delivery-date-{{ section.id }}"
+  name="properties[Delivery Date]"
+  required
 >
                 </div>
                          <div class="hdt-product-form_value is-type-block">
@@ -788,10 +788,9 @@ document.addEventListener("DOMContentLoaded", function() {
 {
   "@context": "https://schema.org",
   "@type": "Product",
-  "@id": "{{ shop.url }}{{ product.url }}#product",
+  "@id": "{{ shop.url }}{{ product.url }}",
   "name": "{{ product.title | escape }}",
-  "description": "{{ product.description | strip_html | truncate: 500 | escape }}",
-  "sku": "{{ product.selected_or_first_available_variant.sku | default: product.handle | escape }}",
+  "description": "{{ product.description | strip_html | escape }}",
   "image": [
     {% for image in product.images %}
       "{{ image | image_url: width: 1200 }}"{% unless forloop.last %},{% endunless %}
@@ -801,58 +800,13 @@ document.addEventListener("DOMContentLoaded", function() {
     "@type": "Brand",
     "name": "The Baking Kaur"
   },
-  "category": "{{ product.type | default: 'Custom Cakes' | escape }}",
-  "seller": {
-    "@type": "Organization",
-    "@id": "https://thebakingkaur.com/#organization"
-  },
   "offers": {
     "@type": "Offer",
     "url": "{{ shop.url }}{{ product.url }}",
     "priceCurrency": "INR",
     "price": "{{ product.selected_or_first_available_variant.price | divided_by: 100.0 }}",
-    "priceValidUntil": "{{ 'now' | date: '%Y' | plus: 1 }}-12-31",
     "availability": "https://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}",
-    "itemCondition": "https://schema.org/NewCondition",
-    "seller": {
-      "@type": "Organization",
-      "@id": "https://thebakingkaur.com/#organization",
-      "name": "The Baking Kaur"
-    },
-    "shippingDetails": {
-      "@type": "OfferShippingDetails",
-      "shippingRate": {
-        "@type": "MonetaryAmount",
-        "value": "0",
-        "currency": "INR"
-      },
-      "shippingDestination": {
-        "@type": "DefinedRegion",
-        "addressCountry": "IN",
-        "addressRegion": "Uttar Pradesh"
-      },
-      "deliveryTime": {
-        "@type": "ShippingDeliveryTime",
-        "handlingTime": {
-          "@type": "QuantitativeValue",
-          "minValue": 0,
-          "maxValue": 1,
-          "unitCode": "DAY"
-        },
-        "transitTime": {
-          "@type": "QuantitativeValue",
-          "minValue": 0,
-          "maxValue": 0,
-          "unitCode": "DAY"
-        }
-      }
-    },
-    "hasMerchantReturnPolicy": {
-      "@type": "MerchantReturnPolicy",
-      "applicableCountry": "IN",
-      "returnPolicyCategory": "https://schema.org/MerchantReturnNotPermitted",
-      "merchantReturnDays": 0
-    }
+    "itemCondition": "https://schema.org/NewCondition"
   }
 }
 </script>

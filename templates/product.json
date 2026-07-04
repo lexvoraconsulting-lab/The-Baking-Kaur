@@ -91,7 +91,7 @@
           "type": "custom_liquid",
           "name": "Date Time Picker",
           "settings": {
-            "custom_liquid": "{% render 'bk-datetime' %}"
+            "custom_liquid": ""
           }
         },
         "custom_liquid_m43Tt3": {
@@ -293,7 +293,7 @@
       "type": "related-products",
       "settings": {
         "heading_align": "center",
-        "sec_heading": "People Also Bought",
+        "sec_heading": "You May Also Like",
         "heading_tag": "h3",
         "heading_size": "h4",
         "sec_subheading": "",
