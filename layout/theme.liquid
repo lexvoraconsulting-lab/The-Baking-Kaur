@@ -242,21 +242,6 @@
   height: 30px;
 }
 </style>
-{% if template contains 'product' %}
-  {% assign wa_message = "Hi The Baking Kaur, I am interested in " | append: product.title %}
-{% else %}
-  {% assign wa_message = "Hi The Baking Kaur, I need help with my order." %}
-{% endif %}
-
-{% unless template contains 'product' %}
-  <a href="https://wa.me/918218862928?text=Hi%20I%20want%20to%20order%20a%20cake"
-     class="tbk-whatsapp-float"
-     target="_blank"
-     aria-label="Chat on WhatsApp">
-     💬
-  </a>
-{% endunless %}
-
 <!-- TBK Sticky WhatsApp Button -->
 <a href="https://wa.me/918218862928?text=Hi%20I%20want%20to%20order%20a%20cake"
    class="tbk-sticky-whatsapp"
@@ -296,16 +281,6 @@
   // Run immediately
   removeStickyATC();
 
-  // Also watch for dynamically injected elements
-  var observer = new MutationObserver(function () {
-    removeStickyATC();
-  });
-
-  observer.observe(document.body, {
-    childList: true,
-    subtree: true
-  });
-
 })();
 </script>
 
@@ -322,9 +297,6 @@
   }
 
   removePrevArrows();
-
-  const obs = new MutationObserver(removePrevArrows);
-  obs.observe(document.body, { childList: true, subtree: true });
 })();
 </script>
 <script src="{{ 'hamper-addons.js' | asset_url }}" defer></script>
@@ -391,25 +363,6 @@
   });
 
 })();
-// 🔍 Observe future DOM changes (Shopify / Apps / Sections)
-const observer = new MutationObserver(mutations => {
-  mutations.forEach(mutation => {
-    mutation.addedNodes.forEach(node => {
-      if (node.nodeType === 1) {
-        walk(node);
-      }
-    });
-  });
-});
-
-// Start observing after page load
-window.addEventListener('load', () => {
-  observer.observe(document.body, {
-    childList: true,
-    subtree: true
-  });
-});
-
 </script>
 
 </body>

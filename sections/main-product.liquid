@@ -3409,10 +3409,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
   // Run immediately
   forceWhatsappLeft();
-
-  // Re-run after Shopify / theme JS injects
-  const observer = new MutationObserver(forceWhatsappLeft);
-  observer.observe(document.body, { childList: true, subtree: true });
 })();
 </script>
 
@@ -3442,10 +3438,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
   fixDeliveryLayout();
 
-  // Shopify re-renders variants → observe
-  const obs = new MutationObserver(fixDeliveryLayout);
-  obs.observe(document.body, { childList: true, subtree: true });
-
+  // Re-apply after variant-triggered section re-renders (scoped event, not a
+  // whole-document observer)
+  document.addEventListener('shopify:section:load', fixDeliveryLayout);
 });
 </script>
 <script>

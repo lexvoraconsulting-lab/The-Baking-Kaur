@@ -98,7 +98,7 @@
           "type": "custom_liquid",
           "name": "WhatsApp Button",
           "settings": {
-            "custom_liquid": "<a href=\"https://wa.me/918218862928?text=Hi%20The%20Baking%20Kaur,%20I%20want%20to%20customize%20this%20cake\"\nclass=\"wa-custom-btn\">\n💬 Customize on WhatsApp\n</a>\n\n<style>\n.wa-custom-btn{\ndisplay:flex;\njustify-content:center;\nalign-items:center;\nbackground:#25D366;\ncolor:white;\ntext-decoration:none;\npadding:14px;\nborder-radius:14px;\nfont-weight:700;\nfont-size:16px;\nmargin:15px 0;\n}\n</style>"
+            "custom_liquid": ""
           }
         },
         "ad820e37-dee5-41f3-9692-bf46d9664103": {
