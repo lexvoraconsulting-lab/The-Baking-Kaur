@@ -284,31 +284,7 @@
 })();
 </script>
 
-<script>
-(function () {
-  function removePrevArrows() {
-    document.querySelectorAll(
-      '.hdt-prev, .hdt-nav-prev, .hdt-slider-prev, .swiper-button-prev, button, span'
-    ).forEach(el => {
-      if (el.innerText && el.innerText.trim() === '<') {
-        el.remove();
-      }
-    });
-  }
-
-  removePrevArrows();
-})();
-</script>
 <script src="{{ 'hamper-addons.js' | asset_url }}" defer></script>
-<script>
-  UPLOADCARE_PUBLIC_KEY = "5af3ec24e8ba61a78957";
-  UPLOADCARE_TABS = "file camera url";
-  UPLOADCARE_MULTIPLE = true;
-  UPLOADCARE_IMAGES_ONLY = true;
-  UPLOADCARE_IMAGE_SHRINK = "1600x1600";
-</script>
-
-<script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.full.min.js" defer></script>
 
 <script>
 (function () {
@@ -330,36 +306,30 @@
     [/Ã‚Â/g, '']
   ];
 
-  function fix(node) {
-  if (node.nodeType === 3) {
-    let text = node.nodeValue;
+  // ponytail: cheap pre-check so pages with no mojibake skip the DOM walk entirely
+  const anyMojibake = new RegExp(map.map(rule => rule[0].source).join('|'));
 
+  function fix(node) {
+    let text = node.nodeValue;
     map.forEach(rule => {
       while (rule[0].test(text)) {
         text = text.replace(rule[0], rule[1]);
       }
     });
-
     node.nodeValue = text;
-  }
-}
-
-
-  function walk(el) {
-    el.childNodes.forEach(child => {
-      fix(child);
-      walk(child);
-    });
   }
 
   function runFix() {
-    walk(document.body);
+    if (!anyMojibake.test(document.body.textContent)) return;
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    let node;
+    while ((node = walker.nextNode())) {
+      fix(node);
+    }
   }
 
-  // Shopify-safe delayed execution
   window.addEventListener('load', function () {
     setTimeout(runFix, 500);
-    setTimeout(runFix, 1500);
   });
 
 })();
