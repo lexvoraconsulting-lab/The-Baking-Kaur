@@ -15,12 +15,7 @@
     to   { opacity: 1; }
   }
 
-  @keyframes tbk-ann-shimmer-{{ sid }} {
-    0%   { opacity: 0; transform: translateX(-100%); }
-    15%  { opacity: 1; }
-    85%  { opacity: 1; }
-    100% { opacity: 0; transform: translateX(300%); }
-  }
+
 
   #tbk-ann-{{ sid }} {
     --ann-bg:  {{ s.bg_color }};
@@ -31,27 +26,14 @@
     color: var(--ann-fg);
     height: var(--ann-h);
     overflow: hidden;
-    font-family: var(--tbk-font-ui, 'Poppins', -apple-system, system-ui, sans-serif);
+    font-family: var(--tbk-font-ui);
     position: relative;
     z-index: 1;
     animation: tbk-ann-in-{{ sid }} 0.5s ease both;
   }
 
   /* Subtle light-sweep across the gradient — premium micro-detail */
-  #tbk-ann-{{ sid }}::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    width: 28%;
-    background: linear-gradient(
-      90deg,
-      transparent 0%,
-      rgba(255, 255, 255, 0.13) 50%,
-      transparent 100%
-    );
-    animation: tbk-ann-shimmer-{{ sid }} 4.5s ease-in-out 1.2s infinite;
-    pointer-events: none;
-  }
+
   #tbk-ann-{{ sid }}.tbk-ann-hidden { display: none; }
   #tbk-ann-{{ sid }} * { box-sizing: border-box; }
   #tbk-ann-{{ sid }} a { color: inherit; text-decoration: none; }
@@ -60,7 +42,7 @@
   #tbk-ann-{{ sid }} .tbk-ann-shell {
     max-width: {{ s.container_width }}px;
     margin: 0 auto;
-    padding: 0 32px;
+    padding: 0 40px;
     height: 100%;
     display: flex;
     align-items: center;
@@ -75,9 +57,9 @@
     flex: 1 1 auto;
     min-width: 0;
     overflow: hidden;
-    font-size: 11.5px;
-    font-weight: 500;
-    letter-spacing: 0.4px;
+    font-size: 12px;
+font-weight: 600;
+letter-spacing: .45px;
     line-height: 1;
     white-space: nowrap;
   }
@@ -112,11 +94,13 @@
     font-weight: 600;
     letter-spacing: 0.3px;
     white-space: nowrap;
-    background: rgba(255, 255, 255, 0.16);
-    border: 1px solid rgba(255, 255, 255, 0.32);
-    border-radius: 20px;
-    padding: 4px 13px 4px 10px;
-  }
+   background: rgba(255,255,255,.95);
+color: var(--tbk-pink);
+border: none;
+border-radius: 999px;
+padding: 6px 14px;
+font-weight: 700;
+box-shadow: 0 2px 8px rgba(0,0,0,.08);}
   #tbk-ann-{{ sid }} .tbk-ann-delivery svg {
     width: 14px;
     height: 14px;
@@ -132,7 +116,7 @@
 
   /* ── Mobile (≤767px): pill 1 + delivery badge only ── */
   @media (max-width: 767px) {
-    #tbk-ann-{{ sid }} .tbk-ann-shell { padding: 0 14px; gap: 10px; }
+    #tbk-ann-{{ sid }} .tbk-ann-shell { padding: 0 18px; gap: 10px; }
     #tbk-ann-{{ sid }} .tbk-ann-trust > *:nth-child(n+2) { display: none; }
     #tbk-ann-{{ sid }} .tbk-ann-trust { font-size: 10.5px; }
     #tbk-ann-{{ sid }} .tbk-ann-delivery { font-size: 11px; }
@@ -188,7 +172,7 @@
     { "type": "checkbox", "id": "use_gradient",  "label": "Use gradient",           "default": true },
     { "type": "color",    "id": "text_color",    "label": "Text color",             "default": "#FFFFFF" },
     { "type": "header", "content": "Layout" },
-    { "type": "range", "id": "bar_height",       "label": "Bar height",  "min": 32, "max": 48, "step": 2, "unit": "px", "default": 40 },
+    { "type": "range", "id": "bar_height",       "label": "Bar height",  "min": 32, "max": 48, "step": 2, "unit": "px", "default": 44 },
     { "type": "range", "id": "container_width",  "label": "Max width",   "min": 900, "max": 1600, "step": 20, "unit": "px", "default": 1280 },
     { "type": "header", "content": "Delivery badge" },
     { "type": "text",  "id": "delivery_text",    "label": "Delivery badge text",    "default": "Same Day Delivery in Meerut" }

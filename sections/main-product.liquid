@@ -273,13 +273,13 @@ class="hdt-product-info_static
               <div> <label class="hdt-product-form__label hdt-s-text hdt-quantity__label " style="font-weight: bold;" >Select Delivery Schedule: </label></div>
               <div class="hdt-product-form_value is-type-block tbk-delivery-container">
 " >
-                    <label class="hdt-product-form__label hdt-s-text is-type-block" for="delivery-date-{{ section.id }}">Date:</label>
+                    <label class="hdt-product-form__label hdt-s-text is-type-block" for="delivery-date">Date:</label>
                     <input
   form="{{ product_form_id }}"
-  type="date"
-  id="delivery-date-{{ section.id }}"
-  name="properties[Delivery Date]"
-  required
+  type="file"
+  id="reference-image"
+  name="properties[Reference Image]"
+  accept="image/*"
 >
                 </div>
                          <div class="hdt-product-form_value is-type-block">
@@ -788,9 +788,10 @@ document.addEventListener("DOMContentLoaded", function() {
 {
   "@context": "https://schema.org",
   "@type": "Product",
-  "@id": "{{ shop.url }}{{ product.url }}",
+  "@id": "{{ shop.url }}{{ product.url }}#product",
   "name": "{{ product.title | escape }}",
-  "description": "{{ product.description | strip_html | escape }}",
+  "description": "{{ product.description | strip_html | truncate: 500 | escape }}",
+  "sku": "{{ product.selected_or_first_available_variant.sku | default: product.handle | escape }}",
   "image": [
     {% for image in product.images %}
       "{{ image | image_url: width: 1200 }}"{% unless forloop.last %},{% endunless %}
@@ -800,13 +801,58 @@ document.addEventListener("DOMContentLoaded", function() {
     "@type": "Brand",
     "name": "The Baking Kaur"
   },
+  "category": "{{ product.type | default: 'Custom Cakes' | escape }}",
+  "seller": {
+    "@type": "Organization",
+    "@id": "https://thebakingkaur.com/#organization"
+  },
   "offers": {
     "@type": "Offer",
     "url": "{{ shop.url }}{{ product.url }}",
     "priceCurrency": "INR",
     "price": "{{ product.selected_or_first_available_variant.price | divided_by: 100.0 }}",
+    "priceValidUntil": "{{ 'now' | date: '%Y' | plus: 1 }}-12-31",
     "availability": "https://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}",
-    "itemCondition": "https://schema.org/NewCondition"
+    "itemCondition": "https://schema.org/NewCondition",
+    "seller": {
+      "@type": "Organization",
+      "@id": "https://thebakingkaur.com/#organization",
+      "name": "The Baking Kaur"
+    },
+    "shippingDetails": {
+      "@type": "OfferShippingDetails",
+      "shippingRate": {
+        "@type": "MonetaryAmount",
+        "value": "0",
+        "currency": "INR"
+      },
+      "shippingDestination": {
+        "@type": "DefinedRegion",
+        "addressCountry": "IN",
+        "addressRegion": "Uttar Pradesh"
+      },
+      "deliveryTime": {
+        "@type": "ShippingDeliveryTime",
+        "handlingTime": {
+          "@type": "QuantitativeValue",
+          "minValue": 0,
+          "maxValue": 1,
+          "unitCode": "DAY"
+        },
+        "transitTime": {
+          "@type": "QuantitativeValue",
+          "minValue": 0,
+          "maxValue": 0,
+          "unitCode": "DAY"
+        }
+      }
+    },
+    "hasMerchantReturnPolicy": {
+      "@type": "MerchantReturnPolicy",
+      "applicableCountry": "IN",
+      "returnPolicyCategory": "https://schema.org/MerchantReturnNotPermitted",
+      "merchantReturnDays": 0
+    }
   }
 }
 </script>
@@ -3409,6 +3455,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
   // Run immediately
   forceWhatsappLeft();
+
+  // Re-run after Shopify / theme JS injects
+  const observer = new MutationObserver(forceWhatsappLeft);
+  observer.observe(document.body, { childList: true, subtree: true });
 })();
 </script>
 
@@ -3438,9 +3488,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
   fixDeliveryLayout();
 
-  // Re-apply after variant-triggered section re-renders (scoped event, not a
-  // whole-document observer)
-  document.addEventListener('shopify:section:load', fixDeliveryLayout);
+  // Shopify re-renders variants → observe
+  const obs = new MutationObserver(fixDeliveryLayout);
+  obs.observe(document.body, { childList: true, subtree: true });
+
 });
 </script>
 <script>

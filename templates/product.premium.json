@@ -91,7 +91,7 @@
           "type": "custom_liquid",
           "name": "Date Time Picker",
           "settings": {
-            "custom_liquid": "{% render 'bk-datetime' %}"
+            "custom_liquid": ""
           }
         },
         "ad820e37-dee5-41f3-9692-bf46d9664103": {

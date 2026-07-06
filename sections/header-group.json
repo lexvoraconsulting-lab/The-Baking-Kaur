@@ -36,7 +36,11 @@
           }
         }
       },
-      "block_order": ["pill_1", "pill_2", "pill_3"],
+      "block_order": [
+        "pill_1",
+        "pill_2",
+        "pill_3"
+      ],
       "settings": {
         "bg_color": "#C01457",
         "bg_color_2": "#8E0E40",
@@ -49,8 +53,6 @@
     },
     "tbk_header_main": {
       "type": "tbk-header",
-      "blocks": {},
-      "block_order": [],
       "settings": {
         "logo": "shopify://shop_images/Logo_Baking_Kaur-removebg-preview_3dae9c18-4faf-4d1d-acdf-f95b02488965.png",
         "logo_width": 88,
@@ -58,13 +60,9 @@
         "logo_text": "The Baking Kaur",
         "logo_tagline": "Luxury Eggless Creations",
         "main_menu": "main-menu",
-        "nav_font_size": 13,
-        "nav_font_weight": "600",
-        "nav_uppercase": false,
         "show_search": true,
         "show_wishlist": true,
         "show_account": true,
-        "show_whatsapp": false,
         "whatsapp_number": "918218862928",
         "search_placeholder": "Find your perfect cake…",
         "header_height": 88,
@@ -108,7 +106,6 @@
     },
     "header_e_commerce_JeQNpz": {
       "type": "header-e-commerce",
-      "disabled": true,
       "blocks": {
         "mega_page_cKBy4n": {
           "type": "mega_page",
@@ -148,6 +145,7 @@
         "mega_page_cKBy4n",
         "mega_shop_bntz4K"
       ],
+      "disabled": true,
       "settings": {
         "header_fullwidth": false,
         "logo": "shopify://shop_images/Logo_Baking_Kaur-removebg-preview_3dae9c18-4faf-4d1d-acdf-f95b02488965.png",
@@ -181,7 +179,6 @@
     },
     "header_menu_bottom_hulkapps_backup_kgkQBL": {
       "type": "header-menu-bottom-hulkapps-backup",
-      "disabled": true,
       "blocks": {
         "mega_shop_gCfWn9": {
           "type": "mega_shop",
@@ -207,6 +204,7 @@
       "block_order": [
         "mega_shop_gCfWn9"
       ],
+      "disabled": true,
       "name": "t:sections.header.header_bottom.presets.name",
       "settings": {
         "header_layout": "logo_left",

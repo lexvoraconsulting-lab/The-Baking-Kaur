@@ -33,11 +33,11 @@
 <style>
   /* ── Merchant-customisable overrides (from schema settings) ── */
   #tbk-hdr-{{ sid }} {
-    --c-bg:     {{ s.header_bg }};
-    --c-fg:     {{ s.header_fg }};
-    --c-border: {{ s.header_border_color }};
-    font-family: var(--tbk-font-ui);
-  }
+  --c-bg: var(--tbk-surface);
+  --c-fg: var(--tbk-ink);
+  --c-border: var(--tbk-border);
+  font-family: var(--tbk-font-ui);
+}
 
   /* ── Scoped reset ── */
   #tbk-hdr-{{ sid }} *, #tbk-drawer-{{ sid }} * { box-sizing: border-box; }
@@ -69,7 +69,8 @@
       box-shadow  0.28s var(--tbk-ease);
   }
   #tbk-hdr-{{ sid }}.tbk-hdr-scrolled .tbk-hdr-fixed {
-    box-shadow: var(--tbk-shadow-header);
+   box-shadow:
+0 4px 20px rgba(35,25,15,.08);
   }
   .tbk-hdr-sticky-scroll_up.tbk-hdr-hidden .tbk-hdr-fixed {
     transform: translateY(-100%);
@@ -78,8 +79,8 @@
 
   /* ══ BAR SHELL ═══════════════════════════════════════════════ */
   #tbk-hdr-{{ sid }} .tbk-hdr-bar {
-    background: var(--c-bg);
-    border-bottom: 1px solid var(--c-border);
+    background: var(--tbk-surface);
+   border-bottom:1px solid rgba(25,25,25,.06);
     color: var(--c-fg);
     width: 100%;
   }
@@ -88,11 +89,11 @@
   #tbk-hdr-{{ sid }} .tbk-hdr-inner {
     max-width: {{ s.container_width }}px;
     margin: 0 auto;
-    padding: 0 var(--tbk-sp-8);
+    padding:0 48px;
     height: var(--tbk-hdr-h);
     display: flex;
     align-items: center;
-    gap: var(--tbk-sp-6);
+   gap:40px;
   }
   @media (max-width: 1023px) {
     #tbk-hdr-{{ sid }} .tbk-hdr-inner {
@@ -151,15 +152,15 @@
   }
 
   /* Logo */
-  #tbk-hdr-{{ sid }} .tbk-hdr-logo {
-    display: inline-flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 2px;
+ #tbk-hdr-{{ sid }} .tbk-hdr-logo {
+      display: flex;
+    align-items: center;
+    gap: 14px;
     text-decoration: none;
     flex: 0 0 auto;
     transition: opacity var(--tbk-dur-fast) var(--tbk-ease);
-  }
+}
+}
   #tbk-hdr-{{ sid }} .tbk-hdr-logo:hover { opacity: 0.84; }
 
   #tbk-hdr-{{ sid }} .tbk-hdr-logo img {
@@ -167,30 +168,47 @@
     height: auto;
     object-fit: contain;
   }
+  #tbk-hdr-{{ sid }} .tbk-hdr-logo-text{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+}
   @media (max-width: 1023px) {
-    #tbk-hdr-{{ sid }} .tbk-hdr-logo img { width: {{ s.logo_width_mobile }}px; }
+    #tbk-hdr-{{ sid }} .tbk-hdr-logo img { #tbk-hdr-{{ sid }} .tbk-hdr-logo-text{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    line-height:1;
+}}
   }
 
-  #tbk-hdr-{{ sid }} .tbk-hdr-logo-name {
+  #tbk-hdr-{{ sid }} #tbk-hdr-{{ sid }} .tbk-hdr-logo-name{
     font-family: var(--tbk-font-display);
-    font-weight: 800;
-    font-size: 19px;
-    color: var(--tbk-pink);
-    letter-spacing: 0.15px;
-    line-height: 1.1;
+    font-weight: 400;
+    font-size: 44px;
+    color: #C81E63;
+    line-height: .92;
+    letter-spacing: .2px;
     white-space: nowrap;
-  }
-  #tbk-hdr-{{ sid }} .tbk-hdr-logo-tag {
+}
+
+  #tbk-hdr-{{ sid }} #tbk-hdr-{{ sid }} .tbk-hdr-logo-tag{
     font-family: var(--tbk-font-ui);
-    font-size: var(--tbk-text-2xs);
+    font-size: 14px;
     font-weight: 500;
-    letter-spacing: 3px;
-    color: var(--tbk-muted);
+    letter-spacing: 2.4px;
     text-transform: uppercase;
+    color: #7A6D66;
+    margin-top: 3px;
     white-space: nowrap;
-    line-height: 1;
-  }
-  @media (max-width: 1023px) {
+}
+ @media (max-width:1023px){
+
+    #tbk-hdr-{{ sid }} .tbk-hdr-logo-text{
+        display:none;
+    }
+
+} {
     #tbk-hdr-{{ sid }} .tbk-hdr-logo-tag { display: none; }
   }
 
@@ -198,7 +216,7 @@
   #tbk-hdr-{{ sid }} .tbk-hdr-center {
     flex: 1 1 auto;
     min-width: 0;
-    max-width: 640px;
+    max-width: 720px;
     position: relative;
     display: flex;
     align-items: center;
@@ -215,7 +233,7 @@
     display: flex;
     align-items: center;
     height: var(--tbk-search-h);
-    background: var(--tbk-surface-sub);
+    background: var(--tbk-surface-el);
     border: 1.5px solid var(--tbk-border-subtle);
     border-radius: var(--tbk-r-full);
     padding: 0 var(--tbk-sp-2) 0 var(--tbk-sp-5);
@@ -233,7 +251,8 @@
   #tbk-hdr-{{ sid }} .tbk-search-field:focus-within {
     border-color: var(--tbk-pink);
     background: var(--tbk-surface-el);
-    box-shadow: var(--tbk-search-ring);
+   box-shadow:
+0 0 0 4px rgba(192,20,87,.08);
   }
 
   /* Glass icon (left inside pill) */
@@ -272,8 +291,8 @@
   /* Submit (right inside pill) */
   #tbk-hdr-{{ sid }} .tbk-search-submit {
     flex: 0 0 auto;
-    width: 38px;
-    height: 38px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     background: var(--tbk-pink);
     color: #fff;
@@ -306,7 +325,7 @@
     background: var(--tbk-surface-el);
     border-radius: var(--tbk-r-xl);
     border: 1px solid var(--tbk-border);
-    box-shadow: var(--tbk-shadow-dropdown);
+    box-shadow:0 4px 20px rgba(0,0,0,.06);
     overflow: hidden;
     opacity: 0;
     visibility: hidden;
@@ -439,7 +458,7 @@
   /* ══ MOBILE SEARCH ROW ═══════════════════════════════════════ */
   #tbk-hdr-{{ sid }} .tbk-hdr-mob-search {
     display: none;
-    background: var(--tbk-surface-sub);
+   border:1px solid var(--tbk-border);
     border-top: 1px solid var(--c-border);
     padding: 10px var(--tbk-sp-4) 12px;
   }
@@ -672,23 +691,35 @@
             </svg>
           </button>
 
-          <a href="{{ routes.root_url }}"
-             class="tbk-hdr-logo"
-             aria-label="{{ shop.name }}">
-            {%- if s.logo -%}
-              <img src="{{ s.logo | image_url: width: logo2x }}"
-                   width="{{ s.logo_width }}"
-                   height="auto"
-                   alt="{{ shop.name }}"
-                   loading="eager"
-                   fetchpriority="high">
-            {%- else -%}
-              <span class="tbk-hdr-logo-name">{{ s.logo_text | default: shop.name }}</span>
-            {%- endif -%}
-            {%- if s.logo_tagline != blank -%}
-              <span class="tbk-hdr-logo-tag" aria-hidden="true">{{ s.logo_tagline }}</span>
-            {%- endif -%}
-          </a>
+      <a href="{{ routes.root_url }}"
+   class="tbk-hdr-logo"
+   aria-label="{{ shop.name }}">
+
+  {% if s.logo %}
+    <img
+      src="{{ s.logo | image_url: width: logo2x }}"
+      width="{{ s.logo_width }}"
+      height="auto"
+      alt="{{ shop.name }}"
+      loading="eager"
+      fetchpriority="high">
+  {% endif %}
+
+  <div class="tbk-hdr-logo-text">
+
+      <div class="tbk-hdr-logo-name">
+          {{ s.logo_text | default: shop.name }}
+      </div>
+
+      {% if s.logo_tagline != blank %}
+          <div class="tbk-hdr-logo-tag">
+              {{ s.logo_tagline }}
+          </div>
+      {% endif %}
+
+  </div>
+
+</a>
 
         </div>
 
@@ -1163,8 +1194,8 @@
   "settings": [
     { "type": "header", "content": "Logo" },
     { "type": "image_picker", "id": "logo",              "label": "Logo image" },
-    { "type": "range",        "id": "logo_width",        "label": "Logo width — desktop", "min": 40,  "max": 200, "step": 2,  "unit": "px", "default": 88 },
-    { "type": "range",        "id": "logo_width_mobile", "label": "Logo width — mobile",  "min": 40,  "max": 140, "step": 2,  "unit": "px", "default": 70 },
+    { "type": "range",        "id": "logo_width",        "label": "Logo width — desktop", "min": 40,  "max": 200, "step": 2,  "unit": "px", "default": 110 },
+    { "type": "range",        "id": "logo_width_mobile", "label": "Logo width — mobile",  "min": 40,  "max": 140, "step": 2,  "unit": "px", "default": 68 },
     { "type": "text",         "id": "logo_text",    "label": "Brand name (text fallback)", "default": "The Baking Kaur" },
     { "type": "text",         "id": "logo_tagline", "label": "Tagline below logo",         "default": "Luxury Eggless Creations" },
 
@@ -1179,9 +1210,9 @@
     { "type": "text",     "id": "search_placeholder","label": "Search placeholder",         "default": "Find your perfect cake…" },
 
     { "type": "header", "content": "Colors & Layout" },
-    { "type": "range", "id": "header_height",        "label": "Height — desktop", "min": 64,  "max": 116, "step": 2, "unit": "px", "default": 88 },
-    { "type": "range", "id": "mobile_header_height", "label": "Height — mobile",  "min": 54,  "max": 88,  "step": 2, "unit": "px", "default": 68 },
-    { "type": "range", "id": "container_width",      "label": "Max container width", "min": 900, "max": 1600, "step": 20, "unit": "px", "default": 1280 },
+    { "type": "range", "id": "header_height",        "label": "Height — desktop", "min": 64,  "max": 116, "step": 2, "unit": "px", "default": 110 },
+    { "type": "range", "id": "mobile_header_height", "label": "Height — mobile",  "min": 54,  "max": 88,  "step": 2, "unit": "px", "default": 74 },
+    { "type": "range", "id": "container_width",      "label": "Max container width", "min": 900, "max": 1600, "step": 20, "unit": "px", "default": 1440 },
     { "type": "color", "id": "header_bg",           "label": "Background",    "default": "#FDFAF8" },
     { "type": "color", "id": "header_fg",           "label": "Text & icons",  "default": "#1A0810" },
     { "type": "color", "id": "header_border_color", "label": "Bottom border", "default": "#EDD8E3" },

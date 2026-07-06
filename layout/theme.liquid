@@ -37,6 +37,11 @@
       {%- endunless -%}
     {%- endif -%}
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,500&family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+
+    {% render 'bk-local-business' %}
+
     <title>
       {{ page_title }}
       {%- if current_tags %} &ndash; {{ 'general.meta.tag' | t }} "{{ current_tags | join: ', ' }}"{% endif -%}
@@ -141,6 +146,10 @@
 }
 </script>
 
+<script>
+  UPLOADCARE_PUBLIC_KEY = "5af3ec24e8ba61a78957";
+</script>
+<script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.full.min.js" charset="utf-8"></script>
 {{ 'tbk-footer.css' | asset_url | stylesheet_tag }}
 
 </head>
@@ -176,6 +185,13 @@
       render 'structured-data'
     -%}
     {%- endunless -%}
+  
+	 {% include 'shine-trust.liquid' %} 
+
+
+	 
+<!-- WebSite + Organization Schema -->
+{%- render 'tbk-schema-website' -%}
 
 <!-- LocalBusiness Schema - The Baking Kaur -->
 <script type="application/ld+json">
@@ -185,24 +201,46 @@
   "@id": "https://thebakingkaur.com/#bakery",
   "name": "The Baking Kaur",
   "url": "https://thebakingkaur.com",
-  "description": "The Baking Kaur is a luxury cake bakery in Meerut specialising in custom wedding cakes, designer celebration cakes and premium dessert creations.",
+  "description": "The Baking Kaur is a luxury custom cake bakery in Meerut, Uttar Pradesh, specialising in wedding cakes, designer birthday cakes, anniversary cakes, theme cakes, and premium dessert creations with same-day and midnight delivery.",
+  "telephone": "+918218862928",
+  "logo": "{{ settings.logo | image_url: width: 600 }}",
+  "image": "{{ settings.logo | image_url: width: 600 }}",
   "address": {
     "@type": "PostalAddress",
     "addressLocality": "Meerut",
     "addressRegion": "Uttar Pradesh",
+    "postalCode": "250001",
     "addressCountry": "IN"
   },
-  "areaServed": {
-  "@type": "Place",
-  "name": "Meerut"
-},
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 28.9845,
+    "longitude": 77.7064
+  },
+  "areaServed": [
+    { "@type": "City", "name": "Meerut" },
+    { "@type": "State", "name": "Uttar Pradesh" }
+  ],
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+      "opens": "09:00",
+      "closes": "21:00"
+    }
+  ],
   "servesCuisine": "Bakery",
   "priceRange": "₹₹₹",
+  "currenciesAccepted": "INR",
+  "paymentAccepted": "Cash, UPI, Credit Card, Debit Card",
   "sameAs": [
     "https://www.instagram.com/thebakingkaur"
   ]
 }
 </script>
+
+<!-- BreadcrumbList Schema -->
+{%- render 'tbk-schema-breadcrumb' -%}
 <!-- Floating WhatsApp Button - The Baking Kaur -->
 <a href="https://wa.me/918218862928?text=Hi%20The%20Baking%20Kaur%2C%20I%20want%20to%20order%20a%20custom%20cake."
    class="tbk-whatsapp-float"
@@ -242,6 +280,21 @@
   height: 30px;
 }
 </style>
+{% if template contains 'product' %}
+  {% assign wa_message = "Hi The Baking Kaur, I am interested in " | append: product.title %}
+{% else %}
+  {% assign wa_message = "Hi The Baking Kaur, I need help with my order." %}
+{% endif %}
+
+{% unless template contains 'product' %}
+  <a href="https://wa.me/918218862928?text=Hi%20I%20want%20to%20order%20a%20cake"
+     class="tbk-whatsapp-float"
+     target="_blank"
+     aria-label="Chat on WhatsApp">
+     💬
+  </a>
+{% endunless %}
+
 <!-- TBK Sticky WhatsApp Button -->
 <a href="https://wa.me/918218862928?text=Hi%20I%20want%20to%20order%20a%20cake"
    class="tbk-sticky-whatsapp"
@@ -281,10 +334,47 @@
   // Run immediately
   removeStickyATC();
 
+  // Also watch for dynamically injected elements
+  var observer = new MutationObserver(function () {
+    removeStickyATC();
+  });
+
+  observer.observe(document.body, {
+    childList: true,
+    subtree: true
+  });
+
 })();
 </script>
 
+<script>
+(function () {
+  function removePrevArrows() {
+    document.querySelectorAll(
+      '.hdt-prev, .hdt-nav-prev, .hdt-slider-prev, .swiper-button-prev, button, span'
+    ).forEach(el => {
+      if (el.innerText && el.innerText.trim() === '<') {
+        el.remove();
+      }
+    });
+  }
+
+  removePrevArrows();
+
+  const obs = new MutationObserver(removePrevArrows);
+  obs.observe(document.body, { childList: true, subtree: true });
+})();
+</script>
 <script src="{{ 'hamper-addons.js' | asset_url }}" defer></script>
+<script>
+  UPLOADCARE_PUBLIC_KEY = "5af3ec24e8ba61a78957";
+  UPLOADCARE_TABS = "file camera url";
+  UPLOADCARE_MULTIPLE = true;
+  UPLOADCARE_IMAGES_ONLY = true;
+  UPLOADCARE_IMAGE_SHRINK = "1600x1600";
+</script>
+
+<script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.full.min.js"></script>
 
 <script>
 (function () {
@@ -306,33 +396,58 @@
     [/Ã‚Â/g, '']
   ];
 
-  // ponytail: cheap pre-check so pages with no mojibake skip the DOM walk entirely
-  const anyMojibake = new RegExp(map.map(rule => rule[0].source).join('|'));
-
   function fix(node) {
+  if (node.nodeType === 3) {
     let text = node.nodeValue;
+
     map.forEach(rule => {
       while (rule[0].test(text)) {
         text = text.replace(rule[0], rule[1]);
       }
     });
+
     node.nodeValue = text;
+  }
+}
+
+
+  function walk(el) {
+    el.childNodes.forEach(child => {
+      fix(child);
+      walk(child);
+    });
   }
 
   function runFix() {
-    if (!anyMojibake.test(document.body.textContent)) return;
-    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
-    let node;
-    while ((node = walker.nextNode())) {
-      fix(node);
-    }
+    walk(document.body);
   }
 
+  // Shopify-safe delayed execution
   window.addEventListener('load', function () {
     setTimeout(runFix, 500);
+    setTimeout(runFix, 1500);
   });
 
 })();
+// 🔍 Observe future DOM changes (Shopify / Apps / Sections)
+const observer = new MutationObserver(mutations => {
+  mutations.forEach(mutation => {
+    mutation.addedNodes.forEach(node => {
+      if (node.nodeType === 1) {
+        walk(node);
+      }
+    });
+  });
+});
+
+// Start observing after page load
+window.addEventListener('load', () => {
+  observer.observe(document.body, {
+    childList: true,
+    subtree: true
+  });
+});
+
 </script>
 
 </body>

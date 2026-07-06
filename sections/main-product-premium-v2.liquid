@@ -24,7 +24,61 @@
     --pr-media-width: {{ section.settings.media_width }}%; --section-pt:{{ section.settings.padding_top }}px; --section-pb:{{ section.settings.padding_bottom }}px; --section-prate:{{ section.settings.padding_rate }};
   }
 {%- endstyle -%}
+<style>
 
+.tbk-premium-product{
+
+display:grid;
+
+grid-template-columns:54% 46%;
+
+gap:40px;
+
+align-items:start;
+
+}
+
+.tbk-product-gallery{
+
+position:sticky;
+
+top:120px;
+
+}
+
+.tbk-product-content{
+
+display:flex;
+
+flex-direction:column;
+
+gap:18px;
+
+}
+
+@media(max-width:768px){
+
+.tbk-premium-product{
+
+grid-template-columns:45% 55%;
+
+gap:12px;
+
+align-items:start;
+
+}
+
+.tbk-product-gallery{
+
+position:relative;
+
+top:auto;
+
+}
+
+}
+
+</style>
 <div class="hdt-main-product hdt-section-spacing hdt-s-gradient" color-scheme="{{ section.settings.color_scheme }}">
   <div class="hdt-container">
     <style>
@@ -55,6 +109,9 @@
 
 .tbk-product-gallery{
     position:relative;
+    .tbk-product-gallery img{
+    border-radius:20px;
+}
     top:auto;
     margin-bottom:28px;
 }
@@ -68,8 +125,27 @@
 </style>
     <div class="tbk-premium-product">
       <div class="tbk-product-gallery">
-        {%- render 'product-media', product: product, product_form_id: product_form_id, un_no_pick: un_no_pick, selected_variant: selected_variant -%}
-      </div>
+    
+
+    {% render 'product-media',
+      product: product,
+      product_form_id: product_form_id,
+      un_no_pick: un_no_pick,
+      selected_variant: selected_variant %}
+
+    <div class="tbk-gallery-overlay">
+
+        <span class="tbk-badge">
+            BESTSELLER
+        </span>
+
+        <button class="tbk-wishlist">
+            ♡
+        </button>
+
+    </div>
+
+</div>
      
       <div class="tbk-product-content">
         <div id="product-zoom-{{ section.id }}" class="hdt-produc-zoom--wrapp"></div>

@@ -77,12 +77,12 @@
         "1248e930-5734-45b4-a1d6-a814910fdb63": {
           "type": "variant_picker",
           "settings": {
-            "pick_mode": "no",
+            "pick_mode": "first",
             "enable_historystate": true,
             "hide_sold_out": false,
-            "color_picker_type": "image_rounded",
+            "color_picker_type": "dropdown",
             "color_size": "small",
-            "picker_type": "block",
+            "picker_type": "dropdown",
             "size_chart_source": "image",
             "size_chart_page": "size-chart"
           }
@@ -90,15 +90,16 @@
         "custom_liquid_4rGhVM": {
           "type": "custom_liquid",
           "name": "Date Time Picker",
+          "disabled": true,
           "settings": {
-            "custom_liquid": ""
+            "custom_liquid": "{% render 'bk-datetime' %}"
           }
         },
         "custom_liquid_m43Tt3": {
           "type": "custom_liquid",
           "name": "WhatsApp Button",
           "settings": {
-            "custom_liquid": ""
+            "custom_liquid": "<a href=\"https://wa.me/918218862928?text=Hi%20The%20Baking%20Kaur,%20I%20want%20to%20customize%20this%20cake\"\nclass=\"wa-custom-btn\">\n💬 Customize on WhatsApp\n</a>\n\n<style>\n.wa-custom-btn{\ndisplay:flex;\njustify-content:center;\nalign-items:center;\nbackground:#25D366;\ncolor:white;\ntext-decoration:none;\npadding:14px;\nborder-radius:14px;\nfont-weight:700;\nfont-size:16px;\nmargin:15px 0;\n}\n</style>"
           }
         },
         "ad820e37-dee5-41f3-9692-bf46d9664103": {
@@ -293,7 +294,7 @@
       "type": "related-products",
       "settings": {
         "heading_align": "center",
-        "sec_heading": "You May Also Like",
+        "sec_heading": "People Also Bought",
         "heading_tag": "h3",
         "heading_size": "h4",
         "sec_subheading": "",
