@@ -10148,7 +10148,13 @@ html body .hdt-footer-copyright {
     opacity:1;
     margin-bottom:6px;
 }
-.delivery-options label{ display:block; }
+.delivery-options label{ display:block; text-align:left; }
+.delivery-options .hdt-product-form_value.is-type-block{
+    border:none;
+    padding:0;
+    text-align:left;
+    border-radius:0;
+}
 .hdt-product-form__input .hdt-select,
 .delivery-options select,
 .delivery-options input[type="date"],
