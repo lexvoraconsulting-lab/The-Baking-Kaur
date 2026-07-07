@@ -22,6 +22,12 @@
     --tbk-srch-row: {{ search_row_h }}px;
   }
   @media (max-width: 1023px) {
+    /* TBK — shorter mobile header: override the row + search-row reserve so
+       the fixed-header spacer doesn't keep pushing content down. */
+    :root{
+      --tbk-hdr-h-mb: 50px;
+      --tbk-srch-row: 54px;
+    }
     #tbk-spacer-{{ sid }} {
       height: calc(var(--tbk-hdr-h-mb) + var(--tbk-srch-row)) !important;
     }
@@ -101,10 +107,6 @@
       padding: 0 var(--tbk-sp-4);
       gap: var(--tbk-sp-3);
     }
-    /* TBK — pin a shorter mobile header row. The section-group setting
-       (mobile_header_height) doesn't overwrite via CLI push, so force it
-       here. Adjust this value to change the mobile header height. */
-    #tbk-hdr-{{ sid }} .tbk-hdr-inner { height: 50px !important; }
   }
 
   /* ══ UNIVERSAL ICON BUTTON ═══════════════════════════════════ */
@@ -472,9 +474,9 @@
   }
   #tbk-hdr-{{ sid }} .tbk-hdr-mob-search form { position: relative; }
   @media (max-width: 1023px) {
-    #tbk-hdr-{{ sid }} .tbk-hdr-mob-search { display: block; }
+    #tbk-hdr-{{ sid }} .tbk-hdr-mob-search { display: block; padding: 6px var(--tbk-sp-4); }
     #tbk-hdr-{{ sid }} .tbk-hdr-mob-search .tbk-search-field {
-      height: var(--tbk-search-h-mb);
+      height: 40px;
     }
   }
 
