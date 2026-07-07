@@ -155,10 +155,12 @@
           <span class="tbk-wt__main">
             <span class="tbk-wt__name">{{ value }}</span>
             {%- if wdesc != blank -%}<span class="tbk-wt__desc">{{ wdesc }}</span>{%- endif -%}
+            {%- if wserv != blank -%}<span class="tbk-wt__serv">👥 {{ wserv }} servings</span>{%- endif -%}
           </span>
-          {%- if wserv != blank -%}<span class="tbk-wt__serv"><b>{{ wserv }}</b><small>Servings</small></span>{%- endif -%}
-          {%- if wvar -%}<span class="tbk-wt__price">{{ wvar.price | money }}</span>{%- endif -%}
-          <span class="tbk-fancy-opt__radio" aria-hidden="true"></span>
+          <span class="tbk-wt__right">
+            {%- if wvar -%}<span class="tbk-wt__price">{{ wvar.price | money }}</span>{%- endif -%}
+            <span class="tbk-fancy-opt__radio" aria-hidden="true"></span>
+          </span>
         </button>
       {%- elsif fancy_dropdown -%}
         {%- liquid
