@@ -101,8 +101,9 @@
             <hdt-popover class="hdt-popover hdt-hidden hdt-popover-variant{% if fancy_dropdown %} tbk-fancy-pop{% endif %}" id="variant-popover{{ section.id }}-{{ forloop.index0 }}" class="hdt-product-form__values" config='{ "closeRichlistSelect": true }' color-scheme="{{ settings.color_scheme_dialog }}">
               {%- if fancy_dropdown -%}
                 <div class="tbk-fancy-pop__head">
-                  <div class="tbk-fancy-pop__title">{% if is_weight %}Choose Your Cake Weight{% else %}Select Your {{ option.name }}{% endif %}</div>
+                  <div class="tbk-fancy-pop__title"><span class="tbk-fancy-pop__flor" aria-hidden="true">❧</span>{% if is_weight %}Choose Your Cake Weight{% else %}Select Your Favorite {{ option.name }}{% endif %}<span class="tbk-fancy-pop__flor" aria-hidden="true">❦</span></div>
                   <div class="tbk-fancy-pop__sub">{% if is_weight %}Perfect size for your celebration{% else %}Crafted with premium ingredients{% endif %}</div>
+                  <div class="tbk-fancy-pop__crown" aria-hidden="true"><i></i><svg viewBox="0 0 24 24" fill="none" stroke="#C9A227" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M3 8.5l4.3 3.5L12 5l4.7 7 4.3-3.5-1.8 10.5H4.8z"/></svg><i></i></div>
                 </div>
                 {%- if is_weight -%}
                   <div class="tbk-fancy-pop__banner">
@@ -127,9 +128,14 @@
                     <span>🚚 Safe &amp; On-Time<small>Delivery</small></span>
                   </div>
                 {%- else -%}
-                  <div class="tbk-fancy-pop__foot">
-                    <span class="tbk-fancy-pop__foot-main">100% Eggless • Freshly Baked • Premium Quality</span>
-                    <span class="tbk-fancy-pop__foot-sub">Made with love for your special moments ❤</span>
+                  <div class="tbk-fancy-pop__foot tbk-fancy-pop__foot--flavor">
+                    <span class="tbk-fancy-pop__foot-ico" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="#C01457" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg>
+                    </span>
+                    <span class="tbk-fancy-pop__foot-txt">
+                      <span class="tbk-fancy-pop__foot-main">100% Eggless • Freshly Baked • Premium Quality</span>
+                      <span class="tbk-fancy-pop__foot-sub">Made with love for your special moments ❤</span>
+                    </span>
                   </div>
                 {%- endif -%}
               {%- endif -%}
