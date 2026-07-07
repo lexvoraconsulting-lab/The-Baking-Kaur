@@ -42,6 +42,9 @@
       assign image_size_chart = block.settings.size_chart_image
     endif
     assign choose_an_option = 'products.product.choose_an_option' | t
+    unless choose_placeholder == nil
+      assign choose_an_option = choose_placeholder
+    endunless
   -%}
 
   <hdt-variant-picker id="variant-picker-{{ section.id }}" handle="{{ product.handle }}" form="{{ product_form_id }}" class="hdt-variant-picker no-js-hidden hdt-color-mode__{{ block.settings.color_picker_type }} hdt-color-size__{{ block.settings.color_size }} hdt-selector-mode__{{ block.settings.picker_type }}"{% if update_url %} update-url="{{ selected_variant.id | default: 19041994 }}"{% endif %}{% if update_status %} update-status{% endif %} data-size="{{ product.options_with_values.size }}"{% if hide_sold_out %} hide-sold-out-variants{% endif %}{% unless un_no_pick %} no-pick{% endunless %}>

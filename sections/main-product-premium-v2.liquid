@@ -136,8 +136,13 @@ top:auto;
 
         </div>
 
+        <div class="tbk-reference-upload">
+          <label for="reference-image-{{ section.id }}" class="hdt-product-form__label hdt-s-text">Reference Image (Optional)</label>
+          <input form="{{ product_form_id }}" type="file" id="reference-image-{{ section.id }}" name="properties[Reference Image]" accept="image/*">
+        </div>
+
 </div>
-     
+
       <div class="tbk-product-content">
         <div id="product-zoom-{{ section.id }}" class="hdt-produc-zoom--wrapp"></div>
         <div id="product-info-{{ section.id }}" class="hdt-product-info__list{% if section.settings.space_content_media %} hdt-product__info-space{% endif %}">
@@ -316,7 +321,7 @@ top:auto;
               </div>
 
             {%- when 'variant_picker' -%}
-              <div class="hdt-product-info__item hdt-product__variant-picker" data-type="{{ block.type }}" {{ block.shopify_attributes }}>{%- render 'variant-picker', product: product, block: block, product_form_id: product_form_id, update_url: update_url, selected_variant: selected_variant, un_no_pick: un_no_pick, hide_update_value: true -%}</div>
+              <div class="hdt-product-info__item hdt-product__variant-picker" data-type="{{ block.type }}" {{ block.shopify_attributes }}>{%- render 'variant-picker', product: product, block: block, product_form_id: product_form_id, update_url: update_url, selected_variant: selected_variant, un_no_pick: un_no_pick, hide_update_value: true, choose_placeholder: '' -%}</div>
 
               <!-- Delivery schedule (Date + Time Slot + optional reference image) -->
             <div class="delivery-options">
@@ -1297,16 +1302,10 @@ width:100%;
      and delivery-value boxes so each field block has the same outer margin
      and no extra internal padding. */
   .hdt-container .tbk-product-content .hdt-product-info__item{ margin:0 0 4px !important; }
-  /* the variant picker is a flex column with a 2rem gap in the theme —
-     shrink it. On mobile, STACK Flavor/Weight and Date/Time full-width
-     (side-by-side is too cramped on a phone). */
+  /* Flavor/Weight stay side-by-side on mobile (placeholder text removed so
+     they fit); Date/Time stack full-width (their text is long). */
   .hdt-container .tbk-product-content .hdt-variant-picker{
-    flex-direction:column !important;
-    gap:4px !important;
-  }
-  .hdt-container .tbk-product-content .hdt-variant-picker > fieldset{
-    flex:1 1 100% !important;
-    width:100% !important;
+    gap:8px !important;
   }
   .hdt-container .tbk-product-content .tbk-date-time-row{
     flex-direction:column !important;
@@ -1397,6 +1396,25 @@ width:100%;
   flex:1 1 0 !important;
   width:auto !important;
   min-width:0 !important;
+}
+
+/* Reference image upload, shown below the gallery image */
+.tbk-reference-upload{ margin-top:12px; }
+.tbk-reference-upload label{ display:block; font-size:13px; font-weight:500; color:#8a7f85; margin-bottom:6px; }
+.tbk-reference-upload input[type="file"]{
+  width:100%;
+  min-height:52px;
+  background:#fff;
+  border:1px solid #E7E1E4;
+  border-radius:12px;
+  color:#1A0810;
+  font-size:14px;
+  padding:12px 16px 12px 42px;
+  box-shadow:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C01457' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 16V4'/%3E%3Cpath d='M7 9l5-5 5 5'/%3E%3Cpath d='M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;
+  background-position:14px center;
+  background-size:20px 20px;
 }
 
 /* Flavor + Weight side by side (variant picker is a flex column by default) */
