@@ -1326,6 +1326,33 @@ width:100%;
 }
 /* remove the date validity note (kept in DOM so the JS doesn't recreate it) */
 #date-error-{{ section.id }}{ display:none !important; }
+
+/* Reference-style field icons: Flavor=cupcake, Weight=scale, Date=calendar,
+   Time=clock (pink, inside each field on the left). Layout unchanged. */
+.tbk-product-content .hdt-product-form__input[data-index="0"] .hdt-select,
+.tbk-product-content .hdt-product-form__input[data-index="1"] .hdt-select,
+.tbk-product-content .delivery-options input[type="date"],
+.tbk-product-content .delivery-options select{
+  background-repeat:no-repeat !important;
+  background-position:14px center !important;
+  background-size:20px 20px !important;
+}
+.tbk-product-content .hdt-product-form__input[data-index="0"] .hdt-select{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C01457' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 11h12l-1.4 9H7.4z'/%3E%3Cpath d='M6 11a3.2 3.2 0 0 1 .8-6.2A3.4 3.4 0 0 1 12 3a3.4 3.4 0 0 1 5.2 1.8A3 3 0 0 1 18 11'/%3E%3C/svg%3E") !important;
+  padding-inline-start:42px !important;
+}
+.tbk-product-content .hdt-product-form__input[data-index="1"] .hdt-select{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C01457' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 20h16'/%3E%3Cpath d='M6 20l1-9h10l1 9'/%3E%3Ccircle cx='12' cy='13' r='2'/%3E%3C/svg%3E") !important;
+  padding-inline-start:42px !important;
+}
+.tbk-product-content .delivery-options input[type="date"]{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C01457' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='4' width='18' height='17' rx='2'/%3E%3Cpath d='M3 9h18M8 3v3M16 3v3'/%3E%3C/svg%3E") !important;
+  padding-left:42px !important;
+}
+.tbk-product-content .delivery-options select{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C01457' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath d='M12 7v5l3 2'/%3E%3C/svg%3E") !important;
+  padding-left:42px !important;
+}
 </style>
 <!-- TBK Mobile Conversion Cards -->
 
