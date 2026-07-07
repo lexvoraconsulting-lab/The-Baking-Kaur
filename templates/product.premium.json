@@ -52,13 +52,6 @@
     "main": {
       "type": "main-product-premium-v2",
       "blocks": {
-        "custom_liquid_49i8Xk": {
-          "type": "custom_liquid",
-          "name": "Rating",
-          "settings": {
-            "custom_liquid": "<div class=\"cake-rating\">\n⭐ 4.8 (500+ Happy Customers)\n</div>\n\n<style>\n.cake-rating{\n  display:inline-flex;\n  align-items:center;\n  gap:6px;\n  width:auto;\n  background:transparent;\n  border:none;\n  padding:0;\n  font-size:15px;\n  font-weight:600;\n  color:#1A0810;\n  margin-bottom:12px;\n}\n</style>"
-          }
-        },
         "3a222052-35a9-4684-a336-6a32a56eb638": {
           "type": "title",
           "settings": {}
@@ -125,7 +118,6 @@
         }
       },
       "block_order": [
-        "custom_liquid_49i8Xk",
         "3a222052-35a9-4684-a336-6a32a56eb638",
         "edac686e-a845-4ed7-9b50-51639a11cf56",
         "custom_liquid_G7tCra",
