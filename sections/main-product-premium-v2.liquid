@@ -320,6 +320,7 @@ top:auto;
 
               <!-- Delivery schedule (Date + Time Slot + optional reference image) -->
             <div class="delivery-options">
+              <div class="tbk-date-time-row">
                 <div class="hdt-product-form_value is-type-block">
                     <label class="hdt-product-form__label hdt-s-text" for="delivery-date-{{ section.id }}">Delivery Date</label>
                     <input form="{{ product_form_id }}" type="date" id="delivery-date-{{ section.id }}" name="properties[Delivery Date]" required>
@@ -335,6 +336,7 @@ top:auto;
                         <option value="7:00 PM - 9:00 PM">7:00 PM - 9:00 PM</option>
                     </select>
                 </div>
+              </div>
                 <div class="hdt-product-form_value is-type-block">
                     <label class="hdt-product-form__label hdt-s-text" for="cake-message-{{ section.id }}">Cake Message</label>
                     <input form="{{ product_form_id }}" type="text" id="cake-message-{{ section.id }}" name="properties[Cake Message]" placeholder="Add a message for the cake" maxlength="80">
@@ -1375,6 +1377,17 @@ width:100%;
   background-size:20px 20px !important;
 }
 .tbk-product-content .delivery-options input[type="text"]:hover{ border-color:#C01457 !important; }
+
+/* Delivery Date + Time Slot side by side */
+.tbk-product-content .tbk-date-time-row{
+  display:flex !important;
+  gap:10px !important;
+}
+.tbk-product-content .tbk-date-time-row > .hdt-product-form_value{
+  flex:1 1 0 !important;
+  width:auto !important;
+  min-width:0 !important;
+}
 </style>
 <!-- TBK Mobile Conversion Cards -->
 
