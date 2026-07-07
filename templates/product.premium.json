@@ -56,7 +56,7 @@
           "type": "custom_liquid",
           "name": "Rating",
           "settings": {
-            "custom_liquid": "<div class=\"cake-rating\">\n⭐ 4.8 (500+ Reviews)\n</div>\n\n<style>\n.cake-rating{\n  display:inline-flex;\n  align-items:center;\n  gap:6px;\n  width:auto;\n  background:#fff7f8;\n  border:1px solid #f2d6dd;\n  padding:8px 14px;\n  border-radius:999px;\n  font-size:14px;\n  font-weight:600;\n  color:#7a2147;\n  margin-bottom:12px;\n}\n</style>"
+            "custom_liquid": "<div class=\"cake-rating\">\n⭐ 4.8 (500+ Happy Customers)\n</div>\n\n<style>\n.cake-rating{\n  display:inline-flex;\n  align-items:center;\n  gap:6px;\n  width:auto;\n  background:transparent;\n  border:none;\n  padding:0;\n  font-size:15px;\n  font-weight:600;\n  color:#1A0810;\n  margin-bottom:12px;\n}\n</style>"
           }
         },
         "3a222052-35a9-4684-a336-6a32a56eb638": {
@@ -71,7 +71,7 @@
           "type": "custom_liquid",
           "name": "Delievery",
           "settings": {
-            "custom_liquid": "<div class=\"trust-pills\">\n<span>🌿 100% Eggless</span>\n<span>🚚 Same Day Delivery</span>\n</div>\n\n<style>\n.trust-pills{\ndisplay:flex;\ngap:10px;\nflex-wrap:wrap;\nmargin:10px 0 20px;\n}\n\n.trust-pills span{\nbackground:#fff7f8;\nborder:1px solid #f2d6dd;\npadding:8px 12px;\nborder-radius:999px;\nfont-size:13px;\nfont-weight:600;\ncolor:#7a2147;\n}\n</style>"
+            "custom_liquid": "<div class=\"trust-pills\">\n<span>❤️ 100% Eggless</span>\n<span>🚚 Same Day Delivery</span>\n<span>✨ Freshly Made</span>\n</div>\n\n<style>\n.trust-pills{\ndisplay:flex;\ngap:10px;\nflex-wrap:wrap;\nmargin:10px 0 20px;\n}\n\n.trust-pills span{\nbackground:#fff7f8;\nborder:1px solid #f2d6dd;\npadding:8px 12px;\nborder-radius:999px;\nfont-size:13px;\nfont-weight:600;\ncolor:#7a2147;\n}\n</style>"
           }
         },
         "1248e930-5734-45b4-a1d6-a814910fdb63": {
@@ -100,7 +100,7 @@
             "show_dynamic_checkout": false,
             "show_gift_card_recipient": false,
             "show_price_variant": true,
-            "show_wishlist": true,
+            "show_wishlist": false,
             "show_compare": false
           }
         },
