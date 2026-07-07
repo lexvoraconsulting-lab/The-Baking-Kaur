@@ -1298,8 +1298,18 @@ width:100%;
      and no extra internal padding. */
   .hdt-container .tbk-product-content .hdt-product-info__item{ margin:0 0 4px !important; }
   /* the variant picker is a flex column with a 2rem gap in the theme —
-     shrink it so the Flavor<->Weight gap matches Date<->Time */
+     shrink it. On mobile, STACK Flavor/Weight and Date/Time full-width
+     (side-by-side is too cramped on a phone). */
   .hdt-container .tbk-product-content .hdt-variant-picker{
+    flex-direction:column !important;
+    gap:4px !important;
+  }
+  .hdt-container .tbk-product-content .hdt-variant-picker > fieldset{
+    flex:1 1 100% !important;
+    width:100% !important;
+  }
+  .hdt-container .tbk-product-content .tbk-date-time-row{
+    flex-direction:column !important;
     gap:4px !important;
   }
   .hdt-container .tbk-product-content .hdt-variant-picker fieldset{
