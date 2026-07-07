@@ -1225,25 +1225,23 @@ width:100%;
 /* TBK — mobile layout (inline & standalone; refreshes with the page, own
    <style> so the file's broken @media nesting can't swallow it, and
    .hdt-container specificity beats the inline rules).
-   2-column: image left, ALL purchase content in one right column at a
-   consistent width so title / price / Flavor / Weight all align (symmetry). */
+   Image floats left with title+price beside it; trust chips (one small
+   row) and all form fields go full width below. */
 @media (max-width:768px){
   /* trim the space above the product */
   #shopify-section-{{ section.id }}{ --section-pt:2px !important; --section-pb:24px !important; }
 
   .hdt-container .tbk-premium-product{
-    display:grid !important;
-    grid-template-columns:38% 62% !important;
-    gap:12px !important;
-    align-items:start !important;
+    display:block !important;
+    gap:0 !important;
   }
   .hdt-container .tbk-product-gallery{
-    float:none !important;
+    float:left !important;
+    width:38% !important;
+    max-width:38% !important;
+    margin:0 12px 6px 0 !important;
     position:static !important;
     top:auto !important;
-    width:100% !important;
-    max-width:100% !important;
-    margin:0 !important;
   }
   .hdt-container .tbk-product-content{
     display:block !important;
@@ -1251,15 +1249,19 @@ width:100%;
     max-width:none !important;
     margin:0 !important;
   }
+  /* trust chips + everything after clear to full width below the image */
+  .hdt-container .tbk-product-content .hdt-product-info__item:has(.trust-pills){
+    clear:left !important;
+  }
 
-  /* small title + content, tight spacing */
+  /* small title */
   .hdt-container .tbk-product-content .hdt-product-info__item{ margin:0 0 8px !important; }
   .hdt-container .tbk-product-content .hdt-product__title{
     font-size:16px !important;
     line-height:1.2 !important;
     margin-bottom:4px !important;
   }
-  /* price = same size as the title but BOLD (differentiate by weight) */
+  /* price = same size as the title but BOLD */
   .hdt-container .tbk-product-content .hdt-product__price,
   .hdt-container .tbk-product-content .hdt-product__price *{
     font-size:16px !important;
@@ -1268,11 +1270,21 @@ width:100%;
   }
   .hdt-container .tbk-product-content .hdt-product__price{ margin-bottom:6px !important; }
 
-  .hdt-container .tbk-product-content .trust-pills{ gap:6px !important; margin:6px 0 0 !important; }
-  .hdt-container .tbk-product-content .trust-pills span{
-    font-size:10px !important;
-    padding:5px 8px !important;
+  /* trust chips: small, ALL THREE on one full-width row above Flavor */
+  .hdt-container .tbk-product-content .trust-pills{
+    display:flex !important;
+    flex-wrap:nowrap !important;
+    gap:6px !important;
+    margin:2px 0 10px !important;
   }
+  .hdt-container .tbk-product-content .trust-pills span{
+    flex:1 1 0 !important;
+    font-size:10px !important;
+    padding:6px 4px !important;
+    white-space:nowrap !important;
+    text-align:center !important;
+  }
+
   .hdt-container .tbk-product-content .hdt-variant-picker fieldset,
   .hdt-container .tbk-product-content .delivery-options .hdt-product-form_value{
     margin-bottom:8px !important;
@@ -1288,7 +1300,6 @@ width:100%;
     min-height:44px !important;
     font-size:14px !important;
   }
-  /* delivery date + time slot stack full-width within the column */
   .hdt-container .delivery-options .hdt-product-form_value{
     display:block !important;
     width:100% !important;
