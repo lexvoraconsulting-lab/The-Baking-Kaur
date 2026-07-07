@@ -10187,3 +10187,27 @@ html body .hdt-footer-copyright {
 .delivery-options .hdt-product-form_value{
     margin-bottom:14px;
 }
+
+/* TBK — mobile single-column product layout (robust override).
+   Higher specificity (.hdt-container prefix) beats the section's inline
+   2-column !important rules regardless of source order or its broken
+   inline @media nesting. Gallery stacks full-width over the panel. */
+@media (max-width:768px){
+    .hdt-container .tbk-premium-product{
+        display:block !important;
+        grid-template-columns:1fr !important;
+        gap:0 !important;
+    }
+    .hdt-container .tbk-product-gallery{
+        position:relative !important;
+        top:auto !important;
+        width:100% !important;
+        max-width:100% !important;
+        margin:0 0 20px !important;
+    }
+    .hdt-container .tbk-product-content{
+        width:100% !important;
+        max-width:100% !important;
+        margin:0 !important;
+    }
+}
