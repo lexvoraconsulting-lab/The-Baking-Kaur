@@ -26,7 +26,7 @@
        the fixed-header spacer doesn't keep pushing content down. */
     :root{
       --tbk-hdr-h-mb: 50px;
-      --tbk-srch-row: 54px;
+      --tbk-srch-row: 0px;
     }
     #tbk-spacer-{{ sid }} {
       height: calc(var(--tbk-hdr-h-mb) + var(--tbk-srch-row)) !important;
@@ -474,10 +474,14 @@
   }
   #tbk-hdr-{{ sid }} .tbk-hdr-mob-search form { position: relative; }
   @media (max-width: 1023px) {
-    #tbk-hdr-{{ sid }} .tbk-hdr-mob-search { display: block; padding: 6px var(--tbk-sp-4); }
-    #tbk-hdr-{{ sid }} .tbk-hdr-mob-search .tbk-search-field {
-      height: 40px;
-    }
+    /* TBK — mobile uses a search icon in the header instead of the
+       full-width search row, to save vertical space */
+    #tbk-hdr-{{ sid }} .tbk-hdr-mob-search { display: none !important; }
+  }
+  /* search icon: only on mobile (desktop keeps the inline center search) */
+  #tbk-hdr-{{ sid }} .tbk-hdr-search-mob { display: none; }
+  @media (max-width: 1023px) {
+    #tbk-hdr-{{ sid }} .tbk-hdr-search-mob { display: inline-flex; }
   }
 
   /* ══ DRAWER ══════════════════════════════════════════════════ */
@@ -777,6 +781,17 @@
 
         {%- comment -%} RIGHT: icon cluster {%- endcomment -%}
         <div class="tbk-hdr-right">
+
+          {%- if s.show_search -%}
+            <a href="{{ routes.search_url }}"
+               class="tbk-btn-icon tbk-hdr-search-mob"
+               aria-label="{{ 'general.search.search' | t | default: 'Search' }}">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="11" cy="11" r="7"/>
+                <path d="m21 21-4.35-4.35"/>
+              </svg>
+            </a>
+          {%- endif -%}
 
           {%- if s.show_wishlist -%}
             <a href="{{ routes.root_url }}pages/wishlist"

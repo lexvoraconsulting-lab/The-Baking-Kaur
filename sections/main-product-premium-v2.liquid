@@ -1222,27 +1222,28 @@ width:100%;
 {% endcase %}
 {% endfor %}
 <style>
-/* TBK — mobile compact hero (inline & standalone; refreshes with the page,
-   own <style> so the file's broken @media nesting can't swallow it, and
+/* TBK — mobile layout (inline & standalone; refreshes with the page, own
+   <style> so the file's broken @media nesting can't swallow it, and
    .hdt-container specificity beats the inline rules).
-   Image floats left with title+price beside it; the trust chips and
-   everything below clear to full width. */
+   2-column: image left, ALL purchase content in one right column at a
+   consistent width so title / price / Flavor / Weight all align (symmetry). */
 @media (max-width:768px){
   /* trim the space above the product */
   #shopify-section-{{ section.id }}{ --section-pt:2px !important; --section-pb:24px !important; }
 
   .hdt-container .tbk-premium-product{
-    display:block !important;
-    gap:0 !important;
+    display:grid !important;
+    grid-template-columns:38% 62% !important;
+    gap:12px !important;
+    align-items:start !important;
   }
-  /* compact image floated left */
   .hdt-container .tbk-product-gallery{
-    float:left !important;
-    width:40% !important;
-    max-width:40% !important;
-    margin:0 12px 6px 0 !important;
+    float:none !important;
     position:static !important;
     top:auto !important;
+    width:100% !important;
+    max-width:100% !important;
+    margin:0 !important;
   }
   .hdt-container .tbk-product-content{
     display:block !important;
@@ -1250,23 +1251,23 @@ width:100%;
     max-width:none !important;
     margin:0 !important;
   }
-  /* title + price + chips fill the space BESIDE the image;
-     only the form fields (from Flavor down) clear to full width below */
-  .hdt-container .tbk-product-content .hdt-product__variant-picker{
-    clear:left !important;
-  }
 
   /* small title + content, tight spacing */
   .hdt-container .tbk-product-content .hdt-product-info__item{ margin:0 0 8px !important; }
   .hdt-container .tbk-product-content .hdt-product__title{
     font-size:16px !important;
-    line-height:1.18 !important;
+    line-height:1.2 !important;
     margin-bottom:4px !important;
   }
-  .hdt-container .tbk-product-content .hdt-product__price{
+  /* price = same size as the title but BOLD (differentiate by weight) */
+  .hdt-container .tbk-product-content .hdt-product__price,
+  .hdt-container .tbk-product-content .hdt-product__price *{
     font-size:16px !important;
-    margin-bottom:6px !important;
+    font-weight:700 !important;
+    line-height:1.2 !important;
   }
+  .hdt-container .tbk-product-content .hdt-product__price{ margin-bottom:6px !important; }
+
   .hdt-container .tbk-product-content .trust-pills{ gap:6px !important; margin:6px 0 0 !important; }
   .hdt-container .tbk-product-content .trust-pills span{
     font-size:10px !important;
@@ -1287,17 +1288,12 @@ width:100%;
     min-height:44px !important;
     font-size:14px !important;
   }
-  /* delivery date + time slot must stack full-width (block override made
-     them flow inline / run the labels together) */
+  /* delivery date + time slot stack full-width within the column */
   .hdt-container .delivery-options .hdt-product-form_value{
     display:block !important;
     width:100% !important;
   }
   .hdt-container .delivery-options label{ display:block !important; }
-  /* tighten gaps between Flavor / Weight */
-  .hdt-container .tbk-product-content .hdt-variant-picker .hdt-product-form__label{
-    margin-bottom:4px !important;
-  }
 }
 </style>
 <!-- TBK Mobile Conversion Cards -->
