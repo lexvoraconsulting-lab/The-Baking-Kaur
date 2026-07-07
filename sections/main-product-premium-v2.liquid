@@ -1287,16 +1287,25 @@ width:100%;
     text-overflow:ellipsis !important;
   }
 
-  /* minimal gaps between Flavor / Weight / Delivery Date / Delivery Slot */
-  .hdt-container .tbk-product-content .hdt-product-info__item{ margin:0 0 3px !important; }
-  .hdt-container .tbk-product-content .hdt-variant-picker fieldset,
-  .hdt-container .tbk-product-content .delivery-options .hdt-product-form_value{
-    margin-bottom:3px !important;
+  /* EQUAL gaps: Flavor<->Weight matches Date<->Time. Normalize the fieldset
+     and delivery-value boxes so each field block has the same outer margin
+     and no extra internal padding. */
+  .hdt-container .tbk-product-content .hdt-product-info__item{ margin:0 0 8px !important; }
+  .hdt-container .tbk-product-content .hdt-variant-picker fieldset{
+    margin:0 0 8px !important;
+    padding:0 !important;
+    border:0 !important;
   }
+  .hdt-container .tbk-product-content .delivery-options .hdt-product-form_value{
+    margin:0 0 8px !important;
+    padding:0 !important;
+  }
+  .hdt-container .tbk-product-content .hdt-variant-picker legend,
   .hdt-container .tbk-product-content .hdt-variant-picker .hdt-product-form__label,
   .hdt-container .tbk-product-content .delivery-options label{
     font-size:11px !important;
-    margin-bottom:2px !important;
+    margin:0 0 3px !important;
+    padding:0 !important;
   }
   .hdt-container .tbk-product-content .hdt-variant-picker .hdt-select,
   .hdt-container .tbk-product-content .delivery-options select,
@@ -1307,7 +1316,6 @@ width:100%;
   .hdt-container .delivery-options .hdt-product-form_value{
     display:block !important;
     width:100% !important;
-    margin-bottom:3px !important;
   }
   .hdt-container .delivery-options label{ display:block !important; }
 }
