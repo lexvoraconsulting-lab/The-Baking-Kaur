@@ -1287,10 +1287,11 @@ width:100%;
     text-overflow:ellipsis !important;
   }
 
-  /* tighter gaps between Flavor / Weight / Delivery Date / Delivery Slot */
+  /* minimal gaps between Flavor / Weight / Delivery Date / Delivery Slot */
+  .hdt-container .tbk-product-content .hdt-product-info__item{ margin:0 0 3px !important; }
   .hdt-container .tbk-product-content .hdt-variant-picker fieldset,
   .hdt-container .tbk-product-content .delivery-options .hdt-product-form_value{
-    margin-bottom:6px !important;
+    margin-bottom:3px !important;
   }
   .hdt-container .tbk-product-content .hdt-variant-picker .hdt-product-form__label,
   .hdt-container .tbk-product-content .delivery-options label{
@@ -1306,10 +1307,12 @@ width:100%;
   .hdt-container .delivery-options .hdt-product-form_value{
     display:block !important;
     width:100% !important;
-    margin-bottom:6px !important;
+    margin-bottom:3px !important;
   }
   .hdt-container .delivery-options label{ display:block !important; }
 }
+/* remove the date validity note (kept in DOM so the JS doesn't recreate it) */
+#date-error-{{ section.id }}{ display:none !important; }
 </style>
 <!-- TBK Mobile Conversion Cards -->
 
