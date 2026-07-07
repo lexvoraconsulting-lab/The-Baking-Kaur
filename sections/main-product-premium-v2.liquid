@@ -333,7 +333,7 @@ top:auto;
                 <div class="hdt-product-form_value is-type-block">
                     <label class="hdt-product-form__label hdt-s-text" for="delivery-slot-{{ section.id }}">Delivery Time Slot</label>
                     <select form="{{ product_form_id }}" id="delivery-slot-{{ section.id }}" name="properties[Delivery Time Slot]" required>
-                        <option value="">Select Time Slot</option>
+                        <option value=""></option>
                         <option value="11:00 AM - 1:00 PM">11:00 AM - 1:00 PM</option>
                         <option value="1:00 PM - 3:00 PM">1:00 PM - 3:00 PM</option>
                         <option value="3:00 PM - 5:00 PM">3:00 PM - 5:00 PM</option>
@@ -1302,14 +1302,11 @@ width:100%;
      and delivery-value boxes so each field block has the same outer margin
      and no extra internal padding. */
   .hdt-container .tbk-product-content .hdt-product-info__item{ margin:0 0 4px !important; }
-  /* Flavor/Weight stay side-by-side on mobile (placeholder text removed so
-     they fit); Date/Time stack full-width (their text is long). */
-  .hdt-container .tbk-product-content .hdt-variant-picker{
-    gap:8px !important;
-  }
+  /* Flavor/Weight and Date/Time all side-by-side on mobile (placeholder
+     text removed so they fit in the narrow halves) */
+  .hdt-container .tbk-product-content .hdt-variant-picker,
   .hdt-container .tbk-product-content .tbk-date-time-row{
-    flex-direction:column !important;
-    gap:4px !important;
+    gap:8px !important;
   }
   .hdt-container .tbk-product-content .hdt-variant-picker fieldset{
     margin:0 0 4px !important;
