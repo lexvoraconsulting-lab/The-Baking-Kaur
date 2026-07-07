@@ -1231,6 +1231,32 @@ width:100%;
 
 {% endcase %}
 {% endfor %}
+<style>
+/* TBK — mobile 2-column product layout (inline & standalone; the theme.css
+   asset gets cached by browsers, but this inline block refreshes with the
+   page. Own <style> element so the file's broken @media nesting can't
+   swallow it. Higher specificity (.hdt-container) beats the inline rules. */
+@media (max-width:768px){
+  .hdt-container .tbk-premium-product{
+    display:grid !important;
+    grid-template-columns:44% 56% !important;
+    gap:14px !important;
+    align-items:start !important;
+  }
+  .hdt-container .tbk-product-gallery{
+    position:sticky !important;
+    top:80px !important;
+    width:100% !important;
+    max-width:100% !important;
+    margin:0 !important;
+  }
+  .hdt-container .tbk-product-content{
+    width:100% !important;
+    max-width:100% !important;
+    margin:0 !important;
+  }
+}
+</style>
 <!-- TBK Mobile Conversion Cards -->
 
 <div class="tbk-info-grid">
