@@ -82,7 +82,7 @@
             "hide_sold_out": false,
             "color_picker_type": "image_rounded",
             "color_size": "small",
-            "picker_type": "block",
+            "picker_type": "dropdown",
             "size_chart_source": "image",
             "size_chart_page": "size-chart"
           }
