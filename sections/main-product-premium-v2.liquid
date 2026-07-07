@@ -1400,6 +1400,13 @@ width:100%;
   flex:1 1 40% !important;
   min-width:0 !important;
 }
+/* keep dropdown text on ONE line in the narrow side-by-side fields
+   (flex keeps it vertically centered; nowrap+hidden stops the 3-line wrap) */
+.tbk-product-content .hdt-variant-picker .hdt-select{
+  white-space:nowrap !important;
+  overflow:hidden !important;
+  text-overflow:ellipsis !important;
+}
 </style>
 <!-- TBK Mobile Conversion Cards -->
 
