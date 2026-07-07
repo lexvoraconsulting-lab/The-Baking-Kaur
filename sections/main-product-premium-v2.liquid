@@ -335,6 +335,10 @@ top:auto;
                         <option value="7:00 PM - 9:00 PM">7:00 PM - 9:00 PM</option>
                     </select>
                 </div>
+                <div class="hdt-product-form_value is-type-block">
+                    <label class="hdt-product-form__label hdt-s-text" for="cake-message-{{ section.id }}">Cake Message</label>
+                    <input form="{{ product_form_id }}" type="text" id="cake-message-{{ section.id }}" name="properties[Cake Message]" placeholder="Add a message for the cake" maxlength="80">
+                </div>
                 <p id="date-error-{{ section.id }}" style="color:#DD137B; background-color:#e8e6e7; border-radius: 12px; margin-top: 10px; padding: 8px; display:none;font-size:14px;" align="center">
                     ** Note: Please select a valid date (today to 30 days ahead).
                 </p>
@@ -1314,7 +1318,8 @@ width:100%;
   }
   .hdt-container .tbk-product-content .hdt-variant-picker .hdt-select,
   .hdt-container .tbk-product-content .delivery-options select,
-  .hdt-container .tbk-product-content .delivery-options input[type="date"]{
+  .hdt-container .tbk-product-content .delivery-options input[type="date"],
+  .hdt-container .tbk-product-content .delivery-options input[type="text"]{
     min-height:42px !important;
     font-size:14px !important;
   }
@@ -1353,6 +1358,23 @@ width:100%;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C01457' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath d='M12 7v5l3 2'/%3E%3C/svg%3E") !important;
   padding-left:42px !important;
 }
+/* Cake Message text field — same look + message icon */
+.tbk-product-content .delivery-options input[type="text"]{
+  width:100% !important;
+  min-height:56px !important;
+  background:#fff !important;
+  border:1px solid #E7E1E4 !important;
+  border-radius:12px !important;
+  color:#1A0810 !important;
+  font-size:15px !important;
+  box-shadow:none !important;
+  padding:0 16px 0 42px !important;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C01457' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 11.5a8 8 0 0 1-11.6 7.1L3 20.5l1.9-5.6A8 8 0 1 1 21 11.5z'/%3E%3Cpath d='M8.5 10.5h7M8.5 14h4'/%3E%3C/svg%3E") !important;
+  background-repeat:no-repeat !important;
+  background-position:14px center !important;
+  background-size:20px 20px !important;
+}
+.tbk-product-content .delivery-options input[type="text"]:hover{ border-color:#C01457 !important; }
 </style>
 <!-- TBK Mobile Conversion Cards -->
 
