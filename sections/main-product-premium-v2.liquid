@@ -408,11 +408,10 @@ top:auto;
             <script>
             (function(){
               var SID = "{{ section.id }}";
-              var root = document.querySelector('[data-summary="'+SID+'"]');
-              function txt(sel){ var el=document.querySelector(sel); return el ? (el.textContent||'').trim() : ''; }
-              function val(sel){ var el=document.querySelector(sel); return el ? (el.value||'').trim() : ''; }
-              function set(k,v){ if(!root) return; var el=root.querySelector('[data-sum="'+k+'"]'); if(el) el.textContent = (v && v.length) ? v : '—'; }
               var picked = {};
+              function val(sel){ var el=document.querySelector(sel); return el ? (el.value||'').trim() : ''; }
+              // query the summary element LIVE each time (it lives after this script in the DOM)
+              function set(k,v){ var el=document.querySelector('[data-summary="'+SID+'"] [data-sum="'+k+'"]'); if(el) el.textContent = (v && v.length) ? v : '—'; }
               function optVal(idx){
                 if(picked[idx]) return picked[idx];
                 var b=document.querySelector('.tbk-product-content [data-index="'+idx+'"] .hdt-select');
@@ -421,15 +420,6 @@ top:auto;
                 var inp=document.querySelector('.tbk-product-content input[name="option'+(idx+1)+'"]');
                 return inp?(inp.value||'').trim():'';
               }
-              // Record the option the customer actually clicks in the popover
-              document.addEventListener('click', function(e){
-                var opt=e.target.closest('.tbk-product-content .tbk-fancy-opt'); if(!opt) return;
-                var fs=opt.closest('[data-index]'); if(!fs) return;
-                var idx=fs.getAttribute('data-index');
-                var nm=opt.querySelector('.tbk-fancy-opt__name')||opt.querySelector('.tbk-wt__name');
-                picked[idx]=opt.getAttribute('value')||(nm?nm.textContent.trim():'');
-                setTimeout(update,30);
-              }, true);
               function servings(w){
                 if(!w) return '';
                 var n=w.split(' ')[0];
@@ -452,11 +442,21 @@ top:auto;
                 var r=document.getElementById('reference-image-'+SID);
                 set('reference', (r && r.files && r.files.length) ? 'Uploaded' : '');
               }
+              // Record the option the customer picks — via the popover id, so it works
+              // even if the popover is moved out of the content (portaled to body).
+              document.addEventListener('click', function(e){
+                var opt=e.target.closest('.tbk-fancy-opt'); if(!opt) return;
+                var pop=opt.closest('[id^="variant-popover"]'); if(!pop) return;
+                var m=pop.id.match(/-(\d+)$/); if(!m) return;
+                var nm=opt.querySelector('.tbk-fancy-opt__name')||opt.querySelector('.tbk-wt__name');
+                picked[m[1]]=opt.getAttribute('value')||(nm?nm.textContent.trim():'');
+                setTimeout(update,30);
+              }, true);
               document.addEventListener('input', update, true);
               document.addEventListener('change', update, true);
               document.addEventListener('click', function(){ setTimeout(update, 60); }, true);
-              setInterval(update, 900);
-              update();
+              setInterval(update, 800);
+              if(document.readyState!=='loading'){ update(); } else { document.addEventListener('DOMContentLoaded', update); }
 
               // Reference image: filename + thumbnail preview + remove
               document.addEventListener('change', function(e){
@@ -482,21 +482,17 @@ top:auto;
                 update();
               }, true);
 
-              // Guard: require Flavor, Weight, Delivery Date and Time Slot before Add to Cart
-              var form = document.querySelector('form[action*="/cart/add"]');
-              if(form){
-                form.addEventListener('submit', function(e){
-                  var miss = [];
-                  if(!txt('.tbk-product-content [data-index="0"] .hdt-select')) miss.push('Flavor');
-                  if(!txt('.tbk-product-content [data-index="1"] .hdt-select')) miss.push('Weight');
-                  if(!val('#delivery-date-'+SID)) miss.push('Delivery Date');
-                  if(!val('[data-slot-input="'+SID+'"]')) miss.push('Delivery Time Slot');
-                  if(miss.length){
-                    e.preventDefault(); e.stopPropagation();
-                    alert('Please select: ' + miss.join(', '));
-                  }
-                }, true);
-              }
+              // Guard (delegated submit — the cart form is added to the DOM after this script)
+              document.addEventListener('submit', function(e){
+                var form=e.target;
+                if(!form || !form.matches || !form.matches('form[action*="/cart/add"]')) return;
+                var miss=[];
+                if(!optVal(0)) miss.push('Flavor');
+                if(!optVal(1)) miss.push('Weight');
+                if(!val('#delivery-date-'+SID)) miss.push('Delivery Date');
+                if(!val('[data-slot-input="'+SID+'"]')) miss.push('Delivery Time Slot');
+                if(miss.length){ e.preventDefault(); e.stopPropagation(); alert('Please select: '+miss.join(', ')); }
+              }, true);
             })();
             </script>
 
