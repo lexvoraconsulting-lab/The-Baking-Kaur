@@ -1388,6 +1388,18 @@ width:100%;
   width:auto !important;
   min-width:0 !important;
 }
+
+/* Flavor + Weight side by side (variant picker is a flex column by default) */
+.tbk-product-content .hdt-variant-picker{
+  flex-direction:row !important;
+  flex-wrap:wrap !important;
+  gap:10px !important;
+  align-items:start !important;
+}
+.tbk-product-content .hdt-variant-picker > fieldset{
+  flex:1 1 40% !important;
+  min-width:0 !important;
+}
 </style>
 <!-- TBK Mobile Conversion Cards -->
 
