@@ -1291,6 +1291,11 @@ width:100%;
      and delivery-value boxes so each field block has the same outer margin
      and no extra internal padding. */
   .hdt-container .tbk-product-content .hdt-product-info__item{ margin:0 0 4px !important; }
+  /* the variant picker is a flex column with a 2rem gap in the theme —
+     shrink it so the Flavor<->Weight gap matches Date<->Time */
+  .hdt-container .tbk-product-content .hdt-variant-picker{
+    gap:4px !important;
+  }
   .hdt-container .tbk-product-content .hdt-variant-picker fieldset{
     margin:0 0 4px !important;
     padding:0 !important;
