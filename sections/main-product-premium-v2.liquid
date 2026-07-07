@@ -412,13 +412,24 @@ top:auto;
               function txt(sel){ var el=document.querySelector(sel); return el ? (el.textContent||'').trim() : ''; }
               function val(sel){ var el=document.querySelector(sel); return el ? (el.value||'').trim() : ''; }
               function set(k,v){ if(!root) return; var el=root.querySelector('[data-sum="'+k+'"]'); if(el) el.textContent = (v && v.length) ? v : '—'; }
+              var picked = {};
               function optVal(idx){
+                if(picked[idx]) return picked[idx];
                 var b=document.querySelector('.tbk-product-content [data-index="'+idx+'"] .hdt-select');
                 var t=b?(b.textContent||'').trim():'';
-                if(t) return t;
+                if(t && t.toLowerCase()!=='choose an option') return t;
                 var inp=document.querySelector('.tbk-product-content input[name="option'+(idx+1)+'"]');
                 return inp?(inp.value||'').trim():'';
               }
+              // Record the option the customer actually clicks in the popover
+              document.addEventListener('click', function(e){
+                var opt=e.target.closest('.tbk-product-content .tbk-fancy-opt'); if(!opt) return;
+                var fs=opt.closest('[data-index]'); if(!fs) return;
+                var idx=fs.getAttribute('data-index');
+                var nm=opt.querySelector('.tbk-fancy-opt__name')||opt.querySelector('.tbk-wt__name');
+                picked[idx]=opt.getAttribute('value')||(nm?nm.textContent.trim():'');
+                setTimeout(update,30);
+              }, true);
               function servings(w){
                 if(!w) return '';
                 var n=w.split(' ')[0];
