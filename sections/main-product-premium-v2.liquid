@@ -1297,6 +1297,17 @@ width:100%;
     min-height:44px !important;
     font-size:14px !important;
   }
+  /* delivery date + time slot must stack full-width (block override made
+     them flow inline / run the labels together) */
+  .hdt-container .delivery-options .hdt-product-form_value{
+    display:block !important;
+    width:100% !important;
+  }
+  .hdt-container .delivery-options label{ display:block !important; }
+  /* tighten gaps between Flavor / Weight */
+  .hdt-container .tbk-product-content .hdt-variant-picker .hdt-product-form__label{
+    margin-bottom:4px !important;
+  }
 }
 </style>
 <!-- TBK Mobile Conversion Cards -->
