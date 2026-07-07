@@ -10134,3 +10134,50 @@ html body .hdt-footer-copyright {
 }
 
 }
+
+/* TBK — clean variant-picker fields on ALL product templates (matches premium design spec).
+   ponytail: mirrors the scoped rules in main-product-premium-v2.liquid so non-premium
+   product pages get the same look. Edit both if the design changes. */
+.hdt-product-form__input .hdt-product-form__label,
+.delivery-options label{
+    text-transform:none;
+    letter-spacing:.01em;
+    font-size:13px;
+    font-weight:500;
+    color:#8a7f85;
+    opacity:1;
+    margin-bottom:6px;
+}
+.delivery-options label{ display:block; }
+.hdt-product-form__input .hdt-select,
+.delivery-options select,
+.delivery-options input[type="date"],
+.delivery-options input[type="file"]{
+    width:100%;
+    min-height:56px;
+    background:#fff;
+    border:1px solid #E7E1E4;
+    border-radius:12px;
+    color:#1A0810;
+    font-size:15px;
+    box-shadow:none;
+}
+.delivery-options select,
+.delivery-options input[type="date"],
+.delivery-options input[type="file"]{
+    padding:0 16px;
+}
+.hdt-product-form__input .hdt-select{
+    display:flex;
+    align-items:center;
+    padding-inline-start:16px;
+    padding-inline-end:44px;
+}
+.hdt-product-form__input .hdt-select:hover,
+.delivery-options select:hover,
+.delivery-options input[type="date"]:hover{
+    border-color:#C01457;
+}
+.delivery-options .hdt-product-form_value{
+    margin-bottom:14px;
+}

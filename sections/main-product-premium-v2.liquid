@@ -125,7 +125,8 @@ top:auto;
 </style>
     <div class="tbk-premium-product">
       <div class="tbk-product-gallery">
-    
+
+        <div class="tbk-gallery-main">
 
     {% render 'product-media',
       product: product,
@@ -133,17 +134,19 @@ top:auto;
       un_no_pick: un_no_pick,
       selected_variant: selected_variant %}
 
-    <div class="tbk-gallery-overlay">
+          <div class="tbk-gallery-overlay">
 
-        <span class="tbk-badge">
-            BESTSELLER
-        </span>
+            <span class="tbk-badge">{{ section.settings.badge_text | default: 'BESTSELLER' }}</span>
 
-        <button class="tbk-wishlist">
-            ♡
-        </button>
+            <button type="button" class="tbk-wishlist" aria-label="Add to wishlist">
+              <svg class="tbk-wishlist-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 1 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/>
+              </svg>
+            </button>
 
-    </div>
+          </div>
+
+        </div>
 
 </div>
      
@@ -182,47 +185,7 @@ top:auto;
   {% assign has_form_act = true %}
 
   
-  <div class="tbk-addtocart-row">
-   {%- comment -%}
-{% render 'cake-addons' %}
-{%- endcomment -%}
-
-
-
-
-  {% render 'buy-buttons',
-  product: product,
-  block: block,
-  product_form_id: product_form_id,
-  show_hamper_addons: false
-%}
-
-  
-</div>
-
-
- <div class="tbk-premium-features">
-  <div class="tbk-feature">
-    🚚
-    <span>Same Day Delivery</span>
-  </div>
-
-  <div class="tbk-feature">
-    ⭐
-    <span>4.8 Google Rated</span>
-  </div>
-
-  <div class="tbk-feature">
-    🛡️
-    <span>FSSAI Approved</span>
-  </div>
-
-  <div class="tbk-feature">
-    🌱
-    <span>100% Eggless</span>
-  </div>
-
-</div>
+  {%- comment -%} Phase D: Add-to-Cart wrapper relocated into the buy_buttons block (Loop 2, after Delivery / before WhatsApp). Hardcoded tbk-premium-features trust row removed — trust chips now come from the custom_liquid "Delievery" block. {%- endcomment -%}
 
            </div>
 
@@ -365,39 +328,18 @@ top:auto;
               </div>
 
             {%- when 'variant_picker' -%}
-              <div class="hdt-product-info__item hdt-product__variant-picker" data-type="{{ block.type }}" {{ block.shopify_attributes }}>{%- render 'variant-picker', product: product, block: block, product_form_id: product_form_id, update_url: update_url, selected_variant: selected_variant, un_no_pick: un_no_pick -%}</div>
+              <div class="hdt-product-info__item hdt-product__variant-picker" data-type="{{ block.type }}" {{ block.shopify_attributes }}>{%- render 'variant-picker', product: product, block: block, product_form_id: product_form_id, update_url: update_url, selected_variant: selected_variant, un_no_pick: un_no_pick, hide_update_value: true -%}</div>
 
-              <!-- Vishal Code : Date and time-->
+              <!-- Delivery schedule (Date + Time Slot + optional reference image) -->
             <div class="delivery-options">
-              <div> <label class="hdt-product-form__label hdt-s-text hdt-quantity__label " style="font-weight: bold;" >Select Delivery Schedule: </label></div>
-              <div class="hdt-product-form_value is-type-block tbk-delivery-container">
-" >
-                    <label class="hdt-product-form__label hdt-s-text is-type-block" for="delivery-date">Date:</label>
-                    <input
-  form="{{ product_form_id }}"
-  type="file"
-  id="reference-image"
-  name="properties[Reference Image]"
-  accept="image/*"
->
+                <div class="hdt-product-form_value is-type-block">
+                    <label class="hdt-product-form__label hdt-s-text" for="delivery-date-{{ section.id }}">Delivery Date</label>
+                    <input form="{{ product_form_id }}" type="date" id="delivery-date-{{ section.id }}" name="properties[Delivery Date]" required>
                 </div>
-                         <div class="hdt-product-form_value is-type-block">
-  <label class="hdt-product-form__label hdt-s-text">
-    Upload Reference Image
-  </label>
-
-  <input
-    form="{{ product_form_id }}"
-    type="file"
-    name="properties[Reference Image]"
-    accept="image/*"
-  >
-</div>   
-                <div class="hdt-product-form_value  is-type-block" >
-                    <label class="hdt-product-form__label hdt-s-text is-type-block" for="delivery-slot">Time Slots:</label>
-                              <!--<input   form="{{ product_form_id }}" type="time" id="delivery-time" name="properties[Delivery Time]" required>-->
+                <div class="hdt-product-form_value is-type-block">
+                    <label class="hdt-product-form__label hdt-s-text" for="delivery-slot-{{ section.id }}">Delivery Time Slot</label>
                     <select form="{{ product_form_id }}" id="delivery-slot-{{ section.id }}" name="properties[Delivery Time Slot]" required>
-                        <option value="">-- Available Slots --</option>
+                        <option value="">Select Time Slot</option>
                         <option value="11:00 AM - 1:00 PM">11:00 AM - 1:00 PM</option>
                         <option value="1:00 PM - 3:00 PM">1:00 PM - 3:00 PM</option>
                         <option value="3:00 PM - 5:00 PM">3:00 PM - 5:00 PM</option>
@@ -405,9 +347,9 @@ top:auto;
                         <option value="7:00 PM - 9:00 PM">7:00 PM - 9:00 PM</option>
                     </select>
                 </div>
-                  <p id="date-error-{{ section.id }}" style="color:#DD137B; background-color:#e8e6e7; border-radius: 30px; margin-top: 10px; padding: 5px; display:none;font-size:14px;" align="center">
+                <p id="date-error-{{ section.id }}" style="color:#DD137B; background-color:#e8e6e7; border-radius: 12px; margin-top: 10px; padding: 8px; display:none;font-size:14px;" align="center">
                     ** Note: Please select a valid date (today to 30 days ahead).
-                  </p>
+                </p>
             </div>
 
             {%- when 'buy_buttons' -%}
@@ -430,7 +372,14 @@ top:auto;
       | append: product.url
     %}
 
-    
+    <div class="tbk-addtocart-row">
+  {% render 'buy-buttons',
+  product: product,
+  block: block,
+  product_form_id: product_form_id,
+  show_hamper_addons: false
+%}
+    </div>
 
   </div>
 
@@ -1025,6 +974,203 @@ width:100%;
         top:auto;
     }
 
+}
+
+/* Sprint 2.2 — premium hero layout (authoritative override) */
+.tbk-premium-product{
+  display:grid;
+  grid-template-columns:45% 55%;
+  gap:32px;
+  align-items:start;
+}
+.tbk-product-gallery{
+  width:100%;
+  position:sticky;
+  top:120px;
+}
+.tbk-product-content{
+  width:100%;
+  max-width:none;
+}
+@media(max-width:768px){
+  .tbk-premium-product{
+    display:grid !important;
+    grid-template-columns:40% 60% !important;
+    gap:16px !important;
+    align-items:start !important;
+  }
+  .tbk-product-gallery{
+    position:relative !important;
+    top:auto !important;
+    width:100% !important;
+    max-width:100% !important;
+    margin-bottom:0 !important;
+  }
+  .tbk-product-content{
+    width:100% !important;
+    max-width:100% !important;
+    margin:0 !important;
+  }
+  .tbk-product-gallery img{
+    max-width:100% !important;
+    height:auto !important;
+  }
+}
+
+/* Phase C — premium gallery card (layout only) */
+.tbk-gallery-main{
+  position:relative;
+  border-radius:20px;
+  overflow:hidden;
+}
+.tbk-gallery-overlay{
+  position:absolute;
+  top:0; left:0; right:0;
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  padding:12px;
+  pointer-events:none;
+}
+.tbk-wishlist{
+  pointer-events:auto;
+}
+
+/* Sprint D2 — premium purchase panel styling (CSS only, scoped to the panel) */
+
+/* Luxury typography hierarchy */
+.tbk-product-content .hdt-product__title{
+  font-family:var(--tbk-font-display);
+  font-size:clamp(28px, 3.4vw, 40px);
+  line-height:1.12;
+  font-weight:600;
+  letter-spacing:-0.01em;
+  margin:0;
+}
+.tbk-product-content .hdt-product__price{
+  font-size:clamp(20px, 2.4vw, 26px);
+  font-weight:700;
+  letter-spacing:-0.01em;
+}
+.tbk-product-content .hdt-product-form__label,
+.tbk-product-content .hdt-quantity__label{
+  font-size:12px;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  opacity:.7;
+}
+
+/* Equal, luxury spacing between sections */
+.tbk-product-content .hdt-product-info__item{
+  margin:0 0 18px;
+}
+
+/* Full-width, rounded selectors / inputs */
+.tbk-product-content select,
+.tbk-product-content .hdt-select,
+.tbk-product-content .tbk-delivery-container,
+.tbk-product-content input[type="date"],
+.tbk-product-content input[type="file"]{
+  width:100%;
+  max-width:100%;
+  border-radius:12px;
+}
+
+/* Full-width Add To Cart (+ dynamic checkout), rounded */
+.tbk-product-content .tbk-addtocart-row,
+.tbk-product-content .hdt-product-form__buttons,
+.tbk-product-content .shopify-payment-button{
+  width:100%;
+  max-width:100%;
+}
+.tbk-product-content .hdt-product-form__buttons{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+.tbk-product-content .hdt-product-form__submit{
+  width:100%;
+  border-radius:14px;
+  min-height:52px;
+}
+
+/* Full-width WhatsApp, matched to ATC */
+.tbk-product-content .tbk-whatsapp-btn{
+  width:100%;
+  border-radius:14px;
+  min-height:52px;
+}
+
+/* Feature 1 — Hero gallery: style Shopify's NATIVE thumbnails & arrows (CSS only; DOM/JS untouched) */
+
+/* Native slider arrows -> premium circular buttons */
+.tbk-product-gallery .hdt-slider__button{
+  width:40px;
+  height:40px;
+  border-radius:999px;
+  background:var(--tbk-surface-el, #fff);
+  border:1px solid var(--tbk-border, rgba(0,0,0,.1));
+  color:var(--tbk-ink, #1A0810);
+}
+
+/* Native thumbnails -> rounded, consistent, with on-brand active highlight */
+.tbk-product-gallery .hdt-thumbnail__media{
+  border-radius:12px;
+  overflow:hidden;
+  cursor:pointer;
+}
+.tbk-product-gallery .hdt-thumbnail__media .hdt-ratio{
+  border-radius:12px;
+}
+.tbk-product-gallery .hdt-thumbnail__media.is-thumb-selected{
+  outline:2px solid var(--tbk-pink, #C01457);
+  outline-offset:2px;
+}
+
+/* TBK — clean purchase-panel fields (Flavor / Weight / Delivery) to match design spec */
+.tbk-product-content .hdt-variant-picker .hdt-product-form__label,
+.tbk-product-content .delivery-options label{
+  text-transform:none;
+  letter-spacing:.01em;
+  font-size:13px;
+  font-weight:500;
+  color:#8a7f85;
+  opacity:1;
+  margin-bottom:6px;
+}
+.tbk-product-content .delivery-options label{ display:block; }
+.tbk-product-content .hdt-variant-picker .hdt-select,
+.tbk-product-content .delivery-options select,
+.tbk-product-content .delivery-options input[type="date"],
+.tbk-product-content .delivery-options input[type="file"]{
+  width:100%;
+  min-height:56px;
+  background:#fff;
+  border:1px solid #E7E1E4;
+  border-radius:12px;
+  color:#1A0810;
+  font-size:15px;
+  box-shadow:none;
+}
+.tbk-product-content .delivery-options select,
+.tbk-product-content .delivery-options input[type="date"],
+.tbk-product-content .delivery-options input[type="file"]{
+  padding:0 16px;
+}
+.tbk-product-content .hdt-variant-picker .hdt-select{
+  display:flex;
+  align-items:center;
+  padding-inline-start:16px;
+  padding-inline-end:44px; /* room for chevron */
+}
+.tbk-product-content .hdt-variant-picker .hdt-select:hover,
+.tbk-product-content .delivery-options select:hover,
+.tbk-product-content .delivery-options input[type="date"]:hover{
+  border-color:#C01457;
+}
+.tbk-product-content .hdt-variant-picker fieldset,
+.tbk-product-content .delivery-options .hdt-product-form_value{
+  margin-bottom:14px;
 }
 
 </style>
