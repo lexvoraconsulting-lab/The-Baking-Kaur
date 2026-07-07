@@ -141,6 +141,20 @@ top:auto;
           <input form="{{ product_form_id }}" type="file" id="reference-image-{{ section.id }}" name="properties[Reference Image]" accept="image/*">
         </div>
 
+        <div class="tbk-summary" data-summary="{{ section.id }}">
+          <div class="tbk-summary__head">✓ YOUR SELECTION</div>
+          <div class="tbk-summary__rows">
+            <div class="tbk-summary__row"><span class="tbk-summary__ico">🎂</span><span class="tbk-summary__label">Cake</span><span class="tbk-summary__val">{{ product.title }}</span></div>
+            <div class="tbk-summary__row"><span class="tbk-summary__ico">🧁</span><span class="tbk-summary__label">Flavor</span><span class="tbk-summary__val" data-sum="flavor">—</span></div>
+            <div class="tbk-summary__row"><span class="tbk-summary__ico">⚖️</span><span class="tbk-summary__label">Weight</span><span class="tbk-summary__val" data-sum="weight">—</span></div>
+            <div class="tbk-summary__row"><span class="tbk-summary__ico">📅</span><span class="tbk-summary__label">Delivery Date</span><span class="tbk-summary__val" data-sum="date">—</span></div>
+            <div class="tbk-summary__row"><span class="tbk-summary__ico">🕐</span><span class="tbk-summary__label">Delivery Slot</span><span class="tbk-summary__val" data-sum="slot">—</span></div>
+            <div class="tbk-summary__row"><span class="tbk-summary__ico">💬</span><span class="tbk-summary__label">Cake Message</span><span class="tbk-summary__val" data-sum="message">—</span></div>
+            <div class="tbk-summary__row"><span class="tbk-summary__ico">🖼️</span><span class="tbk-summary__label">Reference Image</span><span class="tbk-summary__val" data-sum="reference">—</span></div>
+          </div>
+          <div class="tbk-summary__foot">💚 100% Eggless&nbsp; • &nbsp;Freshly Baked After You Order&nbsp; • &nbsp;On-Time Delivery</div>
+        </div>
+
 </div>
 
       <div class="tbk-product-content">
@@ -407,6 +421,46 @@ top:auto;
                   closeAll();
                 }
               });
+            })();
+            </script>
+
+            <script>
+            (function(){
+              var SID = "{{ section.id }}";
+              var root = document.querySelector('[data-summary="'+SID+'"]');
+              function txt(sel){ var el=document.querySelector(sel); return el ? (el.textContent||'').trim() : ''; }
+              function val(sel){ var el=document.querySelector(sel); return el ? (el.value||'').trim() : ''; }
+              function set(k,v){ if(!root) return; var el=root.querySelector('[data-sum="'+k+'"]'); if(el) el.textContent = (v && v.length) ? v : '—'; }
+              function update(){
+                set('flavor', txt('.tbk-product-content [data-index="0"] .hdt-select'));
+                set('weight', txt('.tbk-product-content [data-index="1"] .hdt-select'));
+                set('date', val('#delivery-date-'+SID));
+                set('slot', val('[data-slot-input="'+SID+'"]'));
+                set('message', val('#cake-message-'+SID));
+                var r=document.getElementById('reference-image-'+SID);
+                set('reference', (r && r.files && r.files.length) ? 'Uploaded' : '');
+              }
+              document.addEventListener('input', update, true);
+              document.addEventListener('change', update, true);
+              document.addEventListener('click', function(){ setTimeout(update, 60); }, true);
+              setInterval(update, 900);
+              update();
+
+              // Guard: require Flavor, Weight, Delivery Date and Time Slot before Add to Cart
+              var form = document.querySelector('form[action*="/cart/add"]');
+              if(form){
+                form.addEventListener('submit', function(e){
+                  var miss = [];
+                  if(!txt('.tbk-product-content [data-index="0"] .hdt-select')) miss.push('Flavor');
+                  if(!txt('.tbk-product-content [data-index="1"] .hdt-select')) miss.push('Weight');
+                  if(!val('#delivery-date-'+SID)) miss.push('Delivery Date');
+                  if(!val('[data-slot-input="'+SID+'"]')) miss.push('Delivery Time Slot');
+                  if(miss.length){
+                    e.preventDefault(); e.stopPropagation();
+                    alert('Please select: ' + miss.join(', '));
+                  }
+                }, true);
+              }
             })();
             </script>
 
@@ -1607,6 +1661,16 @@ width:100%;
 .tbk-slot-fresh__txt{ display:flex; flex-direction:column; }
 .tbk-slot-fresh__txt b{ font-family:var(--tbk-font-display,"Playfair Display",serif); font-size:16px; color:#5a1030; }
 .tbk-slot-fresh__txt small{ font-size:12px; color:#9a8a90; margin-top:2px; }
+
+/* "Your selection" live summary card (below the image) */
+.tbk-summary{ margin-top:14px; border:1px solid #f3cadb; border-radius:16px; background:#fff8fb; padding:14px 14px 12px; }
+.tbk-summary__head{ text-align:center; font-weight:800; color:#C01457; font-size:13px; letter-spacing:.04em; margin-bottom:8px; }
+.tbk-summary__row{ display:flex; align-items:center; gap:8px; padding:5px 0; font-size:13px; border-top:1px solid #fbeef3; }
+.tbk-summary__row:first-child{ border-top:0; }
+.tbk-summary__ico{ width:20px; flex:0 0 auto; text-align:center; }
+.tbk-summary__label{ flex:0 0 auto; min-width:96px; color:#7a2147; font-weight:600; }
+.tbk-summary__val{ flex:1 1 auto; color:#3a1020; text-align:right; font-weight:600; word-break:break-word; }
+.tbk-summary__foot{ margin-top:10px; padding-top:9px; border-top:1px solid #f3e0e8; text-align:center; font-size:11px; color:#7a2147; line-height:1.4; }
 </style>
 <!-- TBK Mobile Conversion Cards -->
 
