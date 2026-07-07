@@ -1,5 +1,22 @@
 
 {%- style -%}.hdt-breadcrumb__list{display:inline-flex;align-items:center;flex-wrap:wrap;gap:.6rem}.hdt-breadcrumb__list a{transition:color .3s ease}.hdt-breadcrumb__list svg{height:var(--spacing-0-8);width:auto}.hdt-breadcrumb__next,.hdt-breadcrumb__prev{width:var(--spacing-1-4);height:var(--spacing-1-4)}.hdt-breadcrumb__back{margin:0 var(--spacing-1-2)}.hdt-breadcrumb__wrap{display:grid;gap:3rem;grid-template-columns:1fr auto}@media (min-width:768px){.hdt-breadcrumb__list svg{margin:0 var(--spacing-1)}}.dir--rtl .hdt-breadcrumb__list svg,.dir--rtl .hdt-breadcrumb__prev-next svg{transform:rotate(180deg)}@media (-moz-touch-enabled:0),(hover:hover) and (min-width:1150px){.hdt-breadcrumb__prev-next a:hover,.hdt-breadcrumb__list a:hover{color:rgb(var(--color-accent))}}#shopify-section-{{section.id}}{--section-pt:{{section.settings.padding_top}}px;--section-pb:{{section.settings.padding_bottom}}px;--section-prate:{{section.settings.padding_rate}}}{%- endstyle -%}
+<style>
+/* TBK — keep the breadcrumb on ONE line on mobile (scroll if long) to save space */
+@media (max-width:768px){
+  #shopify-section-{{ section.id }} .hdt-breadcrumb__list{
+    flex-wrap:nowrap !important;
+    overflow-x:auto !important;
+    white-space:nowrap !important;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+    gap:.4rem !important;
+  }
+  #shopify-section-{{ section.id }} .hdt-breadcrumb__list::-webkit-scrollbar{ display:none; }
+  #shopify-section-{{ section.id }} .hdt-breadcrumb__list > *{ flex:0 0 auto; }
+  #shopify-section-{{ section.id }} .hdt-breadcrumb__wrap{ gap:1rem !important; }
+  #shopify-section-{{ section.id }}{ --section-pt:8px !important; --section-pb:8px !important; }
+}
+</style>
 {%- liquid
   if product.metafields.theme.brand
     assign root_url =  product.metafields.theme.brand.value.url
