@@ -94,10 +94,22 @@
           <div class="hdt-relative">
             <button class="hdt-select" aria-controls="variant-popover{{ section.id }}-{{ forloop.index0 }}" aria-owns="variant-listbox{{ section.id }}-{{ forloop.index0 }}">{{ selected_value | default: choose_an_option }}</button>
             {%- render 'icon' with 'caret' -%}
-            <hdt-popover class="hdt-popover hdt-hidden hdt-popover-variant" id="variant-popover{{ section.id }}-{{ forloop.index0 }}" class="hdt-product-form__values" config='{ "closeRichlistSelect": true }' color-scheme="{{ settings.color_scheme_dialog }}">
+            <hdt-popover class="hdt-popover hdt-hidden hdt-popover-variant{% if fancy_dropdown %} tbk-fancy-pop{% endif %}" id="variant-popover{{ section.id }}-{{ forloop.index0 }}" class="hdt-product-form__values" config='{ "closeRichlistSelect": true }' color-scheme="{{ settings.color_scheme_dialog }}">
+              {%- if fancy_dropdown -%}
+                <div class="tbk-fancy-pop__head">
+                  <div class="tbk-fancy-pop__title">Select Your {{ option.name }}</div>
+                  <div class="tbk-fancy-pop__sub">Crafted with premium ingredients</div>
+                </div>
+              {%- endif -%}
               <hdt-richlist role="listbox" selected="{{ selected_value | escape }}" id="variant-listbox{{ section.id }}-{{ forloop.index0 }}">
-                {%- render 'product-variant-options', hide_sold_out: hide_sold_out, option_type: option_type, product: product, option: option, block: block, product_form_id: product_form_id, un_no_pick: un_no_pick, selected_value: selected_value -%}
+                {%- render 'product-variant-options', hide_sold_out: hide_sold_out, option_type: option_type, product: product, option: option, block: block, product_form_id: product_form_id, un_no_pick: un_no_pick, selected_value: selected_value, fancy_dropdown: fancy_dropdown -%}
               </hdt-richlist>
+              {%- if fancy_dropdown -%}
+                <div class="tbk-fancy-pop__foot">
+                  <span class="tbk-fancy-pop__foot-main">100% Eggless • Freshly Baked • Premium Quality</span>
+                  <span class="tbk-fancy-pop__foot-sub">Made with love for your special moments ❤</span>
+                </div>
+              {%- endif -%}
             </hdt-popover>
           </div>
         {%- endif -%}

@@ -124,7 +124,40 @@
       {%- endif -%}
 
     {%- elsif block.settings.picker_type == 'dropdown' -%}
-      <button type="button" role="option" value="{{ value | escape }}" aria-selected="{% if selected_value == value and un_no_pick %}true{% else %}false{% endif %}"{% if option_soldout or option_unavailable %} class="{% if option_unavailable %}is-unavailable{% else %}is-disabled{% endif %}"{% endif %}>{{ value }}</button>
+      {%- if fancy_dropdown -%}
+        {%- liquid
+          assign v_dc = value | downcase
+          assign emoji = '🧁'
+          if v_dc contains 'biscoff'
+            assign emoji = '🍪'
+          elsif v_dc contains 'strawberry'
+            assign emoji = '🍓'
+          elsif v_dc contains 'pineapple'
+            assign emoji = '🍍'
+          elsif v_dc contains 'blueberry'
+            assign emoji = '🫐'
+          elsif v_dc contains 'chocolate'
+            assign emoji = '🍫'
+          elsif v_dc contains 'cocktail'
+            assign emoji = '🍹'
+          elsif v_dc contains 'fresh fruit' or v_dc contains 'fruit'
+            assign emoji = '🍓'
+          elsif v_dc contains 'vanilla'
+            assign emoji = '🍦'
+          elsif v_dc contains 'red velvet'
+            assign emoji = '🎂'
+          elsif v_dc contains 'kg' or v_dc contains 'gram' or v_dc contains 'pound' or v_dc contains 'serves'
+            assign emoji = '⚖️'
+          endif
+        -%}
+        <button type="button" role="option" value="{{ value | escape }}" aria-selected="{% if selected_value == value and un_no_pick %}true{% else %}false{% endif %}" class="tbk-fancy-opt{% if option_unavailable %} is-unavailable{% elsif option_soldout %} is-disabled{% endif %}">
+          <span class="tbk-fancy-opt__ico" aria-hidden="true">{{ emoji }}</span>
+          <span class="tbk-fancy-opt__name">{{ value }}</span>
+          <span class="tbk-fancy-opt__radio" aria-hidden="true"></span>
+        </button>
+      {%- else -%}
+        <button type="button" role="option" value="{{ value | escape }}" aria-selected="{% if selected_value == value and un_no_pick %}true{% else %}false{% endif %}"{% if option_soldout or option_unavailable %} class="{% if option_unavailable %}is-unavailable{% else %}is-disabled{% endif %}"{% endif %}>{{ value }}</button>
+      {%- endif -%}
     {%- else -%}
       <input {% if value.product_url != nil %}data-product-url="{{ value.product_url }}" {% endif %}autocomplete="off" is-value type="radio" id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}" name="{{ option.name | escape }}" value="{{ value | escape }}" form="{{ product_form_id }}"{% if selected_value == value and un_no_pick %} checked{% endif %} class="sr-only {% if option_unavailable %}is-unavailable{% elsif option_soldout %}is-disabled{% endif %}">
       <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}" class="hdt-product-form_value  is-type-block">

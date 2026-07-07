@@ -321,7 +321,7 @@ top:auto;
               </div>
 
             {%- when 'variant_picker' -%}
-              <div class="hdt-product-info__item hdt-product__variant-picker" data-type="{{ block.type }}" {{ block.shopify_attributes }}>{%- render 'variant-picker', product: product, block: block, product_form_id: product_form_id, update_url: update_url, selected_variant: selected_variant, un_no_pick: un_no_pick, hide_update_value: true, choose_placeholder: '' -%}</div>
+              <div class="hdt-product-info__item hdt-product__variant-picker" data-type="{{ block.type }}" {{ block.shopify_attributes }}>{%- render 'variant-picker', product: product, block: block, product_form_id: product_form_id, update_url: update_url, selected_variant: selected_variant, un_no_pick: un_no_pick, hide_update_value: true, choose_placeholder: '', fancy_dropdown: true -%}</div>
 
               <!-- Delivery schedule (Date + Time Slot + optional reference image) -->
             <div class="delivery-options">
@@ -1432,6 +1432,46 @@ width:100%;
   overflow:hidden !important;
   text-overflow:ellipsis !important;
 }
+
+/* Fancy variant popover (reference "Select Your Favorite Flavor" design) */
+.tbk-fancy-pop::part(content){ padding:0 !important; }
+.tbk-fancy-pop__head{ text-align:center; padding:16px 18px 8px; }
+.tbk-fancy-pop__title{
+  font-family:var(--tbk-font-display, "Playfair Display", serif);
+  font-size:20px; font-weight:600; color:#5a1030; letter-spacing:.01em;
+}
+.tbk-fancy-pop__sub{ font-size:12px; color:#9a8a90; margin-top:3px; }
+.tbk-fancy-pop hdt-richlist{
+  display:block; padding:6px 12px; max-height:46vh; overflow-y:auto;
+}
+.tbk-fancy-opt{
+  display:flex !important; align-items:center; gap:12px; width:100%;
+  padding:9px 12px !important; margin:6px 0;
+  background:#fff; border:1px solid #f0e2e8; border-radius:12px;
+  text-align:left; cursor:pointer;
+  transition:border-color .15s ease, box-shadow .15s ease;
+}
+.tbk-fancy-opt:hover{ border-color:#C01457; }
+.tbk-fancy-opt[aria-selected="true"]{ border-color:#C01457; box-shadow:0 0 0 1px #C01457 inset; }
+.tbk-fancy-opt__ico{
+  width:34px; height:34px; flex:0 0 auto;
+  display:inline-flex; align-items:center; justify-content:center; font-size:18px;
+  background:#fff6f9; border:1px solid #f0e2e8; border-radius:50%;
+}
+.tbk-fancy-opt__name{ flex:1 1 auto; font-weight:600; font-size:15px; color:#3a1020; }
+.tbk-fancy-opt__radio{
+  width:18px; height:18px; flex:0 0 auto;
+  border:2px solid #d9b9c6; border-radius:50%; position:relative;
+}
+.tbk-fancy-opt[aria-selected="true"] .tbk-fancy-opt__radio{ border-color:#C01457; }
+.tbk-fancy-opt[aria-selected="true"] .tbk-fancy-opt__radio::after{
+  content:""; position:absolute; inset:3px; border-radius:50%; background:#C01457;
+}
+.tbk-fancy-pop__foot{
+  text-align:center; padding:12px 18px 16px; border-top:1px solid #f3e6ec; margin-top:4px;
+}
+.tbk-fancy-pop__foot-main{ display:block; font-size:12px; font-weight:600; color:#7a2147; }
+.tbk-fancy-pop__foot-sub{ display:block; font-size:11px; color:#9a8a90; margin-top:2px; }
 </style>
 <!-- TBK Mobile Conversion Cards -->
 
