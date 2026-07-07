@@ -51,6 +51,10 @@
     {%- for option in product.options_with_values -%}
       {%-  liquid
       assign name_downcase = option.name | downcase
+      assign is_weight = false
+      if name_downcase contains 'weight'
+        assign is_weight = true
+      endif
       if color_list contains name_downcase
         assign option_type = 'color'
         assign color_option_index = 'option' | append: forloop.index
@@ -97,18 +101,37 @@
             <hdt-popover class="hdt-popover hdt-hidden hdt-popover-variant{% if fancy_dropdown %} tbk-fancy-pop{% endif %}" id="variant-popover{{ section.id }}-{{ forloop.index0 }}" class="hdt-product-form__values" config='{ "closeRichlistSelect": true }' color-scheme="{{ settings.color_scheme_dialog }}">
               {%- if fancy_dropdown -%}
                 <div class="tbk-fancy-pop__head">
-                  <div class="tbk-fancy-pop__title">Select Your {{ option.name }}</div>
-                  <div class="tbk-fancy-pop__sub">Crafted with premium ingredients</div>
+                  <div class="tbk-fancy-pop__title">{% if is_weight %}Choose Your Cake Weight{% else %}Select Your {{ option.name }}{% endif %}</div>
+                  <div class="tbk-fancy-pop__sub">{% if is_weight %}Perfect size for your celebration{% else %}Crafted with premium ingredients{% endif %}</div>
                 </div>
+                {%- if is_weight -%}
+                  <div class="tbk-fancy-pop__banner">
+                    <span class="tbk-fancy-pop__banner-txt">Serving guide is approximate and can vary with portion size.</span>
+                    <span class="tbk-fancy-pop__banner-badge">★ Most Popular</span>
+                  </div>
+                {%- endif -%}
               {%- endif -%}
               <hdt-richlist role="listbox" selected="{{ selected_value | escape }}" id="variant-listbox{{ section.id }}-{{ forloop.index0 }}">
-                {%- render 'product-variant-options', hide_sold_out: hide_sold_out, option_type: option_type, product: product, option: option, block: block, product_form_id: product_form_id, un_no_pick: un_no_pick, selected_value: selected_value, fancy_dropdown: fancy_dropdown -%}
+                {%- render 'product-variant-options', hide_sold_out: hide_sold_out, option_type: option_type, product: product, option: option, block: block, product_form_id: product_form_id, un_no_pick: un_no_pick, selected_value: selected_value, fancy_dropdown: fancy_dropdown, is_weight: is_weight -%}
               </hdt-richlist>
               {%- if fancy_dropdown -%}
-                <div class="tbk-fancy-pop__foot">
-                  <span class="tbk-fancy-pop__foot-main">100% Eggless • Freshly Baked • Premium Quality</span>
-                  <span class="tbk-fancy-pop__foot-sub">Made with love for your special moments ❤</span>
-                </div>
+                {%- if is_weight -%}
+                  <a class="tbk-fancy-custom" href="https://wa.me/918218862928?text=Hi%20The%20Baking%20Kaur%2C%20I%20need%20a%20custom%20cake%20weight" target="_blank" rel="noopener">
+                    <span class="tbk-fancy-custom__ico">🎁</span>
+                    <span class="tbk-fancy-custom__txt"><b>Custom Weight</b><small>Need a different size? We've got you!</small></span>
+                    <span class="tbk-fancy-custom__cta">Contact us on <b>WhatsApp</b> ›</span>
+                  </a>
+                  <div class="tbk-fancy-pop__foot tbk-fancy-pop__foot--weight">
+                    <span>🌿 100% Eggless<small>Always</small></span>
+                    <span>🛡 Freshly Baked<small>After You Order</small></span>
+                    <span>🚚 Safe &amp; On-Time<small>Delivery</small></span>
+                  </div>
+                {%- else -%}
+                  <div class="tbk-fancy-pop__foot">
+                    <span class="tbk-fancy-pop__foot-main">100% Eggless • Freshly Baked • Premium Quality</span>
+                    <span class="tbk-fancy-pop__foot-sub">Made with love for your special moments ❤</span>
+                  </div>
+                {%- endif -%}
               {%- endif -%}
             </hdt-popover>
           </div>

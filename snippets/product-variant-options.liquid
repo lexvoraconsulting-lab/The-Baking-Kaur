@@ -124,7 +124,43 @@
       {%- endif -%}
 
     {%- elsif block.settings.picker_type == 'dropdown' -%}
-      {%- if fancy_dropdown -%}
+      {%- if fancy_dropdown and is_weight -%}
+        {%- liquid
+          assign wnum = value | split: ' ' | first
+          case wnum
+            when '1'
+              assign wdesc = 'Perfect for small celebrations'
+              assign wserv = '6 – 8'
+            when '1.5'
+              assign wdesc = 'Great for small gatherings'
+              assign wserv = '10 – 12'
+            when '2'
+              assign wdesc = 'Ideal for medium celebrations'
+              assign wserv = '14 – 16'
+            when '2.5'
+              assign wdesc = 'Perfect for large gatherings'
+              assign wserv = '18 – 20'
+            when '3'
+              assign wdesc = 'Great for big celebrations'
+              assign wserv = '22 – 26'
+            else
+              assign wdesc = 'Serves your celebration'
+              assign wserv = ''
+          endcase
+          assign wkey = 'option' | append: option.position
+          assign wvar = product.variants | where: wkey, value | first
+        -%}
+        <button type="button" role="option" value="{{ value | escape }}" aria-selected="{% if selected_value == value and un_no_pick %}true{% else %}false{% endif %}" class="tbk-fancy-opt tbk-fancy-opt--weight{% if option_unavailable %} is-unavailable{% elsif option_soldout %} is-disabled{% endif %}">
+          <span class="tbk-fancy-opt__ico" aria-hidden="true">🎂</span>
+          <span class="tbk-wt__main">
+            <span class="tbk-wt__name">{{ value }}</span>
+            {%- if wdesc != blank -%}<span class="tbk-wt__desc">{{ wdesc }}</span>{%- endif -%}
+          </span>
+          {%- if wserv != blank -%}<span class="tbk-wt__serv"><b>{{ wserv }}</b><small>Servings</small></span>{%- endif -%}
+          {%- if wvar -%}<span class="tbk-wt__price">{{ wvar.price | money }}</span>{%- endif -%}
+          <span class="tbk-fancy-opt__radio" aria-hidden="true"></span>
+        </button>
+      {%- elsif fancy_dropdown -%}
         {%- liquid
           assign v_dc = value | downcase
           assign emoji = '🧁'
@@ -146,8 +182,6 @@
             assign emoji = '🍦'
           elsif v_dc contains 'red velvet'
             assign emoji = '🎂'
-          elsif v_dc contains 'kg' or v_dc contains 'gram' or v_dc contains 'pound' or v_dc contains 'serves'
-            assign emoji = '⚖️'
           endif
         -%}
         <button type="button" role="option" value="{{ value | escape }}" aria-selected="{% if selected_value == value and un_no_pick %}true{% else %}false{% endif %}" class="tbk-fancy-opt{% if option_unavailable %} is-unavailable{% elsif option_soldout %} is-disabled{% endif %}">
