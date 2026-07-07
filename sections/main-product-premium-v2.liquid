@@ -1232,39 +1232,50 @@ width:100%;
 {% endcase %}
 {% endfor %}
 <style>
-/* TBK — mobile 2-column product layout (inline & standalone; the theme.css
-   asset gets cached by browsers, but this inline block refreshes with the
-   page. Own <style> element so the file's broken @media nesting can't
-   swallow it. Higher specificity (.hdt-container) beats the inline rules. */
+/* TBK — mobile compact hero (inline & standalone; refreshes with the page,
+   own <style> so the file's broken @media nesting can't swallow it, and
+   .hdt-container specificity beats the inline rules).
+   Image floats left with title+price beside it; the trust chips and
+   everything below clear to full width. */
 @media (max-width:768px){
+  /* push the product section up */
+  #shopify-section-{{ section.id }}{ --section-pt:6px !important; }
+
   .hdt-container .tbk-premium-product{
-    display:grid !important;
-    grid-template-columns:44% 56% !important;
-    gap:14px !important;
-    align-items:start !important;
+    display:block !important;
+    gap:0 !important;
   }
   .hdt-container .tbk-product-gallery{
-    position:sticky !important;
-    top:80px !important;
-    width:100% !important;
-    max-width:100% !important;
-    margin:0 !important;
+    float:left !important;
+    width:42% !important;
+    max-width:42% !important;
+    margin:0 14px 8px 0 !important;
+    position:static !important;
+    top:auto !important;
   }
   .hdt-container .tbk-product-content{
-    width:100% !important;
-    max-width:100% !important;
+    display:block !important;
+    width:auto !important;
+    max-width:none !important;
     margin:0 !important;
   }
-  /* Purchase panel spacing on mobile (narrow right column) */
-  .hdt-container .tbk-product-content .hdt-product-info__item{
-    margin:0 0 12px !important;
+  /* trust chips + everything after go full-width below the image */
+  .hdt-container .tbk-product-content .hdt-product-info__item:has(.trust-pills){
+    clear:left !important;
   }
+
+  /* spacing / sizing */
+  .hdt-container .tbk-product-content .hdt-product-info__item{ margin:0 0 12px !important; }
   .hdt-container .tbk-product-content .hdt-product__title{
-    font-size:20px !important;
+    font-size:18px !important;
     line-height:1.2 !important;
+    margin-bottom:6px !important;
   }
-  .hdt-container .tbk-product-content .hdt-product__price{
-    font-size:17px !important;
+  .hdt-container .tbk-product-content .hdt-product__price{ font-size:18px !important; }
+  .hdt-container .tbk-product-content .trust-pills{ gap:8px !important; }
+  .hdt-container .tbk-product-content .trust-pills span{
+    font-size:11px !important;
+    padding:6px 9px !important;
   }
   .hdt-container .tbk-product-content .hdt-variant-picker fieldset,
   .hdt-container .tbk-product-content .delivery-options .hdt-product-form_value{
