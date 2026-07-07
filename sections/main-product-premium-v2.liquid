@@ -331,15 +331,51 @@ top:auto;
                     <input form="{{ product_form_id }}" type="date" id="delivery-date-{{ section.id }}" name="properties[Delivery Date]" required>
                 </div>
                 <div class="hdt-product-form_value is-type-block">
-                    <label class="hdt-product-form__label hdt-s-text" for="delivery-slot-{{ section.id }}">Delivery Time Slot</label>
-                    <select form="{{ product_form_id }}" id="delivery-slot-{{ section.id }}" name="properties[Delivery Time Slot]" required>
-                        <option value=""></option>
-                        <option value="11:00 AM - 1:00 PM">11:00 AM - 1:00 PM</option>
-                        <option value="1:00 PM - 3:00 PM">1:00 PM - 3:00 PM</option>
-                        <option value="3:00 PM - 5:00 PM">3:00 PM - 5:00 PM</option>
-                        <option value="5:00 PM - 7:00 PM">5:00 PM - 7:00 PM</option>
-                        <option value="7:00 PM - 9:00 PM">7:00 PM - 9:00 PM</option>
-                    </select>
+                    <label class="hdt-product-form__label hdt-s-text">Delivery Time Slot</label>
+                    <button type="button" class="tbk-slot-trigger" data-slot-trigger="{{ section.id }}" aria-haspopup="dialog">
+                      <span data-slot-display>Select Time Slot</span>
+                    </button>
+                    <input type="hidden" form="{{ product_form_id }}" id="delivery-slot-{{ section.id }}" name="properties[Delivery Time Slot]" data-slot-input="{{ section.id }}">
+
+                    <div class="tbk-slot-modal" data-slot-modal="{{ section.id }}" hidden>
+                      <div class="tbk-slot-modal__ov" data-slot-close="{{ section.id }}"></div>
+                      <div class="tbk-slot-modal__sheet" role="dialog" aria-modal="true" aria-label="Choose delivery time slot">
+                        <button type="button" class="tbk-slot-modal__x" data-slot-close="{{ section.id }}" aria-label="Close">✕</button>
+                        <div class="tbk-fancy-pop__head">
+                          <div class="tbk-fancy-pop__title"><span class="tbk-fancy-pop__flor" aria-hidden="true">❧</span>Choose Delivery Time Slot<span class="tbk-fancy-pop__flor" aria-hidden="true">❦</span></div>
+                          <div class="tbk-fancy-pop__sub">We deliver fresh, right on time!</div>
+                          <div class="tbk-fancy-pop__crown" aria-hidden="true"><i></i><svg viewBox="0 0 24 24" fill="none" stroke="#C9A227" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M3 8.5l4.3 3.5L12 5l4.7 7 4.3-3.5-1.8 10.5H4.8z"/></svg><i></i></div>
+                        </div>
+                        <div class="tbk-fancy-pop__banner">
+                          <span class="tbk-fancy-pop__banner-txt"><b>All time slots are same-day delivery.</b><br>Timely delivery, every time.</span>
+                          <span class="tbk-fancy-pop__banner-badge">🛡 On-Time Delivery</span>
+                        </div>
+                        <div class="tbk-slot-list">
+                          {%- assign slots = "11:00 AM - 1:00 PM|☀️|Ideal for morning celebrations|1,1:00 PM - 3:00 PM|🍽️|Perfect for lunch time|0,3:00 PM - 5:00 PM|⛅|Great for afternoon events|0,5:00 PM - 7:00 PM|🌇|Ideal for evening gatherings|0,7:00 PM - 9:00 PM|🌙|Perfect for dinner celebrations|0" | split: "," -%}
+                          {%- for s in slots -%}
+                            {%- assign p = s | split: "|" -%}
+                            <button type="button" class="tbk-fancy-opt tbk-slot-opt" data-slot-value="{{ p[0] }}" data-slot-pick="{{ section.id }}">
+                              <span class="tbk-fancy-opt__ico" aria-hidden="true">{{ p[1] }}</span>
+                              <span class="tbk-wt__main">
+                                <span class="tbk-slot-time">{{ p[0] }}</span>
+                                {%- if p[3] == "1" -%}<span class="tbk-slot-badge">★ Most Popular</span>{%- endif -%}
+                                <span class="tbk-wt__desc">{{ p[2] }}</span>
+                              </span>
+                              <span class="tbk-fancy-opt__radio" aria-hidden="true"></span>
+                            </button>
+                          {%- endfor -%}
+                        </div>
+                        <div class="tbk-slot-fresh">
+                          <span class="tbk-slot-fresh__ico" aria-hidden="true">🎂</span>
+                          <span class="tbk-slot-fresh__txt"><b>Freshly Made, Just for You</b><small>Your cake is freshly prepared after you place the order to ensure the best taste and quality.</small></span>
+                        </div>
+                        <div class="tbk-fancy-pop__foot tbk-fancy-pop__foot--weight">
+                          <span>🛡 Safe &amp; Secure<small>Packaging</small></span>
+                          <span>🚚 On-Time<small>Delivery</small></span>
+                          <span>❤ Made with<small>Love</small></span>
+                        </div>
+                      </div>
+                    </div>
                 </div>
               </div>
                 <div class="hdt-product-form_value is-type-block">
@@ -350,6 +386,29 @@ top:auto;
                     ** Note: Please select a valid date (today to 30 days ahead).
                 </p>
             </div>
+
+            <script>
+            (function(){
+              function closeAll(){ document.querySelectorAll('.tbk-slot-modal').forEach(function(m){ m.hidden = true; }); document.body.style.overflow=''; }
+              document.addEventListener('click', function(e){
+                var trig = e.target.closest('[data-slot-trigger]');
+                if(trig){ var id = trig.getAttribute('data-slot-trigger'); var m = document.querySelector('[data-slot-modal="'+id+'"]'); if(m){ m.hidden=false; document.body.style.overflow='hidden'; } return; }
+                if(e.target.closest('[data-slot-close]')){ closeAll(); return; }
+                var pick = e.target.closest('[data-slot-pick]');
+                if(pick){
+                  var id = pick.getAttribute('data-slot-pick');
+                  var val = pick.getAttribute('data-slot-value');
+                  var input = document.querySelector('[data-slot-input="'+id+'"]');
+                  var trg = document.querySelector('[data-slot-trigger="'+id+'"]');
+                  if(input) input.value = val;
+                  if(trg){ var d = trg.querySelector('[data-slot-display]'); if(d) d.textContent = val; }
+                  var modal = document.querySelector('[data-slot-modal="'+id+'"]');
+                  if(modal){ modal.querySelectorAll('[data-slot-pick]').forEach(function(b){ b.setAttribute('aria-selected','false'); }); pick.setAttribute('aria-selected','true'); }
+                  closeAll();
+                }
+              });
+            })();
+            </script>
 
             {%- when 'buy_buttons' -%}
            
@@ -1520,6 +1579,34 @@ width:100%;
   font-size:11.5px; font-weight:600; color:#7a2147; text-align:center; line-height:1.3;
 }
 .tbk-fancy-pop__foot--weight small{ font-weight:400; color:#9a8a90; }
+
+/* Time slot: trigger button (looks like the other fields) + bottom-sheet modal */
+.tbk-slot-trigger{
+  width:100%; min-height:56px; background:#fff; border:1px solid #E7E1E4; border-radius:12px;
+  color:#1A0810; font-size:15px; text-align:left; cursor:pointer;
+  padding:0 38px 0 42px; position:relative; display:flex; align-items:center;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C01457' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath d='M12 7v5l3 2'/%3E%3C/svg%3E");
+  background-repeat:no-repeat; background-position:14px center; background-size:20px 20px;
+}
+.tbk-slot-trigger::after{ content:""; position:absolute; right:16px; top:50%; width:8px; height:8px; border-right:2px solid #b0a0a8; border-bottom:2px solid #b0a0a8; transform:translateY(-70%) rotate(45deg); }
+.tbk-slot-trigger [data-slot-display]{ white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.tbk-slot-modal{ position:fixed; inset:0; z-index:99999; display:flex; align-items:flex-end; justify-content:center; }
+.tbk-slot-modal[hidden]{ display:none; }
+.tbk-slot-modal__ov{ position:absolute; inset:0; background:rgba(20,8,16,.5); }
+.tbk-slot-modal__sheet{
+  position:relative; width:100%; max-width:640px; max-height:92vh; overflow-y:auto;
+  background:#fff6f9; border-radius:22px 22px 0 0; padding:18px 8px 18px; box-shadow:0 -8px 40px rgba(0,0,0,.25);
+}
+.tbk-slot-modal__x{ position:absolute; top:14px; right:14px; width:34px; height:34px; border-radius:50%; background:#fff; border:1px solid #eee; font-size:13px; color:#7a2147; cursor:pointer; z-index:2; }
+.tbk-slot-list{ padding:6px 12px; }
+.tbk-slot-opt{ align-items:center; }
+.tbk-slot-time{ font-family:var(--tbk-font-display,"Playfair Display",serif); font-size:16px; font-weight:600; color:#5a1030; }
+.tbk-slot-badge{ display:inline-flex; align-items:center; gap:3px; align-self:flex-start; font-size:11px; font-weight:700; color:#C01457; margin:1px 0; }
+.tbk-slot-fresh{ display:flex; gap:12px; align-items:flex-start; margin:8px 12px; padding:12px 14px; background:#fdeef4; border-radius:14px; }
+.tbk-slot-fresh__ico{ font-size:26px; flex:0 0 auto; }
+.tbk-slot-fresh__txt{ display:flex; flex-direction:column; }
+.tbk-slot-fresh__txt b{ font-family:var(--tbk-font-display,"Playfair Display",serif); font-size:16px; color:#5a1030; }
+.tbk-slot-fresh__txt small{ font-size:12px; color:#9a8a90; margin-top:2px; }
 </style>
 <!-- TBK Mobile Conversion Cards -->
 
