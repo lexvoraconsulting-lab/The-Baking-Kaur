@@ -1204,6 +1204,28 @@ width:100%;
   margin-bottom:14px;
 }
 
+/* TBK — mobile single-column (authoritative; overrides the older 2-column
+   grid rules above). Gallery stacks full-width on top, panel full-width below. */
+@media(max-width:768px){
+  .tbk-premium-product{
+    display:block !important;
+    grid-template-columns:1fr !important;
+    gap:0 !important;
+  }
+  .tbk-product-gallery{
+    position:relative !important;
+    top:auto !important;
+    width:100% !important;
+    max-width:100% !important;
+    margin:0 0 20px !important;
+  }
+  .tbk-product-content{
+    width:100% !important;
+    max-width:100% !important;
+    margin:0 !important;
+  }
+}
+
 </style>
 
 
