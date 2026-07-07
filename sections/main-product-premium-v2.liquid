@@ -447,6 +447,30 @@ top:auto;
               setInterval(update, 900);
               update();
 
+              // Reference image: filename + thumbnail preview + remove
+              document.addEventListener('change', function(e){
+                var inp = e.target.closest('.tbk-refup__input'); if(!inp) return;
+                var wrap = inp.closest('.tbk-refup'); if(!wrap) return;
+                var nm = wrap.querySelector('[data-refup-name]');
+                var th = wrap.querySelector('[data-refup-thumb]');
+                var x = wrap.querySelector('[data-refup-clear]');
+                if(inp.files && inp.files[0]){
+                  nm.textContent = inp.files[0].name;
+                  try{ th.src = URL.createObjectURL(inp.files[0]); th.hidden = false; }catch(err){}
+                  x.hidden = false;
+                }
+              }, true);
+              document.addEventListener('click', function(e){
+                var x = e.target.closest('[data-refup-clear]'); if(!x) return;
+                e.preventDefault();
+                var wrap = x.closest('.tbk-refup'); if(!wrap) return;
+                var inp = wrap.querySelector('.tbk-refup__input'); if(inp) inp.value='';
+                var nm = wrap.querySelector('[data-refup-name]'); if(nm) nm.textContent='Choose file';
+                var th = wrap.querySelector('[data-refup-thumb]'); if(th){ th.hidden=true; th.removeAttribute('src'); }
+                x.hidden = true;
+                update();
+              }, true);
+
               // Guard: require Flavor, Weight, Delivery Date and Time Slot before Add to Cart
               var form = document.querySelector('form[action*="/cart/add"]');
               if(form){
@@ -730,8 +754,16 @@ top:auto;
       </div>
       <div class="tbk-extras">
         <div class="tbk-reference-upload">
-          <label for="reference-image-{{ section.id }}" class="hdt-product-form__label hdt-s-text">Reference Image (Optional)</label>
-          <input form="{{ product_form_id }}" type="file" id="reference-image-{{ section.id }}" name="properties[Reference Image]" accept="image/*">
+          <span class="hdt-product-form__label hdt-s-text">Reference Image (Optional)</span>
+          <div class="tbk-refup" data-refup="{{ section.id }}">
+            <label class="tbk-refup__box">
+              <input class="tbk-refup__input" form="{{ product_form_id }}" type="file" id="reference-image-{{ section.id }}" name="properties[Reference Image]" accept="image/*">
+              <span class="tbk-refup__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#C01457" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4"/><path d="M7 9l5-5 5 5"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg></span>
+              <span class="tbk-refup__name" data-refup-name>Choose file</span>
+              <img class="tbk-refup__thumb" data-refup-thumb alt="" hidden>
+            </label>
+            <button type="button" class="tbk-refup__x" data-refup-clear aria-label="Remove reference image" hidden>✕</button>
+          </div>
         </div>
         <div class="tbk-summary" data-summary="{{ section.id }}">
           <div class="tbk-summary__head">✓ YOUR SELECTION</div>
@@ -1685,6 +1717,17 @@ width:100%;
 /* Reference upload + selection summary: full width below the product grid */
 .tbk-premium-product > .tbk-extras{ grid-column:1 / -1; margin-top:14px; display:flex; flex-direction:column; gap:12px; }
 .tbk-extras .tbk-reference-upload{ margin-top:0; }
+.tbk-reference-upload > .hdt-product-form__label{ display:block; margin-bottom:6px; }
+
+/* Custom reference-image upload (icon + filename + thumbnail + remove) */
+.tbk-refup{ position:relative; }
+.tbk-refup__box{ display:flex; align-items:center; gap:12px; min-height:58px; padding:8px 46px 8px 14px; background:#fff; border:1px solid #f3cadb; border-radius:14px; cursor:pointer; }
+.tbk-refup__input{ position:absolute; width:1px; height:1px; opacity:0; overflow:hidden; }
+.tbk-refup__icon{ width:36px; height:36px; flex:0 0 auto; display:inline-flex; align-items:center; justify-content:center; }
+.tbk-refup__icon svg{ width:22px; height:22px; }
+.tbk-refup__name{ flex:1 1 auto; color:#3a1020; font-size:14px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.tbk-refup__thumb{ width:44px; height:44px; flex:0 0 auto; border-radius:8px; object-fit:cover; border:1px solid #f0e2e8; }
+.tbk-refup__x{ position:absolute; right:12px; top:50%; transform:translateY(-50%); width:28px; height:28px; border:0; background:none; color:#C01457; font-size:16px; line-height:1; cursor:pointer; }
 
 /* "Your selection" live summary card */
 .tbk-summary{ margin-top:0; border:1px solid #f3cadb; border-radius:16px; background:#fff8fb; padding:16px 18px 14px; }
