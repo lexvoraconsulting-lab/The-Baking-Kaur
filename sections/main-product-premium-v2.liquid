@@ -545,6 +545,29 @@ top:auto;
       <span>WhatsApp Customization</span>
     </a>
 
+    <div class="tbk-love">
+      <div class="tbk-love__col">
+        <div class="tbk-love__title">Why Customers Love Us</div>
+        <div class="tbk-love__items">
+          <div class="tbk-love__item"><span class="tbk-love__ico">❤️</span><b>20,000+</b><small>Happy Customers</small></div>
+          <div class="tbk-love__item"><span class="tbk-love__ico">🍽️</span><b>Top Rated</b><small>Bakery in Meerut</small></div>
+          <div class="tbk-love__item"><span class="tbk-love__ico">🔵</span><b>4.9 ★</b><small>Google Rating</small></div>
+          <div class="tbk-love__item"><span class="tbk-love__ico">👥</span><b>Experienced</b><small>Cake Artists</small></div>
+        </div>
+      </div>
+      <div class="tbk-love__sep" aria-hidden="true"></div>
+      <div class="tbk-love__col">
+        <div class="tbk-love__title">Perfect For Every Occasion</div>
+        <div class="tbk-love__items tbk-love__items--occ">
+          <div class="tbk-love__item"><span class="tbk-love__ico">🎉</span><small>Birthday</small></div>
+          <div class="tbk-love__item"><span class="tbk-love__ico">🧒</span><small>Kids Party</small></div>
+          <div class="tbk-love__item"><span class="tbk-love__ico">💝</span><small>Anniversary</small></div>
+          <div class="tbk-love__item"><span class="tbk-love__ico">🎁</span><small>Return Gift</small></div>
+          <div class="tbk-love__item"><span class="tbk-love__ico">✨</span><small>Celebration</small></div>
+        </div>
+      </div>
+    </div>
+
   </div>
 
 
@@ -772,28 +795,6 @@ top:auto;
         </div>
       </div>
       <div class="tbk-extras">
-        <div class="tbk-love">
-          <div class="tbk-love__col">
-            <div class="tbk-love__title">Why Customers Love Us</div>
-            <div class="tbk-love__items">
-              <div class="tbk-love__item"><span class="tbk-love__ico">❤️</span><b>20,000+</b><small>Happy Customers</small></div>
-              <div class="tbk-love__item"><span class="tbk-love__ico">🍽️</span><b>Top Rated Bakery</b><small>in Meerut</small></div>
-              <div class="tbk-love__item"><span class="tbk-love__ico">🔵</span><b>4.9 ★</b><small>Google Rating</small></div>
-              <div class="tbk-love__item"><span class="tbk-love__ico">👥</span><b>Experienced</b><small>Cake Artists</small></div>
-            </div>
-          </div>
-          <div class="tbk-love__sep" aria-hidden="true"></div>
-          <div class="tbk-love__col">
-            <div class="tbk-love__title">Perfect For Every Occasion</div>
-            <div class="tbk-love__items tbk-love__items--occ">
-              <div class="tbk-love__item"><span class="tbk-love__ico">🎉</span><small>Birthday</small></div>
-              <div class="tbk-love__item"><span class="tbk-love__ico">🧒</span><small>Kids Party</small></div>
-              <div class="tbk-love__item"><span class="tbk-love__ico">💝</span><small>Anniversary</small></div>
-              <div class="tbk-love__item"><span class="tbk-love__ico">🎁</span><small>Return Gift</small></div>
-              <div class="tbk-love__item"><span class="tbk-love__ico">✨</span><small>Celebration</small></div>
-            </div>
-          </div>
-        </div>
         <div class="tbk-summary" data-summary="{{ section.id }}">
           <div class="tbk-summary__head">✓ YOUR SELECTION</div>
           <div class="tbk-summary__rows">
@@ -1809,9 +1810,13 @@ body{ background:#FDFAF8 !important; }
 .tbk-love__item b{ font-size:10px; color:#3a1020; }
 .tbk-love__item small{ font-size:8.5px; color:#8a7f85; }
 @media(max-width:768px){
-  .tbk-love{ flex-direction:column; gap:8px; padding:9px 10px; }
+  .tbk-love{ flex-direction:column; gap:6px; padding:8px; margin-top:8px; }
   .tbk-love__sep{ width:100%; height:1px; align-self:auto; }
-  .tbk-love__ico{ font-size:15px; }
+  .tbk-love__title{ font-size:9.5px; margin-bottom:5px; }
+  .tbk-love__items{ gap:3px; }
+  .tbk-love__ico{ font-size:13px; margin-bottom:1px; }
+  .tbk-love__item b{ font-size:8.5px; }
+  .tbk-love__item small{ font-size:7.5px; }
 }
 .tbk-extras .tbk-reference-upload{ margin-top:0; }
 .tbk-reference-upload > .hdt-product-form__label{ display:block; margin-bottom:6px; }
