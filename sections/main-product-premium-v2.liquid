@@ -334,8 +334,41 @@ top:auto;
             <div class="delivery-options">
               <div class="tbk-date-time-row">
                 <div class="hdt-product-form_value is-type-block">
-                    <label class="hdt-product-form__label hdt-s-text" for="delivery-date-{{ section.id }}">Delivery Date</label>
-                    <input form="{{ product_form_id }}" type="date" id="delivery-date-{{ section.id }}" name="properties[Delivery Date]" required>
+                    <label class="hdt-product-form__label hdt-s-text">Delivery Date</label>
+                    <button type="button" class="tbk-slot-trigger tbk-date-trigger" data-date-trigger="{{ section.id }}" aria-haspopup="dialog"><span data-date-display>Select date</span></button>
+                    <input type="hidden" form="{{ product_form_id }}" id="delivery-date-{{ section.id }}" name="properties[Delivery Date]" data-date-input="{{ section.id }}" required>
+
+                    <div class="tbk-slot-modal tbk-date-modal" data-date-modal="{{ section.id }}" hidden>
+                      <div class="tbk-slot-modal__ov" data-date-close="{{ section.id }}"></div>
+                      <div class="tbk-slot-modal__sheet" role="dialog" aria-modal="true" aria-label="Select delivery date">
+                        <button type="button" class="tbk-slot-modal__x" data-date-close="{{ section.id }}" aria-label="Close">✕</button>
+                        <div class="tbk-fancy-pop__head">
+                          <div class="tbk-fancy-pop__title"><span class="tbk-fancy-pop__flor" aria-hidden="true">❧</span>Select Delivery Date<span class="tbk-fancy-pop__flor" aria-hidden="true">❦</span></div>
+                          <div class="tbk-fancy-pop__sub">Freshly baked, delivered right on time</div>
+                          <div class="tbk-fancy-pop__crown" aria-hidden="true"><i></i><svg viewBox="0 0 24 24" fill="none" stroke="#C9A227" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M3 8.5l4.3 3.5L12 5l4.7 7 4.3-3.5-1.8 10.5H4.8z"/></svg><i></i></div>
+                        </div>
+                        <div class="tbk-cal-nav">
+                          <button type="button" class="tbk-cal-arrow" data-cal-prev="{{ section.id }}" aria-label="Previous month">‹</button>
+                          <span class="tbk-cal-month" data-cal-month>—</span>
+                          <button type="button" class="tbk-cal-arrow" data-cal-next="{{ section.id }}" aria-label="Next month">›</button>
+                        </div>
+                        <div class="tbk-cal-dow"><span>MON</span><span>TUE</span><span>WED</span><span>THU</span><span>FRI</span><span>SAT</span><span>SUN</span></div>
+                        <div class="tbk-cal-grid" data-cal-grid="{{ section.id }}"></div>
+                        <div class="tbk-slot-fresh">
+                          <span class="tbk-slot-fresh__ico" aria-hidden="true">🎂</span>
+                          <span class="tbk-slot-fresh__txt"><b>We bake it fresh for you!</b><small>Your cake is freshly prepared after you place the order to ensure the best taste and quality.</small></span>
+                        </div>
+                        <div class="tbk-fancy-pop__foot tbk-fancy-pop__foot--weight">
+                          <span>🛡 Freshly Baked<small>After You Order</small></span>
+                          <span>📦 Safe &amp; Secure<small>Packaging</small></span>
+                          <span>🚚 On-Time<small>Delivery</small></span>
+                        </div>
+                        <div class="tbk-date-actions">
+                          <button type="button" class="tbk-date-clear" data-date-clear="{{ section.id }}">Clear</button>
+                          <button type="button" class="tbk-date-confirm" data-date-confirm="{{ section.id }}">Confirm Date</button>
+                        </div>
+                      </div>
+                    </div>
                 </div>
                 <div class="hdt-product-form_value is-type-block">
                     <label class="hdt-product-form__label hdt-s-text">Delivery Time Slot</label>
@@ -504,6 +537,67 @@ top:auto;
                 if(!val('#delivery-date-'+SID)) miss.push('Delivery Date');
                 if(!val('[data-slot-input="'+SID+'"]')) miss.push('Delivery Time Slot');
                 if(miss.length){ e.preventDefault(); e.stopPropagation(); alert('Please select: '+miss.join(', ')); }
+              }, true);
+            })();
+            </script>
+
+            <script>
+            (function(){
+              var SID = "{{ section.id }}";
+              var view=null, tentative=null;
+              var MON=['January','February','March','April','May','June','July','August','September','October','November','December'];
+              var DY=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+              function pad(n){ return n<10?('0'+n):(''+n); }
+              function ymd(d){ return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate()); }
+              function today(){ var d=new Date(); d.setHours(0,0,0,0); return d; }
+              function addDays(d,n){ var x=new Date(d); x.setDate(x.getDate()+n); return x; }
+              function fmt(iso){ var d=new Date(iso+'T00:00:00'); return d.getDate()+' '+MON[d.getMonth()]+' '+d.getFullYear()+' ('+DY[d.getDay()]+')'; }
+              function q(sel){ return document.querySelector(sel); }
+              function render(){
+                var g=q('[data-cal-grid="'+SID+'"]'); if(!g||!view) return;
+                var y=view.getFullYear(), m=view.getMonth();
+                var mo=q('[data-date-modal="'+SID+'"] [data-cal-month]'); if(mo) mo.textContent=MON[m]+' '+y;
+                var startDow=(new Date(y,m,1).getDay()+6)%7;
+                var daysIn=new Date(y,m+1,0).getDate();
+                var prevDays=new Date(y,m,0).getDate();
+                var min=today(), max=addDays(min,30);
+                var html='';
+                for(var i=startDow-1;i>=0;i--){ html+='<button type="button" class="tbk-cal-cell is-out" disabled>'+(prevDays-i)+'</button>'; }
+                for(var d=1;d<=daysIn;d++){
+                  var cur=new Date(y,m,d); cur.setHours(0,0,0,0);
+                  var dis=cur<min||cur>max; var iso=ymd(cur);
+                  var wknd=(cur.getDay()===0||cur.getDay()===6);
+                  var sel=(tentative===iso);
+                  html+='<button type="button" class="tbk-cal-cell'+(dis?' is-disabled':'')+(wknd?' is-wknd':'')+(sel?' is-sel':'')+'"'+(dis?' disabled':' data-cal-day="'+iso+'"')+'>'+d+'</button>';
+                }
+                var trail=(7-((startDow+daysIn)%7))%7;
+                for(var t=1;t<=trail;t++){ html+='<button type="button" class="tbk-cal-cell is-out" disabled>'+t+'</button>'; }
+                g.innerHTML=html;
+              }
+              function open(){
+                var m=q('[data-date-modal="'+SID+'"]'); if(!m) return;
+                var inp=q('[data-date-input="'+SID+'"]');
+                tentative=(inp&&inp.value)?inp.value:null;
+                var base=tentative?new Date(tentative+'T00:00:00'):today();
+                view=new Date(base.getFullYear(), base.getMonth(), 1);
+                render(); m.hidden=false; document.body.style.overflow='hidden';
+              }
+              function close(){ var m=q('[data-date-modal="'+SID+'"]'); if(m) m.hidden=true; document.body.style.overflow=''; }
+              document.addEventListener('click', function(e){
+                if(e.target.closest('[data-date-trigger="'+SID+'"]')){ open(); return; }
+                if(e.target.closest('[data-date-close="'+SID+'"]')){ close(); return; }
+                if(e.target.closest('[data-cal-prev="'+SID+'"]')){ view=new Date(view.getFullYear(),view.getMonth()-1,1); render(); return; }
+                if(e.target.closest('[data-cal-next="'+SID+'"]')){ view=new Date(view.getFullYear(),view.getMonth()+1,1); render(); return; }
+                var day=e.target.closest('[data-cal-day]'); if(day){ tentative=day.getAttribute('data-cal-day'); render(); return; }
+                if(e.target.closest('[data-date-clear="'+SID+'"]')){
+                  tentative=null; var inp=q('[data-date-input="'+SID+'"]'); if(inp) inp.value='';
+                  var disp=q('[data-date-trigger="'+SID+'"] [data-date-display]'); if(disp) disp.textContent='Select date'; render(); return;
+                }
+                if(e.target.closest('[data-date-confirm="'+SID+'"]')){
+                  if(tentative){ var inp=q('[data-date-input="'+SID+'"]'); if(inp) inp.value=tentative;
+                    var disp=q('[data-date-trigger="'+SID+'"] [data-date-display]'); if(disp) disp.textContent=fmt(tentative); }
+                  close(); return;
+                }
               }, true);
             })();
             </script>
@@ -1773,6 +1867,26 @@ width:100%;
 .tbk-slot-fresh__txt{ display:flex; flex-direction:column; }
 .tbk-slot-fresh__txt b{ font-family:var(--tbk-font-display,"Playfair Display",serif); font-size:16px; color:#5a1030; }
 .tbk-slot-fresh__txt small{ font-size:12px; color:#9a8a90; margin-top:2px; }
+
+/* Delivery date — custom calendar */
+.tbk-date-trigger{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C01457' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='4' width='18' height='17' rx='2'/%3E%3Cpath d='M3 9h18M8 3v3M16 3v3'/%3E%3C/svg%3E") !important;
+}
+.tbk-cal-nav{ display:flex; align-items:center; justify-content:space-between; padding:6px 14px 2px; }
+.tbk-cal-arrow{ width:32px; height:32px; border-radius:50%; border:1px solid #f0e2e8; background:#fff; color:#C01457; font-size:18px; line-height:1; cursor:pointer; }
+.tbk-cal-month{ font-family:var(--tbk-font-display,"Playfair Display",serif); font-weight:600; font-size:16px; color:#3a1020; }
+.tbk-cal-dow{ display:grid; grid-template-columns:repeat(7,1fr); padding:2px 12px 0; }
+.tbk-cal-dow span{ text-align:center; font-size:10px; font-weight:700; color:#C01457; padding:4px 0; }
+.tbk-cal-grid{ display:grid; grid-template-columns:repeat(7,1fr); gap:4px; padding:2px 12px 6px; }
+.tbk-cal-cell{ aspect-ratio:1/1; border:1px solid #f3e6ec; border-radius:10px; background:#fff; color:#3a1020; font-size:13px; cursor:pointer; display:flex; align-items:center; justify-content:center; }
+.tbk-cal-cell.is-wknd{ color:#C01457; }
+.tbk-cal-cell.is-out{ color:#d8c7cf; border-color:transparent; background:transparent; cursor:default; }
+.tbk-cal-cell.is-disabled{ color:#d8c7cf; cursor:default; border-color:#f6eef2; background:#fdfafb; }
+.tbk-cal-cell.is-sel{ background:#C01457 !important; color:#fff !important; border-color:#C01457 !important; font-weight:700; }
+.tbk-cal-cell:not(.is-disabled):not(.is-out):hover{ border-color:#C01457; }
+.tbk-date-actions{ display:flex; gap:10px; padding:8px 14px 4px; }
+.tbk-date-clear{ flex:0 0 auto; min-width:104px; height:44px; border-radius:12px; border:1px solid #f0e2e8; background:#fff; color:#C01457; font-weight:700; font-size:14px; cursor:pointer; }
+.tbk-date-confirm{ flex:1 1 auto; height:44px; border-radius:12px; border:0; background:linear-gradient(135deg,#E0447E,#C01457); color:#fff; font-weight:700; font-size:15px; cursor:pointer; }
 
 /* "Our promise to you" card below the gallery image */
 .tbk-promise{ margin-top:14px; border:1px solid #f3d9a8; border-radius:16px; background:linear-gradient(180deg,#fffaf3,#fff6f9); padding:14px 14px 12px; }
