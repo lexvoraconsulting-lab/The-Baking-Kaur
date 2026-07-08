@@ -545,19 +545,6 @@ top:auto;
       <span>WhatsApp Customization</span>
     </a>
 
-    <div class="tbk-reference-upload">
-      <span class="hdt-product-form__label hdt-s-text">Reference Image (Optional)</span>
-      <div class="tbk-refup" data-refup="{{ section.id }}">
-        <label class="tbk-refup__box">
-          <input class="tbk-refup__input" form="{{ product_form_id }}" type="file" id="reference-image-{{ section.id }}" name="properties[Reference Image]" accept="image/*">
-          <span class="tbk-refup__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#C01457" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4"/><path d="M7 9l5-5 5 5"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg></span>
-          <span class="tbk-refup__name" data-refup-name>Choose file</span>
-          <img class="tbk-refup__thumb" data-refup-thumb alt="" hidden>
-        </label>
-        <button type="button" class="tbk-refup__x" data-refup-clear aria-label="Remove reference image" hidden>✕</button>
-      </div>
-    </div>
-
   </div>
 
 
@@ -785,6 +772,28 @@ top:auto;
         </div>
       </div>
       <div class="tbk-extras">
+        <div class="tbk-love">
+          <div class="tbk-love__col">
+            <div class="tbk-love__title">Why Customers Love Us</div>
+            <div class="tbk-love__items">
+              <div class="tbk-love__item"><span class="tbk-love__ico">❤️</span><b>20,000+</b><small>Happy Customers</small></div>
+              <div class="tbk-love__item"><span class="tbk-love__ico">🍽️</span><b>Top Rated Bakery</b><small>in Meerut</small></div>
+              <div class="tbk-love__item"><span class="tbk-love__ico">🔵</span><b>4.9 ★</b><small>Google Rating</small></div>
+              <div class="tbk-love__item"><span class="tbk-love__ico">👥</span><b>Experienced</b><small>Cake Artists</small></div>
+            </div>
+          </div>
+          <div class="tbk-love__sep" aria-hidden="true"></div>
+          <div class="tbk-love__col">
+            <div class="tbk-love__title">Perfect For Every Occasion</div>
+            <div class="tbk-love__items tbk-love__items--occ">
+              <div class="tbk-love__item"><span class="tbk-love__ico">🎉</span><small>Birthday</small></div>
+              <div class="tbk-love__item"><span class="tbk-love__ico">🧒</span><small>Kids Party</small></div>
+              <div class="tbk-love__item"><span class="tbk-love__ico">💝</span><small>Anniversary</small></div>
+              <div class="tbk-love__item"><span class="tbk-love__ico">🎁</span><small>Return Gift</small></div>
+              <div class="tbk-love__item"><span class="tbk-love__ico">✨</span><small>Celebration</small></div>
+            </div>
+          </div>
+        </div>
         <div class="tbk-summary" data-summary="{{ section.id }}">
           <div class="tbk-summary__head">✓ YOUR SELECTION</div>
           <div class="tbk-summary__rows">
@@ -794,7 +803,6 @@ top:auto;
             <div class="tbk-summary__row"><span class="tbk-summary__ico">📅</span><span class="tbk-summary__label">Delivery Date</span><span class="tbk-summary__val" data-sum="date">—</span></div>
             <div class="tbk-summary__row"><span class="tbk-summary__ico">🕐</span><span class="tbk-summary__label">Delivery Slot</span><span class="tbk-summary__val" data-sum="slot">—</span></div>
             <div class="tbk-summary__row"><span class="tbk-summary__ico">💬</span><span class="tbk-summary__label">Cake Message</span><span class="tbk-summary__val" data-sum="message">—</span></div>
-            <div class="tbk-summary__row"><span class="tbk-summary__ico">🖼️</span><span class="tbk-summary__label">Reference Image</span><span class="tbk-summary__val" data-sum="reference">—</span></div>
           </div>
           <div class="tbk-summary__foot">💚 100% Eggless&nbsp; • &nbsp;Freshly Baked After You Order&nbsp; • &nbsp;On-Time Delivery</div>
         </div>
@@ -1788,6 +1796,23 @@ width:100%;
 /* page background matches the header cream */
 body{ background:#FDFAF8 !important; }
 .hdt-main-product, .hdt-main-product.hdt-s-gradient{ background:#FDFAF8 !important; }
+
+/* "Why customers love us" + "Perfect for every occasion" trust band */
+.tbk-love{ display:flex; align-items:stretch; gap:12px; border:1px solid #f3d9e4; border-radius:14px; background:#fff; padding:10px 12px; }
+.tbk-love__col{ flex:1 1 0; min-width:0; }
+.tbk-love__sep{ width:1px; background:#f0e2e8; flex:0 0 auto; align-self:stretch; }
+.tbk-love__title{ text-align:center; color:#C01457; font-weight:700; font-size:11px; letter-spacing:.01em; margin-bottom:8px; }
+.tbk-love__items{ display:grid; grid-template-columns:repeat(4,1fr); gap:6px; }
+.tbk-love__items--occ{ grid-template-columns:repeat(5,1fr); }
+.tbk-love__item{ display:flex; flex-direction:column; align-items:center; text-align:center; gap:1px; line-height:1.15; }
+.tbk-love__ico{ font-size:16px; margin-bottom:2px; }
+.tbk-love__item b{ font-size:10px; color:#3a1020; }
+.tbk-love__item small{ font-size:8.5px; color:#8a7f85; }
+@media(max-width:768px){
+  .tbk-love{ flex-direction:column; gap:8px; padding:9px 10px; }
+  .tbk-love__sep{ width:100%; height:1px; align-self:auto; }
+  .tbk-love__ico{ font-size:15px; }
+}
 .tbk-extras .tbk-reference-upload{ margin-top:0; }
 .tbk-reference-upload > .hdt-product-form__label{ display:block; margin-bottom:6px; }
 
