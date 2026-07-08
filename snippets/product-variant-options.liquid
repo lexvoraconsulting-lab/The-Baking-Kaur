@@ -165,29 +165,39 @@
       {%- elsif fancy_dropdown -%}
         {%- liquid
           assign v_dc = value | downcase
-          assign emoji = '🧁'
+          assign fx = '50%'
+          assign fy = '50%'
           if v_dc contains 'biscoff'
-            assign emoji = '🍪'
-          elsif v_dc contains 'strawberry'
-            assign emoji = '🍓'
-          elsif v_dc contains 'pineapple'
-            assign emoji = '🍍'
-          elsif v_dc contains 'blueberry'
-            assign emoji = '🫐'
-          elsif v_dc contains 'chocolate'
-            assign emoji = '🍫'
+            assign fx = '0%'
+            assign fy = '0%'
+          elsif v_dc contains 'fresh fruit'
+            assign fx = '33.33%'
+            assign fy = '0%'
           elsif v_dc contains 'cocktail'
-            assign emoji = '🍹'
-          elsif v_dc contains 'fresh fruit' or v_dc contains 'fruit'
-            assign emoji = '🍓'
-          elsif v_dc contains 'vanilla'
-            assign emoji = '🍦'
-          elsif v_dc contains 'red velvet'
-            assign emoji = '🎂'
+            assign fx = '66.66%'
+            assign fy = '0%'
+          elsif v_dc contains 'pineapple'
+            assign fx = '100%'
+            assign fy = '0%'
+          elsif v_dc contains 'blueberry'
+            assign fx = '0%'
+            assign fy = '100%'
+          elsif v_dc contains 'truffle'
+            assign fx = '33.33%'
+            assign fy = '100%'
+          elsif v_dc contains 'mousse'
+            assign fx = '100%'
+            assign fy = '100%'
+          elsif v_dc contains 'chocolate'
+            assign fx = '66.66%'
+            assign fy = '100%'
+          elsif v_dc contains 'fruit'
+            assign fx = '33.33%'
+            assign fy = '0%'
           endif
         -%}
         <button type="button" role="option" value="{{ value | escape }}" aria-selected="{% if selected_value == value and un_no_pick %}true{% else %}false{% endif %}" class="tbk-fancy-opt{% if option_unavailable %} is-unavailable{% elsif option_soldout %} is-disabled{% endif %}">
-          <span class="tbk-fancy-opt__ico" aria-hidden="true">{{ emoji }}</span>
+          <span class="tbk-fancy-opt__ico tbk-flav" aria-hidden="true" style="background-image:url('{{ 'flavor-icons.png' | asset_url }}'); background-position:{{ fx }} {{ fy }};"></span>
           <span class="tbk-fancy-opt__name">{{ value }}</span>
           <span class="tbk-fancy-opt__radio" aria-hidden="true"></span>
         </button>
