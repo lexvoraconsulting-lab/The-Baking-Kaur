@@ -335,7 +335,7 @@ top:auto;
               <div class="tbk-date-time-row">
                 <div class="hdt-product-form_value is-type-block">
                     <label class="hdt-product-form__label hdt-s-text">Delivery Date</label>
-                    <button type="button" class="tbk-slot-trigger tbk-date-trigger" data-date-trigger="{{ section.id }}" aria-haspopup="dialog"><span data-date-display>Select date</span></button>
+                    <button type="button" class="tbk-slot-trigger tbk-date-trigger" data-date-trigger="{{ section.id }}" aria-haspopup="dialog"><span data-date-display></span></button>
                     <input type="hidden" form="{{ product_form_id }}" id="delivery-date-{{ section.id }}" name="properties[Delivery Date]" data-date-input="{{ section.id }}" required>
 
                     <div class="tbk-slot-modal tbk-date-modal" data-date-modal="{{ section.id }}" hidden>
@@ -373,7 +373,7 @@ top:auto;
                 <div class="hdt-product-form_value is-type-block">
                     <label class="hdt-product-form__label hdt-s-text">Delivery Time Slot</label>
                     <button type="button" class="tbk-slot-trigger" data-slot-trigger="{{ section.id }}" aria-haspopup="dialog">
-                      <span data-slot-display>Select Time Slot</span>
+                      <span data-slot-display></span>
                     </button>
                     <input type="hidden" form="{{ product_form_id }}" id="delivery-slot-{{ section.id }}" name="properties[Delivery Time Slot]" data-slot-input="{{ section.id }}">
 
@@ -591,7 +591,7 @@ top:auto;
                 var day=e.target.closest('[data-cal-day]'); if(day){ tentative=day.getAttribute('data-cal-day'); render(); return; }
                 if(e.target.closest('[data-date-clear="'+SID+'"]')){
                   tentative=null; var inp=q('[data-date-input="'+SID+'"]'); if(inp) inp.value='';
-                  var disp=q('[data-date-trigger="'+SID+'"] [data-date-display]'); if(disp) disp.textContent='Select date'; render(); return;
+                  var disp=q('[data-date-trigger="'+SID+'"] [data-date-display]'); if(disp) disp.textContent=''; render(); return;
                 }
                 if(e.target.closest('[data-date-confirm="'+SID+'"]')){
                   if(tentative){ var inp=q('[data-date-input="'+SID+'"]'); if(inp) inp.value=tentative;
