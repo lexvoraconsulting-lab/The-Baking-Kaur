@@ -216,8 +216,9 @@
     white-space: nowrap;
 }
  @media (max-width:1023px){
-    /* compact mobile header — no logo */
-    #tbk-hdr-{{ sid }} .tbk-hdr-logo{ display:none; }
+    /* show the lockup logo on mobile (small) */
+    #tbk-hdr-{{ sid }} .tbk-hdr-logo{ display:flex; }
+    #tbk-hdr-{{ sid }} .tbk-hdr-logo img.tbk-hdr-lockup-img{ height:30px; max-width:160px; }
     #tbk-hdr-{{ sid }} .tbk-hdr-logo-text,
     #tbk-hdr-{{ sid }} .tbk-hdr-logo-tag { display:none; }
   }
