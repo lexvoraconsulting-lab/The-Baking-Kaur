@@ -136,6 +136,17 @@ top:auto;
 
         </div>
 
+        <div class="tbk-promise">
+          <div class="tbk-promise__head" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#C9A227" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M3 8.5l4.3 3.5L12 5l4.7 7 4.3-3.5-1.8 10.5H4.8z"/></svg></div>
+          <div class="tbk-promise__title">OUR PROMISE TO YOU</div>
+          <div class="tbk-promise__row"><span class="tbk-promise__ico">✅</span><span class="tbk-promise__txt"><b>Freshly Baked</b><small>Made fresh after you order</small></span></div>
+          <div class="tbk-promise__row"><span class="tbk-promise__ico">🌿</span><span class="tbk-promise__txt"><b>100% Eggless</b><small>Pure veg &amp; safe for everyone</small></span></div>
+          <div class="tbk-promise__row"><span class="tbk-promise__ico">🚚</span><span class="tbk-promise__txt"><b>Same Day Delivery</b><small>2–4 hour delivery in Meerut</small></span></div>
+          <div class="tbk-promise__row"><span class="tbk-promise__ico">❄️</span><span class="tbk-promise__txt"><b>Safe &amp; Secure Packaging</b><small>Temperature controlled delivery</small></span></div>
+          <div class="tbk-promise__row"><span class="tbk-promise__ico">👥</span><span class="tbk-promise__txt"><b>Loved by 20,000+ Customers</b><small>⭐ 4.9 (Google Reviews)</small></span></div>
+          <div class="tbk-promise__foot">Baked with love, delivered with care</div>
+        </div>
+
 </div>
 
       <div class="tbk-product-content">
@@ -1720,6 +1731,19 @@ width:100%;
 .tbk-slot-fresh__txt{ display:flex; flex-direction:column; }
 .tbk-slot-fresh__txt b{ font-family:var(--tbk-font-display,"Playfair Display",serif); font-size:16px; color:#5a1030; }
 .tbk-slot-fresh__txt small{ font-size:12px; color:#9a8a90; margin-top:2px; }
+
+/* "Our promise to you" card below the gallery image */
+.tbk-promise{ margin-top:14px; border:1px solid #f3d9a8; border-radius:16px; background:linear-gradient(180deg,#fffaf3,#fff6f9); padding:14px 14px 12px; }
+.tbk-promise__head{ text-align:center; }
+.tbk-promise__head svg{ width:22px; height:22px; }
+.tbk-promise__title{ text-align:center; font-size:12px; font-weight:800; letter-spacing:.08em; color:#C01457; margin:2px 0 10px; }
+.tbk-promise__row{ display:flex; align-items:flex-start; gap:10px; padding:6px 0; border-top:1px solid #f6e7ee; }
+.tbk-promise__row:first-of-type{ border-top:0; }
+.tbk-promise__ico{ width:30px; height:30px; flex:0 0 auto; display:inline-flex; align-items:center; justify-content:center; font-size:15px; background:#fff; border:1px solid #f0e2e8; border-radius:50%; }
+.tbk-promise__txt{ display:flex; flex-direction:column; min-width:0; }
+.tbk-promise__txt b{ font-size:13px; color:#3a1020; font-weight:700; line-height:1.2; }
+.tbk-promise__txt small{ font-size:11.5px; color:#9a8a90; margin-top:1px; }
+.tbk-promise__foot{ margin-top:10px; padding-top:9px; border-top:1px solid #f3e0e8; text-align:center; font-size:11px; color:#C01457; font-weight:600; }
 
 /* Reference upload + selection summary: full width below the product grid */
 .tbk-premium-product > .tbk-extras{ grid-column:1 / -1; margin-top:14px; display:flex; flex-direction:column; gap:12px; }
