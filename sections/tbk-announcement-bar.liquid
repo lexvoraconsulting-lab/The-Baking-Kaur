@@ -131,17 +131,21 @@ box-shadow: 0 2px 8px rgba(0,0,0,.08);}
 
     {%- comment -%} LEFT — trust signals {%- endcomment -%}
     <div class="tbk-ann-trust" aria-label="Why choose us">
+      {%- assign pill_shown = false -%}
       {%- for block in section.blocks -%}
         {%- if block.type == 'trust_pill' -%}
-          {%- unless forloop.first -%}
+          {%- assign pill_text = block.settings.text | strip -%}
+          {%- if pill_text == '100% Eggless' -%}{%- continue -%}{%- endif -%}
+          {%- if pill_shown -%}
             <span class="tbk-ann-sep" aria-hidden="true"></span>
-          {%- endunless -%}
+          {%- endif -%}
           <span class="tbk-ann-pill" {{ block.shopify_attributes }}>
             {%- if block.settings.icon != blank -%}
               <span class="tbk-ann-pill-icon" aria-hidden="true">{{ block.settings.icon }}</span>
             {%- endif -%}
             <span>{{ block.settings.text }}</span>
           </span>
+          {%- assign pill_shown = true -%}
         {%- endif -%}
       {%- endfor -%}
     </div>
