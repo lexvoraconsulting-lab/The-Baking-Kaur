@@ -1450,7 +1450,7 @@ width:100%;
     max-width:none !important;
     margin:0 !important;
     grid-column:2 !important;
-    grid-row:1 !important;
+    grid-row:1 / span 2 !important;
   }
   /* Delivery Time Slot box = same height as Delivery Date box */
   .hdt-container .delivery-options .tbk-slot-trigger{
@@ -1460,26 +1460,21 @@ width:100%;
     padding-top:0 !important;
     padding-bottom:0 !important;
   }
-  /* promise card: full width, COMPACT 2-column grid on mobile */
+  /* promise card sits in the LEFT column below the image, compact, to fill
+     the empty space beside Add-to-Cart / WhatsApp */
   .hdt-container .tbk-premium-product > .tbk-promise{
-    grid-column:1 / -1 !important;
+    grid-column:1 !important;
     grid-row:2 !important;
     margin-top:12px !important;
-    padding:12px !important;
+    padding:10px !important;
   }
-  .hdt-container .tbk-promise__rows{
-    display:grid !important;
-    grid-template-columns:1fr 1fr !important;
-    gap:8px !important;
-  }
-  .hdt-container .tbk-promise__row{
-    border-top:0 !important;
-    padding:0 !important;
-    gap:8px !important;
-  }
-  .hdt-container .tbk-promise__ico{ width:26px !important; height:26px !important; font-size:13px !important; }
-  .hdt-container .tbk-promise__txt b{ font-size:12px !important; }
-  .hdt-container .tbk-promise__txt small{ font-size:10.5px !important; }
+  .hdt-container .tbk-promise__title{ font-size:10px !important; margin:2px 0 6px !important; }
+  .hdt-container .tbk-promise__head svg{ width:18px !important; height:18px !important; }
+  .hdt-container .tbk-promise__row{ padding:5px 0 !important; gap:6px !important; }
+  .hdt-container .tbk-promise__ico{ width:22px !important; height:22px !important; font-size:11px !important; }
+  .hdt-container .tbk-promise__txt b{ font-size:11px !important; line-height:1.15 !important; }
+  .hdt-container .tbk-promise__txt small{ font-size:9.5px !important; line-height:1.2 !important; }
+  .hdt-container .tbk-promise__foot{ font-size:9.5px !important; }
 
   /* small title */
   .hdt-container .tbk-product-content .hdt-product-info__item{ margin:0 0 6px !important; }
