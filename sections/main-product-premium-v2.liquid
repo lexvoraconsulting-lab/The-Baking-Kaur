@@ -136,6 +136,19 @@ top:auto;
 
         </div>
 
+        <div class="tbk-promise">
+          <div class="tbk-promise__head" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#C9A227" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M3 8.5l4.3 3.5L12 5l4.7 7 4.3-3.5-1.8 10.5H4.8z"/></svg></div>
+          <div class="tbk-promise__title">OUR PROMISE TO YOU</div>
+          <div class="tbk-promise__rows">
+            <div class="tbk-promise__row"><span class="tbk-promise__ico">✅</span><span class="tbk-promise__txt"><b>Freshly Baked</b><small>Made fresh after you order</small></span></div>
+            <div class="tbk-promise__row"><span class="tbk-promise__ico">🌿</span><span class="tbk-promise__txt"><b>100% Eggless</b><small>Pure veg &amp; safe for everyone</small></span></div>
+            <div class="tbk-promise__row"><span class="tbk-promise__ico">🚚</span><span class="tbk-promise__txt"><b>Same Day Delivery</b><small>2–4 hour delivery in Meerut</small></span></div>
+            <div class="tbk-promise__row"><span class="tbk-promise__ico">❄️</span><span class="tbk-promise__txt"><b>Safe &amp; Secure Packaging</b><small>Temperature controlled delivery</small></span></div>
+            <div class="tbk-promise__row"><span class="tbk-promise__ico">👥</span><span class="tbk-promise__txt"><b>Loved by 20,000+ Customers</b><small>⭐ 4.8 (Google Reviews)</small></span></div>
+          </div>
+          <div class="tbk-promise__foot">Baked with love, delivered with care</div>
+        </div>
+
 </div>
 
       <div class="tbk-product-content">
@@ -758,18 +771,6 @@ top:auto;
             {%- endcase -%}
         {%- endfor -%}
         </div>
-      </div>
-      <div class="tbk-promise">
-        <div class="tbk-promise__head" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#C9A227" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M3 8.5l4.3 3.5L12 5l4.7 7 4.3-3.5-1.8 10.5H4.8z"/></svg></div>
-        <div class="tbk-promise__title">OUR PROMISE TO YOU</div>
-        <div class="tbk-promise__rows">
-          <div class="tbk-promise__row"><span class="tbk-promise__ico">✅</span><span class="tbk-promise__txt"><b>Freshly Baked</b><small>Made fresh after you order</small></span></div>
-          <div class="tbk-promise__row"><span class="tbk-promise__ico">🌿</span><span class="tbk-promise__txt"><b>100% Eggless</b><small>Pure veg &amp; safe for everyone</small></span></div>
-          <div class="tbk-promise__row"><span class="tbk-promise__ico">🚚</span><span class="tbk-promise__txt"><b>Same Day Delivery</b><small>2–4 hour delivery in Meerut</small></span></div>
-          <div class="tbk-promise__row"><span class="tbk-promise__ico">❄️</span><span class="tbk-promise__txt"><b>Safe &amp; Secure Packaging</b><small>Temperature controlled delivery</small></span></div>
-          <div class="tbk-promise__row"><span class="tbk-promise__ico">👥</span><span class="tbk-promise__txt"><b>Loved by 20,000+ Customers</b><small>⭐ 4.8 (Google Reviews)</small></span></div>
-        </div>
-        <div class="tbk-promise__foot">Baked with love, delivered with care</div>
       </div>
       <div class="tbk-extras">
         <div class="tbk-reference-upload">
@@ -1450,7 +1451,7 @@ width:100%;
     max-width:none !important;
     margin:0 !important;
     grid-column:2 !important;
-    grid-row:1 / span 2 !important;
+    grid-row:1 !important;
   }
   /* Delivery Time Slot box = same height as Delivery Date box */
   .hdt-container .delivery-options .tbk-slot-trigger{
@@ -1460,14 +1461,9 @@ width:100%;
     padding-top:0 !important;
     padding-bottom:0 !important;
   }
-  /* promise card sits in the LEFT column below the image, compact, to fill
-     the empty space beside Add-to-Cart / WhatsApp */
-  .hdt-container .tbk-premium-product > .tbk-promise{
-    grid-column:1 !important;
-    grid-row:2 !important;
-    margin-top:12px !important;
-    padding:10px !important;
-  }
+  /* promise card lives in the left (gallery) column below the image; make it
+     compact so it fills the empty space beside Add-to-Cart / WhatsApp */
+  .hdt-container .tbk-promise{ margin-top:12px !important; padding:10px !important; }
   .hdt-container .tbk-promise__title{ font-size:10px !important; margin:2px 0 6px !important; }
   .hdt-container .tbk-promise__head svg{ width:18px !important; height:18px !important; }
   .hdt-container .tbk-promise__row{ padding:5px 0 !important; gap:6px !important; }
@@ -1773,13 +1769,10 @@ width:100%;
 .tbk-promise__txt b{ font-size:13px; color:#3a1020; font-weight:700; line-height:1.2; }
 .tbk-promise__txt small{ font-size:11.5px; color:#9a8a90; margin-top:1px; }
 .tbk-promise__foot{ margin-top:10px; padding-top:9px; border-top:1px solid #f3e0e8; text-align:center; font-size:11px; color:#C01457; font-weight:600; }
-/* Desktop: promise sits in the left column below the image; content spans both rows */
 .tbk-premium-product{ align-items:start; }
-.tbk-premium-product > .tbk-product-content{ grid-column:2; grid-row:1 / span 2; }
-.tbk-premium-product > .tbk-promise{ grid-column:1; grid-row:2; margin-top:14px; }
 
-/* Reference upload + selection summary: full width below the product grid */
-.tbk-premium-product > .tbk-extras{ grid-column:1 / -1; margin-top:14px; display:flex; flex-direction:column; gap:12px; }
+/* Reference upload + selection summary: full width below the product */
+.tbk-extras{ margin-top:14px; display:flex; flex-direction:column; gap:12px; }
 .tbk-extras .tbk-reference-upload{ margin-top:0; }
 .tbk-reference-upload > .hdt-product-form__label{ display:block; margin-bottom:6px; }
 
