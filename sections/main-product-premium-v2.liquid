@@ -137,7 +137,6 @@ top:auto;
         </div>
 
         <div class="tbk-promise">
-          <div class="tbk-promise__head" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#C9A227" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M3 8.5l4.3 3.5L12 5l4.7 7 4.3-3.5-1.8 10.5H4.8z"/></svg></div>
           <div class="tbk-promise__title">OUR PROMISE TO YOU</div>
           <div class="tbk-promise__rows">
             <div class="tbk-promise__row"><span class="tbk-promise__ico">✅</span><span class="tbk-promise__txt"><b>Freshly Baked</b><small>Made fresh after you order</small></span></div>
@@ -1461,16 +1460,15 @@ width:100%;
     padding-top:0 !important;
     padding-bottom:0 !important;
   }
-  /* promise card lives in the left (gallery) column below the image; make it
-     compact so it fills the empty space beside Add-to-Cart / WhatsApp */
-  .hdt-container .tbk-promise{ margin-top:12px !important; padding:10px !important; }
-  .hdt-container .tbk-promise__title{ font-size:10px !important; margin:2px 0 6px !important; }
-  .hdt-container .tbk-promise__head svg{ width:18px !important; height:18px !important; }
-  .hdt-container .tbk-promise__row{ padding:5px 0 !important; gap:6px !important; }
-  .hdt-container .tbk-promise__ico{ width:22px !important; height:22px !important; font-size:11px !important; }
-  .hdt-container .tbk-promise__txt b{ font-size:11px !important; line-height:1.15 !important; }
-  .hdt-container .tbk-promise__txt small{ font-size:9.5px !important; line-height:1.2 !important; }
-  .hdt-container .tbk-promise__foot{ font-size:9.5px !important; }
+  /* promise card lives in the left (gallery) column below the image; compact
+     (icon + short title only) so it fills the space beside the buttons */
+  .hdt-container .tbk-promise{ margin-top:10px !important; padding:8px !important; }
+  .hdt-container .tbk-promise__title{ font-size:9px !important; margin:0 0 4px !important; letter-spacing:.02em !important; }
+  .hdt-container .tbk-promise__row{ padding:3px 0 !important; gap:6px !important; align-items:center !important; }
+  .hdt-container .tbk-promise__ico{ width:20px !important; height:20px !important; font-size:12px !important; }
+  .hdt-container .tbk-promise__txt b{ font-size:10.5px !important; line-height:1.1 !important; }
+  .hdt-container .tbk-promise__txt small{ display:none !important; }
+  .hdt-container .tbk-promise__foot{ display:none !important; }
 
   /* small title */
   .hdt-container .tbk-product-content .hdt-product-info__item{ margin:0 0 6px !important; }
