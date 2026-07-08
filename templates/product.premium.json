@@ -65,7 +65,7 @@
           "type": "custom_liquid",
           "name": "Delievery",
           "settings": {
-            "custom_liquid": "<div class=\"trust-pills\">\n<span>❤️ 100% Eggless</span>\n<span>🚚 Same Day Delivery</span>\n<span>✨ Freshly Made</span>\n</div>\n\n<style>\n.trust-pills{\ndisplay:flex;\ngap:10px;\nflex-wrap:wrap;\nmargin:10px 0 20px;\n}\n\n.trust-pills span{\nbackground:#fff7f8;\nborder:1px solid #f2d6dd;\npadding:8px 12px;\nborder-radius:999px;\nfont-size:13px;\nfont-weight:600;\ncolor:#7a2147;\n}\n</style>"
+            "custom_liquid": ""
           }
         },
         "1248e930-5734-45b4-a1d6-a814910fdb63": {
