@@ -545,6 +545,19 @@ top:auto;
       <span>WhatsApp Customization</span>
     </a>
 
+    <div class="tbk-reference-upload">
+      <span class="hdt-product-form__label hdt-s-text">Reference Image (Optional)</span>
+      <div class="tbk-refup" data-refup="{{ section.id }}">
+        <label class="tbk-refup__box">
+          <input class="tbk-refup__input" form="{{ product_form_id }}" type="file" id="reference-image-{{ section.id }}" name="properties[Reference Image]" accept="image/*">
+          <span class="tbk-refup__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#C01457" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4"/><path d="M7 9l5-5 5 5"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg></span>
+          <span class="tbk-refup__name" data-refup-name>Choose file</span>
+          <img class="tbk-refup__thumb" data-refup-thumb alt="" hidden>
+        </label>
+        <button type="button" class="tbk-refup__x" data-refup-clear aria-label="Remove reference image" hidden>✕</button>
+      </div>
+    </div>
+
   </div>
 
 
@@ -772,18 +785,6 @@ top:auto;
         </div>
       </div>
       <div class="tbk-extras">
-        <div class="tbk-reference-upload">
-          <span class="hdt-product-form__label hdt-s-text">Reference Image (Optional)</span>
-          <div class="tbk-refup" data-refup="{{ section.id }}">
-            <label class="tbk-refup__box">
-              <input class="tbk-refup__input" form="{{ product_form_id }}" type="file" id="reference-image-{{ section.id }}" name="properties[Reference Image]" accept="image/*">
-              <span class="tbk-refup__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#C01457" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4"/><path d="M7 9l5-5 5 5"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg></span>
-              <span class="tbk-refup__name" data-refup-name>Choose file</span>
-              <img class="tbk-refup__thumb" data-refup-thumb alt="" hidden>
-            </label>
-            <button type="button" class="tbk-refup__x" data-refup-clear aria-label="Remove reference image" hidden>✕</button>
-          </div>
-        </div>
         <div class="tbk-summary" data-summary="{{ section.id }}">
           <div class="tbk-summary__head">✓ YOUR SELECTION</div>
           <div class="tbk-summary__rows">
