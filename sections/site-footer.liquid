@@ -1,0 +1,203 @@
+{%- comment -%}
+  sections/site-footer.liquid
+  The Baking Kaur — MINIMAL production-safe footer (Phase A restore).
+
+  Purpose: the live store previously rendered NO footer (theme.liquid calls
+  `sections 'footer-group'`, which did not exist). This restores an essential,
+  accessible, brand-consistent footer using ONLY the existing design tokens
+  (snippets/tbk-tokens.liquid) — no new visual language. The premium enterprise
+  footer is designed later in the Navigation & Footer phase.
+
+  All content is real: policies via native shop.*_policy objects (auto-hide if
+  unset), internal links to verified pages, NAP + socials via editable settings.
+{%- endcomment -%}
+
+<footer class="tbk-sfooter" role="contentinfo" aria-labelledby="tbk-sfooter-heading">
+  <h2 id="tbk-sfooter-heading" class="tbk-sfooter__sr">{{ shop.name }} footer</h2>
+
+  <div class="tbk-sfooter__inner">
+
+    {%- comment -%} Brand + contact {%- endcomment -%}
+    <div class="tbk-sfooter__brand">
+      <a href="{{ routes.root_url }}" class="tbk-sfooter__logo" aria-label="{{ shop.name }} — home">
+        {%- if settings.logo != blank -%}
+          <img src="{{ settings.logo | image_url: width: 200 }}" width="100" height="auto"
+               alt="{{ shop.name }}" loading="lazy">
+        {%- else -%}
+          <span class="tbk-sfooter__wordmark">{{ shop.name }}</span>
+        {%- endif -%}
+      </a>
+
+      {%- if section.settings.tagline != blank -%}
+        <p class="tbk-sfooter__tagline">{{ section.settings.tagline }}</p>
+      {%- endif -%}
+
+      <address class="tbk-sfooter__nap">
+        <strong>{{ shop.name }}</strong><br>
+        {%- if section.settings.address != blank -%}{{ section.settings.address }}<br>{%- endif -%}
+        {%- if section.settings.phone != blank -%}
+          <a href="tel:{{ section.settings.phone | remove: ' ' | remove: '-' }}">{{ section.settings.phone }}</a><br>
+        {%- endif -%}
+        {%- if section.settings.email != blank -%}
+          <a href="mailto:{{ section.settings.email }}">{{ section.settings.email }}</a>
+        {%- endif -%}
+      </address>
+
+      <ul class="tbk-sfooter__social" aria-label="Social links">
+        {%- if section.settings.instagram_url != blank -%}
+          <li><a href="{{ section.settings.instagram_url }}" target="_blank" rel="noopener" aria-label="Instagram">Instagram</a></li>
+        {%- endif -%}
+        {%- if section.settings.whatsapp_url != blank -%}
+          <li><a href="{{ section.settings.whatsapp_url }}" target="_blank" rel="noopener" aria-label="WhatsApp">WhatsApp</a></li>
+        {%- endif -%}
+      </ul>
+    </div>
+
+    {%- comment -%} Company {%- endcomment -%}
+    <nav class="tbk-sfooter__col" aria-label="Company">
+      <h3 class="tbk-sfooter__title">Company</h3>
+      <ul>
+        <li><a href="/pages/about-us">About Us</a></li>
+        <li><a href="/pages/why-choose-the-baking-kaur">Why Choose Us</a></li>
+        <li><a href="/pages/contact">Contact Us</a></li>
+        <li><a href="/pages/store-locator">Store Locator</a></li>
+        <li><a href="/pages/frequently-asked-questions-faqs">FAQs</a></li>
+      </ul>
+    </nav>
+
+    {%- comment -%} Delivery {%- endcomment -%}
+    <nav class="tbk-sfooter__col" aria-label="Delivery">
+      <h3 class="tbk-sfooter__title">Delivery</h3>
+      <ul>
+        <li><a href="/pages/delivery-information">Delivery Information</a></li>
+        <li><a href="/pages/midnight-surprise-delivery">Midnight &amp; Surprise Delivery</a></li>
+        <li><a href="/pages/cake-delivery-in-meerut">Cake Delivery in Meerut</a></li>
+        <li><a href="/pages/corporate-gifting-solutions">Corporate Gifting</a></li>
+        <li><a href="/pages/gift-hampers">Gift Hampers</a></li>
+      </ul>
+    </nav>
+
+    {%- comment -%} Support / Legal {%- endcomment -%}
+    <nav class="tbk-sfooter__col" aria-label="Support and policies">
+      <h3 class="tbk-sfooter__title">Support</h3>
+      <ul>
+        {%- if shop.privacy_policy != blank -%}<li><a href="{{ shop.privacy_policy.url }}">{{ shop.privacy_policy.title }}</a></li>{%- endif -%}
+        {%- if shop.terms_of_service != blank -%}<li><a href="{{ shop.terms_of_service.url }}">{{ shop.terms_of_service.title }}</a></li>
+        {%- else -%}<li><a href="/pages/terms-and-conditions">Terms &amp; Conditions</a></li>{%- endif -%}
+        {%- if shop.refund_policy != blank -%}<li><a href="{{ shop.refund_policy.url }}">{{ shop.refund_policy.title }}</a></li>
+        {%- else -%}<li><a href="/pages/return-refund-replacement-policy">Return &amp; Refund Policy</a></li>{%- endif -%}
+        {%- if shop.shipping_policy != blank -%}<li><a href="{{ shop.shipping_policy.url }}">{{ shop.shipping_policy.title }}</a></li>{%- endif -%}
+      </ul>
+    </nav>
+  </div>
+
+  {%- comment -%} Basic trust strip {%- endcomment -%}
+  {%- if section.settings.show_trust -%}
+    <ul class="tbk-sfooter__trust" aria-label="Our promise">
+      <li>100% Eggless</li>
+      {%- if section.settings.fssai_text != blank -%}<li>{{ section.settings.fssai_text }}</li>{%- endif -%}
+      <li>Same-Day Delivery in Meerut</li>
+      <li>Freshly Baked to Order</li>
+    </ul>
+  {%- endif -%}
+
+  {%- comment -%} Bottom bar {%- endcomment -%}
+  <div class="tbk-sfooter__bottom">
+    <p class="tbk-sfooter__copy">&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. All rights reserved.</p>
+    <p class="tbk-sfooter__legal">
+      <a href="{% if shop.privacy_policy != blank %}{{ shop.privacy_policy.url }}{% else %}/pages/data-sale-opt-out{% endif %}">Privacy</a>
+      <span aria-hidden="true">·</span>
+      <a href="/pages/terms-and-conditions">Terms</a>
+    </p>
+  </div>
+</footer>
+
+<style>
+  .tbk-sfooter{
+    background: var(--tbk-surface, #FDFAF8);
+    color: var(--tbk-ink-soft, #3B1F2E);
+    border-top: 1px solid var(--tbk-border, #EDD8E3);
+    font-family: var(--tbk-font-ui, 'Manrope', system-ui, sans-serif);
+    font-size: var(--tbk-text-base, 14px);
+    line-height: 1.6;
+  }
+  .tbk-sfooter__sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0;}
+  .tbk-sfooter__inner{
+    max-width:1280px;margin:0 auto;
+    padding: clamp(40px,6vw,72px) clamp(16px,5vw,48px) 32px;
+    display:grid;gap:32px 40px;
+    grid-template-columns: 1.4fr repeat(3, 1fr);
+  }
+  .tbk-sfooter__wordmark{font-family:var(--tbk-font-display,'Cormorant Garamond',serif);font-size:28px;font-weight:600;color:var(--tbk-ink,#1A0810);}
+  .tbk-sfooter__tagline{margin:14px 0;color:var(--tbk-muted,#876575);max-width:34ch;}
+  .tbk-sfooter__nap{font-style:normal;margin:14px 0;color:var(--tbk-ink-soft,#3B1F2E);}
+  .tbk-sfooter__nap strong{color:var(--tbk-ink,#1A0810);}
+  .tbk-sfooter__social{display:flex;gap:16px;list-style:none;padding:0;margin:16px 0 0;}
+  .tbk-sfooter__title{
+    font-size:var(--tbk-text-sm,12.5px);font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--tbk-ink,#1A0810);margin:0 0 16px;
+  }
+  .tbk-sfooter__col ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px;}
+  .tbk-sfooter a{color:var(--tbk-ink-soft,#3B1F2E);text-decoration:none;transition:color var(--tbk-dur-fast,140ms) ease;}
+  .tbk-sfooter a:hover,.tbk-sfooter a:focus-visible{color:var(--tbk-pink,#C01457);text-decoration:underline;}
+  .tbk-sfooter a:focus-visible{outline:2px solid var(--tbk-pink,#C01457);outline-offset:2px;border-radius:2px;}
+  .tbk-sfooter__trust{
+    max-width:1280px;margin:0 auto;padding:18px clamp(16px,5vw,48px);
+    display:flex;flex-wrap:wrap;gap:10px 28px;justify-content:center;list-style:none;
+    border-top:1px solid var(--tbk-border-subtle, rgba(237,216,227,.5));
+    font-size:var(--tbk-text-sm,12.5px);font-weight:600;color:var(--tbk-pink-deep,#8B0D3C);
+  }
+  .tbk-sfooter__bottom{
+    max-width:1280px;margin:0 auto;padding:20px clamp(16px,5vw,48px);
+    display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:space-between;align-items:center;
+    border-top:1px solid var(--tbk-border, #EDD8E3);
+    font-size:var(--tbk-text-xs,11px);color:var(--tbk-muted,#876575);
+  }
+  .tbk-sfooter__legal{display:flex;gap:8px;align-items:center;margin:0;}
+  .tbk-sfooter__copy{margin:0;}
+  @media (max-width:900px){
+    .tbk-sfooter__inner{grid-template-columns:1fr 1fr;}
+    .tbk-sfooter__brand{grid-column:1 / -1;}
+  }
+  @media (max-width:560px){
+    .tbk-sfooter__inner{grid-template-columns:1fr;text-align:left;}
+    .tbk-sfooter__bottom{justify-content:center;text-align:center;}
+    .tbk-sfooter__trust{justify-content:flex-start;}
+  }
+</style>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SiteNavigationElement",
+  "name": ["About Us","Contact Us","FAQs","Delivery Information","Gift Hampers"],
+  "url": [
+    "{{ shop.url }}/pages/about-us",
+    "{{ shop.url }}/pages/contact",
+    "{{ shop.url }}/pages/frequently-asked-questions-faqs",
+    "{{ shop.url }}/pages/delivery-information",
+    "{{ shop.url }}/pages/gift-hampers"
+  ]
+}
+</script>
+
+{% schema %}
+{
+  "name": "Footer (minimal)",
+  "settings": [
+    { "type": "paragraph", "content": "Temporary production-safe footer (Phase A). Full enterprise footer comes in the Navigation & Footer phase." },
+    { "type": "text", "id": "tagline", "label": "Tagline", "default": "100% eggless luxury cakes, handcrafted in Meerut — with same-day & midnight delivery." },
+    { "type": "header", "content": "Business info (NAP)" },
+    { "type": "text", "id": "address", "label": "Address", "default": "Fatah Complex, Thapar Nagar Lane 7, Meerut, Uttar Pradesh 250001" },
+    { "type": "text", "id": "phone", "label": "Phone", "default": "+91 82188 62928" },
+    { "type": "text", "id": "email", "label": "Email", "default": "thebakingkaur@gmail.com" },
+    { "type": "header", "content": "Social" },
+    { "type": "url", "id": "instagram_url", "label": "Instagram", "default": "https://www.instagram.com/thebakingkaur" },
+    { "type": "url", "id": "whatsapp_url", "label": "WhatsApp", "default": "https://wa.me/918218862928" },
+    { "type": "header", "content": "Trust strip" },
+    { "type": "checkbox", "id": "show_trust", "label": "Show trust strip", "default": true },
+    { "type": "text", "id": "fssai_text", "label": "FSSAI label (leave blank to hide)", "default": "FSSAI Approved" }
+  ],
+  "presets": [{ "name": "Footer (minimal)" }]
+}
+{% endschema %}
