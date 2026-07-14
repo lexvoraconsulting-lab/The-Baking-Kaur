@@ -105,4 +105,40 @@ Two tables cover the 18 required attributes. **Action = one only.**
 
 No thin collections created; every duplicate consolidated to one canonical URL; every survivor is smart-populated + content-backed + IA-aligned + scalable.
 
-_v0.1 — canonical catalog strategy. Awaiting approval before implementation._
+---
+
+## 9. Target Category Hierarchy (canonical nav + catalog taxonomy)
+Client-approved tree, mapped to live inventory. **Rule: a node becomes a collection only at ≥~8–12 products; thinner nodes are filters, roadmap product-lines, or nav-only to the nearest parent — never a thin collection.**
+
+```
+Cake
+├── Birthday (279)                    ✅ pillar (→smart)
+│   ├── Kids            ✅ smart sub (theme tags)
+│   ├── Adults          ✅ smart sub (tag)
+│   ├── Men (~4)        ⚠️ filter/defer (thin)
+│   ├── Women (~10)     ⚠️ filter/defer (thin)
+│   ├── Baby (~40)      ✅ smart (merge baby-girl + boy-or-girl)
+│   └── Milestone       ✅ smart (needs number/25th/50th tagging)
+├── Anniversary (102)                 ✅ pillar (→smart)
+├── Wedding (134)                     ✅ pillar (smart)
+├── Engagement (0)                    → roadmap; nav→Wedding until SKUs exist
+├── Corporate (0 products)            → LANDING PAGE (corporate-gifting), not a collection
+├── Photo Cakes (~4)                  ⚠️ smart; grow inventory
+├── Theme Cakes (165)                 ✅ pillar (→smart) + theme sub-collections
+├── Bento (4)                         🚫 new line — build inventory first
+├── Cupcakes (0)                      🚫 new line — build inventory first
+├── Brownies (2)                      🚫 new line — build inventory first
+├── Hampers (119)                     ✅ pillar (→smart)
+├── Flowers (few real SKUs)           🚫 product line — needs bouquet SKUs; not a cake collection
+└── Balloons (few/draft add-ons)      🚫 add-on line — attach to PDP/hampers; not a collection
+```
+
+**Implementation policy for this tree:**
+- **Now (inventory-backed):** Birthday(+Kids/Adults/Baby/Milestone), Anniversary, Wedding, Theme Cakes, Hampers, Photo Cakes → smart collections per §6/§7.
+- **Filters not collections (thin):** Men, Women → surface via occasion/audience filter until inventory grows.
+- **Landing page:** Corporate → `/pages/corporate-gifting-solutions` (already exists).
+- **Product-line roadmap (build SKUs → then collection):** Bento, Cupcakes, Brownies, Flowers (bouquets), Engagement.
+- **Add-on:** Balloons → PDP/hamper add-on (Uploadcare/line-item), not a browse collection.
+- **Nav shows the full tree** (ambition), but nav entries for not-yet-built nodes point to the nearest populated parent or a "coming soon"/landing — never a 0-product collection.
+
+_v0.2 — canonical catalog strategy + target category hierarchy. Awaiting approval before implementation._
