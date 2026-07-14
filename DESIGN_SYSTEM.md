@@ -64,5 +64,13 @@ Hover (lift+shadow+zoom) · Loading (spinner/disabled) · ⊕Skeleton (shimmer, 
 ## 9. Accessibility (WCAG 2.2 AA target)
 Contrast ≥4.5:1 body (gold not for small text) · visible focus ring · semantic elements · aria on menus/accordions/drawers · no emoji-as-control · honor reduced-motion · labelled forms.
 
+## 🔒 FOUNDATION STATUS — FROZEN (B1 FINAL, 2026-07-14)
+Foundation tokens (color, typography incl. extended display scale, spacing incl. section rhythm, grid, radius, shadow, motion) are **frozen** in `snippets/tbk-tokens.liquid`. No further token changes without an explicit unfreeze. All components (B2+) build on these.
+
+**Validated (measured):** contrast — ink/ink-soft/pink-deep on ivory AAA; pink & white-on-pink AA (~6:1); muted AA (≥4.87:1); **gold = large/decorative only (3.14:1)**. Line-length ≤66ch, body line-height 1.65, touch targets 44/48px, responsive display scale holds 40px floor (320–430px) → ~70px desktop. No issues → frozen.
+
+**Locked usage rule:** gold never for small/body text (large price/number/decorative only).
+
 ## Changelog of this document
-- v0.1 (Phase A) — seeded from `tbk-tokens.liquid v1.0` + Foundation B★ extensions (not yet implemented).
+- v1.1 (Phase B1) — foundation **FROZEN & validated**.
+- v0.1 (Phase A) — seeded from `tbk-tokens.liquid v1.0` + Foundation B★ extensions.
