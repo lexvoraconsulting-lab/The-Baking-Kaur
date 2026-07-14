@@ -43,12 +43,28 @@ Rollback baseline for the whole transformation: branch `phase-a/production-safet
 | Product / Article (native) | `snippets/structured-data.liquid` |
 | FAQPage | inline in `theme.liquid` *(placement flagged — see SEO plan)* |
 
+### A6. Restore missing site footer (approved: minimal, production-safe)
+- **Files added:** `sections/site-footer.liquid`, `sections/footer-group.json`
+- **Reason:** production rendered **no footer** — `theme.liquid` called `sections 'footer-group'` but that group existed on neither repo nor live theme; `footer.liquid` (broken ``` fence, no schema) and `tbk-footer.liquid` (hardcoded, no schema) were orphaned and unusable. Built a minimal, semantic, token-styled footer wired via a new `footer-group.json`.
+- **Content (all real):** NAP (`<address>`), `tel:`/`mailto:`, Instagram + WhatsApp, Company/Delivery links to **verified** pages, policies via native `shop.*_policy` (all four resolve), trust strip, copyright. Editable via section settings.
+- **Business:** restores trust, navigation, legal-policy access (compliance). **SEO:** footer internal-linking backbone + `SiteNavigationElement`. **GEO:** NAP reinforcement. **Perf:** negligible (scoped CSS, lazy logo).
+- **A11y:** `role="contentinfo"`, 3 labelled `<nav>`, `<address>`, visible focus rings, sr-only heading.
+- **Risk:** ○ low (additive; no new visual language — uses `tbk-tokens`). **Rollback:** `git rm sections/site-footer.liquid sections/footer-group.json` (or `git checkout 2aeff64`), then footer reverts to prior (absent) state.
+- **Note:** premium enterprise footer deferred to Phase E; this is the temporary production-safe restore.
+
+### Phase A validation (on preview theme `colorful-composition` #151370334377)
+- Footer renders: `contentinfo`, 3 navs, all links correct, all 4 policies resolve, copyright + NAP present.
+- **Schema dedup verified in rendered HTML: Bakery ×1, WebSite ×1, BreadcrumbList ×1** (was ×2 each); native Product schema intact; footer `SiteNavigationElement` present.
+- Mobile 375px: single-column stack, **no horizontal overflow**. Brand token bg `#FDFAF8` applied.
+- Caught + fixed 2 issues during validation: (1) `url`-type schema settings can't take URL defaults → switched to `text`; (2) `footer-group.json` was rejected on first push because the section it referenced had an invalid schema → re-pushed after fix.
+- **Pre-existing issue observed (not introduced):** `tbk-schema-website` throws a Liquid error when `settings.logo` is blank (`image_url` on empty) — flagged for Phase B/F.
+- **Deploy state:** staged + validated on preview only. **NOT yet on the live theme** — awaiting approval to promote.
+
 ---
 
 ## Phase A — DEFERRED (with reasons)
 | Item | Why deferred | Owner phase |
 |---|---|---|
-| **Missing site footer** (no `<footer>`, no policies/NAP/copyright live) | Needs a decision: two orphaned footer sections exist (`footer.liquid`, `tbk-footer.liquid`); choosing + wiring a `footer-group.json` is a build, not a cleanup. **CRITICAL — see report.** | E (or expedited) |
 | **Duplicate Uploadcare load** in `theme.liquid` | Feeds the **protected** PDP reference-image upload; removing a load needs PDP regression testing. | A-2 (post-approval) w/ PDP test |
 | **3 whole-document MutationObservers** | Each masks a root cause (sticky bar, `<` arrows, mojibake data). Removing blind reintroduces bugs. | B/H after root-cause |
 | **Global FAQPage schema** | Not a duplicate — a placement issue (should be page-scoped). | F/G |
