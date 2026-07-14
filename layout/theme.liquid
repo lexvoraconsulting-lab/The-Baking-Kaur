@@ -193,51 +193,8 @@
 <!-- WebSite + Organization Schema -->
 {%- render 'tbk-schema-website' -%}
 
-<!-- LocalBusiness Schema - The Baking Kaur -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Bakery",
-  "@id": "https://thebakingkaur.com/#bakery",
-  "name": "The Baking Kaur",
-  "url": "https://thebakingkaur.com",
-  "description": "The Baking Kaur is a luxury custom cake bakery in Meerut, Uttar Pradesh, specialising in wedding cakes, designer birthday cakes, anniversary cakes, theme cakes, and premium dessert creations with same-day and midnight delivery.",
-  "telephone": "+918218862928",
-  "logo": "{{ settings.logo | image_url: width: 600 }}",
-  "image": "{{ settings.logo | image_url: width: 600 }}",
-  "address": {
-    "@type": "PostalAddress",
-    "addressLocality": "Meerut",
-    "addressRegion": "Uttar Pradesh",
-    "postalCode": "250001",
-    "addressCountry": "IN"
-  },
-  "geo": {
-    "@type": "GeoCoordinates",
-    "latitude": 28.9845,
-    "longitude": 77.7064
-  },
-  "areaServed": [
-    { "@type": "City", "name": "Meerut" },
-    { "@type": "State", "name": "Uttar Pradesh" }
-  ],
-  "openingHoursSpecification": [
-    {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
-      "opens": "09:00",
-      "closes": "21:00"
-    }
-  ],
-  "servesCuisine": "Bakery",
-  "priceRange": "₹₹₹",
-  "currenciesAccepted": "INR",
-  "paymentAccepted": "Cash, UPI, Credit Card, Debit Card",
-  "sameAs": [
-    "https://www.instagram.com/thebakingkaur"
-  ]
-}
-</script>
+<!-- LocalBusiness (Bakery) schema — SINGLE SOURCE: snippets/bk-local-business.liquid (rendered once in the head).
+     Phase A: inline duplicate Bakery entity removed here to stop conflicting geo/hours from being emitted twice per page. -->
 
 <!-- BreadcrumbList Schema -->
 {%- render 'tbk-schema-breadcrumb' -%}
