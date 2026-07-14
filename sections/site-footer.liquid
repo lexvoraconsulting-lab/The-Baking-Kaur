@@ -176,9 +176,10 @@
 
   /* Nav columns */
   .tbk-ft__title{
-    font-size:var(--tbk-text-xs,11px);font-weight:600;letter-spacing:.16em;text-transform:uppercase;
-    color:var(--tbk-muted,#876575);margin:0 0 18px;
+    font-size:var(--tbk-text-sm,12.5px);font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--tbk-ink,#1A0810);margin:0 0 18px;padding-bottom:11px;position:relative;
   }
+  .tbk-ft__title::after{content:"";position:absolute;left:0;bottom:0;width:26px;height:2px;background:var(--tbk-pink,#C01457);}
   .tbk-ft__col ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:12px;}
   .tbk-ft__col a{color:var(--tbk-ink-soft,#3B1F2E);text-decoration:none;font-size:var(--tbk-text-base,14px);transition:color 160ms ease;}
   .tbk-ft__col a:hover,.tbk-ft__col a:focus-visible{color:var(--tbk-pink,#C01457);}
