@@ -71,3 +71,11 @@ Rollback baseline for the whole transformation: branch `phase-a/production-safet
 | **Self-asserted AggregateRating** in `bk-local-business` | SEO-quality (needs real review source), not a duplicate. | F |
 | **Disabled header backups** in `header-group.json` (`announcement-bar`, `header-e-commerce`, `header-menu-bottom-hulkapps-backup`) | Editing the active header group belongs with header consolidation. | E |
 | **`rewind_*` legacy pair** | Marked "do_not_delete"; verify no page uses the template first. | B |
+
+---
+
+## Phase A — PROMOTED TO LIVE (2026-07-14)
+Scoped push of `layout/theme.liquid`, `snippets/structured-data.liquid`, `sections/site-footer.liquid`, `sections/footer-group.json` → live theme `Baking Kaur — Draft` (#151307485353, `--allow-live`).
+**Verified on live:** footer restored (4 navs, 22 links, 6 policies, NAP, copyright); schema deduped (Bakery/WebSite/Breadcrumb ×1, 0 parse errors); protected PDP intact (premium markers present); collections/search/cart/policies 200; CLS 0; mobile 3-col nav + 2-line trust, no overflow.
+**Found (pre-existing, not Phase A):** `tbk-schema-website` Liquid error on blank `settings.logo` (Organization logo field malformed); homepage H1 count = 2; full load ~24.5s.
+**Rollback:** `git checkout 2aeff64 -- layout/theme.liquid snippets/structured-data.liquid` + remove footer files, then push to #151307485353.
