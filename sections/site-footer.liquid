@@ -229,11 +229,10 @@
     .tbk-ft__title{font-size:10px;letter-spacing:.1em;margin-bottom:12px;}
     .tbk-ft__col a{font-size:12.5px;overflow-wrap:break-word;}
     .tbk-ft__col ul{gap:10px;}
-    /* Trust: one compact, swipeable line (no wrap, contained scroll — page never overflows) */
-    .tbk-ft__trust{flex-wrap:nowrap;justify-content:flex-start;overflow-x:auto;white-space:nowrap;-webkit-overflow-scrolling:touch;scrollbar-width:none;font-size:11px;gap:0;}
-    .tbk-ft__trust::-webkit-scrollbar{display:none;}
-    .tbk-ft__trust li{white-space:nowrap;padding:0 12px;}
-    .tbk-ft__trust li:first-child{padding-left:0;}
+    /* Trust: compact wrapped rows (no scroll); bar separators dropped on mobile for clean wrapping */
+    .tbk-ft__trust{flex-wrap:wrap;justify-content:center;white-space:normal;gap:8px 14px;font-size:11px;}
+    .tbk-ft__trust li{white-space:nowrap;padding:0;}
+    .tbk-ft__trust li + li::before{display:none;}
     .tbk-ft__local{text-align:left;}
     .tbk-ft__bottom{flex-direction:column;align-items:flex-start;gap:14px;}
   }
