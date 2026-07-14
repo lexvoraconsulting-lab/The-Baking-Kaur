@@ -1,0 +1,21 @@
+{%- comment -%}
+  snippets/tbk-button.liquid — reusable button (B2). Styles live in tbk-components.liquid.
+  Usage:
+    {% render 'tbk-button', label: 'Explore cakes', href: '/collections/birthday-cakes', variant: 'primary', size: 'lg' %}
+    {% render 'tbk-button', label: 'Add to cart', type: 'submit', variant: 'primary', block: true %}
+  Params: label (req) · href (→ <a>, else <button>) · variant (primary|secondary|ghost|whatsapp|signature)
+          · size (sm|md|lg) · block (bool) · type (button|submit) · target · aria_label · disabled (bool)
+{%- endcomment -%}
+{%- liquid
+  assign v = variant | default: 'primary'
+  assign sz = size | default: 'md'
+  assign cls = 'tbk-btn tbk-btn--' | append: v | append: ' tbk-btn--' | append: sz
+  if block == true
+    assign cls = cls | append: ' tbk-btn--block'
+  endif
+-%}
+{%- if href -%}
+<a href="{{ href }}" class="{{ cls }}"{% if target %} target="{{ target }}" rel="noopener"{% endif %}{% if aria_label %} aria-label="{{ aria_label | escape }}"{% endif %}>{{ label }}</a>
+{%- else -%}
+<button type="{{ type | default: 'button' }}" class="{{ cls }}"{% if aria_label %} aria-label="{{ aria_label | escape }}"{% endif %}{% if disabled %} disabled{% endif %}>{{ label }}</button>
+{%- endif -%}

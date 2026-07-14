@@ -1,0 +1,60 @@
+{%- comment -%}
+  snippets/tbk-components.liquid
+  The Baking Kaur — component styles, rendered once from sections/tbk-header.liquid
+  (right after tbk-tokens). Built on the FROZEN B1 foundation tokens — token refs
+  only, no literal hex/px. Grows one milestone at a time: B2 Buttons (below),
+  then B3 Cards, B4 Forms, B5 Badges, B6 Trust, B7 Section containers.
+{%- endcomment -%}
+<style id="tbk-components">
+
+/* ═══ B2 · BUTTONS ═══ */
+.tbk-btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:var(--tbk-sp-2,8px);
+  font-family:var(--tbk-font-ui,'Manrope',system-ui,sans-serif);
+  font-weight:var(--tbk-fw-semibold,600);font-size:var(--tbk-text-base,14px);line-height:1;
+  text-decoration:none;text-align:center;white-space:nowrap;cursor:pointer;
+  border:1px solid transparent;border-radius:var(--tbk-r-md,12px);-webkit-appearance:none;appearance:none;
+  transition:background var(--tbk-dur-base,220ms) var(--tbk-ease,ease),
+             color var(--tbk-dur-fast,140ms) var(--tbk-ease,ease),
+             border-color var(--tbk-dur-fast,140ms) var(--tbk-ease,ease),
+             transform var(--tbk-dur-fast,140ms) var(--tbk-ease,ease),
+             box-shadow var(--tbk-dur-base,220ms) var(--tbk-ease,ease);
+}
+.tbk-btn svg{width:18px;height:18px;flex:none;fill:none;stroke:currentColor;stroke-width:1.6;}
+
+/* Sizes */
+.tbk-btn--sm{height:40px;padding:0 18px;font-size:var(--tbk-text-sm,12.5px);}
+.tbk-btn--md{height:var(--tbk-touch-lg,48px);padding:0 24px;}
+.tbk-btn--lg{height:56px;padding:0 32px;font-size:var(--tbk-text-lg,16px);}
+.tbk-btn--block{display:flex;width:100%;}
+
+/* Focus (visible on keyboard) */
+.tbk-btn:focus-visible{outline:none;box-shadow:var(--tbk-focus-ring,0 0 0 3px rgba(192,20,87,.22));}
+
+/* Primary — solid brand */
+.tbk-btn--primary{background:var(--tbk-pink,#C01457);color:#fff;box-shadow:var(--tbk-shadow-sm,0 2px 8px rgba(26,8,16,.07));}
+.tbk-btn--primary:hover{background:var(--tbk-pink-mid,#A81248);transform:translateY(-1px);box-shadow:var(--tbk-shadow-md,0 4px 16px rgba(26,8,16,.08));}
+.tbk-btn--primary:active{transform:translateY(0);box-shadow:var(--tbk-shadow-sm,0 2px 8px rgba(26,8,16,.07));}
+
+/* Secondary — ink outline */
+.tbk-btn--secondary{background:transparent;color:var(--tbk-ink,#1A0810);border-color:var(--tbk-ink,#1A0810);}
+.tbk-btn--secondary:hover{background:var(--tbk-tint-1,#FEF3F8);}
+
+/* Ghost / text */
+.tbk-btn--ghost{background:transparent;color:var(--tbk-ink,#1A0810);padding-left:var(--tbk-sp-2,8px);padding-right:var(--tbk-sp-2,8px);}
+.tbk-btn--ghost:hover{color:var(--tbk-pink,#C01457);}
+
+/* WhatsApp — functional (ink label for contrast, green mark/border) */
+.tbk-btn--whatsapp{background:transparent;color:var(--tbk-ink,#1A0810);border-color:#25D366;}
+.tbk-btn--whatsapp svg{stroke:#128C3E;}
+.tbk-btn--whatsapp:hover{background:rgba(37,211,102,.08);border-color:#128C3E;}
+
+/* Signature — gold border accent (ink label; gold decorative only, WCAG-safe) */
+.tbk-btn--signature{background:transparent;color:var(--tbk-ink,#1A0810);border-color:var(--tbk-gold,#B8852A);letter-spacing:.02em;}
+.tbk-btn--signature:hover{background:rgba(184,133,42,.08);border-color:var(--tbk-gold-light,#D4A645);}
+
+/* Disabled */
+.tbk-btn[disabled],.tbk-btn--disabled{opacity:.5;pointer-events:none;cursor:not-allowed;box-shadow:none;transform:none;}
+
+@media (prefers-reduced-motion: reduce){ .tbk-btn{transition:none;} .tbk-btn:hover{transform:none;} }
+</style>
