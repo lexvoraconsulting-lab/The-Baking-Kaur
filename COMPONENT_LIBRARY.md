@@ -49,4 +49,16 @@ Overline (Manrope 600, +0.14em, uppercase, muted-but-AA) + Cormorant display tit
 ## Skeleton / Empty / Error (shared)
 Skeleton: shimmer on `surface-sub`, matches final layout, no CLS. Empty: line illustration + calm headline + guiding CTA. Error: human copy + recovery, no raw system text.
 
-_v0.1 — governs all section/snippet builds._
+---
+
+## 🔒 B2 — BUTTON SYSTEM: FROZEN (2026-07-15)
+Files: `snippets/tbk-components.liquid` (CSS, rendered once via `tbk-header`) + `snippets/tbk-button.liquid` (render helper). Token-only.
+- **Variants:** primary (solid pink/white) · secondary (ink outline) · ghost · whatsapp (green accent, ink label) · signature (gold accent, ink label).
+- **Sizes:** xs 32 · sm 40 · md 48 · lg 56 · xl 64. Primary mobile actions ≥ md (touch ≥44px); xs/sm = dense/desktop non-primary only.
+- **States:** default · hover (mid + lift + shadow) · active · focus-visible (pink ring) · disabled (50%, no pointer) · loading (per-variant spinner, pointer blocked) · success (#1B7A3D + check).
+- **Icons:** left · right · only (square, aria-label required); thin-line 1.6px, 18px, currentColor; gap 8px.
+- **Accessibility validated:** white-on-pink ~6:1 AA, white-on-success ~5:1 AA, ink labels AAA; gold/green as accents only (fail small-text). Real `<a>`/`<button>`; motion off under reduced-motion.
+- **Usage:** `{% render 'tbk-button', label:'…', href:'…', variant:'…', size:'…', block:true, icon:ic, icon_position:'left|right|only', state:'loading|success' %}`.
+Frozen — no button changes without explicit unfreeze.
+
+_v0.2 — B2 buttons frozen. v0.1 — governs all section/snippet builds._
