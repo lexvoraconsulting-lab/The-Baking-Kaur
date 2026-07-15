@@ -62,4 +62,14 @@ Files: `snippets/tbk-components.liquid` (CSS, rendered once via `tbk-header`) + 
 - **Usage:** `{% render 'tbk-button', label:'…', href:'…', variant:'…', size:'…', block:true, icon:ic, icon_position:'left|right|only', state:'loading|success' %}`.
 Frozen — no button changes without explicit unfreeze.
 
-_v0.2 — B2 buttons frozen. v0.1 — governs all section/snippet builds._
+## 🔒 B3 — CARD SYSTEM: FROZEN (2026-07-15)
+`snippets/tbk-components.liquid`, `.tbkx-card*` namespace (collision-free). One card language, 6 commerce types.
+- **Types:** product (4:5, price gold, badge, ATC foot) · collection (1:1, display title) · content (3:2, guide/story) · review (media-less, stars+author) · trust (icon+copy) · delivery (icon+pill+copy).
+- **States:** default · hover (lift −2px + 1.03 media zoom + shadow-md) · focus-visible · loading (skeleton shimmer) · empty (guiding CTA) · error (message + Retry) · image fallback (aspect-boxed placeholder).
+- **Edge cases validated:** long/short title, missing image/price/rating/description → graceful omission, no CLS.
+- **Per-card strategy** (business/intent/conversion/SEO/GEO/analytics/links/metafields/metaobjects/extensibility) documented in the card-validation deliverable; data sources per `DATA_ARCHITECTURE.md` (product: `custom.badge/is_bestseller/same_day_eligible`; collection: `custom.subtitle/hero_image`; review: `testimonial`; trust: `trust_stat`; delivery: `same_day/midnight_eligible`).
+- **A11y:** one focusable link per card (avoid nested interactives), focus ring, alt images, decorative icons aria-hidden, star ratings need text equivalent, ≥4.5:1 text.
+- **Responsive:** grid 4→2→1; fixed media ratios (no CLS); equal heights via flex; foot pinned bottom.
+Frozen — no card changes without explicit unfreeze.
+
+_v0.3 — B3 cards frozen. v0.2 — B2 buttons frozen. v0.1 — governs all section/snippet builds._
