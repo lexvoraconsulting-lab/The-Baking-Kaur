@@ -23,10 +23,17 @@
 .tbk-btn svg{width:18px;height:18px;flex:none;fill:none;stroke:currentColor;stroke-width:1.6;}
 
 /* Sizes */
+.tbk-btn--xs{height:32px;padding:0 14px;font-size:var(--tbk-text-xs,11px);}
 .tbk-btn--sm{height:40px;padding:0 18px;font-size:var(--tbk-text-sm,12.5px);}
 .tbk-btn--md{height:var(--tbk-touch-lg,48px);padding:0 24px;}
 .tbk-btn--lg{height:56px;padding:0 32px;font-size:var(--tbk-text-lg,16px);}
+.tbk-btn--xl{height:64px;padding:0 40px;font-size:var(--tbk-text-xl,18px);}
 .tbk-btn--block{display:flex;width:100%;}
+
+/* Icon-only (square per size; requires aria-label) */
+.tbk-btn--icon-only{padding:0;}
+.tbk-btn--icon-only.tbk-btn--xs{width:32px}.tbk-btn--icon-only.tbk-btn--sm{width:40px}
+.tbk-btn--icon-only.tbk-btn--md{width:48px}.tbk-btn--icon-only.tbk-btn--lg{width:56px}.tbk-btn--icon-only.tbk-btn--xl{width:64px}
 
 /* Focus (visible on keyboard) */
 .tbk-btn:focus-visible{outline:none;box-shadow:var(--tbk-focus-ring,0 0 0 3px rgba(192,20,87,.22));}
@@ -56,5 +63,17 @@
 /* Disabled */
 .tbk-btn[disabled],.tbk-btn--disabled{opacity:.5;pointer-events:none;cursor:not-allowed;box-shadow:none;transform:none;}
 
-@media (prefers-reduced-motion: reduce){ .tbk-btn{transition:none;} .tbk-btn:hover{transform:none;} }
+/* Spinner colour per variant */
+.tbk-btn{--tbk-spin:#fff;}
+.tbk-btn--secondary,.tbk-btn--ghost,.tbk-btn--whatsapp,.tbk-btn--signature{--tbk-spin:var(--tbk-ink,#1A0810);}
+
+/* Loading — hide label, show spinner, block interaction */
+.tbk-btn--loading{color:transparent!important;pointer-events:none;position:relative;}
+.tbk-btn--loading::after{content:"";position:absolute;top:50%;left:50%;width:16px;height:16px;margin:-8px 0 0 -8px;border:2px solid var(--tbk-spin);border-right-color:transparent;border-radius:50%;animation:tbk-spin .6s linear infinite;}
+@keyframes tbk-spin{to{transform:rotate(360deg)}}
+
+/* Success — confirmation state */
+.tbk-btn--success{background:#1B7A3D;color:#fff;border-color:#1B7A3D;pointer-events:none;box-shadow:none;transform:none;}
+
+@media (prefers-reduced-motion: reduce){ .tbk-btn{transition:none;} .tbk-btn:hover{transform:none;} .tbk-btn--loading::after{animation-duration:1.2s;} }
 </style>

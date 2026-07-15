@@ -1,10 +1,14 @@
 {%- comment -%}
-  snippets/tbk-button.liquid — reusable button (B2). Styles live in tbk-components.liquid.
+  snippets/tbk-button.liquid — reusable button (B2). Styles: tbk-components.liquid.
   Usage:
     {% render 'tbk-button', label: 'Explore cakes', href: '/collections/birthday-cakes', variant: 'primary', size: 'lg' %}
-    {% render 'tbk-button', label: 'Add to cart', type: 'submit', variant: 'primary', block: true %}
-  Params: label (req) · href (→ <a>, else <button>) · variant (primary|secondary|ghost|whatsapp|signature)
-          · size (sm|md|lg) · block (bool) · type (button|submit) · target · aria_label · disabled (bool)
+    {% render 'tbk-button', label: 'Add to cart', type: 'submit', variant: 'primary', block: true, state: 'loading' %}
+    {% capture ic %}<svg ...></svg>{% endcapture %}
+    {% render 'tbk-button', label: 'WhatsApp', icon: ic, icon_position: 'left', variant: 'whatsapp' %}
+    {% render 'tbk-button', icon: ic, icon_position: 'only', aria_label: 'Search', variant: 'ghost' %}
+  Params: label · href (→<a> else <button>) · variant (primary|secondary|ghost|whatsapp|signature)
+          · size (xs|sm|md|lg|xl) · block · type (button|submit) · target · aria_label · disabled
+          · icon (svg markup) · icon_position (left|right|only) · state (loading|success)
 {%- endcomment -%}
 {%- liquid
   assign v = variant | default: 'primary'
@@ -13,9 +17,22 @@
   if block == true
     assign cls = cls | append: ' tbk-btn--block'
   endif
+  if icon_position == 'only'
+    assign cls = cls | append: ' tbk-btn--icon-only'
+  endif
+  if state == 'loading'
+    assign cls = cls | append: ' tbk-btn--loading'
+  elsif state == 'success'
+    assign cls = cls | append: ' tbk-btn--success'
+  endif
 -%}
+{%- capture inner -%}
+  {%- if icon and icon_position != 'right' -%}{{ icon }}{%- endif -%}
+  {%- unless icon_position == 'only' -%}<span>{{ label }}</span>{%- endunless -%}
+  {%- if icon and icon_position == 'right' -%}{{ icon }}{%- endif -%}
+{%- endcapture -%}
 {%- if href -%}
-<a href="{{ href }}" class="{{ cls }}"{% if target %} target="{{ target }}" rel="noopener"{% endif %}{% if aria_label %} aria-label="{{ aria_label | escape }}"{% endif %}>{{ label }}</a>
+<a href="{{ href }}" class="{{ cls }}"{% if target %} target="{{ target }}" rel="noopener"{% endif %}{% if aria_label %} aria-label="{{ aria_label | escape }}"{% endif %}>{{ inner }}</a>
 {%- else -%}
-<button type="{{ type | default: 'button' }}" class="{{ cls }}"{% if aria_label %} aria-label="{{ aria_label | escape }}"{% endif %}{% if disabled %} disabled{% endif %}>{{ label }}</button>
+<button type="{{ type | default: 'button' }}" class="{{ cls }}"{% if aria_label %} aria-label="{{ aria_label | escape }}"{% endif %}{% if disabled %} disabled{% endif %}>{{ inner }}</button>
 {%- endif -%}
