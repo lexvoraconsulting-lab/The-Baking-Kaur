@@ -13,17 +13,17 @@
 {%- liquid
   assign v = variant | default: 'primary'
   assign sz = size | default: 'md'
-  assign cls = 'tbk-btn tbk-btn--' | append: v | append: ' tbk-btn--' | append: sz
+  assign cls = 'tbkx-btn tbkx-btn--' | append: v | append: ' tbkx-btn--' | append: sz
   if block == true
-    assign cls = cls | append: ' tbk-btn--block'
+    assign cls = cls | append: ' tbkx-btn--block'
   endif
   if icon_position == 'only'
-    assign cls = cls | append: ' tbk-btn--icon-only'
+    assign cls = cls | append: ' tbkx-btn--icon-only'
   endif
   if state == 'loading'
-    assign cls = cls | append: ' tbk-btn--loading'
+    assign cls = cls | append: ' tbkx-btn--loading'
   elsif state == 'success'
-    assign cls = cls | append: ' tbk-btn--success'
+    assign cls = cls | append: ' tbkx-btn--success'
   endif
 -%}
 {%- capture inner -%}
