@@ -53,6 +53,7 @@ Skeleton: shimmer on `surface-sub`, matches final layout, no CLS. Empty: line il
 
 ## 🔒 B2 — BUTTON SYSTEM: FROZEN (2026-07-15)
 Files: `snippets/tbk-components.liquid` (CSS, rendered once via `tbk-header`) + `snippets/tbk-button.liquid` (render helper). Token-only.
+**CSS namespace: `.tbkx-btn*`** — renamed from `.tbk-btn` after discovering `.tbk-btn`/`.tbk-card` already exist in `base.css` + `tbk-header` + the **protected** `main-product-premium-v2` PDP. All new B-phase component classes use the collision-free `tbkx-` prefix so they never touch existing/protected UI. Snippet API (`{% render 'tbk-button' %}`) unchanged.
 - **Variants:** primary (solid pink/white) · secondary (ink outline) · ghost · whatsapp (green accent, ink label) · signature (gold accent, ink label).
 - **Sizes:** xs 32 · sm 40 · md 48 · lg 56 · xl 64. Primary mobile actions ≥ md (touch ≥44px); xs/sm = dense/desktop non-primary only.
 - **States:** default · hover (mid + lift + shadow) · active · focus-visible (pink ring) · disabled (50%, no pointer) · loading (per-variant spinner, pointer blocked) · success (#1B7A3D + check).
