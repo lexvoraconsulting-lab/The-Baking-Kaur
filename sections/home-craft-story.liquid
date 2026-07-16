@@ -1,0 +1,165 @@
+{%- comment -%}
+  sections/home-craft-story.liquid — Homepage §6 Craft Story (Phase C1 · S6)
+
+  ASSEMBLY ONLY — zero new components:
+    • FROZEN `tbk-button` (primary + ghost) + FROZEN tokens.
+    • Editorial split is section-scoped LAYOUT, not a component — same
+      precedent as S1 hero / S3 grid / S4 grid. No new button, card, form,
+      badge or typography is introduced.
+  tbkx- namespaced → protected product page untouched.
+
+  Trust points render as a plain list, NOT `tbkx-card--trust`:
+  S2 Delivery Promise already owns the trust-card pattern. Repeating cards
+  here would duplicate a component's job and dilute S2. (Component reuse
+  rule: never create duplicates — including duplicate USES.)
+
+  IMAGE POLICY: the image is OPTIONAL and client-supplied via image_picker.
+  No image is hardcoded. The theme's stock assets (p1/p2/c1/c2/h1/h2/g1)
+  are Ecomus DEMO content — the same source as the fabricated testimonials
+  removed on 2026-07-16 — and must never be presented as this bakery's
+  craft. With no image the section renders text-only in a single column:
+  the copy is the substance, and it degrades honestly rather than lying.
+
+  Schema: NONE. Craft story is prose, not a list or Q&A. The eggless /
+  freshly-baked facts do their GEO work as visible text — AI assistants
+  read rendered content (see REVIEW_STRATEGY.md §4, same reasoning).
+
+  Heading hierarchy: H1 (hero) → H2 (this section). No H3 — no sub-items.
+  Perf: 0 JS · lazy WebP srcset · explicit w/h → CLS 0.
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign img = s.image
+  assign has_img = false
+  if img != blank
+    assign has_img = true
+  endif
+-%}
+
+{%- if s.heading != blank -%}
+<section class="tbkx-craft{% unless has_img %} tbkx-craft--noimg{% endunless %}" aria-labelledby="tbkx-craft-h">
+  <div class="tbkx-craft__inner">
+
+    {%- if has_img -%}
+      <div class="tbkx-craft__media">
+        <img src="{{ img | image_url: width: 900, format: 'webp' }}"
+             srcset="{{ img | image_url: width: 500, format: 'webp' }} 500w,
+                     {{ img | image_url: width: 750, format: 'webp' }} 750w,
+                     {{ img | image_url: width: 1100, format: 'webp' }} 1100w"
+             sizes="(min-width: 990px) 40vw, 100vw"
+             width="{{ img.width }}" height="{{ img.height }}"
+             alt="{{ s.image_alt | default: s.heading | escape }}"
+             loading="lazy" decoding="async">
+      </div>
+    {%- endif -%}
+
+    <div class="tbkx-craft__text">
+      {%- if s.overline != blank -%}<p class="tbkx-craft__overline">{{ s.overline }}</p>{%- endif -%}
+      <h2 class="tbkx-craft__title" id="tbkx-craft-h">{{ s.heading }}</h2>
+      {%- if s.subheading != blank -%}<p class="tbkx-craft__sub">{{ s.subheading }}</p>{%- endif -%}
+      {%- if s.body != blank -%}<div class="tbkx-craft__body">{{ s.body }}</div>{%- endif -%}
+
+      {%- if s.trust_1 != blank or s.trust_2 != blank or s.trust_3 != blank -%}
+        <ul class="tbkx-craft__trust">
+          {%- if s.trust_1 != blank -%}<li>{{ s.trust_1 }}</li>{%- endif -%}
+          {%- if s.trust_2 != blank -%}<li>{{ s.trust_2 }}</li>{%- endif -%}
+          {%- if s.trust_3 != blank -%}<li>{{ s.trust_3 }}</li>{%- endif -%}
+        </ul>
+      {%- endif -%}
+
+      {%- if s.cta_label != blank and s.cta_link != blank -%}
+        <div class="tbkx-craft__cta">
+          {%- render 'tbk-button', label: s.cta_label, href: s.cta_link, variant: 'primary', size: 'md' -%}
+          {%- if s.cta2_label != blank and s.cta2_link != blank -%}
+            {%- render 'tbk-button', label: s.cta2_label, href: s.cta2_link, variant: 'ghost', size: 'md' -%}
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .tbkx-craft{background:var(--tbk-surface,#FDFAF8);}
+  .tbkx-craft__inner{
+    max-width:var(--tbk-container,1280px);margin:0 auto;
+    padding:var(--tbk-section-y,clamp(56px,8vw,128px)) var(--tbk-edge,clamp(16px,5vw,80px));
+    display:grid;gap:var(--tbk-sp-8,32px);grid-template-columns:1fr;align-items:center;
+  }
+  /* Desktop: 5/7 editorial split (spec). Mobile: image first, then text. */
+  @media (min-width:990px){
+    .tbkx-craft__inner{grid-template-columns:5fr 7fr;gap:clamp(32px,5vw,72px);}
+    .tbkx-craft--noimg .tbkx-craft__inner{grid-template-columns:minmax(0,72ch);}
+  }
+  .tbkx-craft__media{
+    border-radius:var(--tbk-r-lg,16px);overflow:hidden;background:var(--tbk-surface-sub,#F8F2F6);
+  }
+  .tbkx-craft__media img{display:block;width:100%;height:auto;}
+  .tbkx-craft__overline{
+    margin:0 0 var(--tbk-sp-3,12px);
+    font:var(--tbk-fw-semibold,600) var(--tbk-text-xs,11px)/1 var(--tbk-font-ui,'Manrope',sans-serif);
+    letter-spacing:var(--tbk-ls-overline,.14em);text-transform:uppercase;color:var(--tbk-muted,#876575);
+  }
+  .tbkx-craft__title{
+    margin:0;font-family:var(--tbk-font-display,'Cormorant Garamond',Georgia,serif);font-weight:600;
+    font-size:var(--tbk-display-1,clamp(32px,4vw,52px));line-height:var(--tbk-lh-heading,1.2);
+    letter-spacing:var(--tbk-ls-tight,-.01em);color:var(--tbk-ink,#1A0810);
+  }
+  .tbkx-craft__sub{
+    margin:var(--tbk-sp-4,16px) 0 0;font-size:var(--tbk-text-xl,18px);line-height:var(--tbk-lh-body,1.65);
+    color:var(--tbk-ink-soft,#3B1F2E);max-width:52ch;
+  }
+  .tbkx-craft__body{
+    margin:var(--tbk-sp-4,16px) 0 0;font-size:var(--tbk-text-lg,16px);line-height:var(--tbk-lh-body,1.65);
+    color:var(--tbk-muted,#876575);max-width:60ch;
+  }
+  .tbkx-craft__body p{margin:0 0 var(--tbk-sp-3,12px);}
+  .tbkx-craft__body p:last-child{margin-bottom:0;}
+  .tbkx-craft__trust{
+    list-style:none;margin:var(--tbk-sp-6,24px) 0 0;padding:0;
+    display:flex;flex-wrap:wrap;gap:var(--tbk-sp-3,12px) var(--tbk-sp-5,20px);
+  }
+  .tbkx-craft__trust li{
+    position:relative;padding-left:18px;
+    font:var(--tbk-fw-semibold,600) var(--tbk-text-sm,14px)/1.4 var(--tbk-font-ui,'Manrope',sans-serif);
+    color:var(--tbk-pink-deep,#8B0D3C);
+  }
+  .tbkx-craft__trust li::before{
+    content:"";position:absolute;left:0;top:50%;transform:translateY(-50%);
+    width:7px;height:7px;border-radius:100px;background:var(--tbk-gold,#B8852A);
+  }
+  .tbkx-craft__cta{
+    margin:var(--tbk-sp-8,32px) 0 0;display:flex;flex-wrap:wrap;gap:var(--tbk-sp-3,12px);
+  }
+</style>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Home · Craft Story",
+  "tag": "section",
+  "settings": [
+    { "type": "paragraph", "content": "Homepage §6. Editorial split — the eggless + freshly-baked story. Copy is the source of truth in HOMEPAGE_CONTENT_STRATEGY.md; do not ad-lib here." },
+    { "type": "header", "content": "Image (optional)" },
+    { "type": "paragraph", "content": "Leave empty and the section renders text-only, centred — no broken layout. Never use the theme's stock demo images (p1, p2, c1, c2, h1, h2, g1): they are Ecomus demo content, not this bakery. Use a real photo of the studio or of hands at work." },
+    { "type": "image_picker", "id": "image", "label": "Craft image" },
+    { "type": "text", "id": "image_alt", "label": "Image alt text" },
+    { "type": "header", "content": "Copy" },
+    { "type": "text", "id": "overline", "label": "Overline", "default": "Our craft" },
+    { "type": "text", "id": "heading", "label": "Section heading (H2)", "default": "100% eggless. 100% handcrafted." },
+    { "type": "text", "id": "subheading", "label": "Subheading", "default": "Baked fresh after you order — never from a shelf." },
+    { "type": "richtext", "id": "body", "label": "Supporting copy", "default": "<p>Every cake is made by hand in our Meerut studio with premium, pure-vegetarian ingredients — because a celebration deserves nothing less.</p>" },
+    { "type": "header", "content": "Trust points" },
+    { "type": "text", "id": "trust_1", "label": "Trust point 1", "default": "FSSAI approved" },
+    { "type": "text", "id": "trust_2", "label": "Trust point 2", "default": "Pure veg" },
+    { "type": "text", "id": "trust_3", "label": "Trust point 3", "default": "Freshly baked to order" },
+    { "type": "header", "content": "Links" },
+    { "type": "text", "id": "cta_label", "label": "Primary CTA label", "default": "Our story" },
+    { "type": "url", "id": "cta_link", "label": "Primary CTA link" },
+    { "type": "text", "id": "cta2_label", "label": "Secondary CTA label", "default": "The freshness promise" },
+    { "type": "url", "id": "cta2_link", "label": "Secondary CTA link" }
+  ],
+  "presets": [{ "name": "Home · Craft Story" }]
+}
+{% endschema %}

@@ -72,7 +72,7 @@ Premium · luxury · warm · trustworthy · minimal. **Never salesy, never keywo
 - **AI-search copy:** "Can I get a midnight cake delivery in Meerut? Yes — The Baking Kaur offers midnight delivery for surprises."
 - **Mobile:** stacked icon rows. **Desktop:** 3-across.
 
-### 5 — CRAFT STORY (eggless + freshness)
+### 5 — CRAFT STORY (eggless + freshness)  →  built as **S6**, FROZEN v1.0 (2026-07-16)
 - **Overline:** Our craft
 - **Headline:** 100% eggless. 100% handcrafted.
 - **Subheadline:** Baked fresh after you order — never from a shelf.
@@ -82,7 +82,10 @@ Premium · luxury · warm · trustworthy · minimal. **Never salesy, never keywo
 - **SEO copy:** "100% eggless cakes", "freshly baked".
 - **GEO copy:** "All cakes at The Baking Kaur are 100% eggless, pure-vegetarian, and freshly baked to order in Meerut."
 - **AI-search copy:** "Are The Baking Kaur cakes eggless? Yes — every cake is 100% eggless and freshly baked to order."
-- **Mobile:** image then text. **Desktop:** 5/7 editorial split.
+- **Mobile:** image then text. **Desktop:** 5/7 editorial split (measured 0.714 — exact).
+- **Image:** ❌ **none shipped.** No compliant craft asset exists — the theme's stock images are Ecomus demo content (the same source as the fabricated testimonials), and catalogue photos carry watermarks, third-party branding and customers' names. Section renders **text-only** until a real studio photo exists (**Flagship Hero Photoshoot** backlog). Optional setting; no code change needed to add one.
+- **"FSSAI approved":** the client's own claim, not review data — but still a factual claim. **An FSSAI licence number would substantiate it** and is legally required to be displayed anyway. Same standard as the 20,000+ milestone. Recommended, not blocking.
+- **Schema:** none. Prose is not a list or Q&A; there is no honest type for it. The eggless/fresh facts work as visible text — AI reads rendered content.
 
 ### 6 — CUSTOMIZATION
 - **Headline:** Dream it. We'll bake it.

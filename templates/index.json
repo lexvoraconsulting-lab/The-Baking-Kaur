@@ -1201,6 +1201,22 @@
         "heading": "In their words",
         "subheading": "Real reviews from real celebrations across Meerut."
       }
+    },
+    "home_craft": {
+      "type": "home-craft-story",
+      "settings": {
+        "overline": "Our craft",
+        "heading": "100% eggless. 100% handcrafted.",
+        "subheading": "Baked fresh after you order — never from a shelf.",
+        "body": "<p>Every cake is made by hand in our Meerut studio with premium, pure-vegetarian ingredients — because a celebration deserves nothing less.</p>",
+        "trust_1": "FSSAI approved",
+        "trust_2": "Pure veg",
+        "trust_3": "Freshly baked to order",
+        "cta_label": "Our story",
+        "cta_link": "shopify://pages/about-us",
+        "cta2_label": "The freshness promise",
+        "cta2_link": "shopify://pages/freshness-guarantee"
+      }
     }
   },
   "order": [
@@ -1209,6 +1225,7 @@
     "home_occasions",
     "home_bestsellers",
     "home_reviews",
+    "home_craft",
     "categories_section_m9EMCJ",
     "categories_section_kfmNzj",
     "c28ddbdb-d0df-4b86-9b0a-674df42ecc5c",

@@ -244,3 +244,29 @@ No `Review`, no `AggregateRating`. Google disallows **self-serving** ratings for
 **2 · "20,000+ celebrations" = brand milestone, NOT review data.** May be stated as a trust signal; may **never** be exposed as a review count, fed into `AggregateRating.reviewCount`, or paired with stars so it reads as a rating basis. Rationale recorded: customers-served and ratings-received are different facts, and merging them manufactures a rating basis from an operational statistic — the same shape as the removed 4.8/500, and prohibited **even though the milestone may be true**. Currently unverified; if unsubstantiable, replace with a verified milestone (Shopify order count, years in operation) — never soften into vagueness. `REVIEW_STRATEGY.md` §5b.
 
 **3 · SEO CONTENT FIX – Product Titles & Encoding** — new backlog project. Encoding cleanup · title/H1 consistency · search snippet optimization · **preserve URLs** · no homepage dependency. Kept strictly separate from **SEO MIGRATION – Product Handle Optimization**: title fixes are safe and reversible, handle changes need 301s and a QR audit. Records that the store's **#1 bestseller** currently shows a `<title>` naming a *different cake* (`Celestial Charm Cake ÃÂÃÂ¢??…`) against an H1 of `Motu Patlu Designer Birthday Cake` — a live, revenue-facing defect, higher priority than the 8 corrupted drafts because customers see it in Google today. Does not block homepage development.
+
+
+---
+
+## Phase C1 §6 — Craft Story **FROZEN v1.0** (2026-07-16)
+- **Files:** `sections/home-craft-story.liquid` (new), `templates/index.json` (§6).
+- **Assembly only:** FROZEN `tbk-button` (primary + ghost) + tokens. **Zero new components** — the 5/7 editorial split is section-scoped layout, same precedent as S1/S3/S4. PDP untouched.
+- **Copy:** `HOMEPAGE_CONTENT_STRATEGY.md` §5 verbatim — "100% eggless. 100% handcrafted." / "Baked fresh after you order — never from a shelf."
+
+### Trust points are a plain list, not `tbkx-card--trust` — deliberate
+S2 already owns the trust-card pattern. Reusing cards here would duplicate a component's **job** and put two competing trust blocks on one page. The reuse rule forbids duplicate components; this extends it to duplicate **uses**.
+
+### 🚫 No image shipped — and no stock asset used
+The theme's stock images (`p1`/`p2`/`c1`/`c2`/`h1`/`h2`/`g1`) are **Ecomus demo content — the same source as the fabricated testimonials removed today**. Shipping one as this bakery's craft would be the identical mistake in a new costume. Catalogue photos are also unusable (Zomato watermarks, TWC branding, customers' piped names). **Section renders text-only, centred, max 72ch — no broken layout, no placeholder.** Image is an optional setting; addable later with no code change. Backlogged into **Flagship Hero Photoshoot**.
+
+### 🚫 Emits NO structured data — deliberately
+Prose is not a list or Q&A; there is no honest schema type for it. Inventing `FAQPage` for non-Q&A prose is exactly the "markup that doesn't match visible content" pattern this project has been removing. GEO unaffected — AI reads visible text.
+
+### Validation (preview 151370334377)
+**Text-only (shipped):** renders; `--noimg` single column; H2-only (no orphan H3); both CTAs **HTTP 200** (`/pages/about-us`, `/pages/freshness-guarantee`); buttons resolve to frozen `tbkx-btn--primary`/`--ghost`; 0 JS; no schema; S1–S5 unaffected.
+**With-image (tested then reverted):** desktop split **0.714 = exactly 5/7**; `format=webp` in `src` + `srcset` (500/750/1100w); `loading="lazy"`; **CLS 0 proven structurally** — browser reserved ratio 1.500 from the width/height attributes *before* load, matching rendered ratio exactly. Revert verified.
+**Mobile 375px:** 1 column, no overflow, CTA tap targets 48px (≥44), trust points wrap cleanly.
+
+### New backlog
+**Craft & studio photography** (folds into Flagship Hero Photoshoot) · **Substantiate the FSSAI claim** — a licence number is public, legally required to display, and converts an unverifiable adjective into checkable proof. Minutes of effort; Trust + GEO value. Not blocking.
+- **Risk:** low (additive, preview only). **Rollback:** `git rm sections/home-craft-story.liquid` + remove `home_craft` from `templates/index.json`.

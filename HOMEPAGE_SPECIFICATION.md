@@ -171,4 +171,44 @@ No `Review`, no `AggregateRating`. Google's review-snippet guidelines disallow *
 
 Frozen — no S5 changes without explicit unfreeze. Governance: `REVIEW_STRATEGY.md`.
 
-_v1.6 — S5 Social Proof frozen (Version 1.0) — renders nothing until a verified review source exists; emits no review schema (self-serving markup disallowed). v1.5 — S4 Bestsellers frozen (Version 1.0); handle renames deferred to the SEO Migration project. v1.4 — S4 Bestsellers built, awaiting review. v1.3 — S3 Occasion Navigation frozen (Version 1.0). v1.2 — S2 Delivery Promise frozen (Version 1.0). v1.1 — S1 Editorial Hero recorded as Version 1.0 (frozen). v1.0 — approved. Build in small reviewable phases, one section at a time, validated on preview._
+
+## 🔒 S6 — CRAFT STORY (Homepage §6): **VERSION 1.0** — FROZEN (2026-07-16)
+`sections/home-craft-story.liquid`. **Assembly only — zero new components** (FROZEN `tbk-button` primary + ghost; FROZEN tokens). The 5/7 editorial split is **section-scoped layout**, not a component — same precedent as S1 hero / S3 / S4 grids. No new button, card, form, badge or typography introduced. `tbkx-` namespaced → PDP untouched.
+
+### Why the trust points are a plain list, not `tbkx-card--trust`
+S2 Delivery Promise already owns the trust-card pattern. Re-using cards here would duplicate a component's **job**, dilute S2's distinctiveness, and put two competing trust blocks on one page. The component-reuse rule forbids duplicate components — this extends it to duplicate **uses**. Trust points render as a token-styled `<ul>`: 3 short proofs, zero new CSS vocabulary.
+
+### 🚫 Image is optional and client-supplied — no stock asset
+The theme's stock images (`p1`, `p2`, `c1`, `c2`, `h1`, `h2`, `g1`) are **Ecomus demo content — the same source as the fabricated testimonials removed on 2026-07-16**. Shipping one as this bakery's "craft" would be the identical mistake in a new costume. No image is hardcoded.
+**With no image the section renders text-only, centred, max 72ch** — no broken layout, no placeholder, no fallback icon. The copy is the substance; the image is an enhancement. It can be added later via the section setting with **no code change and no deploy**.
+Compounding the earlier hero finding (watermarks, third-party branding and customer names burned into catalogue photos), **no compliant craft asset exists**. Folded into the existing **Flagship Hero Photoshoot** backlog rather than raised as a new blocker.
+
+### 🚫 Emits NO structured data — deliberately
+Craft story is prose, not a list or Q&A: there is no honest schema type for it. The eggless / freshly-baked facts do their GEO work as **visible text** — AI assistants read rendered content (same reasoning as S5, `REVIEW_STRATEGY.md` §4). Inventing `FAQPage` for non-Q&A prose would be exactly the "markup that doesn't match visible content" pattern this project has been removing.
+
+### Purpose & mechanics
+| Attribute | Value |
+|---|---|
+| **Business objective** | Convert the brand's two strongest differentiators — 100% eggless, baked-to-order — into stated, checkable trust |
+| **User intent** | Reassurance — "is this actually eggless, and is it fresh?" |
+| **KPI** | Scroll-depth; CTR to `/pages/about-us` + `/pages/freshness-guarantee` |
+| **Copy source** | `HOMEPAGE_CONTENT_STRATEGY.md` §5 — verbatim, no ad-libbing in Liquid |
+| **Schema** | **None** — by design |
+| **Perf** | **0 JS** · lazy WebP srcset · explicit w/h → CLS 0 |
+| **Layout** | mobile 1-col (image → text) · desktop **5fr / 7fr** split |
+| **Links** | `/pages/about-us` (primary) · `/pages/freshness-guarantee` (ghost) — both **HTTP 200** |
+
+### SEO / GEO
+Answers the two highest-intent questions asked about this bakery — *"are the cakes eggless?"* and *"are they fresh?"* — in plain prose an AI can quote. Keywords ("100% eggless cakes", "freshly baked") appear **once each, naturally**, per `BRAND_VOICE.md`. Two internal links to the pages that substantiate the claims — the claim and its proof are one click apart.
+
+### Validation (preview 151370334377)
+**Text-only (shipped) state:** renders; `--noimg` single column; H2-only hierarchy (no orphan H3); both CTAs **HTTP 200**; buttons resolve to the frozen `tbkx-btn tbkx-btn--primary/--ghost tbkx-btn--md`; 0 `<script>`; no schema emitted; S1–S5 unaffected.
+**With-image state:** tested by temporarily setting an image, then reverted. Desktop split measured **0.714 = exactly 5/7**; `format=webp` in `src` and `srcset` (500/750/1100w); `loading="lazy"`; **CLS 0 proven structurally** — the browser reserved ratio **1.500** from the `width`/`height` attributes (4096×2731) *before* the image loaded, matching the rendered ratio exactly. Revert verified.
+**Mobile (375px):** 1 column, no overflow, CTA tap targets **48px** (≥44px), trust points wrap cleanly to 2 rows.
+
+### ⚠️ Open claim — "FSSAI approved"
+Rendered as a trust point. It is the client's own claim (already live in the trust bar), **not** review data — so it is out of `REVIEW_STRATEGY.md` scope. But it is a **factual claim**, held to the same standard as the "20,000+ celebrations" milestone (§5b): **an FSSAI licence number is public, legally required to be displayed, and would convert an unverifiable adjective into checkable proof.** Recommended, not blocking. Backlogged.
+
+Frozen — no S6 changes without explicit unfreeze.
+
+_v1.7 — S6 Craft Story frozen (Version 1.0) — text-only until a compliant craft photo exists; no stock demo asset used. v1.6 — S5 Social Proof frozen (Version 1.0) — renders nothing until a verified review source exists; emits no review schema (self-serving markup disallowed). v1.5 — S4 Bestsellers frozen (Version 1.0); handle renames deferred to the SEO Migration project. v1.4 — S4 Bestsellers built, awaiting review. v1.3 — S3 Occasion Navigation frozen (Version 1.0). v1.2 — S2 Delivery Promise frozen (Version 1.0). v1.1 — S1 Editorial Hero recorded as Version 1.0 (frozen). v1.0 — approved. Build in small reviewable phases, one section at a time, validated on preview._

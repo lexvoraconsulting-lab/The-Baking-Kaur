@@ -38,6 +38,21 @@ Enterprise Shopify transformation roadmap. Status as of v1.0 (2026-07-14). Gover
 
 ## Backlog
 
+### 📸 Craft & studio photography  *(raised 2026-07-16 · folds into Flagship Hero Photoshoot)*
+**S6 Craft Story ships text-only because no compliant image exists.** Two independent blockers, both previously documented:
+- The theme's stock assets (`p1`, `p2`, `c1`, `c2`, `h1`, `h2`, `g1`) are **Ecomus demo content** — the same source as the fabricated testimonials removed on 2026-07-16. Using one would present stock imagery as this bakery's craft.
+- Catalogue photos carry **Zomato watermarks, third-party (TWC) branding, and customers' piped names** (GAURAV, NAVANYA, G&P, S&N) — none are usable as brand imagery.
+
+**Needed:** hands at work · the Meerut studio · ingredients — imagery that substantiates *"made by hand in our Meerut studio"*. The claim is already on the homepage; the photograph is what proves it.
+**Add via section setting — no code change, no deploy.** Merge into the existing **Flagship Hero Photoshoot** brief rather than commissioning separately.
+
+### 🪪 Substantiate the FSSAI claim  *(raised 2026-07-16 · small, high trust-per-effort)*
+"FSSAI approved" renders on the homepage (S6 trust points) and in the trust bar. It is the client's own claim — **not review data**, so outside `REVIEW_STRATEGY.md` — but it is a factual claim held to the same standard as the "20,000+ celebrations" milestone (§5b).
+**An FSSAI licence number is public, legally required to be displayed by food businesses, and turns an unverifiable adjective into checkable proof.** Ask the client for the number; surface it in the footer and/or the craft section.
+**Effort:** minutes. **Value:** Trust · GEO (a licence number is a strong, checkable entity fact AI can cite). Not blocking.
+
+
+
 ### 🔤 SEO CONTENT FIX – Product Titles & Encoding  *(project · raised 2026-07-16 · does NOT block homepage)*
 **No homepage dependency.** Homepage sections render titles from the product record; they neither cause nor fix this. Client directive: do not block homepage development.
 
