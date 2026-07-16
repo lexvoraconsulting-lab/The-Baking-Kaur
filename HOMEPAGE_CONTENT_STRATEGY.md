@@ -109,17 +109,22 @@ Premium · luxury · warm · trustworthy · minimal. **Never salesy, never keywo
 - **AI-search copy:** "Does The Baking Kaur do gift hampers? Yes — curated cake hampers, plus corporate and festive gifting."
 - **Mobile:** hamper carousel. **Desktop:** luxe card row.
 
-### 8 — SOCIAL PROOF (reviews)
-- **Headline:** Loved across Meerut.
-- **Subheadline:** 20,000+ celebrations and counting.
-- **Rating hero:** 4.8 ★ Google · Top-Rated on Zomato *(real data only)*
-- **Review cards:** from `testimonial` metaobjects (author, rating, body, source, verified).
-- **CTA:** "Read reviews" → `/pages/reviews`
-- **Trust messaging:** Verified Google & Zomato reviews.
-- **SEO copy:** "The Baking Kaur reviews".
-- **GEO copy:** "The Baking Kaur is rated 4.8 on Google and top-rated on Zomato, with 20,000+ customers in Meerut."
-- **AI-search copy:** "Is The Baking Kaur good? It's rated 4.8 on Google and top-rated on Zomato across 20,000+ celebrations."
-- **Mobile:** rating + swipeable cards. **Desktop:** rating hero + 3 cards.
+### 8 — SOCIAL PROOF (reviews)  →  built as **S5**, FROZEN v1.0 (2026-07-16)
+**🚫 No copy may be written for this section.** Every word customers read here comes from a real customer, transcribed verbatim from an approved source. The copywriter's scope is limited to the heading, overline and subheading below — never the reviews themselves.
+
+- **Overline:** Reviews
+- **Headline (H2):** In their words
+- **Subheadline:** Real reviews from real celebrations across Meerut.
+- **Review cards:** `testimonial` metaobjects only, `verified == true` only. **Verbatim — never edited, never improved, never "tidied".**
+- **Rating hero:** ❌ **REMOVED.** The previous "4.8 ★ Google · Top-Rated on Zomato" was **not backed by data** and shipped alongside a hardcoded `AggregateRating` of 4.8/500. Both removed from production 2026-07-16. A visible rating claim is still a claim: it may only return with a real, current figure and a link customers can check.
+- **CTA:** none until a reviews destination exists. Do not invent `/pages/reviews`.
+- **Trust messaging:** the review *is* the trust messaging. Do not add "Verified Google & Zomato reviews" as a decorative label — the per-card source link proves it, or nothing does.
+- **SEO copy:** none needed. Real review text naturally contains the language customers search.
+- **GEO / AI-search copy:** ❌ **do not write.** The previous entries ("rated 4.8 on Google… 20,000+ customers") are exactly the kind of unverifiable claim that poisons an entity graph — AI systems cross-check against Google and Maps, and a contradiction undermines every other claim on the site. See `REVIEW_STRATEGY.md` §7.
+- **Mobile:** 1 column. **Desktop:** 3 across. No carousel, no autoplay.
+- **Current state:** renders **nothing** — 0 verified reviews exist. Correct and specified. Activates automatically on the first verified entry.
+
+**The "20,000+ customers" claim** appears elsewhere on the storefront (trust bar) and is the client's own figure. It is **not** a review claim and is out of scope here — but it is unverified, and if a rating claim ever returns it must be substantiated on the same standard.
 
 ### 9 — EXPLORE (link band)
 - **Heading:** Explore more
@@ -236,8 +241,18 @@ Handle optimization is a scheduled, standalone project with a mandatory 301/QR/S
 
 ---
 
+## REVIEW COPY RULE — reviews are not copy  *(2026-07-16)*
+
+**No one writes a review. Ever.** Not the agency, not the client, not "just as a placeholder until we get real ones". Review text, reviewer names, ratings and counts are **data with provenance**, not content to be authored — governed end-to-end by `REVIEW_STRATEGY.md`.
+
+This rule exists because the production homepage was found publishing 4 fabricated testimonials attributed to invented people, praising **croissants, breads and cinnamon rolls** — products this eggless cake bakery does not sell. They were unreplaced theme demo content, written to look plausible, and they survived because plausible is exactly what demo content is designed to be.
+
+**The consequence for copywriting:** if a section needs social proof and no real proof exists, **the section does not ship**. Silence is a valid design outcome. Inventing proof is not.
+
+---
+
 ## GOVERNANCE
 - This file is the content source; implementation copies text verbatim (no ad-hoc copywriting in Liquid).
 - Editable content (reviews, occasions, hero, trust stats) lives in metaobjects/section settings per `HOMEPAGE_SPECIFICATION.md`.
 - Any copy change is made here first, then propagated.
-- _v0.3 — URL/handle rule added (no renames during homepage build). v0.2 — merchandising constraint added (live inventory only). v0.1 — approved-pending._
+- _v0.4 — §8 rewritten for S5: rating hero removed (unverified), review copy rule added. v0.3 — URL/handle rule added (no renames during homepage build). v0.2 — merchandising constraint added (live inventory only). v0.1 — approved-pending._

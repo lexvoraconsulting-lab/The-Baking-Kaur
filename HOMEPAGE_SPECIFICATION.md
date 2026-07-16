@@ -136,4 +136,39 @@ Sections render 4/4 · 8 product cards · H1→H2→H3 order intact · **1 link 
 
 Frozen — no S4 changes without explicit unfreeze.
 
-_v1.5 — S4 Bestsellers frozen (Version 1.0); handle renames deferred to the SEO Migration project. v1.4 — S4 Bestsellers built, awaiting review. v1.3 — S3 Occasion Navigation frozen (Version 1.0). v1.2 — S2 Delivery Promise frozen (Version 1.0). v1.1 — S1 Editorial Hero recorded as Version 1.0 (frozen). v1.0 — approved. Build in small reviewable phases, one section at a time, validated on preview._
+
+## 🔒 S5 — SOCIAL PROOF / REVIEWS (Homepage §5): **VERSION 1.0** — FROZEN (2026-07-16)
+`sections/home-reviews.liquid`. **Assembly only — zero new components** (FROZEN `tbkx-card--review`: `__stars`, `__author`, `__avatar`, `__verified`; `tbk-button`; tokens). `tbkx-` namespaced → PDP untouched.
+
+### ⚠️ Frozen rendering NOTHING — this is correct, not a defect
+There are **0 verified reviews** and **no approved review source is installed** (verified 2026-07-16: no Judge.me, Loox, Shopify Product Reviews, Okendo, Stamped or Yotpo). The section therefore renders **nothing at all** to customers: no heading, no cards, no schema. It activates **automatically** on the first verified review — no code change, no deploy.
+
+### Fabrication is impossible by construction, not by policy
+The section has **no setting capable of holding review text, a reviewer name, a rating or a count**. All content comes from `testimonial` metaobjects ("Verified Review"), where **every field is mandatory — including `source_url`, a public link to the original review**. An entry cannot be saved without its proof. Only `verified == true` entries render.
+This is the structural answer to the fabricated testimonials found live on 2026-07-16 (`REVIEW_STRATEGY.md` §8): the previous section stored review text in theme settings, which is indistinguishable from fiction and carries no provenance.
+
+### 🚫 Emits NO structured data — deliberately
+No `Review`, no `AggregateRating`. Google's review-snippet guidelines disallow **self-serving** ratings for `LocalBusiness`/`Organization` — a business marking up ratings about itself is not eligible for rich results, and a hardcoded value is the shape that earns a manual action. **Re-adding it would be wrong even with genuine data.** Separately, computing an aggregate from a hand-picked subset would declare a rating no data supports. Full reasoning: `REVIEW_STRATEGY.md` §4–§5.
+**GEO is unaffected:** AI assistants read visible text, so real reviews earn AI-search visibility with no markup at all.
+
+### Purpose & mechanics
+| Attribute | Value |
+|---|---|
+| **Business objective** | Trust spike at the decision point — proof from real customers |
+| **User intent** | Decision — "is this place actually good?" |
+| **KPI** | Scroll-depth past §5; reviews CTR; assisted conversion |
+| **Source** | `testimonial` metaobjects, `verified == true` only |
+| **Count** | 3 (setting `limit`, 3–9) |
+| **Schema** | **None** — by design (see above) |
+| **Perf** | **0 JS** · no images · CLS 0 |
+| **Layout** | mobile 1-col → desktop 3-col |
+| **Editor placeholder** | *"Waiting for verified review source."* — `request.design_mode` only; **never reaches a customer** |
+
+### Validation (preview 151370334377)
+**Empty state:** section wrapper renders **0 bytes** — no heading, no cards, no schema, placeholder not leaked; S1–S4 unaffected.
+**Populated state (tested with disposable non-review test entries, then deleted):** verified entry rendered; **unverified entry did NOT leak** — the core filter guarantee; stars rendered ★★★★☆ / `aria-label="4 out of 5"` from a seeded rating of **4**, proving the rating is data-driven and not hardcoded; avatar initial derived; source link carries `rel="nofollow noopener ugc"`; H2→H3 hierarchy intact; 0 `<script>`; still no schema.
+**Cleanup verified:** test entries deleted; storefront returned to the clean empty state.
+
+Frozen — no S5 changes without explicit unfreeze. Governance: `REVIEW_STRATEGY.md`.
+
+_v1.6 — S5 Social Proof frozen (Version 1.0) — renders nothing until a verified review source exists; emits no review schema (self-serving markup disallowed). v1.5 — S4 Bestsellers frozen (Version 1.0); handle renames deferred to the SEO Migration project. v1.4 — S4 Bestsellers built, awaiting review. v1.3 — S3 Occasion Navigation frozen (Version 1.0). v1.2 — S2 Delivery Promise frozen (Version 1.0). v1.1 — S1 Editorial Hero recorded as Version 1.0 (frozen). v1.0 — approved. Build in small reviewable phases, one section at a time, validated on preview._

@@ -185,3 +185,52 @@ Escalated from a backlog task to a standalone project: **SEO MIGRATION – Produ
 
 ### Docs updated
 `HOMEPAGE_SPECIFICATION.md` (S4 → FROZEN v1.0) · `PROJECT_ROADMAP.md` (SEO Migration project replaces the rehandle stub) · `SEO_GEO_MASTER_PLAN.md` (handle-rename freeze rule for S5–S9) · `HOMEPAGE_CONTENT_STRATEGY.md` (URL & handle rule) · this entry.
+
+
+---
+
+## 🔴 INCIDENT + FIX — fabricated reviews removed from production (2026-07-16)
+**Client-approved, executed on the LIVE theme (151307485353), verified on the public storefront.**
+
+### What was live
+- **4 fabricated testimonials attributed to named individuals** — Aisha Patel, Ravi Sharma, Neha Verma, Amit Verma — on the production homepage, section `testimonials_dhWXwb`, **not disabled**.
+- A **hardcoded `"aggregateRating": {"ratingValue":"4.8","reviewCount":"500"}`** in the `Bakery` JSON-LD from `snippets/bk-local-business.liquid`. That snippet renders in `<head>`, so the unverifiable rating was on **every page of the site (~1,200 URLs)**, not just the homepage.
+
+### How it was identified
+Unreplaced **Ecomus theme demo content**. Two independent tells: the reviews praised **almond croissants, breads, cinnamon rolls and coffee** — a butter-and-egg café menu, for a 100% eggless cake bakery that delivers — and one contained a *complaint* ("the only downside is that they close a bit early"), which no business writes into its own testimonials. The 4.8/500 was backed by no data at all.
+
+### Fixed
+- Fabricated blocks **deleted** from `templates/index.json` (not merely hidden — the names and text no longer exist in the theme).
+- Section **disabled** → gracefully hidden: **no orphan heading, no orphan schema**.
+- `aggregateRating` **removed** from `bk-local-business.liquid`; all legitimate Bakery data preserved (name, address, geo, hours, telephone, sameAs); **permanent guard comment** added explaining why it must never return.
+- Theme-editor-only placeholder: *"Waiting for verified review source."*
+
+### Verified on production (fresh session, preview cookie cleared)
+Fabricated names/text **gone** · `hdt-testimonials` **not rendered** · `aggregateRating`/`ratingValue`/`reviewCount` **gone sitewide** · no orphan heading · placeholder **not** leaked to customers · Bakery schema intact and parsing · **unapproved homepage (S1–S5) still NOT on live** — live `index.json` was patched surgically via pull→patch→push, never from the repo copy.
+
+### Process note — a false negative I nearly reported
+An early verification appeared to show the fix had failed. Two causes, both mine: (1) the browser tab still held a `preview_theme_id` cookie, so I was inspecting **preview**, not live — and the cookie is per-domain, so a "fresh tab" inherited it; (2) my grep for `aggregateRating` matched **my own guard comment**. Both were caught by checking the authoritative source — pulling the file back from the live theme and parsing the emitted JSON body — rather than trusting a string match on rendered HTML. **Lesson: verify against the artefact, not the rendering, and confirm which theme you are actually looking at.**
+
+---
+
+## Phase C1 §5 — Social Proof / Reviews **FROZEN v1.0** (2026-07-16) — genuine data only
+- **Files:** `sections/home-reviews.liquid` (new), `templates/index.json` (§5), `REVIEW_STRATEGY.md` (new).
+- **Assembly only:** FROZEN `tbkx-card--review` + `tbk-button` + tokens. **Zero new components.** PDP untouched.
+- **New data model:** `testimonial` metaobject — **"Verified Review"** (`gid://shopify/MetaobjectDefinition/13988495529`). Fields, **all mandatory**: author · body · rating (1–5) · source · **source_url (public proof link)** · review_date · **verified**.
+
+### Frozen rendering NOTHING — correct, not a defect
+**0 verified reviews exist**; no approved source is installed (verified: no Judge.me, Loox, Shopify Product Reviews, Okendo, Stamped, Yotpo). Section renders nothing to customers and **activates automatically** on the first verified entry — no code change, no deploy.
+
+### Fabrication impossible by construction
+The section has **no setting capable of holding review text, a name, a rating or a count**. An entry **cannot be saved without a public proof link**. Only `verified == true` renders. This is the structural answer to the incident above: the old section stored review text in theme settings — indistinguishable from fiction, no provenance.
+
+### 🚫 Emits NO structured data — deliberately
+No `Review`, no `AggregateRating`. Google disallows **self-serving** ratings for `LocalBusiness`/`Organization`; **re-adding it would be wrong even with genuine data**. Computing an aggregate from a hand-picked subset would also declare a rating no data supports. **GEO is unaffected** — AI assistants read visible text, so real reviews earn AI visibility with zero markup.
+
+### Validation (preview 151370334377)
+**Empty state:** wrapper renders **0 bytes** — no heading, cards, or schema; placeholder not leaked; S1–S4 unaffected.
+**Populated state:** tested with disposable, unmistakably-non-review entries, then deleted. Verified entry rendered; **unverified entry did NOT leak** (the core guarantee); stars rendered ★★★★☆ / `aria-label="4 out of 5"` from a seeded rating of **4** — proving data-driven, not hardcoded; `rel="nofollow noopener ugc"` on source links; H2→H3 intact; 0 JS; no schema. **Cleanup verified** — storefront back to clean empty state.
+
+### Docs
+**`REVIEW_STRATEGY.md` created** — sources · governance · moderation · schema rules · AggregateRating rules · Google compliance · AI-search compliance · incident record. Also updated: `HOMEPAGE_SPECIFICATION.md` (S5 frozen), `HOMEPAGE_CONTENT_STRATEGY.md` (§8 rewritten, rating hero removed, review copy rule), `SEO_GEO_MASTER_PLAN.md`, `SCHEMA_MASTER.md`, `PROJECT_ROADMAP.md` (Collect genuine reviews).
+- **Risk:** low (renders nothing). **Rollback:** `git rm sections/home-reviews.liquid` + remove `home_reviews` from `templates/index.json`.

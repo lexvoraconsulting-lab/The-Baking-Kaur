@@ -1143,65 +1143,11 @@
     },
     "testimonials_dhWXwb": {
       "type": "testimonials",
-      "blocks": {
-        "quote_QnjThP": {
-          "type": "quote",
-          "settings": {
-            "heading": "",
-            "content": "<p>The Baking Kaur is a gem in Meerut! Their pastries are always fresh and delicious. I recently tried their almond croissants and was blown away. The staff is incredibly friendly and helpful. Highly recommend this place for anyone with a sweet tooth!</p>",
-            "author": "Aisha Patel",
-            "pos": "",
-            "enable_verify": false,
-            "product": "",
-            "rating": 5
-          }
-        },
-        "quote_CK8xpX": {
-          "type": "quote",
-          "settings": {
-            "heading": "",
-            "content": "<p>I've been a regular at The Baking Kaur for a few months now, and I must say, their cakes are top-notch. The chocolate cake is my personal favorite. It’s rich and moist every single time. The only downside is that they close a bit early for my liking.</p>",
-            "author": "Ravi Sharma",
-            "pos": "",
-            "enable_verify": false,
-            "product": "",
-            "rating": 5
-          }
-        },
-        "quote_EtbRCC": {
-          "type": "quote",
-          "settings": {
-            "heading": "",
-            "content": "<p>Absolutely love The Baking Kaur! Their breads are always fresh, and the cinnamon rolls are to die for. The cozy ambiance and the welcoming staff make every visit a pleasure. Perfect spot for a coffee and a treat.</p>",
-            "author": "Neha Verma",
-            "pos": "",
-            "enable_verify": false,
-            "product": "",
-            "rating": 5
-          }
-        },
-        "quote_r4fMWC": {
-          "type": "quote",
-          "settings": {
-            "heading": "",
-            "content": "<p>The Baking Kaur has quickly become my go-to bakery. Their custom cakes are always a hit at family gatherings. I had them make a special cake for my daughter’s birthday, and it was not only beautiful but also delicious. Keep up the great work</p>",
-            "author": "Amit Verma",
-            "pos": "",
-            "enable_verify": false,
-            "product": "",
-            "rating": 5
-          }
-        }
-      },
-      "block_order": [
-        "quote_QnjThP",
-        "quote_CK8xpX",
-        "quote_EtbRCC",
-        "quote_r4fMWC"
-      ],
+      "blocks": {},
+      "block_order": [],
       "settings": {
         "heading_align": "center",
-        "sec_heading": "Testimonials",
+        "sec_heading": "Waiting for verified review source.",
         "heading_tag": "h3",
         "heading_size": "h4",
         "sec_subheading": "",
@@ -1225,7 +1171,8 @@
         "padding_top": 30,
         "padding_bottom": 30,
         "padding_rate": 95
-      }
+      },
+      "disabled": true
     },
     "17596943547fd09fe7": {
       "type": "apps",
@@ -1245,6 +1192,15 @@
         "cta_label": "View all cakes",
         "cta_link": "shopify://collections/all"
       }
+    },
+    "home_reviews": {
+      "type": "home-reviews",
+      "settings": {
+        "limit": 3,
+        "overline": "Reviews",
+        "heading": "In their words",
+        "subheading": "Real reviews from real celebrations across Meerut."
+      }
     }
   },
   "order": [
@@ -1252,6 +1208,7 @@
     "home_promise",
     "home_occasions",
     "home_bestsellers",
+    "home_reviews",
     "categories_section_m9EMCJ",
     "categories_section_kfmNzj",
     "c28ddbdb-d0df-4b86-9b0a-674df42ecc5c",

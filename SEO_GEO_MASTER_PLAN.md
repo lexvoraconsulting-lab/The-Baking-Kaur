@@ -104,3 +104,27 @@ About/Our Story · Craftsmanship · Same-Day Delivery · Midnight Delivery · De
 
 ## Changelog of this document
 - v0.1 (Phase A) — schema canonicalized (dedup); IA/GEO/local roadmap seeded. Pending items assigned to Phase F/G.
+
+
+---
+
+## Reviews, ratings & AggregateRating — hard rules  *(2026-07-16 · full detail in `REVIEW_STRATEGY.md`)*
+
+### 🚫 The storefront emits NO review schema. Anywhere.
+No `Review`, no `AggregateRating` — not on the homepage, not sitewide, not on PDPs.
+
+**Why, in order of severity:**
+1. **Self-serving markup is disallowed.** Google's review-snippet guidelines exclude ratings a business collects and marks up **about itself** from rich-result eligibility for `LocalBusiness`/`Organization`. Not merely ineligible — a hardcoded value is the shape that earns a **manual action** for spammy structured data.
+2. **A featured subset is not an aggregate.** Computing a rating from 3 hand-picked 5★ reviews declares a 5.0 the data does not support. Never compute an aggregate from what is displayed.
+3. **Genuine Google ratings need no help from us.** They already surface in Google's knowledge panel and Maps. Re-declaring them imports all the risk for no visibility.
+
+**Removed from production 2026-07-16:** a hardcoded `"aggregateRating": {"ratingValue":"4.8","reviewCount":"500"}` in `snippets/bk-local-business.liquid`. Because that snippet renders in `<head>`, the unverifiable rating was on **every page of the site (~1,200 URLs)**, not just the homepage. A permanent guard comment now sits where it was.
+**PDP `Product` schema carries no `aggregateRating`** — verified 2026-07-16. Keep it that way until a genuine product-review source exists.
+
+### GEO / AI-search
+**Visible text is sufficient.** AI Overviews, ChatGPT, Gemini and Perplexity read rendered content, not only markup — so genuine reviews earn AI-search visibility with **zero schema**. Emitting none costs nothing.
+**Fabricated claims are worse than silence.** AI systems cross-reference against Google, Maps, Zomato and social. A site claiming reviews that exist nowhere else creates a **contradiction in the entity graph**, undermining every other claim — including the true ones (NAP, hours, eggless, delivery) this plan has worked to establish.
+**The honest lever for "is The Baking Kaur good?" is to collect more real reviews** — not to author them. Backlogged as *"Collect genuine reviews"*.
+
+### Standing rule for all remaining phases
+Any section proposing a star, a rating, a count or a testimonial must first satisfy `REVIEW_STRATEGY.md` §0: **traceable to a real customer at a verifiable public URL, or it does not ship.**

@@ -77,3 +77,5 @@ SHOPIFY_ARCHITECTURE + PERFORMANCE_BASELINE ─▶ current-state inputs
 ```
 
 _Start with the Reading Order above. Nothing is implemented on the live store beyond the pending Phase-A promotion._
+
+- **REVIEW_STRATEGY.md** — read before touching any review, rating or star. Genuine data only.

@@ -26,6 +26,7 @@ Documentation only. 20 documents.
 - [INFORMATION_ARCHITECTURE](./INFORMATION_ARCHITECTURE.md) — 5-year IA
 - [SEO_GEO_MASTER_PLAN](./SEO_GEO_MASTER_PLAN.md) — SEO/GEO/local roadmap
 - [SCHEMA_MASTER](./SCHEMA_MASTER.md) — structured data
+- [REVIEW_STRATEGY.md](REVIEW_STRATEGY.md) — reviews, ratings & AggregateRating governance. Genuine data only.
 - [MERCHANDISING_GUIDE](./MERCHANDISING_GUIDE.md) — merchandising rules
 - [CONTENT_SYSTEM](./CONTENT_SYSTEM.md) — metaobjects & metafields
 

@@ -38,6 +38,23 @@ Enterprise Shopify transformation roadmap. Status as of v1.0 (2026-07-14). Gover
 
 ## Backlog
 
+### ⭐ Collect genuine reviews  *(raised 2026-07-16 · blocks S5 activation · client action)*
+**S5 Social Proof is built, frozen and renders nothing — because 0 verified reviews exist.** No approved review source is installed (verified 2026-07-16: no Judge.me, Loox, Shopify Product Reviews, Okendo, Stamped, Yotpo).
+
+The homepage previously filled this gap with **fabricated testimonials** (`REVIEW_STRATEGY.md` §8). That option is permanently closed. The only route to social proof is real reviews.
+
+**Options, in client-ratified priority order:**
+1. **Google Business Profile** — reviews likely already exist. No Shopify sync: transcribe each into a `testimonial` metaobject with its public `source_url`, then verify (§3). **Fastest path to a populated S5.**
+2. **Judge.me** — **strongest long-term option.** Collects *verified-buyer* reviews automatically after each order, forever, with no transcription. Turns social proof from a one-off task into a compounding asset. **Do not enable review gating** — Google treats it as deceptive.
+3. **Loox** — photo reviews; strong fit for cakes, where the product is visual.
+4. **Shopify Product Reviews** — native, basic.
+5. **Zomato** — ⚠️ **blocked**: approved *only if legally displayable*, and nobody has checked whether Zomato's terms permit off-platform reproduction. Do not transcribe until confirmed.
+
+**Effort → reward:** S5 needs **3 verified reviews** to activate. It then appears automatically — no code change, no deploy.
+**Note:** a bakery claiming 20,000+ celebrations should not struggle to source reviews. It has simply never asked. A post-delivery WhatsApp asking for a Google review would likely resolve this in a week.
+
+
+
 ### 🔗 SEO MIGRATION – Product Handle Optimization  *(project · raised 2026-07-16 · scheduled AFTER homepage)*
 **🚫 HARD RULE: no product handle is renamed during Homepage development.** Client directive, 2026-07-16. Every section built in Phase C links to existing handles exactly as they are.
 

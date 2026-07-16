@@ -9,6 +9,16 @@
   It renders on every page (correct for site-wide business info).
   ⚠ Verify the geo latitude/longitude from Google Maps for your
   exact shop pin, then update the two numbers below.
+
+  🚫 DO NOT ADD aggregateRating HERE.
+  A hardcoded "4.8 / 500 reviews" was removed on 2026-07-16: it was not
+  backed by any real review data, and this snippet renders in <head> on
+  EVERY page, so it declared an unverifiable rating site-wide.
+  Google requires aggregate ratings to come from genuine user ratings that
+  are visible on the page; a hardcoded value is spammy structured markup
+  and risks a manual action.
+  AggregateRating may only ever be emitted from a verified review source,
+  computed from real entries — never typed in. See REVIEW_STRATEGY.md.
 {% endcomment %}
 <script type="application/ld+json">
 {
@@ -54,11 +64,6 @@
   "sameAs": [
     "https://www.instagram.com/thebakingkaur",
     "https://www.facebook.com/thebakingkaur"
-  ],
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "4.8",
-    "reviewCount": "500"
-  }
+  ]
 }
 </script>

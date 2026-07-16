@@ -39,3 +39,16 @@ BreadcrumbList ─ per template
 Link `Bakery @id` into `Organization`; remove self-asserted AggregateRating; page-scope FAQ; add Product/Offer/Review; add CollectionPage/ItemList.
 
 _v0.1 — reflects Phase-A dedup._
+
+
+---
+
+## 🚫 Review & AggregateRating — prohibited  *(2026-07-16 · authority: `REVIEW_STRATEGY.md` §4–§5)*
+| Schema | Location | Status |
+|---|---|---|
+| `AggregateRating` on `Bakery`/`LocalBusiness`/`Organization` | anywhere | 🚫 **NEVER** — self-serving markup, disallowed by Google; manual-action risk |
+| `Review` on `Bakery`/`LocalBusiness`/`Organization` | anywhere | 🚫 **NEVER** — self-serving |
+| `AggregateRating`/`Review` on `Product` | PDP | ⚠️ only from a genuine product-review source, reviews visible on the same page. **No source installed — currently impossible.** |
+| Ratings inside `ItemList` (S4) | homepage | 🚫 not without a real per-product source |
+
+**Removed 2026-07-16:** hardcoded `4.8 / 500` from `snippets/bk-local-business.liquid` — rendered in `<head>`, so it was on **every page**. Guard comment left in place. `home-reviews.liquid` (S5) emits **no structured data at all**.
