@@ -27,6 +27,70 @@
         "image_title": "Signature eggless strawberry cream cake — The Baking Kaur, Meerut"
       }
     },
+    "home_promise": {
+      "type": "home-delivery-promise",
+      "blocks": {
+        "item_1": {
+          "type": "item",
+          "settings": {
+            "icon": "truck",
+            "heading": "Same-Day Delivery",
+            "text": "Order by 4 PM and we deliver across Meerut today."
+          }
+        },
+        "item_2": {
+          "type": "item",
+          "settings": {
+            "icon": "moon",
+            "heading": "Midnight Delivery",
+            "text": "Surprise them at 12 AM, beautifully timed."
+          }
+        },
+        "item_3": {
+          "type": "item",
+          "settings": {
+            "icon": "leaf",
+            "heading": "100% Eggless",
+            "text": "Every cake is pure-vegetarian, with no compromise on taste."
+          }
+        },
+        "item_4": {
+          "type": "item",
+          "settings": {
+            "icon": "oven",
+            "heading": "Freshly Made to Order",
+            "text": "Baked after you order — never from a shelf."
+          }
+        },
+        "item_5": {
+          "type": "item",
+          "settings": {
+            "icon": "shield",
+            "heading": "FSSAI Licensed",
+            "text": "Certified kitchen, hygienic handling, safe packaging."
+          }
+        },
+        "item_6": {
+          "type": "item",
+          "settings": {
+            "icon": "palette",
+            "heading": "Premium Custom Cakes",
+            "text": "Designer cakes crafted from your reference photo."
+          }
+        }
+      },
+      "block_order": [
+        "item_1",
+        "item_2",
+        "item_3",
+        "item_4",
+        "item_5",
+        "item_6"
+      ],
+      "settings": {
+        "aria_label": "Our promise"
+      }
+    },
     "categories_section_m9EMCJ": {
       "type": "categories-section",
       "blocks": {
@@ -1109,6 +1173,7 @@
   },
   "order": [
     "home_hero",
+    "home_promise",
     "categories_section_m9EMCJ",
     "categories_section_kfmNzj",
     "c28ddbdb-d0df-4b86-9b0a-674df42ecc5c",
