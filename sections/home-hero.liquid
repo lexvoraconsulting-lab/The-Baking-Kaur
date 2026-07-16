@@ -1,0 +1,167 @@
+{%- comment -%}
+  sections/home-hero.liquid — Homepage §1 Editorial Hero (Phase C1)
+  Built on FROZEN foundation (tbk-tokens) + FROZEN button (tbk-button / tbkx-btn).
+  Namespaced tbkx- → cannot touch the protected product page.
+  Copy defaults come from HOMEPAGE_CONTENT_STRATEGY.md; all merchant-editable via
+  section settings (migratable to the `home_hero_slide` metaobject later — CONTENT_SYSTEM.md).
+  LCP: hero image is eager + fetchpriority=high + explicit dimensions (no CLS).
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign trust_items = s.trust | split: '·'
+-%}
+
+<section class="tbkx-hero" aria-labelledby="tbkx-hero-h">
+  <div class="tbkx-hero__inner">
+
+    <div class="tbkx-hero__content">
+      {%- if s.overline != blank -%}<p class="tbkx-hero__overline">{{ s.overline }}</p>{%- endif -%}
+
+      <h1 class="tbkx-hero__title" id="tbkx-hero-h">{{ s.heading }}</h1>
+
+      {%- if s.subheading != blank -%}
+        <p class="tbkx-hero__sub">{{ s.subheading }}</p>
+      {%- endif -%}
+
+      {%- if s.supporting != blank -%}
+        <p class="tbkx-hero__support">{{ s.supporting }}</p>
+      {%- endif -%}
+
+      <div class="tbkx-hero__cta">
+        {%- if s.cta1_label != blank -%}
+          <span data-tbk-event="select_promotion" data-tbk-promo="hero_primary">
+            {%- render 'tbk-button', label: s.cta1_label, href: s.cta1_url, variant: 'primary', size: 'lg' -%}
+          </span>
+        {%- endif -%}
+        {%- if s.cta2_label != blank -%}
+          <span data-tbk-event="select_promotion" data-tbk-promo="hero_secondary">
+            {%- render 'tbk-button', label: s.cta2_label, href: s.cta2_url, variant: 'ghost', size: 'lg' -%}
+          </span>
+        {%- endif -%}
+      </div>
+
+      {%- if s.microcopy != blank -%}
+        <p class="tbkx-hero__micro">{{ s.microcopy }}</p>
+      {%- endif -%}
+
+      {%- if s.trust != blank -%}
+        <ul class="tbkx-hero__trust" aria-label="Our promise">
+          {%- for item in trust_items -%}
+            {%- assign t = item | strip -%}
+            {%- if t != blank -%}<li>{{ t }}</li>{%- endif -%}
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+    </div>
+
+    <div class="tbkx-hero__media">
+      {%- if s.image != blank -%}
+        <picture>
+          {%- if s.image_mobile != blank -%}
+            <source media="(max-width: 749px)"
+                    srcset="{{ s.image_mobile | image_url: width: 750 }} 750w, {{ s.image_mobile | image_url: width: 1100 }} 1100w"
+                    sizes="100vw">
+          {%- endif -%}
+          <img src="{{ s.image | image_url: width: 1200 }}"
+               srcset="{{ s.image | image_url: width: 600 }} 600w,
+                       {{ s.image | image_url: width: 900 }} 900w,
+                       {{ s.image | image_url: width: 1200 }} 1200w,
+                       {{ s.image | image_url: width: 1600 }} 1600w"
+               sizes="(min-width: 990px) 46vw, 100vw"
+               width="{{ s.image.width }}" height="{{ s.image.height }}"
+               alt="{{ s.image_alt | default: s.heading | escape }}"
+               loading="eager" fetchpriority="high" decoding="async">
+        </picture>
+      {%- else -%}
+        {%- comment -%} Empty state — never render a broken/blank hero {%- endcomment -%}
+        <div class="tbkx-hero__ph" role="img" aria-label="{{ shop.name }}"></div>
+      {%- endif -%}
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .tbkx-hero{background:var(--tbk-surface,#FDFAF8);}
+  .tbkx-hero__inner{
+    max-width:var(--tbk-container,1280px);margin:0 auto;
+    padding:var(--tbk-section-y,clamp(56px,8vw,128px)) var(--tbk-edge,clamp(16px,5vw,80px));
+    display:grid;gap:clamp(28px,4vw,64px);align-items:center;
+    grid-template-columns:1fr;
+  }
+  @media (min-width:990px){
+    .tbkx-hero__inner{grid-template-columns:5fr 7fr;} /* editorial asymmetry */
+    .tbkx-hero__content{order:1;} .tbkx-hero__media{order:2;}
+  }
+
+  .tbkx-hero__overline{
+    margin:0 0 var(--tbk-sp-4,16px);font:var(--tbk-fw-semibold,600) var(--tbk-text-xs,11px)/1 var(--tbk-font-ui,'Manrope',sans-serif);
+    letter-spacing:var(--tbk-ls-overline,.14em);text-transform:uppercase;color:var(--tbk-muted,#876575);
+  }
+  .tbkx-hero__title{
+    margin:0;font-family:var(--tbk-font-display,'Cormorant Garamond',Georgia,serif);
+    font-weight:600;font-size:var(--tbk-display-hero,clamp(40px,5.5vw,72px));
+    line-height:var(--tbk-lh-display,1.1);letter-spacing:var(--tbk-ls-tight,-.01em);
+    color:var(--tbk-ink,#1A0810);max-width:16ch;
+  }
+  .tbkx-hero__sub{
+    margin:var(--tbk-sp-5,20px) 0 0;font-size:var(--tbk-text-lg,16px);line-height:var(--tbk-lh-body,1.65);
+    color:var(--tbk-ink-soft,#3B1F2E);max-width:44ch;
+  }
+  .tbkx-hero__support{
+    margin:var(--tbk-sp-3,12px) 0 0;font-size:var(--tbk-text-base,14px);line-height:var(--tbk-lh-body,1.65);
+    color:var(--tbk-muted,#876575);max-width:46ch;display:none;
+  }
+  @media (min-width:990px){ .tbkx-hero__support{display:block;} }
+
+  .tbkx-hero__cta{display:flex;flex-wrap:wrap;gap:var(--tbk-sp-3,12px);margin-top:var(--tbk-sp-8,32px);}
+  @media (max-width:560px){ .tbkx-hero__cta{flex-direction:column;align-items:stretch;} .tbkx-hero__cta .tbkx-btn{width:100%;} }
+
+  .tbkx-hero__micro{
+    margin:var(--tbk-sp-4,16px) 0 0;font-size:var(--tbk-text-xs,11px);color:var(--tbk-muted,#876575);
+  }
+  .tbkx-hero__trust{
+    list-style:none;margin:var(--tbk-sp-8,32px) 0 0;padding:var(--tbk-sp-5,20px) 0 0;
+    border-top:1px solid var(--tbk-border-subtle,rgba(237,216,227,.55));
+    display:flex;flex-wrap:wrap;gap:8px 0;align-items:center;
+    font:var(--tbk-fw-semibold,600) var(--tbk-text-xs,11px)/1.4 var(--tbk-font-ui,'Manrope',sans-serif);
+    color:var(--tbk-ink,#1A0810);
+  }
+  .tbkx-hero__trust li{padding:0 14px;position:relative;}
+  .tbkx-hero__trust li:first-child{padding-left:0;}
+  .tbkx-hero__trust li + li::before{content:"";position:absolute;left:0;top:50%;transform:translateY(-50%);width:1px;height:12px;background:var(--tbk-border-strong,#D4ADC0);}
+
+  .tbkx-hero__media img,.tbkx-hero__ph{
+    display:block;width:100%;height:auto;border-radius:var(--tbk-r-xl,24px);
+    aspect-ratio:4/5;object-fit:cover;
+  }
+  @media (min-width:990px){ .tbkx-hero__media img,.tbkx-hero__ph{aspect-ratio:3/2;} }
+  .tbkx-hero__ph{background:var(--tbk-tint-1,#FEF3F8);border:1px solid var(--tbk-border,#EDD8E3);}
+</style>
+
+{% schema %}
+{
+  "name": "Home · Editorial Hero",
+  "tag": "section",
+  "settings": [
+    { "type": "paragraph", "content": "Homepage §1. Copy source: HOMEPAGE_CONTENT_STRATEGY.md. Hero image is the LCP element — use a high-quality signature cake photo." },
+    { "type": "text", "id": "overline", "label": "Overline", "default": "The Baking Kaur · Meerut" },
+    { "type": "text", "id": "heading", "label": "Headline (page H1)", "default": "Luxury eggless cakes, handcrafted for every celebration." },
+    { "type": "text", "id": "subheading", "label": "Subheading", "default": "Freshly baked to order and delivered across Meerut — same-day, and at midnight." },
+    { "type": "text", "id": "supporting", "label": "Supporting line (desktop only)", "default": "Birthdays, anniversaries, weddings and every moment worth marking — designed and baked by hand." },
+    { "type": "header", "content": "Calls to action" },
+    { "type": "text", "id": "cta1_label", "label": "Primary CTA label", "default": "Explore cakes" },
+    { "type": "url", "id": "cta1_url", "label": "Primary CTA link" },
+    { "type": "text", "id": "cta2_label", "label": "Secondary CTA label", "default": "Design your own" },
+    { "type": "url", "id": "cta2_url", "label": "Secondary CTA link" },
+    { "type": "text", "id": "microcopy", "label": "Microcopy under CTAs", "default": "Order by 4 PM for same-day delivery." },
+    { "type": "header", "content": "Media" },
+    { "type": "image_picker", "id": "image", "label": "Hero image (desktop)" },
+    { "type": "image_picker", "id": "image_mobile", "label": "Hero image (mobile crop, optional)" },
+    { "type": "text", "id": "image_alt", "label": "Image alt text", "default": "Signature eggless celebration cake by The Baking Kaur, Meerut" },
+    { "type": "header", "content": "Trust" },
+    { "type": "text", "id": "trust", "label": "Trust items (separate with ·)", "default": "100% Eggless · FSSAI Approved · 20,000+ celebrations" }
+  ],
+  "presets": [{ "name": "Home · Editorial Hero" }]
+}
+{% endschema %}

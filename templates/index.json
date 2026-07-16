@@ -9,6 +9,22 @@
  */
 {
   "sections": {
+    "home_hero": {
+      "type": "home-hero",
+      "settings": {
+        "overline": "The Baking Kaur · Meerut",
+        "heading": "Luxury eggless cakes, handcrafted for every celebration.",
+        "subheading": "Freshly baked to order and delivered across Meerut — same-day, and at midnight.",
+        "supporting": "Birthdays, anniversaries, weddings and every moment worth marking — designed and baked by hand.",
+        "cta1_label": "Explore cakes",
+        "cta1_url": "/collections/birthday-cakes",
+        "cta2_label": "Design your own",
+        "cta2_url": "/pages/cake-customization-guide",
+        "microcopy": "Order by 4 PM for same-day delivery.",
+        "image_alt": "Signature eggless celebration cake by The Baking Kaur, Meerut",
+        "trust": "100% Eggless · FSSAI Approved · 20,000+ celebrations"
+      }
+    },
     "categories_section_m9EMCJ": {
       "type": "categories-section",
       "blocks": {
@@ -1089,6 +1105,7 @@
     }
   },
   "order": [
+    "home_hero",
     "categories_section_m9EMCJ",
     "categories_section_kfmNzj",
     "c28ddbdb-d0df-4b86-9b0a-674df42ecc5c",
