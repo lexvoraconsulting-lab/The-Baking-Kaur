@@ -35,7 +35,8 @@
           "settings": {
             "icon": "truck",
             "heading": "Same-Day Delivery",
-            "text": "Order by 4 PM and we deliver across Meerut today."
+            "text": "Order by 4 PM for same-day cake delivery across Meerut.",
+            "link": "/pages/cake-delivery-in-meerut"
           }
         },
         "item_2": {
@@ -43,7 +44,8 @@
           "settings": {
             "icon": "moon",
             "heading": "Midnight Delivery",
-            "text": "Surprise them at 12 AM, beautifully timed."
+            "text": "Midnight cake delivery in Meerut — surprises timed to 12 AM.",
+            "link": "/pages/midnight-cake-delivery"
           }
         },
         "item_3": {
@@ -51,7 +53,8 @@
           "settings": {
             "icon": "leaf",
             "heading": "100% Eggless",
-            "text": "Every cake is pure-vegetarian, with no compromise on taste."
+            "text": "Every cake is 100% eggless and pure-vegetarian, with no compromise on taste.",
+            "link": "/pages/why-choose-the-baking-kaur"
           }
         },
         "item_4": {
@@ -59,7 +62,8 @@
           "settings": {
             "icon": "oven",
             "heading": "Freshly Made to Order",
-            "text": "Baked after you order — never from a shelf."
+            "text": "Baked fresh after you order — never from a shelf.",
+            "link": "/pages/freshness-guarantee"
           }
         },
         "item_5": {
@@ -67,7 +71,8 @@
           "settings": {
             "icon": "shield",
             "heading": "FSSAI Licensed",
-            "text": "Certified kitchen, hygienic handling, safe packaging."
+            "text": "FSSAI-licensed kitchen, hygienic handling and safe packaging.",
+            "link": "/pages/about-us"
           }
         },
         "item_6": {
@@ -75,7 +80,8 @@
           "settings": {
             "icon": "palette",
             "heading": "Premium Custom Cakes",
-            "text": "Designer cakes crafted from your reference photo."
+            "text": "Custom designer cakes, crafted from your reference photo.",
+            "link": "/pages/cake-customization-guide"
           }
         }
       },
