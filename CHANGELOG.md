@@ -234,3 +234,13 @@ No `Review`, no `AggregateRating`. Google disallows **self-serving** ratings for
 ### Docs
 **`REVIEW_STRATEGY.md` created** — sources · governance · moderation · schema rules · AggregateRating rules · Google compliance · AI-search compliance · incident record. Also updated: `HOMEPAGE_SPECIFICATION.md` (S5 frozen), `HOMEPAGE_CONTENT_STRATEGY.md` (§8 rewritten, rating hero removed, review copy rule), `SEO_GEO_MASTER_PLAN.md`, `SCHEMA_MASTER.md`, `PROJECT_ROADMAP.md` (Collect genuine reviews).
 - **Risk:** low (renders nothing). **Rollback:** `git rm sections/home-reviews.liquid` + remove `home_reviews` from `templates/index.json`.
+
+
+---
+
+## Client decisions recorded (2026-07-16)
+**1 · Google Business Profile ratified as PRIMARY review source.** S5 is designed around it: transcribe genuine Google reviews into `testimonial` entries with public `source_url`, verify against source, section activates automatically. Judge.me/Loox remain approved fallbacks. Prohibitions restated and unchanged: never fabricate review text, counts, ratings or AggregateRating; hide gracefully when verified reviews are insufficient. `REVIEW_STRATEGY.md` §1.
+
+**2 · "20,000+ celebrations" = brand milestone, NOT review data.** May be stated as a trust signal; may **never** be exposed as a review count, fed into `AggregateRating.reviewCount`, or paired with stars so it reads as a rating basis. Rationale recorded: customers-served and ratings-received are different facts, and merging them manufactures a rating basis from an operational statistic — the same shape as the removed 4.8/500, and prohibited **even though the milestone may be true**. Currently unverified; if unsubstantiable, replace with a verified milestone (Shopify order count, years in operation) — never soften into vagueness. `REVIEW_STRATEGY.md` §5b.
+
+**3 · SEO CONTENT FIX – Product Titles & Encoding** — new backlog project. Encoding cleanup · title/H1 consistency · search snippet optimization · **preserve URLs** · no homepage dependency. Kept strictly separate from **SEO MIGRATION – Product Handle Optimization**: title fixes are safe and reversible, handle changes need 301s and a QR audit. Records that the store's **#1 bestseller** currently shows a `<title>` naming a *different cake* (`Celestial Charm Cake ÃÂÃÂ¢??…`) against an H1 of `Motu Patlu Designer Birthday Cake` — a live, revenue-facing defect, higher priority than the 8 corrupted drafts because customers see it in Google today. Does not block homepage development.

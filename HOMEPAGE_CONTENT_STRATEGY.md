@@ -124,7 +124,7 @@ Premium · luxury · warm · trustworthy · minimal. **Never salesy, never keywo
 - **Mobile:** 1 column. **Desktop:** 3 across. No carousel, no autoplay.
 - **Current state:** renders **nothing** — 0 verified reviews exist. Correct and specified. Activates automatically on the first verified entry.
 
-**The "20,000+ customers" claim** appears elsewhere on the storefront (trust bar) and is the client's own figure. It is **not** a review claim and is out of scope here — but it is unverified, and if a rating claim ever returns it must be substantiated on the same standard.
+**The "20,000+ celebrations" milestone** — client decision 2026-07-16: it is a **brand milestone and trust signal, not review data**. It may be stated as a milestone; it may **never** be exposed as a review count, fed into `AggregateRating.reviewCount`, or paired with stars so it reads as a rating basis. A count of customers served and a count of ratings received are different facts, and merging them manufactures a rating basis out of an operational statistic — the same shape as the removed 4.8/500. The figure is currently **unverified**: if it cannot be substantiated it is to be **replaced with a verified milestone** (e.g. Shopify order count, years in operation), never softened into vagueness. See `REVIEW_STRATEGY.md` §5b.
 
 ### 9 — EXPLORE (link band)
 - **Heading:** Explore more

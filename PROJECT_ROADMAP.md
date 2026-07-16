@@ -38,6 +38,28 @@ Enterprise Shopify transformation roadmap. Status as of v1.0 (2026-07-14). Gover
 
 ## Backlog
 
+### 🔤 SEO CONTENT FIX – Product Titles & Encoding  *(project · raised 2026-07-16 · does NOT block homepage)*
+**No homepage dependency.** Homepage sections render titles from the product record; they neither cause nor fix this. Client directive: do not block homepage development.
+
+**The defect.** The same bad import behind CATALOG_ARCHITECTURE §1b corrupted product text. Two distinct faults:
+1. **Mojibake (encoding corruption).** UTF-8 read as CP1252 and re-encoded, turning an em-dash/apostrophe into `ÃÂÃÂ¢??`. Confirmed on **8 DRAFT products** (`ch290`, `ch292`–`ch296`, `ch298`) — e.g. `Eternal Wish Birthday Cake ÃÂÃÂ¢?? The Baking Kaur, Meerut`.
+2. **Wrong title on a LIVE product — worse than the encoding.** `/products/motu-patlu-designer-birthday-cake-meerut` — the store's **#1 bestseller** — has H1 `Motu Patlu Designer Birthday Cake` but a `<title>` of `Celestial Charm Cake ÃÂÃÂ¢?? 100% Eggless Cakes & 2ÃÂÃÂ¢??4 hour express delivery in Meerut | The BaÃÂÃÂ¢?ÃÂÃÂ¦`. **It names a different cake**, and it is what Google shows in search results. This is a live, revenue-facing defect on the highest-traffic PDP — a customer searching Google sees the wrong product name.
+
+**Scope — full audit required, not just the known cases.** The 8 mojibake drafts and 1 live wrong title are what surfaced incidentally. **Step 1 is to sweep the whole catalogue** — `title`, `seo.title`, `seo.description`, `descriptionHtml` — across all 1,235 products, active and draft. Assume more.
+
+**Required steps:**
+1. **Encoding cleanup** — detect the mojibake signature (`Ã`, `Â`, `ÂÂ¢`, `?ÂÂ¦`) across all text fields; repair to correct UTF-8. **Repair, never delete** — the underlying words are recoverable; a naive strip would silently destroy real title text.
+2. **Title/H1 consistency** — every product's `seo.title` must describe the same product as its `title`/H1. The Motu Patlu case proves these drifted independently. Flag every mismatch, not only corrupted ones — a *clean* wrong title is just as damaging and won't show up in an encoding sweep.
+3. **Search snippet optimization** — once correct, optimise `seo.title` / `seo.description` for length, keyword placement and click-through. **Only after** steps 1–2: optimising a wrong title is polishing the wrong thing.
+4. **🚫 Preserve URLs** — **no handle is renamed by this project.** Titles and handles are independent; fixing a title must not touch its URL. Handle changes belong exclusively to **SEO MIGRATION – Product Handle Optimization**, with its own 301/QR checklist. Keeping these projects separate is deliberate: title fixes are safe and reversible, handle changes are neither.
+5. **No homepage dependency** — runs entirely in product data, in parallel with any homepage phase.
+
+**Verification:** re-crawl affected PDPs; confirm `<title>` matches H1; request re-indexing; confirm the corrected snippet appears in Search Console.
+**Priority:** the live wrong title is **higher-value than the 8 drafts** — drafts are invisible to customers, whereas the #1 bestseller is misrepresented in Google right now.
+**Risk if skipped:** the best-selling product keeps advertising the wrong cake in search results.
+
+
+
 ### ⭐ Collect genuine reviews  *(raised 2026-07-16 · blocks S5 activation · client action)*
 **S5 Social Proof is built, frozen and renders nothing — because 0 verified reviews exist.** No approved review source is installed (verified 2026-07-16: no Judge.me, Loox, Shopify Product Reviews, Okendo, Stamped, Yotpo).
 

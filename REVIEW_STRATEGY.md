@@ -22,11 +22,13 @@ Approved sources, in client-ratified priority order (2026-07-16):
 
 | # | Source | Status | Integration | Notes |
 |---|---|---|---|---|
-| **1** | **Google Business Profile** | ✅ approved — **preferred** | ❌ no Shopify sync | Reviews must be **transcribed by hand** into `testimonial` metaobjects, each with a public `source_url`. Highest trust: customers can click through and verify. |
+| **1** | **Google Business Profile** | ✅ **RATIFIED PRIMARY SOURCE** (client, 2026-07-16) | ❌ no Shopify sync | Reviews must be **transcribed by hand** into `testimonial` metaobjects, each with a public `source_url`. Highest trust: customers can click through and verify. |
 | **2** | **Judge.me** | ✅ approved | app + own widget | Collects **verified-buyer** reviews post-purchase. If adopted, its own widget/metafields become the source of truth and this section defers to it. |
 | **3** | **Loox** | ✅ approved | app + own widget | Photo reviews. Same deferral rule as Judge.me. |
 | **4** | **Shopify Product Reviews** | ✅ approved | native metafield `spr.reviews` | Legacy/basic. |
 | **5** | **Zomato** | ⚠️ approved **only if legally displayable** | ❌ none | **Do not transcribe until someone confirms Zomato's terms permit off-platform reproduction.** Approval is conditional; the condition has not been checked. Treat as blocked. |
+
+**Primary source ratified 2026-07-16: Google Business Profile.** S5 is designed around it — transcribe each genuine Google review into a `testimonial` entry with its public `source_url`, verify against the source (§3), and the section activates automatically. Judge.me/Loox remain approved fallbacks and would supersede transcription if adopted.
 
 **Currently installed: none.** Verified 2026-07-16 — no Judge.me, Loox, Shopify Product Reviews, Okendo, Stamped or Yotpo metafields exist on the store. **There is presently zero genuine review data**, which is why S5 renders nothing.
 
@@ -113,6 +115,24 @@ Three independent reasons, each sufficient on its own:
 
 ---
 
+## 5b. Brand milestones are NOT review data  *(client decision 2026-07-16)*
+
+**"20,000+ celebrations" is a brand milestone and a trust signal. It is not a review claim.**
+
+| Permitted | Prohibited |
+|---|---|
+| ✅ Stating it as a milestone in trust copy ("20,000+ celebrations") | 🚫 Presenting it as a **review count** ("20,000+ reviews") |
+| ✅ Treating it as a trust signal | 🚫 Feeding it into **`AggregateRating.reviewCount`** — in any schema, anywhere |
+| | 🚫 Pairing it with a star rating so it reads as a rating basis |
+| | 🚫 Implying 20,000 people rated the bakery |
+
+**Why the distinction is load-bearing.** A count of *customers served* and a count of *ratings received* are different facts. Merging them — "4.8 ★ from 20,000+ customers" — manufactures a rating basis out of an operational statistic. That is precisely the shape of the removed `4.8 / 500` markup (§8): a real-sounding number with nothing behind it. The prohibition stands **even though the milestone itself may be true**.
+
+**Substantiation.** The figure is the client's own and is currently **unverified**. Client decision 2026-07-16: *if it cannot be substantiated, replace it with a verified milestone* — e.g. an order count from Shopify, or years in operation. Both are checkable; neither requires a review.
+**Standing rule:** a milestone must be replaceable with a real number, never quietly retired into vagueness ("thousands of happy customers"). Vagueness is what an unsubstantiated claim decays into.
+
+---
+
 ## 6. Google compliance
 
 - **No fabricated reviews.** Beyond SEO, fabricated reviews attributed to invented individuals are a consumer-protection matter — India's CCPA guidelines on fake reviews, and equivalents elsewhere. This is a legal exposure, not a ranking risk.
@@ -162,4 +182,4 @@ Three independent reasons, each sufficient on its own:
 
 **Backlog:** *"Collect genuine reviews"* — the real fix for a thin review profile is more real reviews. A bakery with 20,000+ claimed celebrations should have no difficulty; it has simply never asked.
 
-_v1.0 — 2026-07-16. Created after fabricated reviews were found live and removed. Governs all review content in every phase._
+_v1.1 — 2026-07-16. Google Business Profile ratified as primary source; brand-milestone rule added (§5b). v1.0 — created after fabricated reviews were found live and removed. Governs all review content in every phase._
