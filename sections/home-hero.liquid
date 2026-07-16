@@ -11,6 +11,22 @@
   assign trust_items = s.trust | split: '·'
 -%}
 
+{%- comment -%} LCP preload — art-directed, matches the <picture> below exactly {%- endcomment -%}
+{%- if s.image != blank -%}
+  {%- if s.image_mobile != blank -%}
+    <link rel="preload" as="image" fetchpriority="high" media="(max-width: 749px)"
+          imagesrcset="{{ s.image_mobile | image_url: width: 750, format: 'webp' }} 750w, {{ s.image_mobile | image_url: width: 1100, format: 'webp' }} 1100w"
+          imagesizes="100vw">
+    <link rel="preload" as="image" fetchpriority="high" media="(min-width: 750px)"
+          imagesrcset="{{ s.image | image_url: width: 900, format: 'webp' }} 900w, {{ s.image | image_url: width: 1200, format: 'webp' }} 1200w, {{ s.image | image_url: width: 1600, format: 'webp' }} 1600w"
+          imagesizes="(min-width: 990px) 46vw, 100vw">
+  {%- else -%}
+    <link rel="preload" as="image" fetchpriority="high"
+          imagesrcset="{{ s.image | image_url: width: 600, format: 'webp' }} 600w, {{ s.image | image_url: width: 900, format: 'webp' }} 900w, {{ s.image | image_url: width: 1200, format: 'webp' }} 1200w, {{ s.image | image_url: width: 1600, format: 'webp' }} 1600w"
+          imagesizes="(min-width: 990px) 46vw, 100vw">
+  {%- endif -%}
+{%- endif -%}
+
 <section class="tbkx-hero" aria-labelledby="tbkx-hero-h">
   <div class="tbkx-hero__inner">
 
@@ -34,8 +50,8 @@
           </span>
         {%- endif -%}
         {%- if s.cta2_label != blank -%}
-          <span data-tbk-event="select_promotion" data-tbk-promo="hero_secondary">
-            {%- render 'tbk-button', label: s.cta2_label, href: s.cta2_url, variant: 'ghost', size: 'lg' -%}
+          <span data-tbk-event="select_promotion" data-tbk-promo="hero_whatsapp">
+            {%- render 'tbk-button', label: s.cta2_label, href: s.cta2_url, variant: 'whatsapp', size: 'lg', target: '_blank' -%}
           </span>
         {%- endif -%}
       </div>
@@ -58,15 +74,16 @@
       {%- if s.image != blank -%}
         <picture>
           {%- if s.image_mobile != blank -%}
-            <source media="(max-width: 749px)"
-                    srcset="{{ s.image_mobile | image_url: width: 750 }} 750w, {{ s.image_mobile | image_url: width: 1100 }} 1100w"
-                    sizes="100vw">
+            <source media="(max-width: 749px)" type="image/webp"
+                    srcset="{{ s.image_mobile | image_url: width: 750, format: 'webp' }} 750w, {{ s.image_mobile | image_url: width: 1100, format: 'webp' }} 1100w"
+                    sizes="100vw"
+                    width="{{ s.image_mobile.width }}" height="{{ s.image_mobile.height }}">
           {%- endif -%}
-          <img src="{{ s.image | image_url: width: 1200 }}"
-               srcset="{{ s.image | image_url: width: 600 }} 600w,
-                       {{ s.image | image_url: width: 900 }} 900w,
-                       {{ s.image | image_url: width: 1200 }} 1200w,
-                       {{ s.image | image_url: width: 1600 }} 1600w"
+          <img src="{{ s.image | image_url: width: 1200, format: 'webp' }}"
+               srcset="{{ s.image | image_url: width: 600, format: 'webp' }} 600w,
+                       {{ s.image | image_url: width: 900, format: 'webp' }} 900w,
+                       {{ s.image | image_url: width: 1200, format: 'webp' }} 1200w,
+                       {{ s.image | image_url: width: 1600, format: 'webp' }} 1600w"
                sizes="(min-width: 990px) 46vw, 100vw"
                width="{{ s.image.width }}" height="{{ s.image.height }}"
                alt="{{ s.image_alt | default: s.heading | escape }}"
@@ -147,20 +164,21 @@
     { "type": "paragraph", "content": "Homepage §1. Copy source: HOMEPAGE_CONTENT_STRATEGY.md. Hero image is the LCP element — use a high-quality signature cake photo." },
     { "type": "text", "id": "overline", "label": "Overline", "default": "The Baking Kaur · Meerut" },
     { "type": "text", "id": "heading", "label": "Headline (page H1)", "default": "Luxury eggless cakes, handcrafted for every celebration." },
-    { "type": "text", "id": "subheading", "label": "Subheading", "default": "Freshly baked to order and delivered across Meerut — same-day, and at midnight." },
+    { "type": "text", "id": "subheading", "label": "Subheading", "default": "Luxury handcrafted eggless cakes with same-day & midnight delivery in Meerut." },
     { "type": "text", "id": "supporting", "label": "Supporting line (desktop only)", "default": "Birthdays, anniversaries, weddings and every moment worth marking — designed and baked by hand." },
     { "type": "header", "content": "Calls to action" },
-    { "type": "text", "id": "cta1_label", "label": "Primary CTA label", "default": "Explore cakes" },
+    { "type": "text", "id": "cta1_label", "label": "Primary CTA label", "default": "Order Now" },
     { "type": "url", "id": "cta1_url", "label": "Primary CTA link" },
-    { "type": "text", "id": "cta2_label", "label": "Secondary CTA label", "default": "Design your own" },
-    { "type": "url", "id": "cta2_url", "label": "Secondary CTA link" },
+    { "type": "text", "id": "cta2_label", "label": "Secondary CTA label (WhatsApp)", "default": "Customise on WhatsApp" },
+    { "type": "text", "id": "cta2_url", "label": "WhatsApp link", "default": "https://wa.me/918218862928?text=Hi%20The%20Baking%20Kaur%2C%20I%27d%20like%20to%20customise%20a%20cake" },
     { "type": "text", "id": "microcopy", "label": "Microcopy under CTAs", "default": "Order by 4 PM for same-day delivery." },
     { "type": "header", "content": "Media" },
-    { "type": "image_picker", "id": "image", "label": "Hero image (desktop)" },
-    { "type": "image_picker", "id": "image_mobile", "label": "Hero image (mobile crop, optional)" },
-    { "type": "text", "id": "image_alt", "label": "Image alt text", "default": "Signature eggless celebration cake by The Baking Kaur, Meerut" },
+    { "type": "paragraph", "content": "LCP element. Use the signature designer cake: luxury photography, premium lighting, white/elegant background, cake-only, NO text baked into the image. Served as WebP + srcset + preload + fetchpriority=high automatically." },
+    { "type": "image_picker", "id": "image", "label": "Hero image — DESKTOP crop (landscape ~3:2)" },
+    { "type": "image_picker", "id": "image_mobile", "label": "Hero image — MOBILE crop (portrait ~4:5)" },
+    { "type": "text", "id": "image_alt", "label": "Image alt text", "default": "Signature handcrafted eggless designer cake by The Baking Kaur, Meerut" },
     { "type": "header", "content": "Trust" },
-    { "type": "text", "id": "trust", "label": "Trust items (separate with ·)", "default": "100% Eggless · FSSAI Approved · 20,000+ celebrations" }
+    { "type": "text", "id": "trust", "label": "Trust items (separate with ·)", "default": "100% Eggless · Same-Day Delivery · Midnight Delivery · 4.8★ Google Rating · FSSAI Licensed" }
   ],
   "presets": [{ "name": "Home · Editorial Hero" }]
 }
