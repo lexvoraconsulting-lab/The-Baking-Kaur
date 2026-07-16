@@ -38,10 +38,32 @@ Enterprise Shopify transformation roadmap. Status as of v1.0 (2026-07-14). Gover
 
 ## Backlog
 
-### 🔗 Rehandle legacy-slug bestsellers  *(raised 2026-07-16 · SEO · needs 301s)*
-3 of the store's **top 8 best-selling products** resolve to opaque handles — `/products/b158`, `/products/b155`, `/products/hamper13` — artefacts of the import defect in CATALOG_ARCHITECTURE §1b. These are the highest-traffic PDPs in the store and their URLs carry zero keyword signal.
-**Not a silent fix:** renaming a handle breaks the existing URL. Requires a 301 from the old handle + a check for inbound links/ads/QR codes pointing at the old URL first. Deliberate task, scheduled — never a bulk rename.
+### 🔗 SEO MIGRATION – Product Handle Optimization  *(project · raised 2026-07-16 · scheduled AFTER homepage)*
+**🚫 HARD RULE: no product handle is renamed during Homepage development.** Client directive, 2026-07-16. Every section built in Phase C links to existing handles exactly as they are.
 
+**Scope.** Legacy import handles carry zero keyword signal. Known worst cases — all on the store's **top 8 best-selling products**, i.e. the highest-traffic PDPs:
+| Current handle | Product | Status |
+|---|---|---|
+| `/products/b158` | Dreamy Princess Baby Girl Cake | HTTP 200 — working, but opaque |
+| `/products/b155` | Cricket Ground Theme Birthday Cake | HTTP 200 — working, but opaque |
+| `/products/hamper13` | Sweet & Fresh Cake and Flower Balloon Basket | HTTP 200 — working, but opaque |
+
+The full population is larger — the same import defect (CATALOG_ARCHITECTURE §1b) produced `bNN` / `chNN` / `hamperNN` handles across the catalogue. **A full inventory of affected handles is step 1, not an assumption.**
+
+**Why this is a project and not a task.** Renaming a handle changes a live URL. Done carelessly it destroys existing rankings, breaks inbound links, and silently kills any printed QR code. The SEO upside is real but is only realised if *every* step below completes.
+
+**Required steps (all mandatory, in order):**
+1. **Handle mapping** — full inventory of affected handles → proposed keyword-bearing target handles. Reviewed and approved before any change.
+2. **301 redirect plan** — one permanent redirect per renamed handle, old → new. Written and staged *before* the rename, never after.
+3. **Internal link update** — every theme section, metafield, blog, page and navigation entry pointing at an old handle updated to the new one. Redirects are a safety net, not a substitute.
+4. **QR code audit** — identify any printed/offline material (boxes, cards, flyers, in-store signage) encoding a product URL. **A printed QR code cannot be updated after printing — its URL must keep resolving forever.** This step can veto a rename.
+5. **Google indexing verification** — confirm new URLs are indexed and old ones show as redirected, not 404.
+6. **Sitemap update** — regenerate and resubmit; confirm old URLs drop out and new ones appear.
+7. **Canonical validation** — each new URL self-canonicals; no old handle left canonicalising to itself or to a dead target.
+8. **Search Console monitoring** — track impressions/clicks/position per migrated URL for a defined window post-migration; define a rollback trigger before starting.
+
+**Sequencing:** starts only after the homepage is complete and approved. Should follow the draft-catalogue cleanup (archiving the 56 duplicate twins first avoids migrating URLs that are about to be retired).
+**Risk if skipped:** none — current handles work. **Risk if done badly:** loss of rankings on the store's best-selling products. This project is optional and deliberate; it is never urgent.
 
 ### 📝 CONTENT TASK – 100% Eggless Brand Page  *(raised 2026-07-15 · parallel workstream — does NOT block homepage)*
 **Status:** created as a **DRAFT** — `/pages/100-percent-eggless-bakery` (`gid://shopify/Page/116138016937`, `isPublished: false`, verified 404 publicly).

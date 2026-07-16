@@ -169,3 +169,19 @@ Spec's §3 row targets `add-to-cart`. **Not built, by design:** the protected PD
 
 - **Risk:** low (additive, preview only). **Rollback:** `git rm sections/home-bestsellers.liquid` + remove `home_bestsellers` from `templates/index.json`.
 - **Finding logged:** 3 of the top 8 bestsellers use legacy handles (`b158`, `b155`, `hamper13`) → backlog "Rehandle legacy-slug bestsellers" (needs 301s).
+
+
+---
+
+## Phase C1 §4 — Bestsellers **FROZEN v1.0** (2026-07-16)
+- **Approved by client and frozen.** `sections/home-bestsellers.liquid` + `templates/index.json` (§4). No S4 changes without explicit unfreeze.
+- Recorded in `HOMEPAGE_SPECIFICATION.md` as **Version 1.0 — FROZEN**.
+
+### 🚫 Client directive — no handle renames during Homepage development
+The S4 finding (3 of the top 8 bestsellers on legacy handles `b158`, `b155`, `hamper13`) is **deferred in full**. All three resolve HTTP 200 — nothing is broken, and S4 links to them exactly as they are.
+Escalated from a backlog task to a standalone project: **SEO MIGRATION – Product Handle Optimization** (`PROJECT_ROADMAP.md`), with 8 mandatory steps — handle mapping · 301 redirect plan · internal link update · **QR code audit** · Google indexing verification · sitemap update · canonical validation · Search Console monitoring.
+**Standing rule recorded for S5–S9:** sections link to handles exactly as they exist; never rename, never hardcode a prettier URL.
+**Why the QR audit can veto a rename:** a printed QR code encodes a URL permanently — it cannot be reissued once it's on a cake box. That URL must resolve forever, which makes some handles effectively un-renameable regardless of SEO value.
+
+### Docs updated
+`HOMEPAGE_SPECIFICATION.md` (S4 → FROZEN v1.0) · `PROJECT_ROADMAP.md` (SEO Migration project replaces the rehandle stub) · `SEO_GEO_MASTER_PLAN.md` (handle-rename freeze rule for S5–S9) · `HOMEPAGE_CONTENT_STRATEGY.md` (URL & handle rule) · this entry.

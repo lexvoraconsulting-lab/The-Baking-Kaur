@@ -226,8 +226,18 @@ Arc: aspiration → orientation → desire → reassurance → trust → possibi
 
 ---
 
+## URL & HANDLE RULE — no renames during homepage build  *(client directive 2026-07-16)*
+
+**No product handle is renamed during Homepage development.** Homepage sections link to handles exactly as they exist today, including opaque legacy ones (`/products/b158`, `/products/b155`, `/products/hamper13` — three of the top 8 bestsellers, surfaced by S4).
+
+**Consequence for copy:** never write a URL into copy, and never let a "cleaner" URL imply a page that doesn't exist. Product links are generated from the product record (`product.url`), never hand-typed — the same rule that keeps the 8 mojibake product titles from reaching the storefront through us.
+
+Handle optimization is a scheduled, standalone project with a mandatory 301/QR/Search-Console checklist: **SEO MIGRATION – Product Handle Optimization** (`PROJECT_ROADMAP.md`). It does not touch the homepage build.
+
+---
+
 ## GOVERNANCE
 - This file is the content source; implementation copies text verbatim (no ad-hoc copywriting in Liquid).
 - Editable content (reviews, occasions, hero, trust stats) lives in metaobjects/section settings per `HOMEPAGE_SPECIFICATION.md`.
 - Any copy change is made here first, then propagated.
-- _v0.2 — merchandising constraint added (live inventory only). v0.1 — approved-pending._
+- _v0.3 — URL/handle rule added (no renames during homepage build). v0.2 — merchandising constraint added (live inventory only). v0.1 — approved-pending._

@@ -100,7 +100,7 @@ Frozen — no S2 changes without explicit unfreeze.
 Frozen — no S3 changes without explicit unfreeze.
 
 
-## 🟡 S4 — BESTSELLERS (Homepage §4): **BUILT — AWAITING REVIEW** (2026-07-16)
+## 🔒 S4 — BESTSELLERS (Homepage §4): **VERSION 1.0** — FROZEN (2026-07-16)
 `sections/home-bestsellers.liquid`. **Assembly only — zero new components** (FROZEN `tbkx-card--product` + `--link/--interactive` + `tbkx-card__media--fallback` + `tbkx-btn--secondary` via `tbk-button` + tokens). `tbkx-` namespaced → **0 legacy classes inside the section; PDP untouched (verified in DOM)**.
 
 ### ⚠️ Naming conflict resolved — "Featured Collections" vs "Bestsellers"
@@ -130,9 +130,10 @@ The spec's §3 row lists `add-to-cart` as the target action. **Not implemented, 
 ### Validation (preview theme 151370334377)
 Sections render 4/4 · 8 product cards · H1→H2→H3 order intact · **1 link per card, 0 nested links** · **all 9 destinations HTTP 200** · 8/8 images lazy + WebP + explicit w/h + alt · ItemList valid, 8 items, absolute URLs · 0 `<script>` in section · settings survived push (verified by pull-back).
 
-### 🔎 Finding — legacy handles on best-selling products
-3 of the top 8 bestsellers resolve to **`/products/b158`, `/products/b155`, `/products/hamper13`** — opaque, keyword-free URLs from the same import defect described in CATALOG_ARCHITECTURE §1b, now sitting on the **highest-traffic PDPs in the store**. Not a blocker (all 200). **Backlogged: "Rehandle legacy-slug bestsellers"** — needs 301s, so it is a deliberate SEO task, never a silent rename.
+### 🔎 Finding — legacy handles on best-selling products (deferred by client decision)
+3 of the top 8 bestsellers resolve to **`/products/b158`, `/products/b155`, `/products/hamper13`** — opaque, keyword-free URLs from the import defect in CATALOG_ARCHITECTURE §1b, now on the **highest-traffic PDPs in the store**. All resolve HTTP 200; nothing is broken.
+**🚫 CLIENT DIRECTIVE (2026-07-16): NO handle renames during Homepage development.** Deferred in full to the **SEO MIGRATION – Product Handle Optimization** project (`PROJECT_ROADMAP.md`). S4 links to these handles exactly as they are.
 
-Awaiting review — not frozen.
+Frozen — no S4 changes without explicit unfreeze.
 
-_v1.4 — S4 Bestsellers built, awaiting review. v1.3 — S3 Occasion Navigation frozen (Version 1.0). v1.2 — S2 Delivery Promise frozen (Version 1.0). v1.1 — S1 Editorial Hero recorded as Version 1.0 (frozen). v1.0 — approved. Build in small reviewable phases, one section at a time, validated on preview._
+_v1.5 — S4 Bestsellers frozen (Version 1.0); handle renames deferred to the SEO Migration project. v1.4 — S4 Bestsellers built, awaiting review. v1.3 — S3 Occasion Navigation frozen (Version 1.0). v1.2 — S2 Delivery Promise frozen (Version 1.0). v1.1 — S1 Editorial Hero recorded as Version 1.0 (frozen). v1.0 — approved. Build in small reviewable phases, one section at a time, validated on preview._
