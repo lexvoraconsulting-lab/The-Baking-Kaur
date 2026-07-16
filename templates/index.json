@@ -97,6 +97,63 @@
         "aria_label": "Our promise"
       }
     },
+    "home_occasions": {
+      "type": "home-occasions",
+      "blocks": {
+        "occ_1": {
+          "type": "occasion",
+          "settings": {
+            "collection": "birthday-cakes"
+          }
+        },
+        "occ_2": {
+          "type": "occasion",
+          "settings": {
+            "collection": "anniversary-cakes"
+          }
+        },
+        "occ_3": {
+          "type": "occasion",
+          "settings": {
+            "collection": "wedding-cakes"
+          }
+        },
+        "occ_4": {
+          "type": "occasion",
+          "settings": {
+            "collection": "designer-theme-cakes"
+          }
+        },
+        "occ_5": {
+          "type": "occasion",
+          "settings": {
+            "collection": "cake-hampers"
+          }
+        },
+        "occ_6": {
+          "type": "occasion",
+          "settings": {
+            "link": "/pages/corporate-gifting-solutions",
+            "title": "Corporate Gifting",
+            "caption": "Bulk & branded gifting"
+          }
+        }
+      },
+      "block_order": [
+        "occ_1",
+        "occ_2",
+        "occ_3",
+        "occ_4",
+        "occ_5",
+        "occ_6"
+      ],
+      "settings": {
+        "overline": "Find your cake",
+        "heading": "Shop by occasion",
+        "subheading": "From first birthdays to golden anniversaries — every cake handcrafted and 100% eggless.",
+        "show_counts": true
+      }
+    },
     "categories_section_m9EMCJ": {
       "type": "categories-section",
       "blocks": {
@@ -1180,6 +1237,7 @@
   "order": [
     "home_hero",
     "home_promise",
+    "home_occasions",
     "categories_section_m9EMCJ",
     "categories_section_kfmNzj",
     "c28ddbdb-d0df-4b86-9b0a-674df42ecc5c",
