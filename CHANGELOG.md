@@ -103,3 +103,37 @@ Scoped push of `layout/theme.liquid`, `snippets/structured-data.liquid`, `sectio
 - **Bugs fixed during build:** (1) unclosed `{% if %}` nested the `{% schema %}` tag; (2) section name exceeded Shopify's 25-char limit; (3) setting label exceeded Shopify's 70-char limit.
 - **Finding:** storefront counts != Admin counts — **584/1,235 products are DRAFT** (Hampers shows 8 of 119). Logged as backlog "Publish draft catalogue"; CATALOG_ARCHITECTURE count basis corrected.
 - **Risk:** low (additive, preview only). **Rollback:** `git rm sections/home-occasions.liquid` + remove `home_occasions` from `templates/index.json`.
+
+
+---
+
+## Merchandising Review — draft catalogue classification (2026-07-16) — **audit only, zero changes**
+**Nothing was published, archived, edited or deleted.** Read-only GraphQL audit of all 584 drafts + documentation.
+
+### Inventory health
+| Total | Active | Draft | Archived | **Publish-ready** |
+|---|---|---|---|---|
+| **1,235** | **607** (49.1%) | **584** (47.3%) | **44** (3.6%) | **25** (2.0% of catalogue) |
+
+### Draft classification (584, each counted once)
+Needs Images **363** (62.2%) · Duplicate **150** (25.7%) · Seasonal **40** (6.8%) · Ready to Publish **25** (4.3%) · Internal/Test **6** (1.0%) · Needs Content **0** (absorbed — every content-gap draft is also image-less) · Discontinued **0** (⚠️ not machine-determinable — needs client judgement).
+
+### Root cause
+- **503 of 584 drafts (86%) have zero images** — the single blocker. **0 drafts are priced ₹0**; pricing is healthy.
+- **Duplicates are a systematic import artefact:** 75 groups × exactly 2. In **56 groups** the image sits on the legacy short handle (`hamper12`/`ch38`) and the SEO-slug twin has 0 images → **56 twins archivable with no content loss**. 19 groups have 0 images on both copies → need a decision, not a merge.
+- **8 drafts carry mojibake titles** (`ch290`, `ch292`–`ch296`, `ch298`) — must not reach the storefront.
+- The 25 publish-ready drafts skew **premium Wedding/Anniversary, ₹1,200–₹3,500** — the highest-AOV pillar sitting invisible.
+
+### Collections affected (Admin → shoppable)
+Birthday 279→**226** · Anniversary 102→**85** · Wedding 134→**70** · Designer & Theme 165→**78** · **Cake Hampers 119→8** (174 drafts tagged `hampers`; the range is effectively unsellable — the one genuine commercial gap).
+
+### Decisions
+- **No bulk publish** — 503 image-less + 8 corrupted-title products would make the storefront worse, not better.
+- **Homepage merchandises live, purchasable products only**; sections degrade gracefully on thin inventory (S4 onward).
+- **Corporate Gifting card retained** — B2B lead-gen destination, not inventory-dependent.
+- Client action sequence recorded: archive 56 duplicate twins → fix 8 titles → review the 25 publish-ready → decide the 6 Addon/Test items → photograph Hampers-first → hold Diwali for the season.
+
+### Docs updated
+`CATALOG_ARCHITECTURE.md` §1b (replaces the earlier count-basis note with the full review) · `HOMEPAGE_CONTENT_STRATEGY.md` (new "Merchandising constraint — live inventory only") · this entry.
+**Note:** the brief named `CONTENT_STRATEGY.md`; no such file exists — the content source of truth is **`HOMEPAGE_CONTENT_STRATEGY.md`**, which is what was updated.
+**Business value:** Trust (no unavailable products shown) · Conversion (publish effort ranked by AOV) · SEO (no thin/corrupted pages indexed) · Maintainability (import defect documented with its fix).

@@ -205,8 +205,29 @@ Arc: aspiration → orientation → desire → reassurance → trust → possibi
 **Canonical page:** `/pages/100-percent-eggless-bakery` (philosophy · what it means · FAQs · links to primary collections).
 **Voice rule:** state it as quiet strength — never "(no egg)", never apologetic, never repeated twice in one section.
 
+## MERCHANDISING CONSTRAINT — live inventory only  *(ratified 2026-07-16)*
+
+**Rule:** the homepage merchandises **only Active, purchasable products**. Draft inventory is never surfaced — not in collection tiles, not in bestsellers, not in featured rows.
+
+**Why it matters here:** the catalogue is **1,235 products / 607 Active / 584 Draft**. Only **25 drafts are publish-ready**; **503 have no image at all**. Full numbers, classification and root cause: `CATALOG_ARCHITECTURE.md` §1b.
+
+**What this changes for homepage copy & merchandising:**
+| Constraint | Homepage consequence |
+|---|---|
+| **Cake Hampers shows 8 of 119** | Never write copy implying a broad hamper range ("hundreds of hampers", "our full gifting collection"). S3's Hampers card links the collection and stays honest. The **Corporate Gifting** card carries the gifting narrative — it is a **lead-gen destination, not an inventory listing**, so it is unaffected by the draft backlog. |
+| **Counts are misleading** | Product counts stay **OFF** across the homepage (S3 `show_counts: false`). A count reads as a promise; an Admin count would be a false one. |
+| **Any product-driven section can be thin** | Every section that renders products must degrade gracefully — render fewer tiles, never an empty grid, never a placeholder implying a product exists. Applies to **S4 onward**. |
+| **8 drafts have corrupted titles** | Never hardcode a product title in homepage copy. Titles come from the product record; a corrupted one must not reach the storefront via us. |
+| **40 Diwali hampers are seasonal drafts** | Seasonal homepage merchandising is a **calendar trigger**, not a permanent section. Do not build a festive slot that renders empty for 11 months. |
+
+**Brand-voice tie-in (`BRAND_VOICE.md`):** *"let numerals prove"* and *"descriptive, honest, desirable"*. Advertising inventory the customer cannot buy fails the honesty test and burns trust — the exact opposite of the trust the homepage is built to earn.
+
+**Copy prohibition:** no claim about catalogue breadth ("500+ designs", "every occasion covered") until the draft backlog is resolved. Prove with what is live.
+
+---
+
 ## GOVERNANCE
 - This file is the content source; implementation copies text verbatim (no ad-hoc copywriting in Liquid).
 - Editable content (reviews, occasions, hero, trust stats) lives in metaobjects/section settings per `HOMEPAGE_SPECIFICATION.md`.
 - Any copy change is made here first, then propagated.
-- _v0.1 — approved-pending._
+- _v0.2 — merchandising constraint added (live inventory only). v0.1 — approved-pending._

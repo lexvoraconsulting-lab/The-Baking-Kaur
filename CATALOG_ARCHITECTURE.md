@@ -14,18 +14,66 @@ Canonical catalog strategy for the entire store — the reference for all Homepa
 - **Metaobjects:** `shopify--flavor`, `--celebration-type`, `--dietary-preferences`, `--allergen`, `--color`, `--flour-grain`, **`shopify--qa-pair`** (FAQ), and **3 duplicate weight objects** (`weight`, `weights`, `weightr`).
 - **Search/Filters:** Shopify **Search & Discovery** app (search boost + related/complementary). Theme uses Shopify facets.
 
-## 1b. ⚠️ COUNT BASIS CORRECTION — Admin counts ≠ shoppable counts  *(found 2026-07-15 during S3)*
-All counts in §1/§6 are **Admin** counts (they include DRAFT). The **storefront** figure — what customers can actually buy — is far smaller: **584 of 1,235 products are DRAFT**.
+## 1b. ⚠️ INVENTORY HEALTH & DRAFT MERCHANDISING REVIEW  *(audit 2026-07-16 · read-only · nothing published)*
 
-| Collection | Admin | **Live / shoppable** | Hidden |
+All counts in §1/§6 are **Admin** counts (they include DRAFT). The **shoppable** figure — what a customer can actually buy — is far smaller.
+
+### Catalogue totals
+| Metric | Count | % of catalogue |
+|---|---|---|
+| **Total products** | **1,235** | 100% |
+| **Active** (live, purchasable) | **607** | 49.1% |
+| **Draft** (invisible to customers) | **584** | 47.3% |
+| **Archived** | **44** | 3.6% |
+| **Publish-ready** (of the 584 drafts) | **25** | **2.0% of catalogue / 4.3% of drafts** |
+
+### Draft classification — all 584 drafts
+Classified from data signals (`mediaCount`, `productType`, `tags`, `priceRangeV2`, title normalisation). Each product is counted **once**, in priority order: Internal/Test → Duplicate → Seasonal → Needs Images → Needs Content → Ready.
+
+| Category | Count | % of drafts | Basis |
 |---|---|---|---|
-| Birthday | 279 | **226** | 53 |
-| Anniversary | 102 | **85** | 17 |
-| Wedding | 134 | **70** | 64 |
-| Designer & Theme | 165 | **78** | 87 |
-| **Cake Hampers** | 119 | **8** | **111** — sampled: first 30 products all DRAFT, so the hamper range is effectively unsellable |
+| **Needs Images** | **363** | 62.2% | `mediaCount = 0` — no product photo at all |
+| **Duplicate** | **150** | 25.7% | 75 title groups × 2 copies (import artefact) |
+| **Seasonal** | **40** | 6.8% | Diwali hampers — correctly parked out of season |
+| **Ready to Publish** | **25** | 4.3% | image + price + productType + tags, no dup/season/corruption |
+| **Internal/Test** | **6** | 1.0% | 5 × `Addon – …` + 1 × `Minimal Luxe Hamper Testing` |
+| **Needs Content** | **0** | 0.0% | *absorbed* — every content-gap draft also has 0 images, so it lands in Needs Images first |
+| **Discontinued** | **0** | 0.0% | ⚠️ **not machine-determinable** — needs the client's judgement (see below) |
+| **TOTAL** | **584** | 100% | |
 
-**Implication:** treat §6 sizing as *catalogue* size, not *shoppable* size. Publishing the drafts is a **client merchandising decision** — see backlog "Publish draft catalogue".
+### Root-cause signals
+- **503 of 584 drafts (86%) have zero images.** This — not content, not pricing — is the single blocker. **0 drafts are priced ₹0**, so pricing is healthy.
+- **Duplicate anatomy is systematic, not random.** 75 groups, always exactly 2 copies. In **56 of 75 groups** one copy carries the image and the legacy short handle (`hamper12`, `ch38`, `b22`), and its twin carries the SEO slug handle (`sunshine-cake-…`) with **0 images**. This is a re-import that slugged the titles and dropped the media. → **56 imageless twins are safe to archive** with no content loss. The remaining 19 groups have 0 images on *both* copies and need a decision, not a merge.
+- **8 drafts have encoding-corrupted titles** — `ch290`, `ch292`–`ch296`, `ch298` render as `Eternal Wish Birthday Cake ÃÂÃÂ¢?? The Baking Kaur, Meerut`. Mojibake from a bad import. **Must not be published in this state** — it would be visible brand damage on the storefront and in search results.
+- **All 40 seasonal drafts are Diwali** (`Festive Hamper` / `Diwali Luxury Hamper`). Draft is the *correct* state for these out of season.
+- **The 25 publish-ready drafts skew premium:** predominantly Wedding (`royal-baraat-…`, `sheesh-mahal-…`, `zari-gold-…`) and Anniversary, ₹1,200–₹3,500. This is the highest-AOV pillar sitting invisible.
+
+### ⚠️ Honest limitation — "Discontinued" cannot be derived from data
+Nothing in the product record marks a design as retired. `totalInventory = 0` on **every** draft, so it is not a signal (these are made-to-order cakes; inventory is not tracked). Distinguishing *"we stopped making this"* from *"we never finished the listing"* requires the client. **Recommendation:** treat the 19 both-imageless duplicate groups + the 363 Needs-Images drafts as the pool to review for discontinuation — a design nobody has photographed in this long is the most likely candidate.
+
+### Collections affected (Admin vs shoppable)
+| Collection | Admin | **Shoppable** | Hidden | Draft tag/type concentration |
+|---|---|---|---|---|
+| Birthday | 279 | **226** | 53 | 112 drafts tagged `birthday` |
+| Anniversary | 102 | **85** | 17 | 95 drafts tagged `anniversary` |
+| Wedding | 134 | **70** | 64 | 15 tagged `wedding cakes`; 27 typed `Wedding Cake` |
+| Designer & Theme | 165 | **78** | 87 | 160 drafts tagged `theme cake`; 208 typed `Theme Cake` |
+| **Cake Hampers** | 119 | **8** | **111** | **174 drafts tagged `hampers`** — the range is effectively unsellable |
+
+**Cake Hampers is the critical one:** 8 of 119 live. The homepage S3 card links to a collection that shows 8 products against an Admin count of 119. The 174 draft hampers are also where the duplicate problem concentrates.
+
+### Merchandising decisions (ratified 2026-07-16)
+1. **No bulk publish.** Publishing 584 drafts would put 503 image-less and 8 mojibake-titled products on the storefront. Net effect: worse than the current state.
+2. **Homepage surfaces live, purchasable products only.** No draft inventory. Sections must degrade gracefully when a collection is thin (S3 already does — fallback tile, counts OFF).
+3. **Corporate Gifting card stays** (B2B lead-gen; approved, not inventory-dependent).
+4. **Recommended sequence** (client action, not ours):
+   - **① Archive 56 imageless duplicate twins** — zero risk, zero content loss, −9.6% catalogue noise.
+   - **② Fix 8 mojibake titles** — reputational, cheap, 10 minutes.
+   - **③ Review the 25 publish-ready** (mostly premium Wedding/Anniversary) → publish what's genuinely for sale. **This is the only publishing this audit endorses.**
+   - **④ Decide Internal/Test (6)** — the 5 `Addon –` products look like a cart add-on mechanism, not catalogue items; archive or move to a hidden collection.
+   - **⑤ Photograph in AOV order** — Hampers first (174 drafts, worst live ratio, highest gifting AOV), then Designer & Theme.
+   - **⑥ Leave the 40 Diwali hampers as drafts** until the season; publishing is a calendar trigger, not a backlog item.
+5. **Do not treat draft count as catalogue weakness.** 607 live products is a large, healthy storefront. The drafts are an unfinished import, not lost revenue — with one exception: **Hampers**, which is a real commercial gap.
 
 ## 2. Structural findings & principles
 1. **Automate the pillars.** 30 manual collections don't scale — new products won't appear. Pillars & sub-types must be **smart collections** (rules on tag / type / metafield).
