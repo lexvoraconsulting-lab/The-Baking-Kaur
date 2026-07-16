@@ -54,4 +54,25 @@ Business: conversion+AOV+assisted revenue. UX: ≤1 tap to pillar, trust every s
 - **Known:** Lighthouse not runnable in this environment (see PERFORMANCE_BASELINE); hero asset is temporary — see backlog "Flagship Hero Photoshoot".
 Frozen — no S1 changes without explicit unfreeze.
 
-_v1.1 — S1 Editorial Hero recorded as Version 1.0 (frozen). v1.0 — approved. Build in small reviewable phases, one section at a time, validated on preview._
+
+## 🔒 S2 — DELIVERY PROMISE (Homepage §2): **VERSION 1.0** — FROZEN (2026-07-15)
+`sections/home-delivery-promise.liquid`. **Assembly only — zero new components** (FROZEN `tbkx-card--trust` + frozen icon slot + tokens). `tbkx-` namespaced → PDP isolated. **Zero JS, zero images** (inline SVG only).
+- Layout: mobile **2-col** · tablet 3 · desktop **one row** (columns = block count, 4–6). CLS 0 at every width.
+- Semantics: `<ul>/<li>` + `aria-label="Our promise"`; **0 headings** (no H2 pollution); decorative icons `aria-hidden`.
+- Cards clickable: **one semantic `<a>` per card, 0 nested links, ~98% card coverage, 166px target (≥44px), `:focus-visible` ring**. Hover = frozen card lift.
+- Contrast: title `#1A0810` on white (AAA); body `#876575` on white 5.07:1 (AA).
+
+### S2 internal-link graph (all destinations verified HTTP 200)
+| Card | Live destination (wired) | Planned canonical route (PLACEHOLDER — not yet created) |
+|---|---|---|
+| Same-Day Delivery | `/pages/cake-delivery-in-meerut` | `/pages/same-day-cake-delivery` |
+| Midnight Delivery | `/pages/midnight-cake-delivery` | ✅ already canonical |
+| 100% Eggless | `/pages/why-choose-the-baking-kaur` | `/pages/eggless-cakes-explained` *(content page — **NOT** `/collections/eggless-cakes`: all 607 products are eggless, so a collection would duplicate `/collections/all` per CATALOG_ARCHITECTURE)* |
+| Freshly Made to Order | `/pages/freshness-guarantee` | `/pages/our-promise` |
+| FSSAI Licensed | `/pages/about-us` | ✅ already canonical |
+| Premium Custom Cakes | `/pages/cake-customization-guide` | `/pages/cake-customization` |
+
+**Rule applied:** recommended routes `/pages/same-day-cake-delivery`, `/collections/eggless-cakes`, `/pages/our-promise`, `/pages/cake-customization` all returned **404** — no URLs were invented. Cards link to verified pages; canonical routes are placeholders above and become real in **Phase G (Missing Pages)**, at which point the links swap via section settings (no code change).
+Frozen — no S2 changes without explicit unfreeze.
+
+_v1.2 — S2 Delivery Promise frozen (Version 1.0). v1.1 — S1 Editorial Hero recorded as Version 1.0 (frozen). v1.0 — approved. Build in small reviewable phases, one section at a time, validated on preview._

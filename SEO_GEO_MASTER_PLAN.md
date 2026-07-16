@@ -39,6 +39,22 @@ Every hub links down to spokes and across to sibling hubs; every spoke links up 
 - Collection pages carry "related collections" + buying-guide links.
 - Blog/guide articles link to relevant collections and products.
 
+
+### Homepage internal-link graph (live, as built)
+```
+Home §1 Hero        → /collections/birthday-cakes ; wa.me/918218862928 (WhatsApp)
+Home §2 Delivery Promise (6 trust cards, whole-card links)
+   ├─ Same-Day Delivery     → /pages/cake-delivery-in-meerut      [canonical planned: /pages/same-day-cake-delivery]
+   ├─ Midnight Delivery     → /pages/midnight-cake-delivery       ✅ canonical
+   ├─ 100% Eggless          → /pages/why-choose-the-baking-kaur   [canonical planned: /pages/eggless-cakes-explained]
+   ├─ Freshly Made to Order → /pages/freshness-guarantee          [canonical planned: /pages/our-promise]
+   ├─ FSSAI Licensed        → /pages/about-us                     ✅ canonical
+   └─ Premium Custom Cakes  → /pages/cake-customization-guide     [canonical planned: /pages/cake-customization]
+```
+**Placeholder routes → Phase G (Missing Pages).** `/collections/eggless-cakes` is deliberately NOT planned: eggless is universal to the catalogue, so it would duplicate `/collections/all` (see CATALOG_ARCHITECTURE). Eggless is served by a **content page** instead.
+
+**GEO terms reinforced by §2 copy** (natural, no stuffing): *same-day cake delivery across Meerut* · *midnight cake delivery in Meerut* · *100% eggless* · *custom designer cakes*.
+
 ## 4. GEO / AI search (Google AI Overviews · ChatGPT · Claude · Gemini · Perplexity · Copilot · Voice)
 - **Clean entity graph** (Phase A dedup is step 1; no mojibake brand terms — see data cleanup C3).
 - **Question-shaped, self-contained answers** on collection/guide pages (delivery, eggless, customization, pricing bands).

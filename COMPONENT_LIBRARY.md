@@ -92,4 +92,13 @@ Frozen — no form changes without explicit unfreeze.
 - Asset status: **Temporary Production Hero** (product `b32`) — see backlog "Flagship Hero Photoshoot".
 Frozen — no changes without explicit unfreeze.
 
-_v1.0 — S1 Editorial Hero frozen (Homepage §1). v0.4 — B4 commerce forms frozen. v0.3 — B3 cards frozen. v0.2 — B2 buttons frozen. v0.1 — governs all section/snippet builds._
+
+## 🔒 S2 — DELIVERY PROMISE (Homepage §2): **VERSION 1.0** — FROZEN (2026-07-15)
+`sections/home-delivery-promise.liquid`. **Assembly only — zero new components.** Reuses FROZEN `tbkx-card` + `tbkx-card--trust` (+ `--link/--interactive` when linked) and the frozen `tbkx-card__icon` slot; tokens only.
+- 4–6 merchant-editable blocks (icon select · headline · one sentence · link).
+- Whole-card link pattern: single `<a>` filling the card (~98% coverage), no nested links, `:focus-visible` ring, ≥44px.
+- Icons: thin-line SVG inlined in the section at 28px. **Deferred:** extract to the B5 icon snippet when a 2nd section needs the same set (requires approval).
+- Zero JS · zero images · CLS 0 · 0 headings (semantic `<ul>`).
+Frozen — no changes without explicit unfreeze.
+
+_v1.1 — S2 Delivery Promise frozen (Homepage §2). v1.0 — S1 Editorial Hero frozen (Homepage §1). v0.4 — B4 commerce forms frozen. v0.3 — B3 cards frozen. v0.2 — B2 buttons frozen. v0.1 — governs all section/snippet builds._

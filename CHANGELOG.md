@@ -79,3 +79,14 @@ Scoped push of `layout/theme.liquid`, `snippets/structured-data.liquid`, `sectio
 **Verified on live:** footer restored (4 navs, 22 links, 6 policies, NAP, copyright); schema deduped (Bakery/WebSite/Breadcrumb ×1, 0 parse errors); protected PDP intact (premium markers present); collections/search/cart/policies 200; CLS 0; mobile 3-col nav + 2-line trust, no overflow.
 **Found (pre-existing, not Phase A):** `tbk-schema-website` Liquid error on blank `settings.logo` (Organization logo field malformed); homepage H1 count = 2; full load ~24.5s.
 **Rollback:** `git checkout 2aeff64 -- layout/theme.liquid snippets/structured-data.liquid` + remove footer files, then push to #151307485353.
+
+
+---
+
+## Phase C1 §2 — Delivery Promise (FROZEN v1.0) — preview only
+- **Files:** `sections/home-delivery-promise.liquid` (new), `templates/index.json` (section added as §2, 6 blocks).
+- **Reason:** communicate trust immediately below the hero; assembly of the frozen card system (zero new components).
+- **Business:** trust + internal linking to delivery/eggless/custom pages. **SEO:** 6 new internal links, semantic list, no H2 pollution, page keeps exactly 1 H1. **GEO:** reinforces same-day/midnight cake delivery in Meerut, eggless, custom designer cakes. **Perf:** zero JS, zero images (inline SVG), CLS 0.
+- **Links:** all 6 destinations verified HTTP 200. 4 of the recommended routes 404'd (`same-day-cake-delivery`, `eggless-cakes` collection, `our-promise`, `cake-customization`) → linked to verified pages instead; canonical routes recorded as placeholders (Phase G). `/collections/eggless-cakes` intentionally not created (would duplicate `/collections/all`).
+- **Bug fixed in build:** unclosed `{% if count > 0 %}` nested the `{% schema %}` tag → push rejected; fixed + tag-balance check added to validation.
+- **Risk:** ○ low (additive, preview only). **Rollback:** `git rm sections/home-delivery-promise.liquid` + remove `home_promise` from `templates/index.json`, or `git checkout 2aeff64 -- templates/index.json`.
