@@ -72,4 +72,15 @@ Frozen — no button changes without explicit unfreeze.
 - **Responsive:** grid 4→2→1; fixed media ratios (no CLS); equal heights via flex; foot pinned bottom.
 Frozen — no card changes without explicit unfreeze.
 
-_v0.3 — B3 cards frozen. v0.2 — B2 buttons frozen. v0.1 — governs all section/snippet builds._
+## 🔒 B4 — COMMERCE FORM SYSTEM: FROZEN (2026-07-15)
+`snippets/tbk-components.liquid`, `.tbkx-` namespace, **class-scoped only** (native inputs — incl. the protected PDP's — untouched).
+- **Base:** `tbkx-field` · `tbkx-label` (+`__req`) · `tbkx-input` / `tbkx-select` (chevron) / `tbkx-textarea` · `tbkx-help` · `tbkx-error` · `tbkx-check` (checkbox/radio, brand accent). States: default · focus (pink border + glow) · error `#A3123A` · success `#1B7A3D` · disabled.
+- **5 commerce primitives:** `tbkx-pills`/`tbkx-pill` (radiogroup chips, **44px** touch) · `tbkx-input-group` (coupon) · `tbkx-file` (upload) · `tbkx-counter` (+`--over`) · `tbkx-field-grid` (address 2-col → 1-col ≤520px).
+- **12 commerce fields compose from those primitives** (no one-offs): delivery date (native `type=date`, min today/max +30d) · delivery time (pills) · cake message (40-char + counter) · upload design (image/*, ≤10 MB) · flavour · weight · shape · theme (pills) · occasion (select ← `celebration-type`) · address (field-grid + autocomplete) · coupon (input-group + loading/success/error/retry) · gift message (200-char + counter).
+- **Contract:** validate on blur + submit (focus first invalid) · loading = button spinner · success = green + confirm line · error = red + human message · **retry never clears input** · required marked `*` + `required` (never colour alone).
+- **Keyboard/autofill:** `inputmode=tel|numeric`; `autocomplete=name|tel|street-address|address-level2|postal-code`; coupon `autocapitalize=characters`.
+- **A11y:** bound labels / fieldset+`role=radiogroup`; `aria-describedby`+`aria-invalid` for errors; 44px targets; focus-visible ring; counters are text not colour.
+- **Validation finding fixed:** choice pills were 40px → raised to `--tbk-touch` (44px).
+Frozen — no form changes without explicit unfreeze.
+
+_v0.4 — B4 commerce forms frozen. v0.3 — B3 cards frozen. v0.2 — B2 buttons frozen. v0.1 — governs all section/snippet builds._
