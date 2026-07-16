@@ -99,4 +99,40 @@ Frozen — no S2 changes without explicit unfreeze.
 **Deliberate exclusions (evidence-based):** *Kids Cakes* (`kids-birthday-cakes-meerut` = 0 products), *Custom Cakes* (`custom-cakes-meerut` = 0; audit redirects → Designer & Theme, which is the card), *Same-Day / Midnight* (both collections 0 products **and** already linked from S2 — duplicating would add no crawl value). Kids returns once Phase A.1 makes it a smart collection.
 Frozen — no S3 changes without explicit unfreeze.
 
-_v1.3 — S3 Occasion Navigation frozen (Version 1.0). v1.2 — S2 Delivery Promise frozen (Version 1.0). v1.1 — S1 Editorial Hero recorded as Version 1.0 (frozen). v1.0 — approved. Build in small reviewable phases, one section at a time, validated on preview._
+
+## 🟡 S4 — BESTSELLERS (Homepage §4): **BUILT — AWAITING REVIEW** (2026-07-16)
+`sections/home-bestsellers.liquid`. **Assembly only — zero new components** (FROZEN `tbkx-card--product` + `--link/--interactive` + `tbkx-card__media--fallback` + `tbkx-btn--secondary` via `tbk-button` + tokens). `tbkx-` namespaced → **0 legacy classes inside the section; PDP untouched (verified in DOM)**.
+
+### ⚠️ Naming conflict resolved — "Featured Collections" vs "Bestsellers"
+The brief's homepage list names S4 **"Featured Collections"**. This spec's canonical order (§ top of file) sequences **Bestsellers** here. **Bestsellers was built**, because a "Featured Collections" section would have duplicated **S3 Occasion Navigation** exactly — same frozen card, same collection destinations, same internal links — adding a second crawl path to the same six URLs and diluting, not strengthening, the link graph. S3 answers *"what occasion?"*; S4 answers *"what do people actually buy?"*. **Flagged for client confirmation.**
+
+### Purpose & mechanics
+| Attribute | Value |
+|---|---|
+| **Business objective** | Convert on proven demand — the shortest path from homepage to a PDP that already sells |
+| **User intent** | Decision — "just show me what's good" |
+| **KPI** | Tile CTR → PDP → add-to-cart; assisted conversion rate |
+| **Source** | `best-selling-products` **smart collection**, `sortOrder: BEST_SELLING` — real sales data, self-maintaining, no manual curation |
+| **Count** | 8 (setting `limit`, 4–12) |
+| **Schema** | **ItemList of Product entities** — name, url, image, brand, offers (price, INR, availability) |
+| **Perf** | **0 JS** · lazy WebP srcset · explicit w/h · fixed 4:5 → **CLS 0** |
+| **Layout** | mobile 2-col → tablet 3 → desktop 4×2. Verified 375px / 624px / 1280px: no overflow, ratio 0.80 exact at every width |
+
+### Deliberate decision — no add-to-cart on the homepage
+The spec's §3 row lists `add-to-cart` as the target action. **Not implemented, by design.** The protected PDP owns the customization flow (weight, flavour, message, photo). A homepage ATC would bypass it and ship the wrong cake — a fulfilment failure, not a conversion win. The card converts by routing to the PDP, which is the real decision surface. **Raise with client if ATC is genuinely wanted; it would require a product-level rule for which SKUs are safe to buy unconfigured.**
+
+### Merchandising safety (ties to CATALOG_ARCHITECTURE §1b)
+- **Live products only — structurally, not by configuration.** Storefront Liquid cannot see DRAFT products, so the 584 drafts are unreachable here by construction.
+- **Graceful degradation — tested, not asserted.** Section was pointed at a real 0-product collection on preview: the entire section disappeared — **no orphan heading, no empty grid, and no stray ItemList schema** (which would otherwise declare an empty list to Google). Other sections unaffected. Reverted after the test.
+- **`availability` is honest** — bound to `product.available`, not hardcoded `InStock`.
+- **No breadth claims in copy** — per the HOMEPAGE_CONTENT_STRATEGY merchandising constraint.
+
+### Validation (preview theme 151370334377)
+Sections render 4/4 · 8 product cards · H1→H2→H3 order intact · **1 link per card, 0 nested links** · **all 9 destinations HTTP 200** · 8/8 images lazy + WebP + explicit w/h + alt · ItemList valid, 8 items, absolute URLs · 0 `<script>` in section · settings survived push (verified by pull-back).
+
+### 🔎 Finding — legacy handles on best-selling products
+3 of the top 8 bestsellers resolve to **`/products/b158`, `/products/b155`, `/products/hamper13`** — opaque, keyword-free URLs from the same import defect described in CATALOG_ARCHITECTURE §1b, now sitting on the **highest-traffic PDPs in the store**. Not a blocker (all 200). **Backlogged: "Rehandle legacy-slug bestsellers"** — needs 301s, so it is a deliberate SEO task, never a silent rename.
+
+Awaiting review — not frozen.
+
+_v1.4 — S4 Bestsellers built, awaiting review. v1.3 — S3 Occasion Navigation frozen (Version 1.0). v1.2 — S2 Delivery Promise frozen (Version 1.0). v1.1 — S1 Editorial Hero recorded as Version 1.0 (frozen). v1.0 — approved. Build in small reviewable phases, one section at a time, validated on preview._

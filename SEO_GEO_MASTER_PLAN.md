@@ -60,6 +60,15 @@ Home §3 Occasion Navigation (6 collection cards, whole-card links, ItemList sch
 ```
 **S3 excludes** Kids / Custom / Same-Day / Midnight collections (all 0 products; delivery already linked from §2) — no links to empty collections, no duplicate internal links.
 **S3 AI/GEO:** ItemList makes each occasion a first-class entity with an absolute URL, tying `Bakery → occasion category → products` for AI Overviews / ChatGPT / Gemini / Perplexity.
+
+```
+Home §4 Bestsellers (8 product cards, whole-card links, ItemList of Product entities)
+   └─ best-selling-products (smart, BEST_SELLING) → top 8 live PDPs + "View all cakes" → /collections/all
+```
+**S4 SEO:** 8 crawlable links straight to the store's highest-converting PDPs — the homepage passes authority to proven revenue pages, not to arbitrary picks. Self-maintaining: the smart collection re-ranks on real sales, so the link graph follows demand without manual edits.
+**S4 AI/GEO:** ItemList of **Product** entities (name · image · brand · offers.price · offers.priceCurrency · offers.availability) completes the chain `Bakery → occasion category (S3) → individual product with a price (S4)`. This is what lets an AI answer *"how much is a birthday cake at The Baking Kaur?"* with a real number and a real URL — the single highest-value GEO addition so far, because price is the question AI assistants are most often asked and most often cannot answer.
+**S4 honesty guarantee:** `availability` is bound to `product.available`; the section cannot render draft inventory (storefront Liquid cannot see drafts); and at 0 products it emits **no schema at all** rather than an empty ItemList. Verified on preview.
+**⚠️ Open SEO debt:** 3 of the top 8 bestsellers sit on legacy handles (`/products/b158`, `/products/b155`, `/products/hamper13`) — keyword-free URLs on the highest-traffic PDPs. Backlogged; requires 301s.
 **Placeholder routes → Phase G (Missing Pages).**
 
 ### "100% Eggless" — site-wide trust signal (RATIFIED)

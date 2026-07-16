@@ -38,6 +38,11 @@ Enterprise Shopify transformation roadmap. Status as of v1.0 (2026-07-14). Gover
 
 ## Backlog
 
+### 🔗 Rehandle legacy-slug bestsellers  *(raised 2026-07-16 · SEO · needs 301s)*
+3 of the store's **top 8 best-selling products** resolve to opaque handles — `/products/b158`, `/products/b155`, `/products/hamper13` — artefacts of the import defect in CATALOG_ARCHITECTURE §1b. These are the highest-traffic PDPs in the store and their URLs carry zero keyword signal.
+**Not a silent fix:** renaming a handle breaks the existing URL. Requires a 301 from the old handle + a check for inbound links/ads/QR codes pointing at the old URL first. Deliberate task, scheduled — never a bulk rename.
+
+
 ### 📝 CONTENT TASK – 100% Eggless Brand Page  *(raised 2026-07-15 · parallel workstream — does NOT block homepage)*
 **Status:** created as a **DRAFT** — `/pages/100-percent-eggless-bakery` (`gid://shopify/Page/116138016937`, `isPublished: false`, verified 404 publicly).
 **Purpose:** the canonical informational resource explaining why The Baking Kaur is a completely eggless bakery. **Not part of any homepage milestone.**

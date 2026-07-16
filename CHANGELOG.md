@@ -137,3 +137,35 @@ Birthday 279→**226** · Anniversary 102→**85** · Wedding 134→**70** · De
 `CATALOG_ARCHITECTURE.md` §1b (replaces the earlier count-basis note with the full review) · `HOMEPAGE_CONTENT_STRATEGY.md` (new "Merchandising constraint — live inventory only") · this entry.
 **Note:** the brief named `CONTENT_STRATEGY.md`; no such file exists — the content source of truth is **`HOMEPAGE_CONTENT_STRATEGY.md`**, which is what was updated.
 **Business value:** Trust (no unavailable products shown) · Conversion (publish effort ranked by AOV) · SEO (no thin/corrupted pages indexed) · Maintainability (import defect documented with its fix).
+
+
+---
+
+## Phase C1 §4 — Bestsellers (BUILT — awaiting review) — preview only
+- **Files:** `sections/home-bestsellers.liquid` (new), `templates/index.json` (added as §4, after `home_occasions`).
+- **Assembly only:** FROZEN `tbkx-card--product` + `--link/--interactive` + `tbk-button` (secondary) + tokens. **Zero new components.** DOM-verified: **0 legacy `tbk-` classes inside the section**; protected PDP untouched.
+- **Reason:** convert on proven demand — the shortest path from homepage to a PDP that already sells.
+- **Source:** `best-selling-products` smart collection (`sortOrder: BEST_SELLING`) — real sales data, self-maintaining, zero manual curation.
+
+### ⚠️ Naming conflict flagged for client
+The brief lists S4 as **"Featured Collections"**; `HOMEPAGE_SPECIFICATION.md`'s canonical order sequences **Bestsellers** here. **Built Bestsellers** — "Featured Collections" would have duplicated S3 Occasion Navigation exactly (same frozen card, same six destinations), adding a second crawl path to the same URLs and diluting the link graph. S3 = *"what occasion?"*; S4 = *"what do people actually buy?"*. **Needs confirmation.**
+
+### Deliberate omission — no add-to-cart
+Spec's §3 row targets `add-to-cart`. **Not built, by design:** the protected PDP owns the customization flow (weight/flavour/message). A homepage ATC would bypass it and ship the wrong cake — a fulfilment failure, not a conversion win. Raise with client if genuinely wanted.
+
+### Merchandising safety (applies the 2026-07-16 review)
+- **Live products only by construction** — storefront Liquid cannot see DRAFT products; the 584 drafts are structurally unreachable here.
+- **Graceful degradation tested, not asserted** — pointed at a real 0-product collection on preview: section vanished entirely, **no orphan heading, no empty grid, no stray ItemList schema**; other sections unaffected; reverted after the test.
+- **`availability` bound to `product.available`**, not hardcoded `InStock` — corrected before final push.
+
+### Business value
+**Conversion:** routes homepage traffic to proven revenue PDPs. **SEO:** 8 crawlable links to highest-converting pages; self-re-ranking with demand. **GEO:** ItemList of **Product** entities with price/currency/availability completes `Bakery → category → priced product`, letting AI answer *"how much is a cake at The Baking Kaur?"* with a real number and URL. **Trust:** cannot surface unavailable inventory. **Perf:** 0 JS, lazy WebP srcset, explicit w/h, CLS 0. **Maintainability:** smart-collection sourced, 8 settings, no hardcoded products.
+
+### Validation (preview 151370334377)
+4/4 sections render · 8 cards · H1→H2→H3 intact · 1 link/card, 0 nested · **9/9 destinations HTTP 200** · 8/8 images lazy+WebP+explicit w/h+alt · ItemList valid (8 items, absolute URLs) · 0 `<script>` in section · responsive verified 375/624/1280 (2→3→4 cols, ratio 0.80 exact, no overflow) · settings survived push (pull-back verified).
+
+### Bugs avoided during build
+(1) **Push-ordering trap** — section pushed first, `index.json` separately, then pulled back to confirm all 8 settings survived. (2) **`index.json` has a Shopify auto-generated `/* */` header** — plain `json.load` fails; header preserved on rewrite. (3) Naive tag-balance regex mis-flagged schema placement (`{%-` vs `{%` dashes) — re-verified correctly.
+
+- **Risk:** low (additive, preview only). **Rollback:** `git rm sections/home-bestsellers.liquid` + remove `home_bestsellers` from `templates/index.json`.
+- **Finding logged:** 3 of the top 8 bestsellers use legacy handles (`b158`, `b155`, `hamper13`) → backlog "Rehandle legacy-slug bestsellers" (needs 301s).

@@ -1232,12 +1232,26 @@
       "settings": {
         "include_margins": true
       }
+    },
+    "home_bestsellers": {
+      "type": "home-bestsellers",
+      "settings": {
+        "collection": "best-selling-products",
+        "limit": 8,
+        "overline": "Bestsellers",
+        "heading": "Most loved",
+        "subheading": "The cakes Meerut orders again and again.",
+        "trust_line": "100% eggless",
+        "cta_label": "View all cakes",
+        "cta_link": "shopify://collections/all"
+      }
     }
   },
   "order": [
     "home_hero",
     "home_promise",
     "home_occasions",
+    "home_bestsellers",
     "categories_section_m9EMCJ",
     "categories_section_kfmNzj",
     "c28ddbdb-d0df-4b86-9b0a-674df42ecc5c",
