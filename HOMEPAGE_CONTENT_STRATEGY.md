@@ -189,6 +189,22 @@ Arc: aspiration → orientation → desire → reassurance → trust → possibi
 
 ---
 
+## SITE-WIDE TRUST SIGNAL — "100% Eggless"  *(ratified 2026-07-15)*
+"100% Eggless" is a **global brand attribute**, never a product category (no eggless collection — see CATALOG_ARCHITECTURE §10).
+**Used consistently, once per surface, never stuffed:**
+| Surface | Expression |
+|---|---|
+| Homepage hero | trust row item "100% Eggless" |
+| Homepage §2 | trust card "100% Eggless" → `/pages/100-percent-eggless-bakery` |
+| Homepage §5 Craft | "100% eggless. 100% handcrafted." |
+| Product pages | micro-trust line on cards / PDP (protected — copy unchanged) |
+| Footer | trust strip "100% Eggless" |
+| About | eggless philosophy paragraph |
+| FAQ | "Are your cakes eggless?" → yes, always |
+| Schema | `dietary-preferences` + Bakery description |
+**Canonical page:** `/pages/100-percent-eggless-bakery` (philosophy · what it means · FAQs · links to primary collections).
+**Voice rule:** state it as quiet strength — never "(no egg)", never apologetic, never repeated twice in one section.
+
 ## GOVERNANCE
 - This file is the content source; implementation copies text verbatim (no ad-hoc copywriting in Liquid).
 - Editable content (reviews, occasions, hero, trust stats) lives in metaobjects/section settings per `HOMEPAGE_SPECIFICATION.md`.

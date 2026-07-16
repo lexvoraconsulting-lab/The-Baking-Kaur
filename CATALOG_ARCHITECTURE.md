@@ -141,4 +141,17 @@ Cake
 - **Add-on:** Balloons → PDP/hamper add-on (Uploadcare/line-item), not a browse collection.
 - **Nav shows the full tree** (ambition), but nav entries for not-yet-built nodes point to the nearest populated parent or a "coming soon"/landing — never a 0-product collection.
 
-_v0.2 — canonical catalog strategy + target category hierarchy. Awaiting approval before implementation._
+
+## 10. RULE — "100% Eggless" is a BRAND ATTRIBUTE, not a product category  *(ratified 2026-07-15)*
+**Never create an "Eggless Cakes" collection.** The Baking Kaur is a completely eggless bakery: **all 607 active products are eggless**. A `/collections/eggless-cakes` would return essentially the same set as `/collections/all` → duplicate/thin content, competing URLs, and a diluted entity.
+
+| | |
+|---|---|
+| **Is** | A site-wide **trust signal** + brand/entity attribute (`shopify.dietary-preferences`) |
+| **Is NOT** | A collection, a facet/filter (it has zero filtering power at 100% coverage), or a category node |
+| **Served by** | An **editorial content page** → `/pages/100-percent-eggless-bakery` |
+| **Surfaced in** | Homepage hero trust row + §2 trust card · product pages · footer trust strip · About · FAQ · schema (`dietary-preferences`, LocalBusiness description) |
+
+Corollary: any attribute with ~100% catalogue coverage is a **brand attribute**, never a collection or filter. (Same logic would apply to e.g. "Handcrafted".)
+
+_v0.3 — eggless ratified as brand attribute (no collection). v0.2 — canonical catalog strategy + target category hierarchy. Awaiting approval before implementation._

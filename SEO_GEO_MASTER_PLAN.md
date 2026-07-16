@@ -46,12 +46,20 @@ Home §1 Hero        → /collections/birthday-cakes ; wa.me/918218862928 (Whats
 Home §2 Delivery Promise (6 trust cards, whole-card links)
    ├─ Same-Day Delivery     → /pages/cake-delivery-in-meerut      [canonical planned: /pages/same-day-cake-delivery]
    ├─ Midnight Delivery     → /pages/midnight-cake-delivery       ✅ canonical
-   ├─ 100% Eggless          → /pages/why-choose-the-baking-kaur   [canonical planned: /pages/eggless-cakes-explained]
+   ├─ 100% Eggless          → /pages/why-choose-the-baking-kaur   [canonical planned: /pages/100-percent-eggless-bakery]
    ├─ Freshly Made to Order → /pages/freshness-guarantee          [canonical planned: /pages/our-promise]
    ├─ FSSAI Licensed        → /pages/about-us                     ✅ canonical
    └─ Premium Custom Cakes  → /pages/cake-customization-guide     [canonical planned: /pages/cake-customization]
 ```
-**Placeholder routes → Phase G (Missing Pages).** `/collections/eggless-cakes` is deliberately NOT planned: eggless is universal to the catalogue, so it would duplicate `/collections/all` (see CATALOG_ARCHITECTURE). Eggless is served by a **content page** instead.
+**Placeholder routes → Phase G (Missing Pages).**
+
+### "100% Eggless" — site-wide trust signal (RATIFIED)
+**No `/collections/eggless-cakes` — ever.** 100% of the catalogue is eggless, so a collection would duplicate `/collections/all`. Eggless is a **brand attribute + trust signal**, served by an editorial page:
+- **Canonical page:** `/pages/100-percent-eggless-bakery` — philosophy, what eggless means here, FAQs, links to primary cake collections.
+- **Targets:** "eggless bakery in Meerut", "eggless cakes Meerut", "are your cakes eggless".
+- **Consistent surfaces:** homepage hero trust row · homepage §2 trust card · product pages · footer trust strip · About · FAQ · schema.
+- **Schema:** `dietary-preferences` metaobject on products + LocalBusiness/Bakery description; **FAQPage only on this page** (visible FAQ) — per SCHEMA_MASTER page-scoping rule.
+- **GEO:** the page is the canonical answer target for "is The Baking Kaur eggless?" across AI Overviews / ChatGPT / Gemini / Perplexity / voice.
 
 **GEO terms reinforced by §2 copy** (natural, no stuffing): *same-day cake delivery across Meerut* · *midnight cake delivery in Meerut* · *100% eggless* · *custom designer cakes*.
 

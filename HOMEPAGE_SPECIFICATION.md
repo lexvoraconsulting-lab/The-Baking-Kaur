@@ -67,7 +67,7 @@ Frozen — no S1 changes without explicit unfreeze.
 |---|---|---|
 | Same-Day Delivery | `/pages/cake-delivery-in-meerut` | `/pages/same-day-cake-delivery` |
 | Midnight Delivery | `/pages/midnight-cake-delivery` | ✅ already canonical |
-| 100% Eggless | `/pages/why-choose-the-baking-kaur` | `/pages/eggless-cakes-explained` *(content page — **NOT** `/collections/eggless-cakes`: all 607 products are eggless, so a collection would duplicate `/collections/all` per CATALOG_ARCHITECTURE)* |
+| 100% Eggless | `/pages/why-choose-the-baking-kaur` | **`/pages/100-percent-eggless-bakery`** *(RATIFIED editorial page — **never** `/collections/eggless-cakes`: 100% of the catalogue is eggless → would duplicate `/collections/all`. Eggless = site-wide brand attribute, see CATALOG_ARCHITECTURE §10)* |
 | Freshly Made to Order | `/pages/freshness-guarantee` | `/pages/our-promise` |
 | FSSAI Licensed | `/pages/about-us` | ✅ already canonical |
 | Premium Custom Cakes | `/pages/cake-customization-guide` | `/pages/cake-customization` |
