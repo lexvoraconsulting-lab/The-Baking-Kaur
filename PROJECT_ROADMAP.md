@@ -35,6 +35,24 @@ Enterprise Shopify transformation roadmap. Status as of v1.0 (2026-07-14). Gover
 - Deploy model: preview theme → validate → promote to live (scoped pushes).
 - Content from `HOMEPAGE_CONTENT_STRATEGY.md`; visuals from `DESIGN_SYSTEM.md` / `COMPONENT_LIBRARY.md`; schema from `SCHEMA_MASTER.md`.
 
+
+## Backlog
+
+### 🎯 Flagship Hero Photoshoot  *(raised 2026-07-15 · blocks: canonical homepage hero)*
+The current homepage hero is a **Temporary Production Hero** — `Classic Strawberry Whipped Cream Cake` (product `b32`), chosen because **no compliant designer-cake asset exists**: every designer/theme/wedding shot in the catalogue carries customer names, printed messages, monograms, third-party branding (a `zomato` watermark, a `TWC` easel) or green outdoor backgrounds.
+
+**Required final asset:**
+- Exclusive **designer** cake (signature showpiece)
+- **No text on cake** · no customer names · no watermark
+- **White luxury background**, studio lighting
+- **Landscape + portrait** versions (desktop 3:2 + mobile 4:5 crops)
+- **High-resolution master** (≥3000px on the long edge)
+- Becomes the **canonical homepage hero**
+
+**Swap cost: zero code.** Theme editor → *Home · Editorial Hero* → upload to **"Flagship Hero master"**. The uploaded Files image always takes precedence over the temporary product source.
+
+**Related cleanup (same shoot/decision):** remove the `zomato`-watermarked product image, the `TWC`-branded frame, and decide policy on customer names printed across catalogue photography.
+
 ## Immediate next decisions (owner: client)
 1. Promote Phase A to live.
 2. Approve Collection Audit dispositions.
