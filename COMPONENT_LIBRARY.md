@@ -83,4 +83,13 @@ Frozen — no card changes without explicit unfreeze.
 - **Validation finding fixed:** choice pills were 40px → raised to `--tbk-touch` (44px).
 Frozen — no form changes without explicit unfreeze.
 
-_v0.4 — B4 commerce forms frozen. v0.3 — B3 cards frozen. v0.2 — B2 buttons frozen. v0.1 — governs all section/snippet builds._
+
+## 🔒 S1 — EDITORIAL HERO (Homepage §1): **VERSION 1.0** — FROZEN (2026-07-15)
+`sections/home-hero.liquid`. **Assembly only — zero new components.** Composed from frozen tokens + frozen `tbk-button` (`primary`, `whatsapp`). `tbkx-` namespaced → protected PDP isolated.
+- Layout: editorial 5:7 grid ≥990px; single column below; CTAs full-width <560px.
+- Image: WebP · srcset 600/900/1200/1600 · explicit w/h · `fetchpriority=high` · `eager` · `decoding=async` · art-directed preload · SEO alt + title. Source resolution: uploaded Files master **overrides** temporary product source (merchant-editable, zero code to swap).
+- Validated: one H1 · CLS 0 · desktop 3:2 / mobile 4:5 · no sliders/autoplay/carousels · no overflow.
+- Asset status: **Temporary Production Hero** (product `b32`) — see backlog "Flagship Hero Photoshoot".
+Frozen — no changes without explicit unfreeze.
+
+_v1.0 — S1 Editorial Hero frozen (Homepage §1). v0.4 — B4 commerce forms frozen. v0.3 — B3 cards frozen. v0.2 — B2 buttons frozen. v0.1 — governs all section/snippet builds._

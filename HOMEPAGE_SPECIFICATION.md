@@ -46,7 +46,7 @@ Business: conversion+AOV+assisted revenue. UX: ≤1 tap to pillar, trust every s
 - Error: image fallback (aspect-boxed), JS-off progressive enhancement, app-failure hides section.
 
 
-## 🔒 S1 — EDITORIAL HERO: FROZEN (2026-07-15)
+## 🔒 S1 — EDITORIAL HERO: **VERSION 1.0** — FROZEN (2026-07-15)
 `sections/home-hero.liquid`. Assembled ONLY from frozen DS parts (tokens + `tbk-button` primary/whatsapp) — **zero new components**. `tbkx-` namespaced → PDP isolated.
 - **Content:** one H1 · sub "Luxury handcrafted eggless cakes with same-day & midnight delivery in Meerut." · CTA "Order Now" → birthday-cakes · "Customise on WhatsApp" → canonical 918218862928 · microcopy · 5 trust items (Eggless / Same-Day / Midnight / 4.8★ Google / FSSAI).
 - **Image (TEMPORARY PRODUCTION HERO):** product `b32` Classic Strawberry Whipped Cream Cake. WebP · srcset 600/900/1200/1600 · sizes `(min-width:990px) 46vw, 100vw` · explicit width/height (1196×1600) · `fetchpriority=high` · `loading=eager` · `decoding=async` · art-directed `<link rel=preload>` · SEO alt + title. Merchant-editable: uploading the Flagship Hero master overrides with no code change.
@@ -54,4 +54,4 @@ Business: conversion+AOV+assisted revenue. UX: ≤1 tap to pillar, trust every s
 - **Known:** Lighthouse not runnable in this environment (see PERFORMANCE_BASELINE); hero asset is temporary — see backlog "Flagship Hero Photoshoot".
 Frozen — no S1 changes without explicit unfreeze.
 
-_v1.1 — S1 frozen. v1.0 — approved. Build in small reviewable phases, one section at a time, validated on preview._
+_v1.1 — S1 Editorial Hero recorded as Version 1.0 (frozen). v1.0 — approved. Build in small reviewable phases, one section at a time, validated on preview._
