@@ -9,20 +9,28 @@
 {%- liquid
   assign s = section.settings
   assign trust_items = s.trust | split: '·'
+
+  # Image source resolution (merchant-editable, no code change needed to swap):
+  #   1. Uploaded Files image  (image_picker)  — used for the future Flagship Hero master
+  #   2. Product featured image (product picker) — TEMPORARY PRODUCTION HERO source
+  assign hero_img = s.image
+  if hero_img == blank and s.image_product != blank
+    assign hero_img = s.image_product.featured_image
+  endif
 -%}
 
 {%- comment -%} LCP preload — art-directed, matches the <picture> below exactly {%- endcomment -%}
-{%- if s.image != blank -%}
+{%- if hero_img != blank -%}
   {%- if s.image_mobile != blank -%}
     <link rel="preload" as="image" fetchpriority="high" media="(max-width: 749px)"
           imagesrcset="{{ s.image_mobile | image_url: width: 750, format: 'webp' }} 750w, {{ s.image_mobile | image_url: width: 1100, format: 'webp' }} 1100w"
           imagesizes="100vw">
     <link rel="preload" as="image" fetchpriority="high" media="(min-width: 750px)"
-          imagesrcset="{{ s.image | image_url: width: 900, format: 'webp' }} 900w, {{ s.image | image_url: width: 1200, format: 'webp' }} 1200w, {{ s.image | image_url: width: 1600, format: 'webp' }} 1600w"
+          imagesrcset="{{ hero_img | image_url: width: 900, format: 'webp' }} 900w, {{ hero_img | image_url: width: 1200, format: 'webp' }} 1200w, {{ hero_img | image_url: width: 1600, format: 'webp' }} 1600w"
           imagesizes="(min-width: 990px) 46vw, 100vw">
   {%- else -%}
     <link rel="preload" as="image" fetchpriority="high"
-          imagesrcset="{{ s.image | image_url: width: 600, format: 'webp' }} 600w, {{ s.image | image_url: width: 900, format: 'webp' }} 900w, {{ s.image | image_url: width: 1200, format: 'webp' }} 1200w, {{ s.image | image_url: width: 1600, format: 'webp' }} 1600w"
+          imagesrcset="{{ hero_img | image_url: width: 600, format: 'webp' }} 600w, {{ hero_img | image_url: width: 900, format: 'webp' }} 900w, {{ hero_img | image_url: width: 1200, format: 'webp' }} 1200w, {{ hero_img | image_url: width: 1600, format: 'webp' }} 1600w"
           imagesizes="(min-width: 990px) 46vw, 100vw">
   {%- endif -%}
 {%- endif -%}
@@ -71,7 +79,7 @@
     </div>
 
     <div class="tbkx-hero__media">
-      {%- if s.image != blank -%}
+      {%- if hero_img != blank -%}
         <picture>
           {%- if s.image_mobile != blank -%}
             <source media="(max-width: 749px)" type="image/webp"
@@ -79,14 +87,15 @@
                     sizes="100vw"
                     width="{{ s.image_mobile.width }}" height="{{ s.image_mobile.height }}">
           {%- endif -%}
-          <img src="{{ s.image | image_url: width: 1200, format: 'webp' }}"
-               srcset="{{ s.image | image_url: width: 600, format: 'webp' }} 600w,
-                       {{ s.image | image_url: width: 900, format: 'webp' }} 900w,
-                       {{ s.image | image_url: width: 1200, format: 'webp' }} 1200w,
-                       {{ s.image | image_url: width: 1600, format: 'webp' }} 1600w"
+          <img src="{{ hero_img | image_url: width: 1200, format: 'webp' }}"
+               srcset="{{ hero_img | image_url: width: 600, format: 'webp' }} 600w,
+                       {{ hero_img | image_url: width: 900, format: 'webp' }} 900w,
+                       {{ hero_img | image_url: width: 1200, format: 'webp' }} 1200w,
+                       {{ hero_img | image_url: width: 1600, format: 'webp' }} 1600w"
                sizes="(min-width: 990px) 46vw, 100vw"
-               width="{{ s.image.width }}" height="{{ s.image.height }}"
+               width="{{ hero_img.width }}" height="{{ hero_img.height }}"
                alt="{{ s.image_alt | default: s.heading | escape }}"
+               {% if s.image_title != blank %}title="{{ s.image_title | escape }}"{% endif %}
                loading="eager" fetchpriority="high" decoding="async">
         </picture>
       {%- else -%}
@@ -173,10 +182,13 @@
     { "type": "text", "id": "cta2_url", "label": "WhatsApp link", "default": "https://wa.me/918218862928?text=Hi%20The%20Baking%20Kaur%2C%20I%27d%20like%20to%20customise%20a%20cake" },
     { "type": "text", "id": "microcopy", "label": "Microcopy under CTAs", "default": "Order by 4 PM for same-day delivery." },
     { "type": "header", "content": "Media" },
-    { "type": "paragraph", "content": "LCP element. Use the signature designer cake: luxury photography, premium lighting, white/elegant background, cake-only, NO text baked into the image. Served as WebP + srcset + preload + fetchpriority=high automatically." },
-    { "type": "image_picker", "id": "image", "label": "Hero image — DESKTOP crop (landscape ~3:2)" },
-    { "type": "image_picker", "id": "image_mobile", "label": "Hero image — MOBILE crop (portrait ~4:5)" },
-    { "type": "text", "id": "image_alt", "label": "Image alt text", "default": "Signature handcrafted eggless designer cake by The Baking Kaur, Meerut" },
+    { "type": "paragraph", "content": "LCP element — served as WebP + srcset + preload + fetchpriority=high automatically. Requirements for the final asset: exclusive designer cake, NO text on cake, no customer names, no watermark, white luxury background, studio lighting, high-res master." },
+    { "type": "paragraph", "content": "⚠️ TEMPORARY PRODUCTION HERO — currently sourced from a product image (Classic Strawberry Whipped Cream Cake). Replace by uploading the Flagship Hero master below; the uploaded image always wins. No code change needed. See backlog: 'Flagship Hero Photoshoot'." },
+    { "type": "image_picker", "id": "image", "label": "Flagship Hero master — upload (takes precedence)" },
+    { "type": "image_picker", "id": "image_mobile", "label": "Hero image — MOBILE crop (portrait ~4:5, optional art direction)" },
+    { "type": "product", "id": "image_product", "label": "Fallback: use a product's image (temporary hero source)" },
+    { "type": "text", "id": "image_alt", "label": "Image alt text (SEO)", "default": "Signature handcrafted eggless designer cake by The Baking Kaur, Meerut" },
+    { "type": "text", "id": "image_title", "label": "Image title attribute" },
     { "type": "header", "content": "Trust" },
     { "type": "text", "id": "trust", "label": "Trust items (separate with ·)", "default": "100% Eggless · Same-Day Delivery · Midnight Delivery · 4.8★ Google Rating · FSSAI Licensed" }
   ],
