@@ -75,4 +75,28 @@ Frozen — no S1 changes without explicit unfreeze.
 **Rule applied:** recommended routes `/pages/same-day-cake-delivery`, `/collections/eggless-cakes`, `/pages/our-promise`, `/pages/cake-customization` all returned **404** — no URLs were invented. Cards link to verified pages; canonical routes are placeholders above and become real in **Phase G (Missing Pages)**, at which point the links swap via section settings (no code change).
 Frozen — no S2 changes without explicit unfreeze.
 
-_v1.2 — S2 Delivery Promise frozen (Version 1.0). v1.1 — S1 Editorial Hero recorded as Version 1.0 (frozen). v1.0 — approved. Build in small reviewable phases, one section at a time, validated on preview._
+
+## 🔒 S3 — OCCASION NAVIGATION (Homepage §3): **VERSION 1.0** — FROZEN (2026-07-15)
+`sections/home-occasions.liquid`. **Assembly only — zero new components** (FROZEN `tbkx-card--collection` + `--link/--interactive` + `tbkx-card__media--fallback` + tokens). `tbkx-` namespaced → PDP isolated.
+- Layout: mobile-first **2-col** → tablet 3 → desktop one row (cols = block count). **CLS 0**, no overflow, 260px tap targets.
+- Hierarchy: **H1 (hero) → H2 "Shop by occasion" → H3 per card** (6).
+- Links: **one canonical destination per card**, 1 `<a>`, **0 nested links**, all verified **HTTP 200**.
+- Schema: **ItemList** (6 ListItems, absolute URLs).
+- Perf: **0 JS**; images **lazy + WebP srcset + explicit w/h + fixed 1:1** ratio.
+- **Product counts: OFF** (clean editorial). Setting retained (`show_counts`) for a later optimization phase.
+- **Corporate Gifting retained** (B2B lead-gen); no collection exists → renders the approved graceful fallback until an image is set (`image` block setting ready).
+
+### S3 per-card documentation
+| Card | Business objective | User intent | KPI | Internal link (200 ✅) | Schema support | GEO signals | AI-search signals |
+|---|---|---|---|---|---|---|---|
+| **Birthday Cakes** | Route to the largest revenue pillar | Commercial — "birthday cake near me" | Tile CTR → collection → PDP | `/collections/birthday-cakes` | ItemList → future CollectionPage+ItemList | "birthday cakes Meerut" | Answers "what birthday cakes do you have?" |
+| **Anniversary Cakes** | Second occasion pillar; romantic/midnight upsell | Commercial — anniversary gifting | Tile CTR, assisted midnight orders | `/collections/anniversary-cakes` | ItemList → CollectionPage | "anniversary cake Meerut" | Occasion entity ↔ midnight delivery |
+| **Wedding Cakes** | High-AOV + enquiry pipeline | Commercial/considered — tiered, engagement | Tile CTR → enquiry/PDP | `/collections/wedding-cakes` | ItemList → CollectionPage | "wedding cake Meerut" | Entity: bakery ↔ wedding service |
+| **Designer & Theme Cakes** | Showcase craft; absorbs "custom/theme" intent | Commercial — character/custom design | Tile CTR → PDP/WhatsApp | `/collections/designer-theme-cakes` | ItemList → CollectionPage | "designer cake / theme cake Meerut" | Answers "can you make a custom/designer cake?" |
+| **Cake Hampers** | Raise AOV; gifting entry | Commercial — gifting | Tile CTR, AOV | `/collections/cake-hampers` | ItemList → CollectionPage | "gift hampers Meerut" | Entity: gifting ↔ bakery |
+| **Corporate Gifting** | **B2B lead generation / future growth** | Commercial B2B — bulk & branded | Lead/enquiry rate | `/pages/corporate-gifting-solutions` | ItemList → future Service | "corporate gifting Meerut" | Entity: bakery ↔ B2B service |
+
+**Deliberate exclusions (evidence-based):** *Kids Cakes* (`kids-birthday-cakes-meerut` = 0 products), *Custom Cakes* (`custom-cakes-meerut` = 0; audit redirects → Designer & Theme, which is the card), *Same-Day / Midnight* (both collections 0 products **and** already linked from S2 — duplicating would add no crawl value). Kids returns once Phase A.1 makes it a smart collection.
+Frozen — no S3 changes without explicit unfreeze.
+
+_v1.3 — S3 Occasion Navigation frozen (Version 1.0). v1.2 — S2 Delivery Promise frozen (Version 1.0). v1.1 — S1 Editorial Hero recorded as Version 1.0 (frozen). v1.0 — approved. Build in small reviewable phases, one section at a time, validated on preview._

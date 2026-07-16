@@ -38,6 +38,17 @@ Enterprise Shopify transformation roadmap. Status as of v1.0 (2026-07-14). Gover
 
 ## Backlog
 
+### 📝 CONTENT TASK – 100% Eggless Brand Page  *(raised 2026-07-15 · parallel workstream — does NOT block homepage)*
+**Status:** created as a **DRAFT** — `/pages/100-percent-eggless-bakery` (`gid://shopify/Page/116138016937`, `isPublished: false`, verified 404 publicly).
+**Purpose:** the canonical informational resource explaining why The Baking Kaur is a completely eggless bakery. **Not part of any homepage milestone.**
+**Contains:** eggless philosophy · what eggless means here · 6 FAQs · links to the 5 primary collections + same-day/midnight pages.
+**To do:** client reviews copy → publish → repoint the S2 "100% Eggless" trust card from `/pages/why-choose-the-baking-kaur` to this page (**section setting, zero code**) → add page-scoped `FAQPage` schema in Phase F (the only page permitted to carry it).
+**Rule it enforces:** eggless is a brand attribute, never a collection (CATALOG_ARCHITECTURE §10).
+
+### 📦 Publish draft catalogue  *(raised 2026-07-15 · client merchandising decision)*
+**584 of 1,235 products are DRAFT** — roughly 47% of the catalogue is invisible to customers. Worst case: **Cake Hampers shows 8 of 119**, so the hamper range is effectively unsellable. This understates every pillar and is why homepage collection counts are currently OFF. Decide which drafts to publish vs archive.
+
+
 ### 🎯 Flagship Hero Photoshoot  *(raised 2026-07-15 · blocks: canonical homepage hero)*
 The current homepage hero is a **Temporary Production Hero** — `Classic Strawberry Whipped Cream Cake` (product `b32`), chosen because **no compliant designer-cake asset exists**: every designer/theme/wedding shot in the catalogue carries customer names, printed messages, monograms, third-party branding (a `zomato` watermark, a `TWC` easel) or green outdoor backgrounds.
 

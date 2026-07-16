@@ -90,3 +90,16 @@ Scoped push of `layout/theme.liquid`, `snippets/structured-data.liquid`, `sectio
 - **Links:** all 6 destinations verified HTTP 200. 4 of the recommended routes 404'd (`same-day-cake-delivery`, `eggless-cakes` collection, `our-promise`, `cake-customization`) → linked to verified pages instead; canonical routes recorded as placeholders (Phase G). `/collections/eggless-cakes` intentionally not created (would duplicate `/collections/all`).
 - **Bug fixed in build:** unclosed `{% if count > 0 %}` nested the `{% schema %}` tag → push rejected; fixed + tag-balance check added to validation.
 - **Risk:** ○ low (additive, preview only). **Rollback:** `git rm sections/home-delivery-promise.liquid` + remove `home_promise` from `templates/index.json`, or `git checkout 2aeff64 -- templates/index.json`.
+
+
+---
+
+## Phase C1 §3 — Occasion Navigation (FROZEN v1.0) — preview only
+- **Files:** `sections/home-occasions.liquid` (new), `templates/index.json` (added as §3, 6 blocks).
+- **Reason:** route visitors to primary commercial intents directly below the trust row.
+- **Business:** 6 internal links to revenue pillars + B2B corporate lead-gen. **SEO:** H1→H2→H3 hierarchy, ItemList schema, crawlable canonical destinations. **GEO:** each occasion becomes an entity with an absolute URL (Bakery → category → products). **Perf:** 0 JS, lazy WebP srcset, explicit w/h, CLS 0.
+- **Decisions applied:** product counts **OFF** (clean editorial; `show_counts` retained for a later phase); **Corporate Gifting retained** with the approved graceful fallback (image slot ready).
+- **Evidence-based exclusions:** Kids / Custom / Same-Day / Midnight — all 0-product collections; delivery already linked from §2.
+- **Bugs fixed during build:** (1) unclosed `{% if %}` nested the `{% schema %}` tag; (2) section name exceeded Shopify's 25-char limit; (3) setting label exceeded Shopify's 70-char limit.
+- **Finding:** storefront counts != Admin counts — **584/1,235 products are DRAFT** (Hampers shows 8 of 119). Logged as backlog "Publish draft catalogue"; CATALOG_ARCHITECTURE count basis corrected.
+- **Risk:** low (additive, preview only). **Rollback:** `git rm sections/home-occasions.liquid` + remove `home_occasions` from `templates/index.json`.

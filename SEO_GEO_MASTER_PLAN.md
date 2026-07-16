@@ -50,7 +50,16 @@ Home §2 Delivery Promise (6 trust cards, whole-card links)
    ├─ Freshly Made to Order → /pages/freshness-guarantee          [canonical planned: /pages/our-promise]
    ├─ FSSAI Licensed        → /pages/about-us                     ✅ canonical
    └─ Premium Custom Cakes  → /pages/cake-customization-guide     [canonical planned: /pages/cake-customization]
+Home §3 Occasion Navigation (6 collection cards, whole-card links, ItemList schema)
+   ├─ Birthday Cakes          → /collections/birthday-cakes
+   ├─ Anniversary Cakes       → /collections/anniversary-cakes
+   ├─ Wedding Cakes           → /collections/wedding-cakes
+   ├─ Designer & Theme Cakes  → /collections/designer-theme-cakes   (absorbs "custom cakes" intent)
+   ├─ Cake Hampers            → /collections/cake-hampers
+   └─ Corporate Gifting       → /pages/corporate-gifting-solutions  (B2B lead-gen)
 ```
+**S3 excludes** Kids / Custom / Same-Day / Midnight collections (all 0 products; delivery already linked from §2) — no links to empty collections, no duplicate internal links.
+**S3 AI/GEO:** ItemList makes each occasion a first-class entity with an absolute URL, tying `Bakery → occasion category → products` for AI Overviews / ChatGPT / Gemini / Perplexity.
 **Placeholder routes → Phase G (Missing Pages).**
 
 ### "100% Eggless" — site-wide trust signal (RATIFIED)

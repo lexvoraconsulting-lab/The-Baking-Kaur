@@ -14,6 +14,19 @@ Canonical catalog strategy for the entire store — the reference for all Homepa
 - **Metaobjects:** `shopify--flavor`, `--celebration-type`, `--dietary-preferences`, `--allergen`, `--color`, `--flour-grain`, **`shopify--qa-pair`** (FAQ), and **3 duplicate weight objects** (`weight`, `weights`, `weightr`).
 - **Search/Filters:** Shopify **Search & Discovery** app (search boost + related/complementary). Theme uses Shopify facets.
 
+## 1b. ⚠️ COUNT BASIS CORRECTION — Admin counts ≠ shoppable counts  *(found 2026-07-15 during S3)*
+All counts in §1/§6 are **Admin** counts (they include DRAFT). The **storefront** figure — what customers can actually buy — is far smaller: **584 of 1,235 products are DRAFT**.
+
+| Collection | Admin | **Live / shoppable** | Hidden |
+|---|---|---|---|
+| Birthday | 279 | **226** | 53 |
+| Anniversary | 102 | **85** | 17 |
+| Wedding | 134 | **70** | 64 |
+| Designer & Theme | 165 | **78** | 87 |
+| **Cake Hampers** | 119 | **8** | **111** — sampled: first 30 products all DRAFT, so the hamper range is effectively unsellable |
+
+**Implication:** treat §6 sizing as *catalogue* size, not *shoppable* size. Publishing the drafts is a **client merchandising decision** — see backlog "Publish draft catalogue".
+
 ## 2. Structural findings & principles
 1. **Automate the pillars.** 30 manual collections don't scale — new products won't appear. Pillars & sub-types must be **smart collections** (rules on tag / type / metafield).
 2. **Govern the taxonomy.** Canonical `product_type` set + required tag conventions + lean on existing metaobjects (`celebration-type`, `flavor`, `dietary-preferences`) as the real categorization spine.
