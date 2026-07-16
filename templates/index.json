@@ -411,7 +411,8 @@
         "padding_top": 40,
         "padding_bottom": 40,
         "padding_rate": 75
-      }
+      },
+      "disabled": true
     },
     "custom_liquid_FKNVAf": {
       "type": "custom-liquid",

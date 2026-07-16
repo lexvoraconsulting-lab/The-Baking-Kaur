@@ -157,7 +157,12 @@
   <body class="hdt-page-type-{{ request.page_type }}{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %} template-{{ template.name }}">
     {%- render 'js-variables' -%}
     {%- unless template == 'product.only_config' and request.design_mode == false -%}
-    {%- if request.page_type == "index" or request.page_type == "policy" -%}
+    {%- comment -%}
+      Policy pages have no in-page H1, so keep the visually-hidden one there.
+      The homepage now has a real H1 (sections/home-hero.liquid) — Phase C1 removed
+      "index" from this condition to enforce exactly one H1 per page.
+    {%- endcomment -%}
+    {%- if request.page_type == "policy" -%}
     <h1 class="hdt-hidden">{{ page_title | default: shop.name }}</h1>
     {%- endif -%}
     {%- render 's-dom-temp' -%}
