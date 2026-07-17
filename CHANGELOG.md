@@ -296,3 +296,26 @@ Rendered order DOM-verified; 0 legacy rendering; footer present; `home_reviews` 
 ### Docs
 `HOMEPAGE_SPECIFICATION.md` (S7 frozen, ratified order replaces the original 9-section sequence), `docs/retired-homepage-sections-2026-07-16.json` (new archive), this entry.
 - **Risk:** low (preview only). **Rollback:** restore `templates/index.json` from git; `git rm` the two new sections.
+
+---
+
+## S1 Hero v1.1 — unverified Google rating removed (2026-07-16) — preview only
+**Client-approved unfreeze of S1 (frozen module) for a single, targeted trust fix.**
+
+### Found during the S8 readiness check
+The frozen S1 hero trust strip rendered **"4.8★ Google Rating"** as bare, unlinked, unverified text — a rating claim with no source. Same category as the hardcoded 4.8/500 AggregateRating removed during the S5 incident; it survived because that cleanup audited schema, not the hero's visible text. Directly contradicted the standing "no invented ratings" rule.
+
+### Fixed (client decision, Option 2 + interim)
+- Removed "4.8★ Google Rating" from the hero trust strip; replaced with the neutral operational fact **"Freshly Baked to Order"** (no rating, stat or count).
+- Updated the schema `default` in `sections/home-hero.liquid` too, with an `info` note — a fresh install / preset cannot reintroduce the rating.
+- Verified on preview: "4.8" and "Google Rating" gone from the **entire page** (not just the hero); 5 trust items intact; hero otherwise unchanged; all other sections present.
+- **Re-froze S1 at v1.1.**
+
+### Pending restore (client to supply data)
+The rating returns **only** as a clickable link to the official Google Business Profile, once the client provides the profile URL + current rating + review count. Tracked: `PROJECT_ROADMAP.md` → "Restore verified Google rating to hero". Never hardcoded, never an invented count, re-verified against the live profile at build time.
+
+### S8 status — still gated
+S8 (Trust / Brand Facts) **not built** — the verified-data gate is not met (no FSSAI licence number, 0 verified reviews, unverified customer count). Building it now would require the placeholder content the ratified rules forbid. Unblock checklist recorded in `PROJECT_ROADMAP.md`.
+
+### Live safety
+Preview only (theme 151370334377). Live site untouched. Protected product page untouched.

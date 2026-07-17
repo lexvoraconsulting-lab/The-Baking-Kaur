@@ -48,13 +48,16 @@ Business: conversion+AOV+assisted revenue. UX: ≤1 tap to pillar, trust every s
 - Error: image fallback (aspect-boxed), JS-off progressive enhancement, app-failure hides section.
 
 
-## 🔒 S1 — EDITORIAL HERO: **VERSION 1.0** — FROZEN (2026-07-15)
+## 🔒 S1 — EDITORIAL HERO: **VERSION 1.1** — FROZEN (2026-07-16)
 `sections/home-hero.liquid`. Assembled ONLY from frozen DS parts (tokens + `tbk-button` primary/whatsapp) — **zero new components**. `tbkx-` namespaced → PDP isolated.
-- **Content:** one H1 · sub "Luxury handcrafted eggless cakes with same-day & midnight delivery in Meerut." · CTA "Order Now" → birthday-cakes · "Customise on WhatsApp" → canonical 918218862928 · microcopy · 5 trust items (Eggless / Same-Day / Midnight / 4.8★ Google / FSSAI).
+
+### v1.1 change — unverified rating removed from the hero trust strip (2026-07-16)
+The trust strip rendered **"4.8★ Google Rating"** as bare, unlinked, unverified text — a rating claim with no source, the same category as the hardcoded `4.8/500` AggregateRating removed from schema during the S5 incident (this one had survived because the S5 cleanup didn't audit the hero's *visible* text). It contradicted the standing "no invented ratings" rule. **Client decision (2026-07-16):** replace it with a neutral trust item now; restore it later **only** as a clickable link to the official Google Business Profile, once the client supplies the profile URL + current rating + review count. Interim item: **"Freshly Baked to Order"** (a real operational fact, no rating/stat/count). Schema default updated too, so a fresh install cannot reintroduce the rating. Pending restore tracked in `PROJECT_ROADMAP.md`.
+- **Content:** one H1 · sub "Luxury handcrafted eggless cakes with same-day & midnight delivery in Meerut." · CTA "Order Now" → birthday-cakes · "Customise on WhatsApp" → canonical 918218862928 · microcopy · 5 trust items (Eggless / Same-Day / Midnight / **Freshly Baked to Order** / FSSAI).
 - **Image (TEMPORARY PRODUCTION HERO):** product `b32` Classic Strawberry Whipped Cream Cake. WebP · srcset 600/900/1200/1600 · sizes `(min-width:990px) 46vw, 100vw` · explicit width/height (1196×1600) · `fetchpriority=high` · `loading=eager` · `decoding=async` · art-directed `<link rel=preload>` · SEO alt + title. Merchant-editable: uploading the Flagship Hero master overrides with no code change.
 - **Validated:** desktop 1280 → 5:7 grid, H1 70.4px, image 633×422 = **3:2**, CLS **0** · tablet 768 → 4:5, CLS 0 · mobile 375 → single column, CTAs full-width 56px · **one H1** (fixed: removed layout's hidden H1 on index + disabled legacy hero block) · no sliders/autoplay/carousels · no overflow.
-- **Known:** Lighthouse not runnable in this environment (see PERFORMANCE_BASELINE); hero asset is temporary — see backlog "Flagship Hero Photoshoot".
-Frozen — no S1 changes without explicit unfreeze.
+- **Known:** Lighthouse not runnable in this environment (see PERFORMANCE_BASELINE); hero asset is temporary — see backlog "Flagship Hero Photoshoot". Google rating pending restore as a verified linked element — see backlog "Restore verified Google rating to hero".
+Re-frozen at v1.1 — no S1 changes without explicit unfreeze.
 
 
 ## 🔒 S2 — DELIVERY PROMISE (Homepage §2): **VERSION 1.0** — FROZEN (2026-07-15)

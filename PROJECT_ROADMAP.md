@@ -38,6 +38,22 @@ Enterprise Shopify transformation roadmap. Status as of v1.0 (2026-07-14). Gover
 
 ## Backlog
 
+### ⭐ Restore verified Google rating to hero  *(raised 2026-07-16 · needs client data · S1 will re-open)*
+An unverified **"4.8★ Google Rating"** was removed from the S1 hero trust strip on 2026-07-16 and replaced with the neutral fact "Freshly Baked to Order". To restore it as a **verified, clickable** element the client must supply three things:
+1. **Google Business Profile URL** (the public `g.page` / Maps link customers can open),
+2. **Current rating** (as shown on that profile today),
+3. **Review count** (as shown on that profile today).
+
+**On restore:** unfreeze S1; render the rating as a link to the official profile — never hardcoded, never an invented count, never a rating without its source (`REVIEW_STRATEGY.md` §5). This needs a small hero change (the trust strip is currently plain `·`-split text and cannot hold a link), so it is a deliberate S1 re-open, then re-freeze at v1.2. **Re-verify the figures against the live profile at build time** — a rating goes stale.
+
+### ⛔ S8 — Trust / Brand Facts: GATE (not yet buildable)
+S8 is approved in principle but **blocked until legally verifiable data exists**. Do not build a placeholder. Unblock checklist:
+- [ ] **FSSAI licence number** — none present in the storefront today (only the adjective "FSSAI Licensed/Approved"). Needed to convert the adjective into a checkable fact.
+- [ ] **Real reviews** — 0 verified `testimonial` entries exist. See "Collect genuine reviews".
+- [ ] **Customer count** — "20,000+" is an unverified milestone (`REVIEW_STRATEGY.md` §5b); substantiate (Shopify order count / years operating) or drop it.
+**Duplicate-messaging caveat:** the verified facts that *do* exist (eggless, same-day, midnight, designer, freshly-baked) are already stated in S2/S3/S7/hero. To satisfy the "no duplicate messaging" rule, S8's genuinely *new* content is essentially the **FSSAI number + real reviews** — precisely the items still missing. S8 becomes worth building when at least one of those lands.
+
+
 ### 📸 Craft & studio photography  *(raised 2026-07-16 · folds into Flagship Hero Photoshoot)*
 **S6 Craft Story ships text-only because no compliant image exists.** Two independent blockers, both previously documented:
 - The theme's stock assets (`p1`, `p2`, `c1`, `c2`, `h1`, `h2`, `g1`) are **Ecomus demo content** — the same source as the fabricated testimonials removed on 2026-07-16. Using one would present stock imagery as this bakery's craft.
