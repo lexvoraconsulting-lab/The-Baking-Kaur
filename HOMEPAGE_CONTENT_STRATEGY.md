@@ -4,6 +4,15 @@ The content, messaging, merchandising, and conversion source for the homepage. P
 
 ---
 
+## RATIFIED HOMEPAGE ORDER (client, 2026-07-16)
+
+Conversion-first, one canonical path:
+**Hero → Delivery Promise → Occasion Navigation → Best Sellers → Reviews *(only if verified)* → Custom Cake CTA → Explore Collections → Footer.**
+
+Supersedes the original sequence. **Craft Story is held disabled** (its trust points duplicated S2's messaging — forbidden by the ratified "no duplicate messaging" rule). **Hampers** dropped from the homepage (destination page stays live; S3 card + CTAs cover the intent). A **Trust / Brand Facts** section is deferred to S8, to be built only once there are legally verifiable facts (FSSAI licence number, a substantiated customer count, real reviews).
+
+---
+
 ## COPY STYLE & VOICE (governs everything below)
 Premium · luxury · warm · trustworthy · minimal. **Never salesy, never keyword-stuffed.**
 - Short, confident sentences. Editorial, not promotional. One idea per line.

@@ -1,0 +1,112 @@
+{%- comment -%}
+  sections/home-custom-cake-cta.liquid — Homepage §5 Custom Cake CTA (Phase C1 · S7)
+
+  ASSEMBLY ONLY — zero new components:
+    • FROZEN `tbk-button` — `primary` + `whatsapp` variants (both already frozen in B2)
+    • FROZEN tokens. Centred band is section-scoped layout, not a component.
+  tbkx- namespaced → protected product page untouched.
+
+  REAL BUSINESS FACT ONLY. The copy is not marketing invention: recreating a
+  customer's Pinterest/Instagram reference is an actual, existing service —
+  it has its own live page (`/pages/cake-customization-guide`, HTTP 200) and
+  was already described on the homepage by the legacy `custom_liquid_VtmKQM`
+  block this section replaces. Nothing here is a statistic, a rating, or a
+  claim that cannot be checked.
+
+  Headline "Dream it. We'll bake it." is a ratified signature phrase from
+  BRAND_VOICE.md — brand copy, not an invented statistic.
+
+  WhatsApp: canonical +91 82188 62928 only (E.164 `918218862928`). A legacy
+  number was purged storefront-wide in Phase A — never reintroduce it. The old
+  digits are deliberately NOT written here: this file must stay clean for the
+  legacy-number sweep, which greps the whole theme and expects zero hits.
+
+  Schema: NONE. A CTA band is not a list, product or Q&A; there is no honest
+  type for it. It earns its keep as a crawlable internal link + visible text.
+
+  Heading hierarchy: H1 (hero) → H2 (this section). No H3 — no sub-items.
+  Perf: 0 JS · no images · CLS 0.
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign wa_digits = s.whatsapp | default: '918218862928' | remove: '+' | remove: ' ' | remove: '-'
+  assign wa_href = 'https://wa.me/' | append: wa_digits
+  if s.whatsapp_text != blank
+    assign wa_text = s.whatsapp_text | url_encode
+    assign wa_href = wa_href | append: '?text=' | append: wa_text
+  endif
+-%}
+
+{%- if s.heading != blank -%}
+<section class="tbkx-custom" aria-labelledby="tbkx-custom-h">
+  <div class="tbkx-custom__inner">
+    {%- if s.overline != blank -%}<p class="tbkx-custom__overline">{{ s.overline }}</p>{%- endif -%}
+    <h2 class="tbkx-custom__title" id="tbkx-custom-h">{{ s.heading }}</h2>
+    {%- if s.subheading != blank -%}<p class="tbkx-custom__sub">{{ s.subheading }}</p>{%- endif -%}
+
+    <div class="tbkx-custom__cta">
+      {%- if s.cta_label != blank and s.cta_link != blank -%}
+        {%- render 'tbk-button', label: s.cta_label, href: s.cta_link, variant: 'primary', size: 'lg' -%}
+      {%- endif -%}
+      {%- if s.wa_label != blank -%}
+        {%- capture wa_icon -%}<svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2zm5.8 14.03c-.24.68-1.2 1.26-1.97 1.42-.53.11-1.21.2-3.51-.75-2.95-1.22-4.85-4.21-5-4.41-.14-.2-1.19-1.58-1.19-3.01s.75-2.14 1.02-2.43c.27-.29.58-.36.78-.36l.56.01c.18.01.42-.07.66.5.24.58.83 2.01.9 2.16.07.14.12.31.02.51-.09.2-.14.32-.28.49-.14.17-.3.38-.42.51-.14.14-.29.29-.12.57.17.29.74 1.22 1.59 1.98 1.09.97 2.01 1.27 2.3 1.42.29.14.46.12.63-.07.17-.2.72-.84.91-1.13.19-.29.38-.24.64-.14.26.09 1.69.8 1.98.94.29.14.48.22.55.34.07.13.07.72-.17 1.4z"/></svg>{%- endcapture -%}
+        {%- render 'tbk-button', label: s.wa_label, href: wa_href, variant: 'whatsapp', size: 'lg', icon: wa_icon, icon_position: 'left', target: '_blank' -%}
+      {%- endif -%}
+    </div>
+
+    {%- if s.note != blank -%}<p class="tbkx-custom__note">{{ s.note }}</p>{%- endif -%}
+  </div>
+</section>
+
+<style>
+  .tbkx-custom{background:var(--tbk-surface-sub,#F8F2F6);}
+  .tbkx-custom__inner{
+    max-width:var(--tbk-container,1280px);margin:0 auto;
+    padding:var(--tbk-section-y,clamp(56px,8vw,128px)) var(--tbk-edge,clamp(16px,5vw,80px));
+    text-align:center;display:flex;flex-direction:column;align-items:center;
+  }
+  .tbkx-custom__overline{
+    margin:0 0 var(--tbk-sp-3,12px);
+    font:var(--tbk-fw-semibold,600) var(--tbk-text-xs,11px)/1 var(--tbk-font-ui,'Manrope',sans-serif);
+    letter-spacing:var(--tbk-ls-overline,.14em);text-transform:uppercase;color:var(--tbk-muted,#876575);
+  }
+  .tbkx-custom__title{
+    margin:0;font-family:var(--tbk-font-display,'Cormorant Garamond',Georgia,serif);font-weight:600;
+    font-size:var(--tbk-display-1,clamp(32px,4vw,52px));line-height:var(--tbk-lh-heading,1.2);
+    letter-spacing:var(--tbk-ls-tight,-.01em);color:var(--tbk-ink,#1A0810);
+  }
+  .tbkx-custom__sub{
+    margin:var(--tbk-sp-4,16px) 0 0;font-size:var(--tbk-text-lg,16px);line-height:var(--tbk-lh-body,1.65);
+    color:var(--tbk-ink-soft,#3B1F2E);max-width:58ch;
+  }
+  .tbkx-custom__cta{
+    margin:var(--tbk-sp-8,32px) 0 0;display:flex;flex-wrap:wrap;gap:var(--tbk-sp-3,12px);justify-content:center;
+  }
+  .tbkx-custom__note{
+    margin:var(--tbk-sp-4,16px) 0 0;font-size:var(--tbk-text-xs,11px);color:var(--tbk-muted,#876575);
+  }
+</style>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Home · Custom Cake CTA",
+  "tag": "section",
+  "settings": [
+    { "type": "paragraph", "content": "Homepage §5. The single custom-cake conversion point. Real service only — links to the live customization page and canonical WhatsApp. No statistics, no ratings, no unverifiable claims." },
+    { "type": "text", "id": "overline", "label": "Overline", "default": "Custom cakes" },
+    { "type": "text", "id": "heading", "label": "Section heading (H2)", "default": "Dream it. We'll bake it." },
+    { "type": "textarea", "id": "subheading", "label": "Subheading", "default": "Seen a cake on Pinterest, Instagram or Google? Share your inspiration and we'll recreate it — your theme, your colours, your celebration." },
+    { "type": "header", "content": "Primary action" },
+    { "type": "text", "id": "cta_label", "label": "CTA label", "default": "See how it works" },
+    { "type": "url", "id": "cta_link", "label": "CTA link" },
+    { "type": "header", "content": "WhatsApp" },
+    { "type": "paragraph", "content": "Canonical number only: +91 82188 62928. An older number was purged storefront-wide in Phase A — never reintroduce it." },
+    { "type": "text", "id": "wa_label", "label": "WhatsApp button label", "default": "Share your inspiration" },
+    { "type": "text", "id": "whatsapp", "label": "WhatsApp number (E.164, digits only)", "default": "918218862928" },
+    { "type": "text", "id": "whatsapp_text", "label": "Pre-filled WhatsApp message" },
+    { "type": "text", "id": "note", "label": "Small note under the buttons" }
+  ],
+  "presets": [{ "name": "Home · Custom Cake CTA" }]
+}
+{% endschema %}

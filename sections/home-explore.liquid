@@ -1,0 +1,138 @@
+{%- comment -%}
+  sections/home-explore.liquid — Homepage §6 Explore Collections (Phase C1 · S7)
+
+  ASSEMBLY ONLY — zero new components:
+    • FROZEN B4b `tbkx-pills` / `tbkx-pill` — the pill CSS targets `.tbkx-pill span`,
+      so `<a class="tbkx-pill"><span>…</span></a>` reuses it exactly. 44px touch
+      target comes free from the frozen `--tbk-touch` rule.
+    • FROZEN tokens. No new visual pattern introduced.
+  tbkx- namespaced → protected product page untouched.
+
+  NOT A DUPLICATE OF S3 — different axis, deliberately:
+    S3 Occasion Navigation = the OCCASION axis (birthday, anniversary, wedding,
+    designer & theme, hampers, corporate) — the primary conversion path, 6 image
+    cards. THIS section = the THEME / CHARACTER axis (unicorn, butterfly, jungle,
+    cricket…) — long-tail discovery, plain text pills, visually subordinate.
+    One canonical conversion path is preserved: S3 stays the hero of navigation;
+    this is a crawl + long-tail band, not a competing route.
+
+  MERCHANDISING SAFETY (CATALOG_ARCHITECTURE §1b): `all_products_count` on the
+  storefront counts LIVE products only — drafts are structurally invisible here.
+  Collections below `min_products` are SKIPPED, so a collection gutted by the
+  draft backlog never becomes a dead-end link. At 0 rendered pills the whole
+  section disappears (no orphan heading).
+
+  Schema: NONE — deliberate. S3 already emits ItemList for the occasion axis.
+  Emitting a second ItemList here would elevate themes to peer status with
+  occasions and blur the single canonical path. Plain crawlable links do the
+  SEO/GEO work; AI reads visible text.
+
+  Heading hierarchy: H1 (hero) → H2 (this section). Pills are links, not headings.
+  Perf: 0 JS · no images · CLS 0.
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign min = s.min_products | default: 3
+
+  assign shown = 0
+  for block in section.blocks
+    assign col = block.settings.collection
+    if col != blank and col.all_products_count >= min
+      assign shown = shown | plus: 1
+    endif
+  endfor
+-%}
+
+{%- if shown > 0 -%}
+<section class="tbkx-explore" aria-labelledby="tbkx-explore-h">
+  <div class="tbkx-explore__inner">
+    {%- if s.overline != blank -%}<p class="tbkx-explore__overline">{{ s.overline }}</p>{%- endif -%}
+    <h2 class="tbkx-explore__title" id="tbkx-explore-h">{{ s.heading | default: 'Explore by theme' }}</h2>
+    {%- if s.subheading != blank -%}<p class="tbkx-explore__sub">{{ s.subheading }}</p>{%- endif -%}
+
+    <div class="tbkx-pills tbkx-explore__pills">
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign col = block.settings.collection
+          assign label = block.settings.title
+          if label == blank and col != blank
+            assign label = col.title
+          endif
+        -%}
+        {%- if col != blank and col.all_products_count >= min and label != blank -%}
+          <a class="tbkx-pill tbkx-explore__pill" href="{{ col.url }}" {{ block.shopify_attributes }}>
+            <span>{{ label }}</span>
+          </a>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+
+    {%- if s.cta_label != blank and s.cta_link != blank -%}
+      <div class="tbkx-explore__cta">
+        {%- render 'tbk-button', label: s.cta_label, href: s.cta_link, variant: 'ghost', size: 'md' -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+<style>
+  .tbkx-explore{background:var(--tbk-surface,#FDFAF8);border-top:1px solid var(--tbk-border,#EDD8E3);}
+  .tbkx-explore__inner{
+    max-width:var(--tbk-container,1280px);margin:0 auto;
+    padding:clamp(40px,5vw,72px) var(--tbk-edge,clamp(16px,5vw,80px));
+  }
+  .tbkx-explore__overline{
+    margin:0 0 var(--tbk-sp-3,12px);
+    font:var(--tbk-fw-semibold,600) var(--tbk-text-xs,11px)/1 var(--tbk-font-ui,'Manrope',sans-serif);
+    letter-spacing:var(--tbk-ls-overline,.14em);text-transform:uppercase;color:var(--tbk-muted,#876575);
+  }
+  /* Visually subordinate to S3 — this is a discovery band, not a second nav. */
+  .tbkx-explore__title{
+    margin:0;font-family:var(--tbk-font-display,'Cormorant Garamond',Georgia,serif);font-weight:600;
+    font-size:var(--tbk-heading,clamp(22px,2.2vw,28px));line-height:var(--tbk-lh-heading,1.2);
+    color:var(--tbk-ink,#1A0810);
+  }
+  .tbkx-explore__sub{
+    margin:var(--tbk-sp-2,8px) 0 0;font-size:var(--tbk-text-sm,14px);line-height:var(--tbk-lh-body,1.65);
+    color:var(--tbk-muted,#876575);max-width:60ch;
+  }
+  .tbkx-explore__pills{margin:var(--tbk-sp-6,24px) 0 0;}
+  .tbkx-explore__pill{text-decoration:none;}
+  .tbkx-explore__pill span{transition:background .16s var(--tbk-ease,ease),border-color .16s,color .16s;}
+  .tbkx-explore__pill:hover span{
+    border-color:var(--tbk-border-strong,#D4ADC0);background:var(--tbk-tint-2,#FDEAF2);color:var(--tbk-pink-deep,#8B0D3C);
+  }
+  .tbkx-explore__pill:focus-visible{outline:none;border-radius:var(--tbk-r-full,100px);
+    box-shadow:var(--tbk-focus-ring,0 0 0 3px rgba(192,20,87,.22));}
+  .tbkx-explore__cta{margin:var(--tbk-sp-6,24px) 0 0;}
+</style>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Home · Explore",
+  "tag": "section",
+  "max_blocks": 16,
+  "settings": [
+    { "type": "paragraph", "content": "Homepage §6. The THEME axis (unicorn, cricket, jungle…) — long-tail discovery. NOT a second occasion nav: S3 owns the occasion axis and stays the primary conversion path. Keep this visually subordinate." },
+    { "type": "paragraph", "content": "Collections with fewer than 'Minimum live products' are skipped automatically, so the draft backlog can never create a dead-end link. At 0 eligible collections the whole section hides." },
+    { "type": "range", "id": "min_products", "label": "Minimum live products to show a theme", "min": 1, "max": 10, "step": 1, "default": 3 },
+    { "type": "text", "id": "overline", "label": "Overline" },
+    { "type": "text", "id": "heading", "label": "Section heading (H2)", "default": "Explore by theme" },
+    { "type": "text", "id": "subheading", "label": "Subheading", "default": "Characters, hobbies and themes we make often." },
+    { "type": "text", "id": "cta_label", "label": "CTA label", "default": "Browse all cakes" },
+    { "type": "url", "id": "cta_link", "label": "CTA link" }
+  ],
+  "blocks": [
+    {
+      "type": "theme",
+      "name": "Theme collection",
+      "settings": [
+        { "type": "collection", "id": "collection", "label": "Collection" },
+        { "type": "text", "id": "title", "label": "Override label" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Home · Explore" }]
+}
+{% endschema %}

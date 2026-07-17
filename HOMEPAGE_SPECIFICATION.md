@@ -3,7 +3,9 @@
 Implementation-ready homepage blueprint (approved). Structure & behavior source of truth. Copy → `HOMEPAGE_CONTENT_STRATEGY.md`. Visuals → `DESIGN_SYSTEM.md` / `COMPONENT_LIBRARY.md`. Content model → `CONTENT_SYSTEM.md`. Motion → `ANIMATION_GUIDELINES.md`. Schema → `SCHEMA_MASTER.md`.
 
 ## Section order (replaces current 19-section home; retires 7 `custom-liquid` blocks)
-1 Hero · 2 Occasions · 3 Bestsellers · 4 Delivery Promise · 5 Craft Story · 6 Customization · 7 Hampers · 8 Reviews · 9 Explore (link band)
+**RATIFIED CONVERSION-FIRST ORDER (client, 2026-07-16 — supersedes the original 9-section sequence):**
+1 Hero · 2 Delivery Promise · 3 Occasion Navigation · 4 Best Sellers · 5 Reviews *(only if verified — currently hidden)* · 6 Custom Cake CTA · 7 Explore Collections · Footer.
+The original sequence (Craft Story / Customization / Hampers / Reviews / Explore) is retired. Craft Story (S6) is **built and frozen but held disabled** — its trust points duplicated S2's messaging, which the ratified rules forbid. Hampers was dropped (its destination `/pages/gift-hampers` is live; the S3 Occasion card + S6/S7 CTAs cover the intent). One canonical conversion path only.
 
 ## Wireframes
 Desktop 1280px, asymmetric editorial (5/7 splits for 1,5,6; 4-up grids for 2,3,7). Mobile single-column, 56–72px rhythm, occasion tiles 2-up, product/hamper carousels with peek, sticky bottom utility (Search·WhatsApp·Cart).
@@ -211,4 +213,40 @@ Rendered as a trust point. It is the client's own claim (already live in the tru
 
 Frozen — no S6 changes without explicit unfreeze.
 
-_v1.7 — S6 Craft Story frozen (Version 1.0) — text-only until a compliant craft photo exists; no stock demo asset used. v1.6 — S5 Social Proof frozen (Version 1.0) — renders nothing until a verified review source exists; emits no review schema (self-serving markup disallowed). v1.5 — S4 Bestsellers frozen (Version 1.0); handle renames deferred to the SEO Migration project. v1.4 — S4 Bestsellers built, awaiting review. v1.3 — S3 Occasion Navigation frozen (Version 1.0). v1.2 — S2 Delivery Promise frozen (Version 1.0). v1.1 — S1 Editorial Hero recorded as Version 1.0 (frozen). v1.0 — approved. Build in small reviewable phases, one section at a time, validated on preview._
+
+## 🔒 S7 — HOMEPAGE ASSEMBLY + Custom Cake CTA + Explore (Homepage §5–§7): **VERSION 1.0** — FROZEN (2026-07-16)
+Three things in one phase: (a) **retired 19 legacy sections** to make the page match the ratified order; (b) built **S7a Custom Cake CTA** (`sections/home-custom-cake-cta.liquid`); (c) built **S7b Explore Collections** (`sections/home-explore.liquid`). **Assembly only — zero new components.** `tbkx-` namespaced → PDP untouched.
+
+### Final rendered homepage (preview 151370334377, DOM-verified)
+`home_hero → home_promise → home_occasions → home_bestsellers → home_reviews → home_custom → home_explore → footer`. **0 legacy sections rendering.** `home_reviews` present but renders nothing (0 verified reviews); `home_craft` held disabled.
+
+### ⚠️ Shopify hard limit hit — 25 sections per JSON template
+Adding the two new sections pushed the template to 27 and Shopify **rejected the whole file** (`order: must have a maximum of 25`). Disabling does **not** free a slot — only removal does. So the 19 retired legacy sections were **removed from the template**, not disabled, and archived verbatim to `docs/retired-homepage-sections-2026-07-16.json` (also in git history). **Live site untouched — it still runs the old homepage.**
+
+### S7a — Custom Cake CTA (§5)
+| Attribute | Value |
+|---|---|
+| **Objective** | The single custom-cake conversion point — real, existing service (Pinterest/Instagram → real cake) |
+| **Copy** | "Dream it. We'll bake it." — ratified `BRAND_VOICE.md` signature phrase, not an invented stat |
+| **Actions** | Primary → `/pages/cake-customization-guide` (HTTP 200) · WhatsApp → **canonical 918218862928**, `_blank`, pre-filled message |
+| **Components** | FROZEN `tbk-button` `primary` + `whatsapp` — zero new |
+| **Schema** | None (a CTA band is not a list/product/Q&A) |
+| **Real-fact rule** | No statistic, rating or unverifiable claim. Replaces the legacy `custom_liquid_VtmKQM` "Pinterest To Reality" block, keeping its canonical WhatsApp CTA |
+
+**Bug found & fixed in review:** the WhatsApp `?text=` used `... | append: s.whatsapp_text | url_encode`, and Liquid applied `url_encode` to the **whole chained string** — encoding `https://wa.me/` too, so the href resolved against our own origin and 404'd. Fixed by encoding the text into its own variable first (`assign wa_text = s.whatsapp_text | url_encode`) then appending. Re-verified: `host=wa.me`, `path=/918218862928`, text param decodes correctly.
+
+### S7b — Explore Collections (§6)
+| Attribute | Value |
+|---|---|
+| **Objective** | Long-tail discovery on the **THEME axis** (unicorn, cricket, jungle…) — crawlable internal links to niche collections |
+| **NOT a duplicate of S3** | S3 owns the **occasion axis** (birthday/anniversary/wedding) as image cards — the primary path. This is plain text pills, **visually subordinate**, a different axis. One canonical conversion path preserved. |
+| **Components** | FROZEN B4b `tbkx-pills`/`tbkx-pill` (`<a class="tbkx-pill"><span>` reuses the frozen span rule; 44px touch target comes free) — zero new |
+| **Merchandising safety** | Collections below `min_products` (live count, drafts invisible) are **skipped** → no dead-end links. **11 of 14 pills rendered; 3 skipped** (ribbon-cake / for-him / winter-strawberry — live counts fell below 3 after the draft backlog). At 0 eligible → whole section hides. |
+| **Schema** | None — a 2nd ItemList would elevate themes to peer status with occasions and blur the canonical path |
+
+### Validation (preview 151370334377)
+Order DOM-verified · 0 legacy rendering · both new sections H2-only (no orphan H3) · 13/13 internal links HTTP 200 + WhatsApp URL well-formed · canonical WhatsApp, **no legacy number anywhere** · 0 `<script>` in either section · no schema emitted · settings + 14 blocks survived push (pull-back verified) · **mobile 375px:** no overflow, CTAs stack at 56px, pills wrap to 4 rows at 44px, all tap targets ≥44px.
+
+Frozen — no S7 changes without explicit unfreeze.
+
+_v1.8 — S7 Homepage Assembly frozen: 19 legacy sections retired, Custom Cake CTA + Explore built; ratified conversion-first order live on preview. v1.7 — S6 Craft Story frozen (Version 1.0) — text-only until a compliant craft photo exists; no stock demo asset used. v1.6 — S5 Social Proof frozen (Version 1.0) — renders nothing until a verified review source exists; emits no review schema (self-serving markup disallowed). v1.5 — S4 Bestsellers frozen (Version 1.0); handle renames deferred to the SEO Migration project. v1.4 — S4 Bestsellers built, awaiting review. v1.3 — S3 Occasion Navigation frozen (Version 1.0). v1.2 — S2 Delivery Promise frozen (Version 1.0). v1.1 — S1 Editorial Hero recorded as Version 1.0 (frozen). v1.0 — approved. Build in small reviewable phases, one section at a time, validated on preview._

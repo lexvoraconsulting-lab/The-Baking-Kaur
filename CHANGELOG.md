@@ -270,3 +270,29 @@ Prose is not a list or Q&A; there is no honest schema type for it. Inventing `FA
 ### New backlog
 **Craft & studio photography** (folds into Flagship Hero Photoshoot) · **Substantiate the FSSAI claim** — a licence number is public, legally required to display, and converts an unverifiable adjective into checkable proof. Minutes of effort; Trust + GEO value. Not blocking.
 - **Risk:** low (additive, preview only). **Rollback:** `git rm sections/home-craft-story.liquid` + remove `home_craft` from `templates/index.json`.
+
+
+---
+
+## Phase C1 §5–§7 — Homepage Assembly + Custom Cake CTA + Explore **FROZEN v1.0** (2026-07-16) — preview only
+Completed the homepage to the **client-ratified conversion-first order** (2026-07-16):
+`Hero → Delivery Promise → Occasion Navigation → Best Sellers → Reviews (only if verified) → Custom Cake CTA → Explore → Footer`.
+
+### Three parts
+1. **Retired 19 legacy sections** — duplicates of S2/S3/S4, an autoplay marquee (forbidden by the design rules), a carousel mis-headed "Best Seller" that actually showed designer-theme-cakes, and thin custom-liquid blocks.
+2. **S7a Custom Cake CTA** (`sections/home-custom-cake-cta.liquid`) — the single custom-cake conversion point; FROZEN `tbk-button` primary + whatsapp; canonical WhatsApp only.
+3. **S7b Explore Collections** (`sections/home-explore.liquid`) — theme-axis long-tail discovery; FROZEN `tbkx-pills`; merchandising-safe (skips thin collections).
+
+### ⚠️ Two process failures caught and corrected (recorded honestly)
+1. **Reported a push as successful when it had failed.** I truncated the CLI JSON with `head -c 50`, which cut off the `"errors"` key. The push had actually been **rejected**: `order: must have a maximum of 25` — Shopify caps JSON templates at 25 sections, and disabling doesn't free a slot. **Fix:** removed (not disabled) the 19 legacy sections, archived them to `docs/retired-homepage-sections-2026-07-16.json`, and re-pushed. **Lesson: never truncate a push result; grep it for `"errors"`.** All subsequent pushes check for the errors key explicitly.
+2. **WhatsApp URL 404'd** — `... | append: s.whatsapp_text | url_encode` made Liquid encode the whole URL, not just the text param, so the href resolved against our own origin. Fixed by encoding the text into its own variable first. Re-verified well-formed.
+
+### Live safety
+**The live site was never touched by this phase.** All work is on preview theme 151370334377; live still runs the previous homepage. Nothing was deleted from the store — retired sections are archived and in git history.
+
+### Validation (preview 151370334377)
+Rendered order DOM-verified; 0 legacy rendering; footer present; `home_reviews` correctly invisible; both new sections H2-only, 0 JS, no schema; 13/13 internal links HTTP 200; canonical WhatsApp, no legacy number; 11/14 theme pills shown (3 skipped by the live-count filter); mobile 375px clean (no overflow, 56px CTAs, 44px pills).
+
+### Docs
+`HOMEPAGE_SPECIFICATION.md` (S7 frozen, ratified order replaces the original 9-section sequence), `docs/retired-homepage-sections-2026-07-16.json` (new archive), this entry.
+- **Risk:** low (preview only). **Rollback:** restore `templates/index.json` from git; `git rm` the two new sections.
