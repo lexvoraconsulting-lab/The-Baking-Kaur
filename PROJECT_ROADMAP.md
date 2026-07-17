@@ -38,13 +38,18 @@ Enterprise Shopify transformation roadmap. Status as of v1.0 (2026-07-14). Gover
 
 ## Backlog
 
+### 🚩 Unverified "★ 4.9 Rated" in the site header  *(raised 2026-07-16 · likely LIVE on every page)*
+While validating S1 I found **"★ 4.9 Rated"** rendered by the header section (`tbk_header_main`) — a hardcoded, unverified, unlinked rating, **separate from the hero** and shown site-wide (so almost certainly on the live site too, on every page). It is also a *different* number from the hero's removed 4.8, underlining that these are theme-decoration figures, not sourced data. Same category as the 4.8/500 schema and the hero 4.8★ already removed.
+**Not fixed this turn** — the header is a global shared element outside the hero-trust scope and needs its own explicit go-ahead (as the hero did). **Options:** remove it, or convert it to a verified link to the official Google Business Profile (same rule as the hero rating block). **Recommend handling before any go-live** — it is the last visible unverified rating on the storefront. Not the protected product page; safe to change with approval.
+
+
 ### ⭐ Restore verified Google rating to hero  *(raised 2026-07-16 · needs client data · S1 will re-open)*
 An unverified **"4.8★ Google Rating"** was removed from the S1 hero trust strip on 2026-07-16 and replaced with the neutral fact "Freshly Baked to Order". To restore it as a **verified, clickable** element the client must supply three things:
 1. **Google Business Profile URL** (the public `g.page` / Maps link customers can open),
 2. **Current rating** (as shown on that profile today),
 3. **Review count** (as shown on that profile today).
 
-**On restore:** unfreeze S1; render the rating as a link to the official profile — never hardcoded, never an invented count, never a rating without its source (`REVIEW_STRATEGY.md` §5). This needs a small hero change (the trust strip is currently plain `·`-split text and cannot hold a link), so it is a deliberate S1 re-open, then re-freeze at v1.2. **Re-verify the figures against the live profile at build time** — a rating goes stale.
+**On restore (now NO code change — 2026-07-16 v1.2):** the hero trust strip is block-driven. Add a **Google rating** block in the theme editor with the profile URL + rating + count; it renders as a verified link automatically. The block *cannot* display a rating without the URL (guard verified on preview). **Re-verify the figures against the live profile at entry time** — a rating goes stale. Never hardcode, never invent a count (`REVIEW_STRATEGY.md` §5).
 
 ### ⛔ S8 — Trust / Brand Facts: GATE (not yet buildable)
 S8 is approved in principle but **blocked until legally verifiable data exists**. Do not build a placeholder. Unblock checklist:

@@ -25,7 +25,46 @@
         "trust": "100% Eggless · Same-Day Delivery · Midnight Delivery · Freshly Baked to Order · FSSAI Licensed",
         "image_product": "b32",
         "image_title": "Signature eggless strawberry cream cake — The Baking Kaur, Meerut"
-      }
+      },
+      "blocks": {
+        "t_eggless": {
+          "type": "fact",
+          "settings": {
+            "label": "100% Eggless"
+          }
+        },
+        "t_sameday": {
+          "type": "fact",
+          "settings": {
+            "label": "Same-Day Delivery"
+          }
+        },
+        "t_midnight": {
+          "type": "fact",
+          "settings": {
+            "label": "Midnight Delivery"
+          }
+        },
+        "t_fresh": {
+          "type": "fact",
+          "settings": {
+            "label": "Freshly Baked to Order"
+          }
+        },
+        "t_fssai": {
+          "type": "licence",
+          "settings": {
+            "label": "FSSAI Licensed"
+          }
+        }
+      },
+      "block_order": [
+        "t_eggless",
+        "t_sameday",
+        "t_midnight",
+        "t_fresh",
+        "t_fssai"
+      ]
     },
     "home_promise": {
       "type": "home-delivery-promise",

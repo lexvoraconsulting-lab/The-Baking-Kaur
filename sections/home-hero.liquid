@@ -68,7 +68,45 @@
         <p class="tbkx-hero__micro">{{ s.microcopy }}</p>
       {%- endif -%}
 
-      {%- if s.trust != blank -%}
+      {%- comment -%}
+        Trust strip — BLOCK-DRIVEN so every fact is editable in the theme editor
+        with no code change. Structural honesty guarantees:
+          • rating renders ONLY with a Google Business Profile URL + rating → an
+            unverified/unlinked rating is impossible (the 4.8★ that was removed
+            2026-07-16 cannot come back as bare text).
+          • count renders ONLY when 'verified' is ticked.
+        Falls back to the legacy `trust` string only if no blocks exist.
+      {%- endcomment -%}
+      {%- if section.blocks.size > 0 -%}
+        <ul class="tbkx-hero__trust" aria-label="Our promise">
+          {%- for block in section.blocks -%}
+            {%- assign b = block.settings -%}
+            {%- case block.type -%}
+              {%- when 'fact' -%}
+                {%- if b.label != blank -%}<li {{ block.shopify_attributes }}>{{ b.label }}</li>{%- endif -%}
+              {%- when 'licence' -%}
+                {%- if b.number != blank -%}
+                  <li {{ block.shopify_attributes }}>{{ b.label | default: 'FSSAI Lic.' }} {{ b.number }}</li>
+                {%- elsif b.label != blank -%}
+                  <li {{ block.shopify_attributes }}>{{ b.label }}</li>
+                {%- endif -%}
+              {%- when 'rating' -%}
+                {%- if b.source_url != blank and b.rating != blank -%}
+                  <li {{ block.shopify_attributes }}>
+                    <a href="{{ b.source_url }}" target="_blank" rel="nofollow noopener"
+                       aria-label="{{ b.rating }} star rating on {{ b.label | default: 'Google' }}{% if b.review_count != blank %}, {{ b.review_count }} reviews{% endif %} (opens the source)">
+                      <span aria-hidden="true">★</span> {{ b.rating }} {{ b.label | default: 'Google' }}{% if b.review_count != blank %} ({{ b.review_count }}){% endif %}
+                    </a>
+                  </li>
+                {%- endif -%}
+              {%- when 'count' -%}
+                {%- if b.verified and b.count != blank -%}
+                  <li {{ block.shopify_attributes }}>{{ b.count }}{% if b.label != blank %} {{ b.label }}{% endif %}</li>
+                {%- endif -%}
+            {%- endcase -%}
+          {%- endfor -%}
+        </ul>
+      {%- elsif s.trust != blank -%}
         <ul class="tbkx-hero__trust" aria-label="Our promise">
           {%- for item in trust_items -%}
             {%- assign t = item | strip -%}
@@ -156,6 +194,9 @@
   .tbkx-hero__trust li{padding:0 14px;position:relative;}
   .tbkx-hero__trust li:first-child{padding-left:0;}
   .tbkx-hero__trust li + li::before{content:"";position:absolute;left:0;top:50%;transform:translateY(-50%);width:1px;height:12px;background:var(--tbk-border-strong,#D4ADC0);}
+  .tbkx-hero__trust a{color:inherit;text-decoration:underline;text-underline-offset:2px;text-decoration-color:var(--tbk-border-strong,#D4ADC0);white-space:nowrap;}
+  .tbkx-hero__trust a:hover{text-decoration-color:currentColor;}
+  .tbkx-hero__trust a:focus-visible{outline:none;border-radius:4px;box-shadow:var(--tbk-focus-ring,0 0 0 3px rgba(192,20,87,.22));}
 
   .tbkx-hero__media img,.tbkx-hero__ph{
     display:block;width:100%;height:auto;border-radius:var(--tbk-r-xl,24px);
@@ -189,9 +230,59 @@
     { "type": "product", "id": "image_product", "label": "Fallback: use a product's image (temporary hero source)" },
     { "type": "text", "id": "image_alt", "label": "Image alt text (SEO)", "default": "Signature handcrafted eggless designer cake by The Baking Kaur, Meerut" },
     { "type": "text", "id": "image_title", "label": "Image title attribute" },
-    { "type": "header", "content": "Trust" },
-    { "type": "text", "id": "trust", "label": "Trust items (separate with ·)", "default": "100% Eggless · Same-Day Delivery · Midnight Delivery · Freshly Baked to Order · FSSAI Licensed", "info": "No ratings/review counts here — an unverified '4.8★ Google Rating' was removed 2026-07-16. A rating may only return as a clickable link to the official Google Business Profile. See REVIEW_STRATEGY.md §5." }
+    { "type": "header", "content": "Trust strip" },
+    { "type": "paragraph", "content": "Add each trust fact as a block below — independently editable, reorderable, no code change. The 'Trust items' text field is only a fallback used if no blocks are added." },
+    { "type": "text", "id": "trust", "label": "Fallback trust items (used only if no blocks)", "default": "100% Eggless · Same-Day Delivery · Midnight Delivery · Freshly Baked to Order · FSSAI Licensed", "info": "Legacy · separated list. Ignored when trust blocks exist. No ratings/counts here — a rating may only appear via the 'Google rating' block, which requires a source URL." }
   ],
-  "presets": [{ "name": "Home · Editorial Hero" }]
+  "blocks": [
+    {
+      "type": "fact",
+      "name": "Fact",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Fact", "info": "A verifiable operational fact (e.g. 100% Eggless). No ratings, review counts or unverified stats." }
+      ]
+    },
+    {
+      "type": "licence",
+      "name": "FSSAI licence",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label shown until a number is added", "default": "FSSAI Licensed" },
+        { "type": "text", "id": "number", "label": "FSSAI licence number (once verified)", "info": "Public, legally-required number. When filled it shows as a checkable fact; until then only the label shows." }
+      ]
+    },
+    {
+      "type": "rating",
+      "name": "Google rating",
+      "settings": [
+        { "type": "paragraph", "content": "Shows ONLY when the official Google Business Profile URL AND a rating are both filled. No URL → nothing renders. Never type a rating without its source; re-check the figures against the live profile at update time." },
+        { "type": "url", "id": "source_url", "label": "Google Business Profile URL (required to show)" },
+        { "type": "text", "id": "rating", "label": "Current rating (e.g. 4.8)" },
+        { "type": "text", "id": "review_count", "label": "Current review count" },
+        { "type": "text", "id": "label", "label": "Source label", "default": "Google" }
+      ]
+    },
+    {
+      "type": "count",
+      "name": "Customer count",
+      "settings": [
+        { "type": "paragraph", "content": "Shows ONLY when 'Verified' is ticked AND a count is filled. Substantiate against Shopify order data first. This is a milestone, not review data — see REVIEW_STRATEGY.md §5b." },
+        { "type": "text", "id": "count", "label": "Count (e.g. 20,000+)" },
+        { "type": "text", "id": "label", "label": "Label after the number", "default": "celebrations" },
+        { "type": "checkbox", "id": "verified", "label": "Verified (required to show)", "default": false }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Home · Editorial Hero",
+      "blocks": [
+        { "type": "fact", "settings": { "label": "100% Eggless" } },
+        { "type": "fact", "settings": { "label": "Same-Day Delivery" } },
+        { "type": "fact", "settings": { "label": "Midnight Delivery" } },
+        { "type": "fact", "settings": { "label": "Freshly Baked to Order" } },
+        { "type": "licence", "settings": { "label": "FSSAI Licensed" } }
+      ]
+    }
+  ]
 }
 {% endschema %}

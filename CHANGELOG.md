@@ -319,3 +319,29 @@ S8 (Trust / Brand Facts) **not built** — the verified-data gate is not met (no
 
 ### Live safety
 Preview only (theme 151370334377). Live site untouched. Protected product page untouched.
+
+---
+
+## S1 Hero v1.2 — configurable, structurally-honest trust strip (2026-07-16) — preview only
+**Client-approved S1 change:** make the hero trust strip independently configurable from the theme editor (no hardcoding), with future verified facts in mind.
+
+### What changed
+- Trust strip converted from a single `·`-split string to **section blocks** — add/remove/reorder/edit per item in the theme editor, no code change. Zero new components; `tbkx-` namespaced; PDP untouched.
+- **Four block types**, two with structural honesty guards:
+  - **Fact** — a plain verifiable operational fact.
+  - **FSSAI licence** — shows the label until a licence number is entered, then auto-upgrades to "FSSAI Lic. <number>".
+  - **Google rating** — 🔒 renders **only when a Google Business Profile URL *and* rating are both set**; shows as a link (`nofollow noopener`, new tab, aria-labelled). An unverified/unlinked rating is impossible by construction.
+  - **Customer count** — 🔒 renders **only when 'Verified' is ticked** and a count is set.
+- Current 5 items migrated to blocks (4 Fact + 1 FSSAI licence). Legacy `trust` string kept as a fallback for zero-block installs. Preset carries the 5 blocks.
+
+### Guards proven empirically (test blocks injected on preview, then reverted)
+rating-without-URL → **hidden** ✅ · rating-with-URL → **link to source**, `rel="nofollow noopener"`, aria-label ✅ · count-unverified → **hidden** ✅ · count-verified → **rendered** ✅. Reverted; storefront back to the clean 5 items.
+
+### Outcome for the pending Google-rating restore
+No longer needs a code change / S1 re-open. When the client supplies profile URL + rating + count, adding a **Google rating** block in the theme editor renders the verified link automatically. Re-verify figures against the live profile at entry time.
+
+### 🚩 New finding — unverified "★ 4.9 Rated" in the site header
+While validating S1, found the header section (`tbk_header_main`) renders a hardcoded **"★ 4.9 Rated"** — a third unverified rating, separate from the hero, shown site-wide (almost certainly on live too). A *different* number from the removed hero 4.8, confirming these are theme decorations, not sourced data. **Not fixed** (header is global, outside the hero-trust scope, needs its own approval like the hero did). Backlogged; recommend removing or converting to a verified Google link before any go-live. Not the protected product page.
+
+### Re-froze S1 at v1.2
+Preview only (theme 151370334377). Live untouched. Protected product page untouched.
