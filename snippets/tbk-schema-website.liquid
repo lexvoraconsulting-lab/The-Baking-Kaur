@@ -32,18 +32,14 @@
         "width": 600,
         "height": 200
       },
-      "image": "{{ settings.logo | image_url: width: 600 }}",
-      "telephone": "+918218862928",
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Meerut",
-        "addressRegion": "Uttar Pradesh",
-        "postalCode": "250001",
-        "addressCountry": "IN"
-      },
-      "sameAs": [
-        "https://www.instagram.com/thebakingkaur"
-      ]
+      "image": "{{ settings.logo | image_url: width: 600 }}"
+      {%- comment -%}
+        2026-07-18: telephone, address and sameAs removed here.
+        This node shares @id with the Bakery node in snippets/bk-local-business.liquid,
+        so the two merge into one entity. Those properties are declared there —
+        the fuller, more specific source — to keep a single authoritative copy
+        and stop the two nodes from drifting apart.
+      {%- endcomment -%}
     }
   ]
 }

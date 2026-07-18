@@ -7,7 +7,7 @@
   "description": "{{ collection.description | strip_html | truncate: 250 | escape }}",
   "url": "{{ shop.url }}{{ collection.url }}",
   "breadcrumb": {
-    "@id": "{{ shop.url }}{{ collection.url }}#breadcrumb"
+    "@id": "{{ canonical_url }}#breadcrumb"
   },
   "mainEntity": {
     "@type": "ItemList",
