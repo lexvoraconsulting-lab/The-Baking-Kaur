@@ -3,7 +3,8 @@
 **Audit date:** 2026-07-18
 **Branch:** phase-a/production-safety
 **Store:** thebakingkaur.com · Shopify Basic · INR · IST · India
-**Auditor account:** lexvoraconsulting@gmail.com
+**Shopify access:** full (MCP)  
+**Google access:** BLOCKED — session authenticated as `lexvoraconsulting@gmail.com`, which is NOT The Baking Kaur’s Google account. See Phase 0.
 
 > This file is the persistent state for the Google/Shopify SEO programme.
 > The audit does not need to be repeated. Update `STATUS` per row as work lands.
@@ -74,7 +75,7 @@ Status: `DISCOVERED` · `IN PROGRESS` · `FIXED` · `VERIFIED FIXED` · `AWAITIN
 - **Impact:** 223 old product URLs, most of which Google has indexed, currently 301 to a hard 404. Link equity destroyed, GSC "Not found (404)" inflated, GMC landing-page errors if any feed rows still reference them.
 - **Fix options:** (a) create the two collections with correct products — safest, restores value; (b) rewrite all 223 redirect targets to existing collections (`birthday-cakes`, `designer-theme-cakes`, `cake-hampers`).
 - **Recommendation:** (a) for `cakes` (create as a genuine parent collection), (b) for `gift-hampers` → retarget to `cake-hampers`.
-- **STATUS:** DISCOVERED
+- **STATUS:** **VERIFIED FIXED** — `/collections/cakes` created + published (985 products, live 200); 26 Diwali + 2 generic hamper redirects retargeted; `luxury-diwali-hampers` published (it was unpublished, which would have made it a redirect-to-404). 0 redirects now point at a dead target; sampled source URLs resolve single-hop 200.
 
 ---
 
@@ -83,7 +84,7 @@ Status: `DISCOVERED` · `IN PROGRESS` · `FIXED` · `VERIFIED FIXED` · `AWAITIN
 - **Root cause:** FAQ JSON-LD pasted into `<head>`, no `request.page_type` guard. Renders on all 607 product pages, all collections, cart, search, policies.
 - **Impact:** Google requires FAQ structured data to describe FAQ content **visible on that page**. Emitting it on 600+ product pages where no FAQ is visible is structured-data spam → **manual action risk**. Same defect class as the hardcoded `aggregateRating` already removed on 2026-07-16 (see `bk-local-business.liquid` comment).
 - **Fix:** gate to the page(s) that actually render the FAQ visibly (FAQ page / homepage FAQ section), or move it into that section's template.
-- **STATUS:** DISCOVERED
+- **STATUS:** **FIXED IN REPO — PENDING THEME PUSH.** Block removed from `layout/theme.liquid`; valid FAQ microdata via `sections/accordion.liquid` left intact. Not live until the theme is pushed.
 
 ---
 
@@ -92,7 +93,7 @@ Status: `DISCOVERED` · `IN PROGRESS` · `FIXED` · `VERIFIED FIXED` · `AWAITIN
 - **Root cause:** `bk-local-business` emits `@type: Bakery` **with no `@id`**; `tbk-schema-website` emits `@type: Organization` with `@id: #organization`. Google sees two unlinked business entities per page with different data (Bakery has `streetAddress` + `geo` + hours + Facebook; Organization has none of those).
 - **Impact:** Entity fragmentation, knowledge-panel confusion, weakened local signal.
 - **Fix:** give the Bakery node `"@id": "https://thebakingkaur.com/#organization"` so the two merge into one entity, or collapse both into a single node.
-- **STATUS:** DISCOVERED
+- **STATUS:** **STRUCTURAL CONFLICT FIXED IN REPO — PENDING THEME PUSH.** Bakery given `@id` `#organization` so the two nodes merge; duplicated telephone/address/sameAs removed from the Organization node. The canonical street address itself remains **OWNER INPUT REQUIRED** (see P1-09) — no business data was invented.
 
 ---
 
@@ -103,7 +104,7 @@ Status: `DISCOVERED` · `IN PROGRESS` · `FIXED` · `VERIFIED FIXED` · `AWAITIN
 - **Impact:** Empty commercial pages = soft 404 and, because they are near-identical keyword permutations of each other, a **doorway-page pattern** — explicitly against Google's spam policy and against this project's own brief.
 - **Also:** `midnight-cake-delivery` and `midnight-cake-delivery-meerut` cannibalise the same query, both empty.
 - **Fix:** populate each with genuinely relevant products (they exist in the catalogue) **or** merge duplicates and `noindex` the rest. Do not leave empty + indexed.
-- **STATUS:** DISCOVERED
+- **STATUS:** **FIXED IN REPO — PENDING THEME PUSH.** 6 of the 8 turned out to be **unpublished** (absent from the collections sitemap), so never indexed and not doorway pages. Only `photo-cakes` and `midnight-cake-delivery` were live+empty. Redirecting them to `/pages/photo-cakes` and `/pages/midnight-surprise-delivery` was rejected — both pages have **empty bodies**. Replaced with a rule: any collection with 0 products gets `noindex,follow`. Self-healing and covers future empties.
 
 ---
 
@@ -117,7 +118,7 @@ Status: `DISCOVERED` · `IN PROGRESS` · `FIXED` · `VERIFIED FIXED` · `AWAITIN
   - `delicate-lace-wedding-cake-meerut` → "Tall Wedding Cake"
 - **Impact:** unreadable SERP titles, title/page mismatch (Google rewrites or demotes), GMC title-vs-landing-page mismatch risk.
 - **Fix:** regenerate SEO titles from `product.title` with proper UTF-8 encoding.
-- **STATUS:** DISCOVERED
+- **STATUS:** **IN PROGRESS — 250/607 applied** (b00–b04, zero errors). Remaining b05–b12 committed under `seo-ops/`.
 
 ---
 
@@ -127,7 +128,7 @@ Status: `DISCOVERED` · `IN PROGRESS` · `FIXED` · `VERIFIED FIXED` · `AWAITIN
 - **Example:** `Celebration Glow Birthday Cake | The Baking Kaur | The Baking Kaur Meerut` (78 chars)
 - **Impact:** every title truncated in SERP; ~30 chars of every title wasted on a repeated brand token instead of intent keywords.
 - **Fix:** single suffix, target ≤60 chars: `Celebration Glow Birthday Cake in Meerut | The Baking Kaur`.
-- **STATUS:** DISCOVERED
+- **STATUS:** **IN PROGRESS — 250/607 applied** (same pass as P1-05).
 
 ---
 
@@ -169,7 +170,7 @@ Status: `DISCOVERED` · `IN PROGRESS` · `FIXED` · `VERIFIED FIXED` · `AWAITIN
 - **URL:** `https://thebakingkaur.com/cdn/shop/files/storefront.jpg` → **HTTP 404** (verified)
 - **Impact:** `image` is a required property for LocalBusiness rich results; a dead URL invalidates it.
 - **Fix:** point at a real CDN asset (a Shopify CDN URL needs the `?v=` version param) or remove the property.
-- **STATUS:** DISCOVERED
+- **STATUS:** **FIXED IN REPO — PENDING THEME PUSH.** `image` now `settings.logo`, an already-verified asset.
 
 ---
 
@@ -177,7 +178,7 @@ Status: `DISCOVERED` · `IN PROGRESS` · `FIXED` · `VERIFIED FIXED` · `AWAITIN
 - **System:** Shopify collections
 - **Impact:** large-scale duplicate content, crawl budget waste, canonical ambiguity.
 - **Fix:** `noindex` the two sort-order collections; keep `/collections/all` as the canonical listing (or noindex all three and rely on topical collections).
-- **STATUS:** DISCOVERED
+- **STATUS:** **FIXED IN REPO — PENDING THEME PUSH.** `all`, `best-selling-products`, `newest-products` get `noindex,follow`; `/collections/cakes` is the canonical category page.
 
 ---
 
@@ -224,7 +225,7 @@ Status: `DISCOVERED` · `IN PROGRESS` · `FIXED` · `VERIFIED FIXED` · `AWAITIN
 - **Root cause:** references `"breadcrumb": { "@id": "...#breadcrumb" }` but `tbk-schema-breadcrumb.liquid` emits **no** `@id`.
 - **Impact:** unresolvable reference; the breadcrumb/collection link is silently dropped.
 - **Fix:** add `"@id": "{{ canonical_url }}#breadcrumb"` to the BreadcrumbList.
-- **STATUS:** DISCOVERED
+- **STATUS:** **FIXED IN REPO — PENDING THEME PUSH.** `@id` added to BreadcrumbList; both sides aligned to `canonical_url`.
 
 ---
 
