@@ -14,6 +14,9 @@ def clean_base(product_title):
         r'\s*[-–—|,]?\s*' + re.escape(BRAND) + r'\s*$',   # trailing brand
         r'\s*[-–—|,]?\s*(?:in\s+)?Meerut\s*$',            # trailing locality
         r'\s*[-–—|,.]+\s*$',                              # trailing separators
+        r'\s+(?:by|from|at|for)\s*$',                     # connector left dangling once the
+                                                          # brand it introduced was stripped,
+                                                          # e.g. "Bespoke Wedding Cake by <brand>"
     )
     for _ in range(6):                                     # bounded; converges in <=3
         before = t

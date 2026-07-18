@@ -5,7 +5,7 @@ Writes:
   rollback.csv    id, old_title, old_description, new_title, new_description
   mutations.jsonl bulkOperationRunMutation input, one productUpdate per line
 """
-import json, csv, collections
+import json, csv, collections, re
 from rule import seo_title, seo_description, is_broken, MOJI, BRAND as BRAND_N
 
 rows = [json.loads(l) for l in open('products.jsonl', encoding='utf-8') if l.strip()]
@@ -58,6 +58,9 @@ for pid, ot, od, nt, nd in changes:
     # "...The Baking Kaur, Meerut in Meerut" class of double-append
     assert nt.lower().count('meerut') <= 1, "Meerut repeated in " + pid + ": " + nt
     assert nt.count(BRAND_N) <= 1,          "brand repeated in " + pid + ": " + nt
+    # a stripped brand must not leave its connector stranded ("... by in Meerut")
+    assert not re.search(r'\b(?:by|from|at|for)\s+in\s+Meerut', nt), \
+        "dangling connector in " + pid + ": " + nt
 
 for k in ('total', 'title_broken', 'title_mojibake', 'title_brand_dupe', 'desc_broken', 'will_change'):
     print("%-18s %s" % (k, stats[k]))

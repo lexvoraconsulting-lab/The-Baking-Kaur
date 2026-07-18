@@ -318,7 +318,14 @@ Order after that: P0-02 (manual-action risk) → P0-04 (doorway risk) → P0-03 
 
 ## IN-FLIGHT WORK — RESUME HERE
 
-### Bulk SEO title repair (P1-05 / P1-06) — 100 of 607 applied
+### Bulk SEO title repair (P1-05 / P1-06) — **150 of 607 applied** (b00–b02)
+
+Stopped deliberately at b02, not because of an error. `bulkOperationRunMutation`
+is blocked, so each batch must be pasted through the MCP tool, which costs
+context on both the read and the write. The run was halted with state committed
+rather than risk exhausting context mid-batch and losing the ledger.
+
+**Remaining: b03–b12, 457 products.** Batches are independent and idempotent.
 
 All artefacts are committed under [`seo-ops/`](seo-ops/) so this survives the session:
 
@@ -344,6 +351,32 @@ All artefacts are committed under [`seo-ops/`](seo-ops/) so this survives the se
 | Products whose title changes | 607 |
 
 Resulting titles: min 40, max 65, avg 56 chars; 606/607 contain "Meerut"; 592/607 contain the brand once.
+
+**Verified after b00–b02** (Shopify API read-back):
+
+| Product | Before | After |
+|---|---|---|
+| Motu Patlu Designer Birthday Cake | `Celestial Charm Cake ÃÂÃÂ¢?? 100% Eggless…` (wrong product, mojibake) | `Motu Patlu Designer Birthday Cake in Meerut \| The Baking Kaur` |
+| Best Husband Cake Design | `Best Husband Cake Design ÃÂÃÂ¢?? 100%…` | `Best Husband Cake Design in Meerut \| The Baking Kaur` |
+
+Two rule bugs were caught by spot-checking mid-run and fixed before they shipped:
+`"X The Baking Kaur, Meerut"` → `"…Meerut in Meerut"`, and `"Bespoke Wedding Cake
+by <brand>"` → `"Bespoke Wedding Cake by in Meerut"`. Neither reached the 150
+already applied (verified by diffing the regenerated rule against applied rows).
+
+---
+
+### PENDING DEPLOY — theme changes are committed but NOT live
+
+`layout/theme.liquid` and the schema snippets are fixed in git and pass
+`shopify theme check`, but **nothing is live until the theme is pushed** to
+theme `151307485353`. Until then P0-02, P0-03, P0-04, P1-10 and P2-16 are
+FIXED-IN-REPO, not VERIFIED FIXED.
+
+Recommended: push to an unpublished preview theme first, confirm with Google's
+Rich Results Test that (a) no FAQPage appears on a product URL, (b) exactly one
+merged business entity appears, (c) `noindex` appears on `/collections/photo-cakes`
+and not on a populated collection — then publish.
 
 ---
 
