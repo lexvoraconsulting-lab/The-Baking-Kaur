@@ -303,7 +303,47 @@ Order after that: P0-02 (manual-action risk) → P0-04 (doorway risk) → P0-03 
 
 | Date | Change | File / System | Rollback | Test result |
 |---|---|---|---|---|
-| 2026-07-18 | Audit only — **no modifications made** | — | — | — |
+| 2026-07-18 | Audit — no modifications | — | — | — |
+| 2026-07-18 | Created `/collections/cakes` smart collection (`product_type CONTAINS Cake`), published to Online Store | Shopify collection `327322730665` | Delete collection; the 194 redirects revert to their prior broken state | Live 200, H1 "Cakes", 47 pages of products |
+| 2026-07-18 | Published `luxury-diwali-hampers` (was unpublished → 404) | Shopify collection `320698745001` | `publishableUnpublish` | Live 200 |
+| 2026-07-18 | Retargeted 26 Diwali redirects → `luxury-diwali-hampers`, 2 generic → `cake-hampers` | Shopify redirects | Targets recorded in this ledger | 0 redirects to dead targets; 3 sampled URLs single-hop 200 |
+| 2026-07-18 | Removed hardcoded FAQPage JSON-LD from `<head>` | `layout/theme.liquid` | `git revert 7840091` | JSON-LD parses; no inline ld+json remains |
+| 2026-07-18 | Merged Bakery + Organization via shared `@id`; removed duplicated telephone/address/sameAs | `snippets/bk-local-business.liquid`, `snippets/tbk-schema-website.liquid` | `git revert 7840091` | Both blocks parse; `#organization` present in both |
+| 2026-07-18 | LocalBusiness `image` 404 → `settings.logo` | `snippets/bk-local-business.liquid` | `git revert 7840091` | No dead URL in markup |
+| 2026-07-18 | Added `@id` to BreadcrumbList; aligned collection ref to `canonical_url` | `snippets/tbk-schema-breadcrumb.liquid`, `tbk-schema-collection.liquid` | `git revert 7840091` | Parses; reference resolves |
+| 2026-07-18 | noindex,follow rule for empty collections + 3 duplicate sort listings | `layout/theme.liquid` | `git revert 1e4e932` | `shopify theme check`: 0 new offenses. **Not yet live — needs theme push** |
+| 2026-07-18 | Bulk SEO title/description repair, **in progress** | 607 active products | `seo-ops/rollback.csv` | b00–b01 applied, 100/607, 0 userErrors |
+
+---
+
+## IN-FLIGHT WORK — RESUME HERE
+
+### Bulk SEO title repair (P1-05 / P1-06) — 100 of 607 applied
+
+All artefacts are committed under [`seo-ops/`](seo-ops/) so this survives the session:
+
+| File | Purpose |
+|---|---|
+| `seo-ops/rule.py` | The transformation. `seo_title()` derives the title from `product.title`, never from the corrupt `seo.title`. Idempotent. |
+| `seo-ops/rollback.csv` | 607 rows: id, old title, old description, new title, new description. **This is the rollback data.** |
+| `seo-ops/batches/b00–b12.graphql` | Ready-to-run aliased `productUpdate` mutations, 50 products each |
+| `seo-ops/PROGRESS.txt` | Which batches have been applied |
+
+**To resume:** run `seo-ops/batches/bNN.graphql` through the Shopify MCP `graphql_mutation` tool, in order, appending each to `PROGRESS.txt`. Batches are independent and idempotent — re-running one is harmless.
+
+**Why batched and not bulk:** `bulkOperationRunMutation` is blocked by the MCP safety policy ("can execute arbitrary mutations"). The bulk *query* export was used for the read side, so no catalogue data had to pass through context.
+
+**Measured defect counts across all 607 active products:**
+
+| Defect | Count |
+|---|---|
+| SEO title broken (any cause) | 607 / 607 |
+| — mojibake (double-encoded UTF-8) | 74 |
+| — brand duplicated | 536 |
+| SEO description corrupt | 34 |
+| Products whose title changes | 607 |
+
+Resulting titles: min 40, max 65, avg 56 chars; 606/607 contain "Meerut"; 592/607 contain the brand once.
 
 ---
 
