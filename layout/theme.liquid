@@ -27,6 +27,35 @@
     <meta name="theme-color" content="">
     <link rel="canonical" href="{{ canonical_url }}">
 
+    {%- comment -%}
+      2026-07-18 — indexation guard (SEO_AUDIT_LEDGER P0-04, P1-11).
+
+      noindex,follow (never nofollow — link equity still flows through) for:
+
+      1. Any collection with zero products. An empty collection that still
+         renders marketing copy is a soft 404; Google wastes crawl budget on it
+         and it drags on site quality. This is a rule, not a list, so it also
+         covers seasonal collections that empty out and any future ones.
+         It self-heals: add products and the page becomes indexable again.
+      2. /collections/all, /collections/best-selling-products and
+         /collections/newest-products — three listings of the identical 1,235
+         products. /collections/cakes is now the canonical category page.
+    {%- endcomment -%}
+    {%- liquid
+      assign tbk_noindex = false
+      if request.page_type == 'collection'
+        assign tbk_dupe_listings = 'all,best-selling-products,newest-products' | split: ','
+        if collection.products_count == 0
+          assign tbk_noindex = true
+        elsif tbk_dupe_listings contains collection.handle
+          assign tbk_noindex = true
+        endif
+      endif
+      if tbk_noindex
+        echo '<meta name="robots" content="noindex,follow">'
+      endif
+    -%}
+
     {%- if settings.favicon != blank -%}
       <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
       <link rel="apple-touch-icon" href="{{ settings.favicon | image_url: width: 48, height: 48 }}">
