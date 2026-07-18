@@ -289,6 +289,26 @@ Status: `DISCOVERED` · `IN PROGRESS` · `FIXED` · `VERIFIED FIXED` · `AWAITIN
 
 ---
 
+### P2-25 — Typos baked into live product titles (NEW, found 2026-07-18)
+- **System:** Shopify product titles
+- **Examples:** `Chocolate Strawbeery`, `Dubai Viral Kunafa Starberry` (both should be "Strawberry")
+- **Impact:** the misspelling is the H1, the product title and now the SEO title. Zero ranking for "strawberry cake", which is a live seasonal line (`winter-strawberry-collection`, 23 products).
+- **Why not auto-fixed:** the SEO title rule deliberately derives from `product.title` and preserves product wording. Renaming a product changes the storefront H1 and customer-facing name — a merchandising decision, not a technical one.
+- **Fix:** correct the product titles, then re-run the affected `seo-ops` batch to propagate.
+- **STATUS:** OWNER INPUT REQUIRED (confirm renames)
+
+---
+
+### P2-26 — Dead snippet include: 78KB never renders (NEW, found 2026-07-18)
+- **System:** [layout/theme.liquid:152](layout/theme.liquid#L152)
+- **Code:** `{% include 'shine-trust.liquid' %}` — Liquid resolves this to `snippets/shine-trust.liquid.liquid`, which does not exist. `snippets/shine-trust.liquid` (78 KB) does.
+- **Impact:** `include` fails silently in production, so a 78 KB trust-badge snippet has never rendered. Surfaced by `shopify theme check` as `MissingTemplate`.
+- **Why not auto-fixed:** "fixing" it would suddenly inject 78 KB of markup into every page — a visual and Core Web Vitals change. Whether that content is still wanted is a UI decision.
+- **Fix:** either drop the `.liquid` extension from the include (turns it on) or delete the include and the snippet (removes 78 KB of dead weight). Deleting is the ponytail default if nobody misses it.
+- **STATUS:** OWNER INPUT REQUIRED (decide on/off)
+
+---
+
 ### P4-24 — No review/rating system → no `aggregateRating`, no Merchant listing stars
 - **System:** Site-wide
 - **Context:** a fabricated `4.8 / 500 reviews` was correctly removed on 2026-07-16, and "4.9 Rated" was removed from the mobile drawer in `36e1b0c`. Nothing legitimate replaced it.
@@ -337,14 +357,14 @@ Order after that: P0-02 (manual-action risk) → P0-04 (doorway risk) → P0-03 
 
 ## IN-FLIGHT WORK — RESUME HERE
 
-### Bulk SEO title repair (P1-05 / P1-06) — **150 of 607 applied** (b00–b02)
+### Bulk SEO title repair (P1-05 / P1-06) — **250 of 607 applied** (b00–b04)
 
-Stopped deliberately at b02, not because of an error. `bulkOperationRunMutation`
+Paused at b04, not because of an error. `bulkOperationRunMutation`
 is blocked, so each batch must be pasted through the MCP tool, which costs
 context on both the read and the write. The run was halted with state committed
 rather than risk exhausting context mid-batch and losing the ledger.
 
-**Remaining: b03–b12, 457 products.** Batches are independent and idempotent.
+**Remaining: b05–b12, 357 products.** Batches are independent and idempotent.
 
 All artefacts are committed under [`seo-ops/`](seo-ops/) so this survives the session:
 
