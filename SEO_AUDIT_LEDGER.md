@@ -17,11 +17,30 @@
 | Shopify Admin (MCP) | ✅ FULL | read + write, GraphQL Admin API |
 | Theme repo (Liquid) | ✅ FULL | `F:\Shopify\The-Baking-Kaur`, git |
 | Live storefront | ✅ READ | robots.txt, sitemap.xml, CDN fetch |
-| **Google Search Console** | ❌ **NO ACCESS** | `lexvoraconsulting@gmail.com` is not an owner of `sc-domain:thebakingkaur.com`. Zero properties on this account. |
-| **Google Merchant Center** | ❌ **NO ACCESS** | "your current account doesn't have access to any Merchant Center account." |
-| Google & YouTube app | ❌ UNVERIFIED | `appInstallations` returns `access denied` on the MCP scope. |
+| **Google Search Console** | ⚠️ **ACCESS BLOCKED — WRONG GOOGLE ACCOUNT AUTHENTICATED** | The browser session is signed in as `lexvoraconsulting@gmail.com`, which is **not** the account that owns or manages The Baking Kaur's Google properties. |
+| **Google Merchant Center** | ⚠️ **ACCESS BLOCKED — WRONG GOOGLE ACCOUNT AUTHENTICATED** | Same cause. |
+| Google & YouTube channel | ✅ **CONFIRMED PRESENT** | `publications` returns `gid://shopify/Publication/136327889065` "Google & YouTube" — this is the live GMC feed source. |
 
-**Consequence:** every GSC/GMC-sourced item (real 404 lists, disapprovals, impressions, CTR, Core Web Vitals field data, manual actions) is **OWNER INPUT REQUIRED**. Everything below was derived from Shopify data + theme code + live HTTP, not from Google reports.
+> ### ⚠️ Do not misread the Google access status
+>
+> The Baking Kaur **has** a Google Search Console property and **has** a Google
+> Merchant Center account. They live under a **different Google account**.
+>
+> The earlier probe returned "you don't have access to this property" and
+> "your current account doesn't have access to any Merchant Center account".
+> Those messages describe the **authenticated session**, not the business.
+> They are **not** evidence that the properties are missing, and must never be
+> read that way.
+>
+> **Never create** a new Search Console property, a new or duplicate Merchant
+> Center account, or a new Google integration. The existing properties are the
+> ones to use.
+>
+> Do not retry Google access with `lexvoraconsulting@gmail.com`.
+
+**Consequence:** every GSC/GMC-sourced item (real 404 lists, disapprovals, impressions, CTR, Core Web Vitals field data, manual actions) is **OWNER ACTION REQUIRED — AUTHENTICATE CORRECT THE BAKING KAUR GOOGLE ACCOUNT**. Everything below was derived from Shopify data + theme code + live HTTP, not from Google reports — so it stands on its own and does not need redoing once Google access arrives.
+
+**On Google access, resume the original master mission:** audit the *existing* GSC property and the *existing* GMC account, then cross-reference both against this ledger and the Shopify fixes already completed. Do not re-run the Shopify audit except where verification requires it.
 
 ---
 
@@ -283,8 +302,8 @@ Status: `DISCOVERED` · `IN PROGRESS` · `FIXED` · `VERIFIED FIXED` · `AWAITIN
 
 | # | What is needed | Why | What happens next |
 |---|---|---|---|
-| 1 | Add `lexvoraconsulting@gmail.com` as a **full user** on Search Console `sc-domain:thebakingkaur.com` (likely owned by `thebakingkaur@gmail.com`) | Every real 404 list, indexing-exclusion breakdown, query/CTR data, Core Web Vitals field data and manual-action check comes from GSC. None of it is inferable from Shopify. | Phases 3, 4, 20 execute; "Validate Fix" gets submitted after the P0 redirect repair. |
-| 2 | Add the same account as **Admin** on Google Merchant Center | Disapprovals, account-level warnings, feed diagnostics, Free-Listing eligibility are all GMC-only. | Phases 9–12 execute. |
+| 1 | **Authenticate the browser session as the Google account that actually manages The Baking Kaur's Search Console** (not `lexvoraconsulting@gmail.com`). Alternatively, grant that account access from the owning account. | Every real 404 list, indexing-exclusion breakdown, query/CTR data, Core Web Vitals field data and manual-action check comes from GSC. None of it is inferable from Shopify. **The property exists — it is an authentication problem, not a missing-property problem.** | Phases 3, 4, 20 execute against the **existing** property; "Validate Fix" gets submitted for the P0-01 redirect repair, which is already done and waiting. |
+| 2 | **Authenticate the same correct Google account for Merchant Center.** | Disapprovals, account-level warnings, feed diagnostics and Free-Listing eligibility are GMC-only. The feed source is already confirmed: the "Google & YouTube" Shopify channel. | Phases 9–12 execute against the **existing** account. |
 | 3 | Confirm the **canonical street address** — `Fatah Complex, Thapar Nagar Lane 7` (schema) or `Thapar Nagar Gali Number 7, Lajpat Bazaar` (Shopify billing)? | NAP must be identical across schema, Shopify, and Google Business Profile. Guessing risks entrenching the wrong one. | P1-09 fixed; local signal consolidated. |
 | 4 | Confirm **shop latitude/longitude** from Google Maps | Current values were never verified — flagged in the snippet's own comment. | `geo` corrected. |
 | 5 | Decide on a **review platform** | `aggregateRating` may only ever be computed from real reviews. | P4-24 unblocks. |
@@ -388,8 +407,8 @@ and not on a populated collection — then publish.
 | `/collections/gift-hampers` does not exist | `collectionByHandle(handle:"gift-hampers")` | `null` — confirmed |
 | 194 + 29 redirects target them | `urlRedirectsCount(query:"target:...")` | 194 / 29 — confirmed |
 | LocalBusiness image is dead | HTTP GET `…/storefront.jpg` | 404 — confirmed |
-| GSC inaccessible | Navigated to the property | "you don't have access to this property" — confirmed |
-| GMC inaccessible | Navigated to merchants.google.com | "doesn't have access to any Merchant Center account" — confirmed |
+| GSC not reachable **from this session** | Navigated to the property | "you don't have access to this property" — confirms the **signed-in account** lacks access. Says nothing about whether the property exists. It does. |
+| GMC not reachable **from this session** | Navigated to merchants.google.com | "doesn't have access to any Merchant Center account" — same: a property of the session, not of the business. |
 | FAQ schema unconditional | Read `layout/theme.liquid:68` | No page_type guard — confirmed |
 | `meta-tags.liquid` unreferenced | `grep -rl "render 'meta-tags'"` across theme | Zero hits — confirmed |
 | Mojibake rate | 50-product sample | 17/50 (~34%) — sampled, not exhaustive |
