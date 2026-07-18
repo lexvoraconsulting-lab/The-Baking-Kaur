@@ -356,6 +356,55 @@ Order after that: P0-02 (manual-action risk) → P0-04 (doorway risk) → P0-03 
 
 ---
 
+## SEO TITLE ARCHITECTURE v2 — supersedes v1
+
+**v1 was over-optimised and is being reverted.** It appended "in Meerut" to 606/607 SEO titles. Evidence that this was wrong:
+
+- only **81 / 607 (13%)** product titles mention Meerut natively — appending to 100% imposed a template the catalogue does not support
+- product titles are already unique (**606 distinct of 607**, avg 32 chars) — uniqueness needs no template
+- a locality token repeated across 606 titles is a title-rewrite signal to Google and buys nothing in the map pack, which is driven by GBP, proximity and reviews
+- **Merchant Center is unaffected either way** — GMC reads the Shopify *product title*, not the SEO meta title, and no product titles were ever changed
+
+**Architecture:**
+
+| Level | Pattern | Carries "Meerut"? |
+|---|---|---|
+| **Product** | `{Clean Product Title} \| The Baking Kaur` | **No** |
+| **Collection** | `{Category} in Meerut \| {qualifier} \| The Baking Kaur` | Yes |
+| **Local landing / service page** | full local intent | Yes |
+
+Locality is held where the query volume is — category and service pages — not spread across 600 product pages.
+
+**Deferred deliberately:** a strategic per-product locality subset. Choosing it without Search Console impression data would be guessing. Revisit once GSC access is restored and genuine local-intent product queries can be identified.
+
+**Was anything good destroyed?** No. Segmenting the pre-change export: **532 brand-duplicated + 74 mojibake + 1 empty = 607. Zero clean originals existed.** There were no unique optimised titles to preserve.
+
+Result of v2: 606 products, **606 distinct titles**, 30–65 chars (avg 46), zero mechanical locality.
+
+---
+
+## IDENTIFIER_EXISTS — segmented, not blanket-applied
+
+Segmentation from the export (evidence, not assumption):
+
+| Segment | Count |
+|---|---|
+| A — custom / made-to-order, no manufacturer GTIN | **606** |
+| B — legitimate GTIN / barcode | **0** |
+| C — branded packaged / resold | **0** |
+| D — has MPN | **0** |
+| E — uncertain | **0** |
+
+Basis: **Vendor is "The Baking Kaur" on all 607** — there are no resold third-party goods. **0 barcodes across 21,562 variant rows; 0 MPNs.** Three hampers were reviewed as possible segment C and resolved to A: the sold unit is an in-house assembled hamper, not a branded packaged good.
+
+Because segments B/C/D are empty, `identifier_exists = FALSE` is correct for the whole active catalogue. Had any branded packaged product existed, it would have been excluded.
+
+**Source of truth:** metafield `mm-google-shopping.custom_product` (boolean) — a defined metafield on this store. Set via `productUpdate`, in the same write as the SEO title, so there is one pass, not two.
+
+**Status: TECHNICALLY FIXED AT SOURCE — AWAITING MERCHANT CENTER REPROCESSING.** Shopify now holds the correct value; only Merchant Center can confirm the feed consumes it, and that needs the correct Google account.
+
+---
+
 ## IN-FLIGHT WORK — RESUME HERE
 
 ### Bulk SEO title repair (P1-05 / P1-06) — **250 of 607 applied** (b00–b04)
@@ -434,3 +483,23 @@ and not on a populated collection — then publish.
 | `meta-tags.liquid` unreferenced | `grep -rl "render 'meta-tags'"` across theme | Zero hits — confirmed |
 | Mojibake rate | 50-product sample | 17/50 (~34%) — sampled, not exhaustive |
 | `nan` alt text rate | 20-product sample | 3/20 — sampled, not exhaustive |
+
+---
+
+## NEW FINDINGS FROM THE CATALOGUE EXPORT (2026-07-18)
+
+| ID | Finding | Count | Status |
+|---|---|---|---|
+| N1 | Active products **not published** to Online Store — live in admin, absent from storefront and sitemap | 46 | Classify (see below) |
+| N2 | Active products with **no image at all** — cannot be listed in Merchant Center, `image_link` is required | 12 | OWNER INPUT REQUIRED — PRODUCT IMAGE NEEDED |
+| N3 | Products with **no usable image alt text** — only 100/607 have any; 62 images literally read `nan` | 507 | Ready, not executed |
+| N4 | `identifier_exists` unset | 607 | Sample applied; bulk pending |
+| N5 | Active products with empty `Type` (feeds `product_type`) | 4 | Ready |
+| N6 | Draft products with non-descriptive handles (`ch107`, `b54`, `98`) | 278 of 584 | Gate before any bulk publish |
+| N7 | **Junk product live in catalogue**: "Shopify flow" (`shopify-flow`) — ACTIVE, unpublished, 0 inventory, no image, no variants. A Shopify Flow app artifact. | 1 | Recommend ARCHIVE — owner confirm (not deleted) |
+| N8 | **Two apps write different Google product categories** — `mm-google-shopping.google_product_category` = `2194.0` vs `mc-facebook.google_product_category` = `8271`. Conflicting taxonomy values on the same product. | catalogue-wide | Investigate once GMC access restored |
+| N9 | **Judge.me is already installed** (`judgeme.badge` / `judgeme.widget` metafields) and reports "0 reviews". P4-24 is therefore *not* "install a review app" — the platform exists and has no review volume. `aggregateRating` still must not be emitted until real reviews exist. | — | Revises P4-24 |
+
+### N7 note
+"Shopify flow" is simultaneously one of the 46 unpublished (N1) and one of the 12 imageless (N2), so both counts include a record that is not a real product. It was **excluded from the SEO title batches** rather than dressed up with a meta title.
+
