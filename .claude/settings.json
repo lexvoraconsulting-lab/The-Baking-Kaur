@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "allow": [
+      "mcp__claude-in-chrome__tabs_context_mcp",
+      "mcp__claude-in-chrome__get_page_text",
+      "mcp__claude-in-chrome__read_page",
+      "mcp__claude-in-chrome__navigate",
+      "mcp__e1242e90-df68-4b24-90d1-74611ac7d9c9__graphql_query",
+      "mcp__e1242e90-df68-4b24-90d1-74611ac7d9c9__get-shop-info",
+      "mcp__e1242e90-df68-4b24-90d1-74611ac7d9c9__search_products",
+      "WebFetch(domain:search.google.com)",
+      "WebFetch(domain:merchants.google.com)",
+      "WebFetch(domain:thebakingkaur.com)"
+    ],
+    "deny": [
+      "mcp__e1242e90-df68-4b24-90d1-74611ac7d9c9__update-product",
+      "mcp__e1242e90-df68-4b24-90d1-74611ac7d9c9__create-product",
+      "mcp__e1242e90-df68-4b24-90d1-74611ac7d9c9__bulk-update-product-status",
+      "mcp__e1242e90-df68-4b24-90d1-74611ac7d9c9__set-inventory",
+      "mcp__e1242e90-df68-4b24-90d1-74611ac7d9c9__add-to-collection",
+      "mcp__e1242e90-df68-4b24-90d1-74611ac7d9c9__create-collection",
+      "mcp__e1242e90-df68-4b24-90d1-74611ac7d9c9__update-collection",
+      "mcp__e1242e90-df68-4b24-90d1-74611ac7d9c9__create-discount"
+    ]
+  }
+}
