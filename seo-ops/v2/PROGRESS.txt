@@ -1,2 +1,4 @@
 SAMPLE-10 APPLIED 2026-07-18 (titles v2 + custom_product=true, verified)
 c00-c08 PENDING - 606 products
+SPLIT 2026-07-18: batches3/t00-t06 = TITLE ONLY (606 products)
+batches2/ = title+metafield, SUPERSEDED, do not run
