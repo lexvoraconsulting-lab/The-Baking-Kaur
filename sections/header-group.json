@@ -14,6 +14,13 @@
     "tbk_announcement_bar_main": {
       "type": "tbk-announcement-bar",
       "blocks": {
+        "pill_1": {
+          "type": "trust_pill",
+          "settings": {
+            "icon": "♡",
+            "text": "100% Eggless"
+          }
+        },
         "pill_2": {
           "type": "trust_pill",
           "settings": {
@@ -30,6 +37,7 @@
         }
       },
       "block_order": [
+        "pill_1",
         "pill_2",
         "pill_3"
       ],
@@ -58,7 +66,7 @@
         "whatsapp_number": "918218862928",
         "search_placeholder": "Find your perfect cake…",
         "header_height": 88,
-        "mobile_header_height": 52,
+        "mobile_header_height": 68,
         "container_width": 1280,
         "header_bg": "#FDFAF8",
         "header_fg": "#1A0810",

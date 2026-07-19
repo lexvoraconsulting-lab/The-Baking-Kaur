@@ -27,35 +27,6 @@
     <meta name="theme-color" content="">
     <link rel="canonical" href="{{ canonical_url }}">
 
-    {%- comment -%}
-      2026-07-18 — indexation guard (SEO_AUDIT_LEDGER P0-04, P1-11).
-
-      noindex,follow (never nofollow — link equity still flows through) for:
-
-      1. Any collection with zero products. An empty collection that still
-         renders marketing copy is a soft 404; Google wastes crawl budget on it
-         and it drags on site quality. This is a rule, not a list, so it also
-         covers seasonal collections that empty out and any future ones.
-         It self-heals: add products and the page becomes indexable again.
-      2. /collections/all, /collections/best-selling-products and
-         /collections/newest-products — three listings of the identical 1,235
-         products. /collections/cakes is now the canonical category page.
-    {%- endcomment -%}
-    {%- liquid
-      assign tbk_noindex = false
-      if request.page_type == 'collection'
-        assign tbk_dupe_listings = 'all,best-selling-products,newest-products' | split: ','
-        if collection.products_count == 0
-          assign tbk_noindex = true
-        elsif tbk_dupe_listings contains collection.handle
-          assign tbk_noindex = true
-        endif
-      endif
-      if tbk_noindex
-        echo '<meta name="robots" content="noindex,follow">'
-      endif
-    -%}
-
     {%- if settings.favicon != blank -%}
       <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
       <link rel="apple-touch-icon" href="{{ settings.favicon | image_url: width: 48, height: 48 }}">
@@ -94,15 +65,86 @@
 
   {% include 'hulk_po_vd' %}
 
-{%- comment -%}
-  Phase A: hardcoded FAQPage JSON-LD removed 2026-07-18.
-  It rendered unconditionally in <head> on all ~600 product pages, collections
-  and cart, where no matching FAQ is visible — Google requires FAQ structured
-  data to describe FAQ content visible on that page. Same defect class as the
-  hardcoded aggregateRating removed 2026-07-16.
-  Valid FAQ markup already exists via sections/accordion.liquid microdata,
-  which is bound to visible accordion content on templates/page.faq-01|02.json.
-{%- endcomment -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Do you offer midnight cake delivery in Meerut?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, The Baking Kaur offers flexible midnight delivery in Meerut for surprise celebrations."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you offer surprise cake delivery?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, surprise delivery is available with balloons, flowers, decor and notes for birthdays, anniversaries and romantic occasions."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you deliver gift hampers?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, we offer budget, premium and luxury gift hampers in Meerut and pan-India hamper delivery on request."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you offer baby or maternity gift hampers?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, baby and maternity hampers including newborn, baby arrival and baby shower gifting are available."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you do wedding cake setups?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, we provide custom wedding cakes with flexible on-site setup depending on the venue and client requirement."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you make theme cakes for kids?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, custom theme cakes for kids are available including characters and special designs."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I order through WhatsApp?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, orders can be placed by chatting and ordering directly on WhatsApp."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you offer pickup?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, pickup from Meerut is available."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you offer same-day delivery?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, same-day delivery for cakes and gifting is available in Meerut depending on availability."
+      }
+    }
+  ]
+}
+</script>
 
 <script>
   UPLOADCARE_PUBLIC_KEY = "5af3ec24e8ba61a78957";
@@ -115,12 +157,7 @@
   <body class="hdt-page-type-{{ request.page_type }}{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %} template-{{ template.name }}">
     {%- render 'js-variables' -%}
     {%- unless template == 'product.only_config' and request.design_mode == false -%}
-    {%- comment -%}
-      Policy pages have no in-page H1, so keep the visually-hidden one there.
-      The homepage now has a real H1 (sections/home-hero.liquid) — Phase C1 removed
-      "index" from this condition to enforce exactly one H1 per page.
-    {%- endcomment -%}
-    {%- if request.page_type == "policy" -%}
+    {%- if request.page_type == "index" or request.page_type == "policy" -%}
     <h1 class="hdt-hidden">{{ page_title | default: shop.name }}</h1>
     {%- endif -%}
     {%- render 's-dom-temp' -%}

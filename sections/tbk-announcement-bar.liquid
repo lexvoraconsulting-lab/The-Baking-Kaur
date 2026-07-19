@@ -21,10 +21,9 @@
     --ann-bg:  {{ s.bg_color }};
     --ann-bg2: {{ s.bg_color_2 }};
     --ann-fg:  {{ s.text_color }};
-    --ann-h:   28px;
-    background: #FDFAF8;
-    color: #7A2147;
-    border-bottom: 1px solid #EDD8E3;
+    --ann-h:   {{ s.bar_height }}px;
+    background: {% if s.use_gradient %}linear-gradient(135deg, var(--ann-bg) 0%, var(--ann-bg2) 50%, var(--ann-bg) 100%){% else %}var(--ann-bg){% endif %};
+    color: var(--ann-fg);
     height: var(--ann-h);
     overflow: hidden;
     font-family: var(--tbk-font-ui);
@@ -58,9 +57,9 @@
     flex: 1 1 auto;
     min-width: 0;
     overflow: hidden;
-    font-size: 10.5px;
+    font-size: 12px;
 font-weight: 600;
-letter-spacing: .35px;
+letter-spacing: .45px;
     line-height: 1;
     white-space: nowrap;
   }
@@ -80,8 +79,8 @@ letter-spacing: .35px;
     width: 3px;
     height: 3px;
     border-radius: 50%;
-    background: rgba(122, 33, 71, 0.4);
-    margin: 0 9px;
+    background: rgba(255, 255, 255, 0.5);
+    margin: 0 14px;
     flex: 0 0 auto;
   }
 
@@ -132,20 +131,17 @@ box-shadow: 0 2px 8px rgba(0,0,0,.08);}
 
     {%- comment -%} LEFT — trust signals {%- endcomment -%}
     <div class="tbk-ann-trust" aria-label="Why choose us">
-      {%- assign pill_shown = false -%}
       {%- for block in section.blocks -%}
         {%- if block.type == 'trust_pill' -%}
-          {%- assign pill_text = block.settings.text | strip -%}
-          {%- if pill_shown -%}
+          {%- unless forloop.first -%}
             <span class="tbk-ann-sep" aria-hidden="true"></span>
-          {%- endif -%}
+          {%- endunless -%}
           <span class="tbk-ann-pill" {{ block.shopify_attributes }}>
             {%- if block.settings.icon != blank -%}
               <span class="tbk-ann-pill-icon" aria-hidden="true">{{ block.settings.icon }}</span>
             {%- endif -%}
             <span>{{ block.settings.text }}</span>
           </span>
-          {%- assign pill_shown = true -%}
         {%- endif -%}
       {%- endfor -%}
     </div>

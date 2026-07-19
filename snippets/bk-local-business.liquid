@@ -24,20 +24,13 @@
 {
   "@context": "https://schema.org",
   "@type": "Bakery",
-  "@id": "https://thebakingkaur.com/#organization",
   "name": "The Baking Kaur",
   "description": "100% eggless premium designer cake studio in Meerut. Handcrafted celebration cakes with same-day & midnight delivery across the city.",
   "url": "https://thebakingkaur.com",
   "telephone": "+918218862928",
   "priceRange": "₹₹",
   "servesCuisine": "Eggless Cakes & Desserts",
-  {%- comment -%}
-    2026-07-18: previous hardcoded storefront.jpg returned HTTP 404, which
-    invalidates the LocalBusiness image. Using settings.logo — a real, verified
-    asset already used as the Organization logo in tbk-schema-website.liquid.
-    Replace with a genuine storefront photograph when one is available.
-  {%- endcomment -%}
-  "image": "{{ settings.logo | image_url: width: 1200 }}",
+  "image": "https://thebakingkaur.com/cdn/shop/files/storefront.jpg",
   "address": {
     "@type": "PostalAddress",
     "streetAddress": "Fatah Complex, Thapar Nagar Lane 7",

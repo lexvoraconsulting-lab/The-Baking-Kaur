@@ -42,19 +42,12 @@
       assign image_size_chart = block.settings.size_chart_image
     endif
     assign choose_an_option = 'products.product.choose_an_option' | t
-    unless choose_placeholder == nil
-      assign choose_an_option = choose_placeholder
-    endunless
   -%}
 
   <hdt-variant-picker id="variant-picker-{{ section.id }}" handle="{{ product.handle }}" form="{{ product_form_id }}" class="hdt-variant-picker no-js-hidden hdt-color-mode__{{ block.settings.color_picker_type }} hdt-color-size__{{ block.settings.color_size }} hdt-selector-mode__{{ block.settings.picker_type }}"{% if update_url %} update-url="{{ selected_variant.id | default: 19041994 }}"{% endif %}{% if update_status %} update-status{% endif %} data-size="{{ product.options_with_values.size }}"{% if hide_sold_out %} hide-sold-out-variants{% endif %}{% unless un_no_pick %} no-pick{% endunless %}>
     {%- for option in product.options_with_values -%}
       {%-  liquid
       assign name_downcase = option.name | downcase
-      assign is_weight = false
-      if name_downcase contains 'weight'
-        assign is_weight = true
-      endif
       if color_list contains name_downcase
         assign option_type = 'color'
         assign color_option_index = 'option' | append: forloop.index
@@ -98,47 +91,10 @@
           <div class="hdt-relative">
             <button class="hdt-select" aria-controls="variant-popover{{ section.id }}-{{ forloop.index0 }}" aria-owns="variant-listbox{{ section.id }}-{{ forloop.index0 }}">{{ selected_value | default: choose_an_option }}</button>
             {%- render 'icon' with 'caret' -%}
-            <hdt-popover class="hdt-popover hdt-hidden hdt-popover-variant{% if fancy_dropdown %} tbk-fancy-pop{% endif %}" id="variant-popover{{ section.id }}-{{ forloop.index0 }}" class="hdt-product-form__values" config='{ "closeRichlistSelect": true }' color-scheme="{{ settings.color_scheme_dialog }}">
-              {%- if fancy_dropdown -%}
-                <div class="tbk-fancy-pop__head">
-                  <div class="tbk-fancy-pop__title"><span class="tbk-fancy-pop__flor" aria-hidden="true">❧</span>{% if is_weight %}Choose Your Cake Weight{% else %}Select Your Favorite {{ option.name }}{% endif %}<span class="tbk-fancy-pop__flor" aria-hidden="true">❦</span></div>
-                  <div class="tbk-fancy-pop__sub">{% if is_weight %}Perfect size for your celebration{% else %}Crafted with premium ingredients{% endif %}</div>
-                  <div class="tbk-fancy-pop__crown" aria-hidden="true"><i></i><svg viewBox="0 0 24 24" fill="none" stroke="#C9A227" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M3 8.5l4.3 3.5L12 5l4.7 7 4.3-3.5-1.8 10.5H4.8z"/></svg><i></i></div>
-                </div>
-                {%- if is_weight -%}
-                  <div class="tbk-fancy-pop__banner">
-                    <span class="tbk-fancy-pop__banner-txt">Serving guide is approximate and can vary with portion size.</span>
-                    <span class="tbk-fancy-pop__banner-badge">★ Most Popular</span>
-                  </div>
-                {%- endif -%}
-              {%- endif -%}
+            <hdt-popover class="hdt-popover hdt-hidden hdt-popover-variant" id="variant-popover{{ section.id }}-{{ forloop.index0 }}" class="hdt-product-form__values" config='{ "closeRichlistSelect": true }' color-scheme="{{ settings.color_scheme_dialog }}">
               <hdt-richlist role="listbox" selected="{{ selected_value | escape }}" id="variant-listbox{{ section.id }}-{{ forloop.index0 }}">
-                {%- render 'product-variant-options', hide_sold_out: hide_sold_out, option_type: option_type, product: product, option: option, block: block, product_form_id: product_form_id, un_no_pick: un_no_pick, selected_value: selected_value, fancy_dropdown: fancy_dropdown, is_weight: is_weight -%}
+                {%- render 'product-variant-options', hide_sold_out: hide_sold_out, option_type: option_type, product: product, option: option, block: block, product_form_id: product_form_id, un_no_pick: un_no_pick, selected_value: selected_value -%}
               </hdt-richlist>
-              {%- if fancy_dropdown -%}
-                {%- if is_weight -%}
-                  <a class="tbk-fancy-custom" href="https://wa.me/918218862928?text=Hi%20The%20Baking%20Kaur%2C%20I%20need%20a%20custom%20cake%20weight" target="_blank" rel="noopener">
-                    <span class="tbk-fancy-custom__ico">🎁</span>
-                    <span class="tbk-fancy-custom__txt"><b>Custom Weight</b><small>Need a different size? We've got you!</small></span>
-                    <span class="tbk-fancy-custom__cta">Contact us on <b>WhatsApp</b> ›</span>
-                  </a>
-                  <div class="tbk-fancy-pop__foot tbk-fancy-pop__foot--weight">
-                    <span>🌿 100% Eggless<small>Always</small></span>
-                    <span>🛡 Freshly Baked<small>After You Order</small></span>
-                    <span>🚚 Safe &amp; On-Time<small>Delivery</small></span>
-                  </div>
-                {%- else -%}
-                  <div class="tbk-fancy-pop__foot tbk-fancy-pop__foot--flavor">
-                    <span class="tbk-fancy-pop__foot-ico" aria-hidden="true">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="#C01457" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg>
-                    </span>
-                    <span class="tbk-fancy-pop__foot-txt">
-                      <span class="tbk-fancy-pop__foot-main">100% Eggless • Freshly Baked • Premium Quality</span>
-                      <span class="tbk-fancy-pop__foot-sub">Made with love for your special moments ❤</span>
-                    </span>
-                  </div>
-                {%- endif -%}
-              {%- endif -%}
             </hdt-popover>
           </div>
         {%- endif -%}
