@@ -142,11 +142,22 @@ def needs_fix(seo_title: Optional[str]) -> bool:
 
 
 def size_count(options: List[Dict]) -> int:
+    """Count DISTINCT sizes.
+
+    Weights are stored in several formats in this catalogue - "1 kg", "1kg", "1 KG"
+    and "2 k" all occur. A naive len() reports 4 sizes for a product that really has
+    3 (observed on Luxury Exclusive Birthday Cake: 1kg / 1.5kg / 2kg / 1 kg).
+    Normalise before counting or the description overstates the range.
+    """
     for opt in options:
         if opt.get("name", "").strip().lower() in ("weight", "size"):
-            n = len(opt.get("optionValues") or [])
-            if n:
-                return n
+            seen = {
+                re.sub(r"[^0-9a-z.]", "", (v.get("name") or "").lower())
+                for v in (opt.get("optionValues") or [])
+            }
+            seen.discard("")
+            if seen:
+                return len(seen)
     return 1
 
 
