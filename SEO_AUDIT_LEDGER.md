@@ -1401,3 +1401,68 @@ image. Shipping configuration remains the sole blocker on the feed itself.**
 | B8 | 32 invalid breadcrumbs (GSC) | Structured data | 2026-07-19 |
 | B9 | 554 404s / 1,040 crawled-not-indexed | Post-MC work | 2026-07-19 |
 
+
+---
+
+## PHASE 20 — GSC audit + SEO snippet remediation (20 Jul 2026)
+
+### Context: a parallel session
+A handoff PDF bundle (`attachments (1).zip`) revealed a second session had been working
+this store from mobile. Its changes are live and verified: 8 empty collections converted
+manual->smart, 105 redirects repointed, 221 SEO snippets rewritten, 118 product types
+corrected, 84 titles cleaned, 65 variant sets normalised, 1 product archived.
+
+**Correction to the ledger:** Simprosys is NOT installed. Shopify has 15 apps, none of
+them a feed app; Merchant Center lists only two human admins. An earlier entry claiming
+Simprosys was linked in MC was wrong.
+
+### Verified store state (20 Jul 2026)
+| Metric | Value |
+|---|---|
+| Total products | 1,235 |
+| Active | 602 |
+| Draft | 588 (all zero-image) |
+| Archived | 45 |
+| URL redirects | 816 (up from 791) |
+
+### GSC audit — see GSC_AUDIT.md
+- Property `sc-domain:thebakingkaur.com` verified. Sitemap Success, 762 discovered.
+- Indexed 769 / not indexed 1,910 across 11 reasons.
+- Core Web Vitals mobile: 231 good, 0 poor. Desktop: no data.
+- 3-month performance: 3,580 clicks, 332K impressions, **1.1% CTR at position 5.3**.
+- Biggest single gap: `baby girl birthday cake` — 7,598 impressions, 0.4% CTR.
+- Local Meerut intent is nearly absent from top queries; footprint is national.
+
+### Root cause found for the recurring 404/soft-404 loop
+Of 816 redirects, ~394 originally pointed at `/collections/all`. Google treats a redirect
+to a generic listing as a **soft 404**, which is why "fixed" 404s kept reappearing.
+105 repointed by the parallel session; ~315 estimated remaining.
+
+### Work applied this session
+- 14 active products migrated from the legacy SEO template to the new format, verified
+  by read-back (both `seo.title` and `seo.description` present and correct).
+- `seo-ops/fix_seo_snippets.py` written and tested — 22 offline assertions pass,
+  including **byte-exact parity** with 4 products the parallel session had already fixed
+  live. Dry-run by default; writes a review CSV; batches 8 mutations per call.
+
+### Standing rules reconfirmed
+- `ProductInput.seo` is a nested object and REPLACES wholesale. Always send BOTH
+  `title` and `description`, or the omitted one is nulled.
+- NEVER flip DRAFT -> ACTIVE. The 588 drafts stay draft until images exist.
+- Do not mass-redirect the 554 404s. 630 of 1,235 products are draft/archived and
+  correctly return 404.
+- Shopify search on `variant_title:` tokenises and is unreliable. Trust only
+  `options { optionValues { name } }` read directly.
+- Local Delivery is NOT readable via Admin GraphQL (`Location` exposes only
+  `localPickupSettingsV2`). UI only.
+
+### Deliberately NOT done
+- Variant option renames (P2). The handoff warns that deleting an option value deletes
+  its variants, and metafield-linked options reject renames outright. Too risky to run
+  unsupervised; needs the metaobject fix first (Settings > Custom data > Metaobjects >
+  Flavor: `Fruit Cocoktail`, `Chocolate Moouse`).
+- Redirect repointing (P3) — needs a reviewed mapping table.
+- The `--apply` scripts from the handoff. They exist only as PDF renderings; the
+  extracted text is hard-wrapped mid-statement, so reconstructing runnable Python from
+  them would mean guessing line boundaries in code that writes to hundreds of live
+  products. Reimplemented from the spec instead.
