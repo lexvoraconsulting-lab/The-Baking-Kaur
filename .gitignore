@@ -1,2 +1,9 @@
 __pycache__/
 *.pyc
+
+# seo-ops generated outputs — dry-run review CSVs, mutation payloads, run logs.
+# Source (.py) and docs (.md) are NOT ignored.
+seo-ops/*.csv
+seo-ops/*.jsonl
+seo-ops/*.log
+seo-ops/**/PROGRESS.txt
