@@ -1122,7 +1122,7 @@ document.addEventListener("DOMContentLoaded", function() {
   "@type": "Product",
   "@id": "{{ shop.url }}{{ product.url }}",
   "name": "{{ product.title | escape }}",
-  "description": "{{ product.description | strip_html | escape }}",
+  "description": {{ product.description | strip_html | json }},
   "image": [
     {% for image in product.images %}
       "{{ image | image_url: width: 1200 }}"{% unless forloop.last %},{% endunless %}
