@@ -1,53 +1,47 @@
-# The Baking Kaur — Enterprise Shopify Blueprint
+# The Baking Kaur — Shopify
 
-This archive is the complete planning & standards documentation for transforming **The Baking Kaur** (a 100% eggless luxury cake studio in Meerut) into a premium Shopify digital flagship. **Documentation only — no theme code.**
+Repository for **The Baking Kaur**, a 100% eggless luxury cake studio in Meerut, Uttar Pradesh. It contains three layers:
 
-Guiding rules across all documents: preserve brand colors & logo; the **product page is a protected module** (no visual/UX/flow change); every change must pass the value gate (improves UX / trust / conversion / SEO / GEO / accessibility / performance / maintainability / scalability).
+1. **The live Shopify theme** — `layout/`, `sections/`, `snippets/`, `assets/`, `templates/`, `config/`, `locales/`. Deploys go to theme *Baking Kaur — Draft* (`#151307485353`).
+2. **The enterprise blueprint** — ~30 planning & standards documents at the repo root (`00_START_HERE.md`, `SHOPIFY_ARCHITECTURE.md`, `DESIGN_SYSTEM.md`, `SEO_GEO_MASTER_PLAN.md`, …). Strategy and specs, not code. Index: `TABLE_OF_CONTENTS.md`.
+3. **SEO / catalog operations** — `seo-ops/`, Python tooling that reads and writes the store over the Shopify Admin GraphQL API.
 
----
+New here? Read **[CLAUDE.md](CLAUDE.md)** for how to work in this repo, then **[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)**.
 
-## Document purpose
-| Document | Purpose |
+## Store facts
+
+| | |
 |---|---|
-| `VERSION.md` | Version, date, completed & pending milestones |
-| `PROJECT_ROADMAP.md` | All phases with status; next decisions |
-| `TABLE_OF_CONTENTS.md` | Linked index of every document |
-| `SHOPIFY_ARCHITECTURE.md` | The current theme's technical architecture (stack, folders, apps, debt) |
-| `DESIGN_SYSTEM.md` | Design tokens — color, typography, spacing, shadow, radius, motion |
-| `COMPONENT_LIBRARY.md` | Per-component specs, variants, states, accessibility |
-| `ANIMATION_GUIDELINES.md` | Motion system — allowed/forbidden, easing, reduced-motion |
-| `BRAND_VOICE.md` | Voice, tone, personality |
-| `COPY_GUIDELINES.md` | Copy mechanics — grammar, keywords, CTAs, microcopy |
-| `INFORMATION_ARCHITECTURE.md` | 5-year IA — URLs, hierarchy, clusters, entities, expansion |
-| `SEO_GEO_MASTER_PLAN.md` | SEO/GEO strategy, internal linking, local SEO, content roadmap |
-| `SCHEMA_MASTER.md` | Canonical structured-data reference (entity graph, per-template) |
-| `MERCHANDISING_GUIDE.md` | What products/collections appear where, and how |
-| `CONTENT_SYSTEM.md` | Content model — metaobjects & metafields |
-| `HOMEPAGE_SPECIFICATION.md` | Homepage structure & behavior (implementation-ready) |
-| `HOMEPAGE_CONTENT_STRATEGY.md` | Homepage copy, trust, local-SEO, content hierarchy |
-| `QA_CHECKLIST.md` | Per-phase pre-promotion quality gate |
-| `PERFORMANCE_BASELINE.md` | Baseline metrics + Phase-H targets |
-| `CHANGELOG.md` | Every file change, reason, and rollback |
+| Storefront | https://thebakingkaur.com |
+| Admin store | `ae86ba-2a.myshopify.com` |
+| Live theme | `Baking Kaur — Draft` · `#151307485353` |
+| Theme base | Ecomus v1.6.1 (Halo/The4 "hdt-" family), Online Store 2.0 |
+| Catalogue | ~1,235 products (≈602 active, rest draft/archived) · eggless only |
+| Market | Meerut, UP — local delivery within ~15 km |
 
-## Recommended reading order
-1. **Orient:** `README` → `TABLE_OF_CONTENTS` → `VERSION` → `PROJECT_ROADMAP`
-2. **Understand the system:** `SHOPIFY_ARCHITECTURE`
-3. **Standards:** `DESIGN_SYSTEM` → `COMPONENT_LIBRARY` → `ANIMATION_GUIDELINES`; then `BRAND_VOICE` → `COPY_GUIDELINES`
-4. **Strategy:** `INFORMATION_ARCHITECTURE` → `SEO_GEO_MASTER_PLAN` → `SCHEMA_MASTER` → `MERCHANDISING_GUIDE` → `CONTENT_SYSTEM`
-5. **Build target:** `HOMEPAGE_SPECIFICATION` → `HOMEPAGE_CONTENT_STRATEGY`
-6. **Operate:** `QA_CHECKLIST` · `PERFORMANCE_BASELINE` · `CHANGELOG`
+## Layout
 
-## Document dependencies
 ```
-INFORMATION_ARCHITECTURE ─┬─▶ SEO_GEO_MASTER_PLAN ─▶ SCHEMA_MASTER
-                          └─▶ MERCHANDISING_GUIDE
-DESIGN_SYSTEM ─▶ COMPONENT_LIBRARY ─▶ ANIMATION_GUIDELINES
-BRAND_VOICE ─▶ COPY_GUIDELINES ─▶ HOMEPAGE_CONTENT_STRATEGY
-CONTENT_SYSTEM ─▶ HOMEPAGE_SPECIFICATION
-HOMEPAGE_SPECIFICATION ─▶ (references) CONTENT_STRATEGY · COMPONENT_LIBRARY · SCHEMA_MASTER · CONTENT_SYSTEM · ANIMATION_GUIDELINES · PERFORMANCE_BASELINE
-QA_CHECKLIST + CHANGELOG ─▶ apply to every phase
-SHOPIFY_ARCHITECTURE + PERFORMANCE_BASELINE ─▶ current-state inputs
+├── layout/ sections/ snippets/ assets/ templates/ config/ locales/   # live theme
+├── docs/                # this documentation foundation
+│   ├── ARCHITECTURE.md  SHOPIFY.md  CODING_STANDARDS.md  DECISIONS.md
+├── tasks/               # work tracking (see tasks/README.md)
+├── seo-ops/             # Admin-API Python tooling + tests
+├── reports/  logs/  scripts/    # TODO: present but currently empty / ad-hoc
+└── *.md                 # enterprise blueprint — start at 00_START_HERE.md
 ```
 
-## Status
-v1.0 — planning complete; implementation pending client approval. See `VERSION.md` / `PROJECT_ROADMAP.md`.
+## Hard rules
+
+See [CLAUDE.md](CLAUDE.md) and the `memory/` store for the full set. In brief:
+
+- **The product page is a protected module** — no visual/UX/flow/CSS/JS change. Only invisible edits (schema, analytics, a11y, performance) are permitted, and only with care. `templates/product.json` renders `sections/main-product-premium-v2.liquid`.
+- **Preserve** the logo and brand colors.
+- **Never** invent GTINs / MPNs / barcodes / reviews, or advertise delivery the store cannot fulfil.
+- Drafts stay drafts — do not bulk-flip DRAFT→ACTIVE.
+
+## The blueprint documents
+
+The ~30 root `*.md` files are a planning & standards library (design system, brand voice, information architecture, SEO/GEO plan, schema master, homepage spec, QA). Rather than duplicate the list here, start at `00_START_HERE.md` and use `TABLE_OF_CONTENTS.md` as the linked index. Status and phases live in `VERSION.md` and `PROJECT_ROADMAP.md`.
+
+> Note: the older README described this repo as "documentation only — no theme code." That is no longer true — the live theme and `seo-ops/` tooling now live here alongside the docs.
