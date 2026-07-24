@@ -11,6 +11,7 @@
   "sections": {
     "main_heading_JtVyCf": {
       "type": "main-heading",
+      "disabled": true,
       "blocks": {
         "1_r4MLdh": {
           "type": "1",
@@ -50,7 +51,7 @@
       }
     },
     "main": {
-      "type": "main-product",
+      "type": "main-product-premium-v2",
       "blocks": {
         "3a222052-35a9-4684-a336-6a32a56eb638": {
           "type": "title",
@@ -60,27 +61,20 @@
           "type": "price",
           "settings": {}
         },
-        "custom_liquid_49i8Xk": {
-          "type": "custom_liquid",
-          "name": "Rating",
-          "settings": {
-            "custom_liquid": "<div class=\"cake-rating\">\n⭐ 4.8 (500+ Reviews)\n</div>\n\n<style>\n.cake-rating{\n  display:inline-flex;\n  align-items:center;\n  gap:6px;\n  width:auto;\n  background:#fff7f8;\n  border:1px solid #f2d6dd;\n  padding:8px 14px;\n  border-radius:999px;\n  font-size:14px;\n  font-weight:600;\n  color:#7a2147;\n  margin-bottom:12px;\n}\n</style>"
-          }
-        },
         "custom_liquid_G7tCra": {
           "type": "custom_liquid",
           "name": "Delievery",
           "settings": {
-            "custom_liquid": "<div class=\"trust-pills\">\n<span>🌿 100% Eggless</span>\n<span>🚚 Same Day Delivery</span>\n</div>\n\n<style>\n.trust-pills{\ndisplay:flex;\ngap:10px;\nflex-wrap:wrap;\nmargin:10px 0 20px;\n}\n\n.trust-pills span{\nbackground:#fff7f8;\nborder:1px solid #f2d6dd;\npadding:8px 12px;\nborder-radius:999px;\nfont-size:13px;\nfont-weight:600;\ncolor:#7a2147;\n}\n</style>"
+            "custom_liquid": ""
           }
         },
         "1248e930-5734-45b4-a1d6-a814910fdb63": {
           "type": "variant_picker",
           "settings": {
-            "pick_mode": "first",
+            "pick_mode": "no",
             "enable_historystate": true,
             "hide_sold_out": false,
-            "color_picker_type": "dropdown",
+            "color_picker_type": "image_rounded",
             "color_size": "small",
             "picker_type": "dropdown",
             "size_chart_source": "image",
@@ -90,25 +84,17 @@
         "custom_liquid_4rGhVM": {
           "type": "custom_liquid",
           "name": "Date Time Picker",
-          "disabled": true,
           "settings": {
-            "custom_liquid": "{% render 'bk-datetime' %}"
-          }
-        },
-        "custom_liquid_m43Tt3": {
-          "type": "custom_liquid",
-          "name": "WhatsApp Button",
-          "settings": {
-            "custom_liquid": "<a href=\"https://wa.me/918218862928?text=Hi%20The%20Baking%20Kaur,%20I%20want%20to%20customize%20this%20cake\"\nclass=\"wa-custom-btn\">\n💬 Customize on WhatsApp\n</a>\n\n<style>\n.wa-custom-btn{\ndisplay:flex;\njustify-content:center;\nalign-items:center;\nbackground:#25D366;\ncolor:white;\ntext-decoration:none;\npadding:14px;\nborder-radius:14px;\nfont-weight:700;\nfont-size:16px;\nmargin:15px 0;\n}\n</style>"
+            "custom_liquid": ""
           }
         },
         "ad820e37-dee5-41f3-9692-bf46d9664103": {
           "type": "buy_buttons",
           "settings": {
-            "show_dynamic_checkout": true,
-            "show_gift_card_recipient": true,
-            "show_price_variant": false,
-            "show_wishlist": true,
+            "show_dynamic_checkout": false,
+            "show_gift_card_recipient": false,
+            "show_price_variant": true,
+            "show_wishlist": false,
             "show_compare": false
           }
         },
@@ -135,11 +121,9 @@
       "block_order": [
         "3a222052-35a9-4684-a336-6a32a56eb638",
         "edac686e-a845-4ed7-9b50-51639a11cf56",
-        "custom_liquid_49i8Xk",
         "custom_liquid_G7tCra",
         "1248e930-5734-45b4-a1d6-a814910fdb63",
         "custom_liquid_4rGhVM",
-        "custom_liquid_m43Tt3",
         "ad820e37-dee5-41f3-9692-bf46d9664103",
         "8032c01b-f33a-4bef-a8ea-680044ceaaac",
         "bundle_product_dA9N8W"
@@ -149,7 +133,7 @@
         "media_width": 65,
         "desktop_media_layout": "thumbnail_left",
         "desktop_media_position": "left",
-        "mobile_media_layout": "fraction",
+        "mobile_media_layout": "thumbnails",
         "show_first_media": false,
         "use_select_varaint_change_media": true,
         "enable_media_autoplay": true,

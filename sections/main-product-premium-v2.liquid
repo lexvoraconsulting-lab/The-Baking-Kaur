@@ -24,7 +24,61 @@
     --pr-media-width: {{ section.settings.media_width }}%; --section-pt:{{ section.settings.padding_top }}px; --section-pb:{{ section.settings.padding_bottom }}px; --section-prate:{{ section.settings.padding_rate }};
   }
 {%- endstyle -%}
+<style>
 
+.tbk-premium-product{
+
+display:grid;
+
+grid-template-columns:54% 46%;
+
+gap:40px;
+
+align-items:start;
+
+}
+
+.tbk-product-gallery{
+
+position:sticky;
+
+top:120px;
+
+}
+
+.tbk-product-content{
+
+display:flex;
+
+flex-direction:column;
+
+gap:18px;
+
+}
+
+@media(max-width:768px){
+
+.tbk-premium-product{
+
+grid-template-columns:45% 55%;
+
+gap:12px;
+
+align-items:start;
+
+}
+
+.tbk-product-gallery{
+
+position:relative;
+
+top:auto;
+
+}
+
+}
+
+</style>
 <div class="hdt-main-product hdt-section-spacing hdt-s-gradient" color-scheme="{{ section.settings.color_scheme }}">
   <div class="hdt-container">
     <style>
@@ -55,6 +109,9 @@
 
 .tbk-product-gallery{
     position:relative;
+    .tbk-product-gallery img{
+    border-radius:20px;
+}
     top:auto;
     margin-bottom:28px;
 }
@@ -68,9 +125,31 @@
 </style>
     <div class="tbk-premium-product">
       <div class="tbk-product-gallery">
-        {%- render 'product-media', product: product, product_form_id: product_form_id, un_no_pick: un_no_pick, selected_variant: selected_variant -%}
-      </div>
-     
+
+        <div class="tbk-gallery-main">
+
+    {% render 'product-media',
+      product: product,
+      product_form_id: product_form_id,
+      un_no_pick: un_no_pick,
+      selected_variant: selected_variant %}
+
+        </div>
+
+        <div class="tbk-promise">
+          <div class="tbk-promise__title">OUR PROMISE TO YOU</div>
+          <div class="tbk-promise__rows">
+            <div class="tbk-promise__row"><span class="tbk-promise__ico">✅</span><span class="tbk-promise__txt"><b>Freshly Baked</b><small>Made fresh after you order</small></span></div>
+            <div class="tbk-promise__row"><span class="tbk-promise__ico">🌿</span><span class="tbk-promise__txt"><b>100% Eggless</b><small>Pure veg &amp; safe for everyone</small></span></div>
+            <div class="tbk-promise__row"><span class="tbk-promise__ico">🚚</span><span class="tbk-promise__txt"><b>Same Day Delivery</b><small>2–4 hour delivery in Meerut</small></span></div>
+            <div class="tbk-promise__row"><span class="tbk-promise__ico">❄️</span><span class="tbk-promise__txt"><b>Safe &amp; Secure Packaging</b><small>Temperature controlled delivery</small></span></div>
+            <div class="tbk-promise__row"><span class="tbk-promise__ico">👥</span><span class="tbk-promise__txt"><b>Loved by 20,000+ Customers</b><small>⭐ 4.8 (Google Reviews)</small></span></div>
+          </div>
+          <div class="tbk-promise__foot">Baked with love, delivered with care</div>
+        </div>
+
+</div>
+
       <div class="tbk-product-content">
         <div id="product-zoom-{{ section.id }}" class="hdt-produc-zoom--wrapp"></div>
         <div id="product-info-{{ section.id }}" class="hdt-product-info__list{% if section.settings.space_content_media %} hdt-product__info-space{% endif %}">
@@ -106,47 +185,7 @@
   {% assign has_form_act = true %}
 
   
-  <div class="tbk-addtocart-row">
-   {%- comment -%}
-{% render 'cake-addons' %}
-{%- endcomment -%}
-
-
-
-
-  {% render 'buy-buttons',
-  product: product,
-  block: block,
-  product_form_id: product_form_id,
-  show_hamper_addons: false
-%}
-
-  
-</div>
-
-
- <div class="tbk-premium-features">
-  <div class="tbk-feature">
-    🚚
-    <span>Same Day Delivery</span>
-  </div>
-
-  <div class="tbk-feature">
-    ⭐
-    <span>4.8 Google Rated</span>
-  </div>
-
-  <div class="tbk-feature">
-    🛡️
-    <span>FSSAI Approved</span>
-  </div>
-
-  <div class="tbk-feature">
-    🌱
-    <span>100% Eggless</span>
-  </div>
-
-</div>
+  {%- comment -%} Phase D: Add-to-Cart wrapper relocated into the buy_buttons block (Loop 2, after Delivery / before WhatsApp). Hardcoded tbk-premium-features trust row removed — trust chips now come from the custom_liquid "Delievery" block. {%- endcomment -%}
 
            </div>
 
@@ -289,50 +328,279 @@
               </div>
 
             {%- when 'variant_picker' -%}
-              <div class="hdt-product-info__item hdt-product__variant-picker" data-type="{{ block.type }}" {{ block.shopify_attributes }}>{%- render 'variant-picker', product: product, block: block, product_form_id: product_form_id, update_url: update_url, selected_variant: selected_variant, un_no_pick: un_no_pick -%}</div>
+              <div class="hdt-product-info__item hdt-product__variant-picker" data-type="{{ block.type }}" {{ block.shopify_attributes }}>{%- render 'variant-picker', product: product, block: block, product_form_id: product_form_id, update_url: update_url, selected_variant: selected_variant, un_no_pick: un_no_pick, hide_update_value: true, choose_placeholder: '', fancy_dropdown: true -%}</div>
 
-              <!-- Vishal Code : Date and time-->
+              <!-- Delivery schedule (Date + Time Slot + optional reference image) -->
             <div class="delivery-options">
-              <div> <label class="hdt-product-form__label hdt-s-text hdt-quantity__label " style="font-weight: bold;" >Select Delivery Schedule: </label></div>
-              <div class="hdt-product-form_value is-type-block tbk-delivery-container">
-" >
-                    <label class="hdt-product-form__label hdt-s-text is-type-block" for="delivery-date">Date:</label>
-                    <input
-  form="{{ product_form_id }}"
-  type="file"
-  id="reference-image"
-  name="properties[Reference Image]"
-  accept="image/*"
->
-                </div>
-                         <div class="hdt-product-form_value is-type-block">
-  <label class="hdt-product-form__label hdt-s-text">
-    Upload Reference Image
-  </label>
+              <div class="tbk-date-time-row">
+                <div class="hdt-product-form_value is-type-block">
+                    <label class="hdt-product-form__label hdt-s-text">Delivery Date</label>
+                    <button type="button" class="tbk-slot-trigger tbk-date-trigger" data-date-trigger="{{ section.id }}" aria-haspopup="dialog"><span data-date-display></span></button>
+                    <input type="hidden" form="{{ product_form_id }}" id="delivery-date-{{ section.id }}" name="properties[Delivery Date]" data-date-input="{{ section.id }}" required>
 
-  <input
-    form="{{ product_form_id }}"
-    type="file"
-    name="properties[Reference Image]"
-    accept="image/*"
-  >
-</div>   
-                <div class="hdt-product-form_value  is-type-block" >
-                    <label class="hdt-product-form__label hdt-s-text is-type-block" for="delivery-slot">Time Slots:</label>
-                              <!--<input   form="{{ product_form_id }}" type="time" id="delivery-time" name="properties[Delivery Time]" required>-->
-                    <select form="{{ product_form_id }}" id="delivery-slot-{{ section.id }}" name="properties[Delivery Time Slot]" required>
-                        <option value="">-- Available Slots --</option>
-                        <option value="11:00 AM - 1:00 PM">11:00 AM - 1:00 PM</option>
-                        <option value="1:00 PM - 3:00 PM">1:00 PM - 3:00 PM</option>
-                        <option value="3:00 PM - 5:00 PM">3:00 PM - 5:00 PM</option>
-                        <option value="5:00 PM - 7:00 PM">5:00 PM - 7:00 PM</option>
-                        <option value="7:00 PM - 9:00 PM">7:00 PM - 9:00 PM</option>
-                    </select>
+                    <div class="tbk-slot-modal tbk-date-modal" data-date-modal="{{ section.id }}" hidden>
+                      <div class="tbk-slot-modal__ov" data-date-close="{{ section.id }}"></div>
+                      <div class="tbk-slot-modal__sheet" role="dialog" aria-modal="true" aria-label="Select delivery date">
+                        <button type="button" class="tbk-slot-modal__x" data-date-close="{{ section.id }}" aria-label="Close">✕</button>
+                        <div class="tbk-fancy-pop__head">
+                          <div class="tbk-fancy-pop__title"><span class="tbk-fancy-pop__flor" aria-hidden="true">❧</span>Select Delivery Date<span class="tbk-fancy-pop__flor" aria-hidden="true">❦</span></div>
+                          <div class="tbk-fancy-pop__sub">Freshly baked, delivered right on time</div>
+                          <div class="tbk-fancy-pop__crown" aria-hidden="true"><i></i><svg viewBox="0 0 24 24" fill="none" stroke="#C9A227" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M3 8.5l4.3 3.5L12 5l4.7 7 4.3-3.5-1.8 10.5H4.8z"/></svg><i></i></div>
+                        </div>
+                        <div class="tbk-cal-nav">
+                          <button type="button" class="tbk-cal-arrow" data-cal-prev="{{ section.id }}" aria-label="Previous month">‹</button>
+                          <span class="tbk-cal-month" data-cal-month>—</span>
+                          <button type="button" class="tbk-cal-arrow" data-cal-next="{{ section.id }}" aria-label="Next month">›</button>
+                        </div>
+                        <div class="tbk-cal-dow"><span>MON</span><span>TUE</span><span>WED</span><span>THU</span><span>FRI</span><span>SAT</span><span>SUN</span></div>
+                        <div class="tbk-cal-grid" data-cal-grid="{{ section.id }}"></div>
+                        <div class="tbk-slot-fresh">
+                          <span class="tbk-slot-fresh__ico" aria-hidden="true">🎂</span>
+                          <span class="tbk-slot-fresh__txt"><b>We bake it fresh for you!</b><small>Your cake is freshly prepared after you place the order to ensure the best taste and quality.</small></span>
+                        </div>
+                        <div class="tbk-fancy-pop__foot tbk-fancy-pop__foot--weight">
+                          <span>🛡 Freshly Baked<small>After You Order</small></span>
+                          <span>📦 Safe &amp; Secure<small>Packaging</small></span>
+                          <span>🚚 On-Time<small>Delivery</small></span>
+                        </div>
+                        <div class="tbk-date-actions">
+                          <button type="button" class="tbk-date-clear" data-date-clear="{{ section.id }}">Clear</button>
+                          <button type="button" class="tbk-date-confirm" data-date-confirm="{{ section.id }}">Confirm Date</button>
+                        </div>
+                      </div>
+                    </div>
                 </div>
-                  <p id="date-error-{{ section.id }}" style="color:#DD137B; background-color:#e8e6e7; border-radius: 30px; margin-top: 10px; padding: 5px; display:none;font-size:14px;" align="center">
+                <div class="hdt-product-form_value is-type-block">
+                    <label class="hdt-product-form__label hdt-s-text">Delivery Time Slot</label>
+                    <button type="button" class="tbk-slot-trigger" data-slot-trigger="{{ section.id }}" aria-haspopup="dialog">
+                      <span data-slot-display></span>
+                    </button>
+                    <input type="hidden" form="{{ product_form_id }}" id="delivery-slot-{{ section.id }}" name="properties[Delivery Time Slot]" data-slot-input="{{ section.id }}">
+
+                    <div class="tbk-slot-modal" data-slot-modal="{{ section.id }}" hidden>
+                      <div class="tbk-slot-modal__ov" data-slot-close="{{ section.id }}"></div>
+                      <div class="tbk-slot-modal__sheet" role="dialog" aria-modal="true" aria-label="Choose delivery time slot">
+                        <button type="button" class="tbk-slot-modal__x" data-slot-close="{{ section.id }}" aria-label="Close">✕</button>
+                        <div class="tbk-fancy-pop__head">
+                          <div class="tbk-fancy-pop__title"><span class="tbk-fancy-pop__flor" aria-hidden="true">❧</span>Choose Delivery Time Slot<span class="tbk-fancy-pop__flor" aria-hidden="true">❦</span></div>
+                          <div class="tbk-fancy-pop__sub">We deliver fresh, right on time!</div>
+                          <div class="tbk-fancy-pop__crown" aria-hidden="true"><i></i><svg viewBox="0 0 24 24" fill="none" stroke="#C9A227" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M3 8.5l4.3 3.5L12 5l4.7 7 4.3-3.5-1.8 10.5H4.8z"/></svg><i></i></div>
+                        </div>
+                        <div class="tbk-fancy-pop__banner">
+                          <span class="tbk-fancy-pop__banner-txt"><b>All time slots are same-day delivery.</b><br>Timely delivery, every time.</span>
+                          <span class="tbk-fancy-pop__banner-badge">🛡 On-Time Delivery</span>
+                        </div>
+                        <div class="tbk-slot-list">
+                          {%- assign slots = "11:00 AM - 1:00 PM|☀️|Ideal for morning celebrations|1,1:00 PM - 3:00 PM|🍽️|Perfect for lunch time|0,3:00 PM - 5:00 PM|⛅|Great for afternoon events|0,5:00 PM - 7:00 PM|🌇|Ideal for evening gatherings|0,7:00 PM - 9:00 PM|🌙|Perfect for dinner celebrations|0" | split: "," -%}
+                          {%- for s in slots -%}
+                            {%- assign p = s | split: "|" -%}
+                            <button type="button" class="tbk-fancy-opt tbk-slot-opt" data-slot-value="{{ p[0] }}" data-slot-pick="{{ section.id }}">
+                              <span class="tbk-fancy-opt__ico" aria-hidden="true">{{ p[1] }}</span>
+                              <span class="tbk-wt__main">
+                                <span class="tbk-slot-time">{{ p[0] }}</span>
+                                {%- if p[3] == "1" -%}<span class="tbk-slot-badge">★ Most Popular</span>{%- endif -%}
+                                <span class="tbk-wt__desc">{{ p[2] }}</span>
+                              </span>
+                              <span class="tbk-fancy-opt__radio" aria-hidden="true"></span>
+                            </button>
+                          {%- endfor -%}
+                        </div>
+                        <div class="tbk-slot-fresh">
+                          <span class="tbk-slot-fresh__ico" aria-hidden="true">🎂</span>
+                          <span class="tbk-slot-fresh__txt"><b>Freshly Made, Just for You</b><small>Your cake is freshly prepared after you place the order to ensure the best taste and quality.</small></span>
+                        </div>
+                        <div class="tbk-fancy-pop__foot tbk-fancy-pop__foot--weight">
+                          <span>🛡 Safe &amp; Secure<small>Packaging</small></span>
+                          <span>🚚 On-Time<small>Delivery</small></span>
+                          <span>❤ Made with<small>Love</small></span>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+              </div>
+                <div class="hdt-product-form_value is-type-block">
+                    <label class="hdt-product-form__label hdt-s-text" for="cake-message-{{ section.id }}">Cake Message</label>
+                    <input form="{{ product_form_id }}" type="text" id="cake-message-{{ section.id }}" name="properties[Cake Message]" placeholder="Add a message for the cake" maxlength="80">
+                </div>
+                <p id="date-error-{{ section.id }}" style="color:#DD137B; background-color:#e8e6e7; border-radius: 12px; margin-top: 10px; padding: 8px; display:none;font-size:14px;" align="center">
                     ** Note: Please select a valid date (today to 30 days ahead).
-                  </p>
+                </p>
             </div>
+
+            <script>
+            (function(){
+              function closeAll(){ document.querySelectorAll('.tbk-slot-modal').forEach(function(m){ m.hidden = true; }); document.body.style.overflow=''; }
+              document.addEventListener('click', function(e){
+                var trig = e.target.closest('[data-slot-trigger]');
+                if(trig){ var id = trig.getAttribute('data-slot-trigger'); var m = document.querySelector('[data-slot-modal="'+id+'"]'); if(m){ m.hidden=false; document.body.style.overflow='hidden'; } return; }
+                if(e.target.closest('[data-slot-close]')){ closeAll(); return; }
+                var pick = e.target.closest('[data-slot-pick]');
+                if(pick){
+                  var id = pick.getAttribute('data-slot-pick');
+                  var val = pick.getAttribute('data-slot-value');
+                  var input = document.querySelector('[data-slot-input="'+id+'"]');
+                  var trg = document.querySelector('[data-slot-trigger="'+id+'"]');
+                  if(input) input.value = val;
+                  if(trg){ var d = trg.querySelector('[data-slot-display]'); if(d) d.textContent = val; }
+                  var modal = document.querySelector('[data-slot-modal="'+id+'"]');
+                  if(modal){ modal.querySelectorAll('[data-slot-pick]').forEach(function(b){ b.setAttribute('aria-selected','false'); }); pick.setAttribute('aria-selected','true'); }
+                  closeAll();
+                }
+              });
+            })();
+            </script>
+
+            <script>
+            (function(){
+              var SID = "{{ section.id }}";
+              var picked = {};
+              function val(sel){ var el=document.querySelector(sel); return el ? (el.value||'').trim() : ''; }
+              // query the summary element LIVE each time (it lives after this script in the DOM)
+              function set(k,v){ var el=document.querySelector('[data-summary="'+SID+'"] [data-sum="'+k+'"]'); if(el) el.textContent = (v && v.length) ? v : '—'; }
+              function optVal(idx){
+                if(picked[idx]) return picked[idx];
+                var b=document.querySelector('.tbk-product-content [data-index="'+idx+'"] .hdt-select');
+                var t=b?(b.textContent||'').trim():'';
+                if(t && t.toLowerCase()!=='choose an option') return t;
+                var inp=document.querySelector('.tbk-product-content input[name="option'+(idx+1)+'"]');
+                return inp?(inp.value||'').trim():'';
+              }
+              function servings(w){
+                if(!w) return '';
+                var n=w.split(' ')[0];
+                var map={'1':'6-8','1.5':'10-12','2':'14-16','2.5':'18-20','3':'22-26'};
+                return map[n]?(w+' (Serves '+map[n]+' Guests)'):w;
+              }
+              function fmtDate(v){
+                if(!v) return '';
+                var d=new Date(v+'T00:00:00'); if(isNaN(d.getTime())) return v;
+                var days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+                var mo=['January','February','March','April','May','June','July','August','September','October','November','December'];
+                return d.getDate()+' '+mo[d.getMonth()]+' '+d.getFullYear()+' ('+days[d.getDay()]+')';
+              }
+              function update(){
+                set('flavor', optVal(0));
+                set('weight', servings(optVal(1)));
+                set('date', fmtDate(val('#delivery-date-'+SID)));
+                set('slot', val('[data-slot-input="'+SID+'"]'));
+                set('message', val('#cake-message-'+SID));
+                var r=document.getElementById('reference-image-'+SID);
+                set('reference', (r && r.files && r.files.length) ? 'Uploaded' : '');
+              }
+              // Record the option the customer picks — via the popover id, so it works
+              // even if the popover is moved out of the content (portaled to body).
+              document.addEventListener('click', function(e){
+                var opt=e.target.closest('.tbk-fancy-opt'); if(!opt) return;
+                var pop=opt.closest('[id^="variant-popover"]'); if(!pop) return;
+                var m=pop.id.match(/-(\d+)$/); if(!m) return;
+                var nm=opt.querySelector('.tbk-fancy-opt__name')||opt.querySelector('.tbk-wt__name');
+                picked[m[1]]=opt.getAttribute('value')||(nm?nm.textContent.trim():'');
+                setTimeout(update,30);
+              }, true);
+              document.addEventListener('input', update, true);
+              document.addEventListener('change', update, true);
+              document.addEventListener('click', function(){ setTimeout(update, 60); }, true);
+              setInterval(update, 800);
+              if(document.readyState!=='loading'){ update(); } else { document.addEventListener('DOMContentLoaded', update); }
+
+              // Reference image: filename + thumbnail preview + remove
+              document.addEventListener('change', function(e){
+                var inp = e.target.closest('.tbk-refup__input'); if(!inp) return;
+                var wrap = inp.closest('.tbk-refup'); if(!wrap) return;
+                var nm = wrap.querySelector('[data-refup-name]');
+                var th = wrap.querySelector('[data-refup-thumb]');
+                var x = wrap.querySelector('[data-refup-clear]');
+                if(inp.files && inp.files[0]){
+                  nm.textContent = inp.files[0].name;
+                  try{ th.src = URL.createObjectURL(inp.files[0]); th.hidden = false; }catch(err){}
+                  x.hidden = false;
+                }
+              }, true);
+              document.addEventListener('click', function(e){
+                var x = e.target.closest('[data-refup-clear]'); if(!x) return;
+                e.preventDefault();
+                var wrap = x.closest('.tbk-refup'); if(!wrap) return;
+                var inp = wrap.querySelector('.tbk-refup__input'); if(inp) inp.value='';
+                var nm = wrap.querySelector('[data-refup-name]'); if(nm) nm.textContent='Choose file';
+                var th = wrap.querySelector('[data-refup-thumb]'); if(th){ th.hidden=true; th.removeAttribute('src'); }
+                x.hidden = true;
+                update();
+              }, true);
+
+              // Guard (delegated submit — the cart form is added to the DOM after this script)
+              document.addEventListener('submit', function(e){
+                var form=e.target;
+                if(!form || !form.matches || !form.matches('form[action*="/cart/add"]')) return;
+                var miss=[];
+                if(!optVal(0)) miss.push('Flavor');
+                if(!optVal(1)) miss.push('Weight');
+                if(!val('#delivery-date-'+SID)) miss.push('Delivery Date');
+                if(!val('[data-slot-input="'+SID+'"]')) miss.push('Delivery Time Slot');
+                if(miss.length){ e.preventDefault(); e.stopPropagation(); alert('Please select: '+miss.join(', ')); }
+              }, true);
+            })();
+            </script>
+
+            <script>
+            (function(){
+              var SID = "{{ section.id }}";
+              var view=null, tentative=null;
+              var MON=['January','February','March','April','May','June','July','August','September','October','November','December'];
+              var DY=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+              function pad(n){ return n<10?('0'+n):(''+n); }
+              function ymd(d){ return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate()); }
+              function today(){ var d=new Date(); d.setHours(0,0,0,0); return d; }
+              function addDays(d,n){ var x=new Date(d); x.setDate(x.getDate()+n); return x; }
+              function fmt(iso){ var d=new Date(iso+'T00:00:00'); return d.getDate()+' '+MON[d.getMonth()]+' '+d.getFullYear()+' ('+DY[d.getDay()]+')'; }
+              function q(sel){ return document.querySelector(sel); }
+              function render(){
+                var g=q('[data-cal-grid="'+SID+'"]'); if(!g||!view) return;
+                var y=view.getFullYear(), m=view.getMonth();
+                var mo=q('[data-date-modal="'+SID+'"] [data-cal-month]'); if(mo) mo.textContent=MON[m]+' '+y;
+                var startDow=(new Date(y,m,1).getDay()+6)%7;
+                var daysIn=new Date(y,m+1,0).getDate();
+                var prevDays=new Date(y,m,0).getDate();
+                var min=today(), max=addDays(min,30);
+                var html='';
+                for(var i=startDow-1;i>=0;i--){ html+='<button type="button" class="tbk-cal-cell is-out" disabled>'+(prevDays-i)+'</button>'; }
+                for(var d=1;d<=daysIn;d++){
+                  var cur=new Date(y,m,d); cur.setHours(0,0,0,0);
+                  var dis=cur<min||cur>max; var iso=ymd(cur);
+                  var wknd=(cur.getDay()===0||cur.getDay()===6);
+                  var sel=(tentative===iso);
+                  html+='<button type="button" class="tbk-cal-cell'+(dis?' is-disabled':'')+(wknd?' is-wknd':'')+(sel?' is-sel':'')+'"'+(dis?' disabled':' data-cal-day="'+iso+'"')+'>'+d+'</button>';
+                }
+                var trail=(7-((startDow+daysIn)%7))%7;
+                for(var t=1;t<=trail;t++){ html+='<button type="button" class="tbk-cal-cell is-out" disabled>'+t+'</button>'; }
+                g.innerHTML=html;
+              }
+              function open(){
+                var m=q('[data-date-modal="'+SID+'"]'); if(!m) return;
+                var inp=q('[data-date-input="'+SID+'"]');
+                tentative=(inp&&inp.value)?inp.value:null;
+                var base=tentative?new Date(tentative+'T00:00:00'):today();
+                view=new Date(base.getFullYear(), base.getMonth(), 1);
+                render(); m.hidden=false; document.body.style.overflow='hidden';
+              }
+              function close(){ var m=q('[data-date-modal="'+SID+'"]'); if(m) m.hidden=true; document.body.style.overflow=''; }
+              document.addEventListener('click', function(e){
+                if(e.target.closest('[data-date-trigger="'+SID+'"]')){ open(); return; }
+                if(e.target.closest('[data-date-close="'+SID+'"]')){ close(); return; }
+                if(e.target.closest('[data-cal-prev="'+SID+'"]')){ view=new Date(view.getFullYear(),view.getMonth()-1,1); render(); return; }
+                if(e.target.closest('[data-cal-next="'+SID+'"]')){ view=new Date(view.getFullYear(),view.getMonth()+1,1); render(); return; }
+                var day=e.target.closest('[data-cal-day]'); if(day){ tentative=day.getAttribute('data-cal-day'); render(); return; }
+                if(e.target.closest('[data-date-clear="'+SID+'"]')){
+                  tentative=null; var inp=q('[data-date-input="'+SID+'"]'); if(inp) inp.value='';
+                  var disp=q('[data-date-trigger="'+SID+'"] [data-date-display]'); if(disp) disp.textContent=''; render(); return;
+                }
+                if(e.target.closest('[data-date-confirm="'+SID+'"]')){
+                  if(tentative){ var inp=q('[data-date-input="'+SID+'"]'); if(inp) inp.value=tentative;
+                    var disp=q('[data-date-trigger="'+SID+'"] [data-date-display]'); if(disp) disp.textContent=fmt(tentative); }
+                  close(); return;
+                }
+              }, true);
+            })();
+            </script>
 
             {%- when 'buy_buttons' -%}
            
@@ -354,7 +622,34 @@
       | append: product.url
     %}
 
-    
+    <div class="tbk-addtocart-row">
+  {% render 'buy-buttons',
+  product: product,
+  block: block,
+  product_form_id: product_form_id,
+  show_hamper_addons: false
+%}
+    </div>
+
+    <a href="https://wa.me/918218862928?text={{ whatsapp_message }}"
+       class="tbk-whatsapp-btn"
+       target="_blank" rel="noopener"
+       aria-label="Customize on WhatsApp">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><path d="M16 2.67C8.65 2.67 2.67 8.65 2.67 16c0 2.35.61 4.56 1.68 6.48L2.5 29.33l7.02-1.84c1.84 1.01 3.95 1.59 6.46 1.59 7.35 0 13.33-5.98 13.33-13.33S23.35 2.67 16 2.67zm0 24.22c-2.25 0-4.33-.66-6.08-1.8l-.43-.27-4.16 1.09 1.11-4.06-.28-.44c-1.17-1.8-1.79-3.9-1.79-6.14 0-6.25 5.08-11.33 11.33-11.33s11.33 5.08 11.33 11.33-5.08 11.33-11.33 11.33z"/><path d="M19.11 17.93c-.27-.14-1.6-.79-1.85-.88-.25-.09-.43-.14-.61.14-.18.27-.7.88-.86 1.06-.16.18-.32.2-.59.07-.27-.14-1.13-.42-2.16-1.33-.8-.71-1.34-1.59-1.5-1.86-.16-.27-.02-.42.12-.56.12-.12.27-.32.41-.48.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.14-.61-1.47-.84-2.01-.22-.53-.45-.46-.61-.47-.16-.01-.34-.01-.52-.01s-.48.07-.73.34c-.25.27-.96.94-.96 2.29s.99 2.66 1.13 2.84c.14.18 1.95 2.98 4.72 4.18.66.29 1.17.46 1.57.59.66.21 1.26.18 1.73.11.53-.08 1.6-.65 1.83-1.27.23-.62.23-1.16.16-1.27-.07-.11-.25-.18-.52-.32z"/></svg>
+      <span>WhatsApp Customization</span>
+    </a>
+
+    <div class="tbk-love">
+      <div class="tbk-love__col">
+        <div class="tbk-love__title">Why Customers Love Us</div>
+        <div class="tbk-love__items">
+          <div class="tbk-love__item"><span class="tbk-love__ico">❤️</span><b>20,000+</b><small>Happy Customers</small></div>
+          <div class="tbk-love__item"><span class="tbk-love__ico"><span class="tbk-love__zomato">zomato</span></span><b>Top Rated</b><small>Bakery in Meerut</small></div>
+          <div class="tbk-love__item"><span class="tbk-love__ico"><svg class="tbk-love__gsvg" viewBox="0 0 24 24" aria-hidden="true"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg></span><b>4.9 ★</b><small>Google Rating</small></div>
+          <div class="tbk-love__item"><span class="tbk-love__ico">👥</span><b>Experienced</b><small>Cake Artists</small></div>
+        </div>
+      </div>
+    </div>
 
   </div>
 
@@ -580,6 +875,20 @@
               <div class="hdt-product-info__item" data-type="{{ block.type }}" {{ block.shopify_attributes }}>{{ block.settings.custom_liquid }}</div>
             {%- endcase -%}
         {%- endfor -%}
+        </div>
+      </div>
+      <div class="tbk-extras">
+        <div class="tbk-summary" data-summary="{{ section.id }}">
+          <div class="tbk-summary__head">✓ YOUR SELECTION</div>
+          <div class="tbk-summary__rows">
+            <div class="tbk-summary__row"><span class="tbk-summary__ico">🎂</span><span class="tbk-summary__label">Cake</span><span class="tbk-summary__val">{{ product.title }}</span></div>
+            <div class="tbk-summary__row"><span class="tbk-summary__ico">🧁</span><span class="tbk-summary__label">Flavor</span><span class="tbk-summary__val" data-sum="flavor">—</span></div>
+            <div class="tbk-summary__row"><span class="tbk-summary__ico">⚖️</span><span class="tbk-summary__label">Weight</span><span class="tbk-summary__val" data-sum="weight">—</span></div>
+            <div class="tbk-summary__row"><span class="tbk-summary__ico">📅</span><span class="tbk-summary__label">Delivery Date</span><span class="tbk-summary__val" data-sum="date">—</span></div>
+            <div class="tbk-summary__row"><span class="tbk-summary__ico">🕐</span><span class="tbk-summary__label">Delivery Slot</span><span class="tbk-summary__val" data-sum="slot">—</span></div>
+            <div class="tbk-summary__row"><span class="tbk-summary__ico">💬</span><span class="tbk-summary__label">Cake Message</span><span class="tbk-summary__val" data-sum="message">—</span></div>
+          </div>
+          <div class="tbk-summary__foot">💚 100% Eggless&nbsp; • &nbsp;Freshly Baked After You Order&nbsp; • &nbsp;On-Time Delivery</div>
         </div>
       </div>
     </div>
@@ -813,7 +1122,7 @@ document.addEventListener("DOMContentLoaded", function() {
   "@type": "Product",
   "@id": "{{ shop.url }}{{ product.url }}",
   "name": "{{ product.title | escape }}",
-  "description": "{{ product.description | strip_html | escape }}",
+  "description": {{ product.description | strip_html | json }},
   "image": [
     {% for image in product.images %}
       "{{ image | image_url: width: 1200 }}"{% unless forloop.last %},{% endunless %}
@@ -951,11 +1260,694 @@ width:100%;
 
 }
 
+/* Sprint 2.2 — premium hero layout (authoritative override) */
+.tbk-premium-product{
+  display:grid;
+  grid-template-columns:45% 55%;
+  gap:32px;
+  align-items:start;
+}
+.tbk-product-gallery{
+  width:100%;
+  position:sticky;
+  top:120px;
+}
+.tbk-product-content{
+  width:100%;
+  max-width:none;
+}
+@media(max-width:768px){
+  .tbk-premium-product{
+    display:grid !important;
+    grid-template-columns:40% 60% !important;
+    gap:16px !important;
+    align-items:start !important;
+  }
+  .tbk-product-gallery{
+    position:relative !important;
+    top:auto !important;
+    width:100% !important;
+    max-width:100% !important;
+    margin-bottom:0 !important;
+  }
+  .tbk-product-content{
+    width:100% !important;
+    max-width:100% !important;
+    margin:0 !important;
+  }
+  .tbk-product-gallery img{
+    max-width:100% !important;
+    height:auto !important;
+  }
+}
+
+/* Phase C — premium gallery card (layout only) */
+.tbk-gallery-main{
+  position:relative;
+  border-radius:20px;
+  overflow:hidden;
+}
+.tbk-gallery-overlay{
+  position:absolute;
+  top:0; left:0; right:0;
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  padding:12px;
+  pointer-events:none;
+}
+.tbk-wishlist{
+  pointer-events:auto;
+  margin-left:auto;
+}
+
+/* Sprint D2 — premium purchase panel styling (CSS only, scoped to the panel) */
+
+/* Luxury typography hierarchy */
+.tbk-product-content .hdt-product__title{
+  font-family:var(--tbk-font-display);
+  font-size:clamp(28px, 3.4vw, 40px);
+  line-height:1.12;
+  font-weight:600;
+  letter-spacing:-0.01em;
+  margin:0;
+}
+.tbk-product-content .hdt-product__price{
+  font-size:clamp(20px, 2.4vw, 26px);
+  font-weight:700;
+  letter-spacing:-0.01em;
+}
+.tbk-product-content .hdt-product-form__label,
+.tbk-product-content .hdt-quantity__label{
+  font-size:12px;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  opacity:.7;
+}
+
+/* Equal, luxury spacing between sections */
+.tbk-product-content .hdt-product-info__item{
+  margin:0 0 18px;
+}
+
+/* Full-width, rounded selectors / inputs */
+.tbk-product-content select,
+.tbk-product-content .hdt-select,
+.tbk-product-content .tbk-delivery-container,
+.tbk-product-content input[type="date"],
+.tbk-product-content input[type="file"]{
+  width:100%;
+  max-width:100%;
+  border-radius:12px;
+}
+
+/* Full-width Add To Cart (+ dynamic checkout), rounded */
+.tbk-product-content .tbk-addtocart-row,
+.tbk-product-content .hdt-product-form__buttons,
+.tbk-product-content .shopify-payment-button{
+  width:100%;
+  max-width:100%;
+}
+.tbk-product-content .hdt-product-form__buttons{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+.tbk-product-content .hdt-product-form__submit{
+  width:100%;
+  border-radius:12px;
+  min-height:44px;
+  height:44px;
+  font-size:14px;
+}
+
+/* WhatsApp CTA — outlined green, matches design spec (sits under Add to Cart) */
+.tbk-product-content .tbk-whatsapp-btn{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  width:100%;
+  min-height:44px;
+  height:44px;
+  margin-top:8px;
+  border-radius:12px;
+  background:#fff;
+  border:1.5px solid #25D366;
+  color:#128C4B;
+  font-weight:700;
+  font-size:14px;
+  white-space:nowrap;
+  text-decoration:none;
+  box-shadow:none !important;
+  filter:none !important;
+}
+.tbk-product-content .tbk-whatsapp-btn svg{ width:18px; height:18px; flex:0 0 auto; }
+.tbk-product-content .tbk-whatsapp-btn:hover{
+  background:#25D366;
+  color:#fff;
+}
+.tbk-product-content .tbk-whatsapp-btn svg{
+  flex:0 0 auto;
+}
+
+/* Feature 1 — Hero gallery: style Shopify's NATIVE thumbnails & arrows (CSS only; DOM/JS untouched) */
+
+/* Native slider arrows -> premium circular buttons */
+.tbk-product-gallery .hdt-slider__button{
+  width:40px;
+  height:40px;
+  border-radius:999px;
+  background:var(--tbk-surface-el, #fff);
+  border:1px solid var(--tbk-border, rgba(0,0,0,.1));
+  color:var(--tbk-ink, #1A0810);
+}
+
+/* Native thumbnails -> rounded, larger, with on-brand active highlight */
+.tbk-product-gallery .hdt-thumbnail__media{
+  border-radius:12px;
+  overflow:hidden;
+  cursor:pointer;
+  width:66px !important;
+  min-width:66px !important;
+}
+@media(max-width:768px){
+  .tbk-product-gallery .hdt-thumbnail__media{ width:50px !important; min-width:50px !important; }
+}
+.tbk-product-gallery .hdt-thumbnail__media .hdt-ratio{
+  border-radius:12px;
+}
+.tbk-product-gallery .hdt-thumbnail__media.is-thumb-selected{
+  outline:2px solid var(--tbk-pink, #C01457);
+  outline-offset:2px;
+}
+
+/* TBK — clean purchase-panel fields (Flavor / Weight / Delivery) to match design spec */
+.tbk-product-content .hdt-variant-picker .hdt-product-form__label,
+.tbk-product-content .delivery-options label{
+  text-transform:none;
+  letter-spacing:.01em;
+  font-size:13px;
+  font-weight:500;
+  color:#8a7f85;
+  opacity:1;
+  margin-bottom:6px;
+}
+.tbk-product-content .delivery-options label{ display:block; text-align:left; }
+.tbk-product-content .delivery-options .hdt-product-form_value.is-type-block{
+  border:none;
+  padding:0;
+  text-align:left;
+  border-radius:0;
+}
+.tbk-product-content .hdt-variant-picker .hdt-select,
+.tbk-product-content .delivery-options select,
+.tbk-product-content .delivery-options input[type="date"],
+.tbk-product-content .delivery-options input[type="file"]{
+  width:100%;
+  min-height:56px;
+  background:#fff;
+  border:1px solid #E9E9E9;
+  border-radius:12px;
+  color:#1A0810;
+  font-size:15px;
+  box-shadow:none;
+}
+.tbk-product-content .delivery-options select,
+.tbk-product-content .delivery-options input[type="date"],
+.tbk-product-content .delivery-options input[type="file"]{
+  padding:0 16px;
+}
+.tbk-product-content .hdt-variant-picker .hdt-select{
+  display:flex;
+  align-items:center;
+  padding-inline-start:16px;
+  padding-inline-end:44px; /* room for chevron */
+}
+/* pink border only when the field is open/focused (selected), not on hover */
+.tbk-product-content .hdt-variant-picker .hdt-select[aria-expanded="true"],
+.tbk-product-content .delivery-options select:focus,
+.tbk-product-content .delivery-options input[type="date"]:focus{
+  border-color:#C01457;
+}
+.tbk-product-content .hdt-variant-picker fieldset,
+.tbk-product-content .delivery-options .hdt-product-form_value{
+  margin-bottom:14px;
+}
+
+/* TBK — mobile single-column (authoritative; overrides the older 2-column
+   grid rules above). Gallery stacks full-width on top, panel full-width below. */
+@media(max-width:768px){
+  .tbk-premium-product{
+    display:block !important;
+    grid-template-columns:1fr !important;
+    gap:0 !important;
+  }
+  .tbk-product-gallery{
+    position:relative !important;
+    top:auto !important;
+    width:100% !important;
+    max-width:100% !important;
+    margin:0 0 20px !important;
+  }
+  .tbk-product-content{
+    width:100% !important;
+    max-width:100% !important;
+    margin:0 !important;
+  }
+}
+
 </style>
 
 
 {% endcase %}
 {% endfor %}
+<style>
+/* TBK — mobile layout (inline & standalone; refreshes with the page, own
+   <style> so the file's broken @media nesting can't swallow it, and
+   .hdt-container specificity beats the inline rules).
+   2-column grid: image left, ALL purchase content in one right column so
+   title / price / chips / Flavor / Weight / delivery share the SAME width
+   and align (symmetry). Chips sit on one small row above Flavor. */
+@media (max-width:768px){
+  /* trim the space above the product */
+  #shopify-section-{{ section.id }}{ --section-pt:2px !important; --section-pb:24px !important; }
+
+  .hdt-container .tbk-premium-product{
+    display:grid !important;
+    grid-template-columns:35% 65% !important;
+    gap:10px !important;
+    align-items:start !important;
+  }
+  .hdt-container .tbk-product-gallery{
+    float:none !important;
+    position:static !important;
+    top:auto !important;
+    width:100% !important;
+    max-width:100% !important;
+    margin:0 !important;
+  }
+  .hdt-container .tbk-product-content{
+    display:block !important;
+    width:auto !important;
+    max-width:none !important;
+    margin:0 !important;
+    grid-column:2 !important;
+    grid-row:1 !important;
+  }
+  /* Delivery Time Slot box = same height as Delivery Date box */
+  .hdt-container .delivery-options .tbk-slot-trigger{
+    min-height:42px !important;
+    height:42px !important;
+    font-size:14px !important;
+    padding-top:0 !important;
+    padding-bottom:0 !important;
+  }
+  /* promise card lives in the left (gallery) column below the image; compact
+     (icon + short title only) so it fills the space beside the buttons */
+  .hdt-container .tbk-promise{ margin-top:10px !important; padding:8px !important; }
+  .hdt-container .tbk-promise__title{ font-size:9px !important; margin:0 0 4px !important; letter-spacing:.02em !important; }
+  .hdt-container .tbk-promise__row{ padding:3px 0 !important; gap:6px !important; align-items:center !important; }
+  .hdt-container .tbk-promise__ico{ width:20px !important; height:20px !important; font-size:12px !important; }
+  .hdt-container .tbk-promise__txt b{ font-size:10.5px !important; line-height:1.1 !important; }
+  .hdt-container .tbk-promise__txt small{ display:none !important; }
+  .hdt-container .tbk-promise__foot{ display:none !important; }
+
+  /* small title */
+  .hdt-container .tbk-product-content .hdt-product-info__item{ margin:0 0 6px !important; }
+  .hdt-container .tbk-product-content .hdt-product__title{
+    font-size:16px !important;
+    line-height:1.18 !important;
+    margin-bottom:2px !important;
+  }
+  /* price = same size as the title but BOLD */
+  .hdt-container .tbk-product-content .hdt-product__price,
+  .hdt-container .tbk-product-content .hdt-product__price *{
+    font-size:16px !important;
+    font-weight:700 !important;
+    line-height:1.2 !important;
+  }
+  .hdt-container .tbk-product-content .hdt-product__price{ margin-bottom:3px !important; }
+
+  /* trust chips: small, all three on ONE line just above Flavor */
+  .hdt-container .tbk-product-content .trust-pills{
+    display:flex !important;
+    flex-wrap:nowrap !important;
+    gap:4px !important;
+    margin:1px 0 4px !important;
+  }
+  .hdt-container .tbk-product-content .trust-pills span{
+    flex:1 1 0 !important;
+    min-width:0 !important;
+    font-size:9px !important;
+    padding:5px 3px !important;
+    white-space:nowrap !important;
+    text-align:center !important;
+    overflow:hidden !important;
+    text-overflow:ellipsis !important;
+  }
+
+  /* EQUAL gaps: Flavor<->Weight matches Date<->Time. Normalize the fieldset
+     and delivery-value boxes so each field block has the same outer margin
+     and no extra internal padding. */
+  .hdt-container .tbk-product-content .hdt-product-info__item{ margin:0 0 4px !important; }
+  /* Flavor/Weight and Date/Time all side-by-side on mobile (placeholder
+     text removed so they fit in the narrow halves) */
+  .hdt-container .tbk-product-content .hdt-variant-picker,
+  .hdt-container .tbk-product-content .tbk-date-time-row{
+    gap:8px !important;
+  }
+  .hdt-container .tbk-product-content .hdt-variant-picker fieldset{
+    margin:0 0 4px !important;
+    padding:0 !important;
+    border:0 !important;
+  }
+  .hdt-container .tbk-product-content .delivery-options .hdt-product-form_value{
+    margin:0 0 4px !important;
+    padding:0 !important;
+  }
+  .hdt-container .tbk-product-content .hdt-variant-picker legend,
+  .hdt-container .tbk-product-content .hdt-variant-picker .hdt-product-form__label,
+  .hdt-container .tbk-product-content .delivery-options label{
+    font-size:11px !important;
+    margin:0 0 3px !important;
+    padding:0 !important;
+  }
+  .hdt-container .tbk-product-content .hdt-variant-picker .hdt-select,
+  .hdt-container .tbk-product-content .delivery-options select,
+  .hdt-container .tbk-product-content .delivery-options input[type="date"],
+  .hdt-container .tbk-product-content .delivery-options input[type="text"]{
+    min-height:42px !important;
+    font-size:14px !important;
+  }
+  .hdt-container .delivery-options .hdt-product-form_value{
+    display:block !important;
+    width:100% !important;
+  }
+  .hdt-container .delivery-options label{ display:block !important; }
+}
+/* remove the date validity note (kept in DOM so the JS doesn't recreate it) */
+#date-error-{{ section.id }}{ display:none !important; }
+
+/* Reference-style field icons: Flavor=cupcake, Weight=scale, Date=calendar,
+   Time=clock (pink, inside each field on the left). Layout unchanged. */
+.tbk-product-content .hdt-product-form__input[data-index="0"] .hdt-select,
+.tbk-product-content .hdt-product-form__input[data-index="1"] .hdt-select,
+.tbk-product-content .delivery-options input[type="date"],
+.tbk-product-content .delivery-options select{
+  background-repeat:no-repeat !important;
+  background-position:14px center !important;
+  background-size:20px 20px !important;
+}
+.tbk-product-content .hdt-product-form__input[data-index="0"] .hdt-select{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C01457' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 11h12l-1.4 9H7.4z'/%3E%3Cpath d='M6 11a3.2 3.2 0 0 1 .8-6.2A3.4 3.4 0 0 1 12 3a3.4 3.4 0 0 1 5.2 1.8A3 3 0 0 1 18 11'/%3E%3C/svg%3E") !important;
+  padding-inline-start:42px !important;
+}
+.tbk-product-content .hdt-product-form__input[data-index="1"] .hdt-select{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C01457' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 20h16'/%3E%3Cpath d='M6 20l1-9h10l1 9'/%3E%3Ccircle cx='12' cy='13' r='2'/%3E%3C/svg%3E") !important;
+  padding-inline-start:42px !important;
+}
+.tbk-product-content .delivery-options input[type="date"]{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C01457' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='4' width='18' height='17' rx='2'/%3E%3Cpath d='M3 9h18M8 3v3M16 3v3'/%3E%3C/svg%3E") !important;
+  padding-left:42px !important;
+}
+.tbk-product-content .delivery-options select{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C01457' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath d='M12 7v5l3 2'/%3E%3C/svg%3E") !important;
+  padding-left:42px !important;
+}
+/* Cake Message text field — same look + message icon */
+.tbk-product-content .delivery-options input[type="text"]{
+  width:100% !important;
+  min-height:56px !important;
+  background:#fff !important;
+  border:1px solid #E9E9E9 !important;
+  border-radius:12px !important;
+  color:#1A0810 !important;
+  font-size:15px !important;
+  box-shadow:none !important;
+  padding:0 16px 0 42px !important;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C01457' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 11.5a8 8 0 0 1-11.6 7.1L3 20.5l1.9-5.6A8 8 0 1 1 21 11.5z'/%3E%3Cpath d='M8.5 10.5h7M8.5 14h4'/%3E%3C/svg%3E") !important;
+  background-repeat:no-repeat !important;
+  background-position:14px center !important;
+  background-size:20px 20px !important;
+}
+.tbk-product-content .delivery-options input[type="text"]:focus{ border-color:#C01457 !important; }
+
+/* Delivery Date + Time Slot side by side */
+.tbk-product-content .tbk-date-time-row{
+  display:flex !important;
+  gap:10px !important;
+}
+.tbk-product-content .tbk-date-time-row > .hdt-product-form_value{
+  flex:1 1 0 !important;
+  width:auto !important;
+  min-width:0 !important;
+}
+
+/* Reference image upload, shown below the gallery image */
+.tbk-reference-upload{ margin-top:12px; }
+.tbk-reference-upload label{ display:block; font-size:13px; font-weight:500; color:#8a7f85; margin-bottom:6px; }
+.tbk-reference-upload input[type="file"]{
+  width:100%;
+  min-height:52px;
+  background:#fff;
+  border:1px solid #E9E9E9;
+  border-radius:12px;
+  color:#1A0810;
+  font-size:14px;
+  padding:12px 16px 12px 42px;
+  box-shadow:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C01457' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 16V4'/%3E%3Cpath d='M7 9l5-5 5 5'/%3E%3Cpath d='M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;
+  background-position:14px center;
+  background-size:20px 20px;
+}
+
+/* Flavor + Weight side by side (variant picker is a flex column by default) */
+.tbk-product-content .hdt-variant-picker{
+  flex-direction:row !important;
+  flex-wrap:wrap !important;
+  gap:10px !important;
+  align-items:start !important;
+}
+.tbk-product-content .hdt-variant-picker > fieldset{
+  flex:1 1 40% !important;
+  min-width:0 !important;
+}
+/* keep dropdown text on ONE line in the narrow side-by-side fields
+   (flex keeps it vertically centered; nowrap+hidden stops the 3-line wrap) */
+.tbk-product-content .hdt-variant-picker .hdt-select{
+  white-space:nowrap !important;
+  overflow:hidden !important;
+  text-overflow:ellipsis !important;
+}
+
+/* Fancy variant popover (reference "Select Your Favorite Flavor" design) */
+.tbk-fancy-pop::part(content){ padding:0 !important; }
+.tbk-fancy-pop__head{ text-align:center; padding:16px 18px 8px; }
+.tbk-fancy-pop__title{
+  font-family:var(--tbk-font-display, "Playfair Display", serif);
+  font-size:20px; font-weight:600; font-style:italic; color:#5a1030; letter-spacing:.01em;
+}
+.tbk-fancy-pop__flor{ color:#C9A227; font-size:17px; margin:0 8px; font-style:normal; display:inline-block; vertical-align:middle; }
+.tbk-fancy-pop__sub{ font-size:12px; color:#9a8a90; margin-top:3px; }
+.tbk-fancy-pop__crown{ display:flex; align-items:center; justify-content:center; gap:10px; margin:9px auto 0; max-width:190px; }
+.tbk-fancy-pop__crown i{ flex:1 1 auto; height:1px; background:linear-gradient(90deg, transparent, #e5c9a0, transparent); }
+.tbk-fancy-pop__crown svg{ width:20px; height:20px; flex:0 0 auto; }
+.tbk-fancy-pop__foot--flavor{ display:flex; align-items:center; gap:12px; text-align:left; }
+.tbk-fancy-pop__foot-ico{ width:40px; height:40px; flex:0 0 auto; display:inline-flex; align-items:center; justify-content:center; background:#fdeef4; border-radius:50%; }
+.tbk-fancy-pop__foot-ico svg{ width:20px; height:20px; }
+.tbk-fancy-pop__foot-txt{ flex:1 1 auto; }
+.tbk-fancy-pop hdt-richlist{
+  display:block; padding:6px 12px; max-height:46vh; overflow-y:auto;
+}
+.tbk-fancy-opt{
+  display:flex !important; align-items:center; gap:12px; width:100%;
+  padding:9px 12px !important; margin:6px 0;
+  background:#fff; border:1px solid #f0e2e8; border-radius:12px;
+  text-align:left; cursor:pointer;
+  transition:border-color .15s ease, box-shadow .15s ease;
+}
+.tbk-fancy-opt:hover{ border-color:#C01457; }
+.tbk-fancy-opt[aria-selected="true"]{ border-color:#C01457; box-shadow:0 0 0 1px #C01457 inset; }
+.tbk-fancy-opt__ico{
+  width:34px; height:34px; flex:0 0 auto;
+  display:inline-flex; align-items:center; justify-content:center; font-size:18px;
+  background:#fff6f9; border:1px solid #f0e2e8; border-radius:50%;
+}
+/* flavor photo icons cropped from the sprite (assets/flavor-icons.png) */
+.tbk-flav{ background-size:400% 200%; background-repeat:no-repeat; background-color:#fff; overflow:hidden; }
+.tbk-fancy-opt__name{ flex:1 1 auto; font-weight:600; font-size:15px; color:#3a1020; }
+.tbk-fancy-opt__radio{
+  width:18px; height:18px; flex:0 0 auto;
+  border:2px solid #d9b9c6; border-radius:50%; position:relative;
+}
+.tbk-fancy-opt[aria-selected="true"] .tbk-fancy-opt__radio{ border-color:#C01457; }
+.tbk-fancy-opt[aria-selected="true"] .tbk-fancy-opt__radio::after{
+  content:""; position:absolute; inset:3px; border-radius:50%; background:#C01457;
+}
+.tbk-fancy-pop__foot{
+  text-align:center; padding:12px 18px 16px; border-top:1px solid #f3e6ec; margin-top:4px;
+}
+.tbk-fancy-pop__foot-main{ display:block; font-size:12px; font-weight:600; color:#7a2147; }
+.tbk-fancy-pop__foot-sub{ display:block; font-size:11px; color:#9a8a90; margin-top:2px; }
+
+/* Weight popover extras (banner, rich rows, custom row, 3-icon footer) */
+.tbk-fancy-pop__banner{
+  display:flex; align-items:center; gap:10px; margin:8px 14px; padding:12px 14px;
+  background:#fdeef4; border-radius:14px;
+}
+.tbk-fancy-pop__banner-txt{ flex:1 1 auto; font-size:12.5px; color:#7a2147; line-height:1.35; }
+.tbk-fancy-pop__banner-badge{
+  flex:0 0 auto; font-size:12px; font-weight:700; color:#C01457;
+  background:#fff; border:1px solid #f3cadb; border-radius:10px; padding:8px 10px; text-align:center;
+}
+.tbk-fancy-opt--weight{ align-items:center !important; gap:10px !important; flex-wrap:nowrap !important; padding:12px 14px !important; }
+.tbk-fancy-opt--weight .tbk-fancy-opt__ico{ width:44px; height:44px; font-size:22px; flex:0 0 auto; }
+.tbk-wt__main{ flex:1 1 auto; display:flex; flex-direction:column; min-width:0; overflow:hidden; }
+.tbk-wt__name{ font-family:var(--tbk-font-display, "Playfair Display", serif); font-size:19px; font-weight:600; color:#5a1030; line-height:1.1; white-space:nowrap; }
+.tbk-wt__desc{ font-size:12px; color:#9a8a90; margin-top:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.tbk-wt__serv{ font-size:11.5px; color:#7a2147; font-weight:600; margin-top:2px; white-space:nowrap; }
+.tbk-wt__right{ flex:0 0 auto; display:flex; align-items:center; gap:8px; }
+.tbk-wt__price{ font-size:15px; font-weight:700; color:#C01457; white-space:nowrap; }
+
+.tbk-fancy-custom{
+  display:flex; align-items:center; gap:12px; margin:8px 12px; padding:12px 14px;
+  background:#fff; border:1px solid #f0e2e8; border-radius:12px; text-decoration:none;
+}
+.tbk-fancy-custom__ico{
+  width:40px; height:40px; flex:0 0 auto; display:inline-flex; align-items:center; justify-content:center;
+  font-size:20px; background:#fdeef4; border-radius:50%;
+}
+.tbk-fancy-custom__txt{ flex:1 1 auto; display:flex; flex-direction:column; min-width:0; }
+.tbk-fancy-custom__txt b{ font-family:var(--tbk-font-display, "Playfair Display", serif); font-size:17px; color:#5a1030; }
+.tbk-fancy-custom__txt small{ font-size:12px; color:#9a8a90; }
+.tbk-fancy-custom__cta{ flex:0 0 auto; font-size:12px; color:#3a1020; text-align:right; }
+.tbk-fancy-custom__cta b{ color:#128C4B; }
+
+.tbk-fancy-pop__foot--weight{ display:flex; gap:6px; justify-content:space-around; }
+.tbk-fancy-pop__foot--weight span{
+  flex:1 1 0; display:flex; flex-direction:column; align-items:center;
+  font-size:11.5px; font-weight:600; color:#7a2147; text-align:center; line-height:1.3;
+}
+.tbk-fancy-pop__foot--weight small{ font-weight:400; color:#9a8a90; }
+
+/* Time slot: trigger button (looks like the other fields) + bottom-sheet modal */
+.tbk-slot-trigger{
+  width:100%; min-height:56px; background:#fff; border:1px solid #E9E9E9; border-radius:12px;
+  color:#1A0810; font-size:15px; text-align:left; cursor:pointer;
+  padding:0 38px 0 42px; position:relative; display:flex; align-items:center;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C01457' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath d='M12 7v5l3 2'/%3E%3C/svg%3E");
+  background-repeat:no-repeat; background-position:14px center; background-size:20px 20px;
+}
+.tbk-slot-trigger::after{ content:""; position:absolute; right:16px; top:50%; width:8px; height:8px; border-right:2px solid #b0a0a8; border-bottom:2px solid #b0a0a8; transform:translateY(-70%) rotate(45deg); }
+.tbk-slot-trigger [data-slot-display]{ white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.tbk-slot-modal{ position:fixed; inset:0; z-index:99999; display:flex; align-items:flex-end; justify-content:center; }
+.tbk-slot-modal[hidden]{ display:none; }
+.tbk-slot-modal__ov{ position:absolute; inset:0; background:rgba(20,8,16,.5); }
+.tbk-slot-modal__sheet{
+  position:relative; width:100%; max-width:640px; max-height:92vh; overflow-y:auto;
+  background:#fff6f9; border-radius:22px 22px 0 0; padding:18px 8px 18px; box-shadow:0 -8px 40px rgba(0,0,0,.25);
+}
+.tbk-slot-modal__x{ position:absolute; top:14px; right:14px; width:34px; height:34px; border-radius:50%; background:#fff; border:1px solid #eee; font-size:13px; color:#7a2147; cursor:pointer; z-index:2; }
+.tbk-slot-list{ padding:6px 12px; }
+.tbk-slot-opt{ align-items:center; }
+.tbk-slot-time{ font-family:var(--tbk-font-display,"Playfair Display",serif); font-size:16px; font-weight:600; color:#5a1030; }
+.tbk-slot-badge{ display:inline-flex; align-items:center; gap:3px; align-self:flex-start; font-size:11px; font-weight:700; color:#C01457; margin:1px 0; }
+.tbk-slot-fresh{ display:flex; gap:12px; align-items:flex-start; margin:8px 12px; padding:12px 14px; background:#fdeef4; border-radius:14px; }
+.tbk-slot-fresh__ico{ font-size:26px; flex:0 0 auto; }
+.tbk-slot-fresh__txt{ display:flex; flex-direction:column; }
+.tbk-slot-fresh__txt b{ font-family:var(--tbk-font-display,"Playfair Display",serif); font-size:16px; color:#5a1030; }
+.tbk-slot-fresh__txt small{ font-size:12px; color:#9a8a90; margin-top:2px; }
+
+/* Delivery date — custom calendar */
+.tbk-date-trigger{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C01457' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='4' width='18' height='17' rx='2'/%3E%3Cpath d='M3 9h18M8 3v3M16 3v3'/%3E%3C/svg%3E") !important;
+}
+.tbk-cal-nav{ display:flex; align-items:center; justify-content:space-between; padding:6px 14px 2px; }
+.tbk-cal-arrow{ width:32px; height:32px; border-radius:50%; border:1px solid #f0e2e8; background:#fff; color:#C01457; font-size:18px; line-height:1; cursor:pointer; }
+.tbk-cal-month{ font-family:var(--tbk-font-display,"Playfair Display",serif); font-weight:600; font-size:16px; color:#3a1020; }
+.tbk-cal-dow{ display:grid; grid-template-columns:repeat(7,1fr); padding:2px 12px 0; }
+.tbk-cal-dow span{ text-align:center; font-size:10px; font-weight:700; color:#C01457; padding:4px 0; }
+.tbk-cal-grid{ display:grid; grid-template-columns:repeat(7,1fr); gap:4px; padding:2px 12px 6px; }
+.tbk-cal-cell{ aspect-ratio:1/1; border:1px solid #f3e6ec; border-radius:10px; background:#fff; color:#3a1020; font-size:13px; cursor:pointer; display:flex; align-items:center; justify-content:center; }
+.tbk-cal-cell.is-wknd{ color:#C01457; }
+.tbk-cal-cell.is-out{ color:#d8c7cf; border-color:transparent; background:transparent; cursor:default; }
+.tbk-cal-cell.is-disabled{ color:#d8c7cf; cursor:default; border-color:#f6eef2; background:#fdfafb; }
+.tbk-cal-cell.is-sel{ background:#C01457 !important; color:#fff !important; border-color:#C01457 !important; font-weight:700; }
+.tbk-cal-cell:not(.is-disabled):not(.is-out):hover{ border-color:#C01457; }
+.tbk-date-actions{ display:flex; gap:10px; padding:8px 14px 4px; }
+.tbk-date-clear{ flex:0 0 auto; min-width:104px; height:44px; border-radius:12px; border:1px solid #f0e2e8; background:#fff; color:#C01457; font-weight:700; font-size:14px; cursor:pointer; }
+.tbk-date-confirm{ flex:1 1 auto; height:44px; border-radius:12px; border:0; background:linear-gradient(135deg,#E0447E,#C01457); color:#fff; font-weight:700; font-size:15px; cursor:pointer; }
+
+/* "Our promise to you" card below the gallery image */
+.tbk-promise{ margin-top:14px; border:1px solid #f3d9a8; border-radius:16px; background:linear-gradient(180deg,#fffaf3,#fff6f9); padding:14px 14px 12px; }
+.tbk-promise__head{ text-align:center; }
+.tbk-promise__head svg{ width:22px; height:22px; }
+.tbk-promise__title{ text-align:center; font-size:12px; font-weight:800; letter-spacing:.08em; color:#C01457; margin:2px 0 10px; }
+.tbk-promise__row{ display:flex; align-items:flex-start; gap:10px; padding:6px 0; border-top:1px solid #f6e7ee; }
+.tbk-promise__row:first-of-type{ border-top:0; }
+.tbk-promise__ico{ width:30px; height:30px; flex:0 0 auto; display:inline-flex; align-items:center; justify-content:center; font-size:15px; background:#fff; border:1px solid #f0e2e8; border-radius:50%; }
+.tbk-promise__txt{ display:flex; flex-direction:column; min-width:0; }
+.tbk-promise__txt b{ font-size:13px; color:#3a1020; font-weight:700; line-height:1.2; }
+.tbk-promise__txt small{ font-size:11.5px; color:#9a8a90; margin-top:1px; }
+.tbk-promise__foot{ margin-top:10px; padding-top:9px; border-top:1px solid #f3e0e8; text-align:center; font-size:11px; color:#C01457; font-weight:600; }
+.tbk-premium-product{ align-items:start; }
+
+/* Selection summary: full width below the product */
+.tbk-extras{ margin-top:2px; display:flex; flex-direction:column; gap:6px; }
+.tbk-summary{ margin-top:0 !important; }
+.tbk-reference-upload{ margin-bottom:0; }
+
+/* page background matches the header cream */
+body{ background:#FDFAF8 !important; }
+.hdt-main-product, .hdt-main-product.hdt-s-gradient{ background:#FDFAF8 !important; }
+
+/* "Why customers love us" + "Perfect for every occasion" trust band */
+.tbk-love{ display:flex; align-items:stretch; gap:12px; border:1px solid #f3d9e4; border-radius:12px; background:#fff; padding:7px 10px; }
+.tbk-love__col{ flex:1 1 0; min-width:0; }
+.tbk-love__sep{ width:1px; background:#f0e2e8; flex:0 0 auto; align-self:stretch; }
+.tbk-love__title{ text-align:center; color:#C01457; font-weight:700; font-size:11px; letter-spacing:.01em; margin-bottom:8px; }
+.tbk-love__items{ display:grid; grid-template-columns:repeat(4,1fr); gap:6px; }
+.tbk-love__items--occ{ grid-template-columns:repeat(5,1fr); }
+.tbk-love__item{ display:flex; flex-direction:column; align-items:center; text-align:center; gap:1px; line-height:1.15; }
+.tbk-love__ico{ font-size:16px; margin-bottom:2px; display:inline-flex; align-items:center; justify-content:center; height:18px; }
+.tbk-love__gsvg{ width:16px; height:16px; }
+.tbk-love__zomato{ background:#E23744; color:#fff; font-size:6.5px; font-weight:800; letter-spacing:.2px; padding:2px 4px; border-radius:3px; line-height:1; text-transform:lowercase; }
+.tbk-love__item b{ font-size:10px; color:#3a1020; }
+.tbk-love__item small{ font-size:8.5px; color:#8a7f85; }
+@media(max-width:768px){
+  .tbk-love{ gap:6px; padding:6px 8px; margin-top:8px; }
+  .tbk-love__title{ font-size:9.5px; margin-bottom:4px; }
+  .tbk-love__items{ gap:3px; }
+  .tbk-love__ico{ font-size:13px; margin-bottom:1px; height:15px; }
+  .tbk-love__item b{ font-size:8.5px; }
+  .tbk-love__item small{ font-size:7.5px; }
+}
+.tbk-extras .tbk-reference-upload{ margin-top:0; }
+.tbk-reference-upload > .hdt-product-form__label{ display:block; margin-bottom:6px; }
+
+/* Custom reference-image upload (icon + filename + thumbnail + remove) */
+.tbk-refup{ position:relative; }
+.tbk-refup__box{ display:flex; align-items:center; gap:7px; min-height:36px; padding:4px 34px 4px 10px; background:#fff; border:1px solid #f3cadb; border-radius:10px; cursor:pointer; }
+.tbk-refup__input{ position:absolute; width:1px; height:1px; opacity:0; overflow:hidden; }
+.tbk-refup__icon{ width:22px; height:22px; flex:0 0 auto; display:inline-flex; align-items:center; justify-content:center; }
+.tbk-refup__icon svg{ width:16px; height:16px; }
+.tbk-refup__name{ flex:1 1 auto; color:#3a1020; font-size:11px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.tbk-refup__thumb{ width:28px; height:28px; flex:0 0 auto; border-radius:6px; object-fit:cover; border:1px solid #f0e2e8; }
+.tbk-refup__x{ position:absolute; right:10px; top:50%; transform:translateY(-50%); width:22px; height:22px; border:0; background:none; color:#C01457; font-size:13px; line-height:1; cursor:pointer; }
+.tbk-reference-upload > .hdt-product-form__label{ display:block !important; margin-bottom:4px !important; font-size:11px !important; color:#8a7f85 !important; font-weight:500 !important; text-transform:none !important; letter-spacing:.01em !important; opacity:1 !important; }
+
+/* "Your selection" live summary card — compact */
+.tbk-summary{ margin-top:0; border:1px solid #f3cadb; border-radius:12px; background:#fff8fb; padding:9px 12px 7px; }
+.tbk-summary__head{ text-align:center; font-weight:800; color:#C01457; font-size:11px; letter-spacing:.03em; margin-bottom:4px; }
+.tbk-summary__row{ display:flex; align-items:center; gap:6px; padding:3px 0; font-size:11.5px; border-top:1px solid #fbeef3; }
+.tbk-summary__row:first-child{ border-top:0; }
+.tbk-summary__ico{ width:16px; flex:0 0 auto; text-align:center; font-size:12px; }
+.tbk-summary__label{ flex:0 0 auto; min-width:80px; color:#7a2147; font-weight:600; }
+.tbk-summary__val{ flex:1 1 auto; color:#3a1020; text-align:right; font-weight:600; word-break:break-word; font-size:11.5px; }
+.tbk-summary__foot{ margin-top:6px; padding-top:6px; border-top:1px solid #f3e0e8; text-align:center; font-size:10px; color:#7a2147; line-height:1.35; }
+</style>
 <!-- TBK Mobile Conversion Cards -->
 
 <div class="tbk-info-grid">
@@ -968,40 +1960,47 @@ width:100%;
     </p>
   </div>
 
-  <div class="tbk-card">
-    <h3>Perfect For</h3>
-    <ul>
-      <li>✓ Birthdays</li>
-      <li>✓ Anniversaries</li>
-      <li>✓ Surprises</li>
-      <li>✓ Special Occasions</li>
-    </ul>
-  </div>
-
-  <div class="tbk-card">
-    <h3>Delivery Information</h3>
-    <ul>
-      <li>✓ Same Day Delivery</li>
-      <li>✓ Midnight Delivery</li>
-      <li>✓ Surprise Delivery</li>
-      <li>✓ Pickup Available</li>
-    </ul>
-  </div>
-
-  <div class="tbk-card">
-    <h3>What Our Customers Say</h3>
-
-    <div class="tbk-review-score">
-      ⭐ 4.8 / 5
+  <div class="tbk-card tbk-card--combo">
+    <div class="tbk-combo__col">
+      <h3>Perfect For</h3>
+      <ul>
+        <li>✓ Birthdays</li>
+        <li>✓ Anniversaries</li>
+        <li>✓ Surprises</li>
+        <li>✓ Special Occasions</li>
+      </ul>
     </div>
-
-    <p>
-      Based on 500+ Google Reviews.
-      Loved for freshness, presentation and timely delivery.
-    </p>
+    <div class="tbk-combo__col">
+      <h3>Delivery Information</h3>
+      <ul>
+        <li>✓ Same Day Delivery</li>
+        <li>✓ Midnight Delivery</li>
+        <li>✓ Surprise Delivery</li>
+        <li>✓ Pickup Available</li>
+      </ul>
+    </div>
   </div>
 
 </div>
+<style>
+/* Compact info cards + combined Perfect For / Delivery Information box */
+.tbk-info-grid .tbk-card{ padding:12px 14px !important; border-radius:12px !important; }
+.tbk-info-grid .tbk-card h3{ font-size:14px !important; margin:0 0 6px !important; }
+.tbk-info-grid .tbk-card ul{ margin:0 !important; padding:0 !important; list-style:none !important; }
+.tbk-info-grid .tbk-card li{ font-size:12px !important; padding:2px 0 !important; }
+.tbk-info-grid .tbk-card p{ font-size:12px !important; margin:0 !important; line-height:1.45 !important; }
+.tbk-card--combo{ display:flex !important; gap:16px !important; }
+.tbk-card--combo .tbk-combo__col{ flex:1 1 0 !important; min-width:0 !important; }
+.tbk-card--combo .tbk-combo__col h3{ font-size:13px !important; }
+@media(max-width:768px){
+  .tbk-info-grid .tbk-card{ padding:10px 12px !important; }
+  .tbk-info-grid .tbk-card h3{ font-size:13px !important; }
+  .tbk-info-grid .tbk-card li{ font-size:11px !important; padding:1px 0 !important; }
+  .tbk-info-grid .tbk-card p{ font-size:11.5px !important; }
+  .tbk-card--combo{ gap:10px !important; }
+  .tbk-card--combo .tbk-combo__col h3{ font-size:12px !important; }
+}
+</style>
 {% schema %}
 {
   "name": "t:sections.main-product.name",
