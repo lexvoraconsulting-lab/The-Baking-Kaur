@@ -49,6 +49,66 @@ Full detail in [docs/CODING_STANDARDS.md](docs/CODING_STANDARDS.md). In short: *
 - Local delivery: Meerut, ~15 km radius, ₹350 minimum order, distance-based fees. Merchant Center shipping is set to **Manual** (decoupled from Shopify shipping profiles).
 - Product descriptions had a mis-assigned "occasion" bug (baby-girl/theme cakes labelled "anniversary"); the Baby Girl collection is fixed, others tracked in `tasks/`.
 
+## Where this project is going
+
+Read this section first when starting a session with no other instruction. It is the standing
+plan — the ideas already agreed, in priority order. Sources: `PROJECT_ROADMAP.md` (detail),
+`tasks/README.md` (open items). Keep this section current; it is the entry point.
+
+### Live defects — fix before anything cosmetic
+
+1. **Wrong `<title>` on the #1 bestseller.** `/products/motu-patlu-designer-birthday-cake-meerut`
+   has an H1 of *Motu Patlu Designer Birthday Cake* but a `<title>` naming a different cake
+   (*Celestial Charm*), plus mojibake. Google shows the wrong product name today. Fix is data-only,
+   no theme deploy. Sweep the full catalogue (1,235 products, `title`/`seo.title`/`seo.description`/
+   `descriptionHtml`) for both faults — the 8 known mojibake drafts and 1 live mismatch surfaced
+   incidentally, assume more. **Repair encoding, never strip.** Never rename a handle here.
+2. **Unverified "★ 4.9 Rated" in the site header** (`tbk_header_main`) — hardcoded, unlinked, and
+   a different number from the hero's already-removed 4.8. Last unverified rating on the storefront.
+   Remove it, or link it to the real Google Business Profile. Needs an explicit go-ahead.
+3. **Occasion mismatch in descriptions** — ~100+ products still labelled "anniversary" wrongly.
+   Tool is written: `seo-ops/fix_description_occasion.py` (dry-run → CSV → `--apply`).
+
+### The build track (Phase A is done and waiting)
+
+Phase A (schema dedup, footer restore) is **validated on preview, not promoted**. Promoting it is
+the cheapest open win. Then B → C → E in that order: design tokens unlock the homepage build,
+which unlocks navigation. D/F/G/H/I/J follow. Product page stays 🔒 throughout.
+
+### Blocked on the client — don't build placeholders
+
+- **Reviews.** 0 verified reviews exist; S5 Social Proof is built and renders nothing. It needs 3.
+  Fabricated testimonials were removed and that route is permanently closed. Fastest path is
+  transcribing existing Google Business Profile reviews with `source_url`; best long-term is
+  Judge.me (verified-buyer, automatic, no gating).
+- **Photography.** Homepage hero is a temporary product shot; S6 Craft Story ships text-only.
+  Every catalogue image carries a Zomato/TWC watermark or a piped customer name; the theme's
+  stock assets are Ecomus demo content. One studio shoot unblocks both. Swap cost is zero code.
+- **FSSAI licence number.** The storefront says "FSSAI approved" with no number. Minutes of work,
+  high trust-per-effort, and a checkable entity fact for GEO.
+- **584 of 1,235 products are DRAFT** (Cake Hampers shows 8 of 119). Publish-vs-archive is a
+  merchandising decision, not ours. Drafts stay drafts until then.
+- **S8 Trust section** is gated on the FSSAI number or real reviews landing — it has no other
+  genuinely new content.
+
+### Deliberately deferred
+
+- **Handle optimization** (`b158`, `hamper13`, `chNN` → keyword handles). Real SEO upside, real
+  risk: it changes live URLs and can silently kill printed QR codes. Never urgent; current handles
+  return 200. Starts only after the homepage ships and the duplicate drafts are archived, and only
+  with the full 8-step checklist (mapping → 301s → internal links → QR audit → indexing → sitemap →
+  canonicals → monitoring).
+- **Variant option typos** (`fruit-cocoktail`, `chocolate-moouse`) — touching options risks deleting
+  variants. Needs a metaobject fix first.
+
+### Standing principles for this project
+
+- Verifiability beats persuasion. No rating, count, certification, or delivery promise ships
+  without a source. This has already caused three removals; assume it will cause more.
+- Data fixes before theme work — they're reversible, need no deploy, and reach Google faster.
+- One decision, one document. The Jul-19 NAP cluster is five files for one decision; don't repeat it.
+  See `MD_FILE_INVENTORY.md`.
+
 ## Where things live
 
 - Live theme: `layout/ sections/ snippets/ assets/ templates/ config/ locales/`
