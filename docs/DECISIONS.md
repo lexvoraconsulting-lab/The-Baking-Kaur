@@ -6,6 +6,9 @@ Format: **what was decided** — context / why — consequence.
 
 ---
 
+### 2026-07 · Gourmet Cookie Desserts collection landing page
+The first production collection landing page for Gourmet Cookie Desserts needed 12 modular sections, but the repo already had reusable collection primitives for the hero, trust row, product grid, FAQ, related collections, and product cards. **Refinement:** the initial panel abstraction was still collection-aware, so it was replaced with a generic content builder and the collection template now assembles the experience from reusable content blocks. This keeps the builder page-agnostic, avoids business-logic leakage, and gives future landing pages a single reusable content module.
+
 ### 2026-07 · Product descriptions: fix mis-assigned "occasion"
 The bulk-import descriptions wove an occasion into the copy ("Designed for anniversaries… This anniversary cake") that was frequently wrong for kids/baby/theme cakes. **Decision:** rewrite the occasion to *birthday* **only** where the title contradicts it (title has no "anniversary"/"wedding"); genuine anniversary/wedding cakes (word in title) are never touched; design detail and varied phrasing are preserved. Tool: `seo-ops/fix_description_occasion.py` (+ test). Baby Girl collection (18 products) corrected; ~100+ remaining tracked in `tasks/`.
 

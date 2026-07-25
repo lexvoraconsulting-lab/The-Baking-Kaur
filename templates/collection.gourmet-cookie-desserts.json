@@ -1,0 +1,699 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero": {
+      "type": "heading-collection",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": ""
+          }
+        },
+        "description": {
+          "type": "description",
+          "settings": {
+            "description": "",
+            "short_des": true,
+            "limit_words": 18
+          }
+        },
+        "breadcrumb": {
+          "type": "breadcrumb",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "heading",
+        "description",
+        "breadcrumb"
+      ],
+      "settings": {
+        "spacing_hd": 16,
+        "padding_top": 24,
+        "padding_bottom": 24,
+        "padding_rate": 75
+      }
+    },
+    "trust_bar": {
+      "type": "icon-box",
+      "blocks": {
+        "handcrafted": {
+          "type": "item",
+          "settings": {
+            "icon_svg": "delicious",
+            "custom_svg": "",
+            "icon_width": 30,
+            "icon_width_mb": 30,
+            "link": "",
+            "open_link": false,
+            "title": "Handcrafted batches",
+            "content": "<p>Made fresh with attention to detail.</p>",
+            "adding_border": false
+          }
+        },
+        "eggless": {
+          "type": "item",
+          "settings": {
+            "icon_svg": "leaf",
+            "custom_svg": "",
+            "icon_width": 30,
+            "icon_width_mb": 30,
+            "link": "",
+            "open_link": false,
+            "title": "100% eggless",
+            "content": "<p>Designed for broad gifting and celebration use.</p>",
+            "adding_border": false
+          }
+        },
+        "packaging": {
+          "type": "item",
+          "settings": {
+            "icon_svg": "box",
+            "custom_svg": "",
+            "icon_width": 30,
+            "icon_width_mb": 30,
+            "link": "",
+            "open_link": false,
+            "title": "Gift-ready packaging",
+            "content": "<p>Presented for premium unboxing and gifting.</p>",
+            "adding_border": false
+          }
+        },
+        "support": {
+          "type": "item",
+          "settings": {
+            "icon_svg": "support",
+            "custom_svg": "",
+            "icon_width": 30,
+            "icon_width_mb": 30,
+            "link": "",
+            "open_link": false,
+            "title": "Easy assistance",
+            "content": "<p>Help with orders, delivery, and gifting questions.</p>",
+            "adding_border": false
+          }
+        }
+      },
+      "block_order": [
+        "handcrafted",
+        "eggless",
+        "packaging",
+        "support"
+      ],
+      "settings": {
+        "heading_align": "center",
+        "heading_tag": "h3",
+        "heading_size": "h4",
+        "heading_gap": 28,
+        "sec_heading_spacing": 20,
+        "icon_pos_center": true,
+        "icon_pos_center_mb": true,
+        "icon_circle": false,
+        "space_icon_heading": "medium",
+        "size_heading": "medium",
+        "heading_uppercase": false,
+        "space_heading_content": "small",
+        "col_dk": "4",
+        "col_tb": "2",
+        "col_mb": "1",
+        "carousel_mobile": true,
+        "border_style": "1",
+        "fullwidth": false,
+        "boxed_fullwidth": false,
+        "padding_top": 44,
+        "padding_bottom": 12,
+        "padding_rate": 75
+      }
+    },
+    "intro": {
+      "type": "tbk-content-builder",
+      "blocks": {
+        "intro_heading": {
+          "type": "heading",
+          "settings": {
+            "eyebrow": "Collection introduction",
+            "heading": "Gourmet cookie desserts made for gifting",
+            "tag": "h2",
+            "size": "lg",
+            "alignment": "start",
+            "span_mobile": 12,
+            "span_tablet": 12,
+            "span_desktop": 12
+          }
+        },
+        "intro_text": {
+          "type": "rich_text",
+          "settings": {
+            "text": "<p>A focused cookie-dessert collection built for premium gifting, everyday indulgence, and future Scoopie&trade; expansion.</p>",
+            "alignment": "start",
+            "span_mobile": 12,
+            "span_tablet": 12,
+            "span_desktop": 10
+          }
+        }
+      },
+      "block_order": [
+        "intro_heading",
+        "intro_text"
+      ],
+      "settings": {
+        "surface": "plain",
+        "color_scheme": "",
+        "section_fullwidth": false,
+        "content_width": 720,
+        "grid_gap": 24,
+        "padding_top": 12,
+        "padding_bottom": 24,
+        "padding_rate": 75
+      }
+    },
+    "featured": {
+      "type": "featured-collection-grid",
+      "settings": {
+        "heading_align": "center",
+        "sec_heading": "Featured cookie desserts",
+        "heading_tag": "h3",
+        "heading_size": "h4",
+        "heading_gap": 14,
+        "sec_heading_spacing": 18,
+        "collection": "gourmet-cookie-desserts",
+        "product_list": [],
+        "product_des": "7",
+        "image_ratio": "asos",
+        "image_size": true,
+        "show_vendor": false,
+        "pr_border": "on_item",
+        "products_count": 8,
+        "col_dk": "4",
+        "col_tb": "3",
+        "col_mb": "2",
+        "half_item": false,
+        "navUI": false,
+        "nav_des": "default",
+        "nav_pos": "middle_in",
+        "dotUI": false,
+        "pagination_type": "none",
+        "paginate_pos": "center",
+        "dis_pagination": 30,
+        "btn_label": "View all",
+        "btn_style": "solid",
+        "btn_fw": "normal",
+        "section_fullwidth": false,
+        "padding_top": 20,
+        "padding_bottom": 28,
+        "padding_rate": 75
+      }
+    },
+    "grid": {
+      "type": "main-collection",
+      "settings": {
+        "product_des": "7",
+        "image_ratio": "custom-pr",
+        "image_size": true,
+        "show_vendor": false,
+        "pr_border": "on_item",
+        "products_count": 12,
+        "col_dk": "4",
+        "col_tb": "3",
+        "col_mb": "2",
+        "pagination_type": "links",
+        "paginate_pos": "center",
+        "dis_pagination": 61,
+        "enable_sorting": true,
+        "enable_filtering": false,
+        "price_behavior": "auto",
+        "enable_num_cols_selector": true,
+        "widget_heading": "Product categories",
+        "cat_source": "2",
+        "cat_link_list": "main-menu",
+        "count": false,
+        "section_fullwidth": false,
+        "padding_top": 18,
+        "padding_bottom": 56,
+        "padding_rate": 75,
+        "sidebar_position": "left",
+        "sidebar_size": "medium"
+      }
+    },
+    "story": {
+      "type": "tbk-content-builder",
+      "blocks": {
+        "story_layout": {
+          "type": "two_column",
+          "settings": {
+            "reverse_desktop": false,
+            "left_eyebrow": "Why this collection matters",
+            "left_heading": "Built for premium gifting",
+            "left_tag": "h3",
+            "left_size": "md",
+            "left_text": "<p>Gourmet cookie desserts give the Scoopie&trade; line a flexible format for premium gifting, celebratory boxes, and future flavour-led expansion.</p>",
+            "left_button_label": "",
+            "left_button_link": "",
+            "left_button_style": "solid",
+            "left_button_weight": "medium",
+            "right_eyebrow": "Future compatibility",
+            "right_heading": "Ready for new dessert families",
+            "right_tag": "h3",
+            "right_size": "md",
+            "right_text": "<p>This reusable content builder can later power Cookie Collections, Cakes, Brownies, Dessert Jars, corporate landing pages, SEO landing pages, buying guides, and local landing pages without changing the component itself.</p>",
+            "right_button_label": "",
+            "right_button_link": "",
+            "right_button_style": "solid",
+            "right_button_weight": "medium",
+            "alignment": "start",
+            "span_mobile": 12,
+            "span_tablet": 12,
+            "span_desktop": 12
+          }
+        }
+      },
+      "block_order": [
+        "story_layout"
+      ],
+      "settings": {
+        "surface": "panel",
+        "color_scheme": "",
+        "section_fullwidth": false,
+        "content_width": 760,
+        "grid_gap": 24,
+        "padding_top": 18,
+        "padding_bottom": 18,
+        "padding_rate": 75
+      }
+    },
+    "why_choose": {
+      "type": "icon-box",
+      "blocks": {
+        "quality": {
+          "type": "item",
+          "settings": {
+            "icon_svg": "diamond",
+            "custom_svg": "",
+            "icon_width": 30,
+            "icon_width_mb": 30,
+            "link": "",
+            "open_link": false,
+            "title": "Premium finish",
+            "content": "<p>Built to feel polished from product photo to delivery.</p>",
+            "adding_border": false
+          }
+        },
+        "freshness": {
+          "type": "item",
+          "settings": {
+            "icon_svg": "delicious",
+            "custom_svg": "",
+            "icon_width": 30,
+            "icon_width_mb": 30,
+            "link": "",
+            "open_link": false,
+            "title": "Freshly prepared",
+            "content": "<p>Made to order for the best possible texture and taste.</p>",
+            "adding_border": false
+          }
+        },
+        "help": {
+          "type": "item",
+          "settings": {
+            "icon_svg": "support",
+            "custom_svg": "",
+            "icon_width": 30,
+            "icon_width_mb": 30,
+            "link": "",
+            "open_link": false,
+            "title": "Guided ordering",
+            "content": "<p>Support for gifting, timing, and custom requests.</p>",
+            "adding_border": false
+          }
+        },
+        "pack": {
+          "type": "item",
+          "settings": {
+            "icon_svg": "box",
+            "custom_svg": "",
+            "icon_width": 30,
+            "icon_width_mb": 30,
+            "link": "",
+            "open_link": false,
+            "title": "Gift-ready boxes",
+            "content": "<p>Thoughtful presentation designed to travel well.</p>",
+            "adding_border": false
+          }
+        }
+      },
+      "block_order": [
+        "quality",
+        "freshness",
+        "help",
+        "pack"
+      ],
+      "settings": {
+        "heading_align": "center",
+        "sec_heading": "Why choose TBK",
+        "heading_tag": "h3",
+        "heading_size": "h4",
+        "heading_gap": 16,
+        "sec_heading_spacing": 18,
+        "icon_pos_center": true,
+        "icon_pos_center_mb": true,
+        "icon_circle": false,
+        "space_icon_heading": "medium",
+        "size_heading": "medium",
+        "heading_uppercase": false,
+        "space_heading_content": "small",
+        "col_dk": "4",
+        "col_tb": "2",
+        "col_mb": "1",
+        "carousel_mobile": true,
+        "border_style": "1",
+        "fullwidth": false,
+        "boxed_fullwidth": false,
+        "padding_top": 40,
+        "padding_bottom": 16,
+        "padding_rate": 75
+      }
+    },
+    "delivery": {
+      "type": "tbk-content-builder",
+      "blocks": {
+        "delivery_heading": {
+          "type": "heading",
+          "settings": {
+            "eyebrow": "Delivery and timing",
+            "heading": "Keep fulfilment guidance current",
+            "tag": "h2",
+            "size": "lg",
+            "alignment": "start",
+            "span_mobile": 12,
+            "span_tablet": 12,
+            "span_desktop": 12
+          }
+        },
+        "delivery_text": {
+          "type": "rich_text",
+          "settings": {
+            "text": "<p>Delivery availability can vary by pin code and order timing. Keep this section connected to the collection so shoppers always see the latest fulfilment guidance in one place.</p>",
+            "alignment": "start",
+            "span_mobile": 12,
+            "span_tablet": 12,
+            "span_desktop": 10
+          }
+        },
+        "delivery_cta": {
+          "type": "cta",
+          "settings": {
+            "eyebrow": "",
+            "heading": "",
+            "tag": "h2",
+            "size": "lg",
+            "alignment": "start",
+            "text": "",
+            "primary_label": "Check the collection",
+            "primary_link": "shopify://collections/gourmet-cookie-desserts",
+            "primary_style": "solid",
+            "primary_weight": "medium",
+            "primary_icon": "1",
+            "secondary_label": "Message on WhatsApp",
+            "secondary_link": "https://wa.me/918218862928",
+            "secondary_weight": "medium",
+            "secondary_icon": "1",
+            "span_mobile": 12,
+            "span_tablet": 12,
+            "span_desktop": 12
+          }
+        }
+      },
+      "block_order": [
+        "delivery_heading",
+        "delivery_text",
+        "delivery_cta"
+      ],
+      "settings": {
+        "surface": "accent",
+        "color_scheme": "",
+        "section_fullwidth": false,
+        "content_width": 680,
+        "grid_gap": 24,
+        "padding_top": 18,
+        "padding_bottom": 18,
+        "padding_rate": 75
+      }
+    },
+    "reviews": {
+      "type": "tbk-content-builder",
+      "blocks": {
+        "reviews_heading": {
+          "type": "heading",
+          "settings": {
+            "eyebrow": "Social proof",
+            "heading": "Reviews placeholder",
+            "tag": "h2",
+            "size": "lg",
+            "alignment": "center",
+            "span_mobile": 12,
+            "span_tablet": 12,
+            "span_desktop": 12
+          }
+        },
+        "reviews_text": {
+          "type": "rich_text",
+          "settings": {
+            "text": "<p>Verified customer reviews can be added here as soon as the collection starts accumulating real feedback.</p>",
+            "alignment": "center",
+            "span_mobile": 12,
+            "span_tablet": 12,
+            "span_desktop": 10
+          }
+        }
+      },
+      "block_order": [
+        "reviews_heading",
+        "reviews_text"
+      ],
+      "settings": {
+        "surface": "panel",
+        "color_scheme": "",
+        "section_fullwidth": false,
+        "content_width": 640,
+        "grid_gap": 24,
+        "padding_top": 18,
+        "padding_bottom": 18,
+        "padding_rate": 75
+      }
+    },
+    "faq": {
+      "type": "tbk-content-builder",
+      "blocks": {
+        "q1": {
+          "type": "faq",
+          "settings": {
+            "question": "Are these cookie desserts eggless?",
+            "answer": "<p>Yes, this collection is intended to follow the brand's eggless bakery standard. Keep the final product-level composition editable in Shopify so the collection stays accurate as the assortment grows.</p>",
+            "open_by_default": true,
+            "span_mobile": 12,
+            "span_tablet": 12,
+            "span_desktop": 12
+          }
+        },
+        "q2": {
+          "type": "faq",
+          "settings": {
+            "question": "Can I order this collection for gifting?",
+            "answer": "<p>Yes. The collection is positioned for premium gifting, so it should stay easy to pair with a message card, packaging note, or delivery instruction.</p>",
+            "open_by_default": false,
+            "span_mobile": 12,
+            "span_tablet": 12,
+            "span_desktop": 12
+          }
+        },
+        "q3": {
+          "type": "faq",
+          "settings": {
+            "question": "Can delivery timing vary by pin code?",
+            "answer": "<p>Yes. Delivery availability should remain pin-code aware and order-time aware so the page reflects real fulfilment constraints instead of a blanket promise.</p>",
+            "open_by_default": false,
+            "span_mobile": 12,
+            "span_tablet": 12,
+            "span_desktop": 12
+          }
+        },
+        "q4": {
+          "type": "faq",
+          "settings": {
+            "question": "Can the collection expand later?",
+            "answer": "<p>Yes. This template is designed as a reusable base for future dessert families, so the layout can later support more products without changing the page structure.</p>",
+            "open_by_default": false,
+            "span_mobile": 12,
+            "span_tablet": 12,
+            "span_desktop": 12
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4"
+      ],
+      "settings": {
+        "surface": "plain",
+        "color_scheme": "",
+        "section_fullwidth": false,
+        "content_width": 720,
+        "grid_gap": 20,
+        "padding_top": 40,
+        "padding_bottom": 32,
+        "padding_rate": 75
+      }
+    },
+    "related": {
+      "type": "collections-list",
+      "blocks": {
+        "cakes": {
+          "type": "collection_item",
+          "settings": {
+            "collection": "cakes",
+            "title": "Cakes",
+            "collection_link": ""
+          }
+        },
+        "birthday": {
+          "type": "collection_item",
+          "settings": {
+            "collection": "birthday-cakes",
+            "title": "Birthday Cakes",
+            "collection_link": ""
+          }
+        },
+        "theme": {
+          "type": "collection_item",
+          "settings": {
+            "collection": "designer-theme-cakes",
+            "title": "Designer & Theme",
+            "collection_link": ""
+          }
+        },
+        "custom": {
+          "type": "collection_item",
+          "settings": {
+            "collection": "custom-cakes-meerut",
+            "title": "Custom Cakes",
+            "collection_link": ""
+          }
+        },
+        "hampers": {
+          "type": "collection_item",
+          "settings": {
+            "collection": "cake-hampers",
+            "title": "Cake Hampers",
+            "collection_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "cakes",
+        "birthday",
+        "theme",
+        "custom",
+        "hampers"
+      ],
+      "settings": {
+        "heading_align": "center",
+        "sec_heading": "Related collections",
+        "heading_tag": "h3",
+        "heading_size": "h4",
+        "heading_reverse": true,
+        "heading_gap": 10,
+        "sec_heading_spacing": 18,
+        "collection_des": "5",
+        "content_size": "base",
+        "content_weight": "medium",
+        "text_transform": false,
+        "content_position": "end-center",
+        "content_padding": 10,
+        "image_ratio": "asos",
+        "image_size": true,
+        "col_dk": "5",
+        "col_tb": "3",
+        "col_mb": "2",
+        "space_items": "x",
+        "half_item": false,
+        "navUI": true,
+        "nav_des": "default",
+        "nav_pos": "middle_in",
+        "dotUI": false,
+        "dots_pos": "default",
+        "section_fullwidth": false,
+        "boxed_fullwidth": false,
+        "boxed_content": false,
+        "padding_top": 28,
+        "padding_bottom": 24,
+        "padding_rate": 60
+      }
+    },
+    "final_cta": {
+      "type": "tbk-content-builder",
+      "blocks": {
+        "final_heading": {
+          "type": "cta",
+          "settings": {
+            "eyebrow": "Final call to action",
+            "heading": "Ready to explore the cookie dessert range?",
+            "tag": "h2",
+            "size": "lg",
+            "alignment": "center",
+            "text": "<p>Use this section for the collection's final conversion push, whether that means browsing the full assortment, requesting a custom order, or moving straight to checkout.</p>",
+            "primary_label": "Shop the collection",
+            "primary_link": "shopify://collections/gourmet-cookie-desserts",
+            "primary_style": "solid",
+            "primary_weight": "medium",
+            "primary_icon": "1",
+            "secondary_label": "Chat on WhatsApp",
+            "secondary_link": "https://wa.me/918218862928",
+            "secondary_weight": "medium",
+            "secondary_icon": "1",
+            "span_mobile": 12,
+            "span_tablet": 12,
+            "span_desktop": 12
+          }
+        }
+      },
+      "block_order": [
+        "final_heading"
+      ],
+      "settings": {
+        "surface": "accent",
+        "color_scheme": "",
+        "section_fullwidth": false,
+        "content_width": 720,
+        "grid_gap": 24,
+        "padding_top": 22,
+        "padding_bottom": 52,
+        "padding_rate": 75
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "trust_bar",
+    "intro",
+    "featured",
+    "grid",
+    "story",
+    "why_choose",
+    "delivery",
+    "reviews",
+    "faq",
+    "related",
+    "final_cta"
+  ]
+}

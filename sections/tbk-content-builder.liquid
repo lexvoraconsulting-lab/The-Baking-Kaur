@@ -1,0 +1,2347 @@
+{%- liquid
+  assign section_container = 'hdt-container'
+  if section.settings.section_fullwidth
+    assign section_container = 'hdt-container-full'
+  endif
+
+  assign faq_only = true
+  assign has_faq = false
+  for block in section.blocks
+    if block.type == 'faq'
+      assign has_faq = true
+    else
+      assign faq_only = false
+    endif
+  endfor
+
+  if has_faq == false
+    assign faq_only = false
+  endif
+-%}
+
+{%- style -%}
+  #shopify-section-{{ section.id }} {
+    --section-pt: {{ section.settings.padding_top }}px;
+    --section-pb: {{ section.settings.padding_bottom }}px;
+    --section-prate: {{ section.settings.padding_rate }};
+    --tbk-content-width: {{ section.settings.content_width }}px;
+    --tbk-builder-gap: {{ section.settings.grid_gap }}px;
+  }
+
+  #{{ section.id }} .tbk-content-builder__shell {
+    display: grid;
+    gap: var(--tbk-builder-gap);
+    align-items: start;
+  }
+
+  #{{ section.id }} .tbk-content-builder__shell--panel {
+    padding: var(--tbk-sp-6);
+    border: 1px solid var(--tbk-border);
+    border-radius: var(--tbk-r-xl);
+    background: var(--tbk-surface-el);
+    box-shadow: var(--tbk-shadow-sm);
+  }
+
+  #{{ section.id }} .tbk-content-builder__shell--accent {
+    padding: var(--tbk-sp-6);
+    border: 1px solid var(--tbk-border);
+    border-radius: var(--tbk-r-xl);
+    background: linear-gradient(180deg, var(--tbk-tint-1) 0%, var(--tbk-surface) 100%);
+  }
+
+  #{{ section.id }} .tbk-content-builder__grid {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: var(--tbk-builder-gap);
+    align-items: start;
+  }
+
+  #{{ section.id }} .tbk-content-builder__item {
+    min-width: 0;
+    grid-column: span var(--tbk-span-mb);
+  }
+
+  #{{ section.id }} .tbk-content-builder__item--heading,
+  #{{ section.id }} .tbk-content-builder__item--rich-text,
+  #{{ section.id }} .tbk-content-builder__item--cta,
+  #{{ section.id }} .tbk-content-builder__item--divider,
+  #{{ section.id }} .tbk-content-builder__item--spacer,
+  #{{ section.id }} .tbk-content-builder__item--faq,
+  #{{ section.id }} .tbk-content-builder__item--image-text,
+  #{{ section.id }} .tbk-content-builder__item--two-column,
+  #{{ section.id }} .tbk-content-builder__item--video-placeholder {
+    grid-column: 1 / -1;
+  }
+
+  @media screen and (min-width: 768px) {
+    #{{ section.id }} .tbk-content-builder__item {
+      grid-column: span var(--tbk-span-md);
+    }
+  }
+
+  @media screen and (min-width: 1150px) {
+    #{{ section.id }} .tbk-content-builder__item {
+      grid-column: span var(--tbk-span-lg);
+    }
+
+    #{{ section.id }} .tbk-content-builder__shell--panel,
+    #{{ section.id }} .tbk-content-builder__shell--accent {
+      padding: var(--tbk-sp-8);
+    }
+  }
+
+  #{{ section.id }} .tbk-content-builder__prose {
+    max-width: var(--tbk-content-width);
+  }
+
+  #{{ section.id }} .tbk-content-builder__prose--center,
+  #{{ section.id }} .tbk-content-builder__cta--center,
+  #{{ section.id }} .tbk-content-builder__media--center {
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  #{{ section.id }} .tbk-content-builder__prose--end,
+  #{{ section.id }} .tbk-content-builder__cta--end {
+    margin-inline-start: auto;
+    text-align: end;
+  }
+
+  #{{ section.id }} .tbk-content-builder__eyebrow {
+    margin: 0 0 var(--tbk-sp-3);
+    font-family: var(--tbk-font-ui);
+    font-size: var(--tbk-text-xs);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--tbk-muted);
+  }
+
+  #{{ section.id }} .tbk-content-builder__heading {
+    margin: 0;
+    font-family: var(--tbk-font-display);
+    line-height: 1.08;
+    color: var(--tbk-ink);
+  }
+
+  #{{ section.id }} .tbk-content-builder__heading--display {
+    font-size: clamp(34px, 5vw, 64px);
+  }
+
+  #{{ section.id }} .tbk-content-builder__heading--xl {
+    font-size: clamp(30px, 4.4vw, 52px);
+  }
+
+  #{{ section.id }} .tbk-content-builder__heading--lg {
+    font-size: clamp(26px, 3.8vw, 44px);
+  }
+
+  #{{ section.id }} .tbk-content-builder__heading--md {
+    font-size: clamp(22px, 3vw, 34px);
+  }
+
+  #{{ section.id }} .tbk-content-builder__heading--sm {
+    font-size: clamp(18px, 2.2vw, 26px);
+  }
+
+  #{{ section.id }} .tbk-content-builder__heading--xs {
+    font-size: clamp(16px, 1.8vw, 20px);
+  }
+
+  #{{ section.id }} .tbk-content-builder__text {
+    margin-top: var(--tbk-sp-4);
+    color: var(--tbk-ink-soft);
+  }
+
+  #{{ section.id }} .tbk-content-builder__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--tbk-sp-3);
+    margin-top: var(--tbk-sp-6);
+  }
+
+  #{{ section.id }} .tbk-content-builder__actions--center {
+    justify-content: center;
+  }
+
+  #{{ section.id }} .tbk-content-builder__actions--end {
+    justify-content: flex-end;
+  }
+
+  #{{ section.id }} .tbk-content-builder__btn {
+    min-width: 140px;
+  }
+
+  #{{ section.id }} .tbk-content-builder__card-media {
+    overflow: hidden;
+    border-radius: var(--tbk-r-lg);
+    background: var(--tbk-surface-sub);
+  }
+
+  #{{ section.id }} .tbk-content-builder__card-media img,
+  #{{ section.id }} .tbk-content-builder__media img,
+  #{{ section.id }} .tbk-content-builder__video img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  #{{ section.id }} .tbk-content-builder__media {
+    overflow: hidden;
+    border-radius: var(--tbk-r-xl);
+    background: var(--tbk-surface-sub);
+  }
+
+  #{{ section.id }} .tbk-content-builder__media a,
+  #{{ section.id }} .tbk-content-builder__media div {
+    display: block;
+  }
+
+  #{{ section.id }} .tbk-content-builder__card-content {
+    display: grid;
+    gap: var(--tbk-sp-3);
+  }
+
+  #{{ section.id }} .tbk-content-builder__card-title,
+  #{{ section.id }} .tbk-content-builder__faq-question {
+    margin: 0;
+    font-family: var(--tbk-font-display);
+    line-height: 1.15;
+    color: var(--tbk-ink);
+  }
+
+  #{{ section.id }} .tbk-content-builder__card-text,
+  #{{ section.id }} .tbk-content-builder__faq-answer {
+    color: var(--tbk-ink-soft);
+  }
+
+  #{{ section.id }} .tbk-content-builder__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--tbk-icon-width-mb, 32px);
+    color: var(--tbk-ink);
+  }
+
+  #{{ section.id }} .tbk-content-builder__icon svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  #{{ section.id }} .tbk-content-builder__divider {
+    border: 0;
+    border-top: 1px solid var(--tbk-border);
+    width: 100%;
+    margin: 0;
+    opacity: 0.8;
+  }
+
+  #{{ section.id }} .tbk-content-builder__spacer {
+    display: block;
+    width: 100%;
+    height: var(--tbk-spacer-mb);
+  }
+
+  @media screen and (min-width: 768px) {
+    #{{ section.id }} .tbk-content-builder__spacer {
+      height: var(--tbk-spacer-md);
+    }
+  }
+
+  #{{ section.id }} .tbk-content-builder__faq-item summary {
+    list-style: none;
+    cursor: pointer;
+  }
+
+  #{{ section.id }} .tbk-content-builder__faq-item summary::-webkit-details-marker {
+    display: none;
+  }
+
+  #{{ section.id }} .tbk-content-builder__faq-summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--tbk-sp-4);
+  }
+
+  #{{ section.id }} .tbk-content-builder__faq-icon {
+    flex: 0 0 auto;
+    color: var(--tbk-ink);
+  }
+
+  #{{ section.id }} .tbk-content-builder__faq-body {
+    margin-top: var(--tbk-sp-4);
+  }
+
+  #{{ section.id }} .tbk-content-builder__video-link {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    border-radius: var(--tbk-r-lg);
+  }
+
+  #{{ section.id }} .tbk-content-builder__two-column-grid {
+    display: grid;
+    gap: var(--tbk-sp-5);
+  }
+
+  @media screen and (min-width: 768px) {
+    #{{ section.id }} .tbk-content-builder__two-column-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    #{{ section.id }} .tbk-content-builder__icon {
+      width: var(--tbk-icon-width, 32px);
+    }
+  }
+
+  #{{ section.id }} .tbk-content-builder__two-column-block {
+    display: grid;
+    gap: var(--tbk-sp-3);
+  }
+
+  @media screen and (min-width: 1150px) {
+    #{{ section.id }} .tbk-content-builder__spacer {
+      height: var(--tbk-spacer-lg);
+    }
+
+    #{{ section.id }} .tbk-content-builder__two-column--reverse-desktop .tbk-content-builder__two-column-block--left {
+      order: 2;
+    }
+
+    #{{ section.id }} .tbk-content-builder__two-column--reverse-desktop .tbk-content-builder__two-column-block--right {
+      order: 1;
+    }
+  }
+{%- endstyle -%}
+
+<section id="{{ section.id }}" class="tbk-content-builder hdt-section-spacing hdt-s-gradient"{% if faq_only %} itemscope itemtype="https://schema.org/FAQPage"{% endif %} color-scheme="{{ section.settings.color_scheme }}">
+  <div class="{{ section_container }}">
+    <div class="tbk-content-builder__shell tbk-content-builder__shell--{{ section.settings.surface }}">
+      <div class="tbk-content-builder__grid">
+        {%- for block in section.blocks -%}
+          {%- liquid
+            assign span_mb = block.settings.span_mobile | default: 12
+            assign span_md = block.settings.span_tablet | default: span_mb
+            assign span_lg = block.settings.span_desktop | default: span_md
+          -%}
+
+          {%- case block.type -%}
+            {%- when 'heading' -%}
+              <div class="tbk-content-builder__item tbk-content-builder__item--heading" style="--tbk-span-mb: {{ span_mb }}; --tbk-span-md: {{ span_md }}; --tbk-span-lg: {{ span_lg }};" {{ block.shopify_attributes }}>
+                <div class="tbk-content-builder__prose tbk-content-builder__prose--{{ block.settings.alignment }}">
+                  {%- if block.settings.eyebrow != blank -%}
+                    <p class="tbk-content-builder__eyebrow">{{ block.settings.eyebrow | escape }}</p>
+                  {%- endif -%}
+                  {%- if block.settings.heading != blank -%}
+                    <{{ block.settings.tag }} class="tbk-content-builder__heading tbk-content-builder__heading--{{ block.settings.size }}">
+                      {{ block.settings.heading | escape }}
+                    </{{ block.settings.tag }}>
+                  {%- endif -%}
+                </div>
+              </div>
+
+            {%- when 'rich_text' -%}
+              <div class="tbk-content-builder__item tbk-content-builder__item--rich-text" style="--tbk-span-mb: {{ span_mb }}; --tbk-span-md: {{ span_md }}; --tbk-span-lg: {{ span_lg }};" {{ block.shopify_attributes }}>
+                <div class="tbk-content-builder__prose tbk-content-builder__prose--{{ block.settings.alignment }} hdt-rte">
+                  {{ block.settings.text }}
+                </div>
+              </div>
+
+            {%- when 'image' -%}
+              <div class="tbk-content-builder__item tbk-content-builder__item--image" style="--tbk-span-mb: {{ span_mb }}; --tbk-span-md: {{ span_md }}; --tbk-span-lg: {{ span_lg }};" {{ block.shopify_attributes }}>
+                <div class="tbk-content-builder__media tbk-content-builder__media--{{ block.settings.alignment }}">
+                  {%- if block.settings.link != blank -%}
+                    <a href="{{ block.settings.link }}">
+                  {%- endif -%}
+
+                  {%- if block.settings.image != blank -%}
+                    {%- capture image_sizes -%}(min-width: 1150px) calc(({{ settings.page_width }}px - 60px) * {{ span_lg }} / 12), (min-width: 768px) calc((100vw - 60px) * {{ span_md }} / 12), calc((100vw - 30px) * {{ span_mb }} / 12){%- endcapture -%}
+                    {{ block.settings.image | image_url: width: block.settings.image.width | image_tag: loading: 'lazy', width: block.settings.image.width, height: block.settings.image.height, alt: block.settings.alt, sizes: image_sizes, widths: '400,600,800,1000,1200,1400,1600,1800' }}
+                  {%- else -%}
+                    {{ 'image' | placeholder_svg_tag: 'tbk-content-builder__placeholder' }}
+                  {%- endif -%}
+
+                  {%- if block.settings.link != blank -%}
+                    </a>
+                  {%- endif -%}
+                </div>
+              </div>
+
+            {%- when 'feature_card' -%}
+              <div class="tbk-content-builder__item tbk-content-builder__item--feature-card" style="--tbk-span-mb: {{ span_mb }}; --tbk-span-md: {{ span_md }}; --tbk-span-lg: {{ span_lg }};" {{ block.shopify_attributes }}>
+                <article class="tbkx-card tbkx-card--hover tbk-content-builder__card">
+                  {%- if block.settings.image != blank -%}
+                    <div class="tbk-content-builder__card-media">
+                      {%- capture card_sizes -%}(min-width: 1150px) calc(({{ settings.page_width }}px - 60px) * {{ span_lg }} / 12), (min-width: 768px) calc((100vw - 60px) * {{ span_md }} / 12), calc((100vw - 30px) * {{ span_mb }} / 12){%- endcapture -%}
+                      {{ block.settings.image | image_url: width: block.settings.image.width | image_tag: loading: 'lazy', width: block.settings.image.width, height: block.settings.image.height, alt: block.settings.alt, sizes: card_sizes, widths: '400,600,800,1000,1200,1400,1600,1800' }}
+                    </div>
+                  {%- endif -%}
+                  <div class="tbk-content-builder__card-content">
+                    {%- if block.settings.eyebrow != blank -%}
+                      <p class="tbk-content-builder__eyebrow">{{ block.settings.eyebrow | escape }}</p>
+                    {%- endif -%}
+                    {%- if block.settings.heading != blank -%}
+                      <h3 class="tbk-content-builder__card-title">{{ block.settings.heading | escape }}</h3>
+                    {%- endif -%}
+                    {%- if block.settings.text != blank -%}
+                      <div class="tbk-content-builder__card-text hdt-rte">{{ block.settings.text }}</div>
+                    {%- endif -%}
+                    {%- if block.settings.button_label != blank and block.settings.button_link != blank -%}
+                      <div class="tbk-content-builder__actions tbk-content-builder__actions--{{ block.settings.alignment }}">
+                        {%- render 'tbk-button',
+                          label: block.settings.button_label,
+                          href: block.settings.button_link,
+                          variant: block.settings.button_style,
+                          size: 'md',
+                          weight: block.settings.button_weight,
+                          icon: block.settings.button_icon,
+                          class: 'tbk-content-builder__btn'
+                        -%}
+                      </div>
+                    {%- endif -%}
+                  </div>
+                </article>
+              </div>
+
+            {%- when 'icon_card' -%}
+              <div class="tbk-content-builder__item tbk-content-builder__item--icon-card" style="--tbk-span-mb: {{ span_mb }}; --tbk-span-md: {{ span_md }}; --tbk-span-lg: {{ span_lg }};" {{ block.shopify_attributes }}>
+                <article class="tbkx-card tbkx-card--hover tbk-content-builder__card">
+                  {%- if block.settings.icon_svg != 'none' or block.settings.image != blank or block.settings.custom_svg != blank -%}
+                    <div class="tbk-content-builder__icon" style="--tbk-icon-width: {{ block.settings.icon_width }}px; --tbk-icon-width-mb: {{ block.settings.icon_width_mb }}px;">
+                      {%- if block.settings.image != blank -%}
+                        {{ block.settings.image | image_url: width: block.settings.image.width | image_tag: loading: 'lazy', width: block.settings.image.width, height: block.settings.image.height, alt: block.settings.alt }}
+                      {%- elsif block.settings.custom_svg != blank -%}
+                        {{ block.settings.custom_svg }}
+                      {%- else -%}
+                        {%- render 'icon_theme_svg', icon_svg: block.settings.icon_svg, class: 'tbk-content-builder__icon-svg' -%}
+                      {%- endif -%}
+                    </div>
+                  {%- endif -%}
+                  <div class="tbk-content-builder__card-content">
+                    {%- if block.settings.eyebrow != blank -%}
+                      <p class="tbk-content-builder__eyebrow">{{ block.settings.eyebrow | escape }}</p>
+                    {%- endif -%}
+                    {%- if block.settings.heading != blank -%}
+                      <h3 class="tbk-content-builder__card-title">{{ block.settings.heading | escape }}</h3>
+                    {%- endif -%}
+                    {%- if block.settings.text != blank -%}
+                      <div class="tbk-content-builder__card-text hdt-rte">{{ block.settings.text }}</div>
+                    {%- endif -%}
+                    {%- if block.settings.button_label != blank and block.settings.button_link != blank -%}
+                      <div class="tbk-content-builder__actions tbk-content-builder__actions--{{ block.settings.alignment }}">
+                        {%- render 'tbk-button',
+                          label: block.settings.button_label,
+                          href: block.settings.button_link,
+                          variant: block.settings.button_style,
+                          size: 'md',
+                          weight: block.settings.button_weight,
+                          icon: block.settings.button_icon,
+                          class: 'tbk-content-builder__btn'
+                        -%}
+                      </div>
+                    {%- endif -%}
+                  </div>
+                </article>
+              </div>
+
+            {%- when 'cta' -%}
+              <div class="tbk-content-builder__item tbk-content-builder__item--cta" style="--tbk-span-mb: {{ span_mb }}; --tbk-span-md: {{ span_md }}; --tbk-span-lg: {{ span_lg }};" {{ block.shopify_attributes }}>
+                <div class="tbk-content-builder__prose tbk-content-builder__cta tbk-content-builder__cta--{{ block.settings.alignment }}">
+                  {%- if block.settings.eyebrow != blank -%}
+                    <p class="tbk-content-builder__eyebrow">{{ block.settings.eyebrow | escape }}</p>
+                  {%- endif -%}
+                  {%- if block.settings.heading != blank -%}
+                    <{{ block.settings.tag }} class="tbk-content-builder__heading tbk-content-builder__heading--{{ block.settings.size }}">
+                      {{ block.settings.heading | escape }}
+                    </{{ block.settings.tag }}>
+                  {%- endif -%}
+                  {%- if block.settings.text != blank -%}
+                    <div class="tbk-content-builder__text hdt-rte">
+                      {{ block.settings.text }}
+                    </div>
+                  {%- endif -%}
+                  {%- if block.settings.primary_label != blank or block.settings.secondary_label != blank -%}
+                    <div class="tbk-content-builder__actions tbk-content-builder__actions--{{ block.settings.alignment }}">
+                      {%- if block.settings.primary_label != blank and block.settings.primary_link != blank -%}
+                        {%- render 'tbk-button',
+                          label: block.settings.primary_label,
+                          href: block.settings.primary_link,
+                          variant: block.settings.primary_style,
+                          size: 'md',
+                          weight: block.settings.primary_weight,
+                          icon: block.settings.primary_icon,
+                          class: 'tbk-content-builder__btn'
+                        -%}
+                      {%- endif -%}
+                      {%- if block.settings.secondary_label != blank and block.settings.secondary_link != blank -%}
+                        {%- render 'tbk-button',
+                          label: block.settings.secondary_label,
+                          href: block.settings.secondary_link,
+                          variant: 'outline',
+                          size: 'md',
+                          weight: block.settings.secondary_weight,
+                          icon: block.settings.secondary_icon,
+                          class: 'tbk-content-builder__btn'
+                        -%}
+                      {%- endif -%}
+                    </div>
+                  {%- endif -%}
+                </div>
+              </div>
+
+            {%- when 'divider' -%}
+              <div class="tbk-content-builder__item tbk-content-builder__item--divider" style="--tbk-span-mb: {{ span_mb }}; --tbk-span-md: {{ span_md }}; --tbk-span-lg: {{ span_lg }};" {{ block.shopify_attributes }}>
+                <hr class="tbk-content-builder__divider" style="border-top-width: {{ block.settings.thickness }}px; opacity: {{ block.settings.opacity | times: 0.01 }};">
+              </div>
+
+            {%- when 'spacer' -%}
+              <div class="tbk-content-builder__item tbk-content-builder__item--spacer" style="--tbk-span-mb: {{ span_mb }}; --tbk-span-md: {{ span_md }}; --tbk-span-lg: {{ span_lg }};" {{ block.shopify_attributes }}>
+                <span class="tbk-content-builder__spacer" style="--tbk-spacer-mb: {{ block.settings.height_mobile }}px; --tbk-spacer-md: {{ block.settings.height_tablet }}px; --tbk-spacer-lg: {{ block.settings.height_desktop }}px;" aria-hidden="true"></span>
+              </div>
+
+            {%- when 'faq' -%}
+              <div class="tbk-content-builder__item tbk-content-builder__item--faq" style="--tbk-span-mb: {{ span_mb }}; --tbk-span-md: {{ span_md }}; --tbk-span-lg: {{ span_lg }};" {{ block.shopify_attributes }}>
+                <details class="tbkx-faq__item tbk-content-builder__faq-item"{% if block.settings.open_by_default %} open{% endif %} itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                  <summary class="tbkx-faq__summary tbk-content-builder__faq-summary">
+                    <span class="tbkx-faq__question tbk-content-builder__faq-question" itemprop="name">{{ block.settings.question | escape }}</span>
+                    <svg class="tbk-content-builder__faq-icon" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M12 6.85714H6.85714V12H5.14286V6.85714H0V5.14286H5.14286V0H6.85714V5.14286H12V6.85714Z" fill="currentColor"/></svg>
+                  </summary>
+                  <div class="tbkx-faq__answer tbk-content-builder__faq-body hdt-rte" itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer">
+                    <div itemprop="text">
+                      {{ block.settings.answer }}
+                    </div>
+                  </div>
+                </details>
+              </div>
+
+            {%- when 'video_placeholder' -%}
+              <div class="tbk-content-builder__item tbk-content-builder__item--video-placeholder" style="--tbk-span-mb: {{ span_mb }}; --tbk-span-md: {{ span_md }}; --tbk-span-lg: {{ span_lg }};" {{ block.shopify_attributes }}>
+                <div class="tbkx-card tbkx-card--accent tbk-content-builder__video">
+                  {%- if block.settings.link != blank -%}
+                    <a class="tbk-content-builder__video-link" href="{{ block.settings.link }}">
+                  {%- else -%}
+                    <div class="tbk-content-builder__video-link">
+                  {%- endif -%}
+
+                  {%- if block.settings.image != blank -%}
+                    {{ block.settings.image | image_url: width: block.settings.image.width | image_tag: loading: 'lazy', width: block.settings.image.width, height: block.settings.image.height, alt: block.settings.alt, sizes: '100vw', widths: '400,600,800,1000,1200,1400,1600,1800' }}
+                  {%- else -%}
+                    {{ 'image' | placeholder_svg_tag: 'tbk-content-builder__placeholder' }}
+                  {%- endif -%}
+
+                  {%- if block.settings.link != blank -%}
+                    </a>
+                  {%- else -%}
+                    </div>
+                  {%- endif -%}
+
+                  {%- if block.settings.heading != blank or block.settings.text != blank or block.settings.button_label != blank -%}
+                    <div class="tbk-content-builder__card-content" style="margin-top: var(--tbk-sp-4);">
+                      {%- if block.settings.heading != blank -%}
+                        <h3 class="tbk-content-builder__card-title">{{ block.settings.heading | escape }}</h3>
+                      {%- endif -%}
+                      {%- if block.settings.text != blank -%}
+                        <div class="tbk-content-builder__card-text hdt-rte">{{ block.settings.text }}</div>
+                      {%- endif -%}
+                      {%- if block.settings.button_label != blank and block.settings.button_link != blank -%}
+                        {%- render 'tbk-button',
+                          label: block.settings.button_label,
+                          href: block.settings.button_link,
+                          variant: block.settings.button_style,
+                          size: 'md',
+                          weight: block.settings.button_weight,
+                          icon: block.settings.button_icon,
+                          class: 'tbk-content-builder__btn'
+                        -%}
+                      {%- endif -%}
+                    </div>
+                  {%- endif -%}
+                </div>
+              </div>
+
+            {%- when 'image_text' -%}
+              <div class="tbk-content-builder__item tbk-content-builder__item--image-text" style="--tbk-span-mb: {{ span_mb }}; --tbk-span-md: {{ span_md }}; --tbk-span-lg: {{ span_lg }};" {{ block.shopify_attributes }}>
+                <div class="tbkx-card tbk-content-builder__two-column">
+                  <div class="tbk-content-builder__two-column-grid">
+                    <div class="tbk-content-builder__image-text-media">
+                      {%- if block.settings.image != blank -%}
+                        {%- capture image_text_sizes -%}(min-width: 1150px) 50vw, (min-width: 768px) 50vw, 100vw{%- endcapture -%}
+                        {{ block.settings.image | image_url: width: block.settings.image.width | image_tag: loading: 'lazy', width: block.settings.image.width, height: block.settings.image.height, alt: block.settings.alt, sizes: image_text_sizes, widths: '400,600,800,1000,1200,1400,1600,1800' }}
+                      {%- else -%}
+                        {{ 'image' | placeholder_svg_tag: 'tbk-content-builder__placeholder' }}
+                      {%- endif -%}
+                    </div>
+                    <div class="tbk-content-builder__image-text-content tbk-content-builder__prose tbk-content-builder__prose--{{ block.settings.alignment }}">
+                      {%- if block.settings.eyebrow != blank -%}
+                        <p class="tbk-content-builder__eyebrow">{{ block.settings.eyebrow | escape }}</p>
+                      {%- endif -%}
+                      {%- if block.settings.heading != blank -%}
+                        <{{ block.settings.tag }} class="tbk-content-builder__heading tbk-content-builder__heading--{{ block.settings.size }}">
+                          {{ block.settings.heading | escape }}
+                        </{{ block.settings.tag }}>
+                      {%- endif -%}
+                      {%- if block.settings.text != blank -%}
+                        <div class="tbk-content-builder__text hdt-rte">
+                          {{ block.settings.text }}
+                        </div>
+                      {%- endif -%}
+                      {%- if block.settings.button_label != blank and block.settings.button_link != blank -%}
+                        <div class="tbk-content-builder__actions tbk-content-builder__actions--{{ block.settings.alignment }}">
+                          {%- render 'tbk-button',
+                            label: block.settings.button_label,
+                            href: block.settings.button_link,
+                            variant: block.settings.button_style,
+                            size: 'md',
+                            weight: block.settings.button_weight,
+                            icon: block.settings.button_icon,
+                            class: 'tbk-content-builder__btn'
+                          -%}
+                        </div>
+                      {%- endif -%}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            {%- when 'two_column' -%}
+              <div class="tbk-content-builder__item tbk-content-builder__item--two-column" style="--tbk-span-mb: {{ span_mb }}; --tbk-span-md: {{ span_md }}; --tbk-span-lg: {{ span_lg }};" {{ block.shopify_attributes }}>
+                <div class="tbkx-card tbk-content-builder__two-column{% if block.settings.reverse_desktop %} tbk-content-builder__two-column--reverse-desktop{% endif %}">
+                  <div class="tbk-content-builder__two-column-grid">
+                    <div class="tbk-content-builder__two-column-block tbk-content-builder__two-column-block--left">
+                      {%- if block.settings.left_eyebrow != blank -%}
+                        <p class="tbk-content-builder__eyebrow">{{ block.settings.left_eyebrow | escape }}</p>
+                      {%- endif -%}
+                      {%- if block.settings.left_heading != blank -%}
+                        <{{ block.settings.left_tag }} class="tbk-content-builder__heading tbk-content-builder__heading--{{ block.settings.left_size }}">
+                          {{ block.settings.left_heading | escape }}
+                        </{{ block.settings.left_tag }}>
+                      {%- endif -%}
+                      {%- if block.settings.left_text != blank -%}
+                        <div class="tbk-content-builder__text hdt-rte">
+                          {{ block.settings.left_text }}
+                        </div>
+                      {%- endif -%}
+                      {%- if block.settings.left_button_label != blank and block.settings.left_button_link != blank -%}
+                        <div class="tbk-content-builder__actions tbk-content-builder__actions--{{ block.settings.alignment }}">
+                          {%- render 'tbk-button',
+                            label: block.settings.left_button_label,
+                            href: block.settings.left_button_link,
+                            variant: block.settings.left_button_style,
+                            size: 'md',
+                            weight: block.settings.left_button_weight,
+                            class: 'tbk-content-builder__btn'
+                          -%}
+                        </div>
+                      {%- endif -%}
+                    </div>
+
+                    <div class="tbk-content-builder__two-column-block tbk-content-builder__two-column-block--right">
+                      {%- if block.settings.right_eyebrow != blank -%}
+                        <p class="tbk-content-builder__eyebrow">{{ block.settings.right_eyebrow | escape }}</p>
+                      {%- endif -%}
+                      {%- if block.settings.right_heading != blank -%}
+                        <{{ block.settings.right_tag }} class="tbk-content-builder__heading tbk-content-builder__heading--{{ block.settings.right_size }}">
+                          {{ block.settings.right_heading | escape }}
+                        </{{ block.settings.right_tag }}>
+                      {%- endif -%}
+                      {%- if block.settings.right_text != blank -%}
+                        <div class="tbk-content-builder__text hdt-rte">
+                          {{ block.settings.right_text }}
+                        </div>
+                      {%- endif -%}
+                      {%- if block.settings.right_button_label != blank and block.settings.right_button_link != blank -%}
+                        <div class="tbk-content-builder__actions tbk-content-builder__actions--{{ block.settings.alignment }}">
+                          {%- render 'tbk-button',
+                            label: block.settings.right_button_label,
+                            href: block.settings.right_button_link,
+                            variant: block.settings.right_button_style,
+                            size: 'md',
+                            weight: block.settings.right_button_weight,
+                            class: 'tbk-content-builder__btn'
+                          -%}
+                        </div>
+                      {%- endif -%}
+                    </div>
+                  </div>
+                </div>
+              </div>
+          {%- endcase -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Content Builder",
+  "tag": "section",
+  "class": "tbk-content-builder",
+  "disabled_on": {
+    "groups": [
+      "*"
+    ]
+  },
+  "settings": [
+    {
+      "type": "select",
+      "id": "surface",
+      "label": "Surface",
+      "default": "plain",
+      "options": [
+        {
+          "value": "plain",
+          "label": "Plain"
+        },
+        {
+          "value": "panel",
+          "label": "Panel"
+        },
+        {
+          "value": "accent",
+          "label": "Accent"
+        }
+      ]
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme"
+    },
+    {
+      "type": "checkbox",
+      "id": "section_fullwidth",
+      "label": "Full width",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "content_width",
+      "label": "Content width",
+      "min": 360,
+      "max": 960,
+      "step": 20,
+      "unit": "px",
+      "default": 720
+    },
+    {
+      "type": "range",
+      "id": "grid_gap",
+      "label": "Grid gap",
+      "min": 8,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_rate",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "Padding rate",
+      "default": 75
+    }
+  ],
+  "blocks": [
+    {
+      "type": "heading",
+      "name": "Heading",
+      "settings": [
+        {
+          "type": "text",
+          "id": "eyebrow",
+          "label": "Eyebrow"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Heading"
+        },
+        {
+          "type": "select",
+          "id": "tag",
+          "label": "Heading tag",
+          "default": "h2",
+          "options": [
+            {
+              "value": "h1",
+              "label": "H1"
+            },
+            {
+              "value": "h2",
+              "label": "H2"
+            },
+            {
+              "value": "h3",
+              "label": "H3"
+            },
+            {
+              "value": "h4",
+              "label": "H4"
+            },
+            {
+              "value": "h5",
+              "label": "H5"
+            },
+            {
+              "value": "h6",
+              "label": "H6"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "size",
+          "label": "Size",
+          "default": "lg",
+          "options": [
+            {
+              "value": "display",
+              "label": "Display"
+            },
+            {
+              "value": "xl",
+              "label": "XL"
+            },
+            {
+              "value": "lg",
+              "label": "Large"
+            },
+            {
+              "value": "md",
+              "label": "Medium"
+            },
+            {
+              "value": "sm",
+              "label": "Small"
+            },
+            {
+              "value": "xs",
+              "label": "XS"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "alignment",
+          "label": "Alignment",
+          "default": "start",
+          "options": [
+            {
+              "value": "start",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "end",
+              "label": "Right"
+            }
+          ]
+        },
+        {
+          "type": "range",
+          "id": "span_mobile",
+          "label": "Mobile span",
+          "min": 1,
+          "max": 12,
+          "step": 1,
+          "default": 12
+        },
+        {
+          "type": "range",
+          "id": "span_tablet",
+          "label": "Tablet span",
+          "min": 1,
+          "max": 12,
+          "step": 1,
+          "default": 12
+        },
+        {
+          "type": "range",
+          "id": "span_desktop",
+          "label": "Desktop span",
+          "min": 1,
+          "max": 12,
+          "step": 1,
+          "default": 12
+        }
+      ]
+    },
+    {
+      "type": "rich_text",
+      "name": "Rich text",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Add rich text here.</p>"
+        },
+        {
+          "type": "select",
+          "id": "alignment",
+          "label": "Alignment",
+          "default": "start",
+          "options": [
+            {
+              "value": "start",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "end",
+              "label": "Right"
+            }
+          ]
+        },
+        {
+          "type": "range",
+          "id": "span_mobile",
+          "label": "Mobile span",
+          "min": 1,
+          "max": 12,
+          "step": 1,
+          "default": 12
+        },
+        {
+          "type": "range",
+          "id": "span_tablet",
+          "label": "Tablet span",
+          "min": 1,
+          "max": 12,
+          "step": 1,
+          "default": 12
+        },
+        {
+          "type": "range",
+          "id": "span_desktop",
+          "label": "Desktop span",
+          "min": 1,
+          "max": 12,
+          "step": 1,
+          "default": 12
+        }
+      ]
+    },
+    {
+      "type": "image",
+      "name": "Image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "alt",
+          "label": "Alt text"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        },
+        {
+          "type": "select",
+          "id": "alignment",
+          "label": "Alignment",
+          "default": "start",
+          "options": [
+            {
+              "value": "start",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "end",
+              "label": "Right"
+            }
+          ]
+        },
+        {
+          "type": "range",
+          "id": "span_mobile",
+          "label": "Mobile span",
+          "min": 1,
+          "max": 12,
+          "step": 1,
+          "default": 12
+        },
+        {
+          "type": "range",
+          "id": "span_tablet",
+          "label": "Tablet span",
+          "min": 1,
+          "max": 12,
+          "step": 1,
+          "default": 12
+        },
+        {
+          "type": "range",
+          "id": "span_desktop",
+          "label": "Desktop span",
+          "min": 1,
+          "max": 12,
+          "step": 1,
+          "default": 12
+        }
+      ]
+    },
+    {
+      "type": "feature_card",
+      "name": "Feature card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "alt",
+          "label": "Alt text"
+        },
+        {
+          "type": "text",
+          "id": "eyebrow",
+          "label": "Eyebrow"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Feature card"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Add supporting copy here.</p>"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button label"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button link"
+        },
+        {
+          "type": "select",
+          "id": "button_style",
+          "label": "Button style",
+          "default": "solid",
+          "options": [
+            {
+              "value": "solid",
+              "label": "Solid"
+            },
+            {
+              "value": "outline",
+              "label": "Outline"
+            },
+            {
+              "value": "link",
+              "label": "Link"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "button_weight",
+          "label": "Button weight",
+          "default": "medium",
+          "options": [
+            {
+              "value": "normal",
+              "label": "Normal"
+            },
+            {
+              "value": "medium",
+              "label": "Medium"
+            },
+            {
+              "value": "semibold",
+              "label": "Semibold"
+            },
+            {
+              "value": "bold",
+              "label": "Bold"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "button_icon",
+          "label": "Button icon",
+          "default": "none",
+          "options": [
+            {
+              "value": "none",
+              "label": "None"
+            },
+            {
+              "value": "1",
+              "label": "Arrow 1"
+            },
+            {
+              "value": "2",
+              "label": "Arrow 2"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "alignment",
+          "label": "Alignment",
+          "default": "start",
+          "options": [
+            {
+              "value": "start",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "end",
+              "label": "Right"
+            }
+          ]
+        },
+        {
+          "type": "range",
+          "id": "span_mobile",
+          "label": "Mobile span",
+          "min": 1,
+          "max": 12,
+          "step": 1,
+          "default": 12
+        },
+        {
+          "type": "range",
+          "id": "span_tablet",
+          "label": "Tablet span",
+          "min": 1,
+          "max": 12,
+          "step": 1,
+          "default": 6
+        },
+        {
+          "type": "range",
+          "id": "span_desktop",
+          "label": "Desktop span",
+          "min": 1,
+          "max": 12,
+          "step": 1,
+          "default": 4
+        }
+      ]
+    },
+    {
+      "type": "icon_card",
+      "name": "Icon card",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon_svg",
+          "label": "Icon",
+          "default": "box",
+          "options": [
+            {
+              "value": "none",
+              "label": "None"
+            },
+            {
+              "value": "box",
+              "label": "Box"
+            },
+            {
+              "value": "box2",
+              "label": "Box 2"
+            },
+            {
+              "value": "payment",
+              "label": "Payment"
+            },
+            {
+              "value": "payment2",
+              "label": "Payment 2"
+            },
+            {
+              "value": "return",
+              "label": "Return"
+            },
+            {
+              "value": "return2",
+              "label": "Return 2"
+            },
+            {
+              "value": "support",
+              "label": "Support"
+            },
+            {
+              "value": "wave",
+              "label": "Wave"
+            },
+            {
+              "value": "plants",
+              "label": "Plants"
+            },
+            {
+              "value": "flowerpot",
+              "label": "Flowerpot"
+            },
+            {
+              "value": "leaf",
+              "label": "Leaf"
+            },
+            {
+              "value": "leaf2",
+              "label": "Leaf 2"
+            },
+            {
+              "value": "smile",
+              "label": "Smile"
+            },
+            {
+              "value": "smile2",
+              "label": "Smile 2"
+            },
+            {
+              "value": "delicious",
+              "label": "Delicious"
+            },
+            {
+              "value": "health",
+              "label": "Health"
+            },
+            {
+              "value": "energy",
+              "label": "Energy"
+            },
+            {
+              "value": "skin",
+              "label": "Skin"
+            },
+            {
+              "value": "crescent_moon",
+              "label": "Crescent moon"
+            },
+            {
+              "value": "diamond",
+              "label": "Diamond"
+            },
+            {
+              "value": "various_sizes",
+              "label": "Various sizes"
+            }
+          ]
+        },
+        {
+          "type": "textarea",
+          "id": "custom_svg",
+          "label": "Custom SVG"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "alt",
+          "label": "Alt text"
+        },
+        {
+          "type": "range",
+          "id": "icon_width",
+          "label": "Icon width",
+          "min": 24,
+          "max": 60,
+          "step": 1,
+          "unit": "px",
+          "default": 32
+        },
+        {
+          "type": "range",
+          "id": "icon_width_mb",
+          "label": "Icon width mobile",
+          "min": 24,
+          "max": 60,
+          "step": 1,
+          "unit": "px",
+          "default": 32
+        },
+        {
+          "type": "text",
+          "id": "eyebrow",
+          "label": "Eyebrow"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Icon card"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Add supporting copy here.</p>"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button label"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button link"
+        },
+        {
+          "type": "select",
+          "id": "button_style",
+          "label": "Button style",
+          "default": "solid",
+          "options": [
+            {
+              "value": "solid",
+              "label": "Solid"
+            },
+            {
+              "value": "outline",
+              "label": "Outline"
+            },
+            {
+              "value": "link",
+              "label": "Link"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "button_weight",
+          "label": "Button weight",
+          "default": "medium",
+          "options": [
+            {
+              "value": "normal",
+              "label": "Normal"
+            },
+            {
+              "value": "medium",
+              "label": "Medium"
+            },
+            {
+              "value": "semibold",
+              "label": "Semibold"
+            },
+            {
+              "value": "bold",
+              "label": "Bold"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "button_icon",
+          "label": "Button icon",
+          "default": "none",
+          "options": [
+            {
+              "value": "none",
+              "label": "None"
+            },
+            {
+              "value": "1",
+              "label": "Arrow 1"
+            },
+            {
+              "value": "2",
+              "label": "Arrow 2"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "alignment",
+          "label": "Alignment",
+          "default": "start",
+          "options": [
+            {
+              "value": "start",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "end",
+              "label": "Right"
+            }
+          ]
+        },
+        {
+          "type": "range",
+          "id": "span_mobile",
+          "label": "Mobile span",
+          "min": 1,
+          "max": 12,
+          "step": 1,
+          "default": 12
+        },
+        {
+          "type": "range",
+          "id": "span_tablet",
+          "label": "Tablet span",
+          "min": 1,
+          "max": 12,
+          "step": 1,
+          "default": 6
+        },
+        {
+          "type": "range",
+          "id": "span_desktop",
+          "label": "Desktop span",
+          "min": 1,
+          "max": 12,
+          "step": 1,
+          "default": 4
+        }
+      ]
+    },
+    {
+      "type": "cta",
+      "name": "CTA",
+      "settings": [
+        {
+          "type": "text",
+          "id": "eyebrow",
+          "label": "Eyebrow"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Call to action"
+        },
+        {
+          "type": "select",
+          "id": "tag",
+          "label": "Heading tag",
+          "default": "h2",
+          "options": [
+            {
+              "value": "h1",
+              "label": "H1"
+            },
+            {
+              "value": "h2",
+              "label": "H2"
+            },
+            {
+              "value": "h3",
+              "label": "H3"
+            },
+            {
+              "value": "h4",
+              "label": "H4"
+            },
+            {
+              "value": "h5",
+              "label": "H5"
+            },
+            {
+              "value": "h6",
+              "label": "H6"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "size",
+          "label": "Size",
+          "default": "lg",
+          "options": [
+            {
+              "value": "display",
+              "label": "Display"
+            },
+            {
+              "value": "xl",
+              "label": "XL"
+            },
+            {
+              "value": "lg",
+              "label": "Large"
+            },
+            {
+              "value": "md",
+              "label": "Medium"
+            },
+            {
+              "value": "sm",
+              "label": "Small"
+            },
+            {
+              "value": "xs",
+              "label": "XS"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "alignment",
+          "label": "Alignment",
+          "default": "start",
+          "options": [
+            {
+              "value": "start",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "end",
+              "label": "Right"
+            }
+          ]
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Add supporting copy here.</p>"
+        },
+        {
+          "type": "text",
+          "id": "primary_label",
+          "label": "Primary button label"
+        },
+        {
+          "type": "url",
+          "id": "primary_link",
+          "label": "Primary button link"
+        },
+        {
+          "type": "select",
+          "id": "primary_style",
+          "label": "Primary button style",
+          "default": "solid",
+          "options": [
+            {
+              "value": "solid",
+              "label": "Solid"
+            },
+            {
+              "value": "outline",
+              "label": "Outline"
+            },
+            {
+              "value": "link",
+              "label": "Link"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "primary_weight",
+          "label": "Primary button weight",
+          "default": "medium",
+          "options": [
+            {
+              "value": "normal",
+              "label": "Normal"
+            },
+            {
+              "value": "medium",
+              "label": "Medium"
+            },
+            {
+              "value": "semibold",
+              "label": "Semibold"
+            },
+            {
+              "value": "bold",
+              "label": "Bold"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "primary_icon",
+          "label": "Primary button icon",
+          "default": "none",
+          "options": [
+            {
+              "value": "none",
+              "label": "None"
+            },
+            {
+              "value": "1",
+              "label": "Arrow 1"
+            },
+            {
+              "value": "2",
+              "label": "Arrow 2"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "secondary_label",
+          "label": "Secondary button label"
+        },
+        {
+          "type": "url",
+          "id": "secondary_link",
+          "label": "Secondary button link"
+        },
+        {
+          "type": "select",
+          "id": "secondary_weight",
+          "label": "Secondary button weight",
+          "default": "medium",
+          "options": [
+            {
+              "value": "normal",
+              "label": "Normal"
+            },
+            {
+              "value": "medium",
+              "label": "Medium"
+            },
+            {
+              "value": "semibold",
+              "label": "Semibold"
+            },
+            {
+              "value": "bold",
+              "label": "Bold"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "secondary_icon",
+          "label": "Secondary button icon",
+          "default": "none",
+          "options": [
+            {
+              "value": "none",
+              "label": "None"
+            },
+            {
+              "value": "1",
+              "label": "Arrow 1"
+            },
+            {
+              "value": "2",
+              "label": "Arrow 2"
+            }
+          ]
+        },
+        {
+          "type": "range",
+          "id": "span_mobile",
+          "label": "Mobile span",
+          "min": 1,
+          "max": 12,
+          "step": 1,
+          "default": 12
+        },
+        {
+          "type": "range",
+          "id": "span_tablet",
+          "label": "Tablet span",
+          "min": 1,
+          "max": 12,
+          "step": 1,
+          "default": 12
+        },
+        {
+          "type": "range",
+          "id": "span_desktop",
+          "label": "Desktop span",
+          "min": 1,
+          "max": 12,
+          "step": 1,
+          "default": 12
+        }
+      ]
+    },
+    {
+      "type": "divider",
+      "name": "Divider",
+      "settings": [
+        {
+          "type": "range",
+          "id": "thickness",
+          "label": "Thickness",
+          "min": 1,
+          "max": 6,
+          "step": 1,
+          "unit": "px",
+          "default": 1
+        },
+        {
+          "type": "range",
+          "id": "opacity",
+          "label": "Opacity",
+          "min": 10,
+          "max": 100,
+          "step": 5,
+          "unit": "%",
+          "default": 80
+        },
+        {
+          "type": "range",
+          "id": "span_mobile",
+          "label": "Mobile span",
+          "min": 1,
+          "max": 12,
+          "step": 1,
+          "default": 12
+        },
+        {
+          "type": "range",
+          "id": "span_tablet",
+          "label": "Tablet span",
+          "min": 1,
+          "max": 12,
+          "step": 1,
+          "default": 12
+        },
+        {
+          "type": "range",
+          "id": "span_desktop",
+          "label": "Desktop span",
+          "min": 1,
+          "max": 12,
+          "step": 1,
+          "default": 12
+        }
+      ]
+    },
+    {
+      "type": "spacer",
+      "name": "Spacer",
+      "settings": [
+        {
+          "type": "range",
+          "id": "height_mobile",
+          "label": "Height mobile",
+          "min": 0,
+          "max": 120,
+          "step": 2,
+          "unit": "px",
+          "default": 24
+        },
+        {
+          "type": "range",
+          "id": "height_tablet",
+          "label": "Height tablet",
+          "min": 0,
+          "max": 160,
+          "step": 2,
+          "unit": "px",
+          "default": 24
+        },
+        {
+          "type": "range",
+          "id": "height_desktop",
+          "label": "Height desktop",
+          "min": 0,
+          "max": 200,
+          "step": 2,
+          "unit": "px",
+          "default": 24
+        },
+        {
+          "type": "range",
+          "id": "span_mobile",
+          "label": "Mobile span",
+          "min": 1,
+          "max": 12,
+          "step": 1,
+          "default": 12
+        },
+        {
+          "type": "range",
+          "id": "span_tablet",
+          "label": "Tablet span",
+          "min": 1,
+          "max": 12,
+          "step": 1,
+          "default": 12
+        },
+        {
+          "type": "range",
+          "id": "span_desktop",
+          "label": "Desktop span",
+          "min": 1,
+          "max": 12,
+          "step": 1,
+          "default": 12
+        }
+      ]
+    },
+    {
+      "type": "faq",
+      "name": "FAQ",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "Question"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer",
+          "default": "<p>Answer goes here.</p>"
+        },
+        {
+          "type": "checkbox",
+          "id": "open_by_default",
+          "label": "Open by default",
+          "default": false
+        },
+        {
+          "type": "range",
+          "id": "span_mobile",
+          "label": "Mobile span",
+          "min": 1,
+          "max": 12,
+          "step": 1,
+          "default": 12
+        },
+        {
+          "type": "range",
+          "id": "span_tablet",
+          "label": "Tablet span",
+          "min": 1,
+          "max": 12,
+          "step": 1,
+          "default": 12
+        },
+        {
+          "type": "range",
+          "id": "span_desktop",
+          "label": "Desktop span",
+          "min": 1,
+          "max": 12,
+          "step": 1,
+          "default": 12
+        }
+      ]
+    },
+    {
+      "type": "video_placeholder",
+      "name": "Video placeholder",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "alt",
+          "label": "Alt text"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Video placeholder"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Add supporting copy here.</p>"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button label"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button link"
+        },
+        {
+          "type": "select",
+          "id": "button_style",
+          "label": "Button style",
+          "default": "solid",
+          "options": [
+            {
+              "value": "solid",
+              "label": "Solid"
+            },
+            {
+              "value": "outline",
+              "label": "Outline"
+            },
+            {
+              "value": "link",
+              "label": "Link"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "button_weight",
+          "label": "Button weight",
+          "default": "medium",
+          "options": [
+            {
+              "value": "normal",
+              "label": "Normal"
+            },
+            {
+              "value": "medium",
+              "label": "Medium"
+            },
+            {
+              "value": "semibold",
+              "label": "Semibold"
+            },
+            {
+              "value": "bold",
+              "label": "Bold"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "button_icon",
+          "label": "Button icon",
+          "default": "none",
+          "options": [
+            {
+              "value": "none",
+              "label": "None"
+            },
+            {
+              "value": "1",
+              "label": "Arrow 1"
+            },
+            {
+              "value": "2",
+              "label": "Arrow 2"
+            }
+          ]
+        },
+        {
+          "type": "range",
+          "id": "span_mobile",
+          "label": "Mobile span",
+          "min": 1,
+          "max": 12,
+          "step": 1,
+          "default": 12
+        },
+        {
+          "type": "range",
+          "id": "span_tablet",
+          "label": "Tablet span",
+          "min": 1,
+          "max": 12,
+          "step": 1,
+          "default": 12
+        },
+        {
+          "type": "range",
+          "id": "span_desktop",
+          "label": "Desktop span",
+          "min": 1,
+          "max": 12,
+          "step": 1,
+          "default": 12
+        }
+      ]
+    },
+    {
+      "type": "two_column",
+      "name": "Two column layout",
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "reverse_desktop",
+          "label": "Reverse columns on desktop",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "left_eyebrow",
+          "label": "Left eyebrow"
+        },
+        {
+          "type": "text",
+          "id": "left_heading",
+          "label": "Left heading",
+          "default": "Left heading"
+        },
+        {
+          "type": "select",
+          "id": "left_tag",
+          "label": "Left heading tag",
+          "default": "h3",
+          "options": [
+            {
+              "value": "h2",
+              "label": "H2"
+            },
+            {
+              "value": "h3",
+              "label": "H3"
+            },
+            {
+              "value": "h4",
+              "label": "H4"
+            },
+            {
+              "value": "h5",
+              "label": "H5"
+            },
+            {
+              "value": "h6",
+              "label": "H6"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "left_size",
+          "label": "Left heading size",
+          "default": "md",
+          "options": [
+            {
+              "value": "display",
+              "label": "Display"
+            },
+            {
+              "value": "xl",
+              "label": "XL"
+            },
+            {
+              "value": "lg",
+              "label": "Large"
+            },
+            {
+              "value": "md",
+              "label": "Medium"
+            },
+            {
+              "value": "sm",
+              "label": "Small"
+            },
+            {
+              "value": "xs",
+              "label": "XS"
+            }
+          ]
+        },
+        {
+          "type": "richtext",
+          "id": "left_text",
+          "label": "Left text",
+          "default": "<p>Add copy here.</p>"
+        },
+        {
+          "type": "text",
+          "id": "left_button_label",
+          "label": "Left button label"
+        },
+        {
+          "type": "url",
+          "id": "left_button_link",
+          "label": "Left button link"
+        },
+        {
+          "type": "select",
+          "id": "left_button_style",
+          "label": "Left button style",
+          "default": "solid",
+          "options": [
+            {
+              "value": "solid",
+              "label": "Solid"
+            },
+            {
+              "value": "outline",
+              "label": "Outline"
+            },
+            {
+              "value": "link",
+              "label": "Link"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "left_button_weight",
+          "label": "Left button weight",
+          "default": "medium",
+          "options": [
+            {
+              "value": "normal",
+              "label": "Normal"
+            },
+            {
+              "value": "medium",
+              "label": "Medium"
+            },
+            {
+              "value": "semibold",
+              "label": "Semibold"
+            },
+            {
+              "value": "bold",
+              "label": "Bold"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "right_eyebrow",
+          "label": "Right eyebrow"
+        },
+        {
+          "type": "text",
+          "id": "right_heading",
+          "label": "Right heading",
+          "default": "Right heading"
+        },
+        {
+          "type": "select",
+          "id": "right_tag",
+          "label": "Right heading tag",
+          "default": "h3",
+          "options": [
+            {
+              "value": "h2",
+              "label": "H2"
+            },
+            {
+              "value": "h3",
+              "label": "H3"
+            },
+            {
+              "value": "h4",
+              "label": "H4"
+            },
+            {
+              "value": "h5",
+              "label": "H5"
+            },
+            {
+              "value": "h6",
+              "label": "H6"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "right_size",
+          "label": "Right heading size",
+          "default": "md",
+          "options": [
+            {
+              "value": "display",
+              "label": "Display"
+            },
+            {
+              "value": "xl",
+              "label": "XL"
+            },
+            {
+              "value": "lg",
+              "label": "Large"
+            },
+            {
+              "value": "md",
+              "label": "Medium"
+            },
+            {
+              "value": "sm",
+              "label": "Small"
+            },
+            {
+              "value": "xs",
+              "label": "XS"
+            }
+          ]
+        },
+        {
+          "type": "richtext",
+          "id": "right_text",
+          "label": "Right text",
+          "default": "<p>Add copy here.</p>"
+        },
+        {
+          "type": "text",
+          "id": "right_button_label",
+          "label": "Right button label"
+        },
+        {
+          "type": "url",
+          "id": "right_button_link",
+          "label": "Right button link"
+        },
+        {
+          "type": "select",
+          "id": "right_button_style",
+          "label": "Right button style",
+          "default": "solid",
+          "options": [
+            {
+              "value": "solid",
+              "label": "Solid"
+            },
+            {
+              "value": "outline",
+              "label": "Outline"
+            },
+            {
+              "value": "link",
+              "label": "Link"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "right_button_weight",
+          "label": "Right button weight",
+          "default": "medium",
+          "options": [
+            {
+              "value": "normal",
+              "label": "Normal"
+            },
+            {
+              "value": "medium",
+              "label": "Medium"
+            },
+            {
+              "value": "semibold",
+              "label": "Semibold"
+            },
+            {
+              "value": "bold",
+              "label": "Bold"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "alignment",
+          "label": "Button alignment",
+          "default": "start",
+          "options": [
+            {
+              "value": "start",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "end",
+              "label": "Right"
+            }
+          ]
+        },
+        {
+          "type": "range",
+          "id": "span_mobile",
+          "label": "Mobile span",
+          "min": 1,
+          "max": 12,
+          "step": 1,
+          "default": 12
+        },
+        {
+          "type": "range",
+          "id": "span_tablet",
+          "label": "Tablet span",
+          "min": 1,
+          "max": 12,
+          "step": 1,
+          "default": 12
+        },
+        {
+          "type": "range",
+          "id": "span_desktop",
+          "label": "Desktop span",
+          "min": 1,
+          "max": 12,
+          "step": 1,
+          "default": 12
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Content Builder"
+    }
+  ]
+}
+{% endschema %}

@@ -54,10 +54,12 @@
     {%- liquid
       render 'social-meta-tags'
       render 'css-variables', is_rtl: is_rtl
+      render 'tbk-tokens'
       echo 'theme.css' | asset_url | stylesheet_tag
       if request.page_type == "policy"
       echo 'hdt-policy.css' | asset_url | stylesheet_tag
       endif
+      render 'tbk-components'
       render 'js-head'
     -%}
     {{ content_for_header }}
