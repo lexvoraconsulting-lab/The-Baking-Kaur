@@ -54,8 +54,9 @@ mapped attributes, the Knowledge Graph, the Product Genome, and any future data 
 - A product photo is reprocessed after a prompt improvement. The original image is untouched; a new
   observation is recorded against the same `TBK_IMAGE_ID`; the Knowledge Graph entry updates with a
   new lineage pointing at the new observation, while the old observation remains queryable. Correct.
-- Marketing AI reads a product's attributes from the Product Genome, which was populated from
-  Knowledge Graph entries that passed verification. Correct.
+- When a future module such as Marketing AI is built, it reads a product's attributes from the
+  Product Genome, which was populated from Knowledge Graph entries that passed verification —
+  not from raw AI output directly. Correct.
 
 ## Non-examples
 

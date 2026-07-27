@@ -15,6 +15,11 @@ Applies to every artifact whose meaning affects how observations or Knowledge Gr
 interpreted: extraction schemas, taxonomies, prompts, and any future artifact class with the same
 property (a config format, an embedding model version, an API contract).
 
+This standard does not govern the versioning of governance documents themselves (VIG documents,
+ADRs). Those follow VIG-000's amendment process and VIG-009's ADR supersession model respectively —
+a different lifecycle from data/content artifacts, since a governance document is incrementally
+revised prose, not a machine-consumed contract that must remain byte-for-byte reproducible.
+
 ## Definitions
 
 - **Artifact**: a versionable thing — a schema, a taxonomy, a prompt.

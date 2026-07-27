@@ -75,6 +75,13 @@ module is exempt from this document by virtue of being early-stage, experimental
 - No document at any layer (VIG, ADR, or module documentation) may contradict this Constitution.
   A perceived need to contradict it is a request to amend this Constitution, not a license to
   proceed inconsistently with it.
+- **Amendment process**: a VIG document (including this one) is amended in place — content edited,
+  version bumped, and the change logged in its Version History table — as long as the amendment
+  does not reverse a principle any already-approved ADR or shipped module depends on. An amendment
+  that would reverse such a dependency instead requires a new VIG document that explicitly
+  supersedes the old one, following VIG-009's ADR supersession model. This Constitution may not be
+  silently reinterpreted by a lower-layer document (VIG-008 Principle 2) as a substitute for
+  amending it here first.
 
 ## Examples
 
