@@ -1,0 +1,223 @@
+{
+  "$defs": {
+    "ConfidenceExpectationsModel": {
+      "properties": {
+        "minimum_confidence": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Minimum Confidence",
+          "type": "number"
+        },
+        "typical_confidence": {
+          "anyOf": [
+            {
+              "maximum": 1.0,
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Typical Confidence"
+        },
+        "notes": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Notes"
+        }
+      },
+      "required": [
+        "minimum_confidence"
+      ],
+      "title": "ConfidenceExpectationsModel",
+      "type": "object"
+    },
+    "ExternalIdModel": {
+      "properties": {
+        "system": {
+          "title": "System",
+          "type": "string"
+        },
+        "id_type": {
+          "title": "Id Type",
+          "type": "string"
+        },
+        "value": {
+          "title": "Value",
+          "type": "string"
+        }
+      },
+      "required": [
+        "system",
+        "id_type",
+        "value"
+      ],
+      "title": "ExternalIdModel",
+      "type": "object"
+    },
+    "SearchBehaviourModel": {
+      "properties": {
+        "searchable": {
+          "default": true,
+          "title": "Searchable",
+          "type": "boolean"
+        },
+        "facetable": {
+          "default": false,
+          "title": "Facetable",
+          "type": "boolean"
+        },
+        "boost": {
+          "default": 1.0,
+          "minimum": 0.0,
+          "title": "Boost",
+          "type": "number"
+        },
+        "notes": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Notes"
+        }
+      },
+      "title": "SearchBehaviourModel",
+      "type": "object"
+    }
+  },
+  "properties": {
+    "registry_reference": {
+      "title": "Registry Reference",
+      "type": "string"
+    },
+    "display_name": {
+      "title": "Display Name",
+      "type": "string"
+    },
+    "business_definition": {
+      "title": "Business Definition",
+      "type": "string"
+    },
+    "purpose": {
+      "title": "Purpose",
+      "type": "string"
+    },
+    "examples": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Examples",
+      "type": "array"
+    },
+    "vision_guidance": {
+      "title": "Vision Guidance",
+      "type": "string"
+    },
+    "ai_guidance": {
+      "title": "Ai Guidance",
+      "type": "string"
+    },
+    "mapping_guidance": {
+      "title": "Mapping Guidance",
+      "type": "string"
+    },
+    "confidence_expectations": {
+      "$ref": "#/$defs/ConfidenceExpectationsModel"
+    },
+    "definition_id": {
+      "title": "Definition Id",
+      "type": "string"
+    },
+    "ead_version": {
+      "default": "1.0",
+      "title": "Ead Version",
+      "type": "string"
+    },
+    "allowed_values": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Allowed Values"
+    },
+    "search_behaviour": {
+      "$ref": "#/$defs/SearchBehaviourModel"
+    },
+    "knowledge_graph_reference": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Knowledge Graph Reference"
+    },
+    "shopify_mapping": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ExternalIdModel"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "erp_mapping": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ExternalIdModel"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "metadata": {
+      "additionalProperties": true,
+      "title": "Metadata",
+      "type": "object"
+    }
+  },
+  "required": [
+    "registry_reference",
+    "display_name",
+    "business_definition",
+    "purpose",
+    "examples",
+    "vision_guidance",
+    "ai_guidance",
+    "mapping_guidance",
+    "confidence_expectations",
+    "definition_id"
+  ],
+  "title": "EADDefinitionModel",
+  "type": "object"
+}

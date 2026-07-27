@@ -1,0 +1,221 @@
+# Same logical definitions as definitions.json, in YAML - proves loader.py's
+# format parity, same pattern as ai/ear/examples/registry.yaml.
+definitions:
+  - definition_id: d3a6aee7-52b5-5559-803c-565f28013da8
+    registry_reference: EAR-000001
+    display_name: Primary Colour
+    business_definition: >-
+      The single dominant colour a customer would name first when describing
+      this cake's appearance.
+    purpose: >-
+      Drives colour-based merchandising filters and SEO/GEO descriptions that
+      mention a cake's look.
+    examples:
+      - white
+      - pastel pink
+      - chocolate brown
+    vision_guidance: >-
+      Identify the dominant colour of the cake's outer surface (icing/fondant),
+      ignoring small decorations, toppers, or the plate/background.
+    ai_guidance: >-
+      Treat as a single categorical value, not a palette - if multiple colours
+      are equally dominant, prefer the base/icing colour over accent colours.
+    mapping_guidance: >-
+      Maps to a Shopify metafield used in collection filtering and to an ERP
+      SKU attribute code used for kitchen recipe colour matching.
+    allowed_values:
+      - white
+      - pastel pink
+      - chocolate brown
+      - red
+      - black
+      - gold
+    ead_version: "1.0"
+    confidence_expectations:
+      minimum_confidence: 0.6
+      typical_confidence: 0.85
+      notes: Colour is one of the most reliably extracted attributes from a clear product photo.
+    search_behaviour:
+      searchable: true
+      facetable: true
+      boost: 1.2
+      notes: High-value facet for collection filtering.
+    knowledge_graph_reference: null
+    shopify_mapping:
+      system: shopify
+      id_type: metafield
+      value: "custom.primary_colour"
+    erp_mapping:
+      system: erp
+      id_type: sku_attribute_code
+      value: "COLOUR_PRIMARY"
+    metadata:
+      domain: bakery
+      group: colour
+
+  - definition_id: 1f4e757b-1a29-5b87-a590-4efe441cd70b
+    registry_reference: EAR-000002
+    display_name: Decoration Type
+    business_definition: >-
+      The category of decorative technique or element applied to the cake
+      (e.g. piped, fondant figures, edible print).
+    purpose: >-
+      Distinguishes decoration style for merchandising and for setting
+      customer expectations on customization options.
+    examples:
+      - piped buttercream
+      - fondant figures
+      - edible photo print
+    vision_guidance: >-
+      Classify the primary decoration technique visible, not every individual
+      decorative element - one dominant technique per image.
+    ai_guidance: >-
+      Draft status - this attribute is not yet promoted to active use;
+      downstream consumers should treat its value as provisional.
+    mapping_guidance: >-
+      No mapping guidance yet - draft attributes are not distributed to
+      Shopify or ERP until promoted to active.
+    allowed_values:
+      - piped buttercream
+      - fondant figures
+      - edible photo print
+      - none
+    ead_version: "1.0"
+    confidence_expectations:
+      minimum_confidence: 0.4
+      typical_confidence: null
+      notes: Draft attribute - confidence expectations not yet calibrated against real extraction runs.
+    search_behaviour:
+      searchable: false
+      facetable: false
+      boost: 1.0
+      notes: Not yet exposed to search while draft.
+    knowledge_graph_reference: null
+    shopify_mapping: null
+    erp_mapping: null
+    metadata:
+      domain: bakery
+      group: decoration
+
+  - definition_id: 16865fe0-d258-564a-8b69-78c71ee1983f
+    registry_reference: EAR-000003
+    display_name: Image Vector
+    business_definition: >-
+      A numeric embedding representing this image's visual content, for
+      similarity/visual search.
+    purpose: >-
+      Enables nearest-neighbor visual search and recommendation without
+      requiring a human-readable category match.
+    examples:
+      - "[0.0123, -0.0456, 0.0789, ...]"
+    vision_guidance: >-
+      Not applicable - this attribute is produced by an embedding model, not
+      the vision extraction prompt.
+    ai_guidance: >-
+      Treat as an opaque numeric vector - never interpret individual
+      dimensions as meaningful in isolation.
+    mapping_guidance: >-
+      Not distributed to Shopify or ERP - consumed only by the future Vector
+      Search / Similarity Search build (WS-10/11).
+    allowed_values: null
+    ead_version: "1.0"
+    confidence_expectations:
+      minimum_confidence: 0.0
+      typical_confidence: null
+      notes: >-
+        Confidence is not a meaningful concept for a raw embedding - see
+        EAL's own Confidence_Standard.md precedent for vector-typed
+        attributes.
+    search_behaviour:
+      searchable: true
+      facetable: false
+      boost: 1.0
+      notes: Searched via nearest-neighbor similarity, not text/facet matching.
+    knowledge_graph_reference: null
+    shopify_mapping: null
+    erp_mapping: null
+    metadata:
+      domain: core
+      group: embeddings
+
+  - definition_id: 1e2aa95d-2948-5890-9ab6-1b31a0ca7cb4
+    registry_reference: EAR-000004
+    display_name: Primary Shape
+    business_definition: >-
+      The overall geometric shape of the cake (round, square, heart,
+      number/letter, character).
+    purpose: >-
+      Historically used for shape-based merchandising filters; superseded by
+      a more granular shape+theme classification.
+    examples:
+      - round
+      - square
+      - heart
+    vision_guidance: >-
+      Deprecated - do not extract this attribute for new images; superseded
+      by domain.bakery.classification.shape_theme.
+    ai_guidance: >-
+      Deprecated attribute - downstream consumers should migrate to its
+      replacement rather than reading this value for new decisions.
+    mapping_guidance: No longer distributed to Shopify or ERP as of its deprecation.
+    allowed_values:
+      - round
+      - square
+      - heart
+      - number
+      - letter
+      - character
+    ead_version: "1.0"
+    confidence_expectations:
+      minimum_confidence: 0.6
+      typical_confidence: 0.9
+      notes: Historical extraction quality was high; not relevant to new extractions since deprecation.
+    search_behaviour:
+      searchable: false
+      facetable: false
+      boost: 1.0
+      notes: Removed from active search facets on deprecation.
+    knowledge_graph_reference: null
+    shopify_mapping: null
+    erp_mapping: null
+    metadata:
+      domain: bakery
+      group: shape
+      deprecated_reason: superseded by shape_theme
+
+  - definition_id: 35015626-c00f-5651-a03c-6f88bd5dffc8
+    registry_reference: EAR-000005
+    display_name: Primary Material
+    business_definition: >-
+      The primary edible medium used for the cake's structure (sponge,
+      fondant-covered, cream-only).
+    purpose: Retired attribute, retained for historical Knowledge Graph lineage only.
+    examples:
+      - sponge
+      - fondant-covered
+      - cream-only
+    vision_guidance: Retired - no longer extracted under any circumstance.
+    ai_guidance: >-
+      Retired attribute - present only for historical records; must never be
+      written by any new pipeline.
+    mapping_guidance: Not distributed to any downstream system.
+    allowed_values:
+      - sponge
+      - fondant-covered
+      - cream-only
+    ead_version: "1.0"
+    confidence_expectations:
+      minimum_confidence: 0.6
+      typical_confidence: null
+      notes: Retired before enough real extractions accumulated to calibrate a typical confidence.
+    search_behaviour:
+      searchable: false
+      facetable: false
+      boost: 1.0
+      notes: Not searchable - retired.
+    knowledge_graph_reference: null
+    shopify_mapping: null
+    erp_mapping: null
+    metadata:
+      domain: bakery
+      group: material
