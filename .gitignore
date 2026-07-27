@@ -7,3 +7,11 @@ seo-ops/*.csv
 seo-ops/*.jsonl
 seo-ops/*.log
 seo-ops/**/PROGRESS.txt
+
+# ai/vision/images — local smoke-test images only (see ai/vision/images/README.md).
+# Ignore everything future, keep the 3 existing sample images tracked.
+ai/vision/images/*
+!ai/vision/images/1.png
+!ai/vision/images/2.png
+!ai/vision/images/3.png
+!ai/vision/images/README.md

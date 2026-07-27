@@ -1,0 +1,13 @@
+{
+  "provider": {
+    "name": "ollama",
+    "model": "qwen2.5vl:3b",
+    "url": "http://localhost:11434/api/generate",
+    "timeout": 300
+  },
+  "schema_version": "v1",
+  "taxonomy_version": "v1",
+  "prompt_file": "ai/vision/prompts/extractor_v1.md",
+  "schema_file": "ai/vision/schemas/tbk_image_schema_v1.json",
+  "image_path": "ai/vision/images/1.png"
+}
