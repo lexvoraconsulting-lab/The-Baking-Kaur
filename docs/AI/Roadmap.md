@@ -18,15 +18,18 @@
   (GPT-5 Vision), `ClaudeProvider`.
 - A batch pipeline that runs the vision extraction over the full product catalogue rather than
   one image at a time.
-- `docs/AI/PROJECT_CONSTITUTION.md` gets authored once the platform's guiding principles are
-  finalized.
+- ~~`docs/AI/PROJECT_CONSTITUTION.md` gets authored once the platform's guiding principles are
+  finalized.~~ Done — superseded by
+  [`docs/00_Governance/VIG-000-Constitution.md`](../00_Governance/VIG-000-Constitution.md) and the
+  full VIG-000–VIG-009 governance library.
 
 ## Explicitly deferred — documented here, not scaffolded as folders
 
 The long-term "TBK Intelligence Platform" ambition includes a Product Genome, Knowledge Graph,
 vector search, Shopify sync automation, marketing automation, a JARVIS-style orchestration layer,
 and ERP integration. None of these have any code today. Per this repo's own architecture
-guidance ("do NOT create empty folders without justification"), no `knowledge_graph/`,
-`vector_db/`, `search/`, `shopify/`, `marketing/`, `jarvis/`, or `erp/` folders exist yet — they
-are named here as future direction only, and will be scaffolded when a phase actually implements
-the first piece of one.
+guidance ("do NOT create empty folders without justification") and
+[VIG-001 (Platform Principles)](../00_Governance/VIG-001-Platform-Principles.md) Principle 4, no
+`knowledge_graph/`, `vector_db/`, `search/`, `shopify/`, `marketing/`, `jarvis/`, or `erp/` folders
+exist yet — they are named here as future direction only, and will be scaffolded when a phase
+actually implements the first piece of one.

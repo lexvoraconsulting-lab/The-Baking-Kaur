@@ -31,6 +31,9 @@ deliberately, before any of those modules exist, because retrofitting an identit
 volume has been processed without one is materially harder than carrying it from the start — see
 `docs/AI/ARCHITECTURE_REVIEW_AR001.md` §6 and §13.2.
 
+This is the concrete implementation of [VIG-006 (Identifier Standard)](../00_Governance/VIG-006-Identifier-Standard.md);
+the `schema_version`/`taxonomy_version` fields implement [VIG-005 (Versioning Standard)](../00_Governance/VIG-005-Versioning-Standard.md).
+
 ## Pointing at a different image or model
 
 Nothing in this flow is hardcoded — edit `ai/vision/config/vision.json` (or pass `--config` with

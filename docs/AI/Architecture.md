@@ -40,3 +40,6 @@ The actual architecture decision (why a provider abstraction, why JSON config, w
 recorded in `docs/adr/2026-07-27-vision-provider-abstraction.md`, per this repo's "one decision,
 one document" convention (see `docs/adr/` for prior ADRs). This document explains the resulting
 system; it does not re-decide it.
+
+This module implements [VIG-002 (Architecture Principles)](../00_Governance/VIG-002-Architecture-Principles.md)
+and [VIG-004 (AI Principles)](../00_Governance/VIG-004-AI-Principles.md).

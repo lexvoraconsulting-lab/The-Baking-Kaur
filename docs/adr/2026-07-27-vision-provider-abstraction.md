@@ -59,3 +59,8 @@ This ADR is the sole decision record for the Vision Engine's Phase 1 architectur
 repo's "one decision, one document" standing principle (CLAUDE.md). `docs/AI/Architecture.md`,
 `FolderStructure.md`, `VisionPipeline.md`, `Configuration.md`, and `Roadmap.md` describe the
 resulting system for day-to-day reference; they do not re-decide it.
+
+Satisfies [VIG-002 (Architecture Principles)](../00_Governance/VIG-002-Architecture-Principles.md)
+and [VIG-004 (AI Principles)](../00_Governance/VIG-004-AI-Principles.md) — this decision is the
+first concrete implementation of the platform-wide provider-interchangeability principle those
+standards later formalized.

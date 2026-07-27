@@ -43,6 +43,9 @@ uses for `SHOPIFY_TOKEN`. Never add an `api_key` field to `vision.json` itself. 
 to *name* which environment variable to read (e.g. to support multiple accounts), store the
 variable's name as a string (`"api_key_env": "GOOGLE_API_KEY"`), never the key's value.
 
+This section implements [VIG-007 (Quality Standard)](../00_Governance/VIG-007-Quality-Standard.md);
+the versioning fields above implement [VIG-005 (Versioning Standard)](../00_Governance/VIG-005-Versioning-Standard.md).
+
 ## Why JSON, not YAML or TOML
 
 No third-party config-format dependency exists anywhere in this repo, and there's no

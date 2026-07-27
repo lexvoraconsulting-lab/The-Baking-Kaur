@@ -60,3 +60,9 @@ full. It does not implement §14/§15 (Recommended/Nice-to-have improvements —
 provenance records, multi-environment config) or any Phase 2 capability (batch runner, second
 provider, structured-output parsing, persistence, embeddings) — those remain future work per
 `docs/AI/Roadmap.md`.
+
+Satisfies [VIG-002 (Architecture Principles)](../00_Governance/VIG-002-Architecture-Principles.md)
+(Principle 5, importability), [VIG-005 (Versioning Standard)](../00_Governance/VIG-005-Versioning-Standard.md),
+and [VIG-006 (Identifier Standard)](../00_Governance/VIG-006-Identifier-Standard.md) — `TBK_IMAGE_ID`
+and the `schema_version`/`taxonomy_version` fields introduced here are the first concrete
+implementations those two standards later formalized platform-wide.

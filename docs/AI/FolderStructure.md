@@ -40,3 +40,6 @@ only the 3 existing samples.
 a single file, not a subpackage. A `providers/` package is only justified once a second concrete
 provider (Google/OpenAI/Claude) actually exists; splitting now would be a folder with no second
 tenant.
+
+This layout applies [VIG-002 (Architecture Principles)](../00_Governance/VIG-002-Architecture-Principles.md)
+Principle 4 (structure in proportion to actual responsibilities).
