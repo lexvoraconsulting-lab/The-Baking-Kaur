@@ -1,0 +1,15 @@
+{
+  "relationship_id": "EAL-REL-fe42e1532d3a5459",
+  "eal_version": "1.0",
+  "type": "ON",
+  "source_id": "TBK-OBJ-topper-01",
+  "target_id": "TBK-OBJ-cake-01",
+  "confidence": 0.74,
+  "provenance": {
+    "provider": "ollama",
+    "model": "qwen2.5vl:3b",
+    "schema_version": "v1",
+    "taxonomy_version": "v1",
+    "extracted_at": "2026-07-27T12:00:00Z"
+  }
+}

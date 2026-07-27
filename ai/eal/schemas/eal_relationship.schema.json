@@ -1,0 +1,110 @@
+{
+  "$defs": {
+    "ProvenanceModel": {
+      "properties": {
+        "provider": {
+          "title": "Provider",
+          "type": "string"
+        },
+        "model": {
+          "title": "Model",
+          "type": "string"
+        },
+        "schema_version": {
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "taxonomy_version": {
+          "title": "Taxonomy Version",
+          "type": "string"
+        },
+        "extracted_at": {
+          "title": "Extracted At",
+          "type": "string"
+        },
+        "model_version": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Model Version"
+        },
+        "prompt_version": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Prompt Version"
+        }
+      },
+      "required": [
+        "provider",
+        "model",
+        "schema_version",
+        "taxonomy_version",
+        "extracted_at"
+      ],
+      "title": "ProvenanceModel",
+      "type": "object"
+    }
+  },
+  "properties": {
+    "type": {
+      "title": "Type",
+      "type": "string"
+    },
+    "source_id": {
+      "title": "Source Id",
+      "type": "string"
+    },
+    "target_id": {
+      "title": "Target Id",
+      "type": "string"
+    },
+    "provenance": {
+      "$ref": "#/$defs/ProvenanceModel"
+    },
+    "relationship_id": {
+      "title": "Relationship Id",
+      "type": "string"
+    },
+    "eal_version": {
+      "default": "1.0",
+      "title": "Eal Version",
+      "type": "string"
+    },
+    "confidence": {
+      "anyOf": [
+        {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Confidence"
+    }
+  },
+  "required": [
+    "type",
+    "source_id",
+    "target_id",
+    "provenance",
+    "relationship_id"
+  ],
+  "title": "EALRelationshipRecordModel",
+  "type": "object"
+}

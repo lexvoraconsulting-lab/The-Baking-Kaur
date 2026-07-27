@@ -1,0 +1,23 @@
+{
+  "attribute_id": "EAL-82e543ddb937a0c5",
+  "eal_version": "1.0",
+  "canonical_path": "eal.core.embeddings.image_vector",
+  "namespace": "core",
+  "group": "embeddings",
+  "entity_id": "TBK-2544c08921611adf",
+  "entity_type": "image",
+  "value": [0.0123, -0.0456, 0.0789],
+  "value_state": "present",
+  "data_type": "vector",
+  "confidence": null,
+  "provenance": {
+    "provider": "ollama",
+    "model": "nomic-embed-vision",
+    "model_version": "v1.5",
+    "schema_version": "v1",
+    "taxonomy_version": "v1",
+    "extracted_at": "2026-07-27T12:00:00Z"
+  },
+  "human_verification": { "status": "unverified" },
+  "external_ids": []
+}

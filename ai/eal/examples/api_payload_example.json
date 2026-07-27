@@ -1,0 +1,52 @@
+{
+  "eal_version": "1.0",
+  "entity_id": "TBK-2544c08921611adf",
+  "attributes": [
+    {
+      "attribute_id": "EAL-fa3c900429a739de",
+      "eal_version": "1.0",
+      "canonical_path": "eal.domain.bakery.colour.primary",
+      "namespace": "domain.bakery",
+      "group": "colour",
+      "entity_id": "TBK-2544c08921611adf",
+      "entity_type": "image",
+      "value": "white",
+      "value_state": "present",
+      "data_type": "enum",
+      "vocabulary": "colour_name",
+      "confidence": 0.82,
+      "provenance": {
+        "provider": "ollama",
+        "model": "qwen2.5vl:3b",
+        "schema_version": "v1",
+        "taxonomy_version": "v1",
+        "extracted_at": "2026-07-27T12:00:00Z"
+      },
+      "human_verification": { "status": "unverified" },
+      "external_ids": []
+    },
+    {
+      "attribute_id": "EAL-efcc8e0303528d2a",
+      "eal_version": "1.0",
+      "canonical_path": "eal.domain.bakery.decoration.type",
+      "namespace": "domain.bakery",
+      "group": "decoration",
+      "entity_id": "TBK-2544c08921611adf",
+      "entity_type": "object",
+      "value": null,
+      "value_state": "unknown",
+      "data_type": "enum",
+      "vocabulary": "decoration_type",
+      "confidence": null,
+      "provenance": {
+        "provider": "ollama",
+        "model": "qwen2.5vl:3b",
+        "schema_version": "v1",
+        "taxonomy_version": "v1",
+        "extracted_at": "2026-07-27T12:00:00Z"
+      },
+      "human_verification": { "status": "pending_review" },
+      "external_ids": []
+    }
+  ]
+}
