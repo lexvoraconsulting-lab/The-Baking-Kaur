@@ -1,0 +1,125 @@
+{
+  "properties": {
+    "canonical_name": {
+      "title": "Canonical Name",
+      "type": "string"
+    },
+    "namespace": {
+      "title": "Namespace",
+      "type": "string"
+    },
+    "datatype": {
+      "enum": [
+        "string",
+        "integer",
+        "float",
+        "boolean",
+        "enum",
+        "date",
+        "datetime",
+        "array",
+        "object",
+        "vector",
+        "reference"
+      ],
+      "title": "Datatype",
+      "type": "string"
+    },
+    "owner": {
+      "title": "Owner",
+      "type": "string"
+    },
+    "eal_reference": {
+      "title": "Eal Reference",
+      "type": "string"
+    },
+    "status": {
+      "default": "draft",
+      "enum": [
+        "draft",
+        "active",
+        "deprecated",
+        "retired"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "ear_version": {
+      "default": "1.0",
+      "title": "Ear Version",
+      "type": "string"
+    },
+    "registry_uuid": {
+      "title": "Registry Uuid",
+      "type": "string"
+    },
+    "attribute_id": {
+      "title": "Attribute Id",
+      "type": "string"
+    },
+    "version": {
+      "default": "v1",
+      "title": "Version",
+      "type": "string"
+    },
+    "introduced_in": {
+      "default": "v1",
+      "title": "Introduced In",
+      "type": "string"
+    },
+    "deprecated_in": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Deprecated In"
+    },
+    "definition_reference": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Definition Reference"
+    },
+    "taxonomy_references": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Taxonomy References",
+      "type": "array"
+    },
+    "validation_profile": {
+      "default": "default",
+      "title": "Validation Profile",
+      "type": "string"
+    },
+    "tags": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Tags",
+      "type": "array"
+    }
+  },
+  "required": [
+    "canonical_name",
+    "namespace",
+    "datatype",
+    "owner",
+    "eal_reference",
+    "registry_uuid",
+    "attribute_id"
+  ],
+  "title": "EARAttributeEntryModel",
+  "type": "object"
+}
