@@ -85,7 +85,7 @@ graph LR
         EAL --> EAR --> EAD
     end
     VE["Vision Engine (Sprint 1, pre-dates Foundation v1)"] --> EAL
-    EAD --> KG["Knowledge Graph (Build-005, not started)"]
+    EAD --> KG["Knowledge Graph (Build-007, not started)"]
     EAD --> DIST["Attribute Distribution (Build-004, not started)"]
     TAX["Sprint 2.1 Taxonomy Architecture"] -.grounds vocabulary/type resolution.-> EAR
 ```
@@ -207,8 +207,8 @@ graph TD
     Build002 --> Build003[Build-003 EAD]
     Sprint21 -.grounds vocabulary resolution.-> Build002
     Build003 --> Build004[Build-004 Attribute Distribution - not started]
-    Build002 --> Build005[Build-005 Knowledge Graph - not started]
-    Build003 --> Build005
+    Build002 --> Build007[Build-007 Knowledge Graph - not started]
+    Build003 --> Build007
 ```
 
 Matches, and does not contradict, the authoritative Build dependency graph in
@@ -250,13 +250,17 @@ Summary only:
 | Build | Name |
 |---|---|
 | Build-004 | Enterprise Attribute Distribution (the write path to Shopify/ERP) |
-| Build-005 | Knowledge Graph (physical implementation) |
-| Build-006 | Master Image Taxonomy content (Sprint 2.2) |
-| Build-007 | Vision Engine structured extraction (Sprint 2.3) |
-| Build-008 | Embeddings + Vector Search |
-| Build-009 | ERP + Shopify Distribution at volume |
-| Build-010 | JARVIS integration |
-| Build-011 | Production Release v1.0 |
+| Build-005 | Enterprise Master Taxonomy (Sprint 2.2) |
+| Build-006 | Enterprise Validation Engine |
+| Build-007 | Enterprise Knowledge Graph (physical implementation) |
+| Build-008 | Vision Engine structured extraction (Sprint 2.3) |
+| Build-009 | Embeddings + Vector Search |
+| Build-010 | ERP + Shopify Distribution at volume |
+| Build-011 | JARVIS integration |
+| Build-012 | Production Release v1.0 |
+
+Resequenced 2026-07-28 — see
+[docs/adr/2026-07-28-build-005-007-resequencing.md](../adr/2026-07-28-build-005-007-resequencing.md).
 
 None of these have started. This document does not restate their objectives, dependencies, or
 risks — see the EPR sections linked above.

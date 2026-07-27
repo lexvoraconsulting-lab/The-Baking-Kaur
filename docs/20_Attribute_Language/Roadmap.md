@@ -31,13 +31,15 @@ The write path from a validated `EALAttributeRecord` to each `external_ids`-name
 Shopify metafields, ERP attribute codes — including conflict handling when a downstream system's
 own value diverges from EAL's (see [External_ID_Standard.md](External_ID_Standard.md)).
 
-## Build-005 (not started) — Knowledge Graph physical implementation
+## Build-007 (not started) — Knowledge Graph physical implementation
 
 Choosing and implementing the actual graph/relational/hybrid store that persists
 `EALAttributeRecord`/`EALRelationshipRecord` at volume — an ADR-level decision per
 [VIG-002](../00_Governance/VIG-002-Architecture-Principles.md), deliberately not fixed by this
 wire-format work. Reuses [Relationship_Model.md](../10_Taxonomy/Relationship_Model.md)'s existing
-logical schema rather than defining a new one.
+logical schema rather than defining a new one. Resequenced 2026-07-28 — Enterprise Master Taxonomy
+now occupies Build-005 and a new standalone Enterprise Validation Engine occupies Build-006; see
+[docs/adr/2026-07-28-build-005-007-resequencing.md](../adr/2026-07-28-build-005-007-resequencing.md).
 
 ## Depends on, not blocked by
 
