@@ -37,7 +37,7 @@ Enterprise Attribute Definitions as the new Build-003:
 |---|---|---|
 | Build-002 | Build-002 | EAR: Enterprise Attribute Registry — unchanged |
 | *(new)* | **Build-003** | **EAD: Enterprise Attribute Definitions** |
-| Build-003 | Build-004 | EAD: Enterprise Attribute Distribution |
+| Build-003 | Build-004 | Enterprise Attribute Distribution (see [ADR 0006](2026-07-27-workstream-id-convention.md) — no acronym, to avoid reusing "EAD") |
 | Build-004 | Build-005 | Knowledge Graph physical implementation |
 | Build-005 | Build-006 | Master Image Taxonomy content (Sprint 2.2) |
 | Build-006 | Build-007 | Vision Engine structured extraction (Sprint 2.3) |
@@ -57,7 +57,7 @@ review:
 | AR-006 | AR-007 | Sprint 2.2 taxonomy content (now Build-006) |
 | AR-007 | AR-008 | Knowledge Graph storage (now Build-005) |
 | AR-008 | AR-009 | Embeddings/Search (now Build-008) |
-| AR-009 | AR-010 | Vision Extraction (now Build-007) and/or EAD Distribution (now Build-004) |
+| AR-009 | AR-010 | Vision Extraction (now Build-007) and/or Attribute Distribution (now Build-004) |
 | AR-010+ | AR-011+ | Remaining Builds (now 009, 010, 011) |
 
 Workstreams: WS-04 ("Enterprise Attribute Definitions"), previously folded into WS-03/Build-002 in

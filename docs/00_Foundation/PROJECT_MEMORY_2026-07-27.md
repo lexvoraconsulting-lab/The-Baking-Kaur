@@ -200,7 +200,7 @@ EAR (Build-002, registry / identity)
   ↓ (EAD reuses EAR's ID format + Registry class, and EAL's ExternalIdModel)
 EAD (Build-003, semantic definitions)
   ↓ (mapping guidance consumed by, but not written by, EAD itself)
-Build-004 (EAD Distribution — not started)
+Build-004 (Attribute Distribution — not started)
 ```
 
 ```mermaid
@@ -208,7 +208,7 @@ graph TD
     EAL[EAL - Build-001 - FROZEN] --> EAR[EAR - Build-002 - FROZEN]
     EAR --> EAD[EAD - Build-003 - uncommitted]
     EAL -.ExternalIdModel reused directly.-> EAD
-    EAD --> B004[Build-004 EAD Distribution - not started]
+    EAD --> B004[Build-004 Attribute Distribution - not started]
     EAR --> B005[Build-005 Knowledge Graph - not started]
     EAD --> B005
 ```

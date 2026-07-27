@@ -52,7 +52,7 @@ ahead of it.
 1. Ship the wire format (done — Build-001/EAL), the registry that gives it real vocabulary content
    (done — Build-002/EAR), the semantic definition layer over it (in progress — Build-003/EAD
    Definitions), and the distribution layer that gets validated attributes into Shopify/ERP
-   (Build-004/EAD Distribution), on the schedule in Section 07.
+   (Build-004, Enterprise Attribute Distribution), on the schedule in Section 07.
 2. Stand up the Knowledge Graph as the actual system of record VIG-003 already mandates
    (Build-005+), so Product Genome stops being a governance concept and becomes a queryable thing.
 3. Wire the Vision Engine's real extraction (Sprint 2.3) against a real, authored taxonomy
@@ -144,10 +144,10 @@ graph LR
     KG --> MarketingAI[Marketing AI]
     KG --> Search[Visual / Vector Search]
     KG --> JARVIS[JARVIS]
-    EADDIST[EAD Distribution - Build-004] --> Shopify[(Shopify Admin API)]
-    EADDIST --> ERP[(TBK Kitchen ERP)]
-    KG --> EADDIST
-    EADDEF --> EADDIST
+    DIST[Attribute Distribution - Build-004] --> Shopify[(Shopify Admin API)]
+    DIST --> ERP[(TBK Kitchen ERP)]
+    KG --> DIST
+    EADDEF --> DIST
     n8n[n8n] -.orchestrates cross-system workflows.-> Shopify
     n8n -.orchestrates cross-system workflows.-> ERP
     Google[Google Business Profile] -.review source, per REVIEW_STRATEGY.md.-> ShopifyAI
@@ -158,16 +158,16 @@ graph LR
 | System | Owns | Interface to this platform | Owned by |
 |---|---|---|---|
 | Vision Engine | Turning an image into a raw observation | Produces `EALAttributeRecord`s (Section 13's Migration_Guide) | This platform |
-| Enterprise Attribute Definitions | Semantic meaning + Shopify/ERP mapping guidance for each EAR attribute (Build-003) | Read by Knowledge Graph and EAD Distribution; written only by this build | This platform |
+| Enterprise Attribute Definitions | Semantic meaning + Shopify/ERP mapping guidance for each EAR attribute (Build-003) | Read by Knowledge Graph and Build-004 (Attribute Distribution); written only by this build | This platform |
 | Knowledge Graph | System of record for verified attributes (VIG-003) | Consumes EAR-resolved, EAD-defined records, serves Product Genome reads | This platform |
-| TBK Kitchen ERP | Inventory, recipes, kitchen operations — **already exists, not redesigned here** (Section 13) | Receives attribute codes via EAD Distribution's `external_ids` join only | ERP's own team/system |
-| Shopify | Storefront, orders, product records — **already exists** (Section 14) | Receives metafields via EAD Distribution's `external_ids` join only | Shopify platform + this store's existing `seo-ops/` tooling |
-| n8n | Cross-system workflow orchestration (e.g. "on new verified attribute, notify ERP and Shopify") | Consumes EAD Distribution's output events; **never** a second write path into the Knowledge Graph | Whichever team operates n8n — scoped here as a consumer, not a data owner |
+| TBK Kitchen ERP | Inventory, recipes, kitchen operations — **already exists, not redesigned here** (Section 13) | Receives attribute codes via Build-004's `external_ids` join only | ERP's own team/system |
+| Shopify | Storefront, orders, product records — **already exists** (Section 14) | Receives metafields via Build-004's `external_ids` join only | Shopify platform + this store's existing `seo-ops/` tooling |
+| n8n | Cross-system workflow orchestration (e.g. "on new verified attribute, notify ERP and Shopify") | Consumes Build-004's output events; **never** a second write path into the Knowledge Graph | Whichever team operates n8n — scoped here as a consumer, not a data owner |
 | Google Business Profile | Source of truth for real customer reviews | Read-only source for the Shopify AI / review pipeline already described in root `REVIEW_STRATEGY.md` — this EPR does not reinvent that plan, only cites it | Google, external |
 | JARVIS | Orchestration/agent layer over the whole platform | Consumes Knowledge Graph reads; **publishing or overriding any gate remains human-only**, per the agent-authority boundary already established in `docs/blog-os/factory/AUTOMATION_READINESS.md` §7 — this platform does not grant JARVIS a different, looser boundary | This platform, once built |
 
-No system above has a second owner. Every cross-system write goes through EAD Distribution
-(Build-004) and its `external_ids` join (`docs/20_Attribute_Language/External_ID_Standard.md`) —
+No system above has a second owner. Every cross-system write goes through Build-004 (Attribute
+Distribution) and its `external_ids` join (`docs/20_Attribute_Language/External_ID_Standard.md`) —
 n8n orchestrates *when* things happen, never *what* the canonical data is.
 
 ---
@@ -270,11 +270,11 @@ references throughout this table are updated to the post-renumbering sequence.
 | WS-06 | Knowledge Graph | Physical system of record | Build-005 | WS-03 (registry), WS-04 (definitions), WS-05 (content) | KG stores and serves real Attribute/Relationship records at volume | AR-008 |
 | WS-07 | Validation Engine | Enforce the 4 validation dimensions (`Validation.md`) at runtime | Cross-field validators, consistency-conflict detection | WS-03, WS-04 | Confidence-thresholding and consistency checks run automatically, not just documented | Folded into AR-005/007 |
 | WS-08 | Image Genome (Cake Genome + future) | Domain-specific content delivery | Cake Genome (Sprint 2.2); future Genomes on demand | WS-05 | A second Domain ships with zero EPGF core changes | AR-007, repeated per new Domain |
-| WS-09 | APIs | Expose Knowledge Graph reads/writes to consumers | Read API (Product Genome surface, VIG-003), write API (EAD Distribution) | WS-06 | Consumers (Shopify AI, Marketing AI) can query without touching KG internals | Folded into AR-008 |
+| WS-09 | APIs | Expose Knowledge Graph reads/writes to consumers | Read API (Product Genome surface, VIG-003), write API (Build-004) | WS-06 | Consumers (Shopify AI, Marketing AI) can query without touching KG internals | Folded into AR-008 |
 | WS-10 | Search | Visual/vector search over the Knowledge Graph | Search index over Embeddings-group attributes | WS-06, WS-11 | A query returns nearest-neighbor Objects by embedding | AR-009 |
 | WS-11 | Embeddings | Vector generation and storage | `data_type: "vector"` attributes at volume (already modeled, see `embedding_metadata_example.json`) | WS-02 (Vision Engine emits them) | Embeddings stored as ordinary Attribute Records, no parallel entity system | AR-009 |
-| WS-12 | ERP Integration | Distribute verified attributes to TBK Kitchen ERP | EAD Distribution's ERP `external_ids` mapping (Section 13) | WS-03, WS-04, Build-004 | ERP receives attribute codes with zero platform redesign of ERP itself | AR-010 |
-| WS-13 | Shopify Integration | Distribute verified attributes to Shopify metafields | EAD Distribution's Shopify `external_ids` mapping (Section 14) | WS-03, WS-04, Build-004 | Shopify metafields populated from validated EAL records, matching existing `seo-ops/` conventions | AR-010 |
+| WS-12 | ERP Integration | Distribute verified attributes to TBK Kitchen ERP | Build-004's ERP `external_ids` mapping (Section 13) | WS-03, WS-04, Build-004 | ERP receives attribute codes with zero platform redesign of ERP itself | AR-010 |
+| WS-13 | Shopify Integration | Distribute verified attributes to Shopify metafields | Build-004's Shopify `external_ids` mapping (Section 14) | WS-03, WS-04, Build-004 | Shopify metafields populated from validated EAL records, matching existing `seo-ops/` conventions | AR-010 |
 | WS-14 | Human Review | The verification gate | `human_verification` lifecycle (built, `Human_Verification_Standard.md`); UI/workflow for reviewers (future) | WS-02, WS-03 | A human can review a `pending_review` record and it updates state correctly | Folded into AR-007 |
 | WS-15 | AI Services | Marketing AI, SEO AI, JARVIS — consumers of the Knowledge Graph | Each service's own scoped integration, one at a time, on demand | WS-06 | Named in Section 15, none built ahead of a real need (VIG-001 Principle 4) | One gate per service when it starts |
 | WS-16 | Deployment | How EPGF code ships | Extends this repo's existing CI-free, direct-deploy pattern until a real deploy pipeline is needed | WS-02..14 as each matures | A Build's code runs in whatever environment consumes it, documented, not assumed | Folded into each Build's own gate |
@@ -331,7 +331,7 @@ Enterprise Attribute Definitions; every Build originally numbered 003 or higher 
   taxonomy / the Knowledge Graph (Build-005) exist — same deferred-validation pattern EAR already
   established for its own `taxonomy_references`, tracked not fixed here.
 
-### Build-004 — EAD: Enterprise Attribute Distribution
+### Build-004 — Enterprise Attribute Distribution
 
 - **Objective**: The write path from a validated `EALAttributeRecord` (enriched by its Build-003
   Definition's mapping guidance) to each system named in its `external_ids` — Shopify metafields,
@@ -400,7 +400,7 @@ Enterprise Attribute Definitions; every Build originally numbered 003 or higher 
 - **Dependencies**: Build-006 (real taxonomy to parse against).
 - **Exit Criteria**: Running the Vision Engine on a real product image produces one or more valid,
   registry-resolvable `EALAttributeRecord`s.
-- **Review**: AR-010 (shared gate with Build-004 EAD Distribution — see Section 09).
+- **Review**: AR-010 (shared gate with Build-004, Enterprise Attribute Distribution — see Section 09).
 - **Estimated effort**: Medium.
 - **Risks**: Prompt/model quality (an AI provider's raw text may not cleanly map to the schema) —
   mitigate with the `value_state: "unknown"` + `pending_review` path already built for exactly this
@@ -465,7 +465,7 @@ Enterprise Attribute Definitions; every Build originally numbered 003 or higher 
 graph TD
     B001[Build-001 EAL - DONE] --> B002[Build-002 EAR - DONE]
     B002 --> B003[Build-003 EAD Definitions]
-    B002 --> B004[Build-004 EAD Distribution]
+    B002 --> B004[Build-004 Attribute Distribution]
     B003 --> B004
     B002 --> B005[Build-005 Knowledge Graph]
     B003 --> B005
@@ -529,7 +529,7 @@ graph TD
     AR005 --> AR007[AR-007 Taxonomy Content]
     AR007 --> AR008[AR-008 Knowledge Graph]
     AR008 --> AR009[AR-009 Embeddings/Search]
-    AR006 --> AR010[AR-010 Vision Extraction / EAD Distribution]
+    AR006 --> AR010[AR-010 Vision Extraction / Attribute Distribution]
     AR008 --> AR010
     AR008 --> AR011[AR-011+ remaining gates]
 ```
@@ -556,7 +556,7 @@ see [docs/adr/2026-07-27-build-003-renumbering.md](../adr/2026-07-27-build-003-r
 | AR-007 | Review Sprint 2.2 taxonomy content (Build-006) | Real Category/Attribute/Vocabulary content | Go/No-Go for Build-002 to resolve against it | Content matches Sprint 2.1's architecture; no Category/Vocabulary contradicts an existing one |
 | AR-008 | Review Knowledge Graph storage decision (Build-005) | The ADR selecting storage technology | Go/No-Go | Reuses `Relationship_Model.md`'s logical schema; Category-tree performance question explicitly decided, not deferred again |
 | AR-009 | Review Embeddings/Search (Build-008) | Embedding pipeline + search index | Go/No-Go | Provider-interchangeable (VIG-004); embeddings modeled as ordinary Attribute Records, no parallel entity system |
-| AR-010 | Review Vision Extraction (Build-007) and/or EAD Distribution (Build-004) | Parser + distribution code | Go/No-Go | Round-trip test passes; no fabricated attribute reaches a downstream system |
+| AR-010 | Review Vision Extraction (Build-007) and/or Attribute Distribution (Build-004) | Parser + distribution code | Go/No-Go | Round-trip test passes; no fabricated attribute reaches a downstream system |
 | AR-011+ | Remaining Builds (009, 010, 011) | Each Build's own deliverables | Go/No-Go | Section 16's Definition of Done satisfied |
 
 ---
@@ -573,7 +573,7 @@ framework dependency (`ai/vision/python/test_config_providers.py`, `ai/eal/test_
 | Schema Validation | Every record matches its Pydantic model | `test_eal.py`/`test_ear.py`'s example-validation tests | Extends automatically as EAR (Build-002) adds cross-field validators |
 | AI Validation | A vision-model output is well-formed before promotion | Not yet built (Sprint 2.3) | Build-007 adds: parse-then-validate-then-flag-unknown, reusing `value_state`/`human_verification` |
 | Golden Image Validation | A known image's extraction stays stable across model/prompt changes | Not yet built | Build-007: a small fixed set of reference images with expected (or human-approved) attribute output, diffed on every prompt/schema change |
-| Integration Tests | Cross-module (Vision→EAL→EAR→EAD→KG→EAD Distribution) | `ai/ead/test_ead.py`'s cross-reference test against a real `ai/ear/examples/registry.json` (Build-003) is the first of these | Introduced incrementally as each Build closes the next link in the chain |
+| Integration Tests | Cross-module (Vision→EAL→EAR→EAD→KG→Build-004) | `ai/ead/test_ead.py`'s cross-reference test against a real `ai/ear/examples/registry.json` (Build-003) is the first of these | Introduced incrementally as each Build closes the next link in the chain |
 | Knowledge Graph Tests | Storage-layer correctness at volume | Not yet built | Build-005: correctness + the Category-tree performance question from AR-003/AR-008 |
 | Performance Tests | Query latency at real catalogue volume | Not yet built | Build-005/008/009, once there's real volume to measure against |
 | Regression Tests | A fix doesn't reintroduce a closed AR finding | The `test_example_ids_match_computed_ids` pattern added during Build-001's AR-004 pass is the model: a finding becomes a permanent assertion, not just a fixed instance | Applied per future AR finding |
@@ -590,7 +590,7 @@ framework dependency (`ai/vision/python/test_config_providers.py`, `ai/eal/test_
 | v0.5 | Real taxonomy content | Build-006 (Sprint 2.2) | AR-007 = GO |
 | v0.6 | Knowledge Graph operational | Build-005 | AR-008 = GO |
 | v0.7 | Real extraction pipeline | Build-007 (Sprint 2.3) | AR-010 = GO |
-| v0.8 | Distribution live | Build-004 (EAD Distribution) + Build-009 at volume | AR-010/011 = GO |
+| v0.8 | Distribution live | Build-004 (Attribute Distribution) + Build-009 at volume | AR-010/011 = GO |
 | v0.9 | Search + first AI Agent consumer | Build-008 (Embeddings/Search) + Build-010 (JARVIS) | AR-009/011 = GO |
 | v1.0 | Production Release | Build-011 | All prior gates GO; Section 16 Definition of Done met across every Build |
 
@@ -601,14 +601,14 @@ framework dependency (`ai/vision/python/test_config_providers.py`, `ai/eal/test_
 | ID | Category | Risk | Mitigation |
 |---|---|---|---|
 | R-1 | Technical / Sequencing | Build-002 (EAR) starts before Sprint 2.2 (Build-006) has real content to validate against | Build-006 gates Build-002 explicitly (Section 08); do not start Build-002 early "to have something to do" |
-| R-2 | Architecture | Build-004 (EAD Distribution) needs a place to read "what changed" from, but Build-005 (KG) may not exist yet | Build-004's first round-trip test can run against a stub/flat-file source; full-volume distribution (Build-009) waits for Build-005 |
+| R-2 | Architecture | Build-004 (Attribute Distribution) needs a place to read "what changed" from, but Build-005 (KG) may not exist yet | Build-004's first round-trip test can run against a stub/flat-file source; full-volume distribution (Build-009) waits for Build-005 |
 | R-3 | Integration | TBK Kitchen ERP's actual write API is unknown to this platform until inspected | Section 13 explicitly scopes Build-004/WS-12 as interface-definition-first; do not design ERP's data model, only the join |
 | R-4 | AI | Vision-model output quality varies by provider/prompt | Golden Image tests (Section 10) plus the existing `value_state: "unknown"`/`pending_review` path absorb low-confidence output without fabricating a value |
 | R-5 | Business | A second Product Genome (Flowers, etc.) is requested before Cake Genome fully proves the model | VIG-001 Principle 4: no Domain is scaffolded ahead of real business need — this roadmap does not pre-build for a Genome that hasn't been asked for |
-| R-6 | Security | ERP/Shopify credentials used by EAD Distribution (Build-004) | Reuse this repo's existing pattern — `SHOPIFY_TOKEN` via env var, never hardcoded (`CLAUDE.md`), same convention extended to any ERP credential |
+| R-6 | Security | ERP/Shopify credentials used by Build-004 (Attribute Distribution) | Reuse this repo's existing pattern — `SHOPIFY_TOKEN` via env var, never hardcoded (`CLAUDE.md`), same convention extended to any ERP credential |
 | R-7 | Performance | Category-tree traversal at volume (already flagged by AR-003, not yet fixed) | Build-005/AR-008 must decide this explicitly (materialized path / closure table / cached applicable-groups), not defer a second time |
 | R-8 | Scalability | Attribute/Domain count growth | Structurally addressed by the two-tier group split and additive-only inheritance (Sections 01/02) — verified, not just assumed, per AR-003 |
-| R-9 | Data Quality | AI-derived attribute reaches a downstream system without human review | `human_verification` gate (built) + EAD Distribution (Build-004) should only distribute `verified`/reviewed records for customer-facing fields, `unverified` only for internal/low-stakes uses — this distinction must be made explicit in Build-004's own design, flagged here so it isn't missed |
+| R-9 | Data Quality | AI-derived attribute reaches a downstream system without human review | `human_verification` gate (built) + Build-004 (Attribute Distribution) should only distribute `verified`/reviewed records for customer-facing fields, `unverified` only for internal/low-stakes uses — this distinction must be made explicit in Build-004's own design, flagged here so it isn't missed |
 | R-10 | Governance | No enforcement mechanism beyond review discipline exists yet (already noted as an open item in AR-002/003/004) | Still appropriately deferred — revisit once a second real module needs it enforced, not introduced as process for its own sake |
 | R-11 | Integration | n8n and Google Services are external systems this platform depends on for orchestration/review-sourcing but does not control uptime for | Both are consumers/sources, never the system of record (Section 03) — an outage degrades convenience, not data integrity |
 | R-12 | Operational | JARVIS or a future agent module attempts to publish or override a gate autonomously | Section 04's new agent-authority principle is the explicit guard; Build-010 scopes JARVIS to read/draft only from day one |
@@ -622,7 +622,7 @@ platform treats it as an independent system with its own data model, reachable o
 join point: `EALAttributeRecord.external_ids`, exactly as already specified in
 `docs/20_Attribute_Language/External_ID_Standard.md` (`system: "erp"`, `id_type:
 "sku_attribute_code"`, `value: "<ERP's own code>"`, per `erp_mapping_example.yaml`). Build-004
-(EAD Distribution) is the only code that writes to it; Build-003 (EAD Definitions) supplies the
+(Attribute Distribution) is the only code that writes to it; Build-003 (EAD Definitions) supplies the
 mapping guidance Build-004 consumes, but never writes anywhere itself.
 
 Before Build-004/WS-12 can be scoped precisely (Section 12, Risk R-3), the Kitchen ERP's actual
@@ -640,7 +640,7 @@ Reuses this repo's existing Shopify conventions rather than inventing a parallel
   (`variantStrategy: LEAVE_AS_IS`, never guess Shopify IDs — fetch them, drafts stay drafts).
 - **Images**: joins via `external_ids` to the image's `TBK_IMAGE_ID` (already the Vision Engine's
   own identifier, `docs/AI/VisionPipeline.md`) — no second image-identity scheme.
-- **SEO**: EAD Distribution writes validated attributes into the same `seo.title`/
+- **SEO**: Build-004 writes validated attributes into the same `seo.title`/
   `seo.description` fields `seo-ops/` already manages, never bypassing that tooling's dry-run/CSV/
   `--apply` convention (`docs/CODING_STANDARDS.md`).
 - **Collections**: attribute-driven collection membership is a Marketing AI (Section 15) concern,
@@ -700,7 +700,12 @@ during the 2026-07-27 renumbering pass:
   then-committed Build-003 "EAD: Attribute Distribution") was initially reconciled by folding WS-04
   into WS-03; it is now resolved properly by the 2026-07-27 renumbering (Build-003 is Definitions,
   Distribution moved to Build-004, WS-04 un-folded) — see
-  [docs/adr/2026-07-27-build-003-renumbering.md](../adr/2026-07-27-build-003-renumbering.md).
+  [docs/adr/2026-07-27-build-003-renumbering.md](../adr/2026-07-27-build-003-renumbering.md). A
+  second, related ambiguity — this document still labeling Build-004 "EAD: Enterprise Attribute
+  Distribution," reusing the initialism just reassigned to Build-003 — was found while drafting
+  the BUILD-004 Sprint Charter and corrected throughout this document; see
+  [docs/adr/2026-07-27-workstream-id-convention.md](../adr/2026-07-27-workstream-id-convention.md)
+  (ADR 0006). Build-004 now has no acronym, only its plain title.
 - **Dependencies**: all three dependency graphs in Section 08 verified acyclic by inspection — every
   edge points from an earlier item to a later one, no back-edges.
 - **Versioning**: Build numbering continues 001→011 with no gaps or reuse after the renumbering; AR

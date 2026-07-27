@@ -28,7 +28,7 @@ example leaves this `null`, the same deferred-pointer pattern EAR already used f
 ## Who actually writes to Shopify/ERP
 
 **Build-003 (this build) writes nowhere.** `shopify_mapping`/`erp_mapping` are guidance consumed by
-Build-004 (EAD Distribution) — the only code with write access to either external system
+Build-004 (Enterprise Attribute Distribution) — the only code with write access to either external system
 ([Enterprise Program Roadmap](../30_Enterprise_Program_Roadmap/Enterprise_Program_Roadmap_v1.md)
 Section 13/14). This mirrors EAR's own boundary: a registry/definitions layer describes, a
 distribution layer acts.

@@ -86,7 +86,7 @@ graph LR
     end
     VE["Vision Engine (Sprint 1, pre-dates Foundation v1)"] --> EAL
     EAD --> KG["Knowledge Graph (Build-005, not started)"]
-    EAD --> DIST["EAD Distribution (Build-004, not started)"]
+    EAD --> DIST["Attribute Distribution (Build-004, not started)"]
     TAX["Sprint 2.1 Taxonomy Architecture"] -.grounds vocabulary/type resolution.-> EAR
 ```
 
@@ -206,7 +206,7 @@ graph TD
     Build001 --> Build002[Build-002 EAR]
     Build002 --> Build003[Build-003 EAD]
     Sprint21 -.grounds vocabulary resolution.-> Build002
-    Build003 --> Build004[Build-004 EAD Distribution - not started]
+    Build003 --> Build004[Build-004 Attribute Distribution - not started]
     Build002 --> Build005[Build-005 Knowledge Graph - not started]
     Build003 --> Build005
 ```
@@ -249,7 +249,7 @@ Summary only:
 
 | Build | Name |
 |---|---|
-| Build-004 | EAD: Enterprise Attribute Distribution (the write path to Shopify/ERP) |
+| Build-004 | Enterprise Attribute Distribution (the write path to Shopify/ERP) |
 | Build-005 | Knowledge Graph (physical implementation) |
 | Build-006 | Master Image Taxonomy content (Sprint 2.2) |
 | Build-007 | Vision Engine structured extraction (Sprint 2.3) |

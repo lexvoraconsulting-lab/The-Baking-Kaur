@@ -81,8 +81,8 @@ docs/50_Enterprise_Attribute_Definitions/  this specification
 - Does not implement taxonomy content or a validation engine (`allowed_values` stays opaque, not
   checked against a real Controlled Vocabulary — see [Validation.md](Validation.md)).
 - Does not write to Shopify, ERP, or the Knowledge Graph — `shopify_mapping`/`erp_mapping`/
-  `knowledge_graph_reference` are guidance and pointers only; Build-004 (EAD Distribution) is the
-  only code that writes anywhere.
+  `knowledge_graph_reference` are guidance and pointers only; Build-004 (Enterprise Attribute
+  Distribution) is the only code that writes anywhere.
 - Does not modify `ai/eal/` or `ai/ear/` — both are read-only contracts, imported directly.
 
 ## Related Standards
