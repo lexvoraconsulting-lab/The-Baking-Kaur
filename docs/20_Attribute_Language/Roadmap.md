@@ -16,13 +16,22 @@ Taxonomy, once that taxonomy exists. This is what turns today's deferred cross-f
 (AI-derived ⇒ confidence set; enum ⇒ vocabulary set and value in it) from "not yet enforceable" to
 "enforced," per [Architecture_Review_AR004.md](Architecture_Review_AR004.md).
 
-## Build-003 (not started) — EAD: Enterprise Attribute Distribution
+## Build-003 (in progress) — EAD: Enterprise Attribute Definitions
+
+The semantic definition layer over EAR (Build-002) attributes — business definition, purpose,
+display name, examples, vision/AI guidance, allowed values, mapping guidance, search behaviour,
+confidence expectations, and pointers to the Knowledge Graph, Shopify, and ERP. Renumbered ahead of
+"EAD: Enterprise Attribute Distribution" (originally this Build-003, now Build-004) per
+[docs/adr/2026-07-27-build-003-renumbering.md](../adr/2026-07-27-build-003-renumbering.md) — the
+"EAD" initialism now means Definitions, not Distribution.
+
+## Build-004 (not started) — Enterprise Attribute Distribution
 
 The write path from a validated `EALAttributeRecord` to each `external_ids`-named system —
 Shopify metafields, ERP attribute codes — including conflict handling when a downstream system's
 own value diverges from EAL's (see [External_ID_Standard.md](External_ID_Standard.md)).
 
-## Build-004 (not started) — Knowledge Graph physical implementation
+## Build-005 (not started) — Knowledge Graph physical implementation
 
 Choosing and implementing the actual graph/relational/hybrid store that persists
 `EALAttributeRecord`/`EALRelationshipRecord` at volume — an ADR-level decision per
