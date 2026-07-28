@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Self-check for Enterprise Attribute Distribution v1 (Build-004), BL-1 through BL-4 scope.
+Self-check for Enterprise Attribute Distribution v1 (Build-004), BL-1 through BL-5 scope.
 
 WHY
   BL-1 introduced the DistributionRecord model (constructed directly here, no
@@ -11,7 +11,9 @@ WHY
   CurrentDownstreamValue inputs (pure unit tests - no real downstream data
   exists yet, per Risk R-2). BL-4 adds ShopifyAdapter.write_review_artifact(),
   tested against a temp file, cleaned up after - no stray files left in the
-  repo, matching ai/ear/test_ear.py's round-trip temp-file pattern.
+  repo, matching ai/ear/test_ear.py's round-trip temp-file pattern. BL-5 adds
+  ERPAdapter.stub_submit() - fully stubbed, no I/O to test against, so its
+  test only asserts the count and the absence of any side effect.
 
 USAGE
   python -m ai.attribute_distribution.test_attribute_distribution
@@ -31,6 +33,7 @@ from ai.attribute_distribution.ids import compute_distribution_id
 from ai.attribute_distribution.models_pydantic import DistributionRecordModel
 from ai.attribute_distribution.resolver import resolve_distribution
 from ai.attribute_distribution.shopify_adapter import ShopifyAdapter
+from ai.attribute_distribution.erp_adapter import ERPAdapter
 
 _EAL_EXAMPLES = Path(__file__).parent.parent / "eal" / "examples"
 _EAR_EXAMPLES = Path(__file__).parent.parent / "ear" / "examples"
@@ -288,6 +291,53 @@ def test_shopify_adapter_writes_only_eligible_records():
         tmp_path.unlink(missing_ok=True)
 
 
+def test_erp_adapter_counts_only_eligible_records():
+    erp_raw = dict(_VALID)
+    erp_raw["target_system"] = "erp"
+    erp_raw["status"] = "dry_run"
+    erp_raw["external_id"] = {"system": "erp", "id_type": "sku_attribute_code", "value": "COLOUR_PRIMARY"}
+    erp_raw["distribution_id"] = compute_distribution_id("EAR-000001", "erp")
+    erp_dry_run = DistributionRecordModel(**erp_raw)
+
+    shopify_dry_run = _dry_run_record()  # target_system="shopify" - must be skipped
+
+    failed_raw = dict(_VALID)
+    failed_raw["target_system"] = "erp"
+    failed_raw["status"] = "failed"
+    failed_raw["external_id"] = None
+    failed_raw["notes"] = "no mapping"
+    failed_record = DistributionRecordModel(**failed_raw)  # wrong status - must be skipped
+
+    adapter = ERPAdapter()
+    count = adapter.stub_submit([erp_dry_run, shopify_dry_run, failed_record])
+    assert count == 1, f"expected exactly 1 eligible ERP record, got {count}"
+
+
+def test_erp_adapter_performs_no_io():
+    # No file created, no directory touched - stub_submit takes no path argument
+    # at all, which is itself the proof it cannot perform file I/O.
+    import inspect
+    sig = inspect.signature(ERPAdapter.stub_submit)
+    assert "path" not in sig.parameters
+    assert "url" not in sig.parameters
+
+
+def test_package_reexports_all_public_symbols():
+    import ai.attribute_distribution as pkg
+
+    for name in (
+        "DistributionRecord",
+        "DistributionRecordModel",
+        "compute_distribution_id",
+        "resolve_distribution",
+        "CurrentDownstreamValue",
+        "detect_conflict",
+        "ShopifyAdapter",
+        "ERPAdapter",
+    ):
+        assert hasattr(pkg, name), f"ai.attribute_distribution does not re-export {name!r}"
+
+
 if __name__ == "__main__":
     test_valid_record_constructs()
     test_distribution_id_is_deterministic()
@@ -307,4 +357,7 @@ if __name__ == "__main__":
     test_detect_conflict_divergent_current_flags_conflict()
     test_detect_conflict_requires_dry_run_status()
     test_shopify_adapter_writes_only_eligible_records()
+    test_erp_adapter_counts_only_eligible_records()
+    test_erp_adapter_performs_no_io()
+    test_package_reexports_all_public_symbols()
     print("OK")

@@ -7,11 +7,11 @@ approval gate between each).
 
 ## Status: in progress — see [SPRINT_CHARTER.md](SPRINT_CHARTER.md) for the live backlog status
 
-BL-0 through BL-4 done and committed. BL-5 (ERP adapter) is next. The full documentation set
+BL-0 through BL-5 done and committed. BL-6 (round-trip test) is next. The full documentation set
 (`EAD_SPECIFICATION.md`, `Validation.md`, `Examples.md`, `BUILD_004_COMPLETION_REPORT.md`) is
 deferred to BL-7, once the resolution engine and adapters exist to document meaningfully.
 
-## `DistributionRecord` — field reference (current, through BL-4)
+## `DistributionRecord` — field reference (current, through BL-5)
 
 ```
 distribution_id             deterministic uuid5(registry_reference, target_system) - ai/attribute_distribution/ids.py
@@ -93,6 +93,31 @@ count written.
 
 Tested against a temp file, cleaned up after the test — no stray files left in the repo, matching
 `ai/ear/test_ear.py`'s round-trip temp-file pattern.
+
+## `ERPAdapter` — BL-5, ERP Adapter layer (fully stubbed)
+
+`ai/attribute_distribution/erp_adapter.py::ERPAdapter` — the ERP counterpart to `ShopifyAdapter`,
+same class-based shape for consistency and the same future-extensibility intent. Deliberately
+**thinner** than `ShopifyAdapter`: TBK Kitchen ERP's real write API is unknown to this platform
+([Enterprise Program Roadmap §13](../30_Enterprise_Program_Roadmap/Enterprise_Program_Roadmap_v1.md#section-13--erp-integration-strategy),
+Risk R-3) — this class cannot shape a realistic ERP payload because no real shape has been
+inspected yet. It proves the interface seam exists; it does not guess at ERP's field names,
+authentication, or write semantics.
+
+**BL-5 implements one method**: `stub_submit(records) -> int`. Fully stubbed — no network call, no
+database write, no file write, no external side effect of any kind. Counts ERP-target, `dry_run`
+records that would be submitted; records targeting Shopify or not yet successfully resolved are
+skipped. `stub_submit()`'s signature deliberately takes no `path`/`url` parameter at all — the
+absence of either is itself the proof this method cannot perform I/O (asserted directly by
+`test_erp_adapter_performs_no_io`).
+
+## Package re-exports
+
+As of BL-5, `ai/attribute_distribution/__init__.py` re-exports the full public surface across all
+five backlog items so far — `DistributionRecord(Model)`, `compute_distribution_id`,
+`resolve_distribution`, `CurrentDownstreamValue`/`detect_conflict`, `ShopifyAdapter`, `ERPAdapter` —
+closing a drift gap found during BL-5's architecture verification (the re-export list had not been
+updated since BL-1 and was missing everything BL-2/3/4 added).
 
 ## Related Standards
 

@@ -1,7 +1,7 @@
 # BUILD-004 Sprint Charter — Enterprise Attribute Distribution
 
 Workstream: **ATTR** — per [ADR 0006](../adr/2026-07-27-workstream-id-convention.md).
-Status: **in progress** — BL-0 through BL-4 done and committed; BL-5 next.
+Status: **in progress** — BL-0 through BL-5 done and committed; BL-6 next.
 
 This is the persisted, canonical copy of the Sprint Charter presented and approved before
 implementation began. Update the **Backlog Items** status column as each item completes — this
@@ -23,8 +23,8 @@ ERP endpoint during this sprint.
 | BL-1 | `ai/attribute_distribution/` package skeleton — `DistributionRecord` model | **Done** | `ce31d79` |
 | BL-2 | Mapping resolution — EAL+EAR+EAD → concrete write payload, with R-9 verification gating | **Done** | `462e9b6` |
 | BL-3 | Conflict detection — EAL value vs. downstream current value (stubbed) | **Done** | `5765b8b` |
-| BL-4 | Shopify Adapter (`ShopifyAdapter`) — dry-run review artifact only this sprint | **Done** | (this pass) |
-| BL-5 | ERP adapter — fully stubbed | Not started | — |
+| BL-4 | Shopify Adapter (`ShopifyAdapter`) — dry-run review artifact only this sprint | **Done** | `037a612` |
+| BL-5 | ERP Adapter (`ERPAdapter`) — fully stubbed, no I/O | **Done** | (this pass) |
 | BL-6 | Round-trip test — real Build-002/003 example data | Not started | — |
 | BL-7 | Full documentation set + `BUILD_004_COMPLETION_REPORT.md` | Not started | — |
 
