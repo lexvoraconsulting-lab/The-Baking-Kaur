@@ -10,9 +10,10 @@ for why it's shaped that way.
 
 ## Status: complete — all 7 backlog items done, awaiting Architecture Gate AR-011
 
-See [SPRINT_CHARTER.md](SPRINT_CHARTER.md) for the full backlog history and
+See [SPRINT_CHARTER.md](SPRINT_CHARTER.md) for the full backlog history,
 [BUILD_004_COMPLETION_REPORT.md](BUILD_004_COMPLETION_REPORT.md) for the Build-level delivery
-report.
+report, and [AR011_GATE_PACKAGE.md](AR011_GATE_PACKAGE.md) for the Architecture Gate submission
+package (evidence only — the GO/NO-GO verdict is reserved for external review).
 
 ## Start here
 
@@ -31,6 +32,7 @@ report.
 | [Examples.md](Examples.md) | Why this Build has no `examples/` directory of its own, and the real EAL/EAR/EAD fixtures it reuses. |
 | [SPRINT_CHARTER.md](SPRINT_CHARTER.md) | Sprint Goal, Scope, Risks, and the full BL-0 through BL-7 backlog history with commit hashes. |
 | [BUILD_004_COMPLETION_REPORT.md](BUILD_004_COMPLETION_REPORT.md) | Build-level delivery report. |
+| [AR011_GATE_PACKAGE.md](AR011_GATE_PACKAGE.md) | Architecture Gate AR-011 submission package — Quality Scorecard, Release Readiness, Exit Criteria, reviewer checklist. |
 
 ## Related Standards
 

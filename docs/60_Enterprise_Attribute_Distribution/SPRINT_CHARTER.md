@@ -68,7 +68,7 @@ correctness end-to-end against real Build-002/003 example data; documenting the 
 BUILD-004's own substantive gate is **AR-011** (shared with Build-008 Vision Extraction, per
 [Enterprise Program Roadmap §09](../30_Enterprise_Program_Roadmap/Enterprise_Program_Roadmap_v1.md#section-09--architecture-gates)
 after the ADR-0007 resequencing) — sought only after all backlog items are individually
-implemented, tested, and approved.
+implemented, tested, and approved. Submission package: [AR011_GATE_PACKAGE.md](AR011_GATE_PACKAGE.md).
 
 ## Testing Strategy
 

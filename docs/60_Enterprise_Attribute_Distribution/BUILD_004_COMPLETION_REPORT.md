@@ -153,6 +153,30 @@ its evidence, not an estimate:
 | Technical debt | Three explicitly deferred items, each with a named blocker and owning future Build | ERP payload shape (blocked on Kitchen ERP inspection, Build-010), real Shopify write path (Build-009/010), real conflict-detection data source (Risk R-2, same Builds) |
 | Future readiness | `ShopifyAdapter`/`ERPAdapter` designed for method-addition, not rename, per ADR 0006's convention | Documented in `EAD_SPECIFICATION.md`'s "future responsibilities" notes on both classes |
 
+## Audit Cross-Reference
+
+Six audit types, each mapped to where its evidence already lives in this report (not duplicated) —
+plus a Dependency Audit, the one angle not yet covered elsewhere:
+
+| Audit | Where covered |
+|---|---|
+| Repository Audit | "Files Created"/"Files Modified"/"Files Deleted" above; `git status` clean after every commit (verified at every backlog item) |
+| Architecture Audit | "Architecture Summary" above; layer separation (Domain/Adapter), zero circular imports, verified repeatedly pre-implementation |
+| Security Audit | "Security Impact" above |
+| Documentation Audit | "Documentation Updated" above; repo-wide cross-reference sweep, 0 genuine broken links |
+| Testing Audit | "Tests Executed"/"Coverage" above |
+| Dependency Audit | New this pass — see below |
+
+### Dependency Audit
+
+`requirements.txt` (canonical, established during BL-1): `pydantic==2.13.4`, `PyYAML==6.0.3`,
+`requests==2.34.2` — three direct dependencies, all pre-existing needs of this platform (the first
+two used by every `ai/{eal,ear,ead,attribute_distribution}` module; `requests` pre-dates this Build,
+used by the Vision Engine's `OllamaProvider`). No dependency was added or removed by Build-004
+itself. Zero unused imports remain (AST-verified). No transitive dependency is pinned separately —
+pip resolves `pydantic`'s and `requests`'s own sub-dependencies automatically, matching this
+project's "no unnecessary packages" standard.
+
 ## Rollback Procedure
 
 Each backlog item is its own commit — revert any single one with `git revert <hash>` without

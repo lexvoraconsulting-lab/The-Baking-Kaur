@@ -362,7 +362,9 @@ for the full backlog history.
 - **Exit Criteria**: A round-trip test — one real attribute reaches a real Shopify metafield and a
   real (or stubbed, if Kitchen ERP's API isn't yet exposed to this platform) ERP attribute code,
   with `external_ids` correctly recorded both ways.
-- **Review**: AR-011 (shared gate with Build-008 Vision Extraction — see Section 09).
+- **Review**: AR-011 (shared gate with Build-008 Vision Extraction — see Section 09). Submission
+  package: [AR011_GATE_PACKAGE.md](../60_Enterprise_Attribute_Distribution/AR011_GATE_PACKAGE.md)
+  (Build-004's half only — Build-008 has not started).
 - **Estimated effort**: Medium — two real external integrations, one already well-understood
   (Shopify), one currently unknown (Kitchen ERP, Section 13).
 - **Risks**: Kitchen ERP's actual write API is unknown until inspected — this Build cannot be
