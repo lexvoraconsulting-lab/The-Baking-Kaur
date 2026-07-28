@@ -12,6 +12,7 @@
 | [VIG-007-Quality-Standard.md](VIG-007-Quality-Standard.md) | Confidence + provenance on every observation, verification gate, no fabricated attributes, minimum self-check bar. |
 | [VIG-008-Documentation-Standard.md](VIG-008-Documentation-Standard.md) | Three-layer documentation model (VIG / ADR / module docs) with no cross-layer duplication. |
 | [VIG-009-ADR-Standard.md](VIG-009-ADR-Standard.md) | ADR format, immutability-once-accepted, one-decision-one-document. |
+| [VIG-010-Execution-Protocol.md](VIG-010-Execution-Protocol.md) | PLAN→IMPLEMENT→TEST→VERIFY→DOCS→COMMIT→REPORT→WAIT cycle; architecture-gate submission-vs-verdict split; Build-boundary approval gate. |
 
 ## Reviews and reports
 

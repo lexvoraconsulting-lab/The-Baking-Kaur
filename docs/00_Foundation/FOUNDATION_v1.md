@@ -236,20 +236,21 @@ never merged.
 
 ```mermaid
 graph TD
-    ADR0001[ADR 0001] --> ADR0002[ADR 0002]
     VIG[VIG-000..009 Governance] --> Sprint21[Sprint 2.1 Taxonomy]
     Sprint21 --> Build001[Build-001 EAL]
     Build001 --> Build002[Build-002 EAR]
     Build002 --> Build003[Build-003 EAD]
-    Sprint21 -.grounds vocabulary resolution.-> Build002
-    Build003 --> Build004[Build-004 Attribute Distribution - COMPLETE]
-    Build002 --> Build007[Build-007 Knowledge Graph - not started]
-    Build003 --> Build007
+    Build002 --> Build004[Build-004 Attribute Distribution - COMPLETE]
+    Build003 --> Build004
 ```
 
-Matches, and does not contradict, the authoritative Build dependency graph in
-[the Enterprise Program Roadmap §8](../30_Enterprise_Program_Roadmap/Enterprise_Program_Roadmap_v1.md#section-08--dependency-graph)
-— this is a Foundation-scoped excerpt of it, not a competing version.
+This is a Foundation-scoped subgraph (Builds 001-004 only, this document's own scope — see §10)
+of the authoritative Build dependency graph in
+[the Enterprise Program Roadmap §8](../30_Enterprise_Program_Roadmap/Enterprise_Program_Roadmap_v1.md#section-08--dependency-graph),
+which is the single source of truth for the full graph, Build-005 onward included. ADR 0001
+(Component Boundaries) and ADR 0002 (Platform Foundation Primitives) are governance-level
+decisions, not Build dependencies — they're listed in §7 (ADR Index), not diagrammed here, so
+this graph doesn't mix two different kinds of edges.
 
 ---
 
@@ -335,6 +336,9 @@ not restated, per VIG-008:
   three-layer model this very document follows.
 - [VIG-009 (ADR Standard)](../00_Governance/VIG-009-ADR-Standard.md) — one-decision-one-document,
   the format every ADR in §7 follows.
+- [VIG-010 (Execution Protocol)](../00_Governance/VIG-010-Execution-Protocol.md) — the
+  PLAN→IMPLEMENT→TEST→VERIFY→DOCS→COMMIT→REPORT→WAIT cycle every Build-002/003/004 backlog item
+  followed, and the Build-boundary approval gate.
 
 Not a VIG, but an equally standing convention as of Build-004: the **BUILD-xxx / Workstream ID /
 Title** convention ([ADR 0006](../adr/2026-07-27-workstream-id-convention.md)) — every future Build
