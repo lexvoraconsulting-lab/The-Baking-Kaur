@@ -318,7 +318,7 @@ or higher shifted up by one more. No Build's scope changed, only its number.
 - **Risks**: If Sprint 2.2 stalls, Build-002 has nothing to validate against and should not start
   early just to have something to do (see Section 12, Risk R-1).
 
-### Build-003 — EAD: Enterprise Attribute Definitions (in progress)
+### Build-003 — EAD: Enterprise Attribute Definitions (committed `5c6515c`, AR-006 not formally closed)
 
 - **Objective**: The semantic definition layer over EAR (Build-002) attributes — business
   definition, purpose, display name, examples, vision/AI guidance, allowed values, mapping
@@ -337,7 +337,7 @@ or higher shifted up by one more. No Build's scope changed, only its number.
 - **Estimated effort**: Small-to-medium — reuses EAL/EAR contracts directly; most of the work is
   the definitional content model itself, not new mechanism.
 - **Risks**: `allowed_values` and `knowledge_graph_reference` stay opaque until Sprint 2.2
-  taxonomy / the Knowledge Graph (Build-005) exist — same deferred-validation pattern EAR already
+  taxonomy / the Knowledge Graph (Build-007) exist — same deferred-validation pattern EAR already
   established for its own `taxonomy_references`, tracked not fixed here.
 
 ### Build-004 — Enterprise Attribute Distribution (complete, awaiting AR-011)
@@ -633,7 +633,7 @@ framework dependency (`ai/vision/python/test_config_providers.py`, `ai/eal/test_
 | Version | Objective | Deliverables | Exit Criteria |
 |---|---|---|---|
 | v0.3 | Wire format ready | Build-001 (EAL) — **done** | AR-004 = GO (done) |
-| v0.4 | Registry + Definitions live | Build-002 (EAR) — done; Build-003 (EAD Definitions) — in progress | AR-005 = GO (done); AR-006 = pending |
+| v0.4 | Registry + Definitions live | Build-002 (EAR) — done; Build-003 (EAD Definitions) — committed `5c6515c` | AR-005 = GO (done); AR-006 = not formally closed |
 | v0.5 | Real taxonomy content | Build-005 (Sprint 2.2) | AR-007 = GO |
 | v0.6 | Validation + Knowledge Graph operational | Build-006 (Validation Engine) + Build-007 (Knowledge Graph) | AR-008/009 = GO |
 | v0.7 | Real extraction pipeline | Build-008 (Sprint 2.3) | AR-011 = GO |

@@ -32,7 +32,7 @@ search_behaviour             {searchable, facetable, boost, notes} - machine-act
                           the future Search workstream (WS-10)
 confidence_expectations       {minimum_confidence, typical_confidence, notes} - reuses EAL's 0-1
                           confidence range convention
-knowledge_graph_reference      opaque nullable pointer - the Knowledge Graph (Build-005) doesn't
+knowledge_graph_reference      opaque nullable pointer - the Knowledge Graph (Build-007) doesn't
                           exist yet (Mapping_Guide.md)
 shopify_mapping             Optional[ExternalIdModel] - reuses ai.eal.models_pydantic.ExternalIdModel
                           directly, not a new shape (Mapping_Guide.md)

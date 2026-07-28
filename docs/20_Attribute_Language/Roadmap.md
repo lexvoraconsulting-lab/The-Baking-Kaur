@@ -16,7 +16,7 @@ Taxonomy, once that taxonomy exists. This is what turns today's deferred cross-f
 (AI-derived ⇒ confidence set; enum ⇒ vocabulary set and value in it) from "not yet enforceable" to
 "enforced," per [Architecture_Review_AR004.md](Architecture_Review_AR004.md).
 
-## Build-003 (in progress) — EAD: Enterprise Attribute Definitions
+## Build-003 (committed `5c6515c`, AR-006 not formally closed) — EAD: Enterprise Attribute Definitions
 
 The semantic definition layer over EAR (Build-002) attributes — business definition, purpose,
 display name, examples, vision/AI guidance, allowed values, mapping guidance, search behaviour,

@@ -20,7 +20,7 @@ Either field is `null` when an attribute isn't (yet) distributed to that system 
 
 ## `knowledge_graph_reference`
 
-An opaque, nullable pointer. The Knowledge Graph (Build-005) doesn't exist yet — every current
+An opaque, nullable pointer. The Knowledge Graph (Build-007) doesn't exist yet — every current
 example leaves this `null`, the same deferred-pointer pattern EAR already used for its own
 `definition_reference` before this build existed
 ([EAR_SPECIFICATION.md](../40_Enterprise_Attribute_Registry/EAR_SPECIFICATION.md)).
