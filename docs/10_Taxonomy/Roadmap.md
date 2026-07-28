@@ -10,6 +10,13 @@ explicit instruction not to.
 
 ## Sprint 2.2 (not started) — author the Master Image Taxonomy for Bakery
 
+Tracked in the Build sequence as **Build-005, Enterprise Master Taxonomy** ([ADR
+0007](../adr/2026-07-28-build-005-007-resequencing.md)) — same work, two naming schemes still in
+use: this document's original Sprint numbering, and the cross-platform Build numbering the
+Enterprise Program Roadmap uses from Build-001 onward. Not renamed here to preserve this document's
+own history; see [Enterprise_Program_Roadmap_v1.md](../30_Enterprise_Program_Roadmap/Enterprise_Program_Roadmap_v1.md)
+§07 for the authoritative Build-level scope and dependencies.
+
 Using this architecture, author the actual Bakery domain's Category tree, populate the
 Domain/content Attribute Groups (starting with the highest-value groups — Classification, Colour,
 Decoration, Occasion) with real Attributes, and seed the first Controlled Vocabularies (Shape,

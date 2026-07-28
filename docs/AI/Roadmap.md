@@ -10,6 +10,13 @@
 
 ## Phase 2+ (not built yet — content and capability work)
 
+Tracked in the Build sequence as **Build-008, Vision Extraction** ([Enterprise Program
+Roadmap §07](../30_Enterprise_Program_Roadmap/Enterprise_Program_Roadmap_v1.md)) — same work, this
+document's own Phase numbering predates the Build sequence. Build-008 shares Architecture Gate
+**AR-011** with Build-004 (Attribute Distribution); see
+[AR011_GATE_PACKAGE.md](../60_Enterprise_Attribute_Distribution/AR011_GATE_PACKAGE.md) for the
+already-submitted Build-004 half.
+
 - Author real content for `ai/vision/prompts/extractor_v1.md`,
   `ai/vision/schemas/taxonomy_v1.json`, and `ai/vision/schemas/tbk_image_schema_v1.json`.
 - Parse the provider's response into structured JSON validated against the schema, instead of
