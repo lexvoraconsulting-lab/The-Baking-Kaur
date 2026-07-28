@@ -19,7 +19,6 @@ SCOPE (BL-4)
   (docs/CODING_STANDARDS.md). No credentials are read or held anywhere in
   this class.
 """
-import json
 from pathlib import Path
 
 from ai.attribute_distribution.models_pydantic import DistributionRecordModel

@@ -1,7 +1,7 @@
 # BUILD-004 Sprint Charter — Enterprise Attribute Distribution
 
 Workstream: **ATTR** — per [ADR 0006](../adr/2026-07-27-workstream-id-convention.md).
-Status: **in progress** — BL-0 through BL-6 done and committed; BL-7 (final item) next.
+Status: **complete** — all 7 backlog items done and committed. Awaiting Architecture Gate **AR-011**.
 
 This is the persisted, canonical copy of the Sprint Charter presented and approved before
 implementation began. Update the **Backlog Items** status column as each item completes — this
@@ -25,8 +25,8 @@ ERP endpoint during this sprint.
 | BL-3 | Conflict detection — EAL value vs. downstream current value (stubbed) | **Done** | `5765b8b` |
 | BL-4 | Shopify Adapter (`ShopifyAdapter`) — dry-run review artifact only this sprint | **Done** | `037a612` |
 | BL-5 | ERP Adapter (`ERPAdapter`) — fully stubbed, no I/O | **Done** | `97d0c59` |
-| BL-6 | Round-trip test — real Build-002/003 example data, Exit Criteria demonstrated | **Done** | (this pass) |
-| BL-7 | Full documentation set + `BUILD_004_COMPLETION_REPORT.md` | Not started | — |
+| BL-6 | Round-trip test — real Build-002/003 example data, Exit Criteria demonstrated | **Done** | `bd3d8b5` |
+| BL-7 | Full documentation set + `BUILD_004_COMPLETION_REPORT.md` | **Done** | (this pass) |
 
 (Note: an unplanned but necessary prerequisite — fixing an empty `.venv` and establishing
 `requirements.txt`/`DEVELOPMENT_SETUP.md` as canonical — was completed alongside BL-1, commit

@@ -2,144 +2,40 @@
 
 Build-004 of VISIONARY IMAGE GENOME™ (Workstream: **ATTR**), per
 [docs/30_Enterprise_Program_Roadmap/Enterprise_Program_Roadmap_v1.md](../30_Enterprise_Program_Roadmap/Enterprise_Program_Roadmap_v1.md)
-Section 07, implemented incrementally against its own Sprint Charter (one backlog item at a time,
-approval gate between each).
+Section 07. The write path from a validated `EALAttributeRecord` to Shopify and ERP — implemented
+incrementally, one backlog item at a time, approval gate between each. Implementation lives in
+[`ai/attribute_distribution/`](../../ai/attribute_distribution/); these documents are the
+specification for it, not a substitute — read the code for exact field behavior, read these docs
+for why it's shaped that way.
 
-## Status: in progress — see [SPRINT_CHARTER.md](SPRINT_CHARTER.md) for the live backlog status
+## Status: complete — all 7 backlog items done, awaiting Architecture Gate AR-011
 
-BL-0 through BL-6 done and committed. BL-7 (full documentation set) is next and last. The full
-documentation set (`EAD_SPECIFICATION.md`, `Validation.md`, `Examples.md`,
-`BUILD_004_COMPLETION_REPORT.md`) is deferred to BL-7 — the four module docstrings that referenced
-`EAD_SPECIFICATION.md` ahead of its existence were corrected in BL-6 to point at this README until
-BL-7 authors that file.
+See [SPRINT_CHARTER.md](SPRINT_CHARTER.md) for the full backlog history and
+[BUILD_004_COMPLETION_REPORT.md](BUILD_004_COMPLETION_REPORT.md) for the Build-level delivery
+report.
 
-## `DistributionRecord` — field reference (current, through BL-6)
+## Start here
 
-```
-distribution_id             deterministic uuid5(registry_reference, target_system) - ai/attribute_distribution/ids.py
-registry_reference           EAR attribute_id - format-validated via ai.ear.ids.is_valid_attribute_id
-target_system                "shopify" | "erp"
-value                        the value being distributed
-external_id                  ExternalIdModel | None (reused from ai.eal) - required iff status in
-                            ("dry_run", "success"); None when resolution failed (no mapping, or
-                            blocked by verification gating)
-human_verification_status      reuses ai.eal's VerificationStatus values
-confidence                   float | None, range [0,1]
-status                       "pending" | "dry_run" | "success" | "failed" | "conflict"
-notes                        required iff status in ("failed", "conflict"), forbidden otherwise
-                            (renamed from conflict_notes in BL-2, generalized to cover both)
-distribution_version          "1.0"
-```
+- [EAD_SPECIFICATION.md](EAD_SPECIFICATION.md) — the umbrella spec, field reference, module
+  reference, folder structure.
+- [`ai/attribute_distribution/test_attribute_distribution.py`](../../ai/attribute_distribution/test_attribute_distribution.py) —
+  run `python -m ai.attribute_distribution.test_attribute_distribution` to validate everything
+  (23 checks).
 
-## `resolve_distribution()` — BL-2, pure mapping resolution
+## Document index
 
-`ai/attribute_distribution/resolver.py::resolve_distribution(eal_record, ear_entry, ead_definition,
-target_system) -> DistributionRecordModel`. Pure function - no HTTP, no Shopify/ERP calls, no
-database, no file writes, no AI calls, no retries.
-
-1. Validates the three inputs actually describe the same attribute (`ear_entry.eal_reference ==
-   eal_record.canonical_path`, `ead_definition.registry_reference == ear_entry.attribute_id`) -
-   raises `ValueError` on mismatch (a caller bug, not a business outcome).
-2. Looks up `ead_definition.shopify_mapping`/`erp_mapping` for the target system. `None` → resolves
-   to `status="failed"` (no mapping defined yet, e.g. a draft attribute).
-3. **Verification gate (Risk R-9)** - the one real policy decision this item makes: Shopify is
-   treated as customer-facing (requires `human_verification.status` in `verified`/`corrected`);
-   ERP is treated as internal/low-stakes (any status allowed). Fails cleanly to
-   `status="failed"` with an explanatory `notes`, not an exception, when blocked.
-4. Otherwise resolves to `status="dry_run"` with the concrete `external_id` and `value` to write.
-
-Tested against real fixtures cross-referenced from `ai/eal/examples/`, `ai/ear/examples/
-registry.json`, and `ai/ead/examples/definitions.json` - not synthetic data, per this project's
-established testing convention.
-
-## `detect_conflict()` — BL-3, pure conflict detection
-
-`ai/attribute_distribution/conflicts.py::detect_conflict(record, current) ->
-DistributionRecordModel`. Pure function, composed *after* `resolve_distribution()` (BL-2), not
-merged into it. No HTTP, no Shopify/ERP calls, no database, no file writes, no AI calls, no
-retries — this item does not perform any real downstream read (Risk R-2: no real read exists yet).
-
-`CurrentDownstreamValue { known: bool; value: Any = None }` mirrors EAL's own `value_state`
-three-state distinction (present/null/unknown,
-[Null_and_Unknown_Standard.md](../20_Attribute_Language/Null_and_Unknown_Standard.md)) rather than
-inventing a second "is this known" convention — `known=False` means no real read has been
-attempted yet, not that the downstream value is empty.
-
-1. Requires `record.status == "dry_run"` — raises `ValueError` otherwise (a caller bug, calling
-   conflict detection on an already-failed resolution makes no sense).
-2. `current.known == False` → record returned unchanged.
-3. `current.known == True` and `current.value == record.value` → record returned unchanged (no
-   conflict, values agree).
-4. `current.known == True` and values differ → returns a new record with `status="conflict"` and
-   `notes` stating both values.
-
-Tested with synthetic `CurrentDownstreamValue` inputs (pure unit tests) — there is no real
-downstream data to cross-reference against until BL-4/BL-5 exist.
-
-## `ShopifyAdapter` — BL-4, Shopify Adapter layer
-
-`ai/attribute_distribution/shopify_adapter.py::ShopifyAdapter` — the one place every Shopify-facing
-responsibility for this Build lives, deliberately class-based (not a bare `exporter.py` function)
-so future responsibilities (preview, export, import, validation, sync, real Admin API integration —
-all later Builds) are added as new methods on this same class, never a rename or a second module.
-Named "adapter," distinct on purpose from `ai.{eal,ear,ead}.exporter` (JSON/YAML serialization of a
-module's own records) — this class does not serialize this module's own state, it shapes a preview
-of what would be sent to an external system.
-
-**BL-4 implements one method**: `write_review_artifact(records, path) -> int`. Dry-run only — no
-network call of any kind, not even a GET, matching this repo's own `seo-ops/` dry-run-by-default
-convention (`docs/CODING_STANDARDS.md`). Writes one JSON object per line for every record where
-`target_system == "shopify"` and `status == "dry_run"`; records targeting ERP or not yet
-successfully resolved are silently skipped (not an error — they're simply not ready). Returns the
-count written.
-
-Tested against a temp file, cleaned up after the test — no stray files left in the repo, matching
-`ai/ear/test_ear.py`'s round-trip temp-file pattern.
-
-## `ERPAdapter` — BL-5, ERP Adapter layer (fully stubbed)
-
-`ai/attribute_distribution/erp_adapter.py::ERPAdapter` — the ERP counterpart to `ShopifyAdapter`,
-same class-based shape for consistency and the same future-extensibility intent. Deliberately
-**thinner** than `ShopifyAdapter`: TBK Kitchen ERP's real write API is unknown to this platform
-([Enterprise Program Roadmap §13](../30_Enterprise_Program_Roadmap/Enterprise_Program_Roadmap_v1.md#section-13--erp-integration-strategy),
-Risk R-3) — this class cannot shape a realistic ERP payload because no real shape has been
-inspected yet. It proves the interface seam exists; it does not guess at ERP's field names,
-authentication, or write semantics.
-
-**BL-5 implements one method**: `stub_submit(records) -> int`. Fully stubbed — no network call, no
-database write, no file write, no external side effect of any kind. Counts ERP-target, `dry_run`
-records that would be submitted; records targeting Shopify or not yet successfully resolved are
-skipped. `stub_submit()`'s signature deliberately takes no `path`/`url` parameter at all — the
-absence of either is itself the proof this method cannot perform I/O (asserted directly by
-`test_erp_adapter_performs_no_io`).
-
-## Package re-exports
-
-As of BL-5, `ai/attribute_distribution/__init__.py` re-exports the full public surface across all
-five backlog items so far — `DistributionRecord(Model)`, `compute_distribution_id`,
-`resolve_distribution`, `CurrentDownstreamValue`/`detect_conflict`, `ShopifyAdapter`, `ERPAdapter` —
-closing a drift gap found during BL-5's architecture verification (the re-export list had not been
-updated since BL-1 and was missing everything BL-2/3/4 added).
-
-## Round-trip test — BL-6, Build-004 Exit Criteria demonstrated
-
-`test_round_trip_shopify_and_erp_real_fixtures` composes the full pipeline
-(`resolve_distribution` → `detect_conflict` → `ShopifyAdapter`/`ERPAdapter`) against the same real
-verified colour attribute BL-2's tests already use, for **both** target systems in one test — this
-is the concrete proof of the Enterprise Program Roadmap's Build-004 Exit Criteria, stated there
-verbatim: *"one real attribute reaches a real Shopify metafield and a real (or stubbed) ERP
-attribute code, with `external_ids` correctly recorded both ways."* Both `external_id.value`s
-(`custom.primary_colour` for Shopify, `COLOUR_PRIMARY` for ERP) are asserted directly.
-
-`test_round_trip_real_conflict_excluded_from_distribution` proves the inverse: a record
-`detect_conflict` flags is not eligible for either adapter — zero records written, zero counted —
-so the pipeline never distributes a flagged conflict, end to end.
+| Document | Covers |
+|---|---|
+| [EAD_SPECIFICATION.md](EAD_SPECIFICATION.md) | Umbrella spec, `DistributionRecord` field reference, every module's reference, folder structure, identifier strategy. |
+| [Validation.md](Validation.md) | What's enforced today vs. deliberately deferred. |
+| [Examples.md](Examples.md) | Why this Build has no `examples/` directory of its own, and the real EAL/EAR/EAD fixtures it reuses. |
+| [SPRINT_CHARTER.md](SPRINT_CHARTER.md) | Sprint Goal, Scope, Risks, and the full BL-0 through BL-7 backlog history with commit hashes. |
+| [BUILD_004_COMPLETION_REPORT.md](BUILD_004_COMPLETION_REPORT.md) | Build-level delivery report. |
 
 ## Related Standards
 
-Reuses [EAL](../20_Attribute_Language/README.md) (`ExternalIdModel`, confidence range) and
-[EAR](../40_Enterprise_Attribute_Registry/README.md) (`registry_reference` format) directly.
-Scoped by
+Reuses [EAL](../20_Attribute_Language/README.md) (`ExternalIdModel`, `VerificationStatus`,
+confidence range, `value_state`) and [EAR](../40_Enterprise_Attribute_Registry/README.md)
+(`registry_reference` format) directly — neither modified. Scoped by
 [docs/30_Enterprise_Program_Roadmap/Enterprise_Program_Roadmap_v1.md](../30_Enterprise_Program_Roadmap/Enterprise_Program_Roadmap_v1.md)
-Section 07 (Build-004) and
-[docs/adr/2026-07-27-workstream-id-convention.md](../adr/2026-07-27-workstream-id-convention.md).
+Section 07 (Build-004) and [ADR 0006](../adr/2026-07-27-workstream-id-convention.md).
