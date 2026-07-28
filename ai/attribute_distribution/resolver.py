@@ -9,7 +9,8 @@ WHY
   applies the Risk R-9 verification gate, and returns a DistributionRecordModel
   describing the outcome (dry_run or failed) - it never causes an external
   side effect itself. See
-  docs/60_Enterprise_Attribute_Distribution/EAD_SPECIFICATION.md.
+  docs/60_Enterprise_Attribute_Distribution/README.md (the full EAD_SPECIFICATION.md-
+  equivalent spec is BL-7's deliverable, not yet written).
 
 VERIFICATION GATE (Risk R-9, this module's one real policy decision)
   Shopify is treated as customer-facing: distribution requires

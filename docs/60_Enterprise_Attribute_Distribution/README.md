@@ -7,11 +7,13 @@ approval gate between each).
 
 ## Status: in progress — see [SPRINT_CHARTER.md](SPRINT_CHARTER.md) for the live backlog status
 
-BL-0 through BL-5 done and committed. BL-6 (round-trip test) is next. The full documentation set
-(`EAD_SPECIFICATION.md`, `Validation.md`, `Examples.md`, `BUILD_004_COMPLETION_REPORT.md`) is
-deferred to BL-7, once the resolution engine and adapters exist to document meaningfully.
+BL-0 through BL-6 done and committed. BL-7 (full documentation set) is next and last. The full
+documentation set (`EAD_SPECIFICATION.md`, `Validation.md`, `Examples.md`,
+`BUILD_004_COMPLETION_REPORT.md`) is deferred to BL-7 — the four module docstrings that referenced
+`EAD_SPECIFICATION.md` ahead of its existence were corrected in BL-6 to point at this README until
+BL-7 authors that file.
 
-## `DistributionRecord` — field reference (current, through BL-5)
+## `DistributionRecord` — field reference (current, through BL-6)
 
 ```
 distribution_id             deterministic uuid5(registry_reference, target_system) - ai/attribute_distribution/ids.py
@@ -118,6 +120,20 @@ five backlog items so far — `DistributionRecord(Model)`, `compute_distribution
 `resolve_distribution`, `CurrentDownstreamValue`/`detect_conflict`, `ShopifyAdapter`, `ERPAdapter` —
 closing a drift gap found during BL-5's architecture verification (the re-export list had not been
 updated since BL-1 and was missing everything BL-2/3/4 added).
+
+## Round-trip test — BL-6, Build-004 Exit Criteria demonstrated
+
+`test_round_trip_shopify_and_erp_real_fixtures` composes the full pipeline
+(`resolve_distribution` → `detect_conflict` → `ShopifyAdapter`/`ERPAdapter`) against the same real
+verified colour attribute BL-2's tests already use, for **both** target systems in one test — this
+is the concrete proof of the Enterprise Program Roadmap's Build-004 Exit Criteria, stated there
+verbatim: *"one real attribute reaches a real Shopify metafield and a real (or stubbed) ERP
+attribute code, with `external_ids` correctly recorded both ways."* Both `external_id.value`s
+(`custom.primary_colour` for Shopify, `COLOUR_PRIMARY` for ERP) are asserted directly.
+
+`test_round_trip_real_conflict_excluded_from_distribution` proves the inverse: a record
+`detect_conflict` flags is not eligible for either adapter — zero records written, zero counted —
+so the pipeline never distributes a flagged conflict, end to end.
 
 ## Related Standards
 

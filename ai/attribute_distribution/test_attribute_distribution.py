@@ -338,6 +338,65 @@ def test_package_reexports_all_public_symbols():
         assert hasattr(pkg, name), f"ai.attribute_distribution does not re-export {name!r}"
 
 
+def test_round_trip_shopify_and_erp_real_fixtures():
+    """BL-6: satisfies the Enterprise Program Roadmap's Build-004 Exit Criteria
+    verbatim - one real attribute reaches a real Shopify metafield and a real
+    (stubbed) ERP attribute code, with external_ids correctly recorded both ways."""
+    eal_record = _load_eal_record(_EAL_EXAMPLES / "shopify_mapping_example.yaml")  # verified
+    ear_registry = load_registry(_EAR_EXAMPLES / "registry.json")
+    ead_definitions = load_definitions(_EAD_EXAMPLES / "definitions.json")
+    ear_entry = ear_registry.get(eal_reference=eal_record.canonical_path)
+    ead_definition = ead_definitions.get(ear_entry.attribute_id)
+
+    shopify_result = resolve_distribution(eal_record, ear_entry, ead_definition, "shopify")
+    shopify_result = detect_conflict(
+        shopify_result, CurrentDownstreamValue(known=True, value=eal_record.value)
+    )
+    erp_result = resolve_distribution(eal_record, ear_entry, ead_definition, "erp")
+    erp_result = detect_conflict(
+        erp_result, CurrentDownstreamValue(known=True, value=eal_record.value)
+    )
+
+    assert shopify_result.status == "dry_run"
+    assert erp_result.status == "dry_run"
+
+    tmp_path = Path(__file__).parent / "_tmp_roundtrip_review.jsonl"
+    try:
+        shopify_written = ShopifyAdapter().write_review_artifact([shopify_result], tmp_path)
+        assert shopify_written == 1
+        line = json.loads(tmp_path.read_text(encoding="utf-8").strip())
+        assert line["external_id"]["value"] == "custom.primary_colour"  # recorded, Shopify side
+
+        erp_count = ERPAdapter().stub_submit([erp_result])
+        assert erp_count == 1
+        assert erp_result.external_id.value == "COLOUR_PRIMARY"  # recorded, ERP side
+    finally:
+        tmp_path.unlink(missing_ok=True)
+
+
+def test_round_trip_real_conflict_excluded_from_distribution():
+    """A record that detect_conflict flags is not eligible for either adapter -
+    proves the pipeline never distributes a flagged conflict."""
+    eal_record = _load_eal_record(_EAL_EXAMPLES / "shopify_mapping_example.yaml")
+    ear_registry = load_registry(_EAR_EXAMPLES / "registry.json")
+    ead_definitions = load_definitions(_EAD_EXAMPLES / "definitions.json")
+    ear_entry = ear_registry.get(eal_reference=eal_record.canonical_path)
+    ead_definition = ead_definitions.get(ear_entry.attribute_id)
+
+    result = resolve_distribution(eal_record, ear_entry, ead_definition, "shopify")
+    result = detect_conflict(result, CurrentDownstreamValue(known=True, value="chocolate brown"))
+    assert result.status == "conflict"
+
+    tmp_path = Path(__file__).parent / "_tmp_roundtrip_conflict.jsonl"
+    try:
+        written = ShopifyAdapter().write_review_artifact([result], tmp_path)
+        assert written == 0
+        assert tmp_path.read_text(encoding="utf-8") == ""
+        assert ERPAdapter().stub_submit([result]) == 0
+    finally:
+        tmp_path.unlink(missing_ok=True)
+
+
 if __name__ == "__main__":
     test_valid_record_constructs()
     test_distribution_id_is_deterministic()
@@ -360,4 +419,6 @@ if __name__ == "__main__":
     test_erp_adapter_counts_only_eligible_records()
     test_erp_adapter_performs_no_io()
     test_package_reexports_all_public_symbols()
+    test_round_trip_shopify_and_erp_real_fixtures()
+    test_round_trip_real_conflict_excluded_from_distribution()
     print("OK")

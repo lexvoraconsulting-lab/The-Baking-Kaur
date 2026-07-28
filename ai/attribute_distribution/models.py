@@ -6,7 +6,8 @@ WHY
   validation library - mirrors ai.eal/ai.ear/ai.ead's split.
   ai.attribute_distribution.models_pydantic carries the runtime validation
   for the same fields. See
-  docs/60_Enterprise_Attribute_Distribution/EAD_SPECIFICATION.md.
+  docs/60_Enterprise_Attribute_Distribution/README.md (the full EAD_SPECIFICATION.md-
+  equivalent spec is BL-7's deliverable, not yet written).
 
 WHAT THIS BUILD IS (BL-1 scope: models only)
   Build-004 (Workstream: ATTR, per ADR 0006). The write path from a validated

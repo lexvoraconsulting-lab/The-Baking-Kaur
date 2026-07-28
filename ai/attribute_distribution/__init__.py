@@ -5,7 +5,8 @@ surface so downstream code does `from ai.attribute_distribution import
 DistributionRecord` instead of reaching into submodules. Through BL-5: the
 record model (BL-1), resolution (BL-2), conflict detection (BL-3), and the
 Shopify/ERP Adapters (BL-4/BL-5). See
-docs/60_Enterprise_Attribute_Distribution/EAD_SPECIFICATION.md.
+docs/60_Enterprise_Attribute_Distribution/README.md (the full EAD_SPECIFICATION.md-
+equivalent spec is BL-7's deliverable, not yet written).
 """
 from ai.attribute_distribution.models import (
     DISTRIBUTION_VERSION,

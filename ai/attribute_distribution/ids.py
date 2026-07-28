@@ -8,7 +8,8 @@ WHY
   derived from (registry_reference, target_system) rather than registry_reference
   alone, since one EAR attribute can be distributed to more than one target
   system (Shopify and ERP) - each is a distinct distribution attempt with its
-  own identity. See docs/60_Enterprise_Attribute_Distribution/EAD_SPECIFICATION.md.
+  own identity. See docs/60_Enterprise_Attribute_Distribution/README.md (the full
+  EAD_SPECIFICATION.md-equivalent spec is BL-7's deliverable, not yet written).
 """
 import uuid
 
