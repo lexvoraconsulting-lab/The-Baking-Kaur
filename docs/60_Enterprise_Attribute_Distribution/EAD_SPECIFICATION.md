@@ -27,6 +27,57 @@ notes                        required iff status in ("failed", "conflict"), forb
 distribution_version          "1.0"
 ```
 
+## Pipeline diagrams
+
+### Sequence
+
+```mermaid
+sequenceDiagram
+    participant Caller
+    participant Resolver as resolve_distribution (BL-2)
+    participant Conflict as detect_conflict (BL-3)
+    participant Shopify as ShopifyAdapter (BL-4)
+    participant ERP as ERPAdapter (BL-5)
+
+    Caller->>Resolver: eal_record, ear_entry, ead_definition, target_system
+    Resolver-->>Caller: DistributionRecordModel(status="dry_run" | "failed")
+    Caller->>Conflict: record, current_downstream_value
+    Conflict-->>Caller: record (status="dry_run" | "conflict")
+    alt target_system == "shopify"
+        Caller->>Shopify: write_review_artifact([record], path)
+        Shopify-->>Caller: count written
+    else target_system == "erp"
+        Caller->>ERP: stub_submit([record])
+        ERP-->>Caller: count
+    end
+```
+
+### Flow (conflict decision)
+
+```mermaid
+flowchart TD
+    A[DistributionRecordModel, status=dry_run] --> B{current.known?}
+    B -- No --> C[return unchanged, status=dry_run]
+    B -- Yes --> D{current.value == record.value?}
+    D -- Yes --> C
+    D -- No --> E[return status=conflict, notes=diff]
+```
+
+### State (`DistributionRecord.status`, cumulative across BL-2/BL-3)
+
+```mermaid
+stateDiagram-v2
+    [*] --> pending
+    pending --> dry_run: resolve_distribution() succeeds
+    pending --> failed: resolve_distribution() blocked or no mapping
+    dry_run --> dry_run: detect_conflict(), values agree or unknown
+    dry_run --> conflict: detect_conflict(), values diverge
+```
+
+Only `dry_run` records are eligible for either Adapter (BL-4/BL-5) — `failed` and `conflict`
+records are excluded, proven directly by
+[`test_round_trip_real_conflict_excluded_from_distribution`](../../ai/attribute_distribution/test_attribute_distribution.py).
+
 ## Module reference
 
 ### `resolve_distribution()` (BL-2) — pure mapping resolution

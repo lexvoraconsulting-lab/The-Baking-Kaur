@@ -1,8 +1,11 @@
 # VISIONARY IMAGE GENOME™ — Foundation v1
 
-Date: 2026-07-27
-Status: Foundation v1 frozen after Build-003. Awaiting Architecture Review **AR-006** before
-Build-004 begins.
+Date: 2026-07-27 (Section 2/3/5/6/7/8/9/11 updated 2026-07-28 to reflect Build-004's
+completion, per this document's own §14 policy of staying current with linked sources)
+Status: Foundation v1 (Builds 001-003) frozen. Build-004 (Enterprise Attribute Distribution) — the
+first Build on top of this Foundation, not part of Foundation v1 itself — is now **complete**
+(all 7 backlog items implemented, tested, documented, committed), awaiting Architecture Gate
+**AR-011**. Build-005 has not started.
 
 This is a top-level index and architectural overview — **not a replacement for any existing
 document.** Every claim below links to its authoritative source rather than restating it, per
@@ -21,17 +24,22 @@ Together they are the complete, tested, documented base every future Build (Know
 Vision extraction, distribution, search, JARVIS) is built on top of, per
 [the Enterprise Program Roadmap](../30_Enterprise_Program_Roadmap/Enterprise_Program_Roadmap_v1.md).
 
-Three builds, three commits, one un-committed in-progress build reviewed here for the first time:
+Three builds, three commits — Foundation v1 proper:
 
 | Build | Name | Status |
 |---|---|---|
-| Build-001 | Enterprise Attribute Language (EAL) | Committed, AR-004 = **GO** |
-| Build-002 | Enterprise Attribute Registry (EAR) | Committed, AR-005 = **GO** |
-| Build-003 | Enterprise Attribute Definitions (EAD) | Implemented, awaiting **AR-006** |
+| Build-001 | Enterprise Attribute Language (EAL) | Committed `fbe3931`, AR-004 = **GO** |
+| Build-002 | Enterprise Attribute Registry (EAR) | Committed `92e6485`, AR-005 = **GO** |
+| Build-003 | Enterprise Attribute Definitions (EAD) | Committed `5c6515c`, AR-006 not formally closed |
 
-Foundation v1 is considered frozen at this point: no further changes to `ai/eal/` or `ai/ear/` are
-expected, and Build-003 is feature-complete pending review. Build-004 (Enterprise Attribute
-Distribution) is the first Build to consume all three layers together and has not started.
+Foundation v1 is frozen: no further changes to `ai/eal/`, `ai/ear/`, or `ai/ead/` are expected.
+Build-004 (Enterprise Attribute Distribution) is the first Build to consume all three layers
+together — it is **not part of Foundation v1**, it is the first Build built *on* it — and it is now
+complete:
+
+| Build | Name | Status |
+|---|---|---|
+| Build-004 | Enterprise Attribute Distribution | Committed across 9 commits (BL-0 through BL-7), AR-011 pending — see [docs/60_Enterprise_Attribute_Distribution/](../60_Enterprise_Attribute_Distribution/) |
 
 ---
 
@@ -72,6 +80,24 @@ Note on numbering: Build-003 originally meant "Enterprise Attribute Distribution
 renumbering made it "Enterprise Attribute Definitions" — see §7 (ADR Index) and §11 (Roadmap) for
 why, and never assume "EAD" means Distribution in any document dated before 2026-07-27.
 
+### Build-004 — Enterprise Attribute Distribution (first post-Foundation Build, complete)
+
+The write path from a validated `EALAttributeRecord` to Shopify and ERP, staying dry-run/stubbed
+for its entire sprint — no live write to the production Shopify store or a real ERP endpoint.
+Reuses `ExternalIdModel`, `VerificationStatus`, and `is_valid_attribute_id` from EAL/EAR directly;
+modifies neither. Full detail:
+[EAD_SPECIFICATION.md](../60_Enterprise_Attribute_Distribution/EAD_SPECIFICATION.md) · index:
+[docs/60_Enterprise_Attribute_Distribution/README.md](../60_Enterprise_Attribute_Distribution/README.md)
+· delivery:
+[BUILD_004_COMPLETION_REPORT.md](../60_Enterprise_Attribute_Distribution/BUILD_004_COMPLETION_REPORT.md).
+
+Two naming/sequencing corrections happened during this Build, both recorded as ADRs, not silently
+applied: [ADR 0006](../adr/2026-07-27-workstream-id-convention.md) introduced the standing
+**BUILD-xxx / Workstream ID / Title** convention (Build-004 is Workstream **ATTR**) after Build-004
+was found still labeled with the "EAD" initialism ADR 0005 had just reassigned to Build-003; and
+[ADR 0007](../adr/2026-07-28-build-005-007-resequencing.md) resequenced Builds 005-007 (unrelated to
+Build-004's own scope, requested mid-Build).
+
 ---
 
 ## 3. Architecture Diagram
@@ -86,7 +112,7 @@ graph LR
     end
     VE["Vision Engine (Sprint 1, pre-dates Foundation v1)"] --> EAL
     EAD --> KG["Knowledge Graph (Build-007, not started)"]
-    EAD --> DIST["Attribute Distribution (Build-004, not started)"]
+    EAD --> DIST["Attribute Distribution (Build-004, COMPLETE)"]
     TAX["Sprint 2.1 Taxonomy Architecture"] -.grounds vocabulary/type resolution.-> EAR
 ```
 
@@ -103,6 +129,7 @@ consistent with the acyclicity already verified in
 | **EAL** (Build-001) | What shape does one attribute/relationship fact have? What's its canonical path, data type, confidence, provenance? | Does this attribute exist elsewhere? What does it mean? Where does it go? |
 | **EAR** (Build-002) | Does this attribute exist? What's its permanent ID? Which namespace/module owns it? | What does the attribute mean to a human or an AI? Where does it map downstream? |
 | **EAD** (Build-003) | What does this attribute mean? How should Vision/AI use it? Where does it map (Shopify/ERP)? | Does it exist (that's EAR)? What shape does a record have (that's EAL)? How is it actually distributed (that's Build-004)? |
+| **Attribute Distribution** (Build-004) | Given a resolved attribute, does it actually reach Shopify/ERP (dry-run), and does it conflict with what's already there? | What does it mean (that's EAD)? Does it exist (that's EAR)? Real live writes (that's a future Build) |
 
 No layer duplicates another's responsibility — each was built to answer exactly one question, per
 [VIG-002 (Architecture Principles)](../00_Governance/VIG-002-Architecture-Principles.md).
@@ -119,9 +146,10 @@ stable by Build-003's own reuse of Build-001/002 without modifying either:
 | `EALAttributeRecord` / `EALRelationshipRecord` (dataclass + Pydantic) | `ai/eal/models.py`, `ai/eal/models_pydantic.py` | EAR, EAD, and every future Build touching an attribute record |
 | `CANONICAL_PATH_PATTERN` (canonical-path grammar) | `ai/eal/models_pydantic.py` | EAR's `eal_reference` validation |
 | `ExternalIdModel` (Shopify/ERP join shape) | `ai/eal/models_pydantic.py` | EAD's `shopify_mapping`/`erp_mapping` |
-| `EARAttributeEntryModel`, `Registry` | `ai/ear/models_pydantic.py`, `ai/ear/registry.py` | EAD's cross-reference check; future Build-004/005 |
-| `is_valid_attribute_id`, `compute_registry_uuid` | `ai/ear/ids.py` | EAD's `registry_reference` format validation |
-| `EADDefinitionModel`, `DefinitionSet` | `ai/ead/models_pydantic.py`, `ai/ead/definitions.py` | Future Build-004 (Distribution) mapping guidance consumer |
+| `EARAttributeEntryModel`, `Registry` | `ai/ear/models_pydantic.py`, `ai/ear/registry.py` | EAD's cross-reference check; Build-004's `resolve_distribution()` (done) |
+| `is_valid_attribute_id`, `compute_registry_uuid` | `ai/ear/ids.py` | EAD's `registry_reference` format validation; Build-004 reuses `is_valid_attribute_id` directly |
+| `EADDefinitionModel`, `DefinitionSet` | `ai/ead/models_pydantic.py`, `ai/ead/definitions.py` | Build-004's mapping guidance consumer (done) |
+| `DistributionRecordModel`, `ShopifyAdapter`, `ERPAdapter` | `ai/attribute_distribution/models_pydantic.py`, `shopify_adapter.py`, `erp_adapter.py` | Future Build-010 (Distribution at volume) — extends these classes with real methods, never renames |
 | Generated JSON Schemas | `ai/eal/schemas/`, `ai/ear/schemas/`, `ai/ead/schemas/` | Any non-Python consumer, per each module's own `regenerate_schema()` |
 
 Each module's own `README.md` and `*_SPECIFICATION.md` is the authoritative field-by-field
@@ -141,8 +169,12 @@ reference — this table is a map to them, not a restatement.
 | 2026-07-27 | Build-002 (EAR) shipped, committed `92e6485`; AR-005 = GO |
 | 2026-07-27 | Enterprise Program Roadmap (EPR) v1 authored |
 | 2026-07-27 | ADR 0005 — Build-003 renumbered from "Distribution" to "Definitions"; Distribution and later Builds shifted to 004+ |
-| 2026-07-27 | Build-003 (EAD) implemented, not yet committed — awaiting AR-006 |
-| 2026-07-27 | **This document** — Foundation v1 frozen for review |
+| 2026-07-27 | Build-003 (EAD) implemented and committed `5c6515c` |
+| 2026-07-27 | **Foundation v1 frozen** — this document authored |
+| 2026-07-28 | ADR 0006 — Workstream ID convention; Build-004's "EAD" mislabel corrected |
+| 2026-07-28 | ADR 0007 — Builds 005-007 resequenced (Master Taxonomy, Validation Engine, Knowledge Graph) |
+| 2026-07-28 | Build-004 (Enterprise Attribute Distribution) — all 7 backlog items implemented, tested, documented, committed across 9 commits; awaiting AR-011 |
+| 2026-07-28 | **This document updated** — Build-004's completion reflected, per §14's own currency policy |
 
 Exact commit hashes and file lists live in each Build's own completion report (§2 links); this row
 set is a timeline, not a duplicate changelog.
@@ -161,6 +193,8 @@ Links only — no ADR content is duplicated here, per this document's own instru
 | [0003](../adr/2026-07-27-vision-provider-abstraction.md) | Vision Provider Abstraction | `VisionProvider` interface, config-driven provider selection |
 | [0004](../adr/2026-07-27-vision-identity-and-packaging.md) | Vision Engine Identity, Versioning, and Packaging Hardening | `TBK_IMAGE_ID`, package importability |
 | [0005](../adr/2026-07-27-build-003-renumbering.md) | Build-003 Renumbering — Enterprise Attribute Definitions | Why "EAD" means Definitions, not Distribution, and the full Build/AR renumbering mapping |
+| [0006](../adr/2026-07-27-workstream-id-convention.md) | Workstream ID Convention + Build-004 Relabeling | The standing BUILD-xxx / Workstream ID / Title convention; Build-004 has no acronym |
+| [0007](../adr/2026-07-28-build-005-007-resequencing.md) | Build-005 through Build-007 Resequencing | Master Taxonomy to Build-005, new Validation Engine as Build-006, Knowledge Graph to Build-007 |
 
 ---
 
@@ -172,6 +206,7 @@ ai/
   eal/        Build-001 — Enterprise Attribute Language (wire format)
   ear/        Build-002 — Enterprise Attribute Registry
   ead/        Build-003 — Enterprise Attribute Definitions
+  attribute_distribution/  Build-004 — Enterprise Attribute Distribution (Workstream ATTR)
   api/ automation/ embeddings/ knowledge/ ollama/ vectordb/   empty, pre-existing local
               scaffolding not yet populated by any committed Build — see
               docs/AI/Roadmap.md's "documented, not scaffolded" principle; these are not part
@@ -185,6 +220,7 @@ docs/
   30_Enterprise_Program_Roadmap/    cross-Build sequencing (EPR)
   40_Enterprise_Attribute_Registry/ Build-002 (EAR) spec + docs
   50_Enterprise_Attribute_Definitions/  Build-003 (EAD) spec + docs
+  60_Enterprise_Attribute_Distribution/ Build-004 spec + docs (complete)
   AI/                                Vision Engine architecture docs (Sprint 1)
   adr/                               all Architecture Decision Records
   blog-os/                           separate SEO content-factory initiative, not part of this platform
@@ -206,7 +242,7 @@ graph TD
     Build001 --> Build002[Build-002 EAR]
     Build002 --> Build003[Build-003 EAD]
     Sprint21 -.grounds vocabulary resolution.-> Build002
-    Build003 --> Build004[Build-004 Attribute Distribution - not started]
+    Build003 --> Build004[Build-004 Attribute Distribution - COMPLETE]
     Build002 --> Build007[Build-007 Knowledge Graph - not started]
     Build003 --> Build007
 ```
@@ -227,16 +263,22 @@ not a new or looser bar:
 1. Build-001 (EAL) — implemented, tested, reviewed (AR-004 = GO), committed. ✅
 2. Build-002 (EAR) — implemented, tested, reviewed (AR-005 = GO), committed. ✅
 3. Build-003 (EAD) — implemented, tested (`python -m ai.ead.test_ead` → `OK`, including a real
-   cross-reference against `ai/ear/examples/registry.json`), documented. ⏳ awaiting AR-006 and
-   commit.
-4. No frozen layer (`ai/eal/`, `ai/ear/`) was modified by a later Build — verified per each
-   completion report's `git status` check.
+   cross-reference against `ai/ear/examples/registry.json`), documented, committed `5c6515c`. ✅
+   (AR-006 was not produced as a standalone formal review document — this project's workflow moved
+   to per-backlog-item plan/approve cycles starting with Build-004; noted here for transparency,
+   not silently glossed over.)
+4. No frozen layer (`ai/eal/`, `ai/ear/`, `ai/ead/`) was modified by a later Build — verified per
+   each completion report's `git status` check, including Build-004's.
 5. Every public contract in §5 has at least one real consumer outside its own module (EAR consumes
-   EAL; EAD consumes both) — proving the contracts are load-bearing, not speculative.
-6. Every renumbering or reconciliation decision (ADR 0005) is recorded, not silently applied.
+   EAL; EAD consumes both; Build-004 consumes all three) — proving the contracts are load-bearing,
+   not speculative.
+6. Every renumbering or reconciliation decision (ADR 0005, 0006, 0007) is recorded, not silently
+   applied.
 
-Foundation v1 is **not** done until item 3 closes (AR-006 + commit) — this document describes the
-frozen *shape* of the foundation, not a claim that Build-003 has shipped.
+Foundation v1 (Builds 001-003) is **done** by the criteria above. Build-004's own Definition of Done
+is separate — see
+[docs/60_Enterprise_Attribute_Distribution/SPRINT_CHARTER.md](../60_Enterprise_Attribute_Distribution/SPRINT_CHARTER.md)
+— and is also complete, awaiting AR-011.
 
 ---
 
@@ -247,23 +289,23 @@ Full detail, dependencies, and Architecture Gates:
 and [§9 (Architecture Gates)](../30_Enterprise_Program_Roadmap/Enterprise_Program_Roadmap_v1.md#section-09--architecture-gates).
 Summary only:
 
-| Build | Name |
-|---|---|
-| Build-004 | Enterprise Attribute Distribution (the write path to Shopify/ERP) |
-| Build-005 | Enterprise Master Taxonomy (Sprint 2.2) |
-| Build-006 | Enterprise Validation Engine |
-| Build-007 | Enterprise Knowledge Graph (physical implementation) |
-| Build-008 | Vision Engine structured extraction (Sprint 2.3) |
-| Build-009 | Embeddings + Vector Search |
-| Build-010 | ERP + Shopify Distribution at volume |
-| Build-011 | JARVIS integration |
-| Build-012 | Production Release v1.0 |
+| Build | Name | Status |
+|---|---|---|
+| Build-004 | Enterprise Attribute Distribution (the write path to Shopify/ERP) | **Complete**, awaiting AR-011 |
+| Build-005 | Enterprise Master Taxonomy (Sprint 2.2) | Not started |
+| Build-006 | Enterprise Validation Engine | Not started |
+| Build-007 | Enterprise Knowledge Graph (physical implementation) | Not started |
+| Build-008 | Vision Engine structured extraction (Sprint 2.3) | Not started |
+| Build-009 | Embeddings + Vector Search | Not started |
+| Build-010 | ERP + Shopify Distribution at volume | Not started |
+| Build-011 | JARVIS integration | Not started |
+| Build-012 | Production Release v1.0 | Not started |
 
 Resequenced 2026-07-28 — see
 [docs/adr/2026-07-28-build-005-007-resequencing.md](../adr/2026-07-28-build-005-007-resequencing.md).
 
-None of these have started. This document does not restate their objectives, dependencies, or
-risks — see the EPR sections linked above.
+Build-005 onward have not started. This document does not restate their objectives, dependencies,
+or risks — see the EPR sections linked above.
 
 ---
 
@@ -294,9 +336,33 @@ not restated, per VIG-008:
 - [VIG-009 (ADR Standard)](../00_Governance/VIG-009-ADR-Standard.md) — one-decision-one-document,
   the format every ADR in §7 follows.
 
+Not a VIG, but an equally standing convention as of Build-004: the **BUILD-xxx / Workstream ID /
+Title** convention ([ADR 0006](../adr/2026-07-27-workstream-id-convention.md)) — every future Build
+gets a Workstream ID assigned at Sprint Charter time, preventing acronym collisions between Builds.
+
 ---
 
-## 13. How to Use This Document
+## 13. Glossary
+
+| Term | Meaning |
+|---|---|
+| **Build-NNN** | An implementation increment, sequential, never renumbered once frozen (Builds 001-004; see ADR 0005/0007 for the two renumbering events that happened before freezing). |
+| **Workstream** | A short, stable code identifying a *business capability* independent of Build number (e.g. `ATTR`) — [ADR 0006](../adr/2026-07-27-workstream-id-convention.md). |
+| **EAL** | Enterprise Attribute Language (Build-001) — the wire format. |
+| **EAR** | Enterprise Attribute Registry (Build-002) — does an attribute exist, what's its ID. |
+| **EAD** | Enterprise Attribute Definitions (Build-003) **only** — never Distribution, see ADR 0005. |
+| **Attribute Distribution** | Build-004 — the write path to Shopify/ERP. Has no acronym by design. |
+| **`canonical_path`** | EAL's `eal.<namespace>.<group>.<attribute>` grammar identifying one attribute concept. |
+| **`registry_reference`** | An EAR `attribute_id` (`EAR-NNNNNN`) — the join key Build-003/004 use to find an attribute's registry entry. |
+| **`value_state`** | EAL's three-state distinction: `present` / `null` (doesn't apply) / `unknown` (not yet determined) — never collapsed into a bare optional. |
+| **Dry-run** | Producing a preview of an external write without performing it — this repo's standing convention (`seo-ops/`, and now Build-004's adapters). |
+| **Sprint Charter** | The living, per-Build backlog tracker (e.g. `docs/60_Enterprise_Attribute_Distribution/SPRINT_CHARTER.md`) — the source of truth for "where is this Build right now." |
+| **Architecture Gate (AR-NNN)** | The review checkpoint a Build passes before the next major Build begins — AR-001 through AR-010 so far; AR-011 is Build-004's, pending. |
+| **ADR** | Architecture Decision Record, `docs/adr/`, one-decision-one-document ([VIG-009](../00_Governance/VIG-009-ADR-Standard.md)). |
+
+---
+
+## 14. How to Use This Document
 
 This is an index and architectural overview — start here to orient, then follow a link to the
 authoritative source for anything you need in detail. Do not copy content from here into another

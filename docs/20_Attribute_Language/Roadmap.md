@@ -25,11 +25,13 @@ confidence expectations, and pointers to the Knowledge Graph, Shopify, and ERP. 
 [docs/adr/2026-07-27-build-003-renumbering.md](../adr/2026-07-27-build-003-renumbering.md) — the
 "EAD" initialism now means Definitions, not Distribution.
 
-## Build-004 (not started) — Enterprise Attribute Distribution
+## Build-004 (complete, awaiting AR-011) — Enterprise Attribute Distribution
 
 The write path from a validated `EALAttributeRecord` to each `external_ids`-named system —
 Shopify metafields, ERP attribute codes — including conflict handling when a downstream system's
-own value diverges from EAL's (see [External_ID_Standard.md](External_ID_Standard.md)).
+own value diverges from EAL's (see [External_ID_Standard.md](External_ID_Standard.md)). Delivered
+across 9 commits (BL-0 through BL-7) — see
+[docs/60_Enterprise_Attribute_Distribution/](../60_Enterprise_Attribute_Distribution/README.md).
 
 ## Build-007 (not started) — Knowledge Graph physical implementation
 

@@ -24,10 +24,28 @@ directly by BL-6's round-trip test.
 | BL-4 | `ShopifyAdapter` — dry-run review artifact | `037a612` |
 | BL-5 | `ERPAdapter` — fully stubbed, package re-export gap closed | `97d0c59` |
 | BL-6 | Round-trip test — Exit Criteria demonstrated against real data | `bd3d8b5` |
-| BL-7 | Full documentation set (this report + `EAD_SPECIFICATION.md`/`Validation.md`/`Examples.md`), dead-code cleanup | (this pass) |
+| BL-7 | Full documentation set (this report + `EAD_SPECIFICATION.md`/`Validation.md`/`Examples.md`), dead-code cleanup | `4d399c5` |
 
 Full per-item detail (objective, scope, risks, files) lives in each commit's own message and in the
 Sprint Charter history above — this report is the Build-level rollup, not a restatement.
+
+## Traceability Matrix
+
+| Backlog Item | Requirement (Sprint Charter) | Implementation | Tests | Validation | Documentation | Completion Report |
+|---|---|---|---|---|---|---|
+| BL-0 | Fix "EAD" label collision on Build-004 | `docs/adr/2026-07-27-workstream-id-convention.md` | Cross-reference sweep, no code | N/A (docs-only) | ADR 0006 | `02dd93d` message |
+| BL-1 | Package skeleton, `DistributionRecord` model | `models.py`/`models_pydantic.py`/`ids.py`/`__init__.py` | `test_valid_record_constructs` + 5 more | Pydantic validators | README §"DistributionRecord" | `ce31d79` message |
+| BL-2 | Mapping resolution, R-9 gating | `resolver.py` | `test_resolve_*` (5 tests, real EAL/EAR/EAD fixtures) | Join-integrity + gating logic | EAD_SPECIFICATION.md §"resolve_distribution" | `462e9b6` message |
+| BL-3 | Conflict detection | `conflicts.py` | `test_detect_conflict_*` (4 tests) | Status-transition validators (reused from BL-2) | EAD_SPECIFICATION.md §"detect_conflict" | `5765b8b` message |
+| BL-4 | Shopify dry-run adapter | `shopify_adapter.py` | `test_shopify_adapter_*` (1 test + temp-file cleanup check) | Filter logic (target+status) | EAD_SPECIFICATION.md §"ShopifyAdapter" | `037a612` message |
+| BL-5 | ERP stub adapter, `__init__.py` fix | `erp_adapter.py`, `__init__.py` | `test_erp_adapter_*` (2 tests) + re-export smoke test | Signature-based no-I/O proof | EAD_SPECIFICATION.md §"ERPAdapter" | `97d0c59` message |
+| BL-6 | Round-trip test, Exit Criteria | (test-only, no new module) | `test_round_trip_*` (2 tests, real fixtures, both targets) | Full pipeline composition | README/EAD_SPECIFICATION.md §"Round-trip" | `bd3d8b5` message |
+| BL-7 | Full documentation set | `shopify_adapter.py` (dead-import fix only) | Full suite re-run, unchanged | Cross-reference sweep, AST unused-import scan | This report + `EAD_SPECIFICATION.md`/`Validation.md`/`Examples.md` (all new) | `4d399c5` message |
+
+**Future Build** (traceability forward): Build-009 (Embeddings/Search) and Build-010 (Distribution
+at volume) are the next Builds expected to extend `ShopifyAdapter`/`ERPAdapter` with real methods,
+per [EAD_SPECIFICATION.md](EAD_SPECIFICATION.md)'s own "future responsibilities" note — not designed
+further here (VIG-001 Principle 4).
 
 ## Technical Summary
 
@@ -116,6 +134,24 @@ None — no credentials read or held anywhere in this Build's code; no network c
 
 Carried forward, unchanged from the Sprint Charter: AR-011 (this Build's own gate) has not yet
 been sought; Risk R-2 and R-3 remain open pending future Builds (KG storage, ERP inspection).
+
+## Repository Health Assessment (Build-004 scope)
+
+Deliberately qualitative, not scored — this repo has no configured linter, coverage tool, or CI
+(`docs/CODING_STANDARDS.md`'s own "TODO: no CI, linter, or formatter config is present"), so a
+numeric score (e.g. "87/100") would be fabricated precision this project's own standing principle
+(`CLAUDE.md`: "verifiability beats persuasion") rules out. Each line below is a direct claim with
+its evidence, not an estimate:
+
+| Dimension | Assessment | Evidence |
+|---|---|---|
+| Architecture | Two clean layers (Domain: pure functions; Adapter: I/O-capable), zero circular imports, zero duplicated responsibility | Verified by AST-based import analysis and manual grep before every backlog item (BL-0 through BL-7's own pre-implementation audits) |
+| Documentation | Every module has a corresponding doc section; every cross-reference resolves | Repo-wide link sweep, 0 genuine broken links (8 flagged matches are literal `[text](path)` prose, confirmed false positives) |
+| Test coverage | Every public function/method has ≥1 direct test; the full pipeline has 2 additional composition tests | 23 test functions in `ai/attribute_distribution/test_attribute_distribution.py`, all passing |
+| Dead code | Zero known unused imports as of this pass | AST-based unused-import scan across all 8 production files, 0 findings (1 found and fixed in BL-7: `shopify_adapter.py`'s unused `json` import) |
+| Naming consistency | Zero acronym collisions | Repo-wide grep for `erp_adapter`/`ERPAdapter`/`shopify_adapter`/`ShopifyAdapter` before each was introduced, 0 prior uses found each time |
+| Technical debt | Three explicitly deferred items, each with a named blocker and owning future Build | ERP payload shape (blocked on Kitchen ERP inspection, Build-010), real Shopify write path (Build-009/010), real conflict-detection data source (Risk R-2, same Builds) |
+| Future readiness | `ShopifyAdapter`/`ERPAdapter` designed for method-addition, not rename, per ADR 0006's convention | Documented in `EAD_SPECIFICATION.md`'s "future responsibilities" notes on both classes |
 
 ## Rollback Procedure
 

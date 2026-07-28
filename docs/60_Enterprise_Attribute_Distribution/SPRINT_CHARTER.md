@@ -26,7 +26,7 @@ ERP endpoint during this sprint.
 | BL-4 | Shopify Adapter (`ShopifyAdapter`) — dry-run review artifact only this sprint | **Done** | `037a612` |
 | BL-5 | ERP Adapter (`ERPAdapter`) — fully stubbed, no I/O | **Done** | `97d0c59` |
 | BL-6 | Round-trip test — real Build-002/003 example data, Exit Criteria demonstrated | **Done** | `bd3d8b5` |
-| BL-7 | Full documentation set + `BUILD_004_COMPLETION_REPORT.md` | **Done** | (this pass) |
+| BL-7 | Full documentation set + `BUILD_004_COMPLETION_REPORT.md` | **Done** | `4d399c5` |
 
 (Note: an unplanned but necessary prerequisite — fixing an empty `.venv` and establishing
 `requirements.txt`/`DEVELOPMENT_SETUP.md` as canonical — was completed alongside BL-1, commit
