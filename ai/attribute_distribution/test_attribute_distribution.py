@@ -1,13 +1,15 @@
 #!/usr/bin/env python3
 """
-Self-check for Enterprise Attribute Distribution v1 (Build-004), BL-1 + BL-2 scope.
+Self-check for Enterprise Attribute Distribution v1 (Build-004), BL-1 + BL-2 + BL-3 scope.
 
 WHY
   BL-1 introduced the DistributionRecord model (constructed directly here, no
   example files of its own yet). BL-2 adds resolve_distribution() and tests
   it against real EAL/EAR/EAD example fixtures already in the repo - the same
   "real cross-reference, not synthetic" convention ai/ead/test_ead.py already
-  established.
+  established. BL-3 adds detect_conflict(), tested with synthetic
+  CurrentDownstreamValue inputs (pure unit tests - no real downstream data
+  exists yet, per Risk R-2).
 
 USAGE
   python -m ai.attribute_distribution.test_attribute_distribution
@@ -22,6 +24,7 @@ from ai.eal.models_pydantic import EALAttributeRecordModel
 from ai.ear.loader import load_registry
 from ai.ead.loader import load_definitions
 
+from ai.attribute_distribution.conflicts import CurrentDownstreamValue, detect_conflict
 from ai.attribute_distribution.ids import compute_distribution_id
 from ai.attribute_distribution.models_pydantic import DistributionRecordModel
 from ai.attribute_distribution.resolver import resolve_distribution
@@ -207,6 +210,47 @@ def test_resolve_join_mismatch_raises():
         pass
 
 
+def _dry_run_record():
+    raw = dict(_VALID)
+    raw["status"] = "dry_run"
+    return DistributionRecordModel(**raw)
+
+
+def test_detect_conflict_unknown_current_leaves_unchanged():
+    record = _dry_run_record()
+    result = detect_conflict(record, CurrentDownstreamValue(known=False))
+    assert result.status == "dry_run"
+    assert result.notes is None
+
+
+def test_detect_conflict_matching_current_leaves_unchanged():
+    record = _dry_run_record()
+    result = detect_conflict(record, CurrentDownstreamValue(known=True, value="white"))
+    assert result.status == "dry_run"
+    assert result.notes is None
+
+
+def test_detect_conflict_divergent_current_flags_conflict():
+    record = _dry_run_record()
+    result = detect_conflict(record, CurrentDownstreamValue(known=True, value="chocolate brown"))
+    assert result.status == "conflict"
+    assert "white" in result.notes
+    assert "chocolate brown" in result.notes
+
+
+def test_detect_conflict_requires_dry_run_status():
+    raw = dict(_VALID)
+    raw["status"] = "failed"
+    raw["external_id"] = None
+    raw["notes"] = "no mapping"
+    record = DistributionRecordModel(**raw)
+    try:
+        detect_conflict(record, CurrentDownstreamValue(known=True, value="anything"))
+        assert False, "expected ValueError for non-dry_run status"
+    except ValueError:
+        pass
+
+
 if __name__ == "__main__":
     test_valid_record_constructs()
     test_distribution_id_is_deterministic()
@@ -221,4 +265,8 @@ if __name__ == "__main__":
     test_resolve_erp_allowed_unverified()
     test_resolve_missing_mapping_fails()
     test_resolve_join_mismatch_raises()
+    test_detect_conflict_unknown_current_leaves_unchanged()
+    test_detect_conflict_matching_current_leaves_unchanged()
+    test_detect_conflict_divergent_current_flags_conflict()
+    test_detect_conflict_requires_dry_run_status()
     print("OK")

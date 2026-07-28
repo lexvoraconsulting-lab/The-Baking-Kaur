@@ -7,12 +7,12 @@ approval gate between each).
 
 ## Status: in progress — see [SPRINT_CHARTER.md](SPRINT_CHARTER.md) for the live backlog status
 
-BL-0, BL-1, and BL-2 done and committed (`02dd93d`, `ce31d79`, and this pass). BL-3 (conflict
-detection) is next. The full documentation set (`EAD_SPECIFICATION.md`, `Validation.md`,
-`Examples.md`, `BUILD_004_COMPLETION_REPORT.md`) is deferred to BL-7, once the resolution engine
-and adapters exist to document meaningfully.
+BL-0 through BL-3 done and committed. BL-4 (Shopify adapter / "Export Layer") is next. The full
+documentation set (`EAD_SPECIFICATION.md`, `Validation.md`, `Examples.md`,
+`BUILD_004_COMPLETION_REPORT.md`) is deferred to BL-7, once the resolution engine and adapters
+exist to document meaningfully.
 
-## `DistributionRecord` — field reference (current, through BL-2)
+## `DistributionRecord` — field reference (current, through BL-3)
 
 ```
 distribution_id             deterministic uuid5(registry_reference, target_system) - ai/attribute_distribution/ids.py
@@ -50,6 +50,30 @@ database, no file writes, no AI calls, no retries.
 Tested against real fixtures cross-referenced from `ai/eal/examples/`, `ai/ear/examples/
 registry.json`, and `ai/ead/examples/definitions.json` - not synthetic data, per this project's
 established testing convention.
+
+## `detect_conflict()` — BL-3, pure conflict detection
+
+`ai/attribute_distribution/conflicts.py::detect_conflict(record, current) ->
+DistributionRecordModel`. Pure function, composed *after* `resolve_distribution()` (BL-2), not
+merged into it. No HTTP, no Shopify/ERP calls, no database, no file writes, no AI calls, no
+retries — this item does not perform any real downstream read (Risk R-2: no real read exists yet).
+
+`CurrentDownstreamValue { known: bool; value: Any = None }` mirrors EAL's own `value_state`
+three-state distinction (present/null/unknown,
+[Null_and_Unknown_Standard.md](../20_Attribute_Language/Null_and_Unknown_Standard.md)) rather than
+inventing a second "is this known" convention — `known=False` means no real read has been
+attempted yet, not that the downstream value is empty.
+
+1. Requires `record.status == "dry_run"` — raises `ValueError` otherwise (a caller bug, calling
+   conflict detection on an already-failed resolution makes no sense).
+2. `current.known == False` → record returned unchanged.
+3. `current.known == True` and `current.value == record.value` → record returned unchanged (no
+   conflict, values agree).
+4. `current.known == True` and values differ → returns a new record with `status="conflict"` and
+   `notes` stating both values.
+
+Tested with synthetic `CurrentDownstreamValue` inputs (pure unit tests) — there is no real
+downstream data to cross-reference against until BL-4/BL-5 exist.
 
 ## Related Standards
 

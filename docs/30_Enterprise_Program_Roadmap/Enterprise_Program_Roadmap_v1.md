@@ -340,7 +340,10 @@ or higher shifted up by one more. No Build's scope changed, only its number.
   taxonomy / the Knowledge Graph (Build-005) exist — same deferred-validation pattern EAR already
   established for its own `taxonomy_references`, tracked not fixed here.
 
-### Build-004 — Enterprise Attribute Distribution
+### Build-004 — Enterprise Attribute Distribution (in progress)
+
+Live backlog status: [docs/60_Enterprise_Attribute_Distribution/SPRINT_CHARTER.md](../60_Enterprise_Attribute_Distribution/SPRINT_CHARTER.md)
+(BL-0 through BL-3 done as of this pass).
 
 - **Objective**: The write path from a validated `EALAttributeRecord` (enriched by its Build-003
   Definition's mapping guidance) to each system named in its `external_ids` — Shopify metafields,
