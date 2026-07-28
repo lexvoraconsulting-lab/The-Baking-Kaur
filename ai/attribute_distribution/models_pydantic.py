@@ -26,15 +26,15 @@ class DistributionRecordModel(BaseModel):
     registry_reference: str
     target_system: Literal["shopify", "erp"]
     value: object
-    external_id: ExternalIdModel
     human_verification_status: Literal[
         "unverified", "pending_review", "verified", "rejected", "corrected"
     ]
+    external_id: ExternalIdModel | None = None
     distribution_id: str
     distribution_version: str = DISTRIBUTION_VERSION
     confidence: float | None = Field(default=None, ge=0.0, le=1.0)
     status: Literal["pending", "dry_run", "success", "failed", "conflict"] = "pending"
-    conflict_notes: str | None = None
+    notes: str | None = None
 
     @field_validator("registry_reference")
     @classmethod
@@ -44,9 +44,16 @@ class DistributionRecordModel(BaseModel):
         return v
 
     @model_validator(mode="after")
-    def _conflict_notes_only_when_conflict(self):
-        if self.status == "conflict" and not self.conflict_notes:
-            raise ValueError("status='conflict' requires conflict_notes to be set")
-        if self.status != "conflict" and self.conflict_notes:
-            raise ValueError("conflict_notes is set but status is not 'conflict'")
+    def _notes_required_iff_failed_or_conflict(self):
+        needs_notes = self.status in ("failed", "conflict")
+        if needs_notes and not self.notes:
+            raise ValueError(f"status={self.status!r} requires notes to be set")
+        if not needs_notes and self.notes:
+            raise ValueError(f"notes is set but status={self.status!r} does not require it")
+        return self
+
+    @model_validator(mode="after")
+    def _external_id_required_when_resolved(self):
+        if self.status in ("dry_run", "success") and self.external_id is None:
+            raise ValueError(f"status={self.status!r} requires external_id to be set")
         return self

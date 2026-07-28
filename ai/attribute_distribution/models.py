@@ -33,13 +33,13 @@ class DistributionRecord:
     registry_reference: str
     target_system: TargetSystem
     value: Any
-    external_id: ExternalId
     human_verification_status: VerificationStatus
+    external_id: ExternalId | None = None
     distribution_id: str = ""
     distribution_version: str = DISTRIBUTION_VERSION
     confidence: float | None = None
     status: DistributionStatus = "pending"
-    conflict_notes: str | None = None
+    notes: str | None = None
 
     def __post_init__(self):
         if not self.distribution_id:
