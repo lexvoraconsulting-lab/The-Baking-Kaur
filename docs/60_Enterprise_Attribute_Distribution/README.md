@@ -7,12 +7,11 @@ approval gate between each).
 
 ## Status: in progress — see [SPRINT_CHARTER.md](SPRINT_CHARTER.md) for the live backlog status
 
-BL-0 through BL-3 done and committed. BL-4 (Shopify adapter / "Export Layer") is next. The full
-documentation set (`EAD_SPECIFICATION.md`, `Validation.md`, `Examples.md`,
-`BUILD_004_COMPLETION_REPORT.md`) is deferred to BL-7, once the resolution engine and adapters
-exist to document meaningfully.
+BL-0 through BL-4 done and committed. BL-5 (ERP adapter) is next. The full documentation set
+(`EAD_SPECIFICATION.md`, `Validation.md`, `Examples.md`, `BUILD_004_COMPLETION_REPORT.md`) is
+deferred to BL-7, once the resolution engine and adapters exist to document meaningfully.
 
-## `DistributionRecord` — field reference (current, through BL-3)
+## `DistributionRecord` — field reference (current, through BL-4)
 
 ```
 distribution_id             deterministic uuid5(registry_reference, target_system) - ai/attribute_distribution/ids.py
@@ -74,6 +73,26 @@ attempted yet, not that the downstream value is empty.
 
 Tested with synthetic `CurrentDownstreamValue` inputs (pure unit tests) — there is no real
 downstream data to cross-reference against until BL-4/BL-5 exist.
+
+## `ShopifyAdapter` — BL-4, Shopify Adapter layer
+
+`ai/attribute_distribution/shopify_adapter.py::ShopifyAdapter` — the one place every Shopify-facing
+responsibility for this Build lives, deliberately class-based (not a bare `exporter.py` function)
+so future responsibilities (preview, export, import, validation, sync, real Admin API integration —
+all later Builds) are added as new methods on this same class, never a rename or a second module.
+Named "adapter," distinct on purpose from `ai.{eal,ear,ead}.exporter` (JSON/YAML serialization of a
+module's own records) — this class does not serialize this module's own state, it shapes a preview
+of what would be sent to an external system.
+
+**BL-4 implements one method**: `write_review_artifact(records, path) -> int`. Dry-run only — no
+network call of any kind, not even a GET, matching this repo's own `seo-ops/` dry-run-by-default
+convention (`docs/CODING_STANDARDS.md`). Writes one JSON object per line for every record where
+`target_system == "shopify"` and `status == "dry_run"`; records targeting ERP or not yet
+successfully resolved are silently skipped (not an error — they're simply not ready). Returns the
+count written.
+
+Tested against a temp file, cleaned up after the test — no stray files left in the repo, matching
+`ai/ear/test_ear.py`'s round-trip temp-file pattern.
 
 ## Related Standards
 

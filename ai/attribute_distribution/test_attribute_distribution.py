@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Self-check for Enterprise Attribute Distribution v1 (Build-004), BL-1 + BL-2 + BL-3 scope.
+Self-check for Enterprise Attribute Distribution v1 (Build-004), BL-1 through BL-4 scope.
 
 WHY
   BL-1 introduced the DistributionRecord model (constructed directly here, no
@@ -9,7 +9,9 @@ WHY
   "real cross-reference, not synthetic" convention ai/ead/test_ead.py already
   established. BL-3 adds detect_conflict(), tested with synthetic
   CurrentDownstreamValue inputs (pure unit tests - no real downstream data
-  exists yet, per Risk R-2).
+  exists yet, per Risk R-2). BL-4 adds ShopifyAdapter.write_review_artifact(),
+  tested against a temp file, cleaned up after - no stray files left in the
+  repo, matching ai/ear/test_ear.py's round-trip temp-file pattern.
 
 USAGE
   python -m ai.attribute_distribution.test_attribute_distribution
@@ -28,6 +30,7 @@ from ai.attribute_distribution.conflicts import CurrentDownstreamValue, detect_c
 from ai.attribute_distribution.ids import compute_distribution_id
 from ai.attribute_distribution.models_pydantic import DistributionRecordModel
 from ai.attribute_distribution.resolver import resolve_distribution
+from ai.attribute_distribution.shopify_adapter import ShopifyAdapter
 
 _EAL_EXAMPLES = Path(__file__).parent.parent / "eal" / "examples"
 _EAR_EXAMPLES = Path(__file__).parent.parent / "ear" / "examples"
@@ -251,6 +254,40 @@ def test_detect_conflict_requires_dry_run_status():
         pass
 
 
+def test_shopify_adapter_writes_only_eligible_records():
+    shopify_dry_run = _dry_run_record()  # target_system="shopify", status="dry_run"
+
+    erp_raw = dict(_VALID)
+    erp_raw["target_system"] = "erp"
+    erp_raw["status"] = "dry_run"
+    erp_raw["external_id"] = {"system": "erp", "id_type": "sku_attribute_code", "value": "COLOUR_PRIMARY"}
+    erp_raw["distribution_id"] = compute_distribution_id("EAR-000001", "erp")
+    erp_dry_run = DistributionRecordModel(**erp_raw)  # wrong target_system - must be skipped
+
+    failed_raw = dict(_VALID)
+    failed_raw["status"] = "failed"
+    failed_raw["external_id"] = None
+    failed_raw["notes"] = "no mapping"
+    failed_record = DistributionRecordModel(**failed_raw)  # wrong status - must be skipped
+
+    tmp_path = Path(__file__).parent / "_tmp_shopify_review.jsonl"
+    try:
+        adapter = ShopifyAdapter()
+        written = adapter.write_review_artifact(
+            [shopify_dry_run, erp_dry_run, failed_record], tmp_path
+        )
+        assert written == 1, f"expected exactly 1 eligible record, wrote {written}"
+
+        lines = tmp_path.read_text(encoding="utf-8").strip().splitlines()
+        assert len(lines) == 1
+        payload = json.loads(lines[0])
+        assert payload["target_system"] == "shopify"
+        assert payload["status"] == "dry_run"
+        assert payload["value"] == "white"
+    finally:
+        tmp_path.unlink(missing_ok=True)
+
+
 if __name__ == "__main__":
     test_valid_record_constructs()
     test_distribution_id_is_deterministic()
@@ -269,4 +306,5 @@ if __name__ == "__main__":
     test_detect_conflict_matching_current_leaves_unchanged()
     test_detect_conflict_divergent_current_flags_conflict()
     test_detect_conflict_requires_dry_run_status()
+    test_shopify_adapter_writes_only_eligible_records()
     print("OK")
