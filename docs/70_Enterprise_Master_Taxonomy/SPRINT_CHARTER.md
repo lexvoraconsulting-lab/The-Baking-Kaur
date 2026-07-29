@@ -4,7 +4,7 @@ Workstream: **TAX** (new — per [ADR 0006](../adr/2026-07-27-workstream-id-conv
 standing convention, a genuinely new business capability gets a new Workstream ID at Sprint Charter
 time; TAX is the first non-ATTR workstream this platform has assigned).
 
-Status: **BL-0 complete**. BL-1 not started — awaiting approval per this project's per-item review
+Status: **BL-1 complete**. BL-2 not started — awaiting approval per this project's per-item review
 gate ([VIG-010](../00_Governance/VIG-010-Execution-Protocol.md)).
 
 ## Sprint Goal
@@ -36,11 +36,35 @@ same protocol — not silently absorbed into Build-005.
 
 | Item | Description | Status | Commit |
 |---|---|---|---|
-| BL-0 | Repository preparation — `ai/taxonomy/` skeleton (4 entities: Category, AttributeGroup, Vocabulary, Term; ID allocation; whole-catalog validation; loader/exporter; schema generation; structural self-check), `docs/70_Enterprise_Master_Taxonomy/` skeleton | **Done** | *(this commit)* |
-| BL-1 | Author real Category tree + the four highest-value domain Attribute Groups (Classification, Colour, Decoration, Occasion) with real Attributes | Not started | — |
-| BL-2 | Seed the first Controlled Vocabularies (Shape, Colour Name, Occasion) with real Terms, synonyms, and cross-system labels (Vision/ERP/Shopify/SEO/Search) as `external_ids` data | Not started | — |
-| BL-3 | Ontology relationship instances, against `docs/10_Taxonomy/Relationship_Model.md`'s existing logical schema | Not started | — |
+| BL-0 | Repository preparation — `ai/taxonomy/` skeleton (4 entities: Category, AttributeGroup, Vocabulary, Term; ID allocation; whole-catalog validation; loader/exporter; schema generation; structural self-check), `docs/70_Enterprise_Master_Taxonomy/` skeleton | **Done** | `0545f2e` |
+| BL-1 | Author real Category tree, Attribute Groups, Attributes, Controlled Vocabularies, Terms, synonyms, and cross-system labels — **expanded scope**, see below | **Done** | *(this commit)* |
+| BL-2 | Deepen vocabulary coverage (more terms per vocabulary), additional domain Attribute Groups as real business need is confirmed | Not started | — |
+| BL-3 | Ontology relationship instances beyond parent/child hierarchy (Object-to-Object, Image-to-Business-Entity per `docs/10_Taxonomy/Relationship_Model.md`) — deferred, needs real Image/Object instances that don't exist yet | Not started | — |
 | BL-4 | Testing, documentation, completion report, freeze | Not started | — |
+
+### BL-1 scope expansion (approved before implementation)
+
+The originally-planned BL-1 (4 groups) was expanded on request to a 10-year enterprise scope: ~53
+candidate concepts, cross-checked against Sprint 2.1's architecture before implementation. Resolved
+as:
+- **9 already-existing Sprint 2.1 groups** (Classification, Geometry, Colour, Material, Texture,
+  Decoration, Characters, Writing, Occasion, Theme, Packaging, Business — 12 total) — real
+  Attributes populated, no new group architecture.
+- **17 new domain groups** (Recipient, Style, Finish, Flowers, Topper, Tier, Board, Size, Weight,
+  Servings, Flavour, Sponge, Filling, Cream, Ganache, Dietary, Allergens) — additive, real Attribute
+  justifies each, per `Inheritance.md`'s extension pattern.
+- **7 items modeled as Vocabulary Terms, not new groups** (Wedding, Corporate, Festival, Luxury,
+  Seasonal, Regional, Gifting) — avoids fragmenting `Hierarchy.md`'s "one Attribute, one Group" model.
+- **13 items excluded as out-of-taxonomy** (Pricing, ERP, SEO, Manufacturing, etc.) — recorded in
+  [CROSS_SYSTEM_OWNERSHIP.md](CROSS_SYSTEM_OWNERSHIP.md), not built here.
+
+### What BL-1 actually delivered
+
+6 Categories (Bakery domain, 3-level tree), 29 Attribute Groups, 15 `TaxonomyAttribute` entries
+(enum/integer/float/string, spanning existing and new groups), 6 Controlled Vocabularies, 43 real
+Terms with synonyms and cross-system `external_ids` (Shopify/ERP/Search) on the highest-value terms.
+Seed depth, not exhaustive — additive growth to the 500+/10,000+ scale target is ongoing work
+(BL-2+), not a BL-1 claim.
 
 ## Scope
 

@@ -23,9 +23,11 @@ grep at the end of every backlog item, per
 
 ## Entities
 
-Four entities, matching `docs/10_Taxonomy/Entity_Model.md`'s Category / Attribute Group / Controlled
+Five entities, matching `docs/10_Taxonomy/Entity_Model.md`'s Category / Attribute Group / Controlled
 Vocabulary Term exactly (Vocabulary itself is modeled explicitly here as the container Terms belong
-to, implicit in the Sprint 2.1 docs).
+to, implicit in the Sprint 2.1 docs), plus `TaxonomyAttribute` (added BL-1) representing the
+individual named fields `Hierarchy.md` describes as living inside an Attribute Group ("Attribute
+Group → Attribute → Value").
 
 ### Category
 
@@ -73,9 +75,26 @@ to, implicit in the Sprint 2.1 docs).
 | `superseded_by` | `str \| None` | Required if and only if `status == "deprecated"` |
 | `external_ids` | `list[ExternalIdModel]` | Cross-system labels — reused from EAL, not redefined |
 
+### TaxonomyAttribute (added BL-1)
+
+| Field | Type | Notes |
+|---|---|---|
+| `attribute_id` | `str` | `TAX-ATTR-NNNNNN` |
+| `group_id` | `str` | Must resolve to a real `AttributeGroup` |
+| `name` | `str` | e.g. `primary_colour` |
+| `data_type` | `str` | Reused verbatim from `ai.eal.models.DataType` — not redefined |
+| `vocabulary_id` | `str \| None` | Required if and only if `data_type == "enum"` |
+| `ear_namespace` | `str \| None` | Join key to EAR's `namespace` field — not cross-validated in BL-1 (same deliberate deferral as `AttributeGroup.ear_namespace`) |
+| `status` | `"active" \| "deprecated"` | |
+
+**Not the same thing as an EAR `EARAttributeEntry`.** This entity describes a field's shape and
+where its values come from *within the taxonomy's knowledge model* — it does not register the
+field platform-wide (that remains EAR's exclusive job) and carries no `owner`, no `eal_reference`,
+no lifecycle beyond active/deprecated. See "Reuse, not redesign" above.
+
 ## Identifier strategy
 
-Sequential, prefixed, single-allocator IDs (`TAX-{CAT,GRP,VOC,TERM}-NNNNNN`) — same rationale as
+Sequential, prefixed, single-allocator IDs (`TAX-{CAT,GRP,VOC,TERM,ATTR}-NNNNNN`) — same rationale as
 EAR's `EAR-NNNNNN`: this catalog is centrally authored by one process, so a coordinated sequential
 allocator is safe (content-hash IDs are for uncoordinated producers, which this isn't). IDs are
 stable across relabeling and reparenting, per `Hierarchy.md`'s explicit requirement.
@@ -98,18 +117,28 @@ stable across relabeling and reparenting, per `Hierarchy.md`'s explicit requirem
 ai/taxonomy/
   models.py  models_pydantic.py  ids.py  validation.py  catalog.py  loader.py  exporter.py
   __init__.py
-  schemas/       category.schema.json  attribute_group.schema.json  vocabulary.schema.json  term.schema.json
+  schemas/       category.schema.json  attribute_group.schema.json  vocabulary.schema.json
+                 term.schema.json  attribute.schema.json
   examples/      catalog.json  (structural fixture, BL-0 — not real content)
+  content/       bakery_v1.json  (real BL-1 content — 6 categories, 29 groups, 6 vocabularies,
+                 43 terms, 15 attributes)
   test_taxonomy.py
 ```
 
-## What BL-0 deliberately does not validate
+## What's deliberately not validated (still true after BL-1)
 
-`AttributeGroup.ear_namespace` cross-referenced against a live EAR `Registry`, and
-`Category.attribute_group_ids` checked against `Inheritance.md`'s additive-only rule across
-ancestors — both require real content to check meaningfully, and BL-0 ships none. Tracked as a BL-1+
-decision, not a BL-0 gap (mirrors EAR's own precedent: `taxonomy_references` was deliberately
-deferred by EAR for the identical reason, until this Build existed).
+`AttributeGroup.ear_namespace` and `TaxonomyAttribute.ear_namespace` cross-referenced against a live
+EAR `Registry`, and `Category.attribute_group_ids` checked against `Inheritance.md`'s additive-only
+rule across ancestors — both require a live EAR registration pass to check meaningfully, and remain
+plain, unvalidated string join keys through BL-1. Tracked as a later decision, not a gap (mirrors
+EAR's own precedent: `taxonomy_references` was deliberately deferred by EAR for the identical reason,
+until this Build existed).
+
+## What's out of taxonomy scope
+
+Thirteen concepts raised during BL-1 planning (Pricing, ERP, SEO, Manufacturing, etc.) were
+evaluated and excluded as belonging to another Build's or track's ownership — see
+[CROSS_SYSTEM_OWNERSHIP.md](CROSS_SYSTEM_OWNERSHIP.md) for the full table and reasoning.
 
 ## Related Standards
 

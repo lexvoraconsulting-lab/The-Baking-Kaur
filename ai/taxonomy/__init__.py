@@ -5,18 +5,28 @@ instead of reaching into submodules. Authors the real content EAR's
 taxonomy_references and EAD's allowed_values/knowledge_graph_reference were
 built to point at - see docs/70_Enterprise_Master_Taxonomy/TAXONOMY_SPECIFICATION.md.
 """
-from ai.taxonomy.models import TAXONOMY_VERSION, AttributeGroup, Category, Term, Vocabulary
+from ai.taxonomy.models import (
+    TAXONOMY_VERSION,
+    AttributeGroup,
+    Category,
+    TaxonomyAttribute,
+    Term,
+    Vocabulary,
+)
 from ai.taxonomy.models_pydantic import (
     AttributeGroupModel,
     CategoryModel,
+    TaxonomyAttributeModel,
     TermModel,
     VocabularyModel,
 )
 from ai.taxonomy.ids import (
+    allocate_attribute_id,
     allocate_category_id,
     allocate_group_id,
     allocate_term_id,
     allocate_vocabulary_id,
+    is_valid_attribute_id,
     is_valid_category_id,
     is_valid_group_id,
     is_valid_term_id,
@@ -32,18 +42,22 @@ __all__ = [
     "AttributeGroup",
     "Vocabulary",
     "Term",
+    "TaxonomyAttribute",
     "CategoryModel",
     "AttributeGroupModel",
     "VocabularyModel",
     "TermModel",
+    "TaxonomyAttributeModel",
     "allocate_category_id",
     "allocate_group_id",
     "allocate_vocabulary_id",
     "allocate_term_id",
+    "allocate_attribute_id",
     "is_valid_category_id",
     "is_valid_group_id",
     "is_valid_vocabulary_id",
     "is_valid_term_id",
+    "is_valid_attribute_id",
     "TaxonomyCatalog",
     "load_catalog",
     "export_catalog",

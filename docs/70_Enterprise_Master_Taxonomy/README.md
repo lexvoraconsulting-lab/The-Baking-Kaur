@@ -12,11 +12,10 @@ Build-002/003. Implementation lives in [`ai/taxonomy/`](../../ai/taxonomy/).
 definitions, or Build-004's distribution engine — it reuses all three directly (see
 [TAXONOMY_SPECIFICATION.md](TAXONOMY_SPECIFICATION.md)'s "Reuse, not redesign" section).
 
-## Status: BL-0 complete (repository preparation) — content authoring (BL-1) not started
+## Status: BL-1 complete — real Bakery-domain content authored (seed depth, not exhaustive)
 
-See [SPRINT_CHARTER.md](SPRINT_CHARTER.md) for the full backlog and scope-narrowing history (the
-originally proposed backlog collided with Build-002/004/006 and was revised before any code was
-written).
+See [SPRINT_CHARTER.md](SPRINT_CHARTER.md) for the full backlog, the BL-0 scope-narrowing decision,
+and the BL-1 scope-expansion reconciliation (both resolved before any conflicting code was written).
 
 ## Start here
 
@@ -31,6 +30,7 @@ written).
 |---|---|
 | [TAXONOMY_SPECIFICATION.md](TAXONOMY_SPECIFICATION.md) | Umbrella spec, entity field reference, identifier strategy, folder structure, reuse boundaries. |
 | [SPRINT_CHARTER.md](SPRINT_CHARTER.md) | Sprint Goal, Scope, the conflict-and-narrowing decision, backlog history. |
+| [CROSS_SYSTEM_OWNERSHIP.md](CROSS_SYSTEM_OWNERSHIP.md) | The 13 concepts considered and excluded from taxonomy content, with their real owning Build/track. |
 
 ## Related Standards
 

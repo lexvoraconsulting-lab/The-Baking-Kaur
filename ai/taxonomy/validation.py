@@ -20,6 +20,7 @@ WHAT IS NOT VALIDATED HERE (deliberately deferred)
 from ai.taxonomy.models_pydantic import (
     AttributeGroupModel,
     CategoryModel,
+    TaxonomyAttributeModel,
     TermModel,
     VocabularyModel,
 )
@@ -39,16 +40,32 @@ def validate_catalog(
     attribute_groups: list[AttributeGroupModel],
     vocabularies: list[VocabularyModel],
     terms: list[TermModel],
+    attributes: list[TaxonomyAttributeModel] | None = None,
 ) -> None:
+    attributes = attributes or []
+
     _check_no_duplicate_ids(categories, "category_id", "category_id")
     _check_no_duplicate_ids(attribute_groups, "group_id", "group_id")
     _check_no_duplicate_ids(vocabularies, "vocabulary_id", "vocabulary_id")
     _check_no_duplicate_ids(terms, "term_id", "term_id")
+    _check_no_duplicate_ids(attributes, "attribute_id", "attribute_id")
 
     category_ids = {c.category_id for c in categories}
     group_ids = {g.group_id for g in attribute_groups}
     vocabulary_ids = {v.vocabulary_id for v in vocabularies}
     term_ids = {t.term_id for t in terms}
+
+    for attribute in attributes:
+        if attribute.group_id not in group_ids:
+            raise ValueError(
+                f"attribute {attribute.attribute_id!r} has group_id {attribute.group_id!r} "
+                f"which does not resolve to any group in this catalog"
+            )
+        if attribute.vocabulary_id is not None and attribute.vocabulary_id not in vocabulary_ids:
+            raise ValueError(
+                f"attribute {attribute.attribute_id!r} has vocabulary_id "
+                f"{attribute.vocabulary_id!r} which does not resolve to any vocabulary in this catalog"
+            )
 
     for category in categories:
         if category.parent_id is not None and category.parent_id not in category_ids:

@@ -15,6 +15,7 @@ from pydantic import BaseModel, Field, model_validator
 
 from ai.eal.models_pydantic import ExternalIdModel  # reused, not redefined
 from ai.taxonomy.ids import (
+    is_valid_attribute_id,
     is_valid_category_id,
     is_valid_group_id,
     is_valid_term_id,
@@ -22,6 +23,13 @@ from ai.taxonomy.ids import (
 )
 
 TAXONOMY_VERSION = "1.0"
+
+# Same values as ai.eal.models.DataType - inlined for Pydantic per ai.ear.models_pydantic's own
+# precedent (DataTypeLiteral), not imported, so this module has no import-time dependency loop risk.
+DataTypeLiteral = Literal[
+    "string", "integer", "float", "boolean", "enum",
+    "date", "datetime", "array", "object", "vector", "reference",
+]
 
 
 class CategoryModel(BaseModel):
@@ -87,6 +95,41 @@ class VocabularyModel(BaseModel):
                 f"scope={self.scope!r} and domain={self.domain!r} are inconsistent - domain is "
                 f"required if and only if scope is 'domain'"
             )
+        return self
+
+
+class TaxonomyAttributeModel(BaseModel):
+    attribute_id: str
+    group_id: str
+    name: str
+    data_type: DataTypeLiteral
+    vocabulary_id: str | None = None
+    ear_namespace: str | None = None
+    status: Literal["active", "deprecated"] = "active"
+    taxonomy_version: str = TAXONOMY_VERSION
+
+    @model_validator(mode="after")
+    def _attribute_id_must_be_valid(self):
+        if not is_valid_attribute_id(self.attribute_id):
+            raise ValueError(f"attribute_id {self.attribute_id!r} does not match ^TAX-ATTR-\\d{{6}}$")
+        return self
+
+    @model_validator(mode="after")
+    def _group_id_must_be_valid(self):
+        if not is_valid_group_id(self.group_id):
+            raise ValueError(f"group_id {self.group_id!r} does not match ^TAX-GRP-\\d{{6}}$")
+        return self
+
+    @model_validator(mode="after")
+    def _vocabulary_id_must_be_valid_if_set(self):
+        if self.vocabulary_id is not None and not is_valid_vocabulary_id(self.vocabulary_id):
+            raise ValueError(f"vocabulary_id {self.vocabulary_id!r} does not match ^TAX-VOC-\\d{{6}}$")
+        return self
+
+    @model_validator(mode="after")
+    def _enum_datatype_requires_vocabulary(self):
+        if self.data_type == "enum" and self.vocabulary_id is None:
+            raise ValueError("data_type='enum' requires a vocabulary_id to resolve values against")
         return self
 
 

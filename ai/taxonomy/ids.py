@@ -21,12 +21,14 @@ CATEGORY_ID_PATTERN = re.compile(r"^TAX-CAT-\d{6}$")
 GROUP_ID_PATTERN = re.compile(r"^TAX-GRP-\d{6}$")
 VOCABULARY_ID_PATTERN = re.compile(r"^TAX-VOC-\d{6}$")
 TERM_ID_PATTERN = re.compile(r"^TAX-TERM-\d{6}$")
+ATTRIBUTE_ID_PATTERN = re.compile(r"^TAX-ATTR-\d{6}$")
 
 _PATTERNS = {
     "TAX-CAT": CATEGORY_ID_PATTERN,
     "TAX-GRP": GROUP_ID_PATTERN,
     "TAX-VOC": VOCABULARY_ID_PATTERN,
     "TAX-TERM": TERM_ID_PATTERN,
+    "TAX-ATTR": ATTRIBUTE_ID_PATTERN,
 }
 
 
@@ -44,6 +46,10 @@ def is_valid_vocabulary_id(value: str) -> bool:
 
 def is_valid_term_id(value: str) -> bool:
     return bool(TERM_ID_PATTERN.match(value))
+
+
+def is_valid_attribute_id(value: str) -> bool:
+    return bool(ATTRIBUTE_ID_PATTERN.match(value))
 
 
 def _allocate(prefix: str, existing_ids: list[str]) -> str:
@@ -69,3 +75,7 @@ def allocate_vocabulary_id(existing_ids: list[str]) -> str:
 
 def allocate_term_id(existing_ids: list[str]) -> str:
     return _allocate("TAX-TERM", existing_ids)
+
+
+def allocate_attribute_id(existing_ids: list[str]) -> str:
+    return _allocate("TAX-ATTR", existing_ids)

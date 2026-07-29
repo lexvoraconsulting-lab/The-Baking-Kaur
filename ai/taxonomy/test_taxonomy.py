@@ -26,10 +26,11 @@ from ai.taxonomy.ids import (
     is_valid_term_id,
 )
 from ai.taxonomy.loader import load_catalog
-from ai.taxonomy.models_pydantic import CategoryModel, TermModel
+from ai.taxonomy.models_pydantic import CategoryModel, TaxonomyAttributeModel, TermModel
 
 TAXONOMY_DIR = Path(__file__).parent
 EXAMPLES_DIR = TAXONOMY_DIR / "examples"
+CONTENT_DIR = TAXONOMY_DIR / "content"
 
 
 def _example_raw() -> dict:
@@ -143,6 +144,55 @@ def test_id_allocation_is_sequential_and_gapless_from_existing():
     assert allocate_term_id([]) == "TAX-TERM-000001"
 
 
+def test_enum_datatype_requires_vocabulary_id():
+    try:
+        TaxonomyAttributeModel(
+            attribute_id="TAX-ATTR-000001", group_id="TAX-GRP-000001",
+            name="primary_colour", data_type="enum", vocabulary_id=None,
+        )
+        assert False, "expected ValidationError: enum data_type with no vocabulary_id"
+    except ValidationError:
+        pass
+
+
+def test_attribute_unresolved_group_id_rejected():
+    from ai.taxonomy.catalog import TaxonomyCatalog
+
+    attr = TaxonomyAttributeModel(
+        attribute_id="TAX-ATTR-000001", group_id="TAX-GRP-999999",
+        name="primary_colour", data_type="string",
+    )
+    try:
+        TaxonomyCatalog([], [], [], [], [attr])
+        assert False, "expected ValueError for unresolved group_id"
+    except ValueError as e:
+        assert "does not resolve" in str(e)
+
+
+def test_real_bakery_content_loads_and_resolves():
+    catalog = load_catalog(CONTENT_DIR / "bakery_v1.json")
+    assert len(catalog.categories) == 6
+    assert len(catalog.attribute_groups) == 29
+    assert len(catalog.vocabularies) == 6
+    assert len(catalog.terms) == 43
+    assert len(catalog.attributes) == 15
+    # Cakes -> Birthday Cakes -> Character Cakes, and additive-only inheritance per Inheritance.md
+    birthday_children = catalog.children_of("TAX-CAT-000001")
+    assert any(c.name == "Birthday Cakes" for c in birthday_children)
+    primary_colour = catalog.get_attribute("TAX-ATTR-000001")
+    assert primary_colour.vocabulary_id == "TAX-VOC-000001"
+    colour_terms = catalog.terms_in_vocabulary("TAX-VOC-000001")
+    assert any(t.label == "Red" for t in colour_terms)
+
+
+def test_real_content_cross_system_labels_present():
+    catalog = load_catalog(CONTENT_DIR / "bakery_v1.json")
+    wedding = next(t for t in catalog.terms if t.label == "Wedding")
+    systems = {e.system for e in wedding.external_ids}
+    assert "shopify" in systems
+    assert "search" in systems
+
+
 def test_export_then_reload_round_trips(tmp_json="_tmp_catalog.json", tmp_yaml="_tmp_catalog.yaml"):
     catalog = load_catalog(EXAMPLES_DIR / "catalog.json")
     json_path = TAXONOMY_DIR / tmp_json
@@ -176,5 +226,9 @@ if __name__ == "__main__":
     test_vocabulary_domain_scope_requires_domain()
     test_id_formats_valid()
     test_id_allocation_is_sequential_and_gapless_from_existing()
+    test_enum_datatype_requires_vocabulary_id()
+    test_attribute_unresolved_group_id_rejected()
+    test_real_bakery_content_loads_and_resolves()
+    test_real_content_cross_system_labels_present()
     test_export_then_reload_round_trips()
     print("OK")

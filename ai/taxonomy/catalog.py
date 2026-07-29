@@ -2,7 +2,7 @@
 Enterprise Master Taxonomy (Build-005) - the TaxonomyCatalog container.
 
 WHY
-  Holds all four entity collections in memory, keyed for O(1) lookup by ID -
+  Holds all five entity collections in memory, keyed for O(1) lookup by ID -
   the same design EAR's Registry uses, chosen for the same reason: this
   catalog is expected to reach 500+ Attribute Groups and 10,000+ Controlled
   Vocabulary Terms (per Build-005's stated scale target), where a linear scan
@@ -13,6 +13,7 @@ WHY
 from ai.taxonomy.models_pydantic import (
     AttributeGroupModel,
     CategoryModel,
+    TaxonomyAttributeModel,
     TermModel,
     VocabularyModel,
 )
@@ -26,15 +27,21 @@ class TaxonomyCatalog:
         attribute_groups: list[AttributeGroupModel],
         vocabularies: list[VocabularyModel],
         terms: list[TermModel],
+        attributes: list[TaxonomyAttributeModel] | None = None,
     ):
-        validate_catalog(categories, attribute_groups, vocabularies, terms)
+        attributes = attributes or []
+        validate_catalog(categories, attribute_groups, vocabularies, terms, attributes)
         self._categories = {c.category_id: c for c in categories}
         self._attribute_groups = {g.group_id: g for g in attribute_groups}
         self._vocabularies = {v.vocabulary_id: v for v in vocabularies}
         self._terms = {t.term_id: t for t in terms}
+        self._attributes = {a.attribute_id: a for a in attributes}
 
     def __len__(self) -> int:
-        return len(self._categories) + len(self._attribute_groups) + len(self._vocabularies) + len(self._terms)
+        return (
+            len(self._categories) + len(self._attribute_groups) + len(self._vocabularies)
+            + len(self._terms) + len(self._attributes)
+        )
 
     def get_category(self, category_id: str) -> CategoryModel | None:
         return self._categories.get(category_id)
@@ -48,8 +55,14 @@ class TaxonomyCatalog:
     def get_term(self, term_id: str) -> TermModel | None:
         return self._terms.get(term_id)
 
+    def get_attribute(self, attribute_id: str) -> TaxonomyAttributeModel | None:
+        return self._attributes.get(attribute_id)
+
     def terms_in_vocabulary(self, vocabulary_id: str) -> list[TermModel]:
         return [t for t in self._terms.values() if t.vocabulary_id == vocabulary_id]
+
+    def attributes_in_group(self, group_id: str) -> list[TaxonomyAttributeModel]:
+        return [a for a in self._attributes.values() if a.group_id == group_id]
 
     def children_of(self, category_id: str) -> list[CategoryModel]:
         return [c for c in self._categories.values() if c.parent_id == category_id]
@@ -69,3 +82,7 @@ class TaxonomyCatalog:
     @property
     def terms(self) -> list[TermModel]:
         return list(self._terms.values())
+
+    @property
+    def attributes(self) -> list[TaxonomyAttributeModel]:
+        return list(self._attributes.values())

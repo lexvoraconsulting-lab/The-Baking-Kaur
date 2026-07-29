@@ -19,6 +19,8 @@ WHAT THIS PACKAGE IS
 from dataclasses import dataclass, field
 from typing import Literal
 
+from ai.eal.models import DataType  # reused, not redefined
+
 TAXONOMY_VERSION = "1.0"
 
 GroupTier = Literal["platform", "domain"]
@@ -54,6 +56,18 @@ class Vocabulary:
     scope: Literal["global", "domain"]
     domain: str | None = None
     version: str = "v1"
+    status: EntryStatus = "active"
+    taxonomy_version: str = TAXONOMY_VERSION
+
+
+@dataclass(frozen=True)
+class TaxonomyAttribute:
+    attribute_id: str
+    group_id: str
+    name: str
+    data_type: DataType
+    vocabulary_id: str | None = None
+    ear_namespace: str | None = None
     status: EntryStatus = "active"
     taxonomy_version: str = TAXONOMY_VERSION
 

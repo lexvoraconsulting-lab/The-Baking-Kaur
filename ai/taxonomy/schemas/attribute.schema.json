@@ -1,0 +1,79 @@
+{
+  "properties": {
+    "attribute_id": {
+      "title": "Attribute Id",
+      "type": "string"
+    },
+    "group_id": {
+      "title": "Group Id",
+      "type": "string"
+    },
+    "name": {
+      "title": "Name",
+      "type": "string"
+    },
+    "data_type": {
+      "enum": [
+        "string",
+        "integer",
+        "float",
+        "boolean",
+        "enum",
+        "date",
+        "datetime",
+        "array",
+        "object",
+        "vector",
+        "reference"
+      ],
+      "title": "Data Type",
+      "type": "string"
+    },
+    "vocabulary_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Vocabulary Id"
+    },
+    "ear_namespace": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Ear Namespace"
+    },
+    "status": {
+      "default": "active",
+      "enum": [
+        "active",
+        "deprecated"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "taxonomy_version": {
+      "default": "1.0",
+      "title": "Taxonomy Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "attribute_id",
+    "group_id",
+    "name",
+    "data_type"
+  ],
+  "title": "TaxonomyAttributeModel",
+  "type": "object"
+}
