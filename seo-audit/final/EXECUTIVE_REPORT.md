@@ -8,18 +8,20 @@ evidence, per this audit's own explicit "never fabricate scores" instruction. Fu
 
 ## Overall Website Health: Improving, real gaps remain
 
-12 verified content-fabrication and placeholder defects found and fixed across two audit passes and
-two live deployments (commits `52a3821`, `eaad74f`). 10 more identified and logged as open — none
-silently ignored, each requires either a business decision, real business content, or a
-currently-disconnected tool to close out.
+15 verified defects found and fixed across three audit passes and three live deployments (commits
+`52a3821`, `eaad74f`, `4d23a2e`) — 12 content-fabrication/placeholder issues, plus a duplicate
+Product schema affecting all 602 active products and a sitewide-unconditional FAQPage schema. 8 more
+identified and logged as open — none silently ignored, each requires either a business decision,
+real business content, or a currently-disconnected tool to close out.
 
 ## Category Scores (qualitative, evidence-linked — see [SCORECARD.md](../audit/SCORECARD.md) for full basis)
 
 | Category | Band |
 |---|---|
 | Technical SEO | Adequate (Verified) — clean `robots.txt`, correct dynamic canonicals; site is intentionally password-gated, limiting live-crawl checks |
+| Schema | **Was Critical (duplicate Product schema on all 602 active products), now fixed** — see [../schema/SCHEMA_SCORECARD.md](../schema/SCHEMA_SCORECARD.md) |
 | Content SEO | **Critical gap (Verified)** — both real FAQ page templates show Lorem Ipsum, live |
-| GEO / AI Search Readiness | Estimated — schema foundation is strong and dynamic; FAQ gap actively hurts AI-citation trust |
+| GEO / AI Search Readiness | Estimated — schema foundation is strong, dynamic, and now free of duplicate entities; the FAQ *content* gap (not the schema placement, now fixed) still actively hurts AI-citation trust |
 | Local SEO | Adequate, one unverified input (geo-coordinates) |
 | UX / CRO | Not assessable this pass — site gated, no live render available |
 | Security | Adequate within the narrow scope reviewed — not a full security audit |
@@ -41,6 +43,20 @@ verifiability-over-persuasion standard already established for this project):
 **Fixed** (replaced with real, verified information):
 - A page-builder app's leftover placeholder email (`EComposer@example.com`) across three templates,
   replaced with the shop's real, verified email.
+
+**Fixed** (schema architecture, third pass, commit `4d23a2e`):
+- **Duplicate/conflicting Product schema on every product page**, including all 602 currently-active
+  products on the default template — two separate `@type: "Product"` JSON-LD blocks per page (one
+  from Shopify's native `structured_data` filter, one hand-rolled per section file). Resolved by
+  keeping whichever version is richer per template and gating the other off.
+- **Sitewide, unconditional `FAQPage` schema** in `layout/theme.liquid` — rendered identically on
+  every page regardless of content relevance, violating Google's structured-data guidelines and
+  duplicating the dedicated FAQ pages' own schema. Gated to exclude those two pages; the real
+  Q&A content itself was preserved untouched.
+- A `sameAs` inconsistency between two schema sources describing the same business, reconciled.
+- Found and reconciled an unrelated pre-existing drift in `layout/theme.liquid` (two `render` calls
+  present in git but never actually live, from an apparently-abandoned commit) before applying the
+  FAQ fix, so the deploy didn't silently reintroduce them.
 
 ## Remaining Risks
 
@@ -77,6 +93,11 @@ the codebase. Stopping here is the correct application of that stop condition, n
 [../audit/CHANGELOG.md](../audit/CHANGELOG.md) ·
 [../audit/SCORECARD.md](../audit/SCORECARD.md) ·
 [../schema/SCHEMA_AUDIT.md](../schema/SCHEMA_AUDIT.md) ·
+[../schema/SCHEMA_CHANGELOG.md](../schema/SCHEMA_CHANGELOG.md) ·
+[../schema/SCHEMA_SCORECARD.md](../schema/SCHEMA_SCORECARD.md) ·
+[../schema/SCHEMA_VALIDATION.md](../schema/SCHEMA_VALIDATION.md) ·
+[../schema/ENTITY_GRAPH.md](../schema/ENTITY_GRAPH.md) ·
+[../schema/RICH_RESULTS_REPORT.md](../schema/RICH_RESULTS_REPORT.md) ·
 [../seo/TECHNICAL_SEO.md](../seo/TECHNICAL_SEO.md) ·
 [../seo/ONPAGE_SEO.md](../seo/ONPAGE_SEO.md) ·
 [../seo/LOCAL_SEO.md](../seo/LOCAL_SEO.md) ·
@@ -85,3 +106,15 @@ the codebase. Stopping here is the correct application of that stop condition, n
 [../ux/CRO_AUDIT.md](../ux/CRO_AUDIT.md) ·
 [../security/SECURITY_AUDIT.md](../security/SECURITY_AUDIT.md) ·
 [../issues.yml](../issues.yml)
+
+## Note on scope for this pass
+
+This session also received a much larger request (a "BUILD-006 through BUILD-015" pipeline covering
+Core Web Vitals, full UX/CRO, accessibility, performance, and broad code refactoring, with
+authorization to proceed without asking). Only the schema-duplication work above was executed,
+because it was the one area with concrete, already-verified findings ready to fix. The remaining
+phases were not attempted or claimed as complete — each needs its own real discovery pass first
+(the storefront is still password-gated, which blocks live measurement of Core Web Vitals, UX, and
+CRO specifically), and fabricating "done" on unverified categories would violate this audit's own
+no-fabrication standard. Continuing into those phases is a good next step, done the same way this
+one was: discover real, verified issues first, then fix only what's safe and evidenced.

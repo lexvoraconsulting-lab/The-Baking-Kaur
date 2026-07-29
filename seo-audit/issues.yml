@@ -162,7 +162,7 @@ issues:
     owner: business
     fixed_in_commit: null
     requires_manual_verification: "Real FAQ answers (refund policy, delivery cutoffs, etc.) must come from the business - inventing plausible-sounding ones would itself be a fabrication risk"
-    expected_impact: "Currently actively harms EEAT and AI-search citation trust - an FAQ page showing gibberish is worse than no FAQ page. Top launch-blocking content gap."
+    expected_impact: "Currently actively harms EEAT and AI-search citation trust - an FAQ page showing gibberish is worse than no FAQ page. Top launch-blocking content gap. NOTE (found during SEO-024 work): layout/theme.liquid contains 9 real, plausible Q&A pairs (delivery/ordering facts) that could potentially become this page's real content instead of new copy being written from scratch - a template-ownership decision, not made unilaterally here."
 
   - id: SEO-014
     category: EEAT
@@ -239,14 +239,14 @@ issues:
   - id: SEO-020
     category: Schema
     severity: Low
-    status: Open
+    status: Fixed
     verification: Verified
     file: "snippets/tbk-schema-website.liquid vs snippets/bk-local-business.liquid"
     line: "44-46 / 64-67"
     owner: null
-    fixed_in_commit: null
+    fixed_in_commit: 4d23a2e
     requires_manual_verification: null
-    expected_impact: "Organization schema's sameAs lists Instagram only; LocalBusiness schema's sameAs lists Instagram + Facebook. Minor entity-graph inconsistency - low priority, easy fix once someone decides the canonical sameAs list."
+    expected_impact: "Organization schema's sameAs now lists Instagram + Facebook, matching LocalBusiness's sameAs - entity-graph consistency restored between the two schema sources describing the same business."
 
   - id: SEO-021
     category: Schema
@@ -271,3 +271,27 @@ issues:
     fixed_in_commit: null
     requires_manual_verification: null
     expected_impact: "Whole storefront (thebakingkaur.com and the ae86ba-2a.myshopify.com alias) serves a password 'Coming Soon' gate to all visitors including Google. Confirmed intentional (pre-launch/relaunch mode) by the user 2026-07-29 - tracked here for context, not as an outstanding defect."
+
+  - id: SEO-023
+    category: Schema
+    severity: Critical
+    status: Fixed
+    verification: Verified
+    file: "snippets/structured-data.liquid, sections/main-product-premium-v2.liquid, sections/main-product-premium.liquid"
+    line: "structured-data.liquid: 10-19; main-product-premium-v2.liquid: 1114-1141 (removed); main-product-premium.liquid: 804-831 (removed)"
+    owner: null
+    fixed_in_commit: 4d23a2e
+    requires_manual_verification: "Whether any published product uses templateSuffix 'premium' (main-product-premium.liquid) - liveness not confirmed, fixed defensively regardless"
+    expected_impact: "Every product page (including all 602 active products on the default template) previously emitted two separate @type:Product JSON-LD blocks describing the same item - a real duplicate/conflicting-schema risk for Google Rich Results and Merchant Center. Now exactly one Product entity per page: the richer hand-rolled block on main-product.liquid (hampers-template, has sku/category/seller/shippingDetails/hasMerchantReturnPolicy the native filter lacks) is kept and the native filter is gated off only there; every other template relies on the native filter alone."
+
+  - id: SEO-024
+    category: Schema
+    severity: Medium
+    status: Fixed
+    verification: Verified
+    file: layout/theme.liquid
+    line: "68-157 (gated, content unchanged)"
+    owner: null
+    fixed_in_commit: 4d23a2e
+    requires_manual_verification: "Whether the 9 real Q&A pairs here should become page.faq-01/02.json's actual content, replacing the Lorem Ipsum tracked in SEO-013 - a template-ownership decision, not made here"
+    expected_impact: "FAQPage schema no longer renders unconditionally on every page (home, every product, every collection) - now excluded specifically on the two FAQ page templates that already emit their own FAQPage entity, removing the duplicate-entity risk and most of the Google structured-data guideline violation. Real content (delivery/ordering business facts) preserved unchanged, not fabricated or removed."

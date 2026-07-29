@@ -29,9 +29,11 @@ Verification** (needs a tool, business input, or access this session didn't have
 | SEO-017 | Technical SEO | — | Open | Requires Manual Verification | 5 templates | — | — |
 | SEO-018 | EEAT | — | Open | Requires Manual Verification | — | — | — |
 | SEO-019 | Technical SEO | Medium | Open | Requires Manual Verification | `sitemap.xml` | — | — |
-| SEO-020 | Schema | Low | Open | Verified | `tbk-schema-website.liquid` vs `bk-local-business.liquid` | — | — |
+| SEO-020 | Schema | Low | Fixed | Verified | `tbk-schema-website.liquid` vs `bk-local-business.liquid` | — | `4d23a2e` |
 | SEO-021 | Schema | Low | Open | Requires Manual Verification | `snippets/tbk-schema-article.liquid` | 8-9 | — |
 | SEO-022 | Technical SEO | — | **Resolved** (context, not a defect) | Verified | — | — | — |
+| SEO-023 | Schema | **Critical** | Fixed | Verified | `structured-data.liquid` + 2 product templates | see issues.yml | `4d23a2e` |
+| SEO-024 | Schema | Medium | Fixed | Verified | `layout/theme.liquid` | 68-157 | `4d23a2e` |
 
 ## Reading this table
 
@@ -48,4 +50,5 @@ Verification** (needs a tool, business input, or access this session didn't have
 ## Related
 
 [VERIFIED_ISSUES.md](VERIFIED_ISSUES.md), [MANUAL_VERIFICATION.md](MANUAL_VERIFICATION.md),
-[CHANGELOG.md](CHANGELOG.md), [SCORECARD.md](SCORECARD.md), [../final/EXECUTIVE_REPORT.md](../final/EXECUTIVE_REPORT.md).
+[CHANGELOG.md](CHANGELOG.md), [SCORECARD.md](SCORECARD.md), [../final/EXECUTIVE_REPORT.md](../final/EXECUTIVE_REPORT.md),
+[../schema/SCHEMA_AUDIT.md](../schema/SCHEMA_AUDIT.md) (SEO-020/023/024 full detail).

@@ -1,16 +1,29 @@
 # Schema Audit
 
-Every `application/ld+json` block found in the theme, per file. See
-[`../audit/issues.yml`](../audit/../issues.yml) for SEO-020 and SEO-021, the two issues this audit
-surfaced.
+Every `application/ld+json` block found in the theme, per file. Two passes: the first surfaced
+SEO-020 and SEO-021; a second, broader pass (`grep` for every `@type` value actually emitted, not
+just the files already known) found SEO-023 and SEO-024 — both now fixed (`4d23a2e`). See
+[`../issues.yml`](../issues.yml) for the full record, [SCHEMA_CHANGELOG.md](SCHEMA_CHANGELOG.md) for
+deploy evidence, and [SCHEMA_SCORECARD.md](SCHEMA_SCORECARD.md) for the current per-entity status.
 
 ## Files emitting structured data
 
 `snippets/bk-local-business.liquid`, `snippets/structured-data.liquid`,
 `snippets/tbk-schema-article.liquid`, `snippets/tbk-schema-breadcrumb.liquid`,
 `snippets/tbk-schema-collection.liquid`, `snippets/tbk-schema-website.liquid`,
-`sections/main-product-premium-v2.liquid` (via `structured-data.liquid`'s render),
+`sections/main-product-premium-v2.liquid`, `sections/main-product-premium.liquid`,
+`sections/main-product.liquid` (this one intentionally, see SEO-023 below),
 `layout/theme.liquid`.
+
+## Every `@type` actually emitted (full enumeration, second pass)
+
+`Answer`, `Article`, `Bakery`, `Blog`, `Brand`, `BreadcrumbList`, `City`, `CollectionPage`,
+`DefinedRegion`, `EntryPoint`, `FAQPage`, `GeoCoordinates`, `ImageObject`, `ItemList`, `ListItem`,
+`MerchantReturnPolicy`, `MonetaryAmount`, `Offer`, `OfferShippingDetails`,
+`OpeningHoursSpecification`, `Organization`, `PostalAddress`, `Product`, `QuantitativeValue`,
+`Question`, `SearchAction`, `Service`, `ShippingDeliveryTime`, `SiteNavigationElement`, `WebPage`,
+`WebSite`. Not found anywhere: `VideoObject`, `Person`, `AggregateRating`, `Review` — the last two
+correctly absent (see `bk-local-business.liquid` below).
 
 ## `snippets/bk-local-business.liquid` — Bakery (LocalBusiness)
 
@@ -31,6 +44,26 @@ Uses Shopify's built-in `| structured_data` filter on the `product`/`article` ob
 safe by construction**: since no review app is connected and no product has real review data, this
 filter cannot emit a fabricated `aggregateRating` or `review` block — it only outputs what's
 actually present on the object.
+
+**SEO-023 (Fixed, `4d23a2e`)**: this native Product emission was found to duplicate a second,
+hand-rolled `@type: "Product"` block that three separate product section files each carried
+independently — see the Product schema section below for full detail. This snippet now excludes its
+own native emission specifically for `template.suffix == 'hampers-template'`, since that template's
+own hand-rolled block is richer (has fields the native filter doesn't produce) and is kept instead.
+
+## Product schema — was duplicated across all three custom product templates, now reconciled (SEO-023, Fixed)
+
+Three files each had their own hand-rolled `@type: "Product"` JSON-LD block, entirely independent of
+the native one above, meaning every product page emitted **two** Product entities:
+
+| File | Template | Richness vs. native filter | Resolution |
+|---|---|---|---|
+| `sections/main-product-premium-v2.liquid` | `templates/product.json` (default — **all 602 active products**) | No added value — same fields the native filter already provides | Removed outright |
+| `sections/main-product-premium.liquid` | `templates/product.premium.json` | Same, no added value | Removed outright |
+| `sections/main-product.liquid` | `templates/product.hampers-template.json` (confirmed live) | **Richer**: `sku`, `category`, `seller`, `shippingDetails` (`OfferShippingDetails`/`MonetaryAmount`/`DefinedRegion`/`ShippingDeliveryTime` — real handling/transit days), `hasMerchantReturnPolicy` (`MerchantReturnPolicy`, `returnPolicyCategory`, `merchantReturnDays`) | **Kept** — native filter now skipped for this template instead (see above) |
+
+`sections/tbk-product.liquid` (`templates/product.tbk.json`) has no standalone Product block of its
+own — confirmed to rely on the native filter alone, no duplication there.
 
 ## `snippets/tbk-schema-website.liquid` — WebSite + Organization
 
@@ -59,7 +92,7 @@ a real last-modified property, this under-reports freshness for edited articles.
 against Shopify's documented Liquid objects before concluding this is fixable; low priority either
 way (affects freshness signals only, not indexability).
 
-## `layout/theme.liquid` — global tags
+## `layout/theme.liquid` — global tags + FAQPage (SEO-024, Fixed)
 
 `<link rel="canonical" href="{{ canonical_url }}">` present and dynamic. Conditional
 `<meta name="description">`. No `noindex`/`robots` meta tag logic found anywhere in the theme —
@@ -68,7 +101,25 @@ override either (e.g. for internal search-result pages, which can become thin/du
 scale — not flagged as an issue this pass since no evidence of it causing a real problem was found,
 just noted as a technical-SEO consideration).
 
+**SEO-024 (Fixed, `4d23a2e`)**: this file also contained a 9-question `FAQPage` block with no
+`request.page_type`/`template.suffix` gate at all — it rendered identically on every page in the
+theme (home, every product, every collection, every blog post), regardless of whether that page's
+visible content had anything to do with FAQs. This violates Google's own structured-data guideline
+that markup should reflect content genuinely present on the page, and duplicated the dedicated FAQ
+pages' own schema. Now excluded when `template.suffix` is `faq-01` or `faq-02` (the two pages that
+already carry their own `FAQPage` entity via their accordion sections' Microdata). The 9 Q&A pairs
+themselves are unchanged — they read as genuine business facts (delivery, WhatsApp ordering, pickup)
+consistent with facts verified elsewhere in the codebase, not fabricated, so the fix was a placement
+correction, not a content deletion.
+
+A pre-existing, unrelated drift was found and reconciled in this same file before the fix: two
+`render` calls (`tbk-tokens`, `tbk-components`) present in git (commit `011f9be`) were absent from
+the live theme, apparently abandoned/incomplete work. Local was synced to the live truth for this
+file before applying the FAQPage gate.
+
 ## Related
 
 [../audit/VERIFIED_ISSUES.md](../audit/VERIFIED_ISSUES.md), [../seo/GEO_AUDIT.md](../seo/GEO_AUDIT.md)
-(schema is the backbone of AI-search readiness).
+(schema is the backbone of AI-search readiness), [SCHEMA_CHANGELOG.md](SCHEMA_CHANGELOG.md),
+[SCHEMA_SCORECARD.md](SCHEMA_SCORECARD.md), [SCHEMA_VALIDATION.md](SCHEMA_VALIDATION.md),
+[ENTITY_GRAPH.md](ENTITY_GRAPH.md), [RICH_RESULTS_REPORT.md](RICH_RESULTS_REPORT.md).

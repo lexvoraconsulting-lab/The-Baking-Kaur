@@ -41,6 +41,50 @@ literal string `EComposer@example.com` — a page-builder app's own placeholder,
 a real address. Replaced with `thebakingkaur@gmail.com`, the shop's real email, itself verified via
 `get-shop-info` earlier in the audit (not invented).
 
+## Fixed (third pass, `4d23a2e`)
+
+### SEO-023 — duplicate Product schema on every product page, all 602 active products affected
+
+`grep -rhoE '"@type":\s*"[^"]+"' sections/*.liquid` surfaced far more schema types than the first
+schema pass had catalogued. Tracing `Offer`/`Brand`/`MerchantReturnPolicy` back to their files found
+**three separate product section templates each carrying their own hand-rolled `@type: "Product"`
+block**, while `snippets/structured-data.liquid` (rendered unconditionally from `layout/theme.liquid`)
+*also* emits Shopify's native `product | structured_data` schema on every product page. Every
+product — including all 602 currently-active ones on the default template
+(`main-product-premium-v2.liquid`) — was shipping two competing Product entities.
+
+Resolution differed by file, based on which schema was actually richer:
+- `main-product-premium-v2.liquid` and `main-product-premium.liquid`: hand-rolled blocks added
+  nothing beyond what Shopify's native filter already provides — removed outright.
+- `main-product.liquid` (hampers-template, confirmed live via `templateSuffix` on a real product):
+  its block has `sku`, `category`, `seller`, `shippingDetails` (`OfferShippingDetails` with real
+  `MonetaryAmount`/`DefinedRegion`/`ShippingDeliveryTime`), and `hasMerchantReturnPolicy` — genuine
+  Merchant Center value the native filter lacks. Kept; `structured-data.liquid` now skips its native
+  Product emission specifically when `template.suffix == 'hampers-template'`.
+
+### SEO-024 — sitewide, unconditional FAQPage schema
+
+`layout/theme.liquid` rendered a 9-question `FAQPage` block on every single page (no
+`request.page_type` gate at all) — a direct violation of Google's "structured data must match
+visible page content" guideline, and a potential duplicate against `page.faq-01.json`/
+`page.faq-02.json`'s own FAQPage-bearing accordion sections. Gated to exclude those two template
+suffixes. **Content untouched** — the 9 Q&A pairs read as genuine business facts (delivery,
+WhatsApp ordering, pickup), consistent with facts already verified elsewhere in the codebase, not
+fabricated — this was a placement fix, not a content fix.
+
+### SEO-020 — sameAs consistency
+
+Added the already-verified-real Facebook URL to `tbk-schema-website.liquid`'s `sameAs`, matching
+`bk-local-business.liquid`.
+
+### A drift reconciliation, not a schema fix
+
+`layout/theme.liquid` had independently diverged from git before this pass touched it — two
+`render` calls (`tbk-tokens`, `tbk-components`) present in git (commit `011f9be`, message "viral
+scoopie tin work 0 percnt done" — reads as abandoned/incomplete work) were absent from the live
+theme. Synced local to the live truth for this file before applying the FAQPage gate, so the push
+didn't silently reintroduce unrelated, seemingly-abandoned changes as a side effect.
+
 ## Open (verified, not yet fixed)
 
 ### SEO-013 — Lorem Ipsum live on both FAQ page templates

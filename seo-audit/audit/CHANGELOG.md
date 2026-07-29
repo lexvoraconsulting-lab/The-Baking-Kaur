@@ -33,6 +33,23 @@ footer still carried the unsourced count claim; fixed here.
 **Deploy safety**: identical pull → diff (zero drift) → push `--allow-live` → re-pull → diff-confirm
 cycle as above, run against all 5 files in this commit.
 
+## 2026-07-30 — Commit `4d23a2e`: remove duplicate Product schema, gate sitewide FAQPage, fix sameAs
+
+**Files**: `snippets/tbk-schema-website.liquid`, `snippets/structured-data.liquid`,
+`sections/main-product-premium-v2.liquid`, `sections/main-product-premium.liquid`,
+`layout/theme.liquid`.
+
+**Issues closed**: SEO-020, SEO-023, SEO-024.
+
+**Drift found and reconciled before editing**: `layout/theme.liquid` had diverged from git
+independent of this fix — two `render` calls added in commit `011f9be` were absent from the live
+theme. Synced local to live truth for this file, then applied only the intended FAQPage-gate edit
+on top, so the push carried exactly one change to this file, not an unrelated reintroduction.
+
+**Deploy safety**: identical pull → diff (drift found + reconciled for `theme.liquid`, zero drift on
+the other 4) → edit → push `--allow-live` → re-pull → diff-confirm cycle as prior commits, run
+against all 5 files.
+
 ## Verification queries used (for reuse once Admin API access is restored)
 
 ```graphql
