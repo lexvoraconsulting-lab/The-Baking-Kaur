@@ -12,10 +12,13 @@ Build-002/003. Implementation lives in [`ai/taxonomy/`](../../ai/taxonomy/).
 definitions, or Build-004's distribution engine — it reuses all three directly (see
 [TAXONOMY_SPECIFICATION.md](TAXONOMY_SPECIFICATION.md)'s "Reuse, not redesign" section).
 
-## Status: BL-3 complete — Relationship layer live, 24 real relationships (seed depth, not exhaustive)
+## Status: Frozen — Build-005 complete, awaiting Architecture Gate AR-007
 
-See [SPRINT_CHARTER.md](SPRINT_CHARTER.md) for the full backlog, the BL-0 scope-narrowing decision,
-and the BL-1 scope-expansion reconciliation (both resolved before any conflicting code was written).
+6 Categories, 30 Attribute Groups, 26 Attributes, 17 Controlled Vocabularies, 96 Terms, 24
+Relationships (seed depth, not exhaustive). See
+[BUILD_005_COMPLETION_REPORT.md](BUILD_005_COMPLETION_REPORT.md) for the full delivery report and
+[SPRINT_CHARTER.md](SPRINT_CHARTER.md) for the backlog history and every scope reconciliation
+resolved before implementation.
 
 ## Start here
 
@@ -31,6 +34,7 @@ and the BL-1 scope-expansion reconciliation (both resolved before any conflictin
 | [TAXONOMY_SPECIFICATION.md](TAXONOMY_SPECIFICATION.md) | Umbrella spec, entity field reference, identifier strategy, folder structure, reuse boundaries. |
 | [SPRINT_CHARTER.md](SPRINT_CHARTER.md) | Sprint Goal, Scope, the conflict-and-narrowing decision, backlog history. |
 | [CROSS_SYSTEM_OWNERSHIP.md](CROSS_SYSTEM_OWNERSHIP.md) | The 13 concepts considered and excluded from taxonomy content, with their real owning Build/track. |
+| [BUILD_005_COMPLETION_REPORT.md](BUILD_005_COMPLETION_REPORT.md) | Build-level delivery report — all 5 backlog items, verification evidence, known limitations, future work. |
 
 ## Related Standards
 

@@ -370,7 +370,7 @@ for the full backlog history.
 - **Risks**: Kitchen ERP's actual write API is unknown until inspected — this Build cannot be
   scoped precisely until that inspection happens (Section 12, Risk R-3).
 
-### Build-005 — Enterprise Master Taxonomy (Sprint 2.2, Workstream TAX, BL-0 complete)
+### Build-005 — Enterprise Master Taxonomy (Sprint 2.2, Workstream TAX, frozen — awaiting AR-007)
 
 - **Objective**: Author the real Bakery Domain Category tree and the highest-value Attribute
   Groups (Classification, Colour, Decoration, Occasion) with real Attributes, and seed the first
@@ -388,10 +388,11 @@ for the full backlog history.
   written.
 - **Risks**: Content quality (a wrong Category boundary, a missing Vocabulary term) is more
   expensive to fix after Build-002 depends on it than before — front-load review here.
-- **Status**: BL-0 through BL-3 done — 6 Categories, 30 Attribute Groups, 26 Attributes, 17
-  Controlled Vocabularies, 96 Terms, 24 typed Relationships — see
-  [docs/70_Enterprise_Master_Taxonomy/SPRINT_CHARTER.md](../70_Enterprise_Master_Taxonomy/SPRINT_CHARTER.md).
-  Seed depth, not yet at the 500+/10,000+ scale target (BL-4+, ongoing).
+- **Status**: **Frozen** — all 5 backlog items done. 6 Categories, 30 Attribute Groups, 26
+  Attributes, 17 Controlled Vocabularies, 96 Terms, 24 typed Relationships — see
+  [docs/70_Enterprise_Master_Taxonomy/BUILD_005_COMPLETION_REPORT.md](../70_Enterprise_Master_Taxonomy/BUILD_005_COMPLETION_REPORT.md).
+  Seed depth, not yet at the 500+/10,000+ scale target — ongoing content operations, not blocking
+  the freeze. Awaiting Architecture Gate AR-007.
 
 ### Build-006 — Enterprise Validation Engine
 

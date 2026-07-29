@@ -4,8 +4,9 @@ Workstream: **TAX** (new — per [ADR 0006](../adr/2026-07-27-workstream-id-conv
 standing convention, a genuinely new business capability gets a new Workstream ID at Sprint Charter
 time; TAX is the first non-ATTR workstream this platform has assigned).
 
-Status: **BL-3 complete**. BL-4 not started — awaiting approval per this project's per-item review
-gate ([VIG-010](../00_Governance/VIG-010-Execution-Protocol.md)).
+Status: **Frozen** — all 5 backlog items (BL-0 through BL-4) done, committed, and verified. See
+[BUILD_005_COMPLETION_REPORT.md](BUILD_005_COMPLETION_REPORT.md) for the full delivery report.
+Awaiting Architecture Gate AR-007; Build-006 not started, awaiting explicit approval.
 
 ## Sprint Goal
 
@@ -40,7 +41,7 @@ same protocol — not silently absorbed into Build-005.
 | BL-1 | Author real Category tree, Attribute Groups, Attributes, Controlled Vocabularies, Terms, synonyms, and cross-system labels — **expanded scope**, see below | **Done** | *(this commit)* |
 | BL-2 | First real Enterprise Controlled Vocabularies — 11 new vocabularies + 1 flagship fully-enriched term — **zero schema changes**, see below | **Done** | *(this commit)* |
 | BL-3 | Enterprise Relationship Layer — typed edges between existing content entities (Term/Category/Attribute Group), content-layer only (not Image/Object instances) | **Done** | *(this commit)* |
-| BL-4 | Testing, documentation, completion report, freeze | Not started | — |
+| BL-4 | Verification, freeze, completion report — no new content or architecture | **Done** | *(this commit)* |
 
 ### BL-3 scope clarification (before implementation)
 
