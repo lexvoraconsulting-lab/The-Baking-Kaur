@@ -4,7 +4,7 @@ Workstream: **TAX** (new — per [ADR 0006](../adr/2026-07-27-workstream-id-conv
 standing convention, a genuinely new business capability gets a new Workstream ID at Sprint Charter
 time; TAX is the first non-ATTR workstream this platform has assigned).
 
-Status: **BL-1 complete**. BL-2 not started — awaiting approval per this project's per-item review
+Status: **BL-2 complete**. BL-3 not started — awaiting approval per this project's per-item review
 gate ([VIG-010](../00_Governance/VIG-010-Execution-Protocol.md)).
 
 ## Sprint Goal
@@ -38,9 +38,47 @@ same protocol — not silently absorbed into Build-005.
 |---|---|---|---|
 | BL-0 | Repository preparation — `ai/taxonomy/` skeleton (4 entities: Category, AttributeGroup, Vocabulary, Term; ID allocation; whole-catalog validation; loader/exporter; schema generation; structural self-check), `docs/70_Enterprise_Master_Taxonomy/` skeleton | **Done** | `0545f2e` |
 | BL-1 | Author real Category tree, Attribute Groups, Attributes, Controlled Vocabularies, Terms, synonyms, and cross-system labels — **expanded scope**, see below | **Done** | *(this commit)* |
-| BL-2 | Deepen vocabulary coverage (more terms per vocabulary), additional domain Attribute Groups as real business need is confirmed | Not started | — |
+| BL-2 | First real Enterprise Controlled Vocabularies — 11 new vocabularies + 1 flagship fully-enriched term — **zero schema changes**, see below | **Done** | *(this commit)* |
 | BL-3 | Ontology relationship instances beyond parent/child hierarchy (Object-to-Object, Image-to-Business-Entity per `docs/10_Taxonomy/Relationship_Model.md`) — deferred, needs real Image/Object instances that don't exist yet | Not started | — |
 | BL-4 | Testing, documentation, completion report, freeze | Not started | — |
+
+### BL-2 conflict resolution (before implementation)
+
+Three requested fields/vocabularies conflicted with already-documented or already-committed
+decisions, flagged and resolved before coding:
+- **"Delivery"** conflicted with BL-1's `CROSS_SYSTEM_OWNERSHIP.md` (which excluded it as the
+  storefront track's logistics/fee system) — resolved as a **narrow product-attribute vocabulary**
+  only (`Requires Refrigeration`, `Same-Day Eligible`, ...), never the fee/logistics system itself.
+  `test_bl2_delivery_vocabulary_is_product_attribute_scoped_not_logistics` asserts no fee/currency
+  content ever lands in it.
+- **"Parent Category" / a single "Attribute Group" field on Term or Vocabulary** conflicted directly
+  with `Hierarchy.md`'s explicit reusability principle ("a Controlled Vocabulary Term never
+  hardcodes which Category it's valid for"). Rejected — hierarchy still flows only through
+  Category → Attribute Group → Attribute → Vocabulary. `test_bl2_no_term_hardcodes_a_category_or_single_group`
+  and `test_bl2_shape_vocabulary_reused_across_two_groups` assert this holds (Shape stays used by
+  both Geometry and Board).
+- **AI Vision / Shopify / ERP / SEO / Search "Labels" and "Search Aliases"** as new dedicated
+  fields — rejected as redundant with the already-built `Term.external_ids` (`system`-discriminated)
+  mechanism. Populated via `external_ids` entries instead, zero schema change.
+
+### What BL-2 actually delivered
+
+**No code/schema changes** — `ai/taxonomy/` models are identical to BL-1. Pure content: 1 new
+Attribute Group (Delivery), 11 new Controlled Vocabularies (Style, Finish, Texture, Decoration
+Style, Flower, Tier Style, Recipient, Delivery Attribute, Packaging Type, Cream & Icing, Ganache),
+11 new `TaxonomyAttribute` entries backing them, ~55 new Terms across those vocabularies, plus one
+flagship fully-enriched term (**Rose Gold** — 3 synonyms, 9 `external_ids` spanning all 5 systems)
+demonstrating the richness ceiling every term can reach. Catalog total: 6 Categories, 30 Attribute
+Groups, 26 Attributes, 17 Vocabularies, 96 Terms.
+
+### Deliberately deferred (documented, not built)
+
+- **AI confidence per term** — noted as a future optional field in
+  [TAXONOMY_SPECIFICATION.md](TAXONOMY_SPECIFICATION.md); not added now, per explicit instruction
+  ("optional future field").
+- **Multilingual support** — `label`/synonym strings stay plain strings; a future locale-keyed
+  extension is noted, not implemented, per explicit instruction ("do not implement translations
+  yet").
 
 ### BL-1 scope expansion (approved before implementation)
 

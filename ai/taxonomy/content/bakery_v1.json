@@ -6,7 +6,13 @@
       "domain": "bakery",
       "name": "Cakes",
       "parent_id": null,
-      "attribute_group_ids": ["TAX-GRP-000002", "TAX-GRP-000003", "TAX-GRP-000004", "TAX-GRP-000005", "TAX-GRP-000006"],
+      "attribute_group_ids": [
+        "TAX-GRP-000002",
+        "TAX-GRP-000003",
+        "TAX-GRP-000004",
+        "TAX-GRP-000005",
+        "TAX-GRP-000006"
+      ],
       "status": "active"
     },
     {
@@ -14,7 +20,11 @@
       "domain": "bakery",
       "name": "Birthday Cakes",
       "parent_id": "TAX-CAT-000001",
-      "attribute_group_ids": ["TAX-GRP-000009", "TAX-GRP-000010", "TAX-GRP-000007"],
+      "attribute_group_ids": [
+        "TAX-GRP-000009",
+        "TAX-GRP-000010",
+        "TAX-GRP-000007"
+      ],
       "status": "active"
     },
     {
@@ -30,7 +40,12 @@
       "domain": "bakery",
       "name": "Wedding Cakes",
       "parent_id": "TAX-CAT-000001",
-      "attribute_group_ids": ["TAX-GRP-000009", "TAX-GRP-000010", "TAX-GRP-000018", "TAX-GRP-000019"],
+      "attribute_group_ids": [
+        "TAX-GRP-000009",
+        "TAX-GRP-000010",
+        "TAX-GRP-000018",
+        "TAX-GRP-000019"
+      ],
       "status": "active"
     },
     {
@@ -38,7 +53,9 @@
       "domain": "bakery",
       "name": "Corporate Cakes",
       "parent_id": "TAX-CAT-000001",
-      "attribute_group_ids": ["TAX-GRP-000009"],
+      "attribute_group_ids": [
+        "TAX-GRP-000009"
+      ],
       "status": "active"
     },
     {
@@ -46,109 +63,1110 @@
       "domain": "bakery",
       "name": "Custom Photo Cakes",
       "parent_id": "TAX-CAT-000001",
-      "attribute_group_ids": ["TAX-GRP-000008"],
+      "attribute_group_ids": [
+        "TAX-GRP-000008"
+      ],
       "status": "active"
     }
   ],
   "attribute_groups": [
-    {"group_id": "TAX-GRP-000001", "name": "Classification", "tier": "domain", "ear_namespace": "domain.bakery.classification"},
-    {"group_id": "TAX-GRP-000002", "name": "Geometry", "tier": "domain", "ear_namespace": "domain.bakery.geometry"},
-    {"group_id": "TAX-GRP-000003", "name": "Colour", "tier": "domain", "ear_namespace": "domain.bakery.colour"},
-    {"group_id": "TAX-GRP-000004", "name": "Material", "tier": "domain", "ear_namespace": "domain.bakery.material"},
-    {"group_id": "TAX-GRP-000005", "name": "Texture", "tier": "domain", "ear_namespace": "domain.bakery.texture"},
-    {"group_id": "TAX-GRP-000006", "name": "Decoration", "tier": "domain", "ear_namespace": "domain.bakery.decoration"},
-    {"group_id": "TAX-GRP-000007", "name": "Characters", "tier": "domain", "ear_namespace": "domain.bakery.characters"},
-    {"group_id": "TAX-GRP-000008", "name": "Writing", "tier": "domain", "ear_namespace": "domain.bakery.writing"},
-    {"group_id": "TAX-GRP-000009", "name": "Occasion", "tier": "domain", "ear_namespace": "domain.bakery.occasion"},
-    {"group_id": "TAX-GRP-000010", "name": "Theme", "tier": "domain", "ear_namespace": "domain.bakery.theme"},
-    {"group_id": "TAX-GRP-000011", "name": "Packaging", "tier": "domain", "ear_namespace": "domain.bakery.packaging"},
-    {"group_id": "TAX-GRP-000012", "name": "Business", "tier": "domain", "ear_namespace": "domain.bakery.business"},
-    {"group_id": "TAX-GRP-000013", "name": "Recipient", "tier": "domain", "ear_namespace": "domain.bakery.recipient"},
-    {"group_id": "TAX-GRP-000014", "name": "Style", "tier": "domain", "ear_namespace": "domain.bakery.style"},
-    {"group_id": "TAX-GRP-000015", "name": "Finish", "tier": "domain", "ear_namespace": "domain.bakery.finish"},
-    {"group_id": "TAX-GRP-000016", "name": "Flowers", "tier": "domain", "ear_namespace": "domain.bakery.flowers"},
-    {"group_id": "TAX-GRP-000017", "name": "Topper", "tier": "domain", "ear_namespace": "domain.bakery.topper"},
-    {"group_id": "TAX-GRP-000018", "name": "Tier", "tier": "domain", "ear_namespace": "domain.bakery.tier"},
-    {"group_id": "TAX-GRP-000019", "name": "Board", "tier": "domain", "ear_namespace": "domain.bakery.board"},
-    {"group_id": "TAX-GRP-000020", "name": "Size", "tier": "domain", "ear_namespace": "domain.bakery.size"},
-    {"group_id": "TAX-GRP-000021", "name": "Weight", "tier": "domain", "ear_namespace": "domain.bakery.weight"},
-    {"group_id": "TAX-GRP-000022", "name": "Servings", "tier": "domain", "ear_namespace": "domain.bakery.servings"},
-    {"group_id": "TAX-GRP-000023", "name": "Flavour", "tier": "domain", "ear_namespace": "domain.bakery.flavour"},
-    {"group_id": "TAX-GRP-000024", "name": "Sponge", "tier": "domain", "ear_namespace": "domain.bakery.sponge"},
-    {"group_id": "TAX-GRP-000025", "name": "Filling", "tier": "domain", "ear_namespace": "domain.bakery.filling"},
-    {"group_id": "TAX-GRP-000026", "name": "Cream", "tier": "domain", "ear_namespace": "domain.bakery.cream"},
-    {"group_id": "TAX-GRP-000027", "name": "Ganache", "tier": "domain", "ear_namespace": "domain.bakery.ganache"},
-    {"group_id": "TAX-GRP-000028", "name": "Dietary", "tier": "domain", "ear_namespace": "domain.bakery.dietary"},
-    {"group_id": "TAX-GRP-000029", "name": "Allergens", "tier": "domain", "ear_namespace": "domain.bakery.allergens"}
+    {
+      "group_id": "TAX-GRP-000001",
+      "name": "Classification",
+      "tier": "domain",
+      "ear_namespace": "domain.bakery.classification"
+    },
+    {
+      "group_id": "TAX-GRP-000002",
+      "name": "Geometry",
+      "tier": "domain",
+      "ear_namespace": "domain.bakery.geometry"
+    },
+    {
+      "group_id": "TAX-GRP-000003",
+      "name": "Colour",
+      "tier": "domain",
+      "ear_namespace": "domain.bakery.colour"
+    },
+    {
+      "group_id": "TAX-GRP-000004",
+      "name": "Material",
+      "tier": "domain",
+      "ear_namespace": "domain.bakery.material"
+    },
+    {
+      "group_id": "TAX-GRP-000005",
+      "name": "Texture",
+      "tier": "domain",
+      "ear_namespace": "domain.bakery.texture"
+    },
+    {
+      "group_id": "TAX-GRP-000006",
+      "name": "Decoration",
+      "tier": "domain",
+      "ear_namespace": "domain.bakery.decoration"
+    },
+    {
+      "group_id": "TAX-GRP-000007",
+      "name": "Characters",
+      "tier": "domain",
+      "ear_namespace": "domain.bakery.characters"
+    },
+    {
+      "group_id": "TAX-GRP-000008",
+      "name": "Writing",
+      "tier": "domain",
+      "ear_namespace": "domain.bakery.writing"
+    },
+    {
+      "group_id": "TAX-GRP-000009",
+      "name": "Occasion",
+      "tier": "domain",
+      "ear_namespace": "domain.bakery.occasion"
+    },
+    {
+      "group_id": "TAX-GRP-000010",
+      "name": "Theme",
+      "tier": "domain",
+      "ear_namespace": "domain.bakery.theme"
+    },
+    {
+      "group_id": "TAX-GRP-000011",
+      "name": "Packaging",
+      "tier": "domain",
+      "ear_namespace": "domain.bakery.packaging"
+    },
+    {
+      "group_id": "TAX-GRP-000012",
+      "name": "Business",
+      "tier": "domain",
+      "ear_namespace": "domain.bakery.business"
+    },
+    {
+      "group_id": "TAX-GRP-000013",
+      "name": "Recipient",
+      "tier": "domain",
+      "ear_namespace": "domain.bakery.recipient"
+    },
+    {
+      "group_id": "TAX-GRP-000014",
+      "name": "Style",
+      "tier": "domain",
+      "ear_namespace": "domain.bakery.style"
+    },
+    {
+      "group_id": "TAX-GRP-000015",
+      "name": "Finish",
+      "tier": "domain",
+      "ear_namespace": "domain.bakery.finish"
+    },
+    {
+      "group_id": "TAX-GRP-000016",
+      "name": "Flowers",
+      "tier": "domain",
+      "ear_namespace": "domain.bakery.flowers"
+    },
+    {
+      "group_id": "TAX-GRP-000017",
+      "name": "Topper",
+      "tier": "domain",
+      "ear_namespace": "domain.bakery.topper"
+    },
+    {
+      "group_id": "TAX-GRP-000018",
+      "name": "Tier",
+      "tier": "domain",
+      "ear_namespace": "domain.bakery.tier"
+    },
+    {
+      "group_id": "TAX-GRP-000019",
+      "name": "Board",
+      "tier": "domain",
+      "ear_namespace": "domain.bakery.board"
+    },
+    {
+      "group_id": "TAX-GRP-000020",
+      "name": "Size",
+      "tier": "domain",
+      "ear_namespace": "domain.bakery.size"
+    },
+    {
+      "group_id": "TAX-GRP-000021",
+      "name": "Weight",
+      "tier": "domain",
+      "ear_namespace": "domain.bakery.weight"
+    },
+    {
+      "group_id": "TAX-GRP-000022",
+      "name": "Servings",
+      "tier": "domain",
+      "ear_namespace": "domain.bakery.servings"
+    },
+    {
+      "group_id": "TAX-GRP-000023",
+      "name": "Flavour",
+      "tier": "domain",
+      "ear_namespace": "domain.bakery.flavour"
+    },
+    {
+      "group_id": "TAX-GRP-000024",
+      "name": "Sponge",
+      "tier": "domain",
+      "ear_namespace": "domain.bakery.sponge"
+    },
+    {
+      "group_id": "TAX-GRP-000025",
+      "name": "Filling",
+      "tier": "domain",
+      "ear_namespace": "domain.bakery.filling"
+    },
+    {
+      "group_id": "TAX-GRP-000026",
+      "name": "Cream",
+      "tier": "domain",
+      "ear_namespace": "domain.bakery.cream"
+    },
+    {
+      "group_id": "TAX-GRP-000027",
+      "name": "Ganache",
+      "tier": "domain",
+      "ear_namespace": "domain.bakery.ganache"
+    },
+    {
+      "group_id": "TAX-GRP-000028",
+      "name": "Dietary",
+      "tier": "domain",
+      "ear_namespace": "domain.bakery.dietary"
+    },
+    {
+      "group_id": "TAX-GRP-000029",
+      "name": "Allergens",
+      "tier": "domain",
+      "ear_namespace": "domain.bakery.allergens"
+    },
+    {
+      "group_id": "TAX-GRP-000030",
+      "name": "Delivery",
+      "tier": "domain",
+      "ear_namespace": "domain.bakery.delivery"
+    }
   ],
   "vocabularies": [
-    {"vocabulary_id": "TAX-VOC-000001", "name": "Colour Name", "scope": "global", "domain": null},
-    {"vocabulary_id": "TAX-VOC-000002", "name": "Shape", "scope": "global", "domain": null},
-    {"vocabulary_id": "TAX-VOC-000003", "name": "Occasion", "scope": "domain", "domain": "bakery"},
-    {"vocabulary_id": "TAX-VOC-000004", "name": "Theme", "scope": "domain", "domain": "bakery"},
-    {"vocabulary_id": "TAX-VOC-000005", "name": "Flavour", "scope": "domain", "domain": "bakery"},
-    {"vocabulary_id": "TAX-VOC-000006", "name": "Dietary", "scope": "domain", "domain": "bakery"}
+    {
+      "vocabulary_id": "TAX-VOC-000001",
+      "name": "Colour Name",
+      "scope": "global",
+      "domain": null
+    },
+    {
+      "vocabulary_id": "TAX-VOC-000002",
+      "name": "Shape",
+      "scope": "global",
+      "domain": null
+    },
+    {
+      "vocabulary_id": "TAX-VOC-000003",
+      "name": "Occasion",
+      "scope": "domain",
+      "domain": "bakery"
+    },
+    {
+      "vocabulary_id": "TAX-VOC-000004",
+      "name": "Theme",
+      "scope": "domain",
+      "domain": "bakery"
+    },
+    {
+      "vocabulary_id": "TAX-VOC-000005",
+      "name": "Flavour",
+      "scope": "domain",
+      "domain": "bakery"
+    },
+    {
+      "vocabulary_id": "TAX-VOC-000006",
+      "name": "Dietary",
+      "scope": "domain",
+      "domain": "bakery"
+    },
+    {
+      "vocabulary_id": "TAX-VOC-000007",
+      "name": "Style",
+      "scope": "domain",
+      "domain": "bakery"
+    },
+    {
+      "vocabulary_id": "TAX-VOC-000008",
+      "name": "Finish",
+      "scope": "domain",
+      "domain": "bakery"
+    },
+    {
+      "vocabulary_id": "TAX-VOC-000009",
+      "name": "Texture",
+      "scope": "domain",
+      "domain": "bakery"
+    },
+    {
+      "vocabulary_id": "TAX-VOC-000010",
+      "name": "Decoration Style",
+      "scope": "domain",
+      "domain": "bakery"
+    },
+    {
+      "vocabulary_id": "TAX-VOC-000011",
+      "name": "Flower",
+      "scope": "domain",
+      "domain": "bakery"
+    },
+    {
+      "vocabulary_id": "TAX-VOC-000012",
+      "name": "Tier Style",
+      "scope": "domain",
+      "domain": "bakery"
+    },
+    {
+      "vocabulary_id": "TAX-VOC-000013",
+      "name": "Recipient",
+      "scope": "domain",
+      "domain": "bakery"
+    },
+    {
+      "vocabulary_id": "TAX-VOC-000014",
+      "name": "Delivery Attribute",
+      "scope": "domain",
+      "domain": "bakery"
+    },
+    {
+      "vocabulary_id": "TAX-VOC-000015",
+      "name": "Packaging Type",
+      "scope": "domain",
+      "domain": "bakery"
+    },
+    {
+      "vocabulary_id": "TAX-VOC-000016",
+      "name": "Cream & Icing",
+      "scope": "domain",
+      "domain": "bakery"
+    },
+    {
+      "vocabulary_id": "TAX-VOC-000017",
+      "name": "Ganache",
+      "scope": "domain",
+      "domain": "bakery"
+    }
   ],
   "attributes": [
-    {"attribute_id": "TAX-ATTR-000001", "group_id": "TAX-GRP-000003", "name": "primary_colour", "data_type": "enum", "vocabulary_id": "TAX-VOC-000001", "ear_namespace": "domain.bakery.colour"},
-    {"attribute_id": "TAX-ATTR-000002", "group_id": "TAX-GRP-000003", "name": "secondary_colour", "data_type": "enum", "vocabulary_id": "TAX-VOC-000001", "ear_namespace": "domain.bakery.colour"},
-    {"attribute_id": "TAX-ATTR-000003", "group_id": "TAX-GRP-000002", "name": "shape", "data_type": "enum", "vocabulary_id": "TAX-VOC-000002", "ear_namespace": "domain.bakery.geometry"},
-    {"attribute_id": "TAX-ATTR-000004", "group_id": "TAX-GRP-000009", "name": "occasion", "data_type": "enum", "vocabulary_id": "TAX-VOC-000003", "ear_namespace": "domain.bakery.occasion"},
-    {"attribute_id": "TAX-ATTR-000005", "group_id": "TAX-GRP-000010", "name": "theme", "data_type": "enum", "vocabulary_id": "TAX-VOC-000004", "ear_namespace": "domain.bakery.theme"},
-    {"attribute_id": "TAX-ATTR-000006", "group_id": "TAX-GRP-000024", "name": "sponge_flavour", "data_type": "enum", "vocabulary_id": "TAX-VOC-000005", "ear_namespace": "domain.bakery.sponge"},
-    {"attribute_id": "TAX-ATTR-000007", "group_id": "TAX-GRP-000025", "name": "filling_flavour", "data_type": "enum", "vocabulary_id": "TAX-VOC-000005", "ear_namespace": "domain.bakery.filling"},
-    {"attribute_id": "TAX-ATTR-000008", "group_id": "TAX-GRP-000028", "name": "dietary_labels", "data_type": "enum", "vocabulary_id": "TAX-VOC-000006", "ear_namespace": "domain.bakery.dietary"},
-    {"attribute_id": "TAX-ATTR-000009", "group_id": "TAX-GRP-000018", "name": "tier_count", "data_type": "integer", "vocabulary_id": null, "ear_namespace": "domain.bakery.tier"},
-    {"attribute_id": "TAX-ATTR-000010", "group_id": "TAX-GRP-000022", "name": "servings_count", "data_type": "integer", "vocabulary_id": null, "ear_namespace": "domain.bakery.servings"},
-    {"attribute_id": "TAX-ATTR-000011", "group_id": "TAX-GRP-000021", "name": "weight_grams", "data_type": "float", "vocabulary_id": null, "ear_namespace": "domain.bakery.weight"},
-    {"attribute_id": "TAX-ATTR-000012", "group_id": "TAX-GRP-000019", "name": "board_shape", "data_type": "enum", "vocabulary_id": "TAX-VOC-000002", "ear_namespace": "domain.bakery.board"},
-    {"attribute_id": "TAX-ATTR-000013", "group_id": "TAX-GRP-000006", "name": "decoration_type", "data_type": "string", "vocabulary_id": null, "ear_namespace": "domain.bakery.decoration"},
-    {"attribute_id": "TAX-ATTR-000014", "group_id": "TAX-GRP-000007", "name": "character_name", "data_type": "string", "vocabulary_id": null, "ear_namespace": "domain.bakery.characters"},
-    {"attribute_id": "TAX-ATTR-000015", "group_id": "TAX-GRP-000008", "name": "visible_text", "data_type": "string", "vocabulary_id": null, "ear_namespace": "domain.bakery.writing"}
+    {
+      "attribute_id": "TAX-ATTR-000001",
+      "group_id": "TAX-GRP-000003",
+      "name": "primary_colour",
+      "data_type": "enum",
+      "vocabulary_id": "TAX-VOC-000001",
+      "ear_namespace": "domain.bakery.colour"
+    },
+    {
+      "attribute_id": "TAX-ATTR-000002",
+      "group_id": "TAX-GRP-000003",
+      "name": "secondary_colour",
+      "data_type": "enum",
+      "vocabulary_id": "TAX-VOC-000001",
+      "ear_namespace": "domain.bakery.colour"
+    },
+    {
+      "attribute_id": "TAX-ATTR-000003",
+      "group_id": "TAX-GRP-000002",
+      "name": "shape",
+      "data_type": "enum",
+      "vocabulary_id": "TAX-VOC-000002",
+      "ear_namespace": "domain.bakery.geometry"
+    },
+    {
+      "attribute_id": "TAX-ATTR-000004",
+      "group_id": "TAX-GRP-000009",
+      "name": "occasion",
+      "data_type": "enum",
+      "vocabulary_id": "TAX-VOC-000003",
+      "ear_namespace": "domain.bakery.occasion"
+    },
+    {
+      "attribute_id": "TAX-ATTR-000005",
+      "group_id": "TAX-GRP-000010",
+      "name": "theme",
+      "data_type": "enum",
+      "vocabulary_id": "TAX-VOC-000004",
+      "ear_namespace": "domain.bakery.theme"
+    },
+    {
+      "attribute_id": "TAX-ATTR-000006",
+      "group_id": "TAX-GRP-000024",
+      "name": "sponge_flavour",
+      "data_type": "enum",
+      "vocabulary_id": "TAX-VOC-000005",
+      "ear_namespace": "domain.bakery.sponge"
+    },
+    {
+      "attribute_id": "TAX-ATTR-000007",
+      "group_id": "TAX-GRP-000025",
+      "name": "filling_flavour",
+      "data_type": "enum",
+      "vocabulary_id": "TAX-VOC-000005",
+      "ear_namespace": "domain.bakery.filling"
+    },
+    {
+      "attribute_id": "TAX-ATTR-000008",
+      "group_id": "TAX-GRP-000028",
+      "name": "dietary_labels",
+      "data_type": "enum",
+      "vocabulary_id": "TAX-VOC-000006",
+      "ear_namespace": "domain.bakery.dietary"
+    },
+    {
+      "attribute_id": "TAX-ATTR-000009",
+      "group_id": "TAX-GRP-000018",
+      "name": "tier_count",
+      "data_type": "integer",
+      "vocabulary_id": null,
+      "ear_namespace": "domain.bakery.tier"
+    },
+    {
+      "attribute_id": "TAX-ATTR-000010",
+      "group_id": "TAX-GRP-000022",
+      "name": "servings_count",
+      "data_type": "integer",
+      "vocabulary_id": null,
+      "ear_namespace": "domain.bakery.servings"
+    },
+    {
+      "attribute_id": "TAX-ATTR-000011",
+      "group_id": "TAX-GRP-000021",
+      "name": "weight_grams",
+      "data_type": "float",
+      "vocabulary_id": null,
+      "ear_namespace": "domain.bakery.weight"
+    },
+    {
+      "attribute_id": "TAX-ATTR-000012",
+      "group_id": "TAX-GRP-000019",
+      "name": "board_shape",
+      "data_type": "enum",
+      "vocabulary_id": "TAX-VOC-000002",
+      "ear_namespace": "domain.bakery.board"
+    },
+    {
+      "attribute_id": "TAX-ATTR-000013",
+      "group_id": "TAX-GRP-000006",
+      "name": "decoration_type",
+      "data_type": "string",
+      "vocabulary_id": null,
+      "ear_namespace": "domain.bakery.decoration"
+    },
+    {
+      "attribute_id": "TAX-ATTR-000014",
+      "group_id": "TAX-GRP-000007",
+      "name": "character_name",
+      "data_type": "string",
+      "vocabulary_id": null,
+      "ear_namespace": "domain.bakery.characters"
+    },
+    {
+      "attribute_id": "TAX-ATTR-000015",
+      "group_id": "TAX-GRP-000008",
+      "name": "visible_text",
+      "data_type": "string",
+      "vocabulary_id": null,
+      "ear_namespace": "domain.bakery.writing"
+    },
+    {
+      "attribute_id": "TAX-ATTR-000016",
+      "group_id": "TAX-GRP-000014",
+      "name": "style",
+      "data_type": "enum",
+      "vocabulary_id": "TAX-VOC-000007",
+      "ear_namespace": "domain.bakery.style"
+    },
+    {
+      "attribute_id": "TAX-ATTR-000017",
+      "group_id": "TAX-GRP-000015",
+      "name": "finish",
+      "data_type": "enum",
+      "vocabulary_id": "TAX-VOC-000008",
+      "ear_namespace": "domain.bakery.finish"
+    },
+    {
+      "attribute_id": "TAX-ATTR-000018",
+      "group_id": "TAX-GRP-000005",
+      "name": "texture",
+      "data_type": "enum",
+      "vocabulary_id": "TAX-VOC-000009",
+      "ear_namespace": "domain.bakery.texture"
+    },
+    {
+      "attribute_id": "TAX-ATTR-000019",
+      "group_id": "TAX-GRP-000006",
+      "name": "decoration_style",
+      "data_type": "enum",
+      "vocabulary_id": "TAX-VOC-000010",
+      "ear_namespace": "domain.bakery.decoration"
+    },
+    {
+      "attribute_id": "TAX-ATTR-000020",
+      "group_id": "TAX-GRP-000016",
+      "name": "flower_type",
+      "data_type": "enum",
+      "vocabulary_id": "TAX-VOC-000011",
+      "ear_namespace": "domain.bakery.flowers"
+    },
+    {
+      "attribute_id": "TAX-ATTR-000021",
+      "group_id": "TAX-GRP-000018",
+      "name": "tier_style",
+      "data_type": "enum",
+      "vocabulary_id": "TAX-VOC-000012",
+      "ear_namespace": "domain.bakery.tier"
+    },
+    {
+      "attribute_id": "TAX-ATTR-000022",
+      "group_id": "TAX-GRP-000013",
+      "name": "recipient",
+      "data_type": "enum",
+      "vocabulary_id": "TAX-VOC-000013",
+      "ear_namespace": "domain.bakery.recipient"
+    },
+    {
+      "attribute_id": "TAX-ATTR-000023",
+      "group_id": "TAX-GRP-000030",
+      "name": "delivery_attribute",
+      "data_type": "enum",
+      "vocabulary_id": "TAX-VOC-000014",
+      "ear_namespace": "domain.bakery.delivery"
+    },
+    {
+      "attribute_id": "TAX-ATTR-000024",
+      "group_id": "TAX-GRP-000011",
+      "name": "packaging_type",
+      "data_type": "enum",
+      "vocabulary_id": "TAX-VOC-000015",
+      "ear_namespace": "domain.bakery.packaging"
+    },
+    {
+      "attribute_id": "TAX-ATTR-000025",
+      "group_id": "TAX-GRP-000026",
+      "name": "icing_type",
+      "data_type": "enum",
+      "vocabulary_id": "TAX-VOC-000016",
+      "ear_namespace": "domain.bakery.cream"
+    },
+    {
+      "attribute_id": "TAX-ATTR-000026",
+      "group_id": "TAX-GRP-000027",
+      "name": "ganache_type",
+      "data_type": "enum",
+      "vocabulary_id": "TAX-VOC-000017",
+      "ear_namespace": "domain.bakery.ganache"
+    }
   ],
   "terms": [
-    {"term_id": "TAX-TERM-000001", "vocabulary_id": "TAX-VOC-000001", "label": "Red", "synonyms": ["Scarlet"], "external_ids": [{"system": "shopify", "id_type": "tag", "value": "colour-red"}, {"system": "search", "id_type": "facet", "value": "red"}]},
-    {"term_id": "TAX-TERM-000002", "vocabulary_id": "TAX-VOC-000001", "label": "Pink", "synonyms": ["Rose"]},
-    {"term_id": "TAX-TERM-000003", "vocabulary_id": "TAX-VOC-000001", "label": "Pastel Pink", "parent_term_id": "TAX-TERM-000002"},
-    {"term_id": "TAX-TERM-000004", "vocabulary_id": "TAX-VOC-000001", "label": "Blue"},
-    {"term_id": "TAX-TERM-000005", "vocabulary_id": "TAX-VOC-000001", "label": "Gold"},
-    {"term_id": "TAX-TERM-000006", "vocabulary_id": "TAX-VOC-000001", "label": "White"},
-    {"term_id": "TAX-TERM-000007", "vocabulary_id": "TAX-VOC-000001", "label": "Black"},
-    {"term_id": "TAX-TERM-000008", "vocabulary_id": "TAX-VOC-000001", "label": "Ivory"},
-    {"term_id": "TAX-TERM-000009", "vocabulary_id": "TAX-VOC-000002", "label": "Round"},
-    {"term_id": "TAX-TERM-000010", "vocabulary_id": "TAX-VOC-000002", "label": "Square"},
-    {"term_id": "TAX-TERM-000011", "vocabulary_id": "TAX-VOC-000002", "label": "Heart"},
-    {"term_id": "TAX-TERM-000012", "vocabulary_id": "TAX-VOC-000002", "label": "Number"},
-    {"term_id": "TAX-TERM-000013", "vocabulary_id": "TAX-VOC-000002", "label": "Custom"},
-    {"term_id": "TAX-TERM-000014", "vocabulary_id": "TAX-VOC-000003", "label": "Birthday"},
-    {"term_id": "TAX-TERM-000015", "vocabulary_id": "TAX-VOC-000003", "label": "Wedding", "external_ids": [{"system": "shopify", "id_type": "tag", "value": "occasion-wedding"}, {"system": "search", "id_type": "facet", "value": "wedding"}]},
-    {"term_id": "TAX-TERM-000016", "vocabulary_id": "TAX-VOC-000003", "label": "Anniversary"},
-    {"term_id": "TAX-TERM-000017", "vocabulary_id": "TAX-VOC-000003", "label": "Corporate"},
-    {"term_id": "TAX-TERM-000018", "vocabulary_id": "TAX-VOC-000003", "label": "Festival"},
-    {"term_id": "TAX-TERM-000019", "vocabulary_id": "TAX-VOC-000003", "label": "Baby Shower"},
-    {"term_id": "TAX-TERM-000020", "vocabulary_id": "TAX-VOC-000003", "label": "Farewell"},
-    {"term_id": "TAX-TERM-000021", "vocabulary_id": "TAX-VOC-000003", "label": "Congratulations"},
-    {"term_id": "TAX-TERM-000022", "vocabulary_id": "TAX-VOC-000003", "label": "Gifting"},
-    {"term_id": "TAX-TERM-000023", "vocabulary_id": "TAX-VOC-000004", "label": "Classic"},
-    {"term_id": "TAX-TERM-000024", "vocabulary_id": "TAX-VOC-000004", "label": "Rustic"},
-    {"term_id": "TAX-TERM-000025", "vocabulary_id": "TAX-VOC-000004", "label": "Modern"},
-    {"term_id": "TAX-TERM-000026", "vocabulary_id": "TAX-VOC-000004", "label": "Floral"},
-    {"term_id": "TAX-TERM-000027", "vocabulary_id": "TAX-VOC-000004", "label": "Superhero"},
-    {"term_id": "TAX-TERM-000028", "vocabulary_id": "TAX-VOC-000004", "label": "Cartoon"},
-    {"term_id": "TAX-TERM-000029", "vocabulary_id": "TAX-VOC-000004", "label": "Elegant"},
-    {"term_id": "TAX-TERM-000030", "vocabulary_id": "TAX-VOC-000004", "label": "Minimalist"},
-    {"term_id": "TAX-TERM-000031", "vocabulary_id": "TAX-VOC-000004", "label": "Luxury"},
-    {"term_id": "TAX-TERM-000032", "vocabulary_id": "TAX-VOC-000004", "label": "Seasonal"},
-    {"term_id": "TAX-TERM-000033", "vocabulary_id": "TAX-VOC-000004", "label": "Regional"},
-    {"term_id": "TAX-TERM-000034", "vocabulary_id": "TAX-VOC-000005", "label": "Chocolate", "external_ids": [{"system": "shopify", "id_type": "tag", "value": "flavour-chocolate"}, {"system": "erp", "id_type": "sku_code", "value": "FLV-CHOC"}, {"system": "search", "id_type": "facet", "value": "chocolate"}]},
-    {"term_id": "TAX-TERM-000035", "vocabulary_id": "TAX-VOC-000005", "label": "Vanilla"},
-    {"term_id": "TAX-TERM-000036", "vocabulary_id": "TAX-VOC-000005", "label": "Red Velvet"},
-    {"term_id": "TAX-TERM-000037", "vocabulary_id": "TAX-VOC-000005", "label": "Butterscotch"},
-    {"term_id": "TAX-TERM-000038", "vocabulary_id": "TAX-VOC-000005", "label": "Black Forest"},
-    {"term_id": "TAX-TERM-000039", "vocabulary_id": "TAX-VOC-000005", "label": "Pineapple"},
-    {"term_id": "TAX-TERM-000040", "vocabulary_id": "TAX-VOC-000006", "label": "Eggless", "external_ids": [{"system": "shopify", "id_type": "tag", "value": "dietary-eggless"}, {"system": "erp", "id_type": "sku_code", "value": "DIET-EGGLESS"}]},
-    {"term_id": "TAX-TERM-000041", "vocabulary_id": "TAX-VOC-000006", "label": "Vegan"},
-    {"term_id": "TAX-TERM-000042", "vocabulary_id": "TAX-VOC-000006", "label": "Gluten-Free"},
-    {"term_id": "TAX-TERM-000043", "vocabulary_id": "TAX-VOC-000006", "label": "Sugar-Free"}
+    {
+      "term_id": "TAX-TERM-000001",
+      "vocabulary_id": "TAX-VOC-000001",
+      "label": "Red",
+      "synonyms": [
+        "Scarlet"
+      ],
+      "external_ids": [
+        {
+          "system": "shopify",
+          "id_type": "tag",
+          "value": "colour-red"
+        },
+        {
+          "system": "search",
+          "id_type": "facet",
+          "value": "red"
+        }
+      ]
+    },
+    {
+      "term_id": "TAX-TERM-000002",
+      "vocabulary_id": "TAX-VOC-000001",
+      "label": "Pink",
+      "synonyms": [
+        "Rose"
+      ]
+    },
+    {
+      "term_id": "TAX-TERM-000003",
+      "vocabulary_id": "TAX-VOC-000001",
+      "label": "Pastel Pink",
+      "parent_term_id": "TAX-TERM-000002"
+    },
+    {
+      "term_id": "TAX-TERM-000004",
+      "vocabulary_id": "TAX-VOC-000001",
+      "label": "Blue"
+    },
+    {
+      "term_id": "TAX-TERM-000005",
+      "vocabulary_id": "TAX-VOC-000001",
+      "label": "Gold"
+    },
+    {
+      "term_id": "TAX-TERM-000006",
+      "vocabulary_id": "TAX-VOC-000001",
+      "label": "White"
+    },
+    {
+      "term_id": "TAX-TERM-000007",
+      "vocabulary_id": "TAX-VOC-000001",
+      "label": "Black"
+    },
+    {
+      "term_id": "TAX-TERM-000008",
+      "vocabulary_id": "TAX-VOC-000001",
+      "label": "Ivory"
+    },
+    {
+      "term_id": "TAX-TERM-000009",
+      "vocabulary_id": "TAX-VOC-000002",
+      "label": "Round"
+    },
+    {
+      "term_id": "TAX-TERM-000010",
+      "vocabulary_id": "TAX-VOC-000002",
+      "label": "Square"
+    },
+    {
+      "term_id": "TAX-TERM-000011",
+      "vocabulary_id": "TAX-VOC-000002",
+      "label": "Heart"
+    },
+    {
+      "term_id": "TAX-TERM-000012",
+      "vocabulary_id": "TAX-VOC-000002",
+      "label": "Number"
+    },
+    {
+      "term_id": "TAX-TERM-000013",
+      "vocabulary_id": "TAX-VOC-000002",
+      "label": "Custom"
+    },
+    {
+      "term_id": "TAX-TERM-000014",
+      "vocabulary_id": "TAX-VOC-000003",
+      "label": "Birthday"
+    },
+    {
+      "term_id": "TAX-TERM-000015",
+      "vocabulary_id": "TAX-VOC-000003",
+      "label": "Wedding",
+      "external_ids": [
+        {
+          "system": "shopify",
+          "id_type": "tag",
+          "value": "occasion-wedding"
+        },
+        {
+          "system": "search",
+          "id_type": "facet",
+          "value": "wedding"
+        }
+      ]
+    },
+    {
+      "term_id": "TAX-TERM-000016",
+      "vocabulary_id": "TAX-VOC-000003",
+      "label": "Anniversary"
+    },
+    {
+      "term_id": "TAX-TERM-000017",
+      "vocabulary_id": "TAX-VOC-000003",
+      "label": "Corporate"
+    },
+    {
+      "term_id": "TAX-TERM-000018",
+      "vocabulary_id": "TAX-VOC-000003",
+      "label": "Festival"
+    },
+    {
+      "term_id": "TAX-TERM-000019",
+      "vocabulary_id": "TAX-VOC-000003",
+      "label": "Baby Shower"
+    },
+    {
+      "term_id": "TAX-TERM-000020",
+      "vocabulary_id": "TAX-VOC-000003",
+      "label": "Farewell"
+    },
+    {
+      "term_id": "TAX-TERM-000021",
+      "vocabulary_id": "TAX-VOC-000003",
+      "label": "Congratulations"
+    },
+    {
+      "term_id": "TAX-TERM-000022",
+      "vocabulary_id": "TAX-VOC-000003",
+      "label": "Gifting"
+    },
+    {
+      "term_id": "TAX-TERM-000023",
+      "vocabulary_id": "TAX-VOC-000004",
+      "label": "Classic"
+    },
+    {
+      "term_id": "TAX-TERM-000024",
+      "vocabulary_id": "TAX-VOC-000004",
+      "label": "Rustic"
+    },
+    {
+      "term_id": "TAX-TERM-000025",
+      "vocabulary_id": "TAX-VOC-000004",
+      "label": "Modern"
+    },
+    {
+      "term_id": "TAX-TERM-000026",
+      "vocabulary_id": "TAX-VOC-000004",
+      "label": "Floral"
+    },
+    {
+      "term_id": "TAX-TERM-000027",
+      "vocabulary_id": "TAX-VOC-000004",
+      "label": "Superhero"
+    },
+    {
+      "term_id": "TAX-TERM-000028",
+      "vocabulary_id": "TAX-VOC-000004",
+      "label": "Cartoon"
+    },
+    {
+      "term_id": "TAX-TERM-000029",
+      "vocabulary_id": "TAX-VOC-000004",
+      "label": "Elegant"
+    },
+    {
+      "term_id": "TAX-TERM-000030",
+      "vocabulary_id": "TAX-VOC-000004",
+      "label": "Minimalist"
+    },
+    {
+      "term_id": "TAX-TERM-000031",
+      "vocabulary_id": "TAX-VOC-000004",
+      "label": "Luxury"
+    },
+    {
+      "term_id": "TAX-TERM-000032",
+      "vocabulary_id": "TAX-VOC-000004",
+      "label": "Seasonal"
+    },
+    {
+      "term_id": "TAX-TERM-000033",
+      "vocabulary_id": "TAX-VOC-000004",
+      "label": "Regional"
+    },
+    {
+      "term_id": "TAX-TERM-000034",
+      "vocabulary_id": "TAX-VOC-000005",
+      "label": "Chocolate",
+      "external_ids": [
+        {
+          "system": "shopify",
+          "id_type": "tag",
+          "value": "flavour-chocolate"
+        },
+        {
+          "system": "erp",
+          "id_type": "sku_code",
+          "value": "FLV-CHOC"
+        },
+        {
+          "system": "search",
+          "id_type": "facet",
+          "value": "chocolate"
+        }
+      ]
+    },
+    {
+      "term_id": "TAX-TERM-000035",
+      "vocabulary_id": "TAX-VOC-000005",
+      "label": "Vanilla"
+    },
+    {
+      "term_id": "TAX-TERM-000036",
+      "vocabulary_id": "TAX-VOC-000005",
+      "label": "Red Velvet"
+    },
+    {
+      "term_id": "TAX-TERM-000037",
+      "vocabulary_id": "TAX-VOC-000005",
+      "label": "Butterscotch"
+    },
+    {
+      "term_id": "TAX-TERM-000038",
+      "vocabulary_id": "TAX-VOC-000005",
+      "label": "Black Forest"
+    },
+    {
+      "term_id": "TAX-TERM-000039",
+      "vocabulary_id": "TAX-VOC-000005",
+      "label": "Pineapple"
+    },
+    {
+      "term_id": "TAX-TERM-000040",
+      "vocabulary_id": "TAX-VOC-000006",
+      "label": "Eggless",
+      "external_ids": [
+        {
+          "system": "shopify",
+          "id_type": "tag",
+          "value": "dietary-eggless"
+        },
+        {
+          "system": "erp",
+          "id_type": "sku_code",
+          "value": "DIET-EGGLESS"
+        }
+      ]
+    },
+    {
+      "term_id": "TAX-TERM-000041",
+      "vocabulary_id": "TAX-VOC-000006",
+      "label": "Vegan"
+    },
+    {
+      "term_id": "TAX-TERM-000042",
+      "vocabulary_id": "TAX-VOC-000006",
+      "label": "Gluten-Free"
+    },
+    {
+      "term_id": "TAX-TERM-000043",
+      "vocabulary_id": "TAX-VOC-000006",
+      "label": "Sugar-Free"
+    },
+    {
+      "term_id": "TAX-TERM-000044",
+      "vocabulary_id": "TAX-VOC-000007",
+      "label": "Hand-Painted"
+    },
+    {
+      "term_id": "TAX-TERM-000045",
+      "vocabulary_id": "TAX-VOC-000007",
+      "label": "Sculpted 3D"
+    },
+    {
+      "term_id": "TAX-TERM-000046",
+      "vocabulary_id": "TAX-VOC-000007",
+      "label": "Geometric"
+    },
+    {
+      "term_id": "TAX-TERM-000047",
+      "vocabulary_id": "TAX-VOC-000007",
+      "label": "Watercolour"
+    },
+    {
+      "term_id": "TAX-TERM-000048",
+      "vocabulary_id": "TAX-VOC-000007",
+      "label": "Ombre"
+    },
+    {
+      "term_id": "TAX-TERM-000049",
+      "vocabulary_id": "TAX-VOC-000008",
+      "label": "Matte"
+    },
+    {
+      "term_id": "TAX-TERM-000050",
+      "vocabulary_id": "TAX-VOC-000008",
+      "label": "Glossy"
+    },
+    {
+      "term_id": "TAX-TERM-000051",
+      "vocabulary_id": "TAX-VOC-000008",
+      "label": "Satin"
+    },
+    {
+      "term_id": "TAX-TERM-000052",
+      "vocabulary_id": "TAX-VOC-000008",
+      "label": "Mirror Glaze"
+    },
+    {
+      "term_id": "TAX-TERM-000053",
+      "vocabulary_id": "TAX-VOC-000008",
+      "label": "Semi-Naked"
+    },
+    {
+      "term_id": "TAX-TERM-000054",
+      "vocabulary_id": "TAX-VOC-000009",
+      "label": "Smooth"
+    },
+    {
+      "term_id": "TAX-TERM-000055",
+      "vocabulary_id": "TAX-VOC-000009",
+      "label": "Rustic Swirl"
+    },
+    {
+      "term_id": "TAX-TERM-000056",
+      "vocabulary_id": "TAX-VOC-000009",
+      "label": "Ruffled"
+    },
+    {
+      "term_id": "TAX-TERM-000057",
+      "vocabulary_id": "TAX-VOC-000009",
+      "label": "Basket Weave"
+    },
+    {
+      "term_id": "TAX-TERM-000058",
+      "vocabulary_id": "TAX-VOC-000009",
+      "label": "Sprinkled"
+    },
+    {
+      "term_id": "TAX-TERM-000059",
+      "vocabulary_id": "TAX-VOC-000010",
+      "label": "Fresh Flowers"
+    },
+    {
+      "term_id": "TAX-TERM-000060",
+      "vocabulary_id": "TAX-VOC-000010",
+      "label": "Sugar Flowers"
+    },
+    {
+      "term_id": "TAX-TERM-000061",
+      "vocabulary_id": "TAX-VOC-000010",
+      "label": "Edible Print"
+    },
+    {
+      "term_id": "TAX-TERM-000062",
+      "vocabulary_id": "TAX-VOC-000010",
+      "label": "Fondant Figures"
+    },
+    {
+      "term_id": "TAX-TERM-000063",
+      "vocabulary_id": "TAX-VOC-000010",
+      "label": "Piped Rosettes"
+    },
+    {
+      "term_id": "TAX-TERM-000064",
+      "vocabulary_id": "TAX-VOC-000011",
+      "label": "Rose"
+    },
+    {
+      "term_id": "TAX-TERM-000065",
+      "vocabulary_id": "TAX-VOC-000011",
+      "label": "Peony"
+    },
+    {
+      "term_id": "TAX-TERM-000066",
+      "vocabulary_id": "TAX-VOC-000011",
+      "label": "Hydrangea"
+    },
+    {
+      "term_id": "TAX-TERM-000067",
+      "vocabulary_id": "TAX-VOC-000011",
+      "label": "Orchid"
+    },
+    {
+      "term_id": "TAX-TERM-000068",
+      "vocabulary_id": "TAX-VOC-000011",
+      "label": "Baby's Breath"
+    },
+    {
+      "term_id": "TAX-TERM-000069",
+      "vocabulary_id": "TAX-VOC-000012",
+      "label": "Single Tier"
+    },
+    {
+      "term_id": "TAX-TERM-000070",
+      "vocabulary_id": "TAX-VOC-000012",
+      "label": "Double Tier"
+    },
+    {
+      "term_id": "TAX-TERM-000071",
+      "vocabulary_id": "TAX-VOC-000012",
+      "label": "Triple Tier"
+    },
+    {
+      "term_id": "TAX-TERM-000072",
+      "vocabulary_id": "TAX-VOC-000012",
+      "label": "Cascading Tier"
+    },
+    {
+      "term_id": "TAX-TERM-000073",
+      "vocabulary_id": "TAX-VOC-000013",
+      "label": "Him"
+    },
+    {
+      "term_id": "TAX-TERM-000074",
+      "vocabulary_id": "TAX-VOC-000013",
+      "label": "Her"
+    },
+    {
+      "term_id": "TAX-TERM-000075",
+      "vocabulary_id": "TAX-VOC-000013",
+      "label": "Kids"
+    },
+    {
+      "term_id": "TAX-TERM-000076",
+      "vocabulary_id": "TAX-VOC-000013",
+      "label": "Couple"
+    },
+    {
+      "term_id": "TAX-TERM-000077",
+      "vocabulary_id": "TAX-VOC-000013",
+      "label": "Colleague"
+    },
+    {
+      "term_id": "TAX-TERM-000078",
+      "vocabulary_id": "TAX-VOC-000013",
+      "label": "Family"
+    },
+    {
+      "term_id": "TAX-TERM-000079",
+      "vocabulary_id": "TAX-VOC-000014",
+      "label": "Same-Day Eligible"
+    },
+    {
+      "term_id": "TAX-TERM-000080",
+      "vocabulary_id": "TAX-VOC-000014",
+      "label": "Requires Refrigeration"
+    },
+    {
+      "term_id": "TAX-TERM-000081",
+      "vocabulary_id": "TAX-VOC-000014",
+      "label": "Fragile - Handle With Care"
+    },
+    {
+      "term_id": "TAX-TERM-000082",
+      "vocabulary_id": "TAX-VOC-000014",
+      "label": "Standard Handling"
+    },
+    {
+      "term_id": "TAX-TERM-000083",
+      "vocabulary_id": "TAX-VOC-000015",
+      "label": "Standard Box"
+    },
+    {
+      "term_id": "TAX-TERM-000084",
+      "vocabulary_id": "TAX-VOC-000015",
+      "label": "Premium Box"
+    },
+    {
+      "term_id": "TAX-TERM-000085",
+      "vocabulary_id": "TAX-VOC-000015",
+      "label": "Basket"
+    },
+    {
+      "term_id": "TAX-TERM-000086",
+      "vocabulary_id": "TAX-VOC-000015",
+      "label": "Acrylic Display Box"
+    },
+    {
+      "term_id": "TAX-TERM-000087",
+      "vocabulary_id": "TAX-VOC-000016",
+      "label": "Buttercream"
+    },
+    {
+      "term_id": "TAX-TERM-000088",
+      "vocabulary_id": "TAX-VOC-000016",
+      "label": "Whipped Cream"
+    },
+    {
+      "term_id": "TAX-TERM-000089",
+      "vocabulary_id": "TAX-VOC-000016",
+      "label": "Fondant"
+    },
+    {
+      "term_id": "TAX-TERM-000090",
+      "vocabulary_id": "TAX-VOC-000016",
+      "label": "Cream Cheese Frosting"
+    },
+    {
+      "term_id": "TAX-TERM-000091",
+      "vocabulary_id": "TAX-VOC-000017",
+      "label": "Dark Chocolate Ganache"
+    },
+    {
+      "term_id": "TAX-TERM-000092",
+      "vocabulary_id": "TAX-VOC-000017",
+      "label": "White Chocolate Ganache"
+    },
+    {
+      "term_id": "TAX-TERM-000093",
+      "vocabulary_id": "TAX-VOC-000017",
+      "label": "Milk Chocolate Ganache"
+    },
+    {
+      "term_id": "TAX-TERM-000094",
+      "vocabulary_id": "TAX-VOC-000017",
+      "label": "Caramel Ganache"
+    },
+    {
+      "term_id": "TAX-TERM-000095",
+      "vocabulary_id": "TAX-VOC-000001",
+      "label": "Rose Gold",
+      "synonyms": [
+        "Blush Gold",
+        "Metallic Pink",
+        "Champagne Gold"
+      ],
+      "external_ids": [
+        {
+          "system": "ai_vision",
+          "id_type": "label",
+          "value": "rose_gold"
+        },
+        {
+          "system": "ai_vision",
+          "id_type": "label",
+          "value": "metallic_pink"
+        },
+        {
+          "system": "ai_vision",
+          "id_type": "label",
+          "value": "blush_gold"
+        },
+        {
+          "system": "search",
+          "id_type": "alias",
+          "value": "rosegold"
+        },
+        {
+          "system": "search",
+          "id_type": "alias",
+          "value": "rose gold colour"
+        },
+        {
+          "system": "search",
+          "id_type": "alias",
+          "value": "pink gold"
+        },
+        {
+          "system": "erp",
+          "id_type": "colour_code",
+          "value": "COL_019"
+        },
+        {
+          "system": "shopify",
+          "id_type": "tag",
+          "value": "rose-gold"
+        },
+        {
+          "system": "seo",
+          "id_type": "phrase",
+          "value": "rose gold cake"
+        }
+      ]
+    },
+    {
+      "term_id": "TAX-TERM-000096",
+      "vocabulary_id": "TAX-VOC-000001",
+      "label": "Champagne",
+      "synonyms": [
+        "Champagne Gold-Beige"
+      ],
+      "external_ids": [
+        {
+          "system": "shopify",
+          "id_type": "tag",
+          "value": "champagne"
+        }
+      ]
+    }
   ]
 }

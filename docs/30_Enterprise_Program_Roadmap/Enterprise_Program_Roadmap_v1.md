@@ -388,10 +388,10 @@ for the full backlog history.
   written.
 - **Risks**: Content quality (a wrong Category boundary, a missing Vocabulary term) is more
   expensive to fix after Build-002 depends on it than before — front-load review here.
-- **Status**: BL-0 (repository preparation) and BL-1 (real Bakery-domain content — 6 Categories, 29
-  Attribute Groups, 15 Attributes, 6 Vocabularies, 43 Terms) done — see
+- **Status**: BL-0 through BL-2 done — 6 Categories, 30 Attribute Groups, 26 Attributes, 17
+  Controlled Vocabularies, 96 Terms — see
   [docs/70_Enterprise_Master_Taxonomy/SPRINT_CHARTER.md](../70_Enterprise_Master_Taxonomy/SPRINT_CHARTER.md).
-  Seed depth, not yet at the 500+/10,000+ scale target (BL-2+, ongoing).
+  Seed depth, not yet at the 500+/10,000+ scale target (BL-3+, ongoing).
 
 ### Build-006 — Enterprise Validation Engine
 

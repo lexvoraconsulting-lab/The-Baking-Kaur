@@ -172,10 +172,10 @@ def test_attribute_unresolved_group_id_rejected():
 def test_real_bakery_content_loads_and_resolves():
     catalog = load_catalog(CONTENT_DIR / "bakery_v1.json")
     assert len(catalog.categories) == 6
-    assert len(catalog.attribute_groups) == 29
-    assert len(catalog.vocabularies) == 6
-    assert len(catalog.terms) == 43
-    assert len(catalog.attributes) == 15
+    assert len(catalog.attribute_groups) == 30
+    assert len(catalog.vocabularies) == 17
+    assert len(catalog.terms) == 96
+    assert len(catalog.attributes) == 26
     # Cakes -> Birthday Cakes -> Character Cakes, and additive-only inheritance per Inheritance.md
     birthday_children = catalog.children_of("TAX-CAT-000001")
     assert any(c.name == "Birthday Cakes" for c in birthday_children)
@@ -183,6 +183,40 @@ def test_real_bakery_content_loads_and_resolves():
     assert primary_colour.vocabulary_id == "TAX-VOC-000001"
     colour_terms = catalog.terms_in_vocabulary("TAX-VOC-000001")
     assert any(t.label == "Red" for t in colour_terms)
+
+
+def test_bl2_no_term_hardcodes_a_category_or_single_group():
+    """Hierarchy.md: a Controlled Vocabulary Term never hardcodes which Category it's valid for.
+    TermModel/VocabularyModel must never grow a category_id or single group_id field."""
+    assert "category_id" not in TermModel.model_fields
+    assert "group_id" not in TermModel.model_fields
+    from ai.taxonomy.models_pydantic import VocabularyModel
+    assert "category_id" not in VocabularyModel.model_fields
+    assert "group_id" not in VocabularyModel.model_fields
+
+
+def test_bl2_shape_vocabulary_reused_across_two_groups():
+    catalog = load_catalog(CONTENT_DIR / "bakery_v1.json")
+    shape_attrs = [a for a in catalog.attributes if a.vocabulary_id == "TAX-VOC-000002"]
+    groups_using_shape = {a.group_id for a in shape_attrs}
+    assert len(groups_using_shape) == 2, "Shape must stay reusable across multiple Attribute Groups"
+
+
+def test_bl2_flagship_term_richness():
+    catalog = load_catalog(CONTENT_DIR / "bakery_v1.json")
+    rose_gold = next(t for t in catalog.terms if t.label == "Rose Gold")
+    assert len(rose_gold.synonyms) == 3
+    systems = {e.system for e in rose_gold.external_ids}
+    assert systems == {"ai_vision", "search", "erp", "shopify", "seo"}
+
+
+def test_bl2_delivery_vocabulary_is_product_attribute_scoped_not_logistics():
+    catalog = load_catalog(CONTENT_DIR / "bakery_v1.json")
+    delivery_vocab = next(v for v in catalog.vocabularies if v.name == "Delivery Attribute")
+    terms = catalog.terms_in_vocabulary(delivery_vocab.vocabulary_id)
+    labels = {t.label for t in terms}
+    assert "Requires Refrigeration" in labels
+    assert not any("₹" in label or "fee" in label.lower() for label in labels)
 
 
 def test_real_content_cross_system_labels_present():
@@ -230,5 +264,9 @@ if __name__ == "__main__":
     test_attribute_unresolved_group_id_rejected()
     test_real_bakery_content_loads_and_resolves()
     test_real_content_cross_system_labels_present()
+    test_bl2_no_term_hardcodes_a_category_or_single_group()
+    test_bl2_shape_vocabulary_reused_across_two_groups()
+    test_bl2_flagship_term_richness()
+    test_bl2_delivery_vocabulary_is_product_attribute_scoped_not_logistics()
     test_export_then_reload_round_trips()
     print("OK")

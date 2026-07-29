@@ -120,8 +120,8 @@ ai/taxonomy/
   schemas/       category.schema.json  attribute_group.schema.json  vocabulary.schema.json
                  term.schema.json  attribute.schema.json
   examples/      catalog.json  (structural fixture, BL-0 — not real content)
-  content/       bakery_v1.json  (real BL-1 content — 6 categories, 29 groups, 6 vocabularies,
-                 43 terms, 15 attributes)
+  content/       bakery_v1.json  (real content, grown additively BL-1 -> BL-2 — 6 categories,
+                 30 groups, 17 vocabularies, 96 terms, 26 attributes)
   test_taxonomy.py
 ```
 
@@ -133,6 +133,34 @@ rule across ancestors — both require a live EAR registration pass to check mea
 plain, unvalidated string join keys through BL-1. Tracked as a later decision, not a gap (mirrors
 EAR's own precedent: `taxonomy_references` was deliberately deferred by EAR for the identical reason,
 until this Build existed).
+
+## `external_ids` system-value convention (established BL-2)
+
+`Term.external_ids` is the single mechanism for every cross-system label — no dedicated
+`ai_vision_labels`/`shopify_labels`/etc. fields exist, or should be added. Convention for `system`:
+
+| `system` value | Represents | Example `id_type` |
+|---|---|---|
+| `ai_vision` | A label the Vision Engine (Build-008) matches against | `label` |
+| `shopify` | A Shopify-side tag/handle (Build-004 resolves against this) | `tag` |
+| `erp` | An ERP-side code (Build-004 resolves against this) | `sku_code`, `colour_code` |
+| `search` | A query-expansion alias (Build-009 consumes this) | `alias`, `facet` |
+| `seo` | An SEO-facing phrase (storefront track consumes this — never built here) | `phrase` |
+
+A Term may carry any number of `external_ids` entries, including several with the same `system`
+(e.g. three `ai_vision` labels for one colour) — this is what replaces a "Search Aliases" or "Vision
+Labels" list field.
+
+## Future extension points (noted, not implemented)
+
+- **Per-term AI confidence** — a term could eventually carry an expected-confidence range for how
+  reliably Vision AI matches it, mirroring `VIG-007`'s confidence model. Not added in BL-2 — no
+  concrete consumer needs it yet, and the instruction requesting it explicitly called it "optional,
+  future." Add only when Build-008 (Vision Extraction) has a real use for it.
+- **Multilingual labels/synonyms** — `label`, `display` text, and `synonyms` are plain strings
+  today. A future locale-keyed extension (`{"en": "Rose Gold", "hi": "..."}`) would replace the
+  string type, not add a parallel field — deferred until real localization is scoped, per explicit
+  instruction not to implement it yet.
 
 ## What's out of taxonomy scope
 
