@@ -1168,5 +1168,199 @@
         }
       ]
     }
+  ],
+  "relationships": [
+    {
+      "relationship_id": "TAX-REL-000001",
+      "subject_type": "term",
+      "subject_id": "TAX-TERM-000034",
+      "relationship_type": "PAIRS_WITH",
+      "object_type": "term",
+      "object_id": "TAX-TERM-000091"
+    },
+    {
+      "relationship_id": "TAX-REL-000002",
+      "subject_type": "term",
+      "subject_id": "TAX-TERM-000034",
+      "relationship_type": "PAIRS_WITH",
+      "object_type": "term",
+      "object_id": "TAX-TERM-000093"
+    },
+    {
+      "relationship_id": "TAX-REL-000003",
+      "subject_type": "term",
+      "subject_id": "TAX-TERM-000035",
+      "relationship_type": "PAIRS_WITH",
+      "object_type": "term",
+      "object_id": "TAX-TERM-000092"
+    },
+    {
+      "relationship_id": "TAX-REL-000004",
+      "subject_type": "term",
+      "subject_id": "TAX-TERM-000036",
+      "relationship_type": "PAIRS_WITH",
+      "object_type": "term",
+      "object_id": "TAX-TERM-000090"
+    },
+    {
+      "relationship_id": "TAX-REL-000005",
+      "subject_type": "term",
+      "subject_id": "TAX-TERM-000038",
+      "relationship_type": "PAIRS_WITH",
+      "object_type": "term",
+      "object_id": "TAX-TERM-000091"
+    },
+    {
+      "relationship_id": "TAX-REL-000006",
+      "subject_type": "term",
+      "subject_id": "TAX-TERM-000091",
+      "relationship_type": "IS_A",
+      "object_type": "term",
+      "object_id": "TAX-TERM-000034"
+    },
+    {
+      "relationship_id": "TAX-REL-000007",
+      "subject_type": "term",
+      "subject_id": "TAX-TERM-000093",
+      "relationship_type": "IS_A",
+      "object_type": "term",
+      "object_id": "TAX-TERM-000034"
+    },
+    {
+      "relationship_id": "TAX-REL-000008",
+      "subject_type": "term",
+      "subject_id": "TAX-TERM-000095",
+      "relationship_type": "COMPLEMENTS",
+      "object_type": "term",
+      "object_id": "TAX-TERM-000026"
+    },
+    {
+      "relationship_id": "TAX-REL-000009",
+      "subject_type": "term",
+      "subject_id": "TAX-TERM-000095",
+      "relationship_type": "COMPLEMENTS",
+      "object_type": "term",
+      "object_id": "TAX-TERM-000029"
+    },
+    {
+      "relationship_id": "TAX-REL-000010",
+      "subject_type": "term",
+      "subject_id": "TAX-TERM-000005",
+      "relationship_type": "COMPLEMENTS",
+      "object_type": "term",
+      "object_id": "TAX-TERM-000031"
+    },
+    {
+      "relationship_id": "TAX-REL-000011",
+      "subject_type": "term",
+      "subject_id": "TAX-TERM-000003",
+      "relationship_type": "COMPLEMENTS",
+      "object_type": "term",
+      "object_id": "TAX-TERM-000030"
+    },
+    {
+      "relationship_id": "TAX-REL-000012",
+      "subject_type": "term",
+      "subject_id": "TAX-TERM-000003",
+      "relationship_type": "CONTRASTS_WITH",
+      "object_type": "term",
+      "object_id": "TAX-TERM-000031"
+    },
+    {
+      "relationship_id": "TAX-REL-000013",
+      "subject_type": "term",
+      "subject_id": "TAX-TERM-000015",
+      "relationship_type": "SUITABLE_FOR",
+      "object_type": "term",
+      "object_id": "TAX-TERM-000029"
+    },
+    {
+      "relationship_id": "TAX-REL-000014",
+      "subject_type": "term",
+      "subject_id": "TAX-TERM-000015",
+      "relationship_type": "SUITABLE_FOR",
+      "object_type": "term",
+      "object_id": "TAX-TERM-000026"
+    },
+    {
+      "relationship_id": "TAX-REL-000015",
+      "subject_type": "term",
+      "subject_id": "TAX-TERM-000014",
+      "relationship_type": "SUITABLE_FOR",
+      "object_type": "term",
+      "object_id": "TAX-TERM-000028"
+    },
+    {
+      "relationship_id": "TAX-REL-000016",
+      "subject_type": "term",
+      "subject_id": "TAX-TERM-000014",
+      "relationship_type": "SUITABLE_FOR",
+      "object_type": "term",
+      "object_id": "TAX-TERM-000027"
+    },
+    {
+      "relationship_id": "TAX-REL-000017",
+      "subject_type": "term",
+      "subject_id": "TAX-TERM-000016",
+      "relationship_type": "SUITABLE_FOR",
+      "object_type": "term",
+      "object_id": "TAX-TERM-000029"
+    },
+    {
+      "relationship_id": "TAX-REL-000018",
+      "subject_type": "term",
+      "subject_id": "TAX-TERM-000017",
+      "relationship_type": "SUITABLE_FOR",
+      "object_type": "term",
+      "object_id": "TAX-TERM-000030"
+    },
+    {
+      "relationship_id": "TAX-REL-000019",
+      "subject_type": "term",
+      "subject_id": "TAX-TERM-000075",
+      "relationship_type": "SUITABLE_FOR",
+      "object_type": "term",
+      "object_id": "TAX-TERM-000028"
+    },
+    {
+      "relationship_id": "TAX-REL-000020",
+      "subject_type": "term",
+      "subject_id": "TAX-TERM-000075",
+      "relationship_type": "SUITABLE_FOR",
+      "object_type": "term",
+      "object_id": "TAX-TERM-000027"
+    },
+    {
+      "relationship_id": "TAX-REL-000021",
+      "subject_type": "term",
+      "subject_id": "TAX-TERM-000076",
+      "relationship_type": "SUITABLE_FOR",
+      "object_type": "term",
+      "object_id": "TAX-TERM-000029"
+    },
+    {
+      "relationship_id": "TAX-REL-000022",
+      "subject_type": "term",
+      "subject_id": "TAX-TERM-000072",
+      "relationship_type": "AVAILABLE_IN",
+      "object_type": "category",
+      "object_id": "TAX-CAT-000004"
+    },
+    {
+      "relationship_id": "TAX-REL-000023",
+      "subject_type": "term",
+      "subject_id": "TAX-TERM-000071",
+      "relationship_type": "AVAILABLE_IN",
+      "object_type": "category",
+      "object_id": "TAX-CAT-000004"
+    },
+    {
+      "relationship_id": "TAX-REL-000024",
+      "subject_type": "term",
+      "subject_id": "TAX-TERM-000042",
+      "relationship_type": "RELATED_TO",
+      "object_type": "term",
+      "object_id": "TAX-TERM-000041"
+    }
   ]
 }

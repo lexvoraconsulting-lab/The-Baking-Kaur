@@ -15,6 +15,7 @@ from ai.taxonomy.catalog import TaxonomyCatalog
 from ai.taxonomy.models_pydantic import (
     AttributeGroupModel,
     CategoryModel,
+    RelationshipModel,
     TaxonomyAttributeModel,
     TermModel,
     VocabularyModel,
@@ -33,4 +34,5 @@ def load_catalog(path: str | Path) -> TaxonomyCatalog:
     vocabularies = [VocabularyModel(**raw) for raw in data.get("vocabularies", [])]
     terms = [TermModel(**raw) for raw in data.get("terms", [])]
     attributes = [TaxonomyAttributeModel(**raw) for raw in data.get("attributes", [])]
-    return TaxonomyCatalog(categories, attribute_groups, vocabularies, terms, attributes)
+    relationships = [RelationshipModel(**raw) for raw in data.get("relationships", [])]
+    return TaxonomyCatalog(categories, attribute_groups, vocabularies, terms, attributes, relationships)

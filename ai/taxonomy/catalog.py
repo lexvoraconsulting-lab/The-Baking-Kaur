@@ -13,6 +13,7 @@ WHY
 from ai.taxonomy.models_pydantic import (
     AttributeGroupModel,
     CategoryModel,
+    RelationshipModel,
     TaxonomyAttributeModel,
     TermModel,
     VocabularyModel,
@@ -28,19 +29,22 @@ class TaxonomyCatalog:
         vocabularies: list[VocabularyModel],
         terms: list[TermModel],
         attributes: list[TaxonomyAttributeModel] | None = None,
+        relationships: list[RelationshipModel] | None = None,
     ):
         attributes = attributes or []
-        validate_catalog(categories, attribute_groups, vocabularies, terms, attributes)
+        relationships = relationships or []
+        validate_catalog(categories, attribute_groups, vocabularies, terms, attributes, relationships)
         self._categories = {c.category_id: c for c in categories}
         self._attribute_groups = {g.group_id: g for g in attribute_groups}
         self._vocabularies = {v.vocabulary_id: v for v in vocabularies}
         self._terms = {t.term_id: t for t in terms}
         self._attributes = {a.attribute_id: a for a in attributes}
+        self._relationships = {r.relationship_id: r for r in relationships}
 
     def __len__(self) -> int:
         return (
             len(self._categories) + len(self._attribute_groups) + len(self._vocabularies)
-            + len(self._terms) + len(self._attributes)
+            + len(self._terms) + len(self._attributes) + len(self._relationships)
         )
 
     def get_category(self, category_id: str) -> CategoryModel | None:
@@ -64,6 +68,17 @@ class TaxonomyCatalog:
     def attributes_in_group(self, group_id: str) -> list[TaxonomyAttributeModel]:
         return [a for a in self._attributes.values() if a.group_id == group_id]
 
+    def get_relationship(self, relationship_id: str) -> RelationshipModel | None:
+        return self._relationships.get(relationship_id)
+
+    def relationships_for(self, entity_type: str, entity_id: str) -> list[RelationshipModel]:
+        """Every relationship where this entity is the subject OR the object."""
+        return [
+            r for r in self._relationships.values()
+            if (r.subject_type == entity_type and r.subject_id == entity_id)
+            or (r.object_type == entity_type and r.object_id == entity_id)
+        ]
+
     def children_of(self, category_id: str) -> list[CategoryModel]:
         return [c for c in self._categories.values() if c.parent_id == category_id]
 
@@ -86,3 +101,7 @@ class TaxonomyCatalog:
     @property
     def attributes(self) -> list[TaxonomyAttributeModel]:
         return list(self._attributes.values())
+
+    @property
+    def relationships(self) -> list[RelationshipModel]:
+        return list(self._relationships.values())

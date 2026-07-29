@@ -15,12 +15,23 @@ from pydantic import BaseModel, Field, model_validator
 
 from ai.eal.models_pydantic import ExternalIdModel  # reused, not redefined
 from ai.taxonomy.ids import (
+    ENTITY_TYPE_ID_PATTERNS,
     is_valid_attribute_id,
     is_valid_category_id,
     is_valid_group_id,
+    is_valid_relationship_id,
     is_valid_term_id,
     is_valid_vocabulary_id,
 )
+
+TaxonomyEntityTypeLiteral = Literal["category", "attribute_group", "attribute", "vocabulary", "term"]
+
+# Deliberately excludes SEARCH_ALIAS/SHOPIFY_TAG/ERP_REFERENCE/VISION_LABEL/SEO_KEYWORD/
+# GOOGLE_MERCHANT_LABEL - see ai.taxonomy.models.RelationshipType's docstring.
+RelationshipTypeLiteral = Literal[
+    "IS_A", "PART_OF", "BELONGS_TO", "USES", "RELATED_TO",
+    "PAIRS_WITH", "CONTRASTS_WITH", "COMPLEMENTS", "AVAILABLE_IN", "SUITABLE_FOR",
+]
 
 TAXONOMY_VERSION = "1.0"
 
@@ -95,6 +106,43 @@ class VocabularyModel(BaseModel):
                 f"scope={self.scope!r} and domain={self.domain!r} are inconsistent - domain is "
                 f"required if and only if scope is 'domain'"
             )
+        return self
+
+
+class RelationshipModel(BaseModel):
+    relationship_id: str
+    subject_type: TaxonomyEntityTypeLiteral
+    subject_id: str
+    relationship_type: RelationshipTypeLiteral
+    object_type: TaxonomyEntityTypeLiteral
+    object_id: str
+    status: Literal["active", "deprecated"] = "active"
+    taxonomy_version: str = TAXONOMY_VERSION
+
+    @model_validator(mode="after")
+    def _relationship_id_must_be_valid(self):
+        if not is_valid_relationship_id(self.relationship_id):
+            raise ValueError(f"relationship_id {self.relationship_id!r} does not match ^TAX-REL-\\d{{6}}$")
+        return self
+
+    @model_validator(mode="after")
+    def _subject_id_must_match_subject_type(self):
+        pattern = ENTITY_TYPE_ID_PATTERNS[self.subject_type]
+        if not pattern.match(self.subject_id):
+            raise ValueError(f"subject_id {self.subject_id!r} does not match the ID format for subject_type {self.subject_type!r}")
+        return self
+
+    @model_validator(mode="after")
+    def _object_id_must_match_object_type(self):
+        pattern = ENTITY_TYPE_ID_PATTERNS[self.object_type]
+        if not pattern.match(self.object_id):
+            raise ValueError(f"object_id {self.object_id!r} does not match the ID format for object_type {self.object_type!r}")
+        return self
+
+    @model_validator(mode="after")
+    def _no_self_loop(self):
+        if self.subject_type == self.object_type and self.subject_id == self.object_id:
+            raise ValueError(f"relationship {self.relationship_id!r} is a self-loop ({self.subject_id!r} -> itself)")
         return self
 
 

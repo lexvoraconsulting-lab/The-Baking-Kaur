@@ -16,6 +16,7 @@ from ai.taxonomy.catalog import TaxonomyCatalog
 from ai.taxonomy.models_pydantic import (
     AttributeGroupModel,
     CategoryModel,
+    RelationshipModel,
     TaxonomyAttributeModel,
     TermModel,
     VocabularyModel,
@@ -30,6 +31,7 @@ _SCHEMA_MODELS = {
     "vocabulary": VocabularyModel,
     "term": TermModel,
     "attribute": TaxonomyAttributeModel,
+    "relationship": RelationshipModel,
 }
 
 
@@ -49,6 +51,7 @@ def export_catalog(catalog: TaxonomyCatalog, path: str | Path) -> None:
         "vocabularies": [json.loads(v.model_dump_json()) for v in catalog.vocabularies],
         "terms": [json.loads(t.model_dump_json()) for t in catalog.terms],
         "attributes": [json.loads(a.model_dump_json()) for a in catalog.attributes],
+        "relationships": [json.loads(r.model_dump_json()) for r in catalog.relationships],
     }
     if path.suffix in (".yaml", ".yml"):
         path.write_text(yaml.safe_dump(data, sort_keys=False), encoding="utf-8")

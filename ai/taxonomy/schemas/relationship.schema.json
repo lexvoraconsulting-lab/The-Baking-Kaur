@@ -1,0 +1,78 @@
+{
+  "properties": {
+    "relationship_id": {
+      "title": "Relationship Id",
+      "type": "string"
+    },
+    "subject_type": {
+      "enum": [
+        "category",
+        "attribute_group",
+        "attribute",
+        "vocabulary",
+        "term"
+      ],
+      "title": "Subject Type",
+      "type": "string"
+    },
+    "subject_id": {
+      "title": "Subject Id",
+      "type": "string"
+    },
+    "relationship_type": {
+      "enum": [
+        "IS_A",
+        "PART_OF",
+        "BELONGS_TO",
+        "USES",
+        "RELATED_TO",
+        "PAIRS_WITH",
+        "CONTRASTS_WITH",
+        "COMPLEMENTS",
+        "AVAILABLE_IN",
+        "SUITABLE_FOR"
+      ],
+      "title": "Relationship Type",
+      "type": "string"
+    },
+    "object_type": {
+      "enum": [
+        "category",
+        "attribute_group",
+        "attribute",
+        "vocabulary",
+        "term"
+      ],
+      "title": "Object Type",
+      "type": "string"
+    },
+    "object_id": {
+      "title": "Object Id",
+      "type": "string"
+    },
+    "status": {
+      "default": "active",
+      "enum": [
+        "active",
+        "deprecated"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "taxonomy_version": {
+      "default": "1.0",
+      "title": "Taxonomy Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "relationship_id",
+    "subject_type",
+    "subject_id",
+    "relationship_type",
+    "object_type",
+    "object_id"
+  ],
+  "title": "RelationshipModel",
+  "type": "object"
+}

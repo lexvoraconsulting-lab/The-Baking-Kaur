@@ -23,11 +23,14 @@ grep at the end of every backlog item, per
 
 ## Entities
 
-Five entities, matching `docs/10_Taxonomy/Entity_Model.md`'s Category / Attribute Group / Controlled
+Six entities, matching `docs/10_Taxonomy/Entity_Model.md`'s Category / Attribute Group / Controlled
 Vocabulary Term exactly (Vocabulary itself is modeled explicitly here as the container Terms belong
 to, implicit in the Sprint 2.1 docs), plus `TaxonomyAttribute` (added BL-1) representing the
 individual named fields `Hierarchy.md` describes as living inside an Attribute Group ("Attribute
-Group → Attribute → Value").
+Group → Attribute → Value"), plus `Relationship` (added BL-3) — typed edges between any two
+taxonomy entities, matching `docs/10_Taxonomy/Relationship_Model.md`'s "typed edge" concept, scoped
+to content-layer knowledge (Term-to-Term, Term-to-Category, etc.) rather than Image/Object instance
+data, which doesn't exist yet.
 
 ### Category
 
@@ -92,9 +95,68 @@ where its values come from *within the taxonomy's knowledge model* — it does n
 field platform-wide (that remains EAR's exclusive job) and carries no `owner`, no `eal_reference`,
 no lifecycle beyond active/deprecated. See "Reuse, not redesign" above.
 
+### Relationship (added BL-3)
+
+| Field | Type | Notes |
+|---|---|---|
+| `relationship_id` | `str` | `TAX-REL-NNNNNN` |
+| `subject_type` | `"category" \| "attribute_group" \| "attribute" \| "vocabulary" \| "term"` | |
+| `subject_id` | `str` | Must resolve to a real entity of `subject_type`, and match that type's ID format |
+| `relationship_type` | one of 10 values below | |
+| `object_type` / `object_id` | same shape as subject | Must differ from subject (no self-loops) |
+| `status` | `"active" \| "deprecated"` | |
+
+**Relationship types**: `IS_A`, `PART_OF`, `BELONGS_TO`, `USES`, `RELATED_TO`, `PAIRS_WITH`,
+`CONTRASTS_WITH`, `COMPLEMENTS`, `AVAILABLE_IN`, `SUITABLE_FOR`.
+
+**Deliberately excluded**: `SEARCH_ALIAS`, `SHOPIFY_TAG`, `ERP_REFERENCE`, `VISION_LABEL`,
+`SEO_KEYWORD`, `GOOGLE_MERCHANT_LABEL` were proposed as relationship types but are exactly what
+`Term.external_ids` (`system`-discriminated) already covers — modeling them again here would be a
+duplicate model, which this Build was explicitly told to avoid. `google_merchant` is a valid
+`external_ids.system` value like any other; no schema change was needed to support it.
+
+**Deliberately not re-modeled as Relationship rows**: structural hierarchy already expressed by
+existing fields — `Category.parent_id` (IS_A/PART_OF within the Category tree),
+`Category.attribute_group_ids` (BELONGS_TO), `TaxonomyAttribute.vocabulary_id` (USES),
+`Term.parent_term_id` (IS_A within one vocabulary). `IS_A`/`PART_OF`/`BELONGS_TO`/`USES` remain
+valid `relationship_type` values for cases those fields *can't* express — e.g. a **cross-vocabulary**
+IS_A (`Dark Chocolate Ganache` IS_A `Chocolate`, two different vocabularies) — but authoring a
+Relationship row that duplicates an existing structural field is a content-authoring error, not
+something the schema itself forbids (structural duplication isn't mechanically detectable the way
+an unresolved reference or a cycle is).
+
+**No circular relationships**: enforced only for the three hierarchical/transitive types (`IS_A`,
+`PART_OF`, `BELONGS_TO`) via cycle detection over their edges. Associative types (`PAIRS_WITH`,
+`RELATED_TO`, ...) are exempt by design — `A PAIRS_WITH B` and `B PAIRS_WITH A` are both legitimate,
+not a cycle.
+
+### Vision resolution chain — content-ready, no Vision/Ollama code
+
+The requested chain (Image → Vision Detection → Vocabulary → Attribute → Attribute Group → Category
+→ Related Vocabulary → SEO → Shopify → ERP → Search → Recommendation → Knowledge Graph) is fully
+expressible against BL-0 through BL-3's content, with zero Vision/Ollama code written here:
+
+```
+Image (Build-008, not started)
+  -> Vision Detection matches a label
+       -> Term.external_ids where system="ai_vision"            (BL-2/BL-3 content)
+            -> Term.vocabulary_id -> Vocabulary                  (BL-0 structural)
+                 -> TaxonomyAttribute.vocabulary_id -> Attribute  (BL-1 content)
+                      -> Attribute.group_id -> AttributeGroup     (BL-1 content)
+                           -> Category.attribute_group_ids -> Category (BL-1 content)
+                                -> Relationship rows (SUITABLE_FOR, COMPLEMENTS, ...) -> related Terms (BL-3 content)
+                                     -> those Terms' external_ids where system="seo"|"shopify"|"erp"|"search" (BL-2/BL-3 content)
+-> Recommendation Engine / Knowledge Graph: consumes the whole graph above (Build-009+, not started)
+```
+
+Every arrow already resolves in `ai/taxonomy/content/bakery_v1.json` today — e.g.
+`catalog.relationships_for("term", "TAX-TERM-000091")` (Dark Chocolate Ganache) returns both its
+`PAIRS_WITH Chocolate` and `IS_A Chocolate` edges, and `Chocolate`'s own `external_ids` resolve to
+its Shopify/ERP/search labels.
+
 ## Identifier strategy
 
-Sequential, prefixed, single-allocator IDs (`TAX-{CAT,GRP,VOC,TERM,ATTR}-NNNNNN`) — same rationale as
+Sequential, prefixed, single-allocator IDs (`TAX-{CAT,GRP,VOC,TERM,ATTR,REL}-NNNNNN`) — same rationale as
 EAR's `EAR-NNNNNN`: this catalog is centrally authored by one process, so a coordinated sequential
 allocator is safe (content-hash IDs are for uncoordinated producers, which this isn't). IDs are
 stable across relabeling and reparenting, per `Hierarchy.md`'s explicit requirement.
@@ -118,10 +180,10 @@ ai/taxonomy/
   models.py  models_pydantic.py  ids.py  validation.py  catalog.py  loader.py  exporter.py
   __init__.py
   schemas/       category.schema.json  attribute_group.schema.json  vocabulary.schema.json
-                 term.schema.json  attribute.schema.json
+                 term.schema.json  attribute.schema.json  relationship.schema.json
   examples/      catalog.json  (structural fixture, BL-0 — not real content)
-  content/       bakery_v1.json  (real content, grown additively BL-1 -> BL-2 — 6 categories,
-                 30 groups, 17 vocabularies, 96 terms, 26 attributes)
+  content/       bakery_v1.json  (real content, grown additively BL-1 -> BL-3 — 6 categories,
+                 30 groups, 17 vocabularies, 96 terms, 26 attributes, 24 relationships)
   test_taxonomy.py
 ```
 

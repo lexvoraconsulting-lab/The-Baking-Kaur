@@ -4,7 +4,7 @@ Workstream: **TAX** (new — per [ADR 0006](../adr/2026-07-27-workstream-id-conv
 standing convention, a genuinely new business capability gets a new Workstream ID at Sprint Charter
 time; TAX is the first non-ATTR workstream this platform has assigned).
 
-Status: **BL-2 complete**. BL-3 not started — awaiting approval per this project's per-item review
+Status: **BL-3 complete**. BL-4 not started — awaiting approval per this project's per-item review
 gate ([VIG-010](../00_Governance/VIG-010-Execution-Protocol.md)).
 
 ## Sprint Goal
@@ -39,8 +39,38 @@ same protocol — not silently absorbed into Build-005.
 | BL-0 | Repository preparation — `ai/taxonomy/` skeleton (4 entities: Category, AttributeGroup, Vocabulary, Term; ID allocation; whole-catalog validation; loader/exporter; schema generation; structural self-check), `docs/70_Enterprise_Master_Taxonomy/` skeleton | **Done** | `0545f2e` |
 | BL-1 | Author real Category tree, Attribute Groups, Attributes, Controlled Vocabularies, Terms, synonyms, and cross-system labels — **expanded scope**, see below | **Done** | *(this commit)* |
 | BL-2 | First real Enterprise Controlled Vocabularies — 11 new vocabularies + 1 flagship fully-enriched term — **zero schema changes**, see below | **Done** | *(this commit)* |
-| BL-3 | Ontology relationship instances beyond parent/child hierarchy (Object-to-Object, Image-to-Business-Entity per `docs/10_Taxonomy/Relationship_Model.md`) — deferred, needs real Image/Object instances that don't exist yet | Not started | — |
+| BL-3 | Enterprise Relationship Layer — typed edges between existing content entities (Term/Category/Attribute Group), content-layer only (not Image/Object instances) | **Done** | *(this commit)* |
 | BL-4 | Testing, documentation, completion report, freeze | Not started | — |
+
+### BL-3 scope clarification (before implementation)
+
+The originally-charter'd BL-3 ("Object-to-Object, Image-to-Business-Entity... needs real Image/
+Object instances that don't exist yet") was superseded by this backlog item's actual request: a
+**content-layer** Relationship entity connecting Terms/Categories/Attribute Groups that already
+exist, not Image/Object instance data. This is a narrower, achievable scope that doesn't require
+Build-008 (Vision Extraction) to exist first — genuine Image-to-Object relationships remain future
+work, unchanged from the original BL-3 description.
+
+One redundancy was caught and resolved before implementation, applying the same principle BL-2
+already established: `SEARCH_ALIAS`, `SHOPIFY_TAG`, `ERP_REFERENCE`, `VISION_LABEL`, `SEO_KEYWORD`,
+`GOOGLE_MERCHANT_LABEL` were requested as relationship types, but are exactly what `Term.external_ids`
+already covers — modeling them again would violate this item's own explicit "no duplicate models"
+instruction. Excluded from `RelationshipType`, documented in
+[TAXONOMY_SPECIFICATION.md](TAXONOMY_SPECIFICATION.md), enforced by
+`test_real_content_excludes_external_id_covered_relationship_types`.
+
+### What BL-3 actually delivered
+
+Sixth entity, `Relationship` (`TAX-REL-NNNNNN`) — 10 relationship types (`IS_A`, `PART_OF`,
+`BELONGS_TO`, `USES`, `RELATED_TO`, `PAIRS_WITH`, `CONTRASTS_WITH`, `COMPLEMENTS`, `AVAILABLE_IN`,
+`SUITABLE_FOR`), whole-catalog resolution against real entities, no-self-loop, no-duplicate-triple,
+and cycle detection restricted to the three hierarchical types (associative types like `PAIRS_WITH`
+are exempt by design — see spec). 24 real, business-justified relationships authored: flavour-to-
+ganache pairings, colour-to-theme styling complements/contrasts, occasion/recipient-to-theme
+suitability, tier-style availability by category, and one cross-vocabulary `IS_A` example (`Dark
+Chocolate Ganache IS_A Chocolate`) demonstrating a relationship no existing structural field could
+express. The full Vision-to-Knowledge-Graph resolution chain requested is now content-ready and
+documented end-to-end in `TAXONOMY_SPECIFICATION.md` — zero Vision/Ollama code written.
 
 ### BL-2 conflict resolution (before implementation)
 

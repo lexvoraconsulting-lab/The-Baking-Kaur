@@ -26,7 +26,12 @@ from ai.taxonomy.ids import (
     is_valid_term_id,
 )
 from ai.taxonomy.loader import load_catalog
-from ai.taxonomy.models_pydantic import CategoryModel, TaxonomyAttributeModel, TermModel
+from ai.taxonomy.models_pydantic import (
+    CategoryModel,
+    RelationshipModel,
+    TaxonomyAttributeModel,
+    TermModel,
+)
 
 TAXONOMY_DIR = Path(__file__).parent
 EXAMPLES_DIR = TAXONOMY_DIR / "examples"
@@ -227,6 +232,129 @@ def test_real_content_cross_system_labels_present():
     assert "search" in systems
 
 
+def test_relationship_self_loop_rejected():
+    try:
+        RelationshipModel(
+            relationship_id="TAX-REL-000001", subject_type="term", subject_id="TAX-TERM-000001",
+            relationship_type="RELATED_TO", object_type="term", object_id="TAX-TERM-000001",
+        )
+        assert False, "expected ValidationError for a self-loop relationship"
+    except ValidationError:
+        pass
+
+
+def test_relationship_subject_id_must_match_subject_type_format():
+    try:
+        RelationshipModel(
+            relationship_id="TAX-REL-000001", subject_type="term", subject_id="TAX-CAT-000001",
+            relationship_type="RELATED_TO", object_type="term", object_id="TAX-TERM-000001",
+        )
+        assert False, "expected ValidationError: subject_type='term' with a category-shaped ID"
+    except ValidationError:
+        pass
+
+
+def test_relationship_unresolved_reference_rejected():
+    from ai.taxonomy.catalog import TaxonomyCatalog
+
+    vocabularies, terms = _example_vocabularies_and_terms()
+    rel = RelationshipModel(
+        relationship_id="TAX-REL-000001", subject_type="term", subject_id=terms[0].term_id,
+        relationship_type="RELATED_TO", object_type="term", object_id="TAX-TERM-999999",
+    )
+    try:
+        TaxonomyCatalog([], [], vocabularies, terms, [], [rel])
+        assert False, "expected ValueError for unresolved object_id"
+    except ValueError as e:
+        assert "does not resolve" in str(e)
+
+
+def _example_vocabularies_and_terms():
+    from ai.taxonomy.models_pydantic import VocabularyModel
+
+    raw = _example_raw()
+    vocabularies = [VocabularyModel(**v) for v in raw["vocabularies"]]
+    terms = [TermModel(**t) for t in raw["terms"]]
+    return vocabularies, terms
+
+
+def test_relationship_duplicate_triple_rejected():
+    from ai.taxonomy.catalog import TaxonomyCatalog
+
+    vocabularies, terms = _example_vocabularies_and_terms()
+    rel1 = RelationshipModel(
+        relationship_id="TAX-REL-000001", subject_type="term", subject_id=terms[0].term_id,
+        relationship_type="RELATED_TO", object_type="term", object_id=terms[1].term_id,
+    )
+    rel2 = RelationshipModel(
+        relationship_id="TAX-REL-000002", subject_type="term", subject_id=terms[0].term_id,
+        relationship_type="RELATED_TO", object_type="term", object_id=terms[1].term_id,
+    )
+    try:
+        TaxonomyCatalog([], [], vocabularies, terms, [], [rel1, rel2])
+        assert False, "expected ValueError for duplicate relationship triple"
+    except ValueError as e:
+        assert "duplicate relationship triple" in str(e)
+
+
+def test_relationship_circular_is_a_rejected():
+    from ai.taxonomy.catalog import TaxonomyCatalog
+
+    vocabularies, terms = _example_vocabularies_and_terms()
+    a, b = terms[0].term_id, terms[1].term_id
+    rel1 = RelationshipModel(
+        relationship_id="TAX-REL-000001", subject_type="term", subject_id=a,
+        relationship_type="IS_A", object_type="term", object_id=b,
+    )
+    rel2 = RelationshipModel(
+        relationship_id="TAX-REL-000002", subject_type="term", subject_id=b,
+        relationship_type="IS_A", object_type="term", object_id=a,
+    )
+    try:
+        TaxonomyCatalog([], [], vocabularies, terms, [], [rel1, rel2])
+        assert False, "expected ValueError for circular IS_A relationship"
+    except ValueError as e:
+        assert "circular relationship" in str(e)
+
+
+def test_relationship_associative_type_allows_both_directions():
+    """PAIRS_WITH (associative, not hierarchical) must NOT trigger the cycle check."""
+    from ai.taxonomy.catalog import TaxonomyCatalog
+
+    vocabularies, terms = _example_vocabularies_and_terms()
+    a, b = terms[0].term_id, terms[1].term_id
+    rel1 = RelationshipModel(
+        relationship_id="TAX-REL-000001", subject_type="term", subject_id=a,
+        relationship_type="PAIRS_WITH", object_type="term", object_id=b,
+    )
+    rel2 = RelationshipModel(
+        relationship_id="TAX-REL-000002", subject_type="term", subject_id=b,
+        relationship_type="PAIRS_WITH", object_type="term", object_id=a,
+    )
+    catalog = TaxonomyCatalog([], [], vocabularies, terms, [], [rel1, rel2])
+    assert len(catalog.relationships) == 2
+
+
+def test_real_content_relationships_load_and_resolve():
+    catalog = load_catalog(CONTENT_DIR / "bakery_v1.json")
+    assert len(catalog.relationships) == 24
+    dark_ganache_rels = catalog.relationships_for("term", "TAX-TERM-000091")
+    assert any(r.relationship_type == "PAIRS_WITH" for r in dark_ganache_rels)
+    assert any(r.relationship_type == "IS_A" for r in dark_ganache_rels)
+
+
+def test_real_content_excludes_external_id_covered_relationship_types():
+    """SEARCH_ALIAS/SHOPIFY_TAG/etc. must never appear as relationship_type - they belong in
+    Term.external_ids only (see RelationshipType's docstring)."""
+    catalog = load_catalog(CONTENT_DIR / "bakery_v1.json")
+    used_types = {r.relationship_type for r in catalog.relationships}
+    excluded = {
+        "SEARCH_ALIAS", "SHOPIFY_TAG", "ERP_REFERENCE",
+        "VISION_LABEL", "SEO_KEYWORD", "GOOGLE_MERCHANT_LABEL",
+    }
+    assert used_types.isdisjoint(excluded)
+
+
 def test_export_then_reload_round_trips(tmp_json="_tmp_catalog.json", tmp_yaml="_tmp_catalog.yaml"):
     catalog = load_catalog(EXAMPLES_DIR / "catalog.json")
     json_path = TAXONOMY_DIR / tmp_json
@@ -268,5 +396,13 @@ if __name__ == "__main__":
     test_bl2_shape_vocabulary_reused_across_two_groups()
     test_bl2_flagship_term_richness()
     test_bl2_delivery_vocabulary_is_product_attribute_scoped_not_logistics()
+    test_relationship_self_loop_rejected()
+    test_relationship_subject_id_must_match_subject_type_format()
+    test_relationship_unresolved_reference_rejected()
+    test_relationship_duplicate_triple_rejected()
+    test_relationship_circular_is_a_rejected()
+    test_relationship_associative_type_allows_both_directions()
+    test_real_content_relationships_load_and_resolve()
+    test_real_content_excludes_external_id_covered_relationship_types()
     test_export_then_reload_round_trips()
     print("OK")

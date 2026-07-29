@@ -12,7 +12,7 @@ Build-002/003. Implementation lives in [`ai/taxonomy/`](../../ai/taxonomy/).
 definitions, or Build-004's distribution engine — it reuses all three directly (see
 [TAXONOMY_SPECIFICATION.md](TAXONOMY_SPECIFICATION.md)'s "Reuse, not redesign" section).
 
-## Status: BL-2 complete — 17 Controlled Vocabularies, 96 Terms (seed depth, not exhaustive)
+## Status: BL-3 complete — Relationship layer live, 24 real relationships (seed depth, not exhaustive)
 
 See [SPRINT_CHARTER.md](SPRINT_CHARTER.md) for the full backlog, the BL-0 scope-narrowing decision,
 and the BL-1 scope-expansion reconciliation (both resolved before any conflicting code was written).

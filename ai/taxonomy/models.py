@@ -25,6 +25,17 @@ TAXONOMY_VERSION = "1.0"
 
 GroupTier = Literal["platform", "domain"]
 EntryStatus = Literal["active", "deprecated"]
+TaxonomyEntityType = Literal["category", "attribute_group", "attribute", "vocabulary", "term"]
+
+# Deliberately excludes SEARCH_ALIAS/SHOPIFY_TAG/ERP_REFERENCE/VISION_LABEL/SEO_KEYWORD/
+# GOOGLE_MERCHANT_LABEL - those are Term.external_ids' job (system-discriminated), not a
+# Relationship's. Modeling them again here would be the exact "duplicate models" this Build was
+# told to avoid. See docs/70_Enterprise_Master_Taxonomy/TAXONOMY_SPECIFICATION.md's Relationship
+# section.
+RelationshipType = Literal[
+    "IS_A", "PART_OF", "BELONGS_TO", "USES", "RELATED_TO",
+    "PAIRS_WITH", "CONTRASTS_WITH", "COMPLEMENTS", "AVAILABLE_IN", "SUITABLE_FOR",
+]
 
 
 @dataclass(frozen=True)
@@ -56,6 +67,18 @@ class Vocabulary:
     scope: Literal["global", "domain"]
     domain: str | None = None
     version: str = "v1"
+    status: EntryStatus = "active"
+    taxonomy_version: str = TAXONOMY_VERSION
+
+
+@dataclass(frozen=True)
+class Relationship:
+    relationship_id: str
+    subject_type: TaxonomyEntityType
+    subject_id: str
+    relationship_type: RelationshipType
+    object_type: TaxonomyEntityType
+    object_id: str
     status: EntryStatus = "active"
     taxonomy_version: str = TAXONOMY_VERSION
 
