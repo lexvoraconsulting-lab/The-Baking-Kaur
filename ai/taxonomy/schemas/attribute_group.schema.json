@@ -1,0 +1,58 @@
+{
+  "properties": {
+    "group_id": {
+      "title": "Group Id",
+      "type": "string"
+    },
+    "name": {
+      "title": "Name",
+      "type": "string"
+    },
+    "tier": {
+      "enum": [
+        "platform",
+        "domain"
+      ],
+      "title": "Tier",
+      "type": "string"
+    },
+    "ear_namespace": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Ear Namespace"
+    },
+    "version": {
+      "default": "v1",
+      "title": "Version",
+      "type": "string"
+    },
+    "status": {
+      "default": "active",
+      "enum": [
+        "active",
+        "deprecated"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "taxonomy_version": {
+      "default": "1.0",
+      "title": "Taxonomy Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "group_id",
+    "name",
+    "tier"
+  ],
+  "title": "AttributeGroupModel",
+  "type": "object"
+}

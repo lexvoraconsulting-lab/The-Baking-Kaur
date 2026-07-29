@@ -1,0 +1,66 @@
+{
+  "_note": "Minimal STRUCTURAL fixture for BL-0 (skeleton self-check only) - not real taxonomy content. Real content is authored in BL-1+ per docs/70_Enterprise_Master_Taxonomy/SPRINT_CHARTER.md.",
+  "categories": [
+    {
+      "category_id": "TAX-CAT-000001",
+      "domain": "bakery",
+      "name": "Cakes",
+      "parent_id": null,
+      "attribute_group_ids": ["TAX-GRP-000001"],
+      "status": "active"
+    },
+    {
+      "category_id": "TAX-CAT-000002",
+      "domain": "bakery",
+      "name": "Birthday Cakes",
+      "parent_id": "TAX-CAT-000001",
+      "attribute_group_ids": [],
+      "status": "active"
+    }
+  ],
+  "attribute_groups": [
+    {
+      "group_id": "TAX-GRP-000001",
+      "name": "Colour",
+      "tier": "domain",
+      "ear_namespace": "domain.bakery.colour",
+      "version": "v1",
+      "status": "active"
+    }
+  ],
+  "vocabularies": [
+    {
+      "vocabulary_id": "TAX-VOC-000001",
+      "name": "Colour Name",
+      "scope": "global",
+      "domain": null,
+      "version": "v1",
+      "status": "active"
+    }
+  ],
+  "terms": [
+    {
+      "term_id": "TAX-TERM-000001",
+      "vocabulary_id": "TAX-VOC-000001",
+      "label": "Red",
+      "synonyms": ["scarlet"],
+      "parent_term_id": null,
+      "status": "active",
+      "superseded_by": null,
+      "external_ids": [
+        {"system": "shopify", "id_type": "tag", "value": "colour-red"},
+        {"system": "search", "id_type": "facet", "value": "red"}
+      ]
+    },
+    {
+      "term_id": "TAX-TERM-000002",
+      "vocabulary_id": "TAX-VOC-000001",
+      "label": "Crimson",
+      "synonyms": [],
+      "parent_term_id": "TAX-TERM-000001",
+      "status": "deprecated",
+      "superseded_by": "TAX-TERM-000001",
+      "external_ids": []
+    }
+  ]
+}

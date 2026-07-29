@@ -370,14 +370,16 @@ for the full backlog history.
 - **Risks**: Kitchen ERP's actual write API is unknown until inspected — this Build cannot be
   scoped precisely until that inspection happens (Section 12, Risk R-3).
 
-### Build-005 — Enterprise Master Taxonomy (Sprint 2.2)
+### Build-005 — Enterprise Master Taxonomy (Sprint 2.2, Workstream TAX, BL-0 complete)
 
 - **Objective**: Author the real Bakery Domain Category tree and the highest-value Attribute
   Groups (Classification, Colour, Decoration, Occasion) with real Attributes, and seed the first
   Controlled Vocabularies (Shape, Colour Name, Occasion) — exactly as already scoped in
   `docs/10_Taxonomy/Roadmap.md`.
-- **Deliverables**: Real taxonomy content files under `docs/10_Taxonomy/` (a new content
-  subfolder, per that Roadmap's own note that no content folder exists yet).
+- **Deliverables**: `ai/taxonomy/` (content-authoring package: 4 entity models, ID allocation,
+  whole-catalog validation, loader/exporter, schema generation), `docs/70_Enterprise_Master_Taxonomy/`
+  — following the same `ai/<module>/` + `docs/N0_.../` pattern every other Build used, not the
+  `docs/10_Taxonomy/` content subfolder originally sketched here before that pattern was established.
 - **Dependencies**: Sprint 2.1 architecture (done).
 - **Exit Criteria**: Build-002 can resolve against at least one real Vocabulary from this content.
 - **Review**: AR-007 (taxonomy-content-specific review, distinct from AR-003's architecture-only
@@ -386,6 +388,9 @@ for the full backlog history.
   written.
 - **Risks**: Content quality (a wrong Category boundary, a missing Vocabulary term) is more
   expensive to fix after Build-002 depends on it than before — front-load review here.
+- **Status**: BL-0 (repository preparation) done — see
+  [docs/70_Enterprise_Master_Taxonomy/SPRINT_CHARTER.md](../70_Enterprise_Master_Taxonomy/SPRINT_CHARTER.md).
+  No real taxonomy content authored yet (BL-1+).
 
 ### Build-006 — Enterprise Validation Engine
 

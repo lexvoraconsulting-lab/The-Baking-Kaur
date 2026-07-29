@@ -1,0 +1,58 @@
+{
+  "properties": {
+    "vocabulary_id": {
+      "title": "Vocabulary Id",
+      "type": "string"
+    },
+    "name": {
+      "title": "Name",
+      "type": "string"
+    },
+    "scope": {
+      "enum": [
+        "global",
+        "domain"
+      ],
+      "title": "Scope",
+      "type": "string"
+    },
+    "domain": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Domain"
+    },
+    "version": {
+      "default": "v1",
+      "title": "Version",
+      "type": "string"
+    },
+    "status": {
+      "default": "active",
+      "enum": [
+        "active",
+        "deprecated"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "taxonomy_version": {
+      "default": "1.0",
+      "title": "Taxonomy Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "vocabulary_id",
+    "name",
+    "scope"
+  ],
+  "title": "VocabularyModel",
+  "type": "object"
+}

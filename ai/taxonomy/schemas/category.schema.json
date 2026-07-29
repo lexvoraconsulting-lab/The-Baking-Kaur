@@ -1,0 +1,56 @@
+{
+  "properties": {
+    "category_id": {
+      "title": "Category Id",
+      "type": "string"
+    },
+    "domain": {
+      "title": "Domain",
+      "type": "string"
+    },
+    "name": {
+      "title": "Name",
+      "type": "string"
+    },
+    "parent_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Parent Id"
+    },
+    "attribute_group_ids": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Attribute Group Ids",
+      "type": "array"
+    },
+    "status": {
+      "default": "active",
+      "enum": [
+        "active",
+        "deprecated"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "taxonomy_version": {
+      "default": "1.0",
+      "title": "Taxonomy Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "category_id",
+    "domain",
+    "name"
+  ],
+  "title": "CategoryModel",
+  "type": "object"
+}

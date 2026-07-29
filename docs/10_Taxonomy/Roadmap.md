@@ -8,7 +8,7 @@ validation strategy. No actual taxonomy content (no real Category names beyond i
 examples, no real Attribute lists, no real Vocabulary Terms) was authored — per this sprint's own
 explicit instruction not to.
 
-## Sprint 2.2 (not started) — author the Master Image Taxonomy for Bakery
+## Sprint 2.2 (BL-0 complete, content not yet authored) — author the Master Image Taxonomy for Bakery
 
 Tracked in the Build sequence as **Build-005, Enterprise Master Taxonomy** ([ADR
 0007](../adr/2026-07-28-build-005-007-resequencing.md)) — same work, two naming schemes still in

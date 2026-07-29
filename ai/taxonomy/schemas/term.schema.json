@@ -1,0 +1,100 @@
+{
+  "$defs": {
+    "ExternalIdModel": {
+      "properties": {
+        "system": {
+          "title": "System",
+          "type": "string"
+        },
+        "id_type": {
+          "title": "Id Type",
+          "type": "string"
+        },
+        "value": {
+          "title": "Value",
+          "type": "string"
+        }
+      },
+      "required": [
+        "system",
+        "id_type",
+        "value"
+      ],
+      "title": "ExternalIdModel",
+      "type": "object"
+    }
+  },
+  "properties": {
+    "term_id": {
+      "title": "Term Id",
+      "type": "string"
+    },
+    "vocabulary_id": {
+      "title": "Vocabulary Id",
+      "type": "string"
+    },
+    "label": {
+      "title": "Label",
+      "type": "string"
+    },
+    "synonyms": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Synonyms",
+      "type": "array"
+    },
+    "parent_term_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Parent Term Id"
+    },
+    "status": {
+      "default": "active",
+      "enum": [
+        "active",
+        "deprecated"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "superseded_by": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Superseded By"
+    },
+    "external_ids": {
+      "items": {
+        "$ref": "#/$defs/ExternalIdModel"
+      },
+      "title": "External Ids",
+      "type": "array"
+    },
+    "taxonomy_version": {
+      "default": "1.0",
+      "title": "Taxonomy Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "term_id",
+    "vocabulary_id",
+    "label"
+  ],
+  "title": "TermModel",
+  "type": "object"
+}
