@@ -1,0 +1,273 @@
+# Machine-readable issue tracker for the 2026-07-29 storefront audit.
+# Source of truth - the markdown reports under seo-audit/ derive from this file,
+# not the other way around. Update here first.
+#
+# Fields:
+#   id, category, severity (Critical|High|Medium|Low), status (Open|Fixed),
+#   verification (Verified|Estimated|Requires Manual Verification),
+#   file, line, owner, fixed_in_commit, requires_manual_verification, expected_impact
+
+issues:
+  - id: SEO-001
+    category: EEAT
+    severity: Critical
+    status: Fixed
+    verification: Verified
+    file: sections/main-product-premium-v2.liquid
+    line: "647-648"
+    owner: null
+    fixed_in_commit: 52a3821
+    requires_manual_verification: null
+    expected_impact: "Removes an unsourced Zomato 'Top Rated' badge and a hardcoded '4.9 Google Rating' claim from the active product template - eliminates manual-action risk from unverifiable structured/visual ratings."
+
+  - id: SEO-002
+    category: EEAT
+    severity: Critical
+    status: Fixed
+    verification: Verified
+    file: sections/main-product.liquid
+    line: "126-128"
+    owner: null
+    fixed_in_commit: 52a3821
+    requires_manual_verification: null
+    expected_impact: "Confirmed live via templateSuffix 'hampers-template' on a real product (handle h6) - removes a fabricated '4.8 Google Rated' trust-pill from a template real hamper products actually use."
+
+  - id: SEO-003
+    category: EEAT
+    severity: High
+    status: Fixed
+    verification: Verified
+    file: sections/main-product-premium.liquid
+    line: "134-138"
+    owner: null
+    fixed_in_commit: 52a3821
+    requires_manual_verification: "Confirm whether any published product uses templateSuffix 'premium'"
+    expected_impact: "Removes the same fabricated '4.8 Google Rated' pattern from an alternate product template."
+
+  - id: SEO-004
+    category: EEAT
+    severity: Medium
+    status: Fixed
+    verification: Verified
+    file: sections/tbk-footer.liquid
+    line: "93, 364"
+    owner: null
+    fixed_in_commit: 52a3821
+    requires_manual_verification: null
+    expected_impact: "Defensive cleanup - file is not wired into footer-group.json (likely dead code) but carried the same fabricated rating text in two places."
+
+  - id: SEO-005
+    category: EEAT
+    severity: Critical
+    status: Fixed
+    verification: Verified
+    file: sections/tbk-product.liquid
+    line: "197-201 (original)"
+    owner: null
+    fixed_in_commit: 52a3821
+    requires_manual_verification: "Confirm whether any published product uses templateSuffix 'tbk'"
+    expected_impact: "Removes a hardcoded 5-star widget with no real data source feeding it."
+
+  - id: SEO-006
+    category: EEAT
+    severity: Critical
+    status: Fixed
+    verification: Verified
+    file: sections/tbk-product.liquid
+    line: "275-305 (original)"
+    owner: null
+    fixed_in_commit: 52a3821
+    requires_manual_verification: null
+    expected_impact: "Removes an entire fabricated 'Customer Reviews' section - four invented names and quotes presented as real feedback. Direct repeat of a violation CLAUDE.md already documents as 'permanently closed'; highest-severity single finding this audit."
+
+  - id: SEO-007
+    category: EEAT
+    severity: Critical
+    status: Fixed
+    verification: Verified
+    file: sections/main-product-premium-v2.liquid
+    line: "146 (original)"
+    owner: null
+    fixed_in_commit: eaad74f
+    requires_manual_verification: null
+    expected_impact: "Second, differently-worded instance on the same active product template, missed by the first pass's narrower grep pattern - removes 'Loved by 20,000+ Customers / 4.8 (Google Reviews)'."
+
+  - id: SEO-008
+    category: EEAT
+    severity: Critical
+    status: Fixed
+    verification: Verified
+    file: sections/main-product-premium-v2.liquid
+    line: "645 (original)"
+    owner: null
+    fixed_in_commit: eaad74f
+    requires_manual_verification: "Real customer/order count, to decide if a sourced number can replace this later"
+    expected_impact: "Removes a third unsourced count claim ('20,000+ Happy Customers') from the same active template."
+
+  - id: SEO-009
+    category: EEAT
+    severity: Critical
+    status: Fixed
+    verification: Verified
+    file: sections/site-footer.liquid
+    line: "114 (original)"
+    owner: null
+    fixed_in_commit: eaad74f
+    requires_manual_verification: null
+    expected_impact: "This is the ACTUALLY live footer (confirmed via footer-group.json -> type site-footer), unlike SEO-004's file. Removes the same unsourced count claim from every page footer sitewide."
+
+  - id: SEO-010
+    category: Trust/Contact-Info
+    severity: High
+    status: Fixed
+    verification: Verified
+    file: templates/page.contact-1.json
+    line: "80"
+    owner: null
+    fixed_in_commit: eaad74f
+    requires_manual_verification: "Which contact template is actually page-assigned (MCP disconnected)"
+    expected_impact: "Replaces a literal page-builder-app placeholder ('EComposer@example.com') with the real, verified shop email - prevents an obviously-fake contact address reaching a real customer."
+
+  - id: SEO-011
+    category: Trust/Contact-Info
+    severity: High
+    status: Fixed
+    verification: Verified
+    file: templates/page.contact-2.json
+    line: "159"
+    owner: null
+    fixed_in_commit: eaad74f
+    requires_manual_verification: "Which contact template is actually page-assigned (MCP disconnected)"
+    expected_impact: "Same fix, second contact template variant."
+
+  - id: SEO-012
+    category: Trust/Contact-Info
+    severity: High
+    status: Fixed
+    verification: Verified
+    file: templates/page.our-store.json
+    line: "69, 141, 213"
+    owner: null
+    fixed_in_commit: eaad74f
+    requires_manual_verification: "Which store-location blocks are actually rendered live"
+    expected_impact: "Same fix, three repeated blocks (likely multiple store-location cards) in the 'Our Store' template."
+
+  - id: SEO-013
+    category: Content SEO / GEO
+    severity: High
+    status: Open
+    verification: Verified
+    file: "templates/page.faq-01.json, templates/page.faq-02.json"
+    line: "12 Lorem Ipsum instances each"
+    owner: business
+    fixed_in_commit: null
+    requires_manual_verification: "Real FAQ answers (refund policy, delivery cutoffs, etc.) must come from the business - inventing plausible-sounding ones would itself be a fabrication risk"
+    expected_impact: "Currently actively harms EEAT and AI-search citation trust - an FAQ page showing gibberish is worse than no FAQ page. Top launch-blocking content gap."
+
+  - id: SEO-014
+    category: EEAT
+    severity: Low
+    status: Open
+    verification: Requires Manual Verification
+    file: sections/footer.liquid
+    line: "122"
+    owner: business
+    fixed_in_commit: null
+    requires_manual_verification: "Confirm the real founding year before this text (currently dead code, not live) is ever activated anywhere"
+    expected_impact: "Low urgency since file is not wired into footer-group.json, but the underlying claim ('Since 2018') needs a yes/no before reuse."
+
+  - id: SEO-015
+    category: Local SEO
+    severity: Medium
+    status: Open
+    verification: Requires Manual Verification
+    file: snippets/bk-local-business.liquid
+    line: "44-46"
+    owner: business
+    fixed_in_commit: null
+    requires_manual_verification: "Confirm exact Google Maps pin for the shop address matches lat/long 28.9931, 77.6939 (flagged as unverified by an in-code comment written before this audit)"
+    expected_impact: "Wrong coordinates would misdirect map-based local search and driving-direction results."
+
+  - id: SEO-016
+    category: EEAT
+    severity: Critical
+    status: Open
+    verification: Verified
+    file: "sections/header (tbk_header_main) - exact file not re-located this pass"
+    line: null
+    owner: user
+    fixed_in_commit: null
+    requires_manual_verification: "Explicit go-ahead already required by CLAUDE.md - remove, or link to a real Google Business Profile"
+    expected_impact: "Last known unverified rating claim on the storefront once SEO-001 through SEO-009 are fixed."
+
+  - id: SEO-017
+    category: Technical SEO
+    severity: null
+    status: Open
+    verification: Requires Manual Verification
+    file: "templates/page.contact-1.json, page.contact-2.json, page.our-store.json, page.faq-01.json, page.faq-02.json"
+    line: null
+    owner: null
+    fixed_in_commit: null
+    requires_manual_verification: "Which of these templates is actually assigned to a live page - needs Shopify Admin API (MCP) reconnection"
+    expected_impact: "Determines true priority/urgency of SEO-013 and confirms SEO-010/011/012 reached a real page."
+
+  - id: SEO-018
+    category: EEAT
+    severity: null
+    status: Open
+    verification: Requires Manual Verification
+    file: null
+    line: null
+    owner: null
+    fixed_in_commit: null
+    requires_manual_verification: "Real customer/order count via Shopify Admin API, to confirm or refute whether a sourced number could replace SEO-007/008/009's removed claims"
+    expected_impact: "Could allow a real, cited customer-count claim to be reinstated instead of leaving the space empty."
+
+  - id: SEO-019
+    category: Technical SEO
+    severity: Medium
+    status: Open
+    verification: Requires Manual Verification
+    file: sitemap.xml
+    line: null
+    owner: null
+    fixed_in_commit: null
+    requires_manual_verification: "Returns HTTP 404 - very likely a symptom of the intentional storefront password gate, not a separate misconfiguration. Re-check once the gate lifts."
+    expected_impact: "If genuinely broken (not just gate-related), blocks efficient Google discovery of the full catalogue once the site goes public."
+
+  - id: SEO-020
+    category: Schema
+    severity: Low
+    status: Open
+    verification: Verified
+    file: "snippets/tbk-schema-website.liquid vs snippets/bk-local-business.liquid"
+    line: "44-46 / 64-67"
+    owner: null
+    fixed_in_commit: null
+    requires_manual_verification: null
+    expected_impact: "Organization schema's sameAs lists Instagram only; LocalBusiness schema's sameAs lists Instagram + Facebook. Minor entity-graph inconsistency - low priority, easy fix once someone decides the canonical sameAs list."
+
+  - id: SEO-021
+    category: Schema
+    severity: Low
+    status: Open
+    verification: Requires Manual Verification
+    file: snippets/tbk-schema-article.liquid
+    line: "8-9"
+    owner: null
+    fixed_in_commit: null
+    requires_manual_verification: "Whether Shopify's Liquid `article` object exposes a real updated_at/last-modified property - dateModified currently always equals datePublished, which under-reports content freshness for edited articles."
+    expected_impact: "Minor - only affects blog articles that are edited after publishing, and only affects freshness signals, not indexability."
+
+  - id: SEO-022
+    category: Technical SEO
+    severity: null
+    status: Resolved
+    verification: Verified
+    file: null
+    line: null
+    owner: user
+    fixed_in_commit: null
+    requires_manual_verification: null
+    expected_impact: "Whole storefront (thebakingkaur.com and the ae86ba-2a.myshopify.com alias) serves a password 'Coming Soon' gate to all visitors including Google. Confirmed intentional (pre-launch/relaunch mode) by the user 2026-07-29 - tracked here for context, not as an outstanding defect."
