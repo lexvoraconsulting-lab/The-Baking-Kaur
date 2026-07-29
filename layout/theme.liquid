@@ -54,12 +54,10 @@
     {%- liquid
       render 'social-meta-tags'
       render 'css-variables', is_rtl: is_rtl
-      render 'tbk-tokens'
       echo 'theme.css' | asset_url | stylesheet_tag
       if request.page_type == "policy"
       echo 'hdt-policy.css' | asset_url | stylesheet_tag
       endif
-      render 'tbk-components'
       render 'js-head'
     -%}
     {{ content_for_header }}
@@ -67,6 +65,15 @@
 
   {% include 'hulk_po_vd' %}
 
+{%- comment -%}
+  SEO-024: this FAQPage block previously rendered unconditionally on every page (home, every
+  product, every collection), regardless of whether that page shows this Q&A content - a violation
+  of Google's structured-data guideline that markup must match visible on-page content, and a
+  potential duplicate against templates/page.faq-01.json / page.faq-02.json, which already emit
+  their own FAQPage entity via the accordion sections' Microdata. Excluded here, not deleted -
+  content is real business info (delivery/ordering facts), not fabricated.
+{%- endcomment -%}
+{%- unless template.suffix == 'faq-01' or template.suffix == 'faq-02' -%}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -147,6 +154,7 @@
   ]
 }
 </script>
+{%- endunless -%}
 
 <script>
   UPLOADCARE_PUBLIC_KEY = "5af3ec24e8ba61a78957";

@@ -8,7 +8,16 @@
   Product/Article structured data, which those two snippets do not provide.
 {%- endcomment -%}
 {%- if request.page_type == 'product' -%}
-<script type="application/ld+json">{{ product | structured_data }}</script>
+  {%- comment -%}
+    SEO-023: sections/main-product.liquid (templates/product.hampers-template.json) carries its own
+    hand-rolled Product schema with fields this native filter doesn't emit (sku, category, seller,
+    shippingDetails, hasMerchantReturnPolicy) - genuinely valuable for Merchant Center. Skip the
+    native block only there to avoid two @type:Product entities describing the same URL; every
+    other product template relies on this native block alone.
+  {%- endcomment -%}
+  {%- unless template.suffix == 'hampers-template' -%}
+    <script type="application/ld+json">{{ product | structured_data }}</script>
+  {%- endunless -%}
 {%- elsif request.page_type == 'article' -%}
 <script type="application/ld+json">{{ article | structured_data }}</script>
 {%- endif -%}
