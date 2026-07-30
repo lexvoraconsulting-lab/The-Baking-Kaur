@@ -14,29 +14,34 @@ adding existing real URLs into already-published copy, not writing new content.
 
 ## 2. Hub-and-spoke map
 
-### Delivery cluster (already mostly linked, per `LOCAL_SEO_ROADMAP.md` §7 — gaps only, not repeated)
+### Delivery cluster — IMPLEMENTED 2026-07-30
 
-- **Hub**: `/pages/cake-delivery-in-meerut` (the most general delivery page)
-  - Missing links → `/pages/frequently-asked-questions-faqs`, `/pages/100-percent-eggless-bakery`
-  - Existing links → `/pages/midnight-cake-delivery`, `/pages/30-minute-cake-delivery-in-meerut-...` (already present, confirmed)
+- **Hub**: `/pages/cake-delivery-in-meerut` — now links to `/pages/frequently-asked-questions-faqs`
+  (added, via `pageUpdate`) in addition to its existing links to `/pages/midnight-cake-delivery`,
+  `/pages/30-minute-cake-delivery-in-meerut-...`, and `/pages/100-percent-eggless-bakery` (all
+  confirmed already present, unchanged).
 - **Future hub**: `/pages/delivery-areas-in-meerut` (once built, per `DELIVERY_AREA_SPEC.md`) becomes
   the parent of all three delivery-mode pages above — they should link back up to it once it exists
+  — **still open, blocked on Sprint 1**.
 
-### Eggless page (currently an island)
+### Eggless page — IMPLEMENTED 2026-07-30
 
-`/pages/100-percent-eggless-bakery` is linked *from* the delivery-in-Meerut page's "Why Choose"
-section already, but does not itself link *out* to anything beyond its own collection list. Add:
-→ `/pages/frequently-asked-questions-faqs` (its own FAQ section duplicates 3 questions already on
-the new FAQ page — link instead of duplicating, once the FAQ page's eggless section is confirmed to
-cover the same ground; if kept separate, at minimum cross-link both directions).
+`/pages/100-percent-eggless-bakery` now links to `/pages/frequently-asked-questions-faqs` (added, via
+`pageUpdate`), in addition to its existing links to the collections and to the same-day/midnight
+delivery pages. Its own on-page FAQ section (6 real Q&A) was left as-is, not merged into the main FAQ
+page — both are real, non-fabricated content, and merging them was out of this task's mechanical-link
+scope.
 
-### FAQ page (currently only reachable via the header)
+### FAQ page — IMPLEMENTED 2026-07-30
 
-Per `LOCAL_SEO_ROADMAP.md` §8: link **to** the FAQ page from every delivery/hamper/eggless page (5
-pages) and **from** the FAQ page's existing "Still have a question?" block, which already links to
-Contact — add a link to the most relevant topic page per FAQ section (e.g. the Delivery section
-links to `/pages/cake-delivery-in-meerut`, the Eggless section to `/pages/100-percent-eggless-bakery`,
-the Hampers section to `/pages/gift-hampers`).
+Per `LOCAL_SEO_ROADMAP.md` §8: the FAQ page (`templates/page.faq-01.json` and its unused twin
+`page.faq-02.json`) now links out to its 3 most relevant topic pages, added inline within the
+existing Q&A content rather than in the section-divider headings (checked `sections/accordion.liquid`
+first — divider "title" blocks render as plain `<h5>` text with no existing link precedent in this
+file, so links were added within accordion-item answer text instead, matching the FAQ's own existing
+pattern of linking to the Refund & Return Policy page from prose): the Delivery Q&A links to
+`/pages/cake-delivery-in-meerut`, the Eggless Q&A to `/pages/100-percent-eggless-bakery`, the Hampers
+Q&A to `/pages/gift-hampers`. Deployed live, verified byte-for-byte via a post-push pull/diff.
 
 ### Hampers cluster
 

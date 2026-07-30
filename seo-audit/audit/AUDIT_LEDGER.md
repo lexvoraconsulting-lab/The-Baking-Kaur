@@ -57,6 +57,7 @@ progress is tracked here separately rather than added as fabricated ledger rows.
 | 2.1 (header nav wiring) | 2 — Navigation | **Done**, 2026-07-30 | `main-menu`'s "Categories" item converted to a 6-collection dropdown via `menuUpdate` (Admin API navigation content, no theme file edited). See `CHANGELOG.md` for verification detail. |
 | 2.4 (about-us-menu broken link) | 2 — Navigation | **Done**, 2026-07-30 | Removed "Store Locations" item (pointed at the unpublished fake Store Locator page) via `menuUpdate`. See `CHANGELOG.md`. |
 | 2.2 (meerut-delivery menu) | 2 — Navigation | **Partial**, 2026-07-30 | Populated with the 3 existing published delivery-mode pages via `menuUpdate`. Hub item and live-section wiring remain blocked/out of scope — see `CHANGELOG.md`. |
+| 2.6 (FAQ/delivery/eggless cross-links) | 2 — Navigation | **Done**, 2026-07-30 | Added FAQ links from `cake-delivery-in-meerut` and the eggless page (via `pageUpdate`), and topic links from the FAQ's Delivery/Eggless/Hampers Q&A back out (via theme push, `page.faq-01.json`/`page.faq-02.json`). See `CHANGELOG.md`. |
 
 ## Reading this table
 

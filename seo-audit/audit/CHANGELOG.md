@@ -301,6 +301,32 @@ business decision to link — a partial implementation, not the full task.
 item (blocked on Sprint 1), and surfacing this menu in any live section (a visible layout change of
 the same kind task 2.1 required sign-off for — not bundled into this content-only step).
 
+## 2026-07-30 — Sprint 2 task 2.6: add missing FAQ/delivery/eggless cross-links
+
+**Change type**: 2 Admin API `pageUpdate` calls (Page bodies) + 1 theme push (2 template files).
+
+**Before, verified**: fresh `page` queries on `cake-delivery-in-meerut` and
+`100-percent-eggless-bakery` confirmed neither linked to `/pages/frequently-asked-questions-faqs`
+anywhere in their body, despite both being topically adjacent (each has its own smaller on-page FAQ
+section). Fresh theme pull of `page.faq-01.json` confirmed zero drift before editing.
+
+**Why**: `LOCAL_SEO_ROADMAP.md` §8 and `INTERNAL_LINKING.md` both flagged the FAQ page as reachable
+only via the header, with no inbound links from the pages most likely to send a reader looking for
+more detail. Per `IMPLEMENTATION_BACKLOG.md` task 2.6.
+
+**Implementation**: added one sentence with a link to the FAQ page at the end of each page's existing
+on-page mini-FAQ (via `pageUpdate`, no other content changed). For the reverse direction, checked
+`sections/accordion.liquid` first to confirm how "title" divider blocks render (plain `<h5>` text, no
+existing link precedent) versus how accordion-item answers already handle inline links (the FAQ
+page's own Refund/Cancel answers already link to the Refund policy page from prose) — added the 3
+topic links (Delivery → `cake-delivery-in-meerut`, Eggless → `100-percent-eggless-bakery`, Hampers →
+`gift-hampers`) within the matching Q&A answer text, matching that existing pattern, in both
+`page.faq-01.json` (live) and `page.faq-02.json` (unused, kept in sync per this project's established practice).
+
+**After, re-verified**: both `pageUpdate` calls returned `userErrors: []`. Theme push followed the
+standard pull → diff (zero drift) → push → re-pull → diff pattern; both files confirmed byte-for-byte
+live.
+
 ## Related
 
 [AUDIT_LEDGER.md](AUDIT_LEDGER.md), [VERIFIED_ISSUES.md](VERIFIED_ISSUES.md).

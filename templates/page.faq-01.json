@@ -99,7 +99,7 @@
           "type": "accordion_item",
           "settings": {
             "title": "Are all your cakes eggless?",
-            "content": "Yes. Every cake we bake is 100% eggless &mdash; it isn't a separate range or a special request, it's simply how we bake for every customer, every day. There are no eggs on our premises at all."
+            "content": "Yes. Every cake we bake is 100% eggless &mdash; it isn't a separate range or a special request, it's simply how we bake for every customer, every day. There are no eggs on our premises at all. Read more on our <a href=\"/pages/100-percent-eggless-bakery\">100% eggless page</a>."
           }
         },
         "faq_item_veg": {
@@ -124,7 +124,7 @@
           "type": "accordion_item",
           "settings": {
             "title": "What areas in Meerut do you deliver to?",
-            "content": "We deliver across major areas of Meerut including Thapar Nagar, Shastri Nagar, Ganga Nagar, Partapur, Jagriti Vihar and nearby localities, within a service radius of roughly 15 km. Availability can vary by time slot and product &mdash; contact us on WhatsApp to confirm your area."
+            "content": "We deliver across major areas of Meerut including Thapar Nagar, Shastri Nagar, Ganga Nagar, Partapur, Jagriti Vihar and nearby localities, within a service radius of roughly 15 km. Availability can vary by time slot and product &mdash; contact us on WhatsApp to confirm your area, or see our <a href=\"/pages/cake-delivery-in-meerut\">full delivery page</a> for more."
           }
         },
         "faq_item_sameday": {
@@ -206,7 +206,7 @@
           "type": "accordion_item",
           "settings": {
             "title": "What's in your gift hampers?",
-            "content": "Our hampers are fully customisable and can include cakes, cake jars, bento cakes, brownies, cookies, chocolates, flowers, dry fruits and more, for occasions from birthdays to festivals."
+            "content": "Our hampers are fully customisable and can include cakes, cake jars, bento cakes, brownies, cookies, chocolates, flowers, dry fruits and more, for occasions from birthdays to festivals. See our <a href=\"/pages/gift-hampers\">full Gift Hampers page</a> for the complete range."
           }
         },
         "faq_item_bulk": {
