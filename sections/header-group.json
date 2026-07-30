@@ -173,7 +173,7 @@
         "logo_width_mb": 80,
         "only_click_icon": true,
         "header_mobile_colors": "scheme-2",
-        "note_mobile": "<span class=\"hdt-inline-flex hdt-text-base hdt-font-medium\" style=\"color: rgb(var(--color-foreground));border-bottom: solid 1px rgb(var(--color-foreground));margin-bottom: 11px;\"><a href=\"https://demo-ecomus-global.myshopify.com/pages/contact-1\">Need help ?</a></span><span class=\"hdt-flex hdt-flex-col hdt-text-base hdt-font-normal\" style=\"line-height: 24px;\"><span>390/1, Lane Number 7,Thapar Nagar,<br> Meerut, Uttar Pradesh 250001,  </span><span>Email: <b>thebakingkaur@gmail.com</b></span><span>Phone: <b>+91-8218862928</b></span></span>-",
+        "note_mobile": "<span class=\"hdt-inline-flex hdt-text-base hdt-font-medium\" style=\"color: rgb(var(--color-foreground));border-bottom: solid 1px rgb(var(--color-foreground));margin-bottom: 11px;\">Need help ?</span><span class=\"hdt-flex hdt-flex-col hdt-text-base hdt-font-normal\" style=\"line-height: 24px;\"><span>390/1, Lane Number 7,Thapar Nagar,<br> Meerut, Uttar Pradesh 250001,  </span><span>Email: <b>thebakingkaur@gmail.com</b></span><span>Phone: <b>+91-8218862928</b></span></span>",
         "sticky_type": "on_scroll_up"
       }
     },
@@ -239,7 +239,7 @@
         "lazy_mn_mb": true,
         "only_click_icon": false,
         "header_mobile_colors": "",
-        "note_mobile": "<span class=\"hdt-inline-flex hdt-text-base hdt-font-medium\" style=\"color: rgb(var(--color-foreground));border-bottom: solid 1px rgb(var(--color-foreground));margin-bottom: 11px;\"><a href=\"https://demo-ecomus-global.myshopify.com/pages/contact-1\">Need help ?</a></span><span class=\"hdt-flex hdt-flex-col hdt-text-base hdt-font-normal\" style=\"line-height: 24px;\"><span>390/1, Lane Number 7,Thapar Nagar,<br> Meerut, Uttar Pradesh 250001,  </span><span>Email: <b>thebakingkaur@gmail.com</b></span><span>Phone: <b>+91-8218862928</b></span></span>",
+        "note_mobile": "<span class=\"hdt-inline-flex hdt-text-base hdt-font-medium\" style=\"color: rgb(var(--color-foreground));border-bottom: solid 1px rgb(var(--color-foreground));margin-bottom: 11px;\">Need help ?</span><span class=\"hdt-flex hdt-flex-col hdt-text-base hdt-font-normal\" style=\"line-height: 24px;\"><span>390/1, Lane Number 7,Thapar Nagar,<br> Meerut, Uttar Pradesh 250001,  </span><span>Email: <b>thebakingkaur@gmail.com</b></span><span>Phone: <b>+91-8218862928</b></span></span>",
         "sticky_type": "on_scroll_up",
         "sticky_glass": true
       }
