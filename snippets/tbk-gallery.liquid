@@ -1,7 +1,7 @@
 {%- assign images = product.images -%}
 <div class="tbk-gallery-stage" data-tbk-carousel>
   {%- if images.size > 0 -%}
-    <img src="{{ images.first | image_url: width: 1400 }}" alt="{{ product.title | escape }}" loading="lazy" data-tbk-main>
+    <img src="{{ images.first | image_url: width: 1400 }}" alt="{{ product.title | escape }}" loading="eager" fetchpriority="high" data-tbk-main>
     <div class="tbk-counter" data-tbk-counter>1 / {{ images.size }}</div>
     <div class="tbk-zoom">⤢ Zoom</div>
   {%- else -%}
