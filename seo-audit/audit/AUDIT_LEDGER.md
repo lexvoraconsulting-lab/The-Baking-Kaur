@@ -24,7 +24,7 @@ Verification** (needs a tool, business input, or access this session didn't have
 | SEO-012 | Trust/Contact-Info | High | Fixed | Verified | `templates/page.our-store.json` | 69, 141, 213 | `eaad74f` |
 | SEO-013 | Content SEO / GEO | Critical | **Fixed** | Verified | `page.faq-01.json` (live), `page.faq-02.json` (unused) | 12× | 2026-07-30 push |
 | SEO-014 | EEAT | Low | Open | Requires Manual Verification | `sections/footer.liquid` | 122 | — |
-| SEO-015 | Local SEO | Medium | Open | Requires Manual Verification | `snippets/bk-local-business.liquid` | 44-46 | — |
+| SEO-015 | Local SEO | Medium | **Partial** | Verified | 5 theme files (address/geo unified) | 44-46 | 2026-07-30 push |
 | SEO-016 | EEAT | Critical | **Resolved** (already fixed live) | Verified | `header-group.json` (`tbk_header_main`) + `tbk-header.liquid` | — | pre-existing (`36e1b0c`) |
 | SEO-017 | Technical SEO | — | **Resolved** | Verified | 5 templates → real assignments confirmed | — | — |
 | SEO-018 | EEAT | — | **Resolved** | Verified | real counts: 113 customers, 24 orders | — | — |
@@ -38,14 +38,14 @@ Verification** (needs a tool, business input, or access this session didn't have
 | SEO-026 | Core Web Vitals | Medium | Fixed | Verified | `snippets/tbk-gallery.liquid` | 4 | `edf458f` |
 | SEO-027 | Local SEO / Trust | **High** | Fixed | Verified | `sections/header-group.json` | 176, 242 | `21457ec` |
 | SEO-028 | Trust/Contact-Info | Medium | Fixed | Verified | `sections/header-e-commerce.liquid` | 484 | `21457ec` |
-| SEO-029 | Local SEO | Medium | Open | Verified | 3 files (1 now removed) | see issues.yml | — |
+| SEO-029 | Local SEO | Medium | **Partial** | Verified | 5 theme files unified; 2 Admin-only surfaces remain | see issues.yml | 2026-07-30 push |
 | SEO-030 | Content SEO | **High** | **Mitigated** | Verified | `templates/page.store-locations.json` | — | (page unpublished via API) |
 | SEO-031 | Content SEO / EEAT / Legal | **Critical** | Open | Verified | 2 custom pages + 4 Shop Policies (contradictory) | — | — |
 | SEO-032 | EEAT | Critical | **Fixed** | Verified | Page 116138016937 (eggless page) | — | 2026-07-30 Admin write |
 | SEO-033 | Technical SEO / Contact-Info | High | **Fixed** | Verified | `templates/page.contact-2.json` | 69 | 2026-07-30 push |
 | SEO-034 | Legal / EEAT | High | Open | Verified | Page 110844510377 (Terms and Conditions, empty body) | — | — |
 | SEO-035 | Local SEO | Medium | Open | Verified | `site-footer.liquid` vs. delivery page (area-list conflict) | 276 | — |
-| SEO-036 | Address / Coordinates | Medium | Open | Verified | `bk-local-business.liquid` vs. Shopify Admin billing address | 44-45 | — |
+| SEO-036 | Address / Coordinates | Medium | **Partial** | Verified | 2 schema files now use Admin billing-address coordinates | 44-45 | 2026-07-30 push |
 
 ## Implementation Backlog progress (tracked by task ID, not SEO-NNN)
 
@@ -60,6 +60,12 @@ progress is tracked here separately rather than added as fabricated ledger rows.
 | 2.6 (FAQ/delivery/eggless cross-links) | 2 — Navigation | **Done**, 2026-07-30 | Added FAQ links from `cake-delivery-in-meerut` and the eggless page (via `pageUpdate`), and topic links from the FAQ's Delivery/Eggless/Hampers Q&A back out (via theme push, `page.faq-01.json`/`page.faq-02.json`). See `CHANGELOG.md`. |
 | 2.7 (hamper cluster cross-links) | 2 — Navigation | **Done**, 2026-07-30 | The 3 location-specific hamper pages now link to the Gift Hampers hub and each other; the hub now links to all 3 (via 4 `pageUpdate` calls). See `CHANGELOG.md`. |
 | 2.8 (Gift Hampers "Related Collections" links) | 2 — Navigation | **Done**, 2026-07-30 | All 6 plain-text collection names converted to real links via `pageUpdate`. See `CHANGELOG.md`. |
+| B1 (SEO-031, refund/terms policy rewrite) | 1 — Critical Fixes | **Blocked**, 2026-07-30 | Shop Policies are Admin-API-only (not theme files); the Shopify MCP connector disconnected mid-session with no fallback token configured. Cannot execute. See `CHANGELOG.md`/`IMPLEMENTATION_SUMMARY.md`. |
+| B2 (SEO-034, empty Terms page) | 1 — Critical Fixes | **Blocked**, 2026-07-30 | Admin-API-only (Page body), also gated on B1. Same tooling blocker as B1. |
+| B3 (SEO-015/029/036, address/geo) | 1 — Critical Fixes | **Partial**, 2026-07-30 | Theme-file portion (5 files) completed and deployed — see SEO-015/029/036 rows above. Admin-only portion (Refund policy page body, Shop Policy Contact Information) blocked by the same tooling issue. |
+| B4 (SEO-035, delivery-area list) | 1 — Critical Fixes | **Blocked**, 2026-07-30 | No confirmed real area list was supplied; the approved recommendation was to go confirm one against logistics data, not a concrete list to write. Not guessed. |
+| B5 (duplicate collection cluster) | 1 — Critical Fixes | **Blocked**, 2026-07-30 | Needs actual merchandising picks (not supplied) and Admin API (down) for execution either way. |
+| B6 (SEO-030, Store Locator fate) | 1 — Critical Fixes | **Blocked**, 2026-07-30 | Explicitly sequenced after B4, which is blocked. |
 
 **Sprint 2 (Navigation) status: complete for all in-scope tasks.** 2.3 and 2.5 skipped (hard-blocked
 on Sprint 1's unmade policy-terms decision, per explicit instruction not to route around unmade

@@ -371,6 +371,59 @@ correctly matches the existing page text.
 
 **After, re-verified**: `pageUpdate` returned `userErrors: []`; fresh re-query confirms all 6 links present.
 
+## 2026-07-30 — B3 (partial): unify address/geo across 5 theme files (SEO-015/029/036)
+
+**Change type**: 5 theme files, deployed via `shopify theme push` — no Admin API involved (unlike
+every prior pass this project, since the Shopify MCP connector disconnected mid-session with no
+fallback `SHOPIFY_TOKEN` configured; confirmed via `env | grep -i shopify` and a check of
+`seo-ops/`'s existing token-based path, both empty).
+
+**Before, verified**: fresh `shopify theme pull` + `diff --strip-trailing-cr` against git HEAD
+confirmed zero drift on all 5 files before editing: `snippets/bk-local-business.liquid` (typo'd
+"Fatah Complex," coordinates 28.9931/77.6939), `snippets/tbk-schema-website.liquid` (no
+`streetAddress`/`geo` at all), `sections/site-footer.liquid` (schema default, same typo),
+`sections/footer.liquid` and `sections/tbk-footer.liquid` (hardcoded, same typo, 3 occurrences total).
+
+**Why**: per the approved B3 decision (`BUSINESS_DECISION_GUIDE.md`) — use the Shopify Admin billing
+address as the base text and coordinates, since it's the merchant's own account-of-record.
+
+**Additional real evidence found this pass, not previously known**: `sections/footer.liquid` line 90
+contains a real, pre-existing Google Maps share link
+(`https://maps.app.goo.gl/LmD25vZFZYQL3TTd6`) that had never been resolved before. Resolving it
+(`WebFetch`) revealed a genuine Google Business Profile listing for this exact business — *"The
+Baking Kaur | Premium Bakery and Cake Shop..."* — with address text ("Fateh Complex, 390/1, Lane
+Number 7, opposite Ice Factory... Thapar Nagar, Lajpat Bazaar, Thapar Nagar, Meerut, Uttar Pradesh
+250001") that closely corroborates the Shopify Admin billing address independently. Its exact decimal
+coordinates could not be extracted — Google Maps place pages are JS-rendered and neither `WebFetch`
+nor a CID-based URL (`google.com/maps?cid=<decimal>`, converted from the place ID's hex) returned
+usable coordinate data. This is a real tooling limit, not a decision to skip it.
+
+**Implementation**: `streetAddress` updated to "Fateh Complex, 390/1, Lane Number 7, opposite Ice
+Factory, Thapar Nagar Gali Number 7 Lajpat Bazaar Thapar Nagar" (the Admin billing address's `address2`
++ `address1` fields, concatenated as stored, not editorially cleaned up) in both schema files;
+coordinates updated to 28.9897017 / 77.7044604 (Admin billing address) in both; `tbk-schema-website.liquid`
+gained a `streetAddress`/`geo` block it previously lacked entirely, closing the Organization/Bakery
+schema-coverage gap noted in `ADDRESS_AUDIT.md`. The three footer files' address text updated to match
+(with reasonable length compression for the two prose/short-label contexts, same underlying facts).
+`bk-local-business.liquid`'s in-code warning comment rewritten to record the new source and remaining caveat.
+
+**After, re-verified**: pushed via `shopify theme push --allow-live`; re-pulled and
+`diff --strip-trailing-cr` confirmed byte-for-byte live on all 5 files; `shopify theme check` run
+across the full theme afterward — 1,369 pre-existing offenses across 94 files, identical count to the
+prior baseline, none in the 5 touched files (confirmed via grep) — no regression.
+
+**Not done this pass, blocked**: the Refund & Return Policy page body's address mention and the
+Shopify Admin Contact Information Shop Policy both need the same update but are Admin-API-only
+surfaces, unreachable without the MCP connector or a configured `SHOPIFY_TOKEN`. A literal
+human-confirmed fresh Google Maps pin-drop (this pass's real Maps-listing discovery corroborates the
+address text but not exact coordinates) is still recommended as a follow-up.
+
+**B1, B2, B4, B5, B6 status this pass**: not executed. B1/B2 require Admin API (Shop Policy and Page
+body edits) — blocked by the same tooling issue. B4 and B5 require actual business
+input (a confirmed delivery-area list; specific merchandising picks for the collection cluster) that
+wasn't supplied along with the approval — executing either would mean guessing, which this project's
+standing rule forbids. B6 is explicitly sequenced after B4. See `IMPLEMENTATION_SUMMARY.md` for full detail.
+
 ## Related
 
 [AUDIT_LEDGER.md](AUDIT_LEDGER.md), [VERIFIED_ISSUES.md](VERIFIED_ISSUES.md).

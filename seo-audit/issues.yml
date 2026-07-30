@@ -179,14 +179,14 @@ issues:
   - id: SEO-015
     category: Local SEO
     severity: Medium
-    status: Open
-    verification: Requires Manual Verification
-    file: snippets/bk-local-business.liquid
-    line: "44-46"
+    status: Partial
+    verification: "Verified - live theme pull + diff, 2026-07-30 (B3 implementation pass)"
+    file: "snippets/bk-local-business.liquid, snippets/tbk-schema-website.liquid, sections/site-footer.liquid, sections/footer.liquid, sections/tbk-footer.liquid"
+    line: "44-46 (bk-local-business.liquid)"
     owner: business
-    fixed_in_commit: null
-    requires_manual_verification: "Confirm exact Google Maps pin for the shop address matches lat/long 28.9931, 77.6939 (flagged as unverified by an in-code comment written before this audit)"
-    expected_impact: "Wrong coordinates would misdirect map-based local search and driving-direction results."
+    fixed_in_commit: "uncommitted at time of writing (theme push, this pass)"
+    requires_manual_verification: "Address text and coordinates updated to the Shopify Admin billing address (shop.billingAddress), the most authoritative source reached this pass, and independently corroborated by resolving a real, pre-existing Google Maps share link in sections/footer.liquid (https://maps.app.goo.gl/LmD25vZFZYQL3TTd6) - it resolves to a real Google Business Profile listing for this exact business whose address text closely matches the Admin billing address. NOT fully resolved: this is not a literal fresh human pin-drop as ADDRESS_AUDIT.md originally recommended, and the real GBP listing's exact decimal coordinates could not be extracted (Google Maps place pages are JS-rendered; WebFetch could not read them). Still needs: a human visual confirmation of the coordinates against the real GBP pin, and completion of the Admin-API-only portion (Refund & Return Policy page body, Shop Policy Contact Information) once Shopify Admin API access is restored (blocked this pass - MCP connector disconnected mid-session)."
+    expected_impact: "Wrong coordinates would misdirect map-based local search and driving-direction results. Partially mitigated - the 5 theme-file surfaces now use one consistent, sourced address/geo value instead of the prior unsourced schema value."
 
   - id: SEO-016
     category: EEAT
@@ -348,14 +348,14 @@ issues:
   - id: SEO-029
     category: Local SEO
     severity: Medium
-    status: Open
-    verification: Verified
-    file: "snippets/bk-local-business.liquid, sections/header-group.json (formerly also sections/header-e-commerce.liquid's default, now removed)"
+    status: Partial
+    verification: "Verified - live theme pull + diff, 2026-07-30 (B3 implementation pass)"
+    file: "snippets/bk-local-business.liquid, snippets/tbk-schema-website.liquid, sections/site-footer.liquid, sections/footer.liquid, sections/tbk-footer.liquid"
     line: null
     owner: business
-    fixed_in_commit: null
-    requires_manual_verification: "The real, current, complete business address - three non-identical variants existed across the theme (one now removed): bk-local-business.liquid's 'Fatah Complex, Thapar Nagar Lane 7, Meerut, Uttar Pradesh, 250001'; header-group.json's live value '390/1, Lane Number 7,Thapar Nagar, Meerut, Uttar Pradesh 250001' (no building name at all); and the now-removed default's 'Fateh Complex, 390/1, Lane Number 7, opposite Ice Factory, Thapar Nagar, Lajpat Bazaar, Thapar Nagar, Meerut, Uttar Pradesh 250001' (also spelled 'Fateh' vs 'Fatah', and repeats 'Thapar Nagar' twice)"
-    expected_impact: "NAP (Name/Address/Phone) inconsistency directly hurts local SEO and confuses customers/delivery partners about the real location. Not resolved here - picking one variant would mean guessing which is actually correct, which this audit's standing rule (never fabricate/guess business facts) forbids. Full re-audit with a 5th variant (Shopify Admin's own billing address, which matches neither) plus a geo-coordinate conflict (~600m apart) and an opening-hours conflict (9am vs 10am), 2026-07-30: see seo-audit/final/ADDRESS_AUDIT.md."
+    fixed_in_commit: "uncommitted at time of writing (theme push, this pass)"
+    requires_manual_verification: "All 5 theme-file address surfaces (previously 4+ conflicting wordings, the 'Fatah'/'Fateh' typo among them) now use one consistent address derived from the Shopify Admin billing address, independently corroborated by a real Google Maps Business Profile listing resolved this pass (see SEO-015). Not fully resolved: the custom Refund & Return Policy page body and the Shopify Admin Contact Information Shop Policy still carry older/different address text and could not be updated this pass - both require Admin API access, unavailable (MCP connector disconnected mid-session). A human sanity check of the final address against the real signage/lease is still recommended, per ADDRESS_AUDIT.md's original caveat."
+    expected_impact: "NAP (Name/Address/Phone) inconsistency directly hurt local SEO and confused customers/delivery partners. Materially improved - 5 of 7 known surfaces now consistent; 2 remain (Admin-only, blocked)."
 
   - id: SEO-030
     category: Content SEO
@@ -431,11 +431,11 @@ issues:
   - id: SEO-036
     category: Address / Coordinates
     severity: Medium
-    status: Open
-    verification: "Verified - Shopify Admin GraphQL shop.billingAddress vs. snippets/bk-local-business.liquid, 2026-07-30"
-    file: "snippets/bk-local-business.liquid (line 44-45, same as SEO-015) vs. Shopify Admin shop billing address"
+    status: Partial
+    verification: "Verified - live theme pull + diff, 2026-07-30 (B3 implementation pass)"
+    file: "snippets/bk-local-business.liquid, snippets/tbk-schema-website.liquid (line 44-45 and 47-48 respectively)"
     line: "44-45"
     owner: business
-    fixed_in_commit: null
-    requires_manual_verification: "The live LocalBusiness schema's geo-coordinates (28.9931, 77.6939) and the Shopify Admin account's own billing-address coordinates (28.9897017, 77.7044604) are ~600m apart - two different points, not just unverified. The Admin record is arguably more authoritative (it's the merchant's own account data, not a value typed into a theme file), but a fresh Google Maps pin-drop is recommended over trusting either blindly. Folds into SEO-015 (same file, same underlying question) - kept as a separate line here because it's a distinct, newly-quantified finding (a real second coordinate to compare against, not just 'this one is unverified')."
-    expected_impact: "Full detail in seo-audit/final/ADDRESS_AUDIT.md section 2."
+    fixed_in_commit: "uncommitted at time of writing (theme push, this pass)"
+    requires_manual_verification: "Both schema files now use the Shopify Admin billing-address coordinates (28.9897017, 77.7044604) in place of the prior unsourced schema value (28.9931, 77.6939). This resolves the two-different-live-points problem, but is still not a human-confirmed fresh Google Maps pin-drop as originally recommended - a real Google Business Profile listing for this business was resolved this pass (see SEO-015) and its address text corroborates the Admin record, but its exact decimal coordinates could not be extracted (Google Maps place pages are JS-rendered, not fetchable this way). Recommend a follow-up visual confirmation against the real GBP pin."
+    expected_impact: "Full detail in seo-audit/final/ADDRESS_AUDIT.md section 2. Materially improved - the two schema sources are no longer 600m apart; both point to the same, sourced coordinate now."

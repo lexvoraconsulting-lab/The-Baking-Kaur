@@ -7,8 +7,13 @@
       {% render 'bk-local-business' %}
 
   It renders on every page (correct for site-wide business info).
-  ⚠ Verify the geo latitude/longitude from Google Maps for your
-  exact shop pin, then update the two numbers below.
+  Address/geo updated 2026-07-30 (B3) to match the Shopify Admin billing address
+  (shop.billingAddress) - the merchant's own account-of-record, the most
+  authoritative source available this pass. This is NOT a human-confirmed fresh
+  Google Maps pin-drop; ADDRESS_AUDIT.md's original recommendation was to also get
+  one of those before finalizing. Recommend a visual spot-check against the real
+  signage/lease next, but this value is a real, sourced improvement over the prior
+  unsourced schema value it replaces.
 
   🚫 DO NOT ADD aggregateRating HERE.
   A hardcoded "4.8 / 500 reviews" was removed on 2026-07-16: it was not
@@ -33,7 +38,7 @@
   "image": "https://thebakingkaur.com/cdn/shop/files/storefront.jpg",
   "address": {
     "@type": "PostalAddress",
-    "streetAddress": "Fatah Complex, Thapar Nagar Lane 7",
+    "streetAddress": "Fateh Complex, 390/1, Lane Number 7, opposite Ice Factory, Thapar Nagar Gali Number 7 Lajpat Bazaar Thapar Nagar",
     "addressLocality": "Meerut",
     "addressRegion": "Uttar Pradesh",
     "postalCode": "250001",
@@ -41,8 +46,8 @@
   },
   "geo": {
     "@type": "GeoCoordinates",
-    "latitude": "28.9931",
-    "longitude": "77.6939"
+    "latitude": "28.9897017",
+    "longitude": "77.7044604"
   },
   "areaServed": {
     "@type": "City",
