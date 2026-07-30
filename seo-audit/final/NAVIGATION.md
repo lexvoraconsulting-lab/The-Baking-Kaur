@@ -87,11 +87,13 @@ also use `SHOP_POLICY` (once Terms is decided canonical, per `POLICY_ARCHITECTUR
 surface this menu — e.g. as the footer's policy column, replacing the footer's hardcoded links
 entirely so there's one source of truth instead of two.
 
-## 5. About/Company navigation (the `about-us-menu`, currently unwired)
+## 5. About/Company navigation (the `about-us-menu`, currently unwired) — IMPLEMENTED 2026-07-30
 
-Recommendation: keep About Us and Contact Us; drop "Store Locations" (points at the unpublished fake
-page, SEO-030) until/unless the Delivery Areas hub in §3 is built and this item is repointed to that
-instead. Do not surface this menu pointing at a 404 in the meantime.
+**Status: done.** "Store Locations" (pointed at the unpublished fake Store Locator page, SEO-030)
+removed via `menuUpdate`. About Us and Contact Us items unchanged, same item IDs preserved. Menu is
+still not confirmed wired to any live section — this fix is preventive (no future 404 if it's ever
+activated), not a live-bug fix. If/when the Delivery Areas hub (§3) is built, consider adding a link
+to it here instead.
 
 ## 6. What's explicitly not decided here
 

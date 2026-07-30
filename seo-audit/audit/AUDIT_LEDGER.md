@@ -55,6 +55,7 @@ progress is tracked here separately rather than added as fabricated ledger rows.
 | Task | Sprint | Status | Notes |
 |---|---|---|---|
 | 2.1 (header nav wiring) | 2 — Navigation | **Done**, 2026-07-30 | `main-menu`'s "Categories" item converted to a 6-collection dropdown via `menuUpdate` (Admin API navigation content, no theme file edited). See `CHANGELOG.md` for verification detail. |
+| 2.4 (about-us-menu broken link) | 2 — Navigation | **Done**, 2026-07-30 | Removed "Store Locations" item (pointed at the unpublished fake Store Locator page) via `menuUpdate`. See `CHANGELOG.md`. |
 
 ## Reading this table
 

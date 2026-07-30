@@ -268,6 +268,20 @@ via grep) — expected, since zero theme files were touched by this change; not 
 **Scope discipline**: no other navigation, header functionality, or unrelated site area was touched,
 per explicit instruction.
 
+## 2026-07-30 — Sprint 2 task 2.4: remove broken link from `about-us-menu`
+
+**Change type**: Shopify Admin navigation-menu content (`menuUpdate`) — no theme file edited.
+
+**Before, verified**: fresh `menu` query on `about-us-menu` (id `gid://shopify/Menu/230113444009`)
+showed 3 items — About Us, Contact Us, and "Store Locations" pointing at
+`/pages/store-locator` (`gid://shopify/Page/110839595177`), reconfirmed unpublished this pass.
+
+**Why**: this menu isn't confirmed wired to any live section, but if it's ever activated, the third
+item would 404 — a fake, already-unpublished London/Madrid/Tokyo demo page (SEO-030). Preventive fix,
+per `IMPLEMENTATION_BACKLOG.md` task 2.4 / `NAVIGATION.md` §5.
+
+**After, re-verified**: fresh re-query shows 2 items only (About Us, Contact Us), `userErrors: []`.
+
 ## Related
 
 [AUDIT_LEDGER.md](AUDIT_LEDGER.md), [VERIFIED_ISSUES.md](VERIFIED_ISSUES.md).
