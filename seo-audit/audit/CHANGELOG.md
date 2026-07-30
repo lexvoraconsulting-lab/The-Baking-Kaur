@@ -282,6 +282,25 @@ per `IMPLEMENTATION_BACKLOG.md` task 2.4 / `NAVIGATION.md` §5.
 
 **After, re-verified**: fresh re-query shows 2 items only (About Us, Contact Us), `userErrors: []`.
 
+## 2026-07-30 — Sprint 2 task 2.2 (partial): populate the empty `meerut-delivery` menu
+
+**Change type**: Shopify Admin navigation-menu content (`menuUpdate`) — no theme file edited.
+
+**Before, verified**: fresh `menu` query on `meerut-delivery` (id `gid://shopify/Menu/237291765929`)
+confirmed 0 items. Fresh `pages` queries confirmed all 3 target pages exist and are published:
+`cake-delivery-in-meerut`, `midnight-cake-delivery`, `30-minute-cake-delivery-in-meerut-premium-reliable-service`.
+
+**Why**: this menu shell exists (apparently created for exactly this purpose, per
+`NAVIGATION.md`/`SITE_TREE.md`'s earlier finding) but was never populated. The full Delivery Areas
+hub item is blocked on Sprint 1 (SEO-030/SEO-035), but the 3 existing delivery-mode pages need no
+business decision to link — a partial implementation, not the full task.
+
+**After, re-verified**: fresh re-query shows 3 items, `userErrors: []`, all URLs resolved correctly.
+
+**Explicitly not done, and explicitly out of Sprint 2 scope**: adding the future Delivery Areas hub
+item (blocked on Sprint 1), and surfacing this menu in any live section (a visible layout change of
+the same kind task 2.1 required sign-off for — not bundled into this content-only step).
+
 ## Related
 
 [AUDIT_LEDGER.md](AUDIT_LEDGER.md), [VERIFIED_ISSUES.md](VERIFIED_ISSUES.md).

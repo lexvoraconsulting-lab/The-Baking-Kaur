@@ -62,20 +62,22 @@ Target footer link set: Search · Contact Us (custom page) · Privacy Policy (Sh
 (**canonical target TBD**) · FAQ (new) · Your Privacy Choices (publish decision — see
 `POLICY_ARCHITECTURE.md` §3).
 
-## 3. Delivery Areas navigation (the `meerut-delivery` menu, currently empty)
+## 3. Delivery Areas navigation (the `meerut-delivery` menu) — PARTIALLY IMPLEMENTED 2026-07-30
 
-**Recommendation**: this is the natural home for the Delivery Areas hub page recommended in
-`SITE_TREE.md`/`DELIVERY_AREA_SPEC.md`. Populate `meerut-delivery` with:
+**Status: partial.** Populated with the 3 existing, already-published delivery-mode pages via
+`menuUpdate`: "Cake Delivery in Meerut" (`/pages/cake-delivery-in-meerut`), "Midnight Delivery"
+(`/pages/midnight-cake-delivery`), "30-Minute Express Delivery"
+(`/pages/30-minute-cake-delivery-in-meerut-premium-reliable-service`). Verified all 3 URLs resolve
+correctly post-change.
 
-- Delivery Areas in Meerut (hub — new page, repurposing the unpublished Store Locator page)
-- Same-Day Delivery → `/pages/cake-delivery-in-meerut`
-- Midnight Delivery → `/pages/midnight-cake-delivery`
-- Express (30-Minute) Delivery → `/pages/30-minute-cake-delivery-in-meerut-premium-reliable-service`
-- `<<BUSINESS APPROVAL REQUIRED>>`: per-locality links, once SEO-035's area-list conflict resolves
+**Still open, blocked on Sprint 1**: the Delivery Areas hub item itself — this requires repurposing
+the unpublished Store Locator page (SEO-030) and resolving the delivery-area-list conflict (SEO-035)
+first, neither of which is a Sprint 2 task.
 
-Surface this menu somewhere real visitors reach it — a footer column or a header sub-item — not just
-create the linklist and leave it unwired (the same mistake `header` and `quick-links-menu` already
-made).
+**Still open, out of this task's scope**: surfacing this menu somewhere a real visitor reaches it (a
+footer column or header sub-item) — that's itself a visible layout change requiring the same kind of
+sign-off task 2.1 got, not bundled into this content-only population step. The menu now has real,
+correct content; wiring it into a live section is separate follow-up work.
 
 ## 4. Quick Links (the `quick-links-menu`, currently unwired)
 
