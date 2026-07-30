@@ -68,6 +68,25 @@ template (`product-media.liquid`, all 602 active products) already handles this 
 **Deploy safety**: pulled live copy, diffed against last commit (zero drift), pushed
 `--allow-live`, re-pulled and confirmed byte-for-byte live.
 
+## 2026-07-30 — Commit `21457ec`: remove demo-store link, typo'd email/phone in mobile header note
+
+**Files**: `sections/header-e-commerce.liquid`, `sections/header-group.json`.
+
+**Issues closed**: SEO-027 (High), SEO-028 (Medium). Also logged, not fixed: SEO-029 (Medium — a
+3-way address inconsistency, needs the real current address from the business), SEO-030 (Low — a
+fake demo store-locations page, needs a page-scope decision).
+
+**Discovery method**: cross-checking every phone-number occurrence (`grep -rn` for the known real
+number) surfaced a file with a *typo'd* email/phone in its schema default — checking whether that
+default was actually live (it wasn't; `header-group.json`'s stored settings override it) led to
+inspecting the real stored value directly, which turned up a live hyperlink to
+`demo-ecomus-global.myshopify.com` — a materially more serious, separate finding than the one that
+prompted the check. Lesson: a file's schema `"default"` value is not evidence of what's actually
+live; the stored section-group JSON is the only source of truth for that.
+
+**Deploy safety**: pulled live copies of both files, diffed against last commit (zero drift),
+pushed `--allow-live`, re-pulled and confirmed byte-for-byte live.
+
 ## Verification queries used (for reuse once Admin API access is restored)
 
 ```graphql

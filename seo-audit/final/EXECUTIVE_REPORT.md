@@ -8,12 +8,13 @@ evidence, per this audit's own explicit "never fabricate scores" instruction. Fu
 
 ## Overall Website Health: Improving, real gaps remain
 
-16 verified defects found and fixed across four audit passes and four live deployments (commits
-`52a3821`, `eaad74f`, `4d23a2e`, `edf458f`) — 12 content-fabrication/placeholder issues, a duplicate
-Product schema affecting all 602 active products, a sitewide-unconditional FAQPage schema, and one
-Core Web Vitals (LCP lazy-loading) fix. 9 more identified and logged as open — none silently
-ignored, each requires either a business decision, real business content, or a currently-blocked
-tool/live-site check to close out.
+18 verified defects found and fixed across five audit passes and five live deployments (commits
+`52a3821`, `eaad74f`, `4d23a2e`, `edf458f`, `21457ec`) — 12 content-fabrication/placeholder issues,
+a duplicate Product schema affecting all 602 active products, a sitewide-unconditional FAQPage
+schema, one Core Web Vitals fix, and a live hyperlink to an unrelated demo Shopify store in the
+mobile header. 11 more identified and logged as open — none silently ignored, each requires either
+a business decision, real business content, or a currently-blocked tool/live-site check to close
+out.
 
 ## Category Scores (qualitative, evidence-linked — see [SCORECARD.md](../audit/SCORECARD.md) for full basis)
 
@@ -70,6 +71,18 @@ verifiability-over-persuasion standard already established for this project):
   (SEO-025) — safely removing it needs confirming every other page type still has its own visible
   H1 first, more investigation than this minor item currently justifies.
 
+**Fixed** (Local SEO / Trust, fifth pass, commit `21457ec`):
+- **A live hyperlink to `demo-ecomus-global.myshopify.com`** in the mobile header's "Need help?"
+  text — sending real customers to an unrelated demo Shopify store. Found by checking the actual
+  *stored* section settings, not just the theme file's schema default (which had a different,
+  also-wrong value — a typo'd email and malformed phone number, fixed too, though not itself live).
+  Link removed rather than guessing the correct internal page to point to instead.
+- **Not fixed, logged**: a three-way address-text inconsistency across the theme (SEO-029) — one
+  variant removed as part of the above fix, two remain, genuinely different from each other. Needs
+  the business's real current address, not a guess. Also logged: a fake Ecomus demo
+  "Store Locations" page (London/Madrid/Tokyo) that doesn't fit this single-location business
+  (SEO-030) — needs a page-scope decision, not a text fix.
+
 ## Remaining Risks
 
 1. **Both FAQ page templates show placeholder Lorem Ipsum content, live** (SEO-013) — the top
@@ -82,6 +95,10 @@ verifiability-over-persuasion standard already established for this project):
    (SEO-017) need it reconnected to answer definitively.
 5. A hidden, duplicate `<h1>` renders sitewide (SEO-025, Low) — not fixed, needs a
    template-by-template heading check first.
+6. Three-way NAP/address inconsistency across the theme (SEO-029) — needs the business's real,
+   current, complete address; not guessed at.
+7. A fake Ecomus demo "Store Locations" page exists (SEO-030) — needs a decision on whether to
+   delete, repurpose, or leave as unused dead code.
 
 ## Top Priorities for Launch
 
@@ -135,11 +152,19 @@ Status per phase, evidence-based, not assumed:
 - **BUILD-009 (Core Web Vitals)**: partially covered by SEO-026 above. A real Lighthouse/PageSpeed
   score cannot be produced — the storefront is password-gated, and no PageSpeed Insights API access
   exists this session. Not claimed as done.
-- **BUILD-010 (AI Search/GEO) through BUILD-015 (Launch Readiness)**: not started this pass. Each
-  needs its own fresh discovery work, and several depend on the same blocked resources above
-  (Admin API, live crawl, external Google tools). Starting them now would mean either repeating
-  what's already in [../seo/GEO_AUDIT.md](../seo/GEO_AUDIT.md) etc. from the first audit pass, or
-  fabricating findings without new evidence — neither is done here.
+- **BUILD-010 (AI Search/GEO)**: no new repo-based findings beyond what SEO-024 (schema) already
+  fixed. Real citation-behavior testing needs live AI-search tools, not attempted.
+- **BUILD-011 (Local SEO)**: real, new findings this pass — a live demo-store link removed
+  (SEO-027) and a genuine 3-way address inconsistency surfaced (SEO-029, open, needs the business's
+  real address). Geo-coordinates (SEO-015) remain unverified.
+- **BUILD-012 (Content + EEAT)**: one new finding — a fake Ecomus demo store-locations page
+  (SEO-030, open, needs a page-scope decision) — otherwise unchanged from the first audit pass'
+  12 fixed fabrication issues.
+- **BUILD-013 (UX/CRO) through BUILD-015 (Launch Readiness)**: not started. UX/CRO fundamentally
+  needs a live rendered page (site still gated) or Admin API (still disconnected — reconnection was
+  attempted again this pass and failed the same way; see [[storefront-seo-audit-2026-07-29]] for
+  what's blocked by it). Starting them now without either would mean fabricating findings — not
+  done here.
 
 Recommended continuation: reconnect the Shopify Admin API and/or lift the password gate first —
 both unblock most of the remaining phases at once, more efficiently than continuing to search for

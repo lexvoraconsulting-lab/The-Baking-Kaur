@@ -36,6 +36,10 @@ Verification** (needs a tool, business input, or access this session didn't have
 | SEO-024 | Schema | Medium | Fixed | Verified | `layout/theme.liquid` | 68-157 | `4d23a2e` |
 | SEO-025 | Technical SEO | Low | Open | Verified | `layout/theme.liquid` | 171 | — |
 | SEO-026 | Core Web Vitals | Medium | Fixed | Verified | `snippets/tbk-gallery.liquid` | 4 | `edf458f` |
+| SEO-027 | Local SEO / Trust | **High** | Fixed | Verified | `sections/header-group.json` | 176, 242 | `21457ec` |
+| SEO-028 | Trust/Contact-Info | Medium | Fixed | Verified | `sections/header-e-commerce.liquid` | 484 | `21457ec` |
+| SEO-029 | Local SEO | Medium | Open | Verified | 3 files (1 now removed) | see issues.yml | — |
+| SEO-030 | Content SEO | Low | Open | Verified | `templates/page.store-locations.json` | — | — |
 
 ## Reading this table
 

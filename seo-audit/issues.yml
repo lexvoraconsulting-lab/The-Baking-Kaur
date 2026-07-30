@@ -319,3 +319,51 @@ issues:
     fixed_in_commit: edf458f
     requires_manual_verification: "Whether templates/product.tbk.json (which renders this snippet) is assigned to any published product - liveness not confirmed, fixed defensively regardless, per this audit's established precedent"
     expected_impact: "The first/main product image (almost certainly the LCP element) was marked loading=\"lazy\", which Google's own guidance says delays LCP discovery. Changed to loading=\"eager\" + fetchpriority=\"high\". The actually-live default template (product-media.liquid, all 602 active products) was confirmed already doing this correctly (lazy_load: false on the first item) - no fix needed there."
+
+  - id: SEO-027
+    category: Local SEO / Trust
+    severity: High
+    status: Fixed
+    verification: Verified
+    file: sections/header-group.json
+    line: "176, 242"
+    owner: null
+    fixed_in_commit: 21457ec
+    requires_manual_verification: null
+    expected_impact: "The mobile header's 'Need help?' text was a live hyperlink to https://demo-ecomus-global.myshopify.com/pages/contact-1 - a leftover Ecomus demo-theme URL, sending real customers to an unrelated demo store instead of this business's own contact info. Confirmed live (not just a file default) via the actual stored section settings. Link removed (plain text kept) rather than guessing the correct internal page handle - no Admin API access to confirm it this session. Also removed a stray trailing '-' character after the phone number in one instance."
+
+  - id: SEO-028
+    category: Trust/Contact-Info
+    severity: Medium
+    status: Fixed
+    verification: Verified
+    file: sections/header-e-commerce.liquid
+    line: "484"
+    owner: null
+    fixed_in_commit: 21457ec
+    requires_manual_verification: null
+    expected_impact: "This section's schema DEFAULT (not currently live - header-group.json's stored settings override it, but the fallback for any future uncustomized instance) had a typo'd email ('thebakingkar@gmail.com', missing a letter, vs the real 'thebakingkaur@gmail.com' used everywhere else) and a malformed phone number ('=91-...' instead of '+91-...'), plus a broken HTML tag (literal '250001/span>' text instead of a closing '</span>'). Fixed; the address text in this default was removed rather than repaired in place, since it was a third, conflicting variant (see SEO-029)."
+
+  - id: SEO-029
+    category: Local SEO
+    severity: Medium
+    status: Open
+    verification: Verified
+    file: "snippets/bk-local-business.liquid, sections/header-group.json (formerly also sections/header-e-commerce.liquid's default, now removed)"
+    line: null
+    owner: business
+    fixed_in_commit: null
+    requires_manual_verification: "The real, current, complete business address - three non-identical variants existed across the theme (one now removed): bk-local-business.liquid's 'Fatah Complex, Thapar Nagar Lane 7, Meerut, Uttar Pradesh, 250001'; header-group.json's live value '390/1, Lane Number 7,Thapar Nagar, Meerut, Uttar Pradesh 250001' (no building name at all); and the now-removed default's 'Fateh Complex, 390/1, Lane Number 7, opposite Ice Factory, Thapar Nagar, Lajpat Bazaar, Thapar Nagar, Meerut, Uttar Pradesh 250001' (also spelled 'Fateh' vs 'Fatah', and repeats 'Thapar Nagar' twice)"
+    expected_impact: "NAP (Name/Address/Phone) inconsistency directly hurts local SEO and confuses customers/delivery partners about the real location. Not resolved here - picking one variant would mean guessing which is actually correct, which this audit's standing rule (never fabricate/guess business facts) forbids."
+
+  - id: SEO-030
+    category: Content SEO
+    severity: Low
+    status: Open
+    verification: Verified
+    file: templates/page.store-locations.json
+    line: null
+    owner: business
+    fixed_in_commit: null
+    requires_manual_verification: "Whether this page should be deleted, repurposed for the real single Meerut location, or left as unused dead code - a page-scope decision, not a text-fix"
+    expected_impact: "Contains fake Ecomus demo content (London/Madrid/Tokyo store location cards, one with a typo 'marid' for Madrid, and placeholder @example.com emails) that doesn't fit this single-location Meerut business at all. Liveness (whether any real page uses this template) not confirmed - Admin API disconnected this session."
