@@ -67,6 +67,10 @@ progress is tracked here separately rather than added as fabricated ledger rows.
 | B5 (duplicate collection cluster) | 1 — Critical Fixes | **Blocked**, 2026-07-30 | Needs actual merchandising picks (not supplied) and Admin API (down) for execution either way. |
 | B6 (SEO-030, Store Locator fate) | 1 — Critical Fixes | **Blocked**, 2026-07-30 | Explicitly sequenced after B4, which is blocked. |
 
+**Re-verified 2026-07-30 (Phase 4)**: all 6 rows above unchanged — Shopify MCP still disconnected, no
+`SHOPIFY_TOKEN` fallback, no new business input for B4/B5. B3's 5 files re-pulled and confirmed still
+live. See `SPRINT_REPORT.md` for the full re-verification record.
+
 **Sprint 2 (Navigation) status: complete for all in-scope tasks.** 2.3 and 2.5 skipped (hard-blocked
 on Sprint 1's unmade policy-terms decision, per explicit instruction not to route around unmade
 Sprint 1 decisions). Not continuing to Sprint 3 automatically, per instruction.

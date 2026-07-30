@@ -3,6 +3,22 @@
 Chronological record of what was actually deployed to the live theme (`151307485353`,
 `ae86ba-2a.myshopify.com` / `thebakingkaur.com`), with the deploy-safety evidence for each.
 
+## 2026-07-30 — Sprint 1 re-verification pass (Phase 4): no new implementation
+
+Re-checked Sprint 1's status under the full canonical hierarchy (`business/BUSINESS_MASTER.md` →
+`TBK_BRAND_GUIDELINES.md` → `design/*` → `IMPLEMENTATION_BACKLOG.md`). Confirmed the Shopify MCP
+connector is still disconnected and no `SHOPIFY_TOKEN` fallback is configured — Sprint 1's remaining
+tasks (B1, B2, B4, B5, B6) are unchanged from the last pass, blocked for the same reasons. Re-pulled
+B3's 5 previously-corrected files (`bk-local-business.liquid`, `tbk-schema-website.liquid`,
+`site-footer.liquid`, `footer.liquid`, `tbk-footer.liquid`) and confirmed all still byte-for-byte live.
+
+**One real finding this pass**: the Shopify CLI briefly failed with a DNS-resolution error
+(`getaddrinfo ENOTFOUND accounts.shopify.com`) on first attempt — confirmed transient via direct
+`curl` checks (the host resolved normally moments later) and a successful retry. Not a new standing
+blocker; noted for the record since it briefly looked like one.
+
+No file changed, no commit made for this entry — see `seo-audit/final/SPRINT_REPORT.md` for full detail.
+
 ## 2026-07-29 — Commit `52a3821`: remove fabricated ratings and fake customer reviews
 
 **Files**: `sections/main-product-premium-v2.liquid`, `sections/main-product.liquid`,
