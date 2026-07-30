@@ -327,6 +327,29 @@ topic links (Delivery → `cake-delivery-in-meerut`, Eggless → `100-percent-eg
 standard pull → diff (zero drift) → push → re-pull → diff pattern; both files confirmed byte-for-byte
 live.
 
+## 2026-07-30 — Sprint 2 task 2.7: cross-link the hamper page cluster
+
+**Change type**: 4 Admin API `pageUpdate` calls (Page bodies) — no theme file involved.
+
+**Before, verified**: fresh `page` queries on all 4 hamper pages (`gift-hampers`,
+`customised-hampers-meerut`, `festive-hampers-meerut`, `surprise-hampers-meerut`) confirmed the
+`INTERNAL_LINKING.md` finding that was previously marked "not verified": none of the three
+location-specific pages linked to the hub (`/pages/gift-hampers`) or to each other, and the hub
+itself didn't link to any of the three.
+
+**Why**: per `INTERNAL_LINKING.md`'s Hampers cluster recommendation and `IMPLEMENTATION_BACKLOG.md`
+task 2.7 — these four pages cover closely related, non-overlapping ground (general hampers, custom-
+built, festival-timed, surprise-timed) but a reader on any one of them had no way to discover the
+other three.
+
+**Implementation**: added one sentence with 2 links (to the hub + the two other siblings, not itself)
+at the end of each of the 3 location-specific pages' existing closing paragraph. Added a new "Explore
+by Occasion" section to the hub page linking to all 3 siblings, placed before the existing "Related
+Collections" section (left untouched — see task 2.8 for that separate fix).
+
+**After, re-verified**: all 4 `pageUpdate` calls returned `userErrors: []`; a fresh re-query of all 4
+pages confirmed the new links are present and correctly targeted.
+
 ## Related
 
 [AUDIT_LEDGER.md](AUDIT_LEDGER.md), [VERIFIED_ISSUES.md](VERIFIED_ISSUES.md).

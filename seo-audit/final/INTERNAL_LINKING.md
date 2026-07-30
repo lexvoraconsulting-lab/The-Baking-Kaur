@@ -43,18 +43,18 @@ pattern of linking to the Refund & Return Policy page from prose): the Delivery 
 `/pages/cake-delivery-in-meerut`, the Eggless Q&A to `/pages/100-percent-eggless-bakery`, the Hampers
 Q&A to `/pages/gift-hampers`. Deployed live, verified byte-for-byte via a post-push pull/diff.
 
-### Hampers cluster
+### Hampers cluster — cross-linking IMPLEMENTED 2026-07-30
 
-- **Hub**: `/pages/gift-hampers` (the richest page on the site) already lists related collections by
-  name but not as links — convert "Related Collections" (Birthday Cakes, Anniversary Cakes, Designer
-  Cakes, Wedding Cakes, Flowers & Cake Combos, Midnight Delivery) from plain text to real hyperlinks
-  to the matching live collections.
+- **Hub**: `/pages/gift-hampers` — added a new "Explore by Occasion" section linking to all 3
+  location-specific siblings. "Related Collections" is still plain text, not yet hyperlinked — see
+  task 2.8 (tracked separately, since it's collection links rather than page-to-page links).
 - Its three location-specific siblings (`/pages/customised-hampers-meerut`,
-  `/pages/festive-hampers-meerut`, `/pages/surprise-hampers-meerut`) should link back to the hub and
-  to each other — not verified whether they currently do; flag for a content-pass check before this
-  BUILD's next phase.
+  `/pages/festive-hampers-meerut`, `/pages/surprise-hampers-meerut`) — **verified this pass that none
+  linked to the hub or each other**, then fixed: each now links to the Gift Hampers hub and to the
+  other two siblings (not itself), added within each page's existing closing paragraph.
 - Festival hampers: once/if additional festival collections are built (see §12 in
-  `WEBSITE_ARCHITECTURE.md`), each should link to `/pages/festive-hampers-meerut` and vice versa.
+  `WEBSITE_ARCHITECTURE.md`), each should link to `/pages/festive-hampers-meerut` and vice versa —
+  still open, not part of this pass (no new festival collections exist yet).
 
 ### Collections ↔ Delivery/Policy (currently zero links either direction)
 
