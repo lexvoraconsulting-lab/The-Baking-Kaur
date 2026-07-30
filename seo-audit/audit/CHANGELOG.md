@@ -156,6 +156,76 @@ query($id: ID!) {
 }
 ```
 
+## 2026-07-30 — Verification pass (no code change): SEO-016 header rating already resolved live
+
+Pulled the live theme's `sections/tbk-header.liquid` (`shopify theme pull --theme 151307485353
+--only sections/tbk-header.liquid`) and its stored `sections/header-group.json` `tbk_header_main`
+block, expecting to find and remove the "★ 4.9 Rated" claim CLAUDE.md's roadmap and this project's
+own memory both described as still live and awaiting a go-ahead.
+
+Neither the stored block settings nor a `diff --strip-trailing-cr` against local git turned up any
+rating/star/Google-review text. Local git history shows a prior commit, `36e1b0c` ("Header: remove
+unverified '4.9 Rated' from mobile drawer trust strip"), predating the current HEAD — it appears
+this fix was already live before this audit started, and CLAUDE.md's roadmap item was never updated
+to reflect it. **No code change made** — issue closed as already-resolved, not newly fixed.
+
+One unrelated pre-existing drift found in the same diff: the live file has `{%- render 'tbk-tokens'
+-%}` (design-tokens integration) that local git's copy lacks. Not touched — out of scope for this
+check, logged here so a future sync doesn't mistake it for new drift.
+
+**Lesson**: this project's own memory and CLAUDE.md are not infallible sources for "what's still
+open" — always re-verify against the live theme before spending effort on a fix, even for an item
+previously logged as confirmed-open.
+
+## 2026-07-30 — Business Decision Implementation pass: FAQ content, header verification, 2 new fixes, 6 new documents
+
+Full detail in [../final/BUSINESS_DECISION_IMPLEMENTATION.md](../final/BUSINESS_DECISION_IMPLEMENTATION.md).
+Summary:
+
+**Deployed to the live theme / Admin API this pass** (all pull → diff → edit → push/write → re-pull
+→ diff-confirm, per this project's standard deploy-safety pattern):
+
+- **SEO-013** (Critical, Fixed): both FAQ templates (`page.faq-01.json`, live; `page.faq-02.json`,
+  unused but kept in sync) rewritten from 12× Lorem Ipsum placeholders to 19 topics of real,
+  evidence-based FAQ content. No new schema code needed — `sections/accordion.liquid` already emits
+  per-item `Question`/`Answer` Microdata dynamically, so real content flows straight into real
+  `FAQPage` structured data.
+- **SEO-032** (Critical, Fixed): a fabricated "20,000+ celebrations" claim found on the live
+  `/pages/100-percent-eggless-bakery` page body (an Admin API Page, not a theme file — a surface the
+  original grep-based sweep never covered) — same pattern as SEO-007/008/009, rewritten via
+  `pageUpdate` to drop the invented count.
+- **SEO-033** (High, Fixed): broken `tel:+91` (no digits) and `wa.me/91` (no number) links on the
+  live Contact page, silently non-functional for every visitor — fixed to the real, already-verified
+  phone number.
+
+**Verified, not changed** (already correct before this pass, tracker was stale):
+
+- **SEO-016**: the header "★ 4.9 Rated" claim CLAUDE.md and prior memory both described as still-open
+  was already fixed live (commit `36e1b0c`, predating this audit). CLAUDE.md's roadmap and this
+  project's memory were both corrected to stop chasing a non-existent defect.
+
+**New findings, documented, not auto-resolved** (each requires a business decision or business
+input the model must not guess):
+
+- **SEO-031 escalated Medium → Critical**: the "duplicate policy pages" finding is actually a
+  4-way contradiction — Shopify's own built-in Refund/Terms Shop Policies say "no refunds ever,"
+  directly opposing the live custom Refund & Return Policy page's 12hr/4hr/5-7-day terms. 3 of 4
+  built-in policies also say "The Bakery Kaur" (wrong name). Full detail:
+  [../final/POLICY_CONSOLIDATION.md](../final/POLICY_CONSOLIDATION.md).
+- **SEO-034** (new, High): the live "Terms and Conditions" custom page has a completely empty body.
+- **SEO-035** (new, Medium): two different live delivery-area lists (footer vs. delivery page) agree
+  on only 2 of 5 named localities.
+- **SEO-036** (new, Medium): the LocalBusiness schema's geo-coordinates and the Shopify Admin
+  account's own billing-address coordinates are ~600m apart — two real points, not just one
+  unverified one.
+- **ADDRESS_AUDIT.md**: full catalogue of 8 address-text sources, 4 distinct wordings, one opening-
+  hours conflict (9am vs 10am).
+
+**New planning documents** (`seo-audit/final/`): `ADDRESS_AUDIT.md`, `POLICY_CONSOLIDATION.md`,
+`DELIVERY_AREA_SPEC.md`, `EEAT_REPORT.md`, `LOCAL_SEO_ROADMAP.md`, `CONTENT_PLAN.md`,
+`BUSINESS_DECISION_IMPLEMENTATION.md` — all evidence-based, none invent a business fact, each states
+explicitly where real business input is still needed.
+
 ## Related
 
 [AUDIT_LEDGER.md](AUDIT_LEDGER.md), [VERIFIED_ISSUES.md](VERIFIED_ISSUES.md).

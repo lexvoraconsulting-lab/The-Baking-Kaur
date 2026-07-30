@@ -63,9 +63,11 @@ plan — the ideas already agreed, in priority order. Sources: `PROJECT_ROADMAP.
    no theme deploy. Sweep the full catalogue (1,235 products, `title`/`seo.title`/`seo.description`/
    `descriptionHtml`) for both faults — the 8 known mojibake drafts and 1 live mismatch surfaced
    incidentally, assume more. **Repair encoding, never strip.** Never rename a handle here.
-2. **Unverified "★ 4.9 Rated" in the site header** (`tbk_header_main`) — hardcoded, unlinked, and
-   a different number from the hero's already-removed 4.8. Last unverified rating on the storefront.
-   Remove it, or link it to the real Google Business Profile. Needs an explicit go-ahead.
+2. ~~Unverified "★ 4.9 Rated" in the site header (`tbk_header_main`)~~ — **already resolved live**,
+   confirmed 2026-07-30 via a live theme pull/diff of `sections/tbk-header.liquid` and
+   `sections/header-group.json`; no rating content exists in either. This item was carried in the
+   roadmap after the underlying fix (`36e1b0c`) had already shipped — verify against the live theme
+   before re-actioning stale roadmap items like this one.
 3. **Occasion mismatch in descriptions** — ~100+ products still labelled "anniversary" wrongly.
    Tool is written: `seo-ops/fix_description_occasion.py` (dry-run → CSV → `--apply`).
 

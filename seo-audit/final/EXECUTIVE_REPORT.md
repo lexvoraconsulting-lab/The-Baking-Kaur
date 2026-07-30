@@ -8,15 +8,19 @@ evidence, per this audit's own explicit "never fabricate scores" instruction. Fu
 
 ## Overall Website Health: Improving, real gaps remain
 
-18 verified defects found and fixed across five audit passes and five live deployments (commits
-`52a3821`, `eaad74f`, `4d23a2e`, `edf458f`, `21457ec`) — 12 content-fabrication/placeholder issues,
-a duplicate Product schema affecting all 602 active products, a sitewide-unconditional FAQPage
-schema, one Core Web Vitals fix, and a live hyperlink to an unrelated demo Shopify store in the
-mobile header. The hosted Shopify MCP connector then came back fully working and resolved two more
-previously-blocked items with real data (customer count, page-template assignments) — which in turn
-**escalated two already-logged issues from assumed to confirmed-live** (see below) and surfaced one
-new one. 10 items remain open — none silently ignored, each requires either a business decision or
-real business content, not a tool limitation anymore.
+24 verified defects found and fixed across six audit passes and live deployments/Admin writes
+(commits `52a3821`, `eaad74f`, `4d23a2e`, `edf458f`, `21457ec`, plus this pass's FAQ/contact-link
+theme pushes and two Admin API page writes) — 12 content-fabrication/placeholder issues from earlier
+passes, plus this pass's real FAQ content (SEO-013), a 13th fabricated count claim on a live Page
+body (SEO-032), broken Contact-page `tel:`/WhatsApp links (SEO-033), a duplicate Product schema
+affecting all 602 active products, a sitewide-unconditional FAQPage schema, one Core Web Vitals fix,
+and a live hyperlink to an unrelated demo Shopify store in the mobile header. This pass also ran a
+full business-decision-implementation cycle per an explicit instruction: implemented every item that
+was a mechanical/evidence-based fix, and produced 6 new evidence-based planning documents for every
+item that is a genuine business decision — most significantly, escalating SEO-031 from "two duplicate
+pages" to a confirmed 4-way legal contradiction between the site's own policy surfaces (see
+[POLICY_CONSOLIDATION.md](POLICY_CONSOLIDATION.md)). 8 items remain open — none silently ignored,
+each requires either a business decision or real business content, not a tool limitation.
 
 ## Category Scores (qualitative, evidence-linked — see [SCORECARD.md](../audit/SCORECARD.md) for full basis)
 
@@ -25,12 +29,12 @@ real business content, not a tool limitation anymore.
 | Technical SEO | Adequate (Verified) — clean `robots.txt`, correct dynamic canonicals and `lang` attribute; one minor open item (hidden duplicate H1, SEO-025); site is intentionally password-gated, limiting live-crawl checks |
 | Schema | **Was Critical (duplicate Product schema on all 602 active products), now fixed** — see [../schema/SCHEMA_SCORECARD.md](../schema/SCHEMA_SCORECARD.md) |
 | Core Web Vitals | One real, verified fix (LCP lazy-loading, SEO-026); no overall score claimed — Lighthouse/PageSpeed can't run against a gated site |
-| Content SEO | **Critical gap (Verified)** — both real FAQ page templates show Lorem Ipsum, live |
-| GEO / AI Search Readiness | Estimated — schema foundation is strong, dynamic, and now free of duplicate entities; the FAQ *content* gap (not the schema placement, now fixed) still actively hurts AI-citation trust |
-| Local SEO | Adequate, one unverified input (geo-coordinates) |
-| UX / CRO | Not assessable this pass — site gated, no live render available |
+| Content SEO | **Was Critical, now fixed (Verified)** — live FAQ page rewritten with 19 topics of real content (SEO-013); one live fabricated count claim found and fixed on a Page body (SEO-032); one empty live legal page remains open (SEO-034) |
+| GEO / AI Search Readiness | Improving — the FAQ content gap is closed (SEO-013); schema foundation remains strong, dynamic, and free of duplicate entities |
+| Local SEO | Real NAP gap, now fully quantified — 4 address wordings + 2 geo-coordinate pairs (~600m apart) + 2 conflicting delivery-area lists, all live simultaneously (SEO-015/029/036/035); see [ADDRESS_AUDIT.md](ADDRESS_AUDIT.md) |
+| UX / CRO | Not fully assessable — site gated. One real fix landed: broken Contact-page `tel:`/WhatsApp links (SEO-033) |
 | Security | Adequate within the narrow scope reviewed — not a full security audit |
-| EEAT | Was Critical, now substantially improved — 12 fabrication instances removed (more than `CLAUDE.md` alone had tracked); still 0 real reviews, no FSSAI number (both already known, client-blocked) |
+| EEAT | Was Critical, now substantially improved, one new legal-conflict finding — 13 fabrication instances removed total (12 prior + 1 this pass); a live 4-way contradiction between Refund/Terms policies is the new top finding (SEO-031, Critical); still 0 real reviews, no FSSAI number, no named founder, no GST surfaced — see [EEAT_REPORT.md](EEAT_REPORT.md) |
 
 ## What changed this session
 
@@ -96,48 +100,76 @@ verifiability-over-persuasion standard already established for this project):
   ("Return, Refund & Replacement Policy" and "Refund & Return Policy") — a genuine duplicate-content
   signal.
 
+## Sixth pass, 2026-07-30 — Business Decision Implementation
+
+An explicit instruction to implement approved business decisions and generate replacement
+specifications for everything still open. Full detail:
+[BUSINESS_DECISION_IMPLEMENTATION.md](BUSINESS_DECISION_IMPLEMENTATION.md). Headline outcomes:
+
+- **SEO-013 fixed and deployed**: live FAQ page rewritten, 19 real topics, grounded entirely in
+  already-published site content — no new facts invented.
+- **SEO-016 confirmed already-fixed**: the header rating claim `CLAUDE.md` described as still-open
+  was already resolved by a prior commit predating this audit; both `CLAUDE.md` and project memory
+  were stale and are now corrected.
+- **SEO-032, SEO-033 found and fixed**: a fabricated count claim on a live Page body, and broken
+  `tel:`/WhatsApp links on the live Contact page.
+- **SEO-031 escalated Medium → Critical**: what looked like two duplicate policy pages is actually a
+  live, public, 4-way contradiction between the site's custom Refund policy and Shopify's own
+  built-in Refund/Terms Shop Policies over whether refunds exist at all.
+- **SEO-034, SEO-035, SEO-036 newly found**: an empty live Terms page, two conflicting delivery-area
+  lists, and a ~600m geo-coordinate conflict against the Shopify Admin's own billing-address record.
+- **6 new evidence-based documents** produced for every remaining business decision:
+  [ADDRESS_AUDIT.md](ADDRESS_AUDIT.md), [POLICY_CONSOLIDATION.md](POLICY_CONSOLIDATION.md),
+  [DELIVERY_AREA_SPEC.md](DELIVERY_AREA_SPEC.md), [EEAT_REPORT.md](EEAT_REPORT.md),
+  [LOCAL_SEO_ROADMAP.md](LOCAL_SEO_ROADMAP.md), [CONTENT_PLAN.md](CONTENT_PLAN.md).
+
 ## Remaining Risks
 
-1. **The live FAQ page shows placeholder Lorem Ipsum content** (SEO-013, **confirmed live**,
-   Critical) — the top priority; needs real business content, not an invented fix.
-2. **The original header "★4.9 Rated" claim is still live** (SEO-016) — `CLAUDE.md` has required
-   your explicit go-ahead for this since before this audit began; still outstanding.
-3. **The "Store Locator" page (fake London/Madrid/Tokyo demo content) has been unpublished**
-   (SEO-030, **Mitigated** — done via `pageUpdate`, `isPublished: false`, user-approved and
-   re-verified live). No longer publicly visible, but the underlying decision — delete, repurpose
-   for the real Meerut location, or leave unpublished permanently — is still open.
-4. Geo-coordinates and founding-year claim need business-side confirmation (SEO-014, SEO-015).
+1. **Live, public contradiction on refund/cancellation terms** (SEO-031, **Critical**) — the site's
+   own custom Refund & Return Policy page and Shopify's built-in Refund policy/Terms of Service say
+   opposite things about whether refunds exist at all. Top remaining priority — a legal/trust risk,
+   not just a duplicate-content one.
+2. **The "Store Locator" page remains unpublished, not resolved** (SEO-030, Mitigated) — a real
+   replacement content spec is now ready ([DELIVERY_AREA_SPEC.md](DELIVERY_AREA_SPEC.md)) but the
+   permanent fate (delete/repurpose/leave unpublished) is still open.
+3. **Address, geo-coordinates, and delivery-area lists are each inconsistent across multiple live
+   surfaces** (SEO-015, SEO-029, SEO-035, SEO-036) — fully catalogued in
+   [ADDRESS_AUDIT.md](ADDRESS_AUDIT.md); needs one confirmed answer from the business, applied
+   everywhere at once.
+4. **An empty live "Terms and Conditions" page** (SEO-034) — indexable, published, no content.
 5. A hidden, duplicate `<h1>` renders sitewide (SEO-025, Low) — not fixed, needs a
    template-by-template heading check first.
-6. Three-way NAP/address inconsistency across the theme (SEO-029) — needs the business's real,
-   current, complete address; not guessed at.
-7. Two duplicate policy pages on the same topic (SEO-031, new) — needs a decision on which is
-   canonical.
+6. `sitemap.xml` still needs re-checking once the password gate lifts (SEO-019).
 
 ## Top Priorities for Launch
 
-1. Real FAQ content for the live FAQ page (or remove it until real content exists) — SEO-013.
-2. Decide on the header rating claim — SEO-016.
-3. Decide the permanent fate of the "Store Locator" page (SEO-030, now unpublished/Mitigated) —
-   delete, repurpose, or leave unpublished.
-4. Confirm the Google Maps geo-coordinates and the real business address — SEO-015, SEO-029.
-5. Decide which policy page is canonical — SEO-031.
-6. Re-check `sitemap.xml` the moment the password gate lifts — SEO-019.
+1. Resolve the refund/cancellation policy contradiction and fix the wrong business name on 3 Shop
+   Policies — SEO-031 (now the single highest-priority item).
+2. Confirm one real address, one real geo-coordinate pair, and one real delivery-area list, then
+   propagate together — SEO-015, SEO-029, SEO-035, SEO-036.
+3. Decide the permanent fate of the "Store Locator" page using the ready replacement spec — SEO-030.
+4. Populate or unpublish the empty "Terms and Conditions" page — SEO-034.
+5. Re-check `sitemap.xml` the moment the password gate lifts — SEO-019.
 
 ## Stop condition reached
 
-Per this audit's own instruction ("continue until no Critical or High-priority verified issues
-remain"): every remaining Critical/High item (SEO-013, SEO-016) requires either business-supplied
-content or your explicit decision — not something this audit can resolve by continuing to search
-the codebase or query the API further. Both blocked-tool items from the prior
-pass (SEO-017, SEO-018) are now genuinely resolved with real data, and SEO-030 has been mitigated
-(unpublished, user-approved and re-verified) rather than left live pending a decision. What's left
-is exclusively business decisions and business-supplied content. Stopping here is the correct
-application of the stop
-condition, not an early exit.
+Per this audit's own instruction ("continue autonomously until another genuine business decision is
+required"): every remaining item (SEO-031, SEO-030, SEO-015/029/035/036, SEO-034) requires either
+business-supplied content or an explicit decision only the business can make — not something this
+audit can resolve by continuing to search the codebase or query the API further. Every item that was
+a mechanical, evidence-based fix this pass (SEO-013, SEO-032, SEO-033) was implemented and deployed,
+not just logged. What's left is exclusively business decisions and business-supplied content.
+Stopping here is the correct application of the stop condition, not an early exit.
 
 ## Full report index
 
+[BUSINESS_DECISION_IMPLEMENTATION.md](BUSINESS_DECISION_IMPLEMENTATION.md) ·
+[ADDRESS_AUDIT.md](ADDRESS_AUDIT.md) ·
+[POLICY_CONSOLIDATION.md](POLICY_CONSOLIDATION.md) ·
+[DELIVERY_AREA_SPEC.md](DELIVERY_AREA_SPEC.md) ·
+[EEAT_REPORT.md](EEAT_REPORT.md) ·
+[LOCAL_SEO_ROADMAP.md](LOCAL_SEO_ROADMAP.md) ·
+[CONTENT_PLAN.md](CONTENT_PLAN.md) ·
 [../audit/AUDIT_LEDGER.md](../audit/AUDIT_LEDGER.md) ·
 [../audit/VERIFIED_ISSUES.md](../audit/VERIFIED_ISSUES.md) ·
 [../audit/MANUAL_VERIFICATION.md](../audit/MANUAL_VERIFICATION.md) ·
@@ -175,9 +207,12 @@ Status per phase, evidence-based, not assumed:
 - **BUILD-010 (AI Search/GEO)**: unchanged, no new findings this pass.
 - **BUILD-011 (Local SEO)**: unchanged from the prior pass (SEO-027 fixed, SEO-029/015 still need
   business input) — the MCP reconnection didn't surface new Local SEO findings specifically.
-- **BUILD-012 (Content + EEAT)**: **materially advanced this pass** — SEO-013 and SEO-030 both
-  moved from "assumed" to "confirmed live" via real data, and a new duplicate-content finding
-  (SEO-031) surfaced from the same query. Real customer/order counts (SEO-018) also resolved.
+- **BUILD-012 (Content + EEAT)**: **the most advanced track by far** — SEO-013 (FAQ content) is now
+  fully implemented and live, not just confirmed-live-as-a-defect. SEO-031 escalated from a simple
+  duplicate-content finding to a confirmed 4-way legal contradiction, with a full consolidation
+  recommendation ready. Real customer/order counts (SEO-018) resolved. Remaining Content/EEAT work
+  (SEO-034 empty Terms page, SEO-031 policy decision) is exclusively business-decision-gated, not
+  tool- or data-blocked.
 - **BUILD-013 (UX/CRO) through BUILD-015 (Launch Readiness)**: still not started. The specific
   blocker for these has narrowed — it's now purely the storefront's password gate (live rendering),
   not the Admin API (which is fully working again). Product/collection *data* is fully queryable;

@@ -155,14 +155,14 @@ issues:
   - id: SEO-013
     category: Content SEO / GEO
     severity: Critical
-    status: Open
-    verification: Verified
-    file: "templates/page.faq-01.json (CONFIRMED LIVE - real published page 'Frequently Asked Questions (FAQs)', handle frequently-asked-questions-faqs, via GraphQL); templates/page.faq-02.json (confirmed NOT assigned to any page - unused)"
-    line: "12 Lorem Ipsum instances (faq-01 only, now confirmed the live one)"
-    owner: business
-    fixed_in_commit: null
-    requires_manual_verification: "Real FAQ answers (refund policy, delivery cutoffs, etc.) must come from the business - inventing plausible-sounding ones would itself be a fabrication risk"
-    expected_impact: "CONFIRMED via real GraphQL page query (not assumed): this Lorem Ipsum content is live, right now, on the store's actual published FAQ page. Severity raised from High to Critical on that basis. Currently actively harms EEAT and AI-search citation trust - an FAQ page showing gibberish is worse than no FAQ page. Top launch-blocking content gap. NOTE (found during SEO-024 work): layout/theme.liquid contains 9 real, plausible Q&A pairs (delivery/ordering facts) that could potentially become this page's real content instead of new copy being written from scratch - a template-ownership decision, not made unilaterally here."
+    status: Fixed
+    verification: "Verified - live theme pull + diff, 2026-07-30"
+    file: "templates/page.faq-01.json (live); templates/page.faq-02.json (unused, kept in sync)"
+    line: null
+    owner: null
+    fixed_in_commit: "uncommitted (deployed live via theme push 2026-07-30, not yet committed to git)"
+    requires_manual_verification: null
+    expected_impact: "All Lorem Ipsum removed. Replaced with 19 topics of production FAQ content (Custom/Designer/Wedding/Birthday/Anniversary/Bento Cakes, Same-Day/Midnight Delivery, Cake Flavours, Eggless, Customisation, Delivery, Refunds, Storage, Freshness, Payment, Corporate Orders, Hampers, Bulk Orders), grounded entirely in already-published real site content - no invented business facts. Refunds/Payment/Storage answers deliberately stay generic and link to the policy page rather than restate specifics, since SEO-031 found the live refund policy sources materially conflict with each other. FAQPage schema needs no new code - sections/accordion.liquid already emits per-item Question/Answer Microdata dynamically from block content, so real content flows straight into real schema."
 
   - id: SEO-014
     category: EEAT
@@ -191,14 +191,14 @@ issues:
   - id: SEO-016
     category: EEAT
     severity: Critical
-    status: Open
-    verification: Verified
-    file: "sections/header (tbk_header_main) - exact file not re-located this pass"
+    status: Fixed
+    verification: "Verified - live theme pull + diff, 2026-07-30"
+    file: "sections/header-group.json (tbk_header_main block) + sections/tbk-header.liquid"
     line: null
-    owner: user
-    fixed_in_commit: null
-    requires_manual_verification: "Explicit go-ahead already required by CLAUDE.md - remove, or link to a real Google Business Profile"
-    expected_impact: "Last known unverified rating claim on the storefront once SEO-001 through SEO-009 are fixed."
+    owner: null
+    fixed_in_commit: "36e1b0c (local git) - already live independent of this audit, not newly fixed this pass"
+    requires_manual_verification: null
+    expected_impact: "None remaining. tbk_header_main's stored settings (header-group.json) carry no rating field, and a fresh shopify theme pull of tbk-header.liquid byte-diffed clean against local (one unrelated pre-existing drift: live has {%- render 'tbk-tokens' -%} that local git lacks, unrelated to this issue). CLAUDE.md's roadmap item #2 and this project's memory both described this as still-open; both were stale and have been corrected."
 
   - id: SEO-017
     category: Technical SEO
@@ -355,7 +355,7 @@ issues:
     owner: business
     fixed_in_commit: null
     requires_manual_verification: "The real, current, complete business address - three non-identical variants existed across the theme (one now removed): bk-local-business.liquid's 'Fatah Complex, Thapar Nagar Lane 7, Meerut, Uttar Pradesh, 250001'; header-group.json's live value '390/1, Lane Number 7,Thapar Nagar, Meerut, Uttar Pradesh 250001' (no building name at all); and the now-removed default's 'Fateh Complex, 390/1, Lane Number 7, opposite Ice Factory, Thapar Nagar, Lajpat Bazaar, Thapar Nagar, Meerut, Uttar Pradesh 250001' (also spelled 'Fateh' vs 'Fatah', and repeats 'Thapar Nagar' twice)"
-    expected_impact: "NAP (Name/Address/Phone) inconsistency directly hurts local SEO and confuses customers/delivery partners about the real location. Not resolved here - picking one variant would mean guessing which is actually correct, which this audit's standing rule (never fabricate/guess business facts) forbids."
+    expected_impact: "NAP (Name/Address/Phone) inconsistency directly hurts local SEO and confuses customers/delivery partners about the real location. Not resolved here - picking one variant would mean guessing which is actually correct, which this audit's standing rule (never fabricate/guess business facts) forbids. Full re-audit with a 5th variant (Shopify Admin's own billing address, which matches neither) plus a geo-coordinate conflict (~600m apart) and an opening-hours conflict (9am vs 10am), 2026-07-30: see seo-audit/final/ADDRESS_AUDIT.md."
 
   - id: SEO-030
     category: Content SEO
@@ -367,16 +367,75 @@ issues:
     owner: business
     fixed_in_commit: null
     requires_manual_verification: "User explicitly approved unpublishing as an interim step. Done via graphql_mutation (pageUpdate, isPublished: false), re-verified with a fresh read - confirmed isPublished: false live. The underlying question (delete/repurpose the page/template) is still open and needs a business decision - this only stops it being publicly visible in the meantime."
-    expected_impact: "Was CONFIRMED LIVE with fake London/Madrid/Tokyo store-locator content, reachable by real customers. Now unpublished (mitigated, not fully resolved) - the page and its template still exist, containing the same fake content, just no longer publicly reachable. Full resolution (delete vs. repurpose vs. leave unpublished permanently) still needs your decision."
+    expected_impact: "Was CONFIRMED LIVE with fake London/Madrid/Tokyo store-locator content, reachable by real customers. Now unpublished (mitigated, not fully resolved) - the page and its template still exist, containing the same fake content, just no longer publicly reachable. Full resolution (delete vs. repurpose vs. leave unpublished permanently) still needs your decision. A replacement content specification (evidence-based, no invented delivery-area facts) is ready in seo-audit/final/DELIVERY_AREA_SPEC.md - it also surfaces a new conflict: two different real delivery-area lists (footer vs. delivery page) that don't agree past the first two entries."
 
   - id: SEO-031
-    category: Content SEO
-    severity: Medium
+    category: Content SEO / EEAT / Legal
+    severity: Critical
     status: Open
-    verification: Verified
-    file: null
+    verification: "Verified - full policy-content audit, 2026-07-30, see seo-audit/final/POLICY_CONSOLIDATION.md"
+    file: "Custom Pages: refund-return-policy (live), return-refund-replacement-policy (unpublished); Shopify Shop Policies: Refund, Shipping, Terms of Service, Contact Information (all live at checkout.shopify.com)"
     line: null
     owner: business
     fixed_in_commit: null
-    requires_manual_verification: "Which of the two policy pages is the intended canonical one, and whether the other should redirect, merge, or be removed - a content-ownership decision"
-    expected_impact: "Found via the same real GraphQL page query: two separate pages on nearly the same topic exist - 'Return, Refund & Replacement Policy' (handle return-refund-replacement-policy, templateSuffix page, NOT published) and 'Refund & Return Policy' (handle refund-return-policy, templateSuffix null, published). Classic duplicate-content signal; the unpublished one is presumably a superseded draft, but not assumed without confirmation."
+    requires_manual_verification: "Severity raised Medium to Critical: this is not just duplicate content. The live custom 'Refund & Return Policy' page promises 12hr cancellation / 4hr issue window / 5-7 day refunds, while Shopify's own live built-in Refund policy and Terms of Service both say 'all orders final, no refunds or replacements ever.' Two live, public, customer-facing legal documents directly contradict each other on actual customer rights. Three of the four built-in Shop Policies also name the business 'The Bakery Kaur' (wrong - should be The Baking Kaur). Full detail and a canonical/duplicate/redirect recommendation in seo-audit/final/POLICY_CONSOLIDATION.md. Which policy's terms are actually true, and fixing the Shop Policies (Shopify Admin -> Settings -> Policies, outside theme deploy scope) is a business decision, not resolved here."
+
+  - id: SEO-032
+    category: EEAT
+    severity: Critical
+    status: Fixed
+    verification: "Verified - Admin API pageUpdate + re-read, 2026-07-30"
+    file: "Page gid://shopify/Page/116138016937 ('100% Eggless Bakery in Meerut', /pages/100-percent-eggless-bakery)"
+    line: null
+    owner: null
+    fixed_in_commit: "uncommitted (live Admin API write 2026-07-30, not a theme file)"
+    requires_manual_verification: null
+    expected_impact: "Same fabrication pattern as SEO-007/008/009 (unverified '20,000+' count claims), found in a live Admin Page body rather than a theme section file - a surface not checked by the original grep sweep, which only covered sections/snippets/templates. The sentence 'a craft we have refined over 20,000+ celebrations' was rewritten to remove the count while keeping the sentiment, verified against real Admin data showing only 113 customers / 24 orders. Lesson: page BODY content (fetched via GraphQL, not grep-able in the repo) needs the same fabrication sweep theme files already got - other live pages have not all been checked this pass; recommend a follow-up sweep of all ~28 Page bodies for the same pattern."
+
+  - id: SEO-033
+    category: Technical SEO / Trust-Contact-Info
+    severity: High
+    status: Fixed
+    verification: "Verified - live theme pull + diff, 2026-07-30"
+    file: "templates/page.contact-2.json"
+    line: 69
+    owner: null
+    fixed_in_commit: "uncommitted (deployed live via theme push 2026-07-30, not yet committed to git)"
+    requires_manual_verification: null
+    expected_impact: "The live Contact page's 'tap to call' link was href=\"tel:+91\" (no digits after the country code - clicking it does nothing) and the WhatsApp link was https://wa.me/91?text=... (also missing the actual number). Both silently broken for every visitor since whenever this page was last edited. Fixed to tel:+918218862928 and wa.me/918218862928 using the already-verified real number; the visible phone text and every other reference to it on the page were already correct, only the two hrefs were wrong."
+
+  - id: SEO-034
+    category: Legal / EEAT
+    severity: High
+    status: Open
+    verification: "Verified - live Admin API page read, 2026-07-30"
+    file: "Page gid://shopify/Page/110844510377 ('Terms and Conditions', /pages/terms-and-conditions)"
+    line: null
+    owner: business
+    fixed_in_commit: null
+    requires_manual_verification: "A live, published, indexable page titled 'Terms and Conditions' has a completely empty body. Writing real terms is a legal/business decision this audit will not fabricate; recommend either populating it with the business's real terms (see SEO-031/POLICY_CONSOLIDATION.md - the built-in Shop Policy 'Terms of service' already has real, if conflicting, text that could be reconciled here) or unpublishing it until real content exists."
+    expected_impact: "An empty legal page live at a real URL is worse than no page - it's indexable, linkable, and currently promises nothing while implying terms exist."
+
+  - id: SEO-035
+    category: Local SEO
+    severity: Medium
+    status: Open
+    verification: "Verified - live content comparison, 2026-07-30"
+    file: "sections/site-footer.liquid (service_areas setting, live) vs. Page gid://shopify/Page/113969561769 (Cake Delivery in Meerut, live)"
+    line: 276
+    owner: business
+    fixed_in_commit: null
+    requires_manual_verification: "Two different lists of serviceable Meerut localities are live at the same time: the footer names Thapar Nagar, Shastri Nagar, Sadar Bazaar, Civil Lines, Pallavpuram, Ganga Nagar; the delivery page names Thapar Nagar, Shastri Nagar, Ganga Nagar, Partapur, Jagriti Vihar. Only the first two names match. Needs the business to confirm the true full serviceable-area list before either surface is edited."
+    expected_impact: "Directly relevant to any future Delivery Areas / Service Area page (SEO-030's replacement spec, seo-audit/final/DELIVERY_AREA_SPEC.md) and to areaServed schema accuracy - see seo-audit/final/LOCAL_SEO_ROADMAP.md P0.2."
+
+  - id: SEO-036
+    category: Address / Coordinates
+    severity: Medium
+    status: Open
+    verification: "Verified - Shopify Admin GraphQL shop.billingAddress vs. snippets/bk-local-business.liquid, 2026-07-30"
+    file: "snippets/bk-local-business.liquid (line 44-45, same as SEO-015) vs. Shopify Admin shop billing address"
+    line: "44-45"
+    owner: business
+    fixed_in_commit: null
+    requires_manual_verification: "The live LocalBusiness schema's geo-coordinates (28.9931, 77.6939) and the Shopify Admin account's own billing-address coordinates (28.9897017, 77.7044604) are ~600m apart - two different points, not just unverified. The Admin record is arguably more authoritative (it's the merchant's own account data, not a value typed into a theme file), but a fresh Google Maps pin-drop is recommended over trusting either blindly. Folds into SEO-015 (same file, same underlying question) - kept as a separate line here because it's a distinct, newly-quantified finding (a real second coordinate to compare against, not just 'this one is unverified')."
+    expected_impact: "Full detail in seo-audit/final/ADDRESS_AUDIT.md section 2."
