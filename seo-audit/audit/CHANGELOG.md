@@ -111,7 +111,24 @@ previously-blocked items with real data instead of guesses:
 No code was changed this pass — every remaining open item (SEO-013, SEO-016, SEO-029, SEO-030,
 SEO-031) needs either real business content or a business decision, not a mechanical fix.
 
-## Verification queries used (for reuse once Admin API access is restored)
+## 2026-07-30 — Live data action: unpublished the fake Store Locator page (SEO-030, user-approved)
+
+Presented the confirmed-live SEO-030 finding directly and asked how to handle it. User chose to
+unpublish it as an interim step. Executed via the hosted Shopify MCP:
+
+```graphql
+mutation($id: ID!, $page: PageUpdateInput!) {
+  pageUpdate(id: $id, page: $page) { page { id title isPublished } userErrors { field message } }
+}
+```
+against `gid://shopify/Page/110839595177`, `{isPublished: false}` — zero `userErrors`. Re-verified
+with a fresh `page(id: ...)` read: `isPublished: false` confirmed live.
+
+**Status: Mitigated, not Resolved** — the page and its fake London/Madrid/Tokyo content still
+exist, just no longer publicly reachable. The underlying decision (delete the page, repurpose it
+for the real Meerut location, or leave it unpublished permanently) is still open.
+
+## Verification queries used (reusable — Admin API confirmed working again as of 2026-07-30)
 
 ```graphql
 # Confirm live store domain

@@ -360,14 +360,14 @@ issues:
   - id: SEO-030
     category: Content SEO
     severity: High
-    status: Open
+    status: Mitigated
     verification: Verified
-    file: templates/page.store-locations.json
+    file: "templates/page.store-locations.json; Shopify Page gid://shopify/Page/110839595177"
     line: null
     owner: business
     fixed_in_commit: null
-    requires_manual_verification: "Whether this page should be deleted, repurposed for the real single Meerut location, or left as unused dead code - a page-scope decision, not a text-fix. Could be safely unpublished as an interim step (isPublished: false) without guessing at replacement content, but that is itself a real, visible change to a live page - not done unilaterally, flagged for your decision."
-    expected_impact: "CONFIRMED LIVE (severity raised from Low to High): GraphQL page query confirms this is the real, published 'Store Locator' page (handle store-locator), reachable by real customers right now. Contains fake Ecomus demo content (London/Madrid/Tokyo store location cards, one with a typo 'marid' for Madrid, and placeholder @example.com emails) that doesn't fit this single-location Meerut business at all - a real customer looking for the shop's location sees three wrong countries instead."
+    requires_manual_verification: "User explicitly approved unpublishing as an interim step. Done via graphql_mutation (pageUpdate, isPublished: false), re-verified with a fresh read - confirmed isPublished: false live. The underlying question (delete/repurpose the page/template) is still open and needs a business decision - this only stops it being publicly visible in the meantime."
+    expected_impact: "Was CONFIRMED LIVE with fake London/Madrid/Tokyo store-locator content, reachable by real customers. Now unpublished (mitigated, not fully resolved) - the page and its template still exist, containing the same fake content, just no longer publicly reachable. Full resolution (delete vs. repurpose vs. leave unpublished permanently) still needs your decision."
 
   - id: SEO-031
     category: Content SEO

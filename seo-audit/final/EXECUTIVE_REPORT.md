@@ -102,10 +102,10 @@ verifiability-over-persuasion standard already established for this project):
    Critical) — the top priority; needs real business content, not an invented fix.
 2. **The original header "★4.9 Rated" claim is still live** (SEO-016) — `CLAUDE.md` has required
    your explicit go-ahead for this since before this audit began; still outstanding.
-3. **The live "Store Locator" page shows fake London/Madrid/Tokyo demo content** (SEO-030,
-   **confirmed live**, escalated to High) — needs a decision: delete, repurpose for the real Meerut
-   location, or leave as-is. Could be safely unpublished as an interim step without guessing at
-   replacement content, but that's still a real, visible change not made unilaterally.
+3. **The "Store Locator" page (fake London/Madrid/Tokyo demo content) has been unpublished**
+   (SEO-030, **Mitigated** — done via `pageUpdate`, `isPublished: false`, user-approved and
+   re-verified live). No longer publicly visible, but the underlying decision — delete, repurpose
+   for the real Meerut location, or leave unpublished permanently — is still open.
 4. Geo-coordinates and founding-year claim need business-side confirmation (SEO-014, SEO-015).
 5. A hidden, duplicate `<h1>` renders sitewide (SEO-025, Low) — not fixed, needs a
    template-by-template heading check first.
@@ -118,7 +118,8 @@ verifiability-over-persuasion standard already established for this project):
 
 1. Real FAQ content for the live FAQ page (or remove it until real content exists) — SEO-013.
 2. Decide on the header rating claim — SEO-016.
-3. Decide what to do with the live "Store Locator" page (fake international locations) — SEO-030.
+3. Decide the permanent fate of the "Store Locator" page (SEO-030, now unpublished/Mitigated) —
+   delete, repurpose, or leave unpublished.
 4. Confirm the Google Maps geo-coordinates and the real business address — SEO-015, SEO-029.
 5. Decide which policy page is canonical — SEO-031.
 6. Re-check `sitemap.xml` the moment the password gate lifts — SEO-019.
@@ -126,12 +127,13 @@ verifiability-over-persuasion standard already established for this project):
 ## Stop condition reached
 
 Per this audit's own instruction ("continue until no Critical or High-priority verified issues
-remain"): every remaining Critical/High item (SEO-013, SEO-016, SEO-030) requires either
-business-supplied content or your explicit decision — not something this audit can resolve by
-continuing to search the codebase or query the API further. Both blocked-tool items from the prior
-pass (SEO-017, SEO-018) are now genuinely resolved with real data, not just re-flagged — the
-hosted Shopify MCP reconnecting removed that excuse entirely. What's left is exclusively business
-decisions and business-supplied content. Stopping here is the correct application of the stop
+remain"): every remaining Critical/High item (SEO-013, SEO-016) requires either business-supplied
+content or your explicit decision — not something this audit can resolve by continuing to search
+the codebase or query the API further. Both blocked-tool items from the prior
+pass (SEO-017, SEO-018) are now genuinely resolved with real data, and SEO-030 has been mitigated
+(unpublished, user-approved and re-verified) rather than left live pending a decision. What's left
+is exclusively business decisions and business-supplied content. Stopping here is the correct
+application of the stop
 condition, not an early exit.
 
 ## Full report index
