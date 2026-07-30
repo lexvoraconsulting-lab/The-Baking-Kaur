@@ -226,6 +226,48 @@ input the model must not guess):
 `BUSINESS_DECISION_IMPLEMENTATION.md` — all evidence-based, none invent a business fact, each states
 explicitly where real business input is still needed.
 
+## 2026-07-30 — Sprint 2 task 2.1: wire live header navigation to real collections
+
+**Change type**: Shopify Admin navigation-menu content (`menuUpdate` GraphQL mutation) — **no theme
+file was edited**, no `shopify theme push` involved.
+
+**Before, verified**: `main-menu` (the menu actually wired to the live header via
+`sections/header-group.json`'s `tbk_header_main.main_menu` setting) had 4 items — HOME, ABOUT US,
+CONTACT US, and a generic "Categories" link to `/collections`. A second menu, `header`, already
+contained real, correctly-ordered links to all 6 primary collections (Birthday, Anniversary, Diwali
+Hampers, Theme Cakes, Hampers, Wedding) but was referenced only by a `disabled: true` section block
+(`header_menu_bottom_hulkapps_backup_kgkQBL`), so it rendered nowhere live. Confirmed via a fresh
+`menus` GraphQL query and a fresh grep of `header-group.json` immediately before making the change.
+
+**Why**: real customers had no direct navigational path from the header to any of the six primary
+collections — every visitor had to click through the generic `/collections` index first. This was
+`IMPLEMENTATION_BACKLOG.md` task 2.1 / `ARCHITECTURE_VERIFICATION.md` finding A1.
+
+**Decision** (user-selected, since this is a visible layout change requiring sign-off per this
+project's standing convention): Option A — merge the collection links into the existing `main-menu`
+rather than re-enabling a second navigation row, per explicit user requirements (preserve mobile-first
+nav, single row only, use existing menu architecture, preserve accessibility).
+
+**Implementation**: verified `sections/tbk-header.liquid`'s nav rendering first — a single
+`nav.links` loop (used for both mobile and desktop; this theme's header uses one burger-triggered
+drawer for all breakpoints, confirmed via the file's own header comment) already renders nested
+`link.links` as an accessible native `<details>/<summary>` disclosure with zero additional code. This
+meant the entire change could be a content-only menu update: converted `main-menu`'s existing
+"Categories" item into a parent with 6 real collection children (same titles/order as the orphaned
+`header` menu), using `resourceId` (not hardcoded URLs) so each link auto-resolves and stays correct
+if a collection's handle ever changes. HOME/ABOUT US/CONTACT US were passed with their existing item
+IDs, unchanged.
+
+**After, re-verified**: a fresh `menu` query post-mutation confirmed `userErrors: []` and all 6 child
+URLs auto-resolved correctly (`/collections/birthday-cakes`, `/collections/anniversary-cakes`,
+`/collections/luxury-diwali-hampers`, `/collections/designer-theme-cakes`, `/collections/cake-hampers`,
+`/collections/wedding-cakes`). Ran `shopify theme check` across the full theme afterward: 1,369
+pre-existing offenses across 94 files, none in `tbk-header.liquid` or `header-group.json` (confirmed
+via grep) — expected, since zero theme files were touched by this change; not a regression.
+
+**Scope discipline**: no other navigation, header functionality, or unrelated site area was touched,
+per explicit instruction.
+
 ## Related
 
 [AUDIT_LEDGER.md](AUDIT_LEDGER.md), [VERIFIED_ISSUES.md](VERIFIED_ISSUES.md).

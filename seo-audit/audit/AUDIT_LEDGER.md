@@ -47,6 +47,15 @@ Verification** (needs a tool, business input, or access this session didn't have
 | SEO-035 | Local SEO | Medium | Open | Verified | `site-footer.liquid` vs. delivery page (area-list conflict) | 276 | — |
 | SEO-036 | Address / Coordinates | Medium | Open | Verified | `bk-local-business.liquid` vs. Shopify Admin billing address | 44-45 | — |
 
+## Implementation Backlog progress (tracked by task ID, not SEO-NNN)
+
+`IMPLEMENTATION_BACKLOG.md`'s tasks aren't individually numbered SEO-NNN audit findings, so their
+progress is tracked here separately rather than added as fabricated ledger rows.
+
+| Task | Sprint | Status | Notes |
+|---|---|---|---|
+| 2.1 (header nav wiring) | 2 — Navigation | **Done**, 2026-07-30 | `main-menu`'s "Categories" item converted to a 6-collection dropdown via `menuUpdate` (Admin API navigation content, no theme file edited). See `CHANGELOG.md` for verification detail. |
+
 ## Reading this table
 
 - **Fixed** rows are deployed live and re-verified byte-for-byte via a post-push theme pull/diff —

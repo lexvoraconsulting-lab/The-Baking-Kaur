@@ -7,32 +7,34 @@ throughout: **reuse the six existing menu handles before proposing new ones.** T
 for exactly this purpose and never finished — production architecture should fill those in, not
 invent a seventh and eighth handle alongside them.
 
-## 1. Primary header navigation
+## 1. Primary header navigation — IMPLEMENTED 2026-07-30
 
-**Current state**: the live header renders `main-menu` (Home / About Us / Contact Us / a link to
-`/collections`) — four items, no direct collection links at all. A second menu, `header`, already
-contains real, correct links to all six primary collections (Birthday, Anniversary, Wedding, Theme,
-Hampers, Diwali Hampers) but is only referenced by a `disabled: true` section block, so it renders
-nowhere.
+**Status: done.** Option A was chosen and shipped. `main-menu` (live, wired to `tbk_header_main` via
+`header-group.json`'s `main_menu` setting) now carries HOME / ABOUT US / CONTACT US unchanged, plus
+the existing "Categories" item converted from a flat link to `/collections` into a parent item with
+6 real collection children: Birthday Cake, Anniversary Cake, Diwali Hampers, Theme Cakes, Hampers,
+Wedding Cakes — reusing the exact titles/order already curated in the (still-orphaned) `header` menu.
+No second navigation row was added; no theme file was edited. The header's own dropdown/disclosure
+rendering (`sections/tbk-header.liquid`'s `nav.links` loop, native `<details>/<summary>`, the only
+nav surface for both desktop and mobile per this theme's single-drawer design) already supported
+nested children with zero code changes required — this was a Shopify Admin navigation-menu content
+change only (`menuUpdate` mutation), not a deploy.
 
-**Recommendation**: wire the live header to render the six real collection links already sitting in
-the `header` menu, rather than routing every visitor through the generic `/collections` catch-all
-first. Two ways to do this, both reuse existing content instead of creating new menu items:
+All 6 child URLs auto-resolved correctly from each collection's `resourceId` (verified via a
+post-change re-query): `/collections/birthday-cakes`, `/collections/anniversary-cakes`,
+`/collections/luxury-diwali-hampers`, `/collections/designer-theme-cakes`, `/collections/cake-hampers`,
+`/collections/wedding-cakes`. Accessibility is unchanged/preserved — the parent item renders as a
+native `<summary>` disclosure control, same pattern already used for any nested menu item in this
+theme, no new ARIA needed.
 
-- Option A (simpler): add `header`'s six items directly into `main-menu`, so one live menu carries
-  both the utility links (About/Contact) and the collection links.
-- Option B (matches the existing two-tier header component already in the theme, currently
-  disabled): re-enable the bottom navigation bar block that already points at `header`, so the
-  top bar keeps Home/About/Contact and a second row surfaces the six collections — this is
-  effectively turning on infrastructure that was already built and switched off, not building new
-  UI. `<<BUSINESS APPROVAL REQUIRED>>` only in the sense of a visual/UX call (site's product page and
-  overall visual system are protected per `CLAUDE.md` — a header-nav change is not the product page,
-  but any visible layout change should still get a deliberate go-ahead before deploying, per this
-  project's "invisible edits only without explicit sign-off" convention).
+**Not done as part of this change** (out of scope, per "do not modify any unrelated navigation or
+header functionality"): adding a standalone Delivery Areas or FAQ link to the header — those depend
+on Sprint 1 decisions (delivery-area list, Store Locator repurposing) and Sprint 6 work respectively,
+not yet ready. The original target link set below is retained for future reference, not the shipped scope.
 
-Target header link set (7 items, all real, all already-existing collections/pages — nothing invented):
-Birthday Cakes · Anniversary Cakes · Wedding Cakes · Designer & Theme Cakes · Cake Hampers ·
-Delivery Areas (new page, see §3) · FAQ.
+Original (pre-implementation) target link set for reference: Birthday Cakes · Anniversary Cakes ·
+Wedding Cakes · Designer & Theme Cakes · Cake Hampers · Delivery Areas (new page, see §3) · FAQ —
+superseded by the simpler, lower-scope "Categories" dropdown actually shipped.
 
 ## 2. Footer navigation
 
