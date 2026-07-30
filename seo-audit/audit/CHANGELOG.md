@@ -50,6 +50,24 @@ on top, so the push carried exactly one change to this file, not an unrelated re
 the other 4) → edit → push `--allow-live` → re-pull → diff-confirm cycle as prior commits, run
 against all 5 files.
 
+## 2026-07-30 — Commit `edf458f`: stop lazy-loading the main product gallery image
+
+**Files**: `snippets/tbk-gallery.liquid`.
+
+**Issues closed**: SEO-026 (Core Web Vitals). Also logged, not fixed: SEO-025 (Technical SEO, Low —
+a hidden duplicate `<h1>` in `layout/theme.liquid`, needs template-by-template heading verification
+before a safe removal).
+
+**Discovery method**: `grep -rc "loading=\"lazy\""` across every section/snippet, then manually
+checked whether the *first* image in each product gallery was included in that lazy-loading net —
+Google's own guidance is that the LCP image should never be lazy-loaded. Found one real instance
+(`tbk-gallery.liquid`, used by the "tbk" product template) and confirmed the actually-live default
+template (`product-media.liquid`, all 602 active products) already handles this correctly via a
+`lazy_load: false` parameter on the first media item — no fix needed there.
+
+**Deploy safety**: pulled live copy, diffed against last commit (zero drift), pushed
+`--allow-live`, re-pulled and confirmed byte-for-byte live.
+
 ## Verification queries used (for reuse once Admin API access is restored)
 
 ```graphql

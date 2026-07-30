@@ -34,6 +34,8 @@ Verification** (needs a tool, business input, or access this session didn't have
 | SEO-022 | Technical SEO | — | **Resolved** (context, not a defect) | Verified | — | — | — |
 | SEO-023 | Schema | **Critical** | Fixed | Verified | `structured-data.liquid` + 2 product templates | see issues.yml | `4d23a2e` |
 | SEO-024 | Schema | Medium | Fixed | Verified | `layout/theme.liquid` | 68-157 | `4d23a2e` |
+| SEO-025 | Technical SEO | Low | Open | Verified | `layout/theme.liquid` | 171 | — |
+| SEO-026 | Core Web Vitals | Medium | Fixed | Verified | `snippets/tbk-gallery.liquid` | 4 | `edf458f` |
 
 ## Reading this table
 

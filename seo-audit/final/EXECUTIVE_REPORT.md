@@ -8,18 +8,20 @@ evidence, per this audit's own explicit "never fabricate scores" instruction. Fu
 
 ## Overall Website Health: Improving, real gaps remain
 
-15 verified defects found and fixed across three audit passes and three live deployments (commits
-`52a3821`, `eaad74f`, `4d23a2e`) — 12 content-fabrication/placeholder issues, plus a duplicate
-Product schema affecting all 602 active products and a sitewide-unconditional FAQPage schema. 8 more
-identified and logged as open — none silently ignored, each requires either a business decision,
-real business content, or a currently-disconnected tool to close out.
+16 verified defects found and fixed across four audit passes and four live deployments (commits
+`52a3821`, `eaad74f`, `4d23a2e`, `edf458f`) — 12 content-fabrication/placeholder issues, a duplicate
+Product schema affecting all 602 active products, a sitewide-unconditional FAQPage schema, and one
+Core Web Vitals (LCP lazy-loading) fix. 9 more identified and logged as open — none silently
+ignored, each requires either a business decision, real business content, or a currently-blocked
+tool/live-site check to close out.
 
 ## Category Scores (qualitative, evidence-linked — see [SCORECARD.md](../audit/SCORECARD.md) for full basis)
 
 | Category | Band |
 |---|---|
-| Technical SEO | Adequate (Verified) — clean `robots.txt`, correct dynamic canonicals; site is intentionally password-gated, limiting live-crawl checks |
+| Technical SEO | Adequate (Verified) — clean `robots.txt`, correct dynamic canonicals and `lang` attribute; one minor open item (hidden duplicate H1, SEO-025); site is intentionally password-gated, limiting live-crawl checks |
 | Schema | **Was Critical (duplicate Product schema on all 602 active products), now fixed** — see [../schema/SCHEMA_SCORECARD.md](../schema/SCHEMA_SCORECARD.md) |
+| Core Web Vitals | One real, verified fix (LCP lazy-loading, SEO-026); no overall score claimed — Lighthouse/PageSpeed can't run against a gated site |
 | Content SEO | **Critical gap (Verified)** — both real FAQ page templates show Lorem Ipsum, live |
 | GEO / AI Search Readiness | Estimated — schema foundation is strong, dynamic, and now free of duplicate entities; the FAQ *content* gap (not the schema placement, now fixed) still actively hurts AI-citation trust |
 | Local SEO | Adequate, one unverified input (geo-coordinates) |
@@ -58,6 +60,16 @@ verifiability-over-persuasion standard already established for this project):
   present in git but never actually live, from an apparently-abandoned commit) before applying the
   FAQ fix, so the deploy didn't silently reintroduce them.
 
+**Fixed** (Technical SEO / Core Web Vitals, fourth pass, commit `edf458f`):
+- The main product-gallery image in `tbk-gallery.liquid` (an alternate, unconfirmed-live product
+  template) was marked `loading="lazy"` — this is almost certainly the LCP element on any page using
+  it, and Google's own guidance says the LCP image should never be lazy-loaded. Fixed to
+  `loading="eager"` + `fetchpriority="high"`. Confirmed the actually-live default template already
+  handles this correctly (`lazy_load: false` on the first media item) — no fix needed there.
+- Logged, not fixed: a hidden (`display:none`) duplicate `<h1>` sitewide in `layout/theme.liquid`
+  (SEO-025) — safely removing it needs confirming every other page type still has its own visible
+  H1 first, more investigation than this minor item currently justifies.
+
 ## Remaining Risks
 
 1. **Both FAQ page templates show placeholder Lorem Ipsum content, live** (SEO-013) — the top
@@ -68,6 +80,8 @@ verifiability-over-persuasion standard already established for this project):
    confirmation before they can be fully closed out (SEO-014, 015, 018).
 4. Shopify Admin API access disconnected mid-session — several "is this actually live" questions
    (SEO-017) need it reconnected to answer definitively.
+5. A hidden, duplicate `<h1>` renders sitewide (SEO-025, Low) — not fixed, needs a
+   template-by-template heading check first.
 
 ## Top Priorities for Launch
 
@@ -107,14 +121,26 @@ the codebase. Stopping here is the correct application of that stop condition, n
 [../security/SECURITY_AUDIT.md](../security/SECURITY_AUDIT.md) ·
 [../issues.yml](../issues.yml)
 
-## Note on scope for this pass
+## Note on scope for this pass — pipeline status
 
-This session also received a much larger request (a "BUILD-006 through BUILD-015" pipeline covering
-Core Web Vitals, full UX/CRO, accessibility, performance, and broad code refactoring, with
-authorization to proceed without asking). Only the schema-duplication work above was executed,
-because it was the one area with concrete, already-verified findings ready to fix. The remaining
-phases were not attempted or claimed as complete — each needs its own real discovery pass first
-(the storefront is still password-gated, which blocks live measurement of Core Web Vitals, UX, and
-CRO specifically), and fabricating "done" on unverified categories would violate this audit's own
-no-fabrication standard. Continuing into those phases is a good next step, done the same way this
-one was: discover real, verified issues first, then fix only what's safe and evidenced.
+A multi-phase pipeline was requested (BUILD-008 Technical SEO through BUILD-015 Launch Readiness,
+tracked here under `SEO-NNN` instead — see the naming note in [[storefront-seo-audit-2026-07-29]]).
+Status per phase, evidence-based, not assumed:
+
+- **BUILD-008 (Technical SEO)**: done for what's code-verifiable — `lang` attribute, canonical
+  tags confirmed correct; one real Core Web Vitals fix found and applied (SEO-026, folded in here
+  since it surfaced during the same code sweep); one minor item logged, not fixed (SEO-025).
+  Duplicate-title/thin-page/redirect-chain checks remain genuinely blocked — they need a live crawl
+  or bulk Admin API export, neither available (site gated, MCP disconnected, re-checked this pass).
+- **BUILD-009 (Core Web Vitals)**: partially covered by SEO-026 above. A real Lighthouse/PageSpeed
+  score cannot be produced — the storefront is password-gated, and no PageSpeed Insights API access
+  exists this session. Not claimed as done.
+- **BUILD-010 (AI Search/GEO) through BUILD-015 (Launch Readiness)**: not started this pass. Each
+  needs its own fresh discovery work, and several depend on the same blocked resources above
+  (Admin API, live crawl, external Google tools). Starting them now would mean either repeating
+  what's already in [../seo/GEO_AUDIT.md](../seo/GEO_AUDIT.md) etc. from the first audit pass, or
+  fabricating findings without new evidence — neither is done here.
+
+Recommended continuation: reconnect the Shopify Admin API and/or lift the password gate first —
+both unblock most of the remaining phases at once, more efficiently than continuing to search for
+code-level-only findings in categories that fundamentally need live data.

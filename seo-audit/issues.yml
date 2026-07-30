@@ -295,3 +295,27 @@ issues:
     fixed_in_commit: 4d23a2e
     requires_manual_verification: "Whether the 9 real Q&A pairs here should become page.faq-01/02.json's actual content, replacing the Lorem Ipsum tracked in SEO-013 - a template-ownership decision, not made here"
     expected_impact: "FAQPage schema no longer renders unconditionally on every page (home, every product, every collection) - now excluded specifically on the two FAQ page templates that already emit their own FAQPage entity, removing the duplicate-entity risk and most of the Google structured-data guideline violation. Real content (delivery/ordering business facts) preserved unchanged, not fabricated or removed."
+
+  - id: SEO-025
+    category: Technical SEO
+    severity: Low
+    status: Open
+    verification: Verified
+    file: layout/theme.liquid
+    line: "171"
+    owner: null
+    fixed_in_commit: null
+    requires_manual_verification: "Whether every other page type (collection, blog, generic page) has its own visible H1 - would need confirming template-by-template before safely removing this sitewide fallback, since it may be the only H1 on some page types"
+    expected_impact: "A hidden (display:none via .hdt-hidden) <h1>{{ page_title }}</h1> renders on every page. On product pages this duplicates the template's own visible product-title H1 - two H1 elements per page, not ideal HTML5/SEO semantics, though low-impact since one is fully hidden (not a hidden-content ranking risk, just redundant markup). Not fixed this pass - a blind removal risks leaving some other page type with zero H1s without checking each template first, which is more investigation than this minor item currently justifies."
+
+  - id: SEO-026
+    category: Core Web Vitals
+    severity: Medium
+    status: Fixed
+    verification: Verified
+    file: snippets/tbk-gallery.liquid
+    line: "4"
+    owner: null
+    fixed_in_commit: edf458f
+    requires_manual_verification: "Whether templates/product.tbk.json (which renders this snippet) is assigned to any published product - liveness not confirmed, fixed defensively regardless, per this audit's established precedent"
+    expected_impact: "The first/main product image (almost certainly the LCP element) was marked loading=\"lazy\", which Google's own guidance says delays LCP discovery. Changed to loading=\"eager\" + fetchpriority=\"high\". The actually-live default template (product-media.liquid, all 602 active products) was confirmed already doing this correctly (lazy_load: false on the first item) - no fix needed there."
