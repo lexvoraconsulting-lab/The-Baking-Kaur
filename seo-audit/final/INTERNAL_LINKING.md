@@ -46,8 +46,9 @@ Q&A to `/pages/gift-hampers`. Deployed live, verified byte-for-byte via a post-p
 ### Hampers cluster — cross-linking IMPLEMENTED 2026-07-30
 
 - **Hub**: `/pages/gift-hampers` — added a new "Explore by Occasion" section linking to all 3
-  location-specific siblings. "Related Collections" is still plain text, not yet hyperlinked — see
-  task 2.8 (tracked separately, since it's collection links rather than page-to-page links).
+  location-specific siblings. "Related Collections" (task 2.8) — **implemented 2026-07-30**: converted
+  all 6 items (Birthday Cakes, Anniversary Cakes, Designer Cakes, Wedding Cakes, Flowers & Cake
+  Combos, Midnight Delivery) from plain text to real links to their matching live collections.
 - Its three location-specific siblings (`/pages/customised-hampers-meerut`,
   `/pages/festive-hampers-meerut`, `/pages/surprise-hampers-meerut`) — **verified this pass that none
   linked to the hub or each other**, then fixed: each now links to the Gift Hampers hub and to the

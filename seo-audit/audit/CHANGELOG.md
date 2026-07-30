@@ -350,6 +350,27 @@ Collections" section (left untouched — see task 2.8 for that separate fix).
 **After, re-verified**: all 4 `pageUpdate` calls returned `userErrors: []`; a fresh re-query of all 4
 pages confirmed the new links are present and correctly targeted.
 
+## 2026-07-30 — Sprint 2 task 2.8: convert Gift Hampers' "Related Collections" to real links
+
+**Change type**: 1 Admin API `pageUpdate` call (Page body) — no theme file involved.
+
+**Before, verified**: fresh `page` query on `gift-hampers` confirmed its "Related Collections" section
+was 6 plain `<li>` text items (Birthday Cakes, Anniversary Cakes, Designer Cakes, Wedding Cakes,
+Flowers & Cake Combos, Midnight Delivery) with no `<a>` tags anywhere in that block.
+
+**Why**: the richest, best-built page on the site was sending zero internal link equity to 6 directly
+relevant collections. Per `INTERNAL_LINKING.md` and `IMPLEMENTATION_BACKLOG.md` task 2.8.
+
+**Implementation**: wrapped each of the 6 items in an `<a href>` to its matching live collection
+(`/collections/birthday-cakes`, `/collections/anniversary-cakes`, `/collections/designer-theme-cakes`,
+`/collections/wedding-cakes`, `/collections/flowers-cake-combos`, `/collections/midnight-cake-delivery`)
+— text labels unchanged, only wrapped in links. No judgment made here about whether
+`midnight-cake-delivery` should remain a distinct collection long-term (that's the Sprint-1-gated
+duplicate-cluster decision, out of this task's scope) — linked to whatever collection currently and
+correctly matches the existing page text.
+
+**After, re-verified**: `pageUpdate` returned `userErrors: []`; fresh re-query confirms all 6 links present.
+
 ## Related
 
 [AUDIT_LEDGER.md](AUDIT_LEDGER.md), [VERIFIED_ISSUES.md](VERIFIED_ISSUES.md).
