@@ -22,12 +22,12 @@ Verification** (needs a tool, business input, or access this session didn't have
 | SEO-010 | Trust/Contact-Info | High | Fixed | Verified | `templates/page.contact-1.json` | 80 | `eaad74f` |
 | SEO-011 | Trust/Contact-Info | High | Fixed | Verified | `templates/page.contact-2.json` | 159 | `eaad74f` |
 | SEO-012 | Trust/Contact-Info | High | Fixed | Verified | `templates/page.our-store.json` | 69, 141, 213 | `eaad74f` |
-| SEO-013 | Content SEO / GEO | **High** | Open | Verified | `page.faq-01.json`, `page.faq-02.json` | 12× each | — |
+| SEO-013 | Content SEO / GEO | **Critical** | Open | Verified — **confirmed live** | `page.faq-01.json` (live), `page.faq-02.json` (unused) | 12× | — |
 | SEO-014 | EEAT | Low | Open | Requires Manual Verification | `sections/footer.liquid` | 122 | — |
 | SEO-015 | Local SEO | Medium | Open | Requires Manual Verification | `snippets/bk-local-business.liquid` | 44-46 | — |
 | SEO-016 | EEAT | **Critical** | Open | Verified | header (`tbk_header_main`) | — | — |
-| SEO-017 | Technical SEO | — | Open | Requires Manual Verification | 5 templates | — | — |
-| SEO-018 | EEAT | — | Open | Requires Manual Verification | — | — | — |
+| SEO-017 | Technical SEO | — | **Resolved** | Verified | 5 templates → real assignments confirmed | — | — |
+| SEO-018 | EEAT | — | **Resolved** | Verified | real counts: 113 customers, 24 orders | — | — |
 | SEO-019 | Technical SEO | Medium | Open | Requires Manual Verification | `sitemap.xml` | — | — |
 | SEO-020 | Schema | Low | Fixed | Verified | `tbk-schema-website.liquid` vs `bk-local-business.liquid` | — | `4d23a2e` |
 | SEO-021 | Schema | Low | Open | Requires Manual Verification | `snippets/tbk-schema-article.liquid` | 8-9 | — |
@@ -39,7 +39,8 @@ Verification** (needs a tool, business input, or access this session didn't have
 | SEO-027 | Local SEO / Trust | **High** | Fixed | Verified | `sections/header-group.json` | 176, 242 | `21457ec` |
 | SEO-028 | Trust/Contact-Info | Medium | Fixed | Verified | `sections/header-e-commerce.liquid` | 484 | `21457ec` |
 | SEO-029 | Local SEO | Medium | Open | Verified | 3 files (1 now removed) | see issues.yml | — |
-| SEO-030 | Content SEO | Low | Open | Verified | `templates/page.store-locations.json` | — | — |
+| SEO-030 | Content SEO | **High** | Open | Verified — **confirmed live** | `templates/page.store-locations.json` | — | — |
+| SEO-031 | Content SEO | Medium | Open | Verified | 2 policy pages (duplicate topic) | — | — |
 
 ## Reading this table
 

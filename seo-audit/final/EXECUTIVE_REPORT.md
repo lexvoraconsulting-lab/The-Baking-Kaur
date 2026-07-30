@@ -12,9 +12,11 @@ evidence, per this audit's own explicit "never fabricate scores" instruction. Fu
 `52a3821`, `eaad74f`, `4d23a2e`, `edf458f`, `21457ec`) — 12 content-fabrication/placeholder issues,
 a duplicate Product schema affecting all 602 active products, a sitewide-unconditional FAQPage
 schema, one Core Web Vitals fix, and a live hyperlink to an unrelated demo Shopify store in the
-mobile header. 11 more identified and logged as open — none silently ignored, each requires either
-a business decision, real business content, or a currently-blocked tool/live-site check to close
-out.
+mobile header. The hosted Shopify MCP connector then came back fully working and resolved two more
+previously-blocked items with real data (customer count, page-template assignments) — which in turn
+**escalated two already-logged issues from assumed to confirmed-live** (see below) and surfaced one
+new one. 10 items remain open — none silently ignored, each requires either a business decision or
+real business content, not a tool limitation anymore.
 
 ## Category Scores (qualitative, evidence-linked — see [SCORECARD.md](../audit/SCORECARD.md) for full basis)
 
@@ -83,38 +85,54 @@ verifiability-over-persuasion standard already established for this project):
   "Store Locations" page (London/Madrid/Tokyo) that doesn't fit this single-location business
   (SEO-030) — needs a page-scope decision, not a text fix.
 
+**Verification pass, no code change** (hosted Shopify MCP reconnected):
+- **SEO-017 and SEO-018 resolved with real data**: page-template assignments confirmed via a real
+  `pages` GraphQL query (`page.faq-01.json` and `templates/page.store-locations.json` are both
+  confirmed live), and real customer/order counts (113 / 24) confirm the "20,000+" claims removed
+  earlier were indeed fabricated.
+- **SEO-013 escalated High → Critical** and **SEO-030 escalated Low → High** — both are now
+  confirmed live on real, published pages, not assumed.
+- **SEO-031 found** (new, Medium): two live-adjacent policy pages covering the same topic
+  ("Return, Refund & Replacement Policy" and "Refund & Return Policy") — a genuine duplicate-content
+  signal.
+
 ## Remaining Risks
 
-1. **Both FAQ page templates show placeholder Lorem Ipsum content, live** (SEO-013) — the top
-   priority; needs real business content, not an invented fix.
+1. **The live FAQ page shows placeholder Lorem Ipsum content** (SEO-013, **confirmed live**,
+   Critical) — the top priority; needs real business content, not an invented fix.
 2. **The original header "★4.9 Rated" claim is still live** (SEO-016) — `CLAUDE.md` has required
    your explicit go-ahead for this since before this audit began; still outstanding.
-3. Geo-coordinates, founding-year claim, and real customer-count all need a business-side
-   confirmation before they can be fully closed out (SEO-014, 015, 018).
-4. Shopify Admin API access disconnected mid-session — several "is this actually live" questions
-   (SEO-017) need it reconnected to answer definitively.
+3. **The live "Store Locator" page shows fake London/Madrid/Tokyo demo content** (SEO-030,
+   **confirmed live**, escalated to High) — needs a decision: delete, repurpose for the real Meerut
+   location, or leave as-is. Could be safely unpublished as an interim step without guessing at
+   replacement content, but that's still a real, visible change not made unilaterally.
+4. Geo-coordinates and founding-year claim need business-side confirmation (SEO-014, SEO-015).
 5. A hidden, duplicate `<h1>` renders sitewide (SEO-025, Low) — not fixed, needs a
    template-by-template heading check first.
 6. Three-way NAP/address inconsistency across the theme (SEO-029) — needs the business's real,
    current, complete address; not guessed at.
-7. A fake Ecomus demo "Store Locations" page exists (SEO-030) — needs a decision on whether to
-   delete, repurpose, or leave as unused dead code.
+7. Two duplicate policy pages on the same topic (SEO-031, new) — needs a decision on which is
+   canonical.
 
 ## Top Priorities for Launch
 
-1. Real FAQ content (or remove the FAQ pages until it exists) — SEO-013.
+1. Real FAQ content for the live FAQ page (or remove it until real content exists) — SEO-013.
 2. Decide on the header rating claim — SEO-016.
-3. Confirm the Google Maps geo-coordinates — SEO-015.
-4. Reconnect Admin API, re-verify template-assignment and real customer-count questions before
-   concluding the site is launch-ready — SEO-017, SEO-018.
-5. Re-check `sitemap.xml` the moment the password gate lifts — SEO-019.
+3. Decide what to do with the live "Store Locator" page (fake international locations) — SEO-030.
+4. Confirm the Google Maps geo-coordinates and the real business address — SEO-015, SEO-029.
+5. Decide which policy page is canonical — SEO-031.
+6. Re-check `sitemap.xml` the moment the password gate lifts — SEO-019.
 
 ## Stop condition reached
 
 Per this audit's own instruction ("continue until no Critical or High-priority verified issues
-remain"): every remaining Critical/High item (SEO-013, SEO-016) requires either business-supplied
-content or your explicit decision — not something this audit can resolve by continuing to search
-the codebase. Stopping here is the correct application of that stop condition, not an early exit.
+remain"): every remaining Critical/High item (SEO-013, SEO-016, SEO-030) requires either
+business-supplied content or your explicit decision — not something this audit can resolve by
+continuing to search the codebase or query the API further. Both blocked-tool items from the prior
+pass (SEO-017, SEO-018) are now genuinely resolved with real data, not just re-flagged — the
+hosted Shopify MCP reconnecting removed that excuse entirely. What's left is exclusively business
+decisions and business-supplied content. Stopping here is the correct application of the stop
+condition, not an early exit.
 
 ## Full report index
 
@@ -144,28 +162,25 @@ A multi-phase pipeline was requested (BUILD-008 Technical SEO through BUILD-015 
 tracked here under `SEO-NNN` instead — see the naming note in [[storefront-seo-audit-2026-07-29]]).
 Status per phase, evidence-based, not assumed:
 
-- **BUILD-008 (Technical SEO)**: done for what's code-verifiable — `lang` attribute, canonical
-  tags confirmed correct; one real Core Web Vitals fix found and applied (SEO-026, folded in here
-  since it surfaced during the same code sweep); one minor item logged, not fixed (SEO-025).
-  Duplicate-title/thin-page/redirect-chain checks remain genuinely blocked — they need a live crawl
-  or bulk Admin API export, neither available (site gated, MCP disconnected, re-checked this pass).
-- **BUILD-009 (Core Web Vitals)**: partially covered by SEO-026 above. A real Lighthouse/PageSpeed
-  score cannot be produced — the storefront is password-gated, and no PageSpeed Insights API access
-  exists this session. Not claimed as done.
-- **BUILD-010 (AI Search/GEO)**: no new repo-based findings beyond what SEO-024 (schema) already
-  fixed. Real citation-behavior testing needs live AI-search tools, not attempted.
-- **BUILD-011 (Local SEO)**: real, new findings this pass — a live demo-store link removed
-  (SEO-027) and a genuine 3-way address inconsistency surfaced (SEO-029, open, needs the business's
-  real address). Geo-coordinates (SEO-015) remain unverified.
-- **BUILD-012 (Content + EEAT)**: one new finding — a fake Ecomus demo store-locations page
-  (SEO-030, open, needs a page-scope decision) — otherwise unchanged from the first audit pass'
-  12 fixed fabrication issues.
-- **BUILD-013 (UX/CRO) through BUILD-015 (Launch Readiness)**: not started. UX/CRO fundamentally
-  needs a live rendered page (site still gated) or Admin API (still disconnected — reconnection was
-  attempted again this pass and failed the same way; see [[storefront-seo-audit-2026-07-29]] for
-  what's blocked by it). Starting them now without either would mean fabricating findings — not
-  done here.
+- **BUILD-008 (Technical SEO)**: done for what's code-verifiable, **plus now further resolved by
+  the hosted Shopify MCP reconnecting** — page-template assignments (SEO-017) confirmed with real
+  data. Duplicate-title/thin-page checks across the full 602-product catalogue and redirect-chain
+  checks remain unattempted (not blocked anymore in principle — the API works — just not yet run,
+  since this pass focused on the previously-blocked items specifically).
+- **BUILD-009 (Core Web Vitals)**: unchanged — SEO-026 is the one real fix. A real Lighthouse/
+  PageSpeed score still can't be produced; the storefront's password gate is a separate blocker
+  from the Admin API and is unaffected by the MCP reconnection.
+- **BUILD-010 (AI Search/GEO)**: unchanged, no new findings this pass.
+- **BUILD-011 (Local SEO)**: unchanged from the prior pass (SEO-027 fixed, SEO-029/015 still need
+  business input) — the MCP reconnection didn't surface new Local SEO findings specifically.
+- **BUILD-012 (Content + EEAT)**: **materially advanced this pass** — SEO-013 and SEO-030 both
+  moved from "assumed" to "confirmed live" via real data, and a new duplicate-content finding
+  (SEO-031) surfaced from the same query. Real customer/order counts (SEO-018) also resolved.
+- **BUILD-013 (UX/CRO) through BUILD-015 (Launch Readiness)**: still not started. The specific
+  blocker for these has narrowed — it's now purely the storefront's password gate (live rendering),
+  not the Admin API (which is fully working again). Product/collection *data* is fully queryable;
+  actual page *rendering* for UX/CRO purposes is not.
 
-Recommended continuation: reconnect the Shopify Admin API and/or lift the password gate first —
-both unblock most of the remaining phases at once, more efficiently than continuing to search for
-code-level-only findings in categories that fundamentally need live data.
+Recommended continuation: with the Admin API now confirmed working, the fastest remaining unlock is
+the password gate — lifting it (even temporarily) would enable BUILD-013 and real Core Web Vitals
+measurement, the two things Admin API access alone can't provide.

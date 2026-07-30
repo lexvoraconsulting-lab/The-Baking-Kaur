@@ -87,6 +87,30 @@ live; the stored section-group JSON is the only source of truth for that.
 **Deploy safety**: pulled live copies of both files, diffed against last commit (zero drift),
 pushed `--allow-live`, re-pulled and confirmed byte-for-byte live.
 
+## 2026-07-30 — Verification pass (no code change): hosted Shopify MCP reconnected, real data resolves SEO-017/018
+
+The hosted `claude.ai Shopify` MCP connector came back fully working (28 tools, confirmed via a
+live `get-shop-info` test — see `setup/SHOPIFY_MCP_CAPABILITIES.md`). Used it to resolve two
+previously-blocked items with real data instead of guesses:
+
+- **SEO-017 resolved**: `{ pages(first: 30) { edges { node { title handle templateSuffix
+  isPublished } } } }` confirmed exactly which page templates are actually live —
+  `page.contact-2.json` (Contact Us, live), `page.faq-01.json` (FAQ, live),
+  `templates/page.store-locations.json` (Store Locator, live). `page.contact-1.json` and
+  `page.faq-02.json` are confirmed unused.
+- **SEO-018 resolved**: `{ customersCount { count } ordersCount(query: "") { count } }` → 113
+  customers, 24 orders — confirms the "20,000+ Happy Customers" claims removed in SEO-007/008/009
+  were indeed fabricated.
+- **SEO-013 escalated** High → Critical (the Lorem Ipsum FAQ content is confirmed live, not
+  hypothetical).
+- **SEO-030 escalated** Low → High (the fake Ecomus store-locations page is confirmed live).
+- **SEO-031 found** (new, Medium): two live-adjacent policy pages on the same topic
+  ("Return, Refund & Replacement Policy" and "Refund & Return Policy") — a genuine duplicate-content
+  signal, surfaced by the same page query.
+
+No code was changed this pass — every remaining open item (SEO-013, SEO-016, SEO-029, SEO-030,
+SEO-031) needs either real business content or a business decision, not a mechanical fix.
+
 ## Verification queries used (for reuse once Admin API access is restored)
 
 ```graphql

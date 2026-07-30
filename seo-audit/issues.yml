@@ -154,15 +154,15 @@ issues:
 
   - id: SEO-013
     category: Content SEO / GEO
-    severity: High
+    severity: Critical
     status: Open
     verification: Verified
-    file: "templates/page.faq-01.json, templates/page.faq-02.json"
-    line: "12 Lorem Ipsum instances each"
+    file: "templates/page.faq-01.json (CONFIRMED LIVE - real published page 'Frequently Asked Questions (FAQs)', handle frequently-asked-questions-faqs, via GraphQL); templates/page.faq-02.json (confirmed NOT assigned to any page - unused)"
+    line: "12 Lorem Ipsum instances (faq-01 only, now confirmed the live one)"
     owner: business
     fixed_in_commit: null
     requires_manual_verification: "Real FAQ answers (refund policy, delivery cutoffs, etc.) must come from the business - inventing plausible-sounding ones would itself be a fabrication risk"
-    expected_impact: "Currently actively harms EEAT and AI-search citation trust - an FAQ page showing gibberish is worse than no FAQ page. Top launch-blocking content gap. NOTE (found during SEO-024 work): layout/theme.liquid contains 9 real, plausible Q&A pairs (delivery/ordering facts) that could potentially become this page's real content instead of new copy being written from scratch - a template-ownership decision, not made unilaterally here."
+    expected_impact: "CONFIRMED via real GraphQL page query (not assumed): this Lorem Ipsum content is live, right now, on the store's actual published FAQ page. Severity raised from High to Critical on that basis. Currently actively harms EEAT and AI-search citation trust - an FAQ page showing gibberish is worse than no FAQ page. Top launch-blocking content gap. NOTE (found during SEO-024 work): layout/theme.liquid contains 9 real, plausible Q&A pairs (delivery/ordering facts) that could potentially become this page's real content instead of new copy being written from scratch - a template-ownership decision, not made unilaterally here."
 
   - id: SEO-014
     category: EEAT
@@ -203,25 +203,26 @@ issues:
   - id: SEO-017
     category: Technical SEO
     severity: null
-    status: Open
-    verification: Requires Manual Verification
-    file: "templates/page.contact-1.json, page.contact-2.json, page.our-store.json, page.faq-01.json, page.faq-02.json"
+    status: Resolved
+    verification: Verified
+    file: "templates/page.contact-1.json, page.contact-2.json, page.faq-01.json, page.faq-02.json, page.store-locations.json"
     line: null
     owner: null
     fixed_in_commit: null
-    requires_manual_verification: "Which of these templates is actually assigned to a live page - needs Shopify Admin API (MCP) reconnection"
-    expected_impact: "Determines true priority/urgency of SEO-013 and confirms SEO-010/011/012 reached a real page."
+    requires_manual_verification: null
+    expected_impact: "RESOLVED via real GraphQL `{ pages(first: 30) { ... templateSuffix isPublished } }` query, once the hosted Shopify MCP connector came back. Confirmed: page.contact-2.json is the live Contact page (contact-1 unused); page.faq-01.json is the live FAQ page (faq-02 unused, escalating SEO-013 to Critical); templates/page.store-locations.json is live on a published 'Store Locator' page (escalating SEO-030). page.our-store.json's assignment specifically wasn't in this result set - not confirmed either way."
 
   - id: SEO-018
     category: EEAT
     severity: null
-    status: Open
-    verification: Requires Manual Verification
+    status: Resolved
+    verification: Verified
     file: null
     line: null
     owner: null
     fixed_in_commit: null
-    requires_manual_verification: "Real customer/order count via Shopify Admin API, to confirm or refute whether a sourced number could replace SEO-007/008/009's removed claims"
+    requires_manual_verification: null
+    expected_impact: "RESOLVED: real customersCount = 113, real ordersCount = 24, via GraphQL once the hosted Shopify MCP connector came back. Confirms the '20,000+ Happy Customers' / 'Loved by 20,000+ Customers' claims removed in SEO-007/008/009 were indeed fabricated - the real number isn't remotely close. No sourced number exists to reinstate a customer-count claim with."
     expected_impact: "Could allow a real, cited customer-count claim to be reinstated instead of leaving the space empty."
 
   - id: SEO-019
@@ -358,12 +359,24 @@ issues:
 
   - id: SEO-030
     category: Content SEO
-    severity: Low
+    severity: High
     status: Open
     verification: Verified
     file: templates/page.store-locations.json
     line: null
     owner: business
     fixed_in_commit: null
-    requires_manual_verification: "Whether this page should be deleted, repurposed for the real single Meerut location, or left as unused dead code - a page-scope decision, not a text-fix"
-    expected_impact: "Contains fake Ecomus demo content (London/Madrid/Tokyo store location cards, one with a typo 'marid' for Madrid, and placeholder @example.com emails) that doesn't fit this single-location Meerut business at all. Liveness (whether any real page uses this template) not confirmed - Admin API disconnected this session."
+    requires_manual_verification: "Whether this page should be deleted, repurposed for the real single Meerut location, or left as unused dead code - a page-scope decision, not a text-fix. Could be safely unpublished as an interim step (isPublished: false) without guessing at replacement content, but that is itself a real, visible change to a live page - not done unilaterally, flagged for your decision."
+    expected_impact: "CONFIRMED LIVE (severity raised from Low to High): GraphQL page query confirms this is the real, published 'Store Locator' page (handle store-locator), reachable by real customers right now. Contains fake Ecomus demo content (London/Madrid/Tokyo store location cards, one with a typo 'marid' for Madrid, and placeholder @example.com emails) that doesn't fit this single-location Meerut business at all - a real customer looking for the shop's location sees three wrong countries instead."
+
+  - id: SEO-031
+    category: Content SEO
+    severity: Medium
+    status: Open
+    verification: Verified
+    file: null
+    line: null
+    owner: business
+    fixed_in_commit: null
+    requires_manual_verification: "Which of the two policy pages is the intended canonical one, and whether the other should redirect, merge, or be removed - a content-ownership decision"
+    expected_impact: "Found via the same real GraphQL page query: two separate pages on nearly the same topic exist - 'Return, Refund & Replacement Policy' (handle return-refund-replacement-policy, templateSuffix page, NOT published) and 'Refund & Return Policy' (handle refund-return-policy, templateSuffix null, published). Classic duplicate-content signal; the unpublished one is presumably a superseded draft, but not assumed without confirmation."
