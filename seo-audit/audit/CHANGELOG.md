@@ -572,6 +572,36 @@ input (a confirmed delivery-area list; specific merchandising picks for the coll
 wasn't supplied along with the approval — executing either would mean guessing, which this project's
 standing rule forbids. B6 is explicitly sequenced after B4. See `IMPLEMENTATION_SUMMARY.md` for full detail.
 
+## 2026-07-31 — R3: exhaustive product-template census (audit only, no files removed)
+
+**Files**: `docs/TEMPLATE_CENSUS.md` (new). No theme file changed.
+
+**What was done**: paginated the entire 1,235-product catalogue (`sortKey: ID`, cursor pagination,
+250/page) for `templateSuffix`, superseding Finding 2's ~100-product sample from the Phase 5 audit.
+Confirmed `template_suffix:` is not a real Shopify search filter (empirically — a filtered query
+silently returns the full unfiltered count — and via `search_docs_chunks`, absent from the
+documented field list), so exhaustive pagination was the only reliable method.
+
+**Result** (sums to exactly 1,235, cross-checked against `productsCount` before and after):
+default `product.json` (`null`/`""`) — 1,228; `product.premium.json` — 3; `product.hampers-template.json`
+— 4; `product.tbk.json` — 0; `product.only_config.json` — 0 (by design, see below).
+
+**Zero-usage templates verified twice each, per the required standard**:
+- `product.only_config.json` is **not orphaned** — it's Shopify's alternate-template mechanism for
+  quick-view/quick-add modals, gated on `template == 'product.only_config'` in
+  `sections/main-quick-view.liquid`, `sections/main-quick-add.liquid`, and `layout/theme.liquid`,
+  and reached via `assets/global.min.js`'s `view=only_config` query-string convention — a path the
+  `templateSuffix` census cannot and isn't meant to detect. Not a cleanup candidate.
+- `product.tbk.json` / `sections/tbk-product.liquid` has zero assignments and, unlike
+  `only_config`, no alternate-view wiring anywhere in the theme. Its own header comment describes
+  manual single-product assignment that evidence shows never happened. Marked **SAFE TO REMOVE**
+  in the census doc, with one residual caveat (installed-app references aren't inspectable from
+  this environment) — **not removed this phase**, per R3's explicit audit-only scope.
+
+**Verification**: `git status` clean except the new doc; Theme Check re-run for a fresh baseline
+(no theme file touched, so no regression is possible by construction). Full detail, matrix, and
+reference-check evidence: `docs/TEMPLATE_CENSUS.md`.
+
 ## Related
 
 [AUDIT_LEDGER.md](AUDIT_LEDGER.md), [VERIFIED_ISSUES.md](VERIFIED_ISSUES.md).

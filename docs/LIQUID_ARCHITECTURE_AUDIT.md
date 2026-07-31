@@ -117,11 +117,16 @@ correct future removal sequence (if ever wanted) in `seo-audit/audit/CHANGELOG.m
 
 `tbk-product.liquid` is a real, historically significant file — it's where the fabricated
 "Customer Reviews" section and hardcoded 5-star widget were found and removed
-(`seo-audit/issues.yml` SEO-005/SEO-006). Zero confirmed live usage across two samples is suggestive
-but **not proof of zero usage across all 1,235 products** — a full sweep is warranted before any
-removal decision, not a sample-based guess. Recommended **Phase R3**: run an exhaustive
-`templateSuffix` check across the full catalogue (paginated, all 1,235 products, not a sample) before
-deciding whether `product.tbk.json`/`tbk-product.liquid` is truly retirable.
+(`seo-audit/issues.yml` SEO-005/SEO-006).
+
+**Status: resolved 2026-07-31 (R3).** Full exhaustive census, all 1,235 products (no sampling):
+`product.json` 1,228 · `product.premium.json` 3 · `product.hampers-template.json` 4 ·
+`product.tbk.json` **0**. Also censused `product.only_config.json` (**0**, but confirmed to be an
+intentionally-unassigned alternate quick-view/quick-add template reached via `view=` query string
+— not a cleanup candidate, unlike `tbk`). `tbk-product.liquid` has zero usage and no alternate-view
+wiring of any kind. Marked **SAFE TO REMOVE** pending a manual app-reference check (not
+automatable from this environment) — **not removed in R3**, per that phase's audit-only scope.
+Full matrix and reference-check evidence: `docs/TEMPLATE_CENSUS.md`.
 
 ## Finding 3: 23 orphaned snippets (theme-check verified), several needing content review before removal
 
