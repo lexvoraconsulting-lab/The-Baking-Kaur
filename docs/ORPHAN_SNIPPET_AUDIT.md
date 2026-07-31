@@ -104,10 +104,12 @@ label alone.
 | `bk-datetime.liquid` | Real, bespoke, brand-styled delivery date/time-slot feature with a documented (unimplemented) integration plan. Given TBK's delivery-scheduling business model, this may be wanted, unfinished work — not junk. | Business/product decision: wire it in (a real future phase) or explicitly park it. Do not delete without that decision — deleting real unfinished work is different from deleting confirmed-dead demo boilerplate. |
 | `shine-trust.liquid` (+ its broken include in `layout/theme.liquid:201`) | Pre-existing, already-flagged decision (`SEO_AUDIT_LEDGER.md` P2-26) never resolved: fix the include (turns on 78KB of bundle-widget CSS site-wide — a real visual/Core Web Vitals change) or delete both the include and the snippet. No fabrication risk either way, but "turn a dormant 78KB widget on" is a UI decision this audit should not make silently. | Recommend deletion (ponytail default, matching the pre-existing note's own suggestion) unless the bundle/cross-sell widget is actively wanted — but this is presented for confirmation, not assumed. |
 
-## Safe-to-remove candidates (11 files) — evidence summary, NOT removed this phase
+## Safe-to-remove candidates (11 files) — **REMOVED 2026-07-31 (R5)**
 
 All 11 confirmed via direct repo-wide grep (0 real references) plus content read (no fabrication
-risk, no undocumented planned-feature signal):
+risk, no undocumented planned-feature signal), **re-verified independently a second time in R5**
+before deletion, then removed from the live theme via a scoped `--only` push (pull → diff-confirm
+zero drift → delete → push → re-pull → diff-confirm gone):
 
 ```
 snippets/hdt-pr-single-rating.liquid   (empty, 0 bytes)
@@ -123,18 +125,23 @@ sections/testimonials-3.liquid         (disabled_on: ["*"], demo content, 0 refs
 sections/video-2.liquid                (disabled_on: ["*"], demo content, 0 refs)
 ```
 
+Theme Check: 343 files (was 354, exactly −11) — offenses 1,362→1,351 and warnings 200→189 (both
+exactly −11, matching each removed file's own `OrphanedSnippet` flag); errors unchanged (1,162).
+No regression. `bk-datetime.liquid` and `shine-trust.liquid` (the 2 manual-review items) confirmed
+untouched, byte-for-byte, on the live theme after this push. Full evidence: `CHANGELOG.md`'s R5
+entry.
+
 ## Cleanup recommendations (ordered)
 
 1. **Do nothing to the 4 reclassified-ACTIVE files** — `product-form-bundle.liquid`,
    `product-form-bundle2.liquid`, `product_tabs.liquid`, `cake-addons.liquid`. Removing any of
    these would break a live feature on the default product template.
-2. **Resolve the 2 manual-review items first**, before any deletion pass — `bk-datetime.liquid`
-   (business decision on the unfinished feature) and `shine-trust.liquid` (on/off decision, already
-   flagged pre-existing and unresolved).
-3. **The 11 safe-to-remove files are the lowest-risk cleanup in this entire audit series** — zero
-   live references (re-verified by direct grep, not just Theme Check), zero fabrication risk, zero
-   business decision required. Recommended as a future **R5** removal pass, mirroring R3.5's
-   pull→diff→delete→push→re-pull→diff pattern, one commit.
+2. **The 2 manual-review items remain unresolved and untouched** — `bk-datetime.liquid` (business
+   decision on the unfinished feature) and `shine-trust.liquid` (on/off decision, already flagged
+   pre-existing and unresolved). Neither was touched in R5.
+3. **Done — R5, 2026-07-31.** The 11 safe-to-remove files were removed via a scoped `--only` push,
+   mirroring R3.5's pull→diff→delete→push→re-pull→diff pattern, one commit
+   (`refactor(snippets): remove verified orphan snippets`).
 
 ## Verification performed this phase
 

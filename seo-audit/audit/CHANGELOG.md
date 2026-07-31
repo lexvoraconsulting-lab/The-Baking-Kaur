@@ -684,6 +684,44 @@ removed this phase**, per audit-only scope.
 (no theme file touched, so no regression is possible by construction). Full matrix, evidence, and
 recommended cleanup order: `docs/ORPHAN_SNIPPET_AUDIT.md`.
 
+## 2026-07-31 — R5: remove the 11 verified-safe orphan snippets
+
+**Files**: 11 files removed (8 snippets, 3 sections). `bk-datetime.liquid` and `shine-trust.liquid`
+(R4's 2 manual-review items) deliberately left untouched.
+
+```
+snippets/hdt-pr-single-rating.liquid   snippets/delivery-date.liquid
+snippets/meta-tags.liquid              snippets/type.liquid
+snippets/product-btns.liquid           snippets/product-thumbnail.liquid
+snippets/choose_style.liquid           snippets/lookbook-card-product.liquid
+sections/testimonials-2.liquid         sections/testimonials-3.liquid
+sections/video-2.liquid
+```
+
+**Before, re-verified independently a second time** (not reused from R4): fresh repo-wide grep for
+`render`/`include`/section-type references to all 11 files — zero hits on every one, confirming
+R4's finding still holds. `meta-tags.liquid` reconfirmed a duplicate of the live
+`social-meta-tags.liquid`; `testimonials-2.liquid`/`testimonials-3.liquid`/`video-2.liquid`
+reconfirmed carrying `"disabled_on": {"groups": ["*"]}` with only generic Ecomus demo content.
+
+**Deploy safety**: `shopify theme pull --only <11 paths>` + `diff --strip-trailing-cr` against
+local for each file — zero drift confirmed on all 11 before deleting. Deleted locally, then
+`shopify theme push --allow-live --only <11 paths> --force` (scoped, not an unscoped sync — same
+deliberate pattern as R1/R3.5). Re-pulled the full `snippets/`/`sections/` directories afterward:
+confirmed all 11 gone live; confirmed `bk-datetime.liquid` and `shine-trust.liquid` byte-for-byte
+unchanged.
+
+**After — Theme Check**: 343 files inspected (was 354, exactly −11) — 1,351 offenses across 80
+files, 1,162 errors (unchanged), 189 warnings (was 200, exactly −11 — each removed file carried
+exactly one `OrphanedSnippet` warning). No new offense introduced; no regression.
+
+**Repository grep, post-removal**: no remaining `render`/`include` call anywhere references any of
+the 11 removed files — no broken includes.
+
+**Not removed this phase**: `bk-datetime.liquid` (real, unfinished, brand-styled feature — needs a
+product decision) and `shine-trust.liquid` (pre-existing, unresolved on/off decision, `SEO_AUDIT_LEDGER.md`
+P2-26) — both explicitly out of scope per this phase's instruction.
+
 ## Related
 
 [AUDIT_LEDGER.md](AUDIT_LEDGER.md), [VERIFIED_ISSUES.md](VERIFIED_ISSUES.md).
