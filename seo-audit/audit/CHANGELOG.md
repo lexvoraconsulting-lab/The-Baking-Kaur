@@ -776,6 +776,43 @@ readiness scored across 7 dimensions (Architecture 4/5, Maintainability 4/5, Saf
 Integrity 5/5, Technical Debt 3/5, Documentation 5/5, Overall 4.3/5). **Repository certified.** Full
 detail: `docs/FINAL_REPORT.md`.
 
+## 2026-07-31 — Phase 6 / P6.0: Enterprise Performance Audit (audit only, no files changed)
+
+**Files**: 6 new docs — `docs/PERFORMANCE_BASELINE.md`, `docs/PERFORMANCE_AUDIT.md`,
+`docs/PERFORMANCE_RECOMMENDATIONS.md`, `docs/CORE_WEB_VITALS.md`, `docs/PERFORMANCE_SCORECARD.md`,
+`docs/PERFORMANCE_ROADMAP.md`. No theme file changed — this phase is audit-only per its own
+explicit stop instruction ("do not begin optimization yet").
+
+**What was done**: a full static-evidence performance audit across render tree, assets (JS/CSS/
+images/fonts/SVG/video), loading strategy, Shopify-specific concerns (app embeds, CDN usage,
+responsive images), JavaScript, CSS, images, fonts, and performance-linked accessibility.
+
+**Why no Core Web Vitals numbers are reported as measured**: the storefront is intentionally
+password-gated (`business/BUSINESS_MASTER.md` §16), which blocks both this session's `WebFetch` and
+any external Lighthouse/PageSpeed Insights crawler from reaching the real page. Rather than
+fabricate lab numbers, `docs/CORE_WEB_VITALS.md` documents this constraint explicitly and gives a
+code-evidence-based risk assessment per metric instead, with an explicit recommendation (R-9) to
+run a real Lighthouse pass once the site is reachable.
+
+**17 findings documented (F-1 through F-17)** across render tree, assets, loading strategy,
+Shopify-specifics, and accessibility — each with evidence/reason/impact/risk/fix/expected-gain/
+complexity. Notable: `theme.css` (264 KB) + `base.css` (129 KB) load unconditionally with no
+critical-CSS split (F-5); missing `fonts.gstatic.com` preconnect (F-7); a duplicate, non-deferred
+`uploadcare.full.min.js` script tag (F-8); ~136 KB of `shine-trust-v4-*.js` with undetermined live/
+dead status, tied to the already-known pending `shine-trust.liquid` business decision (F-9).
+Positive findings: correct responsive-image usage throughout (F-14), correct `eager`+
+`fetchpriority`/`lazy` split on product images (F-12), well-implemented pagination across all 11
+listing sections with sane defaults (F-3), `prefers-reduced-motion` respected (F-17), zero
+bundled/unoptimized local images (F-16).
+
+**Only 2 of 17 findings qualify as "safe, deterministic, no behavior change"** per this phase's own
+implementation rule: adding the missing font preconnect, and removing the duplicate script tag.
+Both are recommended for **P6.1** (`docs/PERFORMANCE_ROADMAP.md`) — **neither implemented in this
+phase**, per the explicit stop instruction.
+
+**Verification**: `git status` clean except the 6 new docs; no theme file touched, so Theme Check
+is unchanged from R7's final baseline (343/1,350/80/1,161/189) by construction.
+
 ## Related
 
 [AUDIT_LEDGER.md](AUDIT_LEDGER.md), [VERIFIED_ISSUES.md](VERIFIED_ISSUES.md).
