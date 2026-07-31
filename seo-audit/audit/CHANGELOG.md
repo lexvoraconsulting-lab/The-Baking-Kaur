@@ -61,6 +61,54 @@ itself carries zero findings. No regression.
 **Not done this pass, per explicit scope**: R1 (removing the confirmed-dead `-hulkapps-backup`
 files) and every later phase in `docs/LIQUID_ARCHITECTURE_AUDIT.md`'s plan — R0 only.
 
+## 2026-07-31 — R1: remove 10 confirmed-dead `-hulkapps-backup` files
+
+**Files removed**: `sections/cart-drawer-hulkapps-backup.liquid`,
+`sections/header-e-commerce-hulkapps-backup.liquid`, `sections/header-inline-hulkapps-backup.liquid`,
+`sections/main-cart-hulkapps-backup.liquid`, `sections/main-gift-cart-hulkapps-backup.liquid`,
+`snippets/cart-checkbox-hulkapps-backup.liquid`, `snippets/cart-complementary-hulkapps-backup.liquid`,
+`snippets/cart-shipping-bar-hulkapps-backup.liquid`, `snippets/item-cart-hulkapps-backup.liquid`,
+`snippets/item-cart-page-hulkapps-backup.liquid` — 3,319 lines total. Full rationale per file already
+documented in `docs/LIQUID_ARCHITECTURE_AUDIT.md` Finding 1, re-verified fresh immediately before
+deletion (all 10 still showed zero references via a repo-wide grep across every `*-group.json`/
+`templates/*.json`, and the 5 snippets were independently confirmed by Theme Check's own
+`OrphanedSnippet` detector).
+
+**Explicitly excluded from this pass**: `snippets/rewind_menu_backup_do_not_delete.liquid` (filename
+is a literal do-not-delete instruction) and `sections/header-menu-bottom-hulkapps-backup.liquid`
+(referenced once, as a `disabled: true` block in `header-group.json` — live-but-inactive
+configuration, not orphaned code; deferred to R2, a separate decision).
+
+**Real, unrelated drift found and deliberately routed around**: a full-theme pull (all 365 files)
+before deletion, diffed against git HEAD, surfaced 3 pre-existing drifts unrelated to this task:
+`layout/password.liquid` and `sections/tbk-header.liquid` (live already renders `tbk-tokens` in
+places local git didn't have — `tbk-header.liquid`'s copy in particular means the header's 145
+`var(--tbk-*)` references were likely already resolving correctly on real pages even before R0,
+independent of R0's fix) and `sections/main-password.liquid` (live has a real WhatsApp/Call-Now
+button block entirely absent from local git). An unscoped `theme push` (Shopify CLI's default
+behavior deletes remote files not present locally) would have silently pushed local's version of all
+three over live, adding unintended content to `password.liquid` and **deleting the live WhatsApp/Call
+feature from `main-password.liquid`**. Deployed via `theme push --only <path>` named explicitly for
+each of the 10 files instead, avoiding an unscoped sync entirely.
+
+**Deploy safety**: deleted the 10 files locally, pushed with 10 explicit `--only` flags (not an
+unscoped push), then a full-theme re-pull confirmed: all 10 gone remotely; all 3 unrelated drifted
+files unchanged (`main-password.liquid` still has its WhatsApp/Call block; `tbk-header.liquid` still
+has its inline `tbk-tokens` render; `password.liquid`'s drift unchanged). A separate repo-wide grep
+post-deletion confirmed zero dangling references to any of the 10 removed files.
+
+**Verification — Theme Check, two independent runs, both identical**:
+
+| Metric | Before R1 (post-R0) | After R1 |
+|---|---|---|
+| Files inspected | 365 | 355 (**−10**, exactly the removed files) |
+| Total offenses | 1,367 | 1,362 (**−5**) |
+| Files flagged | 92 | 87 (**−5**) |
+| Errors | 1,162 | 1,162 (unchanged — no new errors) |
+| Warnings | 205 | 200 (**−5**) |
+
+No regression. R2 through R7 not started, per explicit scope.
+
 ## 2026-07-29 — Commit `52a3821`: remove fabricated ratings and fake customer reviews
 
 **Files**: `sections/main-product-premium-v2.liquid`, `sections/main-product.liquid`,

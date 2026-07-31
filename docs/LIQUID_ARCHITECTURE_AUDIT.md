@@ -64,7 +64,14 @@ other visual-architecture question is harder to reason about while this is unres
 
 ---
 
-## Finding 1: confirmed-dead "-hulkapps-backup" files (11 files, zero live references)
+## Finding 1: confirmed-dead "-hulkapps-backup" files (11 files, zero live references) — 10 REMOVED 2026-07-31 (R1)
+
+**Status: mostly resolved.** The 10 files below with confirmed zero references were removed and
+deployed live. `rewind_menu_backup_do_not_delete.liquid` and
+`header-menu-bottom-hulkapps-backup.liquid` (referenced, disabled block) were explicitly excluded,
+per this finding's own original recommendation — see `seo-audit/audit/CHANGELOG.md`'s 2026-07-31
+entry for full verification detail, including a real, unrelated drift (`main-password.liquid`'s live
+WhatsApp/Call feature) that was deliberately routed around during deployment.
 
 Cross-checked two independent ways — a direct grep for each file's section `"type"` string across
 every `*-group.json`/`templates/*.json`, and `shopify theme check`'s own `OrphanedSnippet` detector
