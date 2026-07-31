@@ -722,6 +722,36 @@ the 11 removed files — no broken includes.
 product decision) and `shine-trust.liquid` (pre-existing, unresolved on/off decision, `SEO_AUDIT_LEDGER.md`
 P2-26) — both explicitly out of scope per this phase's instruction.
 
+## 2026-07-31 — R6: repair the one verified missing-asset reference
+
+**Files**: `assets/no-image.svg` (new — a plain, generic gray placeholder icon; no business claims,
+no fabrication risk).
+
+**Full scan performed** (Theme Check JSON output, parsed programmatically): 8 `MissingAsset`
+findings total, 1 `MissingTemplate`, 3 `UnknownFilter`, 3 `DuplicateRenderSnippetArguments`, 1
+`ValidJSON`. Each was independently triaged against R6's "deterministic, low-risk, fully verified,
+asset/reference only" mandate:
+
+| Finding | Verdict | Why |
+|---|---|---|
+| `assets/no-image.svg` missing, referenced by `snippets/tbk-gallery.liquid:7` | **Repaired** | Deterministic, purely additive, zero fabrication risk. This is the audit's own Finding 6, explicitly reserved for R6. |
+| 6× `MissingAsset` under `design_handoff_shopify_product/theme_files/` | Not touched | Non-live reference/handoff folder, outside the theme's actual root (`sections/`, `snippets/`, `templates/`, `assets/`, `layout/`, `config/`) — Finding 5, already established out of scope for this whole refactor plan. |
+| `MissingTemplate`: `layout/theme.liquid:200`'s broken `{% include 'shine-trust.liquid' %}` | Not touched | Pre-existing, unresolved business decision (`SEO_AUDIT_LEDGER.md` P2-26; R4/R5 manual-review item) — fixing it visibly changes every page (78KB of CSS turns on), not a deterministic/low-risk repair. |
+| 3× `UnknownFilter 'limit'` in `sections/tbk-product.liquid` | Not touched | A Liquid logic bug, not an asset/reference issue — out of R6's scope. Also moot: `tbk-product.liquid` has had zero live rendering path since R3.5 removed its only assigning template (`product.tbk.json`), confirmed via grep (`"type": "tbk-product"` appears nowhere in any live template/section-group). |
+| 3× `DuplicateRenderSnippetArguments` in `sections/main-list-collections.liquid` (a live file) | Not touched | Redundant-but-not-broken render argument — a code-quality issue, not a missing/broken reference; "do not refactor unrelated code" per this phase's instruction. |
+| `ValidJSON` in `locales/en.default.schema.json:4957` | Not touched | A locale/schema-labels structural issue — explicitly excluded ("do not modify schema content... copy"). |
+
+**Deploy safety**: pulled to confirm the asset was genuinely absent live, added the file locally,
+pushed via a scoped `--only assets/no-image.svg` push, re-pulled and diff-confirmed byte-identical.
+
+**After — Theme Check**: 343 files (unchanged — a new asset isn't a liquid/json file counted the
+same way), 1,350 offenses (was 1,351, −1) across 80 files, 1,161 errors (was 1,162, −1, exactly the
+resolved `MissingAsset`), 189 warnings (unchanged). No new offense introduced.
+
+**Repository grep**: `assets/no-image.svg` now resolves correctly wherever referenced;
+`snippets/tbk-gallery.liquid`'s `{{ 'no-image.svg' | asset_url }}` now points at a real file. No
+other broken `render`/`include`/`asset_url`/`image_url`/`file_url` reference remains in scope.
+
 ## Related
 
 [AUDIT_LEDGER.md](AUDIT_LEDGER.md), [VERIFIED_ISSUES.md](VERIFIED_ISSUES.md).

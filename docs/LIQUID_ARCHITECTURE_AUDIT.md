@@ -222,13 +222,24 @@ asset" references are not a real defect — those assets were never meant to exi
 context. **Out of scope for this refactoring plan entirely** — noted here only so it isn't confused
 with the live theme audit above.
 
-## Finding 6: one real, live missing-asset defect
+## Finding 6: missing-asset defect — RESOLVED 2026-07-31 (R6)
 
-`snippets/tbk-gallery.liquid` references `assets/no-image.svg`, which does not exist in `assets/`.
-This file is used by the `tbk` product template (`product.tbk.json`) — given Finding 2's uncertainty
-about that template's live status, this is low-priority until Phase R3 resolves whether `tbk-product.liquid`
-is even retained. If retained, this is a small, safe fix (**Phase R6**): add the missing SVG or point
-the reference at an existing placeholder asset.
+**Status: resolved.** `snippets/tbk-gallery.liquid` referenced `assets/no-image.svg`, which didn't
+exist. R3.5 subsequently removed `templates/product.tbk.json` (0 live product assignments),
+leaving `sections/tbk-product.liquid` — and transitively `tbk-gallery.liquid` — with zero live
+rendering path (confirmed via grep: no `"type": "tbk-product"` reference remains anywhere). The fix
+was applied anyway, defensively, consistent with this project's established precedent for this
+exact file (`seo-audit/issues.yml`'s prior note: "fixed defensively regardless... per this audit's
+established precedent"). A plain, generic placeholder SVG was added at `assets/no-image.svg` and
+deployed live via a scoped push. Zero fabrication risk (a generic icon, no business claims). Full
+evidence: `seo-audit/audit/CHANGELOG.md`'s R6 entry, `docs/ORPHAN_SNIPPET_AUDIT.md`.
+
+A full Theme Check scan in R6 also triaged 6 further `MissingAsset` findings under
+`design_handoff_shopify_product/` (non-live, per Finding 5 — not touched), the pre-existing
+`shine-trust.liquid` broken-include finding (a business decision, not a deterministic repair — not
+touched), and 2 code-quality findings (`UnknownFilter` in the now-unreachable `tbk-product.liquid`;
+`DuplicateRenderSnippetArguments` in `main-list-collections.liquid`) — neither is an asset/reference
+issue, both correctly out of R6's scope.
 
 ## What this audit did not cover
 
