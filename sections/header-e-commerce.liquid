@@ -10,7 +10,7 @@
           when "search"
             if request.design_mode or search.terms contains "homeHdt"
             elsif search.terms contains "submenu"
-          		echo search.terms | remove_first: ' OR ' | remove_first: 'submenu' | strip
+          		echo search.terms | remove_first: ' OR ' | remove_first: 'submenu' | strip | escape
           	endif
           when "collection"
             echo collection.metafields.theme.brand.value.name

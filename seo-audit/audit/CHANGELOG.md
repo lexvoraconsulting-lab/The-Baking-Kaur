@@ -1085,6 +1085,25 @@ visible content) is a genuine business/product decision, not a deterministic tec
 **Stopped Phase 7.3 here**, per the explicit instruction's own stop condition ("stop only if...
 business approval is required") — this finding qualifies.
 
+## 2026-07-31 — Security audit (first dedicated pass): 1 fixed, 1 escalated
+
+**Files**: `sections/header-e-commerce.liquid` (1-line fix). New doc: `docs/SECURITY_AUDIT.md`.
+
+**SEC-002 (fixed)**: `search.terms` was echoed without `| escape` in a "multi-brand" navigation
+code path (`header-e-commerce.liquid:13`) — a reflected-XSS vulnerability class, currently
+unreachable (the gating `linklists.theme_brands` doesn't exist on this store) but fixed
+defensively regardless, matching this project's established precedent (R6's `no-image.svg` fix).
+Deploy safety: pull → diff-confirm zero drift → edit (added `| escape`) → scoped `--only` push →
+re-pull → diff-confirm live. Theme Check unchanged (343/1,351/80/1,161/190) — no regression.
+
+**SEC-001 (escalated, not touched)**: found a theme-vendor licensing "phone-home" mechanism in
+`assets/custom.js` that sends the store's real `shop.email`, domain, theme name, and purchase code
+to `https://lic.the4.co/license/check` (domain deliberately obfuscated via a shuffled-character-
+array reconstruction, payload base64+URI-encoded) — decoded and confirmed by hand in this audit.
+**Not removed** — this is a Level 3/4 decision (the store's licensing relationship with a paid
+third-party theme vendor), not a technical defect; removal could trigger vendor-side tamper
+detection. Escalated to the business for a licensing-status decision, per `docs/SECURITY_AUDIT.md`.
+
 ## Related
 
 [AUDIT_LEDGER.md](AUDIT_LEDGER.md), [VERIFIED_ISSUES.md](VERIFIED_ISSUES.md).
