@@ -752,6 +752,30 @@ resolved `MissingAsset`), 189 warnings (unchanged). No new offense introduced.
 `snippets/tbk-gallery.liquid`'s `{{ 'no-image.svg' | asset_url }}` now points at a real file. No
 other broken `render`/`include`/`asset_url`/`image_url`/`file_url` reference remains in scope.
 
+## 2026-07-31 — R7: final repository certification (verification only, no files changed)
+
+**Files**: `docs/FINAL_REPORT.md` (new). No theme file changed — this phase is verification-only.
+
+**What was done**: certified the entire R0–R6 series. Verified all 9 commits present in order,
+working tree clean. Re-ran full Theme Check: **343 files, 1,350 offenses, 80 files flagged, 1,161
+errors, 189 warnings** — byte-identical to R6's post-repair baseline, zero drift. Re-verified R1's
+10, R3.5's 1, and R5's 11 removed files all still have zero functional references. Cross-referenced
+every remaining `LiquidHTMLSyntaxError`/`UnclosedHTMLElement`/`ValidJSON`/`ValidSchemaName` finding
+against the list of files this series touched — none overlap, confirming zero syntax regressions
+attributable to this refactor. Checked documentation consistency across `CHANGELOG.md`,
+`AUDIT_LEDGER.md`, `LIQUID_ARCHITECTURE_AUDIT.md`, `ORPHAN_SNIPPET_AUDIT.md`, and
+`TEMPLATE_CENSUS.md` — all consistent.
+
+**No regression found; no repair performed** — R7 is a verification phase, per its own explicit
+scope ("not another cleanup phase").
+
+**Result**: full Theme Check trajectory from pre-R0 (365 files/1,369 offenses/94 flagged/1,162
+errors/207 warnings) to final (343/1,350/80/1,161/189) — net −22 files, −19 offenses, −1 error (a
+genuine fix), −18 warnings, every delta traced to a specific documented commit. Production
+readiness scored across 7 dimensions (Architecture 4/5, Maintainability 4/5, Safety 5/5, Theme
+Integrity 5/5, Technical Debt 3/5, Documentation 5/5, Overall 4.3/5). **Repository certified.** Full
+detail: `docs/FINAL_REPORT.md`.
+
 ## Related
 
 [AUDIT_LEDGER.md](AUDIT_LEDGER.md), [VERIFIED_ISSUES.md](VERIFIED_ISSUES.md).
