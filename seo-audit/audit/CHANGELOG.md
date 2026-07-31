@@ -19,6 +19,48 @@ blocker; noted for the record since it briefly looked like one.
 
 No file changed, no commit made for this entry — see `seo-audit/final/SPRINT_REPORT.md` for full detail.
 
+## 2026-07-31 — R0: restore design-token/component rendering in `layout/theme.liquid`
+
+**Files**: `layout/theme.liquid` only.
+
+**What was broken**: `snippets/tbk-tokens.liquid` (the real `--tbk-*` CSS custom-property system) and
+`snippets/tbk-components.liquid` (the real `.tbkx-*` component CSS) were rendered only by
+`layout/password.liquid` — confirmed via a repo-wide grep, the only two `render 'tbk-tokens'` /
+`render 'tbk-components'` calls anywhere were both in that one file. `layout/theme.liquid`, which
+renders every real storefront page, had neither. Three confirmed-live sections
+(`sections/tbk-header.liquid`, `sections/site-footer.liquid`, `sections/tbk-announcement-bar.liquid`)
+reference `var(--tbk-*)` 177 times combined, all previously resolving to nothing on any real page —
+masked entirely by the storefront's own password gate, since anonymous/external checks only ever saw
+`password.liquid`. Full detail: `docs/LIQUID_ARCHITECTURE_AUDIT.md` Finding 0.
+
+**Why the fix is safe**: purely additive — two `render` statements added to the existing
+`{%- liquid ... -%}` head block, copied from the exact working order already proven correct in
+`password.liquid` (immediately after `render 'css-variables'`). No existing render call, CSS value,
+or markup was touched. Confirmed zero pre-existing `tbk-tokens`/`tbk-components` calls in
+`theme.liquid` before editing — nothing duplicated.
+
+**Deploy safety**: `shopify theme pull --only layout/theme.liquid`, `diff --strip-trailing-cr`
+against git HEAD — zero drift confirmed before editing. Pushed via
+`shopify theme push --allow-live --only layout/theme.liquid`. Re-pulled and diff-confirmed
+byte-for-byte live, both new `render` lines present.
+
+**Verification — Theme Check, full run, before vs. after**:
+
+| Metric | Before | After |
+|---|---|---|
+| Total offenses | 1,369 | 1,367 (**−2**) |
+| Files flagged | 94 | 92 (**−2**) |
+| Errors | 1,162 | 1,162 (unchanged — no new errors) |
+| Warnings | 207 | 205 (**−2**) |
+
+The exact 2 fewer offenses/files are `tbk-tokens.liquid` and `tbk-components.liquid`'s
+`OrphanedSnippet` findings — both completely absent from the new report (confirmed via grep, zero
+mentions of either name), proving Theme Check now sees them as reachable. `layout/theme.liquid`
+itself carries zero findings. No regression.
+
+**Not done this pass, per explicit scope**: R1 (removing the confirmed-dead `-hulkapps-backup`
+files) and every later phase in `docs/LIQUID_ARCHITECTURE_AUDIT.md`'s plan — R0 only.
+
 ## 2026-07-29 — Commit `52a3821`: remove fabricated ratings and fake customer reviews
 
 **Files**: `sections/main-product-premium-v2.liquid`, `sections/main-product.liquid`,

@@ -54,6 +54,8 @@
     {%- liquid
       render 'social-meta-tags'
       render 'css-variables', is_rtl: is_rtl
+      render 'tbk-tokens'
+      render 'tbk-components'
       echo 'theme.css' | asset_url | stylesheet_tag
       if request.page_type == "policy"
       echo 'hdt-policy.css' | asset_url | stylesheet_tag

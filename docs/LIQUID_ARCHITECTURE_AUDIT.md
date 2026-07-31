@@ -11,9 +11,15 @@ Real inventory: 29 templates, 131 sections, 148 snippets, 76 assets (`ls` counts
 
 ---
 
-## Finding 0 (Critical, new this pass): the real design-token system is not wired into the live storefront layout
+## Finding 0 (Critical, new this pass): the real design-token system is not wired into the live storefront layout — FIXED 2026-07-31 (R0)
 
-**This is the single most important finding in this audit.**
+**Status: resolved.** `render 'tbk-tokens'` and `render 'tbk-components'` were added to
+`layout/theme.liquid`, deployed live, and verified (Theme Check offenses dropped by exactly the 2
+`OrphanedSnippet` findings these two files previously carried; zero new errors). See
+`seo-audit/audit/CHANGELOG.md`'s 2026-07-31 entry for full verification detail. The finding below is
+preserved as the historical record of what was broken and why.
+
+**This was the single most important finding in this audit.**
 
 `snippets/tbk-tokens.liquid` (the real `--tbk-*` CSS custom-property system — colors, spacing,
 typography, shadows — fully documented in `design/DESIGN_SYSTEM.md`) and

@@ -71,6 +71,8 @@ progress is tracked here separately rather than added as fabricated ledger rows.
 `SHOPIFY_TOKEN` fallback, no new business input for B4/B5. B3's 5 files re-pulled and confirmed still
 live. See `SPRINT_REPORT.md` for the full re-verification record.
 
+| R0 (design-token render restoration) | Phase 5 — Liquid Architecture Refactor | **Done**, 2026-07-31 | Added `render 'tbk-tokens'` and `render 'tbk-components'` to `layout/theme.liquid` — previously rendered only by `layout/password.liquid`, leaving 177 real `var(--tbk-*)` references across 3 confirmed-live sections undefined on every real storefront page. Purely additive, no theme file other than `theme.liquid` touched. See `CHANGELOG.md` and `docs/LIQUID_ARCHITECTURE_AUDIT.md` (Finding 0). |
+
 **Sprint 2 (Navigation) status: complete for all in-scope tasks.** 2.3 and 2.5 skipped (hard-blocked
 on Sprint 1's unmade policy-terms decision, per explicit instruction not to route around unmade
 Sprint 1 decisions). Not continuing to Sprint 3 automatically, per instruction.
