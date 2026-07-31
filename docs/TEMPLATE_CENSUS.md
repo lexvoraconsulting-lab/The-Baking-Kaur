@@ -69,7 +69,16 @@ the theme confirms it's live and referenced by three separate files via the `vie
 not the `templateSuffix` convention — the census methodology simply doesn't (and can't) detect
 this usage pattern, by design. **Conclusion: KEEP. Not a cleanup candidate.**
 
-### `product.tbk.json` / `sections/tbk-product.liquid` — zero usage, no alternate-view wiring either
+### `product.tbk.json` — **REMOVED 2026-07-31 (R3.5)**
+
+Re-verified fresh (full re-pagination, all 1,235 products, independent of R3's original pass) —
+still 0 assignments, no alternate-view wiring, no section/render dependencies found. Removed
+`templates/product.tbk.json` only, via a scoped `--only` push (pull → diff-confirm zero drift →
+delete → push → re-pull → diff-confirm live). `sections/tbk-product.liquid` was deliberately left
+in place — out of this phase's scope. Theme Check: 354 files (was 355), same 1,362 offenses/87
+files/1,162 errors/200 warnings — no regression. Full evidence: `CHANGELOG.md`'s R3.5 entry.
+
+### (Historical, pre-removal) zero usage, no alternate-view wiring either
 
 **Verified twice**: (1) the exhaustive 1,235-product pagination shows 0 `templateSuffix: "tbk"`
 assignments (upgrading the Phase 5 audit's ~100-product sample finding to a full-catalogue
@@ -107,10 +116,12 @@ those 7 products onto the default template.
 
 ## Cleanup recommendations
 
-| Item | Recommendation | Blocking factor |
+| Item | Recommendation | Status |
 |---|---|---|
-| `templates/product.tbk.json` + `sections/tbk-product.liquid` | Candidate for removal in a future phase (R4+) | App-reference check cannot be fully automated from this environment; recommend a manual Shopify Admin → Apps review before deletion |
+| `templates/product.tbk.json` | Removed | **Done, 2026-07-31 (R3.5)** |
+| `sections/tbk-product.liquid` | Candidate for a future phase (R4+) | Not removed — out of R3.5's explicit scope; app-reference check still cannot be fully automated from this environment, recommend a manual Shopify Admin → Apps review first |
 | `templates/product.only_config.json` + its wiring | No action — actively used, correctly excluded from removal consideration | N/A |
 | `product.premium.json`, `product.hampers-template.json` | No action — genuinely live on 3 and 4 products respectively | N/A |
 
-No files were removed, renamed, or modified in this phase.
+**R3 (this document's original pass)** was audit-only — no files removed. **R3.5** removed exactly
+one file, `templates/product.tbk.json`, per the process above.

@@ -602,6 +602,43 @@ default `product.json` (`null`/`""`) — 1,228; `product.premium.json` — 3; `p
 (no theme file touched, so no regression is possible by construction). Full detail, matrix, and
 reference-check evidence: `docs/TEMPLATE_CENSUS.md`.
 
+## 2026-07-31 — R3.5: remove `templates/product.tbk.json` (the one file R3 proved safe)
+
+**Files**: `templates/product.tbk.json` only (deleted). `sections/tbk-product.liquid` deliberately
+left in place — out of scope for this phase.
+
+**Before, re-verified from scratch** (not reused from R3): fresh full pagination of all 1,235
+products (`sortKey: ID`, cursor pagination, 250/page, 5 pages) — 0 `templateSuffix: "tbk"`
+assignments, matching R3 exactly (1,228 default / 3 `premium` / 4 `hampers-template` / 0 `tbk`).
+Catalogue totals unchanged (1,235 total, 602/588/45 active/draft/archived split) — no concurrent
+edits. Grep re-confirmed: no `view=tbk` or `template == 'product.tbk'` gate anywhere (unlike
+`only_config`, which has real alternate-view wiring); no other template/section references
+`tbk-product`; `assets/base.css`'s `.tbk-product-*` classes are a naming convention shared with
+`main-product-premium.liquid`/`-v2.liquid`, not a dependency on this template file specifically.
+App-level references remain unverifiable from this environment (disclosed caveat, not a blocker —
+no evidence of app usage found).
+
+**Why safe to remove**: zero live product assignments (exhaustive, twice-verified), zero alternate
+rendering path, zero references from any other theme file. `templates/product.tbk.json` only
+declares which section (`tbk-product`) to render for an assigned product — with the assignment
+never made, the JSON file itself has no function.
+
+**Deploy safety**: `shopify theme pull --only templates/product.tbk.json` + `diff --strip-trailing-cr`
+against local — zero drift confirmed before deleting. Deleted locally, then
+`shopify theme push --allow-live --only templates/product.tbk.json --force` (scoped, not an
+unscoped sync — same deliberate pattern as R1). Re-pulled `templates/product*.json` afterward:
+confirmed `product.tbk.json` gone live; the other 4 product templates
+(`product.json`, `product.premium.json`, `product.hampers-template.json`, `product.only_config.json`)
+unchanged.
+
+**After — Theme Check**: 354 files inspected (was 355 in R3, exactly -1) — 1,362 offenses across 87
+files, 1,162 errors, 200 warnings, identical to R3's baseline. No new offense introduced; the
+removed file itself carried none.
+
+**Not removed this phase**: `sections/tbk-product.liquid` — explicitly out of scope per this
+phase's instruction ("remove ONLY templates/product.tbk.json"). Its own future disposition (R4+)
+depends on the still-unverifiable app-reference check.
+
 ## Related
 
 [AUDIT_LEDGER.md](AUDIT_LEDGER.md), [VERIFIED_ISSUES.md](VERIFIED_ISSUES.md).
