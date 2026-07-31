@@ -923,6 +923,47 @@ measurement, FAQPage schema check, `shine-trust.liquid` decision now covering ~2
 card-snippet consolidation, `UndefinedObject`/`HardcodedRoutes` triage) in priority order, so
 Phase 7 starts from a single entry point instead of re-deriving context.
 
+## 2026-07-31 — Phase 6.5: Enterprise Handoff & Readiness Review (planning only, no files changed)
+
+**Files**: 8 new docs — `docs/PHASE7_EXECUTION_PLAN.md`, `docs/PHASE7_DEPENDENCIES.md`,
+`docs/PHASE7_RISK_REGISTER.md`, `docs/PHASE7_PRIORITY_MATRIX.md`, `docs/PHASE7_TASK_BREAKDOWN.md`,
+`docs/PHASE7_ACCEPTANCE_CRITERIA.md`, `docs/PHASE7_BLOCKERS.md`, `docs/PHASE7_SUCCESS_METRICS.md`.
+No theme file, no existing documentation file, changed — review/planning only, per explicit
+instruction not to modify production code or regenerate existing docs.
+
+**What was done**: reconciled every canonical document (`business/`, `design/`, root blueprint
+`*.md`, `docs/`, `seo-audit/audit/`) against the current repository state and against each other.
+
+**New findings from this reconciliation pass** (not previously documented):
+- **Two conflicting `CHANGELOG.md` files**: a stale root-level file (36.7 KB, last modified
+  2026-07-17, predates the entire R0–R7/Phase 6 series) alongside the actively-maintained
+  `seo-audit/audit/CHANGELOG.md` this whole project has used. Flagged as a Critical task (C-2).
+- **Two conflicting `PERFORMANCE_BASELINE.md` files**: root version claims some preview-theme
+  browser-Performance-API measurement was attempted; `docs/PERFORMANCE_BASELINE.md` (P6.0)
+  explicitly states no live measurement was performed — different epistemic claims about the same
+  topic, needing reconciliation (M-4).
+- **`docs/ARCHITECTURE.md`'s template count is stale**: claims 40 templates; actual current count
+  (verified via `ls templates/`) is 33, most recently affected by R3.5's removal of
+  `templates/product.tbk.json`. (H-5)
+- **Root vs. `design/` duplicate-named documentation** (`DESIGN_SYSTEM.md`, `COMPONENT_LIBRARY.md`,
+  `CONTENT_SYSTEM.md`, `COPY_GUIDELINES.md`): not a content conflict — `design/*.md` correctly
+  declares `business/` and the root docs as canonical upstream — but the relationship isn't stated
+  symmetrically, risking a future session editing the wrong file. (M-5)
+- **2 pre-existing, still-open TODOs** confirmed via grep: `docs/DECISIONS.md` (date backfill),
+  `docs/CODING_STANDARDS.md` (no CI/linter config).
+
+**No conflicts found** in: the R0–R7/Phase 6 file-removal record (all cross-checked consistent
+across `FINAL_REPORT.md`, `TEMPLATE_CENSUS.md`, `ORPHAN_SNIPPET_AUDIT.md`, `LIQUID_ARCHITECTURE_AUDIT.md`);
+`docs/SHOPIFY.md`'s relationship to root `SHOPIFY_ARCHITECTURE.md` (already correctly
+self-declared as a summary of the canonical root doc).
+
+**Output**: full task breakdown across 9 categories (Critical/High/Medium/Low/Future/Out of
+Scope/External Dependency/Business Decision/Manual Verification), a dependency graph identifying
+which Phase 7 work is and isn't blocked by the password gate, a risk register, priority matrix,
+acceptance criteria, and success metrics. Executive summary with repository/documentation/
+architecture health scores and a GO/NO-GO recommendation delivered in-session per the phase's
+output instructions (not a 9th file, per the phase's own CREATE/OUTPUT distinction).
+
 ## Related
 
 [AUDIT_LEDGER.md](AUDIT_LEDGER.md), [VERIFIED_ISSUES.md](VERIFIED_ISSUES.md).
