@@ -1104,6 +1104,24 @@ array reconstruction, payload base64+URI-encoded) — decoded and confirmed by h
 third-party theme vendor), not a technical defect; removal could trigger vendor-side tamper
 detection. Escalated to the business for a licensing-status decision, per `docs/SECURITY_AUDIT.md`.
 
+## 2026-07-31 — Enterprise Certification status: partial, stopped on accumulated decisions
+
+**Files**: 4 new docs — `docs/ENTERPRISE_CERTIFICATION.md`, `docs/FINAL_EXECUTIVE_REPORT.md`,
+`docs/PROJECT_SCORECARD.md`, `docs/LAUNCH_READINESS.md`. No theme file changed.
+
+**Why stopping here**: 7 independent Level 2/3/4 items have now accumulated across every recent
+phase (meta-description duplication, FAQPage schema, SEC-001 vendor phone-home,
+`tbk-product.liquid`'s external access need, `shine-trust.liquid`, the password gate, and the
+standing B1–B6 items) — each individually satisfies this program's own Stop Conditions ("business
+approval is required," "external credentials are required," "password gate prevents live
+validation"). Per this program's own governance, **honest partial certification is reported rather
+than claiming full certification** — every item is fully diagnosed with evidence; none needs
+further engineering discovery, only a decision.
+
+**Overall Program Score: 3.7/5** (weighted toward Shopify SEO 2.8/5 and Security 3/5, the two
+dimensions carrying single severe findings). Full detail, remaining-work table, and recommended
+decision order in the 4 new docs.
+
 ## Related
 
 [AUDIT_LEDGER.md](AUDIT_LEDGER.md), [VERIFIED_ISSUES.md](VERIFIED_ISSUES.md).
