@@ -848,6 +848,49 @@ Theme Check has no equivalent of its `OrphanedSnippet` check for CSS/JS assets, 
 count here is expected and correct, not evidence of "no change made" — the repo-grep evidence
 above is the authoritative verification for this removal, not Theme Check's own count.
 
+## 2026-07-31 — P6.4: Liquid Rendering Optimization — audited, no deterministic action found
+
+**Files**: none changed. Reviewed render-tree complexity already documented in
+`docs/PERFORMANCE_AUDIT.md` F-1/F-2 (the 4,642-line, 31-render-call default product template; 17
+near-duplicate `card-product*.liquid` snippets). Both are real structural observations, but neither
+has a fix that is simultaneously deterministic, low-risk, and behavior-preserving: restructuring
+the product template touches the **protected module** (`CLAUDE.md`); consolidating the 17 card
+snippets requires a full 17-way behavioral-equivalence proof before any change, which is a
+dedicated future phase (`docs/PERFORMANCE_ROADMAP.md` P6.4/R-11), not a same-session action.
+Pagination/collection/search rendering were re-confirmed already correct (11 sections using
+`{% paginate %}`, sane merchant-configurable defaults) — no change needed.
+
+## 2026-07-31 — P6.6: Font Optimization — add missing `fonts.gstatic.com` preconnect
+
+**Files**: `layout/theme.liquid` (1 line added, line 39).
+
+**Before, verified**: pull + `diff --strip-trailing-cr` against local — zero drift confirmed
+before editing.
+
+**Change**: added `<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>` next to
+the existing `fonts.shopifycdn.com`/`fonts.googleapis.com` preconnects (per `docs/PERFORMANCE_AUDIT.md`
+F-7) — the actual font-binary host Google's CSS response references, previously not preconnected.
+Purely additive, zero behavior change.
+
+**Deploy safety**: pushed via scoped `--only layout/theme.liquid`, re-pulled and diff-confirmed
+byte-identical live.
+
+**After — Theme Check**: 343 files/1,351 offenses (+1)/80 files/1,161 errors (unchanged)/190
+warnings (+1). The +1 is a `RemoteAsset` warning on the new preconnect line itself — a known Theme
+Check false positive: this check flags any non-Shopify-CDN URL as "should be served by the Shopify
+CDN," but a `preconnect` resource hint must by definition point at the actual external origin it's
+warming up a connection to; there is no way to "CDN-serve" a preconnect hint without defeating its
+purpose. The two pre-existing font lines (`fonts.googleapis.com`'s preconnect and stylesheet link)
+already carried this identical warning before this change — confirmed via a full before/after JSON
+diff of Theme Check's output for `layout/theme.liquid`. Not a real regression.
+
+## 2026-07-31 — P6.5: Third-party & App Optimization — investigation only, no removal
+
+See the corrected-finding entry logged alongside P6.1–P6.3 above: the second Uploadcare script
+load is not a duplicate (retracting P6.0's F-8/R-2), and all 7 `shine-trust-v4-*.js` files are
+confirmed transitively dead but gated on the same unresolved `shine-trust.liquid` business
+decision — neither is actioned this phase.
+
 ## Related
 
 [AUDIT_LEDGER.md](AUDIT_LEDGER.md), [VERIFIED_ISSUES.md](VERIFIED_ISSUES.md).
