@@ -891,6 +891,38 @@ load is not a duplicate (retracting P6.0's F-8/R-2), and all 7 `shine-trust-v4-*
 confirmed transitively dead but gated on the same unresolved `shine-trust.liquid` business
 decision — neither is actioned this phase.
 
+## 2026-07-31 — P6.7 + Final Certification: Core Web Vitals verification, SEO/GEO/AEO readiness, Phase 6 final report
+
+**Files**: `docs/AEO_READINESS.md`, `docs/GEO_READINESS.md`, `docs/AI_SEARCH_READINESS.md`,
+`docs/PERFORMANCE_FINAL_REPORT.md`, `docs/PHASE7_HANDOFF.md` (all new). No theme file changed.
+
+**P6.7**: final Theme Check re-run — 343 files/1,351 offenses/80 files/1,161 errors/190
+warnings, stable (matches the P6.6 post-change state exactly, zero further drift). Repo grep
+re-confirmed zero dangling references from any P6.1–P6.6 change. Git tree clean at every commit
+boundary. **No Core Web Vitals measured** — the password gate blocks every lab/field tool
+available to this environment; documented explicitly in `docs/CORE_WEB_VITALS.md` (P6.0) rather
+than estimated.
+
+**SEO/GEO/AEO/AI Search readiness** (architecture-only, zero content changed): AEO 4.25/5, GEO
+4/5, AI Search architecture 4.5/5 but **AI Search as-deployed only 2.5/5** — entirely dragged down
+by the password gate blocking every crawler. Strong existing foundation confirmed: centralized,
+non-duplicated Product/Organization/WebSite/Breadcrumb structured data
+(`snippets/structured-data.liquid`, `bk-local-business.liquid`), consistent NAP (inherited from
+prior B3 work), clean semantic HTML (single `<h1>`, `<main role="main">`), site-wide canonical
+tags. Open items: FAQPage schema wiring unconfirmed, internal-linking depth and content-chunking
+not exhaustively re-audited.
+
+**Final Performance Report**: `docs/PERFORMANCE_FINAL_REPORT.md` certifies Phase 6 (P6.0–P6.7)
+complete — 2 optimizations implemented and deployed (font preconnect, 3 orphaned assets removed),
+1 originally-recommended change correctly retracted after deeper investigation prevented a real
+regression, zero net regressions, full before/after Theme Check trail.
+
+**`docs/PHASE7_HANDOFF.md`** consolidates every open item (password-gate decision, real Lighthouse
+measurement, FAQPage schema check, `shine-trust.liquid` decision now covering ~214 KB combined,
+`tbk-product.liquid`'s app-reference check, internal-linking/content-chunking audits, the 17
+card-snippet consolidation, `UndefinedObject`/`HardcodedRoutes` triage) in priority order, so
+Phase 7 starts from a single entry point instead of re-deriving context.
+
 ## Related
 
 [AUDIT_LEDGER.md](AUDIT_LEDGER.md), [VERIFIED_ISSUES.md](VERIFIED_ISSUES.md).
