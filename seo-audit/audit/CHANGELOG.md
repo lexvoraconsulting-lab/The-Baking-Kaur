@@ -106,7 +106,7 @@ pushed `--allow-live`, re-pulled and confirmed byte-for-byte live.
 ## 2026-07-30 — Verification pass (no code change): hosted Shopify MCP reconnected, real data resolves SEO-017/018
 
 The hosted `claude.ai Shopify` MCP connector came back fully working (28 tools, confirmed via a
-live `get-shop-info` test — see `setup/SHOPIFY_MCP_CAPABILITIES.md`). Used it to resolve two
+live `get-shop-info` test — see `docs/setup/SHOPIFY_MCP_CAPABILITIES.md`). Used it to resolve two
 previously-blocked items with real data instead of guesses:
 
 - **SEO-017 resolved**: `{ pages(first: 30) { edges { node { title handle templateSuffix
