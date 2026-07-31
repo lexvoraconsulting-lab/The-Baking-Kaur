@@ -17,8 +17,8 @@ WHY
 
 REPLACEMENT (title <= 60, description <= 155)
       title: "{Name} - Eggless | Meerut"
-      desc:  "{hook} 100% eggless. From Rs.{price}. {n} size(s). Same-day & midnight
-              delivery in Meerut."
+      desc:  "{Name} — {hook} 100% eggless. From Rs.{price}. {n} size(s). Same-day &
+              midnight delivery in Meerut."
 
 NOTE ON HOOKS
   The hook is chosen from the product NAME first (any name containing "anniversary"
@@ -26,6 +26,18 @@ NOTE ON HOOKS
   rewriting productType on hundreds of products just to get the right hook - the
   earlier handoff proposed mutating productType, which is a heavier data change than
   the problem requires.
+
+ROOT-CAUSE FIX (Phase 7.4, docs/SHOPIFY_SEO_REPORT.md)
+  The description formula originally keyed ONLY on hook+price+sizes, never the product
+  name - so any two products sharing an occasion category, price, and size count got
+  the byte-identical description. Verified live: 84% of active products (419/500
+  exactly checked) shared a duplicate description, one group 82 products wide. The
+  fix mirrors build_title()'s already-proven approach: anchor the description on the
+  product's own real, unique name. desc_needs_fix() detects any description generated
+  by the old nameless formula (i.e. not already starting with the product's name) so
+  a single --apply run retroactively repairs the whole catalogue, not just new
+  products - future products get compliant metadata automatically on their first run
+  through this script.
 
 CRITICAL
   ProductInput.seo is a nested object and REPLACES wholesale - it does not patch.
@@ -141,6 +153,19 @@ def needs_fix(seo_title: Optional[str]) -> bool:
     return "in Meerut" in seo_title
 
 
+def desc_needs_fix(seo_description: Optional[str], name: str) -> bool:
+    """True if the description was built by the old nameless formula (or is missing).
+
+    The new formula always starts the description with the product's own name (the
+    same uniqueness anchor build_title() already relies on) - a description that
+    doesn't start with the product's name is either empty or still on the old
+    hook+price+sizes-only template that caused mass duplication (see module docstring).
+    """
+    if not seo_description:
+        return True
+    return not seo_description.startswith(name)
+
+
 def size_count(options: List[Dict]) -> int:
     """Count DISTINCT sizes.
 
@@ -184,15 +209,37 @@ def build_title(name: str) -> str:
     return f"{clipped.rstrip()} - Eggless | Meerut"
 
 
-def build_desc(hook: str, price: float, sizes: int) -> str:
+def build_desc(name: str, hook: str, price: float, sizes: int) -> str:
+    """Meta description, anchored on the product's own NAME for uniqueness.
+
+    Truncation priority when over DESC_MAX: drop the descriptive hook first (it's
+    flavour text), keeping the name (the uniqueness anchor) and the hard facts
+    (eggless, price, sizes, delivery) intact. Only clip the name itself, on a word
+    boundary, as a last resort for unusually long product names.
+    """
     unit = "size" if sizes == 1 else "sizes"
-    desc = (
-        f"{hook} 100% eggless. From Rs.{int(round(price)):,}. "
+    facts = (
+        f"100% eggless. From Rs.{int(round(price)):,}. "
         f"{sizes} {unit}. Same-day & midnight delivery in Meerut."
     )
-    if len(desc) > DESC_MAX:
-        desc = desc[: DESC_MAX - 1].rstrip() + "."
-    return desc
+    # Plain ASCII separator deliberately, not an em-dash: this string round-trips through
+    # a JSON file, a subprocess boundary, and a GraphQL HTTP body before reaching Shopify -
+    # a non-ASCII character is real encoding risk for zero readability gain (see Phase 7.4
+    # changelog entry: an em-dash here was caught rendering as U+FFFD in one of those hops
+    # during this exact rollout).
+    desc = f"{name}. {hook} {facts}"
+    if len(desc) <= DESC_MAX:
+        return desc
+
+    desc = f"{name}. {facts}"
+    if len(desc) <= DESC_MAX:
+        return desc
+
+    budget = DESC_MAX - len(facts) - 2  # 2 = ". " joining the clipped name to facts
+    clipped = name[:budget]
+    if " " in clipped:
+        clipped = clipped[: clipped.rfind(" ")]
+    return f"{clipped.rstrip()}. {facts}"
 
 
 def esc(value: str) -> str:
@@ -209,12 +256,21 @@ def main() -> None:
 
     planned = []
     scanned = 0
+    title_fixes = desc_fixes = 0
     for prod in iter_active():
         scanned += 1
         seo = prod.get("seo") or {}
-        if not needs_fix(seo.get("title")):
-            continue
         name = (prod.get("title") or "").strip()
+        old_title = seo.get("title") or ""
+        old_desc = seo.get("description") or ""
+        fix_title = needs_fix(old_title)
+        fix_desc = desc_needs_fix(old_desc, name)
+        if not fix_title and not fix_desc:
+            continue
+        if fix_title:
+            title_fixes += 1
+        if fix_desc:
+            desc_fixes += 1
         price = float(prod["priceRangeV2"]["minVariantPrice"]["amount"])
         sizes = size_count(prod.get("options") or [])
         hook = pick_hook(name, prod.get("productType") or "")
@@ -223,9 +279,10 @@ def main() -> None:
                 "id": prod["id"],
                 "name": name,
                 "type": prod.get("productType") or "",
-                "old_title": seo.get("title") or "",
-                "new_title": build_title(name),
-                "new_desc": build_desc(hook, price, sizes),
+                "old_title": old_title,
+                "old_desc": old_desc,
+                "new_title": build_title(name) if fix_title else old_title,
+                "new_desc": build_desc(name, hook, price, sizes) if fix_desc else old_desc,
             }
         )
         if args.limit and len(planned) >= args.limit:
@@ -233,18 +290,28 @@ def main() -> None:
 
     with open(args.csv, "w", newline="", encoding="utf-8") as fh:
         writer = csv.DictWriter(
-            fh, fieldnames=["id", "name", "type", "old_title", "new_title", "new_desc"]
+            fh,
+            fieldnames=[
+                "id", "name", "type", "old_title", "new_title", "old_desc", "new_desc",
+            ],
         )
         writer.writeheader()
         writer.writerows(planned)
 
     over_t = [p for p in planned if len(p["new_title"]) > TITLE_MAX]
     over_d = [p for p in planned if len(p["new_desc"]) > DESC_MAX]
-    print(f"scanned active : {scanned}")
-    print(f"need rewrite   : {len(planned)}")
-    print(f"title > {TITLE_MAX}     : {len(over_t)}")
-    print(f"desc  > {DESC_MAX}    : {len(over_d)}")
-    print(f"review CSV     : {args.csv}")
+    dup_check: Dict[str, int] = {}
+    for p in planned:
+        dup_check[p["new_desc"]] = dup_check.get(p["new_desc"], 0) + 1
+    remaining_dups = {k: v for k, v in dup_check.items() if v > 1}
+    print(f"scanned active   : {scanned}")
+    print(f"title rewrites   : {title_fixes}")
+    print(f"desc rewrites    : {desc_fixes}")
+    print(f"total planned    : {len(planned)}")
+    print(f"title > {TITLE_MAX}       : {len(over_t)}")
+    print(f"desc  > {DESC_MAX}      : {len(over_d)}")
+    print(f"remaining dup groups among planned descriptions: {len(remaining_dups)}")
+    print(f"review CSV       : {args.csv}")
 
     if not args.apply:
         print("\nDRY RUN - nothing written. Re-run with --apply once the CSV looks right.")

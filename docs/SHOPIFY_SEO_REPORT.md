@@ -1,5 +1,11 @@
 # Shopify SEO Report (Phase 7.2)
 
+> **Update (Phase 7.4, 2026-07-31): the headline finding below is fixed and live.**
+> `seo-ops/fix_seo_snippets.py`'s `build_desc()` now anchors every description on the product's own
+> name (root cause of the duplication), rolled out across all 602 active products with 0 remaining
+> duplicate groups. This report's counts describe the pre-fix state; see
+> `seo-audit/audit/CHANGELOG.md` (Phase 7.4 entry) for the fix and verification evidence.
+
 Continues from Phase 7.1 (`docs/TECHNICAL_SEO_MASTER.md`, commit `f85f8e3`). Scope: Shopify SEO
 architecture only — no schema redesign, no UX work, no performance work (all explicitly excluded
 by this phase's own instruction).

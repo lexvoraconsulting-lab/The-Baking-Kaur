@@ -1122,6 +1122,49 @@ further engineering discovery, only a decision.
 dimensions carrying single severe findings). Full detail, remaining-work table, and recommended
 decision order in the 4 new docs.
 
+## 2026-07-31 — Phase 7.4: root-cause metadata engine + FAQPage schema removal, both live
+
+**Files**: `seo-ops/fix_seo_snippets.py`, `seo-ops/test_fix_seo_snippets.py` (engine rewrite),
+`layout/theme.liquid` (FAQPage block removed). No new docs; this entry plus ledger updates.
+
+**Meta-description duplication (Phase 7.2's headline finding) — fixed at the root, not patched**:
+`build_desc()` never used the product's own name, unlike `build_title()` — that was the entire
+cause of 83.8% of active products sharing a duplicate description. Rewrote it to
+`build_desc(name, hook, price, sizes)`, anchoring every description on the product name first,
+with truncation priority (drop the hook before touching the name or the facts) so the 155-char
+limit never forces a return to the old collision-prone shape. Added `desc_needs_fix()` so future
+runs only touch what's still broken. This is the reusable system the user asked for, not a one-off
+edit: any product processed by this script from now on gets a compliant, unique description
+automatically.
+
+Rolled out live across all 602 active products via 76 batches of ≤8 aliased `productUpdate`
+mutations (per `CLAUDE.md`'s batching rule), sending `seo.title` and `seo.description` together
+every time (the nested `seo` object replaces wholesale). Zero `userErrors` across all 76 batches.
+Verified: 0 remaining duplicate-description groups across the planned set (down from the 82-product
+largest group), 0 title fixes needed (titles were already unique), 3 live products spot-checked
+post-rollout (first batch, last batch, one mid-batch) confirm the new name-anchored description live.
+
+Deliberately used a plain-ASCII period separator (`"{Name}. {Hook} {facts}"`) instead of an em-dash:
+the same text has to round-trip through a JSON file, a subprocess boundary, and a GraphQL HTTP body
+before reaching Shopify, and an em-dash was caught rendering as U+FFFD in one of those hops during
+this exact rollout — eliminating the non-ASCII character is more robust than engineering around a
+multi-hop encoding problem. `test_fix_seo_snippets.py` updated to match: added uniqueness,
+truncation-priority, and `desc_needs_fix` tests; replaced the now-invalid "LIVE PARITY" fixture
+(which asserted parity with the defective old formula) with a batch-uniqueness check. Self-check:
+0 failures.
+
+**FAQPage schema mismatch (Phase 7.3's open finding) — removed, not restricted**: the global
+`FAQPage` JSON-LD block in `layout/theme.liquid` (9 hardcoded Q&A pairs) rendered on every page
+except the 2 real FAQ pages, and its questions matched no visible content anywhere on the site —
+not the homepage, not any product/collection page, and not even the 2 FAQ pages themselves (whose
+real, much larger FAQ content is entirely different, confirmed against `templates/page.faq-01.json`).
+Removed the block entirely per the approved decision to keep structured data aligned with visible
+content rather than excluded-and-orphaned; the FAQ pages already carry correct, independent
+FAQPage/Question/Answer Microdata via `sections/accordion.liquid`/`accordion_inline.liquid`, so this
+creates zero schema-coverage gap. Deploy safety: pull → diff-confirm zero drift → edit → scoped
+`--only` push → re-pull → diff-confirm byte-identical live. Theme Check unchanged
+(343/1,351/80/1,161/190) — no regression.
+
 ## Related
 
 [AUDIT_LEDGER.md](AUDIT_LEDGER.md), [VERIFIED_ISSUES.md](VERIFIED_ISSUES.md).

@@ -1,5 +1,10 @@
 # Structured Data & Schema Report (Phase 7.3, partial — stopped on business decision)
 
+> **Update (Phase 7.4, 2026-07-31): the FAQPage finding below is resolved** — the block was removed
+> entirely from `layout/theme.liquid` (approved decision: remove rather than restrict/build matching
+> content). The FAQ pages' own accordion sections already carry correct, independent Microdata, so
+> removal created zero schema-coverage gap. See `seo-audit/audit/CHANGELOG.md` (Phase 7.4 entry).
+
 Continues from Phase 7.2 (`docs/SHOPIFY_SEO_REPORT.md`, commit `f8269f3`). Per "never repeat
 previous work," this does not re-run Phase 6's full schema audit (`docs/AEO_READINESS.md`,
 `docs/GEO_READINESS.md`) — it verifies current state and resolves/investigates the specific open

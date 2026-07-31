@@ -69,95 +69,15 @@
   {% include 'hulk_po_vd' %}
 
 {%- comment -%}
-  SEO-024: this FAQPage block previously rendered unconditionally on every page (home, every
-  product, every collection), regardless of whether that page shows this Q&A content - a violation
-  of Google's structured-data guideline that markup must match visible on-page content, and a
-  potential duplicate against templates/page.faq-01.json / page.faq-02.json, which already emit
-  their own FAQPage entity via the accordion sections' Microdata. Excluded here, not deleted -
-  content is real business info (delivery/ordering facts), not fabricated.
+  SEO-024 / Phase 7.4: this global FAQPage block was found (Phase 7.3, docs/STRUCTURED_DATA_REPORT.md)
+  to have no matching visible content anywhere on the site - its 9 questions do not appear on the
+  homepage, any product/collection page, or even the 2 dedicated FAQ pages (whose real, much larger
+  FAQ content covers different questions entirely, verified against templates/page.faq-01.json).
+  The FAQ pages already carry their own correct, content-matched FAQPage/Question/Answer Microdata
+  via sections/accordion.liquid and accordion_inline.liquid - removing this block creates zero
+  schema gap. Removed entirely per the approved decision to keep structured data strictly aligned
+  with visible content, not excluded-and-orphaned.
 {%- endcomment -%}
-{%- unless template.suffix == 'faq-01' or template.suffix == 'faq-02' -%}
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "Do you offer midnight cake delivery in Meerut?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes, The Baking Kaur offers flexible midnight delivery in Meerut for surprise celebrations."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Do you offer surprise cake delivery?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes, surprise delivery is available with balloons, flowers, decor and notes for birthdays, anniversaries and romantic occasions."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Do you deliver gift hampers?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes, we offer budget, premium and luxury gift hampers in Meerut and pan-India hamper delivery on request."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Do you offer baby or maternity gift hampers?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes, baby and maternity hampers including newborn, baby arrival and baby shower gifting are available."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Do you do wedding cake setups?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes, we provide custom wedding cakes with flexible on-site setup depending on the venue and client requirement."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Do you make theme cakes for kids?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes, custom theme cakes for kids are available including characters and special designs."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Can I order through WhatsApp?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes, orders can be placed by chatting and ordering directly on WhatsApp."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Do you offer pickup?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes, pickup from Meerut is available."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Do you offer same-day delivery?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes, same-day delivery for cakes and gifting is available in Meerut depending on availability."
-      }
-    }
-  ]
-}
-</script>
-{%- endunless -%}
 
 <script>
   UPLOADCARE_PUBLIC_KEY = "5af3ec24e8ba61a78957";

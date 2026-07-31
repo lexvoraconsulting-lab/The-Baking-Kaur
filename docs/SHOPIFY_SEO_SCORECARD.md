@@ -1,5 +1,9 @@
 # Shopify SEO Scorecard (Phase 7.2)
 
+> **Update (Phase 7.4, 2026-07-31): the 1/5 meta-description row below is fixed and live** — 0
+> remaining duplicate groups across all 602 active products. Scores here reflect the pre-fix state;
+> see `seo-audit/audit/CHANGELOG.md` (Phase 7.4 entry).
+
 | Dimension | Score (1–5) | Evidence |
 |---|---|---|
 | Product title uniqueness | 5/5 | 0 duplicate groups across all 602 active products, verified exhaustively |
