@@ -639,6 +639,51 @@ removed file itself carried none.
 phase's instruction ("remove ONLY templates/product.tbk.json"). Its own future disposition (R4+)
 depends on the still-unverifiable app-reference check.
 
+## 2026-07-31 — R4: orphan snippet verification & risk classification (audit only)
+
+**Files**: `docs/ORPHAN_SNIPPET_AUDIT.md` (new). No theme file changed.
+
+**What was done**: reviewed all 17 files in scope (Finding 3's 14 real orphan-snippet candidates +
+Finding 4's 3 zero-reference numbered-variant sections), re-verifying every one via direct
+`render`/`include`/section-type grep rather than trusting Theme Check's `OrphanedSnippet` label.
+
+**Critical methodology finding — Theme Check's orphan detector is unreliable in both directions**:
+- **4 files falsely flagged orphaned, actually live**: `product-form-bundle.liquid`,
+  `product-form-bundle2.liquid`, `product_tabs.liquid` (all 3 rendered by all 3 product templates,
+  including the default, protected `main-product-premium-v2.liquid` used by 1,228/1,235 products),
+  and `cake-addons.liquid` (rendered by 2 of 3 product templates). All 4 reclassified **ACTIVE** —
+  none touched.
+- **1 file falsely counted as referenced, actually dead**: `shine-trust.liquid` is called via
+  `layout/theme.liquid:201`'s `{% include 'shine-trust.liquid' %}` — passing the snippet name
+  *with* the `.liquid` extension, which Liquid resolves to the non-existent
+  `snippets/shine-trust.liquid.liquid`. The include silently fails; the 78KB snippet has never
+  rendered. Independently corroborated by a pre-existing, already-documented, never-resolved
+  finding: `SEO_AUDIT_LEDGER.md`'s **P2-26** (2026-07-18, `MissingTemplate`, "OWNER INPUT REQUIRED
+  (decide on/off)").
+
+**Fabrication-risk review** (explicit focus: reviews, ratings, trust badges, testimonials,
+counters, customer numbers, awards, schema): **none found** in any of the 17 files.
+`shine-trust.liquid` is CSS-only bundle/"sold out" widget styling, no claims. `testimonials-2.liquid`
+/ `testimonials-3.liquid` carry `"disabled_on": {"groups": ["*"]}` (Shopify-level lockout) and only
+generic Ecomus fashion-demo placeholder copy, never added to any live section group. Two bonus,
+directly relevant discoveries surfaced while tracing the newly-reclassified-ACTIVE
+`product_tabs.liquid`: its live `tab_review` case renders `hdt-pr-single-review.liquid`, which is
+empty (0 bytes) — so the review tab is inert even when configured; and `hdt-pr-card-rating.liquid`
+(rendered by ~19 live card components, gated on `settings.show_rating: true`) is entirely a
+documentation comment listing third-party review-app integration instructions — it renders nothing.
+Both confirm zero fabricated or real rating content currently reaches the storefront, consistent
+with `REVIEW_STRATEGY.md`.
+
+**Classification result**: 4 ACTIVE (not touched) · 2 MANUAL REVIEW (`bk-datetime.liquid` — a real,
+bespoke, brand-styled delivery date/time-slot feature with a documented but unimplemented
+integration plan; `shine-trust.liquid` — pre-existing unresolved on/off decision) · 11 SAFE TO
+REMOVE (confirmed zero references, zero fabrication risk, zero business decision needed) — **none
+removed this phase**, per audit-only scope.
+
+**Verification**: `git status` clean except the new doc; Theme Check re-run for a fresh baseline
+(no theme file touched, so no regression is possible by construction). Full matrix, evidence, and
+recommended cleanup order: `docs/ORPHAN_SNIPPET_AUDIT.md`.
+
 ## Related
 
 [AUDIT_LEDGER.md](AUDIT_LEDGER.md), [VERIFIED_ISSUES.md](VERIFIED_ISSUES.md).

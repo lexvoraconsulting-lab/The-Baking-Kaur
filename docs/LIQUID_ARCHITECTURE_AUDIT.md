@@ -168,9 +168,14 @@ The remaining 14 real candidates split into two risk tiers:
   configuration features that may represent unfinished or paused work rather than confirmed-dead
   code.
 
-Recommended **Phase R4**: content-review pass on the "needs review" tier first; the "low-risk" tier
-can be removed alongside Phase R1's confirmed-dead backups if a quick read confirms each is genuinely
-generic/empty of business claims.
+**Status: resolved 2026-07-31 (R4).** Direct re-verification (grep, not Theme Check's label) found
+this list itself was partly wrong: `product-form-bundle.liquid`, `product-form-bundle2.liquid`, and
+`product_tabs.liquid` are genuinely rendered by all 3 product templates (including the default,
+protected one) — reclassified **ACTIVE**, not touched. `shine-trust.liquid`, conversely, is referenced
+only via a broken `{% include 'shine-trust.liquid' %}` (extension included in the name, resolves to
+a non-existent path) — corroborates pre-existing `SEO_AUDIT_LEDGER.md` P2-26. No fabrication risk
+found anywhere. Full classification (4 ACTIVE, 2 MANUAL REVIEW, 11 SAFE TO REMOVE, none removed):
+`docs/ORPHAN_SNIPPET_AUDIT.md`.
 
 ## Finding 4: numbered-suffix variants — mixed liveness, needs individual review
 
@@ -196,6 +201,16 @@ before the lower-risk items in that phase given the historical pattern.
 `quote_2`/`quote_3`/`article_loop_2`/`product-form-bundle2` have at least one real reference each —
 **not confirmed dead**, need a second-order liveness check (is the file that references them itself
 live?) before any classification. Deferred to a later phase, not urgent.
+
+**`testimonials-2.liquid`/`testimonials-3.liquid`/`video-2.liquid` status: resolved 2026-07-31
+(R4).** Read in full — both testimonials sections carry `"disabled_on": {"groups": ["*"]}`
+(a Shopify-level lockout preventing them from ever being added via the theme editor) and their
+only content is generic Ecomus fashion-demo placeholder copy, never populated with real block
+instances. No fabricated review/rating content found. `video-2.liquid` likewise carries the same
+lockout and only a generic demo video preset. All 3 classified **SAFE TO REMOVE**, not removed
+this phase. `product-form-bundle2.liquid`'s "at least one real reference" is now fully resolved:
+it's rendered by all 3 product templates, reclassified **ACTIVE**. Full detail:
+`docs/ORPHAN_SNIPPET_AUDIT.md`.
 
 ## Finding 5: `design_handoff_shopify_product/` is not live theme code
 
