@@ -109,6 +109,48 @@ post-deletion confirmed zero dangling references to any of the 10 removed files.
 
 No regression. R2 through R7 not started, per explicit scope.
 
+## 2026-07-31 — R2: investigate `header-menu-bottom-hulkapps-backup.liquid`, decision: KEEP
+
+**Files changed**: none — documentation only.
+
+**Task**: R1 explicitly excluded this file from the confirmed-dead cleanup, since (unlike the 10
+files removed there) it has a real reference. This pass investigated it fully to reach a disposition.
+
+**Evidence gathered**:
+- Repo-wide grep for `header-menu-bottom-hulkapps-backup` / `header_menu_bottom_hulkapps_backup`
+  across every `.liquid`/`.json` file: the **only** occurrences anywhere are in
+  `sections/header-group.json` — a block definition
+  (`"header_menu_bottom_hulkapps_backup_kgkQBL": { "type": "header-menu-bottom-hulkapps-backup", ...
+  "disabled": true, ... }`, lines 180-246) and its entry in the group's `"order"` array (line 253).
+- The block's own settings: `main_menu: "header"` (the orphaned 6-collection linklist — its purpose
+  already superseded, since R0/Sprint 2 already merged those 6 collections into the *active*
+  `main-menu`) and a `note_mobile` field carrying the pre-B3 stale address format.
+- `shopify theme check` flags this file with only a minor `HardcodedRoutes` warning — **not**
+  `OrphanedSnippet` or any unused-code category, confirming Theme Check itself recognizes it as
+  referenced, not dead.
+- Shopify's standard section-group behavior: a block with `disabled: true` is skipped at render time
+  — confirmed this block causes no live rendering, no error, and no customer-facing effect today.
+
+**Classification**: Disabled, Legacy, Referenced (not orphaned), Not required (its function is
+already served elsewhere), **not safely removable as a simple file deletion** — its `.liquid` file is
+referenced by a live block/order entry in `header-group.json`, the same file that defines the
+currently-active header. Removing the file alone would leave a dangling section-type reference in an
+active, shared configuration file. Removing it correctly would require also editing the
+block/order entries out of `header-group.json` — a materially bigger, riskier change than R1's clean
+deletions, on the file most sensitive to a mistake right now (it also carries R0/Sprint 2's live
+header changes).
+
+**Decision: KEEP.** The block is already fully inert (disabled, no render, no error) — leaving it
+carries zero live risk. Removing it would require a live edit to `header-group.json` for a purely
+cosmetic benefit. Not worth the risk-to-benefit ratio for this pass. If a future pass wants to remove
+it, the correct sequence is: (1) delete the `header_menu_bottom_hulkapps_backup_kgkQBL` block object
+and its `order` entry from `header-group.json`, verified via the same pull→diff→push→re-pull cycle
+used throughout this project, (2) confirm no other block references the same section type, (3) only
+then delete `sections/header-menu-bottom-hulkapps-backup.liquid` itself.
+
+**Verification**: `git status` confirmed clean (no file touched) both before and after this
+investigation; Theme Check re-run showed no change from R1's post-cleanup baseline.
+
 ## 2026-07-29 — Commit `52a3821`: remove fabricated ratings and fake customer reviews
 
 **Files**: `sections/main-product-premium-v2.liquid`, `sections/main-product.liquid`,

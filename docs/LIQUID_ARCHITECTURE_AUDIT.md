@@ -98,13 +98,13 @@ and its template `templates/page.rewind_menu_backup_do_not_delete.liquid` — th
 explicit instruction not to remove it. Respected literally; not touched, not even proposed for
 removal.
 
-**One file requiring different treatment**: `sections/header-menu-bottom-hulkapps-backup.liquid` is
-referenced once — as the `header_menu_bottom_hulkapps_backup_kgkQBL` block in `header-group.json`,
-already known from this project's own navigation work (`design/COMPONENT_LIBRARY.md`'s Header entry)
-to be present but `disabled: true`. This is not orphaned code — it's live-but-inactive configuration.
-Per the "never remove working functionality without evidence" rule, this needs a decision (keep
-disabled indefinitely vs. remove the dead weight vs. someday re-enable per `NAVIGATION.md`'s Option B)
-rather than blanket inclusion in the dead-code cleanup — **Phase R2**, not R1.
+**One file requiring different treatment**: `sections/header-menu-bottom-hulkapps-backup.liquid` —
+**Status: resolved 2026-07-31 (R2), decision KEEP.** Investigated fully: referenced once, as the
+`header_menu_bottom_hulkapps_backup_kgkQBL` block in `header-group.json`, `disabled: true`. Not
+orphaned (Theme Check confirms — only a `HardcodedRoutes` warning, no unused-code flag). Not removed:
+doing so safely requires also editing the active `header-group.json`'s block/order entries, a bigger,
+riskier change than a plain deletion, for a block that's already fully inert. Full evidence and the
+correct future removal sequence (if ever wanted) in `seo-audit/audit/CHANGELOG.md`'s 2026-07-31 R2 entry.
 
 ## Finding 2: product template duplication — 4 real variants, uneven live usage
 
