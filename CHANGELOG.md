@@ -3,11 +3,19 @@
 Living record of every file changed: what, why, and how to roll back.
 Format per entry: **File · Reason · Business · SEO · Performance · Risk · Rollback.**
 
+**Scope note (added 2026-07-31, Phase 7.0 reconciliation)**: this file is canonical for the
+**"Enterprise Transformation" homepage/build workstream** (Phase A → J per `CLAUDE.md`'s roadmap —
+schema dedup, footer restore, homepage sections, hero/trust-strip work). It is a **separate,
+non-overlapping** changelog from `seo-audit/audit/CHANGELOG.md`, which is canonical for the
+SEO-audit-and-Liquid-cleanup workstream (Phase 5's R0–R7, Phase 6 performance, Phase 6.5 planning).
+Both are actively relevant; neither supersedes the other. See `docs/CANONICAL_SOURCES.md` for the
+full reconciliation record.
+
 Rollback baseline for the whole transformation: branch `phase-a/production-safety`, commit **`2aeff64`** ("Phase A baseline snapshot"). `git checkout 2aeff64 -- <path>` restores any single file; `git reset --hard 2aeff64` restores everything.
 
 ---
 
-## Phase A — Production Safety & Cleanup  *(staged in repo, not yet deployed)*
+## Phase A — Production Safety & Cleanup  *(PROMOTED TO LIVE 2026-07-14 — see entry below; re-verified live 2026-07-31)*
 
 ### A1. Rollback baseline
 - **File:** (git) branch `phase-a/production-safety` @ `2aeff64`
@@ -58,7 +66,7 @@ Rollback baseline for the whole transformation: branch `phase-a/production-safet
 - Mobile 375px: single-column stack, **no horizontal overflow**. Brand token bg `#FDFAF8` applied.
 - Caught + fixed 2 issues during validation: (1) `url`-type schema settings can't take URL defaults → switched to `text`; (2) `footer-group.json` was rejected on first push because the section it referenced had an invalid schema → re-pushed after fix.
 - **Pre-existing issue observed (not introduced):** `tbk-schema-website` throws a Liquid error when `settings.logo` is blank (`image_url` on empty) — flagged for Phase B/F.
-- **Deploy state:** staged + validated on preview only. **NOT yet on the live theme** — awaiting approval to promote.
+- **Deploy state:** ~~staged + validated on preview only. NOT yet on the live theme — awaiting approval to promote.~~ **Superseded 2026-07-14 — promoted to live, see the "PROMOTED TO LIVE" entry below.** (Struck through, not deleted, per this project's "never silently delete information" rule — this line was accurate when written.)
 
 ---
 

@@ -1,5 +1,9 @@
 # CONTENT_SYSTEM.md — The Baking Kaur
 
+**Cross-reference (added 2026-07-31, Phase 7.0 reconciliation)**: `design/CONTENT_SYSTEM.md` is a
+later, code-verified companion documenting page-level content structure — read both; see
+`docs/CANONICAL_SOURCES.md`.
+
 The content model: editor-managed structured content via metaobjects + metafields, so sections carry no hardcoded copy/data. Copy source = `HOMEPAGE_CONTENT_STRATEGY.md`; consumed by sections per `HOMEPAGE_SPECIFICATION.md`.
 
 ## Principle

@@ -7,7 +7,10 @@ Three layers live in one repository.
 Ecomus v1.6.1 (Halo/The4 "hdt-" family), Online Store 2.0 — JSON templates + section groups. Deployed as theme `#151307485353` on `ae86ba-2a.myshopify.com`. Full technical detail in [SHOPIFY.md](SHOPIFY.md) and the canonical root `SHOPIFY_ARCHITECTURE.md`.
 
 - **Entry:** `layout/theme.liquid`
-- **Templates:** 40 (`templates/`); `product.json` → `sections/main-product-premium-v2.liquid` (**protected module**)
+- **Templates:** 33 (`templates/`; count corrected 2026-07-31, Phase 7.0 reconciliation — was
+  recorded as 40, stale since at least R3.5's removal of `templates/product.tbk.json`, per
+  `docs/TEMPLATE_CENSUS.md`); `product.json` → `sections/main-product-premium-v2.liquid`
+  (**protected module**)
 - **Sections:** ~134 — base Ecomus + `tbk-*` custom + `site-footer`
 - **Snippets:** ~146 — base + `bk-*`/`tbk-*` custom (structured data, buy-box, datetime, design tokens, trust)
 - **Assets:** large base CSS/JS + 20+ ShineTrust `shine-trust-v4-*` scripts

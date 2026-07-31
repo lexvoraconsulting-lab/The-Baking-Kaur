@@ -1,5 +1,9 @@
 # COPY_GUIDELINES.md — The Baking Kaur
 
+**Cross-reference (added 2026-07-31, Phase 7.0 reconciliation)**: `design/COPY_GUIDELINES.md` is a
+later, code-verified companion adding implementation-level copy detail — read both; see
+`docs/CANONICAL_SOURCES.md`.
+
 Copy mechanics. Voice/personality in `BRAND_VOICE.md`.
 
 ## Grammar & style

@@ -3,7 +3,7 @@
 Canonical reference for the theme's technical architecture. Source: Phase-1 audit. Update as structure changes.
 
 ## Theme
-Ecomus v1.6.1 (Halo/The4 "hdt-" family; `theme_author` mislabeled "Shopify"). Online Store 2.0 — JSON templates + section groups. Fonts: Cormorant Garamond (display) + Manrope (UI), loaded via Google Fonts in `layout/theme.liquid` (render-blocking — Phase I).
+Ecomus v1.6.1 (Halo/The4 "hdt-" family; `theme_author` mislabeled "Shopify"). Online Store 2.0 — JSON templates + section groups. Fonts: Cormorant Garamond (display) + Manrope (UI), loaded via Google Fonts in `layout/theme.liquid` (render-blocking — Phase I; **partial fix 2026-07-31**: missing `fonts.gstatic.com` preconnect added, `docs/PERFORMANCE_FINAL_REPORT.md` P6.6 — the render-blocking Google Fonts `<link>` itself remains, only the preconnect gap was closed).
 
 ## Folder inventory
 | Dir | Count | Notes |
@@ -29,7 +29,7 @@ head: fonts · `bk-local-business` (Bakery) · `theme.css` · `social-meta-tags`
 HulkApps (product options `hulk_po_vd` + cart, backups removed Phase A) · ShineTrust v4 (20+ JS: sticky cart, countdown, BOGO, quantity discount, email popup, announcement, cookie banner, free-shipping, feature icons, bought-together) · BSS (product options / search) · Uploadcare (PDP reference-image upload — **protected dependency**) · Rewind (legacy `rewind_*`, unused) · Facebook domain verification.
 
 ## Known debt (tracked, phased)
-theme.liquid observers + duplicate Uploadcare (B/H) · render-blocking fonts + heavy CSS/JS + app-script audit (I) · duplicate section families (product×3, slideshow×4, testimonials×5, header×2) (E/B) · 7 homepage `custom-liquid` blocks (C) · product-title mojibake at data source (B/data) · 8 empty collections (collection audit) · theme-check 1,365 offenses baseline (mostly base/app — `PERFORMANCE_BASELINE.md`).
+theme.liquid observers + duplicate Uploadcare (B/H; **independently re-investigated 2026-07-31**, `docs/PERFORMANCE_AUDIT.md`/`PERFORMANCE_FINAL_REPORT.md` P6.5 — confirmed NOT a true duplicate, the second load sets distinct config for what's very likely the protected-PDP photo-upload feature; not removed) · render-blocking fonts + heavy CSS/JS + app-script audit (I) · duplicate section families (product×3, slideshow×4, testimonials×5, header×2) (E/B) · 7 homepage `custom-liquid` blocks (C) · product-title mojibake at data source (B/data) · 8 empty collections (collection audit) · theme-check 1,365 offenses baseline (mostly base/app — `PERFORMANCE_BASELINE.md`).
 
 ## Protected modules
 Product page (design/UX/flow/CSS/JS), logo, brand colors. See `protected-modules` memory. Only schema/analytics/perf/a11y-invisible changes allowed around PDP.

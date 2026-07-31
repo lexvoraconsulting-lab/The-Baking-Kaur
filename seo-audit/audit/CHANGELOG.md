@@ -3,6 +3,13 @@
 Chronological record of what was actually deployed to the live theme (`151307485353`,
 `ae86ba-2a.myshopify.com` / `thebakingkaur.com`), with the deploy-safety evidence for each.
 
+**Scope note (added 2026-07-31, Phase 7.0 reconciliation)**: this file is canonical for the
+**SEO-audit-and-Liquid-cleanup workstream** (Sprint 1–2, Phase 4 re-verification, Phase 5's R0–R7
+Liquid architecture refactor, Phase 6 performance engineering, Phase 6.5 planning). The root-level
+`CHANGELOG.md` is a **separate, non-overlapping** changelog canonical for the "Enterprise
+Transformation" homepage/build workstream (Phase A → J). Neither supersedes the other. See
+`docs/CANONICAL_SOURCES.md` for the full reconciliation record.
+
 ## 2026-07-30 — Sprint 1 re-verification pass (Phase 4): no new implementation
 
 Re-checked Sprint 1's status under the full canonical hierarchy (`business/BUSINESS_MASTER.md` →
@@ -963,6 +970,30 @@ which Phase 7 work is and isn't blocked by the password gate, a risk register, p
 acceptance criteria, and success metrics. Executive summary with repository/documentation/
 architecture health scores and a GO/NO-GO recommendation delivered in-session per the phase's
 output instructions (not a 9th file, per the phase's own CREATE/OUTPUT distinction).
+
+## 2026-07-31 — Phase 7.0: Pre-flight Reconciliation (documentation only, no theme/production code changed)
+
+**Files**: this file (scope-header added, above) + 8 other documentation edits + 6 new docs — see
+`docs/DOCUMENTATION_CHANGELOG.md` for the full, itemized record. Not repeated here to avoid a third
+copy of the same information — per this project's own established practice of one document owning
+one topic.
+
+**Major finding**: Phase 6.5's own review had mischaracterized the root-level `CHANGELOG.md` as a
+stale duplicate of this file. Reading it in full during this pass revealed it documents a real,
+separate, still-relevant workstream (the "Enterprise Transformation" homepage/build track, Phase
+A→J) — not a duplicate at all. Correcting a mischaracterization made just one phase earlier,
+in-session, is itself evidence this reconciliation pass is doing real verification, not rubber-
+stamping the prior phase's conclusions.
+
+**Also found and fixed**: `CLAUDE.md` and root `CHANGELOG.md` both stated Phase A was "not
+promoted" — a live pull-diff of all 4 Phase A files confirmed it was promoted 2026-07-14 (commit
+`77861b3`) and remains live and in sync today. Two `PERFORMANCE_BASELINE.md` files made different
+claims about what measurement was attempted — reconciled (docs/ version corrected, root version
+marked historical, nothing deleted). `docs/ARCHITECTURE.md`'s template count was stale (40 → 33,
+verified). Root vs. `design/` documentation lacked symmetric cross-references — added.
+
+**Verification**: full repo-wide duplicate-filename scan, every hit read before classification;
+live pull-diff of the 4 Phase A files; git status clean at commit time; no theme file touched.
 
 ## Related
 

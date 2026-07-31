@@ -2,11 +2,20 @@
 
 Generated 2026-07-31. This is a **static, code-level baseline** — objective, measurable facts
 about the repository as it stands after R0–R7 certification (`docs/FINAL_REPORT.md`, commit
-`0ea4916`). It is not a lab-measured Core Web Vitals report; see `docs/CORE_WEB_VITALS.md` for why
-that measurement isn't obtainable in this environment and what to run once it is.
+`0ea4916`). It is not a Lighthouse/PSI lab report; see `docs/CORE_WEB_VITALS.md` for why that
+specific measurement isn't obtainable in this environment and what to run once it is.
 
 `docs/ENGINEERING_BASELINE.md` does not exist in this repository — checked, confirmed absent, not
 assumed.
+
+**Correction (added 2026-07-31, Phase 7.0 reconciliation)**: this document originally implied no
+live/runtime measurement had ever been attempted anywhere in this project. That was incomplete —
+the root-level `PERFORMANCE_BASELINE.md` (an earlier, "Phase A"-era document, not written by this
+Phase 6 pass) contains real preview-theme runtime data captured via the browser Performance API
+(DOMContentLoaded ~4.9s, Load ~9.2s, ~139 resources) — directional, not certified, but genuine
+measured data, not a fabrication. That document is preserved as the historical baseline; this
+document remains the current static/code-level reference. Neither Lighthouse/PSI nor CrUX field
+data exists for either document — that gap, described below, stands.
 
 ## Asset inventory
 

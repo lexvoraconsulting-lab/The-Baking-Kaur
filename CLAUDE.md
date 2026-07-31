@@ -71,11 +71,23 @@ plan — the ideas already agreed, in priority order. Sources: `PROJECT_ROADMAP.
 3. **Occasion mismatch in descriptions** — ~100+ products still labelled "anniversary" wrongly.
    Tool is written: `seo-ops/fix_description_occasion.py` (dry-run → CSV → `--apply`).
 
-### The build track (Phase A is done and waiting)
+### The build track (Phase A promoted; design tokens unlocked)
 
-Phase A (schema dedup, footer restore) is **validated on preview, not promoted**. Promoting it is
-the cheapest open win. Then B → C → E in that order: design tokens unlock the homepage build,
-which unlocks navigation. D/F/G/H/I/J follow. Product page stays 🔒 throughout.
+**Phase A (schema dedup, footer restore) was promoted to live on 2026-07-14** (root `CHANGELOG.md`,
+commit `77861b3`; re-verified live 2026-07-31 during Phase 7.0 reconciliation — `layout/theme.liquid`,
+`snippets/structured-data.liquid`, `sections/site-footer.liquid`, `sections/footer-group.json` all
+byte-identical to the live theme). This corrects a stale claim carried in this file until Phase 7.0.
+
+**Design-token rendering (the roadmap's "unlocks the homepage build" step) is also done** — R0 of
+the separate Phase 5 Liquid-architecture series (`docs/FINAL_REPORT.md`, 2026-07-31) restored
+`render 'tbk-tokens'`/`render 'tbk-components'` to `layout/theme.liquid`, live and verified.
+
+Root `CHANGELOG.md` additionally logs substantial further homepage-build work (Phase C1 §2/§3,
+S1–S8 hero/trust-strip/section work) marked preview-only, not yet promoted — this predates and is
+separate from the Phase 5/6/6.5 SEO-audit-and-performance track documented in
+`seo-audit/audit/CHANGELOG.md`. **Not re-audited in Phase 7.0** (out of that pass's documentation-
+hygiene scope) — recommend a dedicated homepage-build status review before assuming any of it is
+current. Product page stays 🔒 throughout.
 
 ### Blocked on the client — don't build placeholders
 

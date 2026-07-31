@@ -1,5 +1,12 @@
 # DESIGN_SYSTEM.md — The Baking Kaur
 
+**Cross-reference (added 2026-07-31, Phase 7.0 reconciliation)**: `design/DESIGN_SYSTEM.md` is a
+later, code-verified companion to this document — it adds engineering-level implementation detail
+grounded directly in shipped code (`snippets/tbk-tokens.liquid`, `tbk-components.liquid`,
+`tbk-button.liquid`, `config/settings_schema.json`) on top of this blueprint. Read both; this file
+is the original vision document, `design/DESIGN_SYSTEM.md` is the implementation-detail layer.
+Neither supersedes the other. See `docs/CANONICAL_SOURCES.md`.
+
 The single UI standard for the flagship. Source of truth for tokens:
 **`snippets/tbk-tokens.liquid`** ("Design System v1.0"), rendered once from the header — all CSS custom properties cascade page-wide. This document explains and governs those tokens; ⊕NEW marks approved Foundation (B★) extensions not yet implemented.
 

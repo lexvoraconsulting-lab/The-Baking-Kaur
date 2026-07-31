@@ -1,5 +1,9 @@
 # COMPONENT_LIBRARY.md — The Baking Kaur
 
+**Cross-reference (added 2026-07-31, Phase 7.0 reconciliation)**: `design/COMPONENT_LIBRARY.md` is
+a later, code-verified companion documenting every real, currently-live component — read both; see
+`docs/CANONICAL_SOURCES.md`.
+
 Reusable UI component specs. Extends `DESIGN_SYSTEM.md` (tokens) with per-component structure, variants, states, a11y. All components use `tbk-tokens` — no hardcoded colors, one card/radius/shadow language.
 
 ## Conventions

@@ -1,5 +1,13 @@
 # PERFORMANCE_BASELINE.md — The Baking Kaur
 
+**Status note (added 2026-07-31, Phase 7.0 reconciliation)**: this is the **historical Phase-A-era
+baseline** (browser Performance API, preview theme). It is superseded as the current reference by
+`docs/PERFORMANCE_BASELINE.md` (Phase 6, P6.0, static code-level baseline) — but its real
+preview-theme runtime measurements below (DOMContentLoaded, Load, resource count) are genuine data
+points not captured anywhere else and are preserved here, not deleted. `docs/PERFORMANCE_BASELINE.md`
+has been corrected to reference this file rather than claim no live measurement was ever attempted.
+See `docs/CANONICAL_SOURCES.md` for the full reconciliation record.
+
 Starting performance state + targets. Honest about measurement limits in this environment. Rigorous lab measurement is Phase H.
 
 ## Measurement caveats
