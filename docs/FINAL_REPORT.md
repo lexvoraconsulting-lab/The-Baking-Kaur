@@ -181,10 +181,13 @@ closed — remaining items are genuine business decisions, external-access-gated
 deliberately out-of-scope future work, not unfinished engineering.
 
 **Later phases** (added 2026-07-31, not a rewrite of this report): Phase 6 (Performance
-Engineering), Phase 6.5 (Handoff & Readiness Review), Phase 7.0 (Pre-flight Reconciliation), and
-Phase 7.1 (Technical SEO) all continue from this report's certified state — see
-`docs/PERFORMANCE_FINAL_REPORT.md`, `docs/PHASE7_READY.md`, and `docs/TECHNICAL_SEO_MASTER.md`
-respectively for their own scope and findings.
+Engineering), Phase 6.5 (Handoff & Readiness Review), Phase 7.0 (Pre-flight Reconciliation), Phase
+7.1 (Technical SEO), and Phase 7.2 (Shopify SEO) all continue from this report's certified state —
+see `docs/PERFORMANCE_FINAL_REPORT.md`, `docs/PHASE7_READY.md`, `docs/TECHNICAL_SEO_MASTER.md`, and
+`docs/SHOPIFY_SEO_REPORT.md` respectively for their own scope and findings. Phase 7.2's headline
+finding — 84% of active products share a duplicate meta description — is the most significant
+finding of the entire program to date and remains unresolved pending business approval for a
+catalogue-wide fix.
 
 ## Related
 

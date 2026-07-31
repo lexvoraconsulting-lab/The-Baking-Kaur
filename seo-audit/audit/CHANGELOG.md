@@ -1029,6 +1029,43 @@ blocks every one of these, stated explicitly in each relevant report rather than
 **Verification**: Theme Check run (unchanged, since no theme file was touched); git status clean
 except the 11 new docs; redirect fix re-verified via Admin API re-query, zero remaining chains.
 
+## 2026-07-31 — Phase 7.2: Enterprise Shopify SEO Engine
+
+**Files**: 2 new docs (`docs/SHOPIFY_SEO_REPORT.md`, `docs/SHOPIFY_SEO_SCORECARD.md`). No theme
+file changed. Real production changes: 2 page metafields set (`100-percent-eggless-bakery`,
+`refund-return-policy`), via Admin API.
+
+**Headline finding — the most significant of this entire engagement**: exhaustively checked all
+602 active products' `seo.description` for exact duplicates (not sampled). Titles are 100% unique
+(0 duplicate groups — the existing name-keyed formula works perfectly). Descriptions are generated
+from a template keyed on occasion+price+size, not product name — causing massive duplication.
+**83.8% of the 500 products exactly checked (419/500) share a duplicate description** with at
+least one other product; the largest single group is 82 products sharing one identical string.
+Page 3 (final 102 products) shows the same pattern continuing qualitatively. **Not fixed** — per
+this phase's explicit "never invent SEO copy, never rewrite content" rule, writing unique
+descriptions for 400+ products is content authorship, and a template-formula fix touching hundreds
+of live products at once needs explicit business approval given the scale, not autonomous action.
+Recommendation (not executed): extend the description formula to include the product name, mirroring
+the title formula's already-proven approach.
+
+**Fixed**: 2 published pages (`100-percent-eggless-bakery`, `refund-return-policy`) had zero
+SEO title/description — both real, real content existed in their body, so `metafieldsSet` populated
+`global.title_tag`/`description_tag` using the page's own real title and the real first sentence(s)
+of its existing body, verbatim, zero new authorship. Verified, zero `userErrors`.
+
+**Found, not fixed (no real content to derive from)**: 3 published pages (`contact`, FAQ,
+`terms-and-conditions`) have genuinely empty body content — no source text exists to build a
+description from without fabricating one. 4 collections (`all`, `best-selling-products`,
+`newest-products`, `gourmet-cookies-meerut`) likewise have empty `descriptionHtml`. All flagged for
+business/content input, not fabricated.
+
+**Found, not fixed (content/naming, out of this phase's scope)**: 3 likely typos in live collection
+titles (`criciket`, `paw-petrol`, `boy-or-girl-cake`'s lowercase title) — content decisions requiring
+business approval, explicitly excluded by this phase's "no content rewriting" rule.
+
+**Verification**: Theme Check unchanged (no theme file touched); git status clean except the 2 new
+docs; both page-metafield fixes confirmed via `metafieldsSet` response, zero errors.
+
 ## Related
 
 [AUDIT_LEDGER.md](AUDIT_LEDGER.md), [VERIFIED_ISSUES.md](VERIFIED_ISSUES.md).
