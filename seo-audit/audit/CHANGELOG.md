@@ -1066,6 +1066,25 @@ business approval, explicitly excluded by this phase's "no content rewriting" ru
 **Verification**: Theme Check unchanged (no theme file touched); git status clean except the 2 new
 docs; both page-metafield fixes confirmed via `metafieldsSet` response, zero errors.
 
+## 2026-07-31 — Phase 7.3 (partial, stopped on business decision): Structured Data & Schema
+
+**Files**: 1 new doc (`docs/STRUCTURED_DATA_REPORT.md`). No theme file changed, no Admin API write.
+
+**Confirmed sound**: `SearchAction` schema present (closes Phase 6.5's open task M-3); canonical
+schema sources (Organization/WebSite, Bakery, Breadcrumb, Product/Article) remain correctly
+de-duplicated, consistent with the Phase A schema-dedup work verified live in Phase 7.0.
+
+**Real, still-open finding**: the global `FAQPage` schema in `layout/theme.liquid:79` (9 real
+business-fact Q&A pairs) renders on every page except the 2 dedicated FAQ pages — meaning it still
+appears on the homepage, all ~602 active product pages, and every collection page with no matching
+visible Q&A content on any of them. The prior `SEO-024` fix only solved this block's duplication
+against the FAQ pages themselves, not the broader "markup must match visible content" violation
+Google's own guidelines flag. Not fixed — resolving it (remove vs. restructure vs. build matching
+visible content) is a genuine business/product decision, not a deterministic technical fix.
+
+**Stopped Phase 7.3 here**, per the explicit instruction's own stop condition ("stop only if...
+business approval is required") — this finding qualifies.
+
 ## Related
 
 [AUDIT_LEDGER.md](AUDIT_LEDGER.md), [VERIFIED_ISSUES.md](VERIFIED_ISSUES.md).
