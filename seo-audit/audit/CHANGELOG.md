@@ -813,6 +813,41 @@ phase**, per the explicit stop instruction.
 **Verification**: `git status` clean except the 6 new docs; no theme file touched, so Theme Check
 is unchanged from R7's final baseline (343/1,350/80/1,161/189) by construction.
 
+## 2026-07-31 — P6.1: Image Optimization — audited, no action required
+
+**Files**: none changed. `docs/PERFORMANCE_AUDIT.md`'s F-12/F-14/F-16 already established the
+theme's image handling is correct: responsive `srcset`/`sizes` used throughout, correct
+`eager`+`fetchpriority="high"` on the primary product image with `lazy` on the rest, zero
+unoptimized local images (all product imagery flows through Shopify's CDN). Re-confirmed this
+pass: no duplicate/unused local image files exist (`assets/` contains exactly 1 PNG + 3 SVGs, all
+in use). **No safe, evidence-based image optimization was found to implement** — the theme's
+existing image strategy is already sound. Not a gap in this audit; a confirmed strength.
+
+## 2026-07-31 — P6.2 + P6.3: remove 3 verified-orphaned CSS/JS assets
+
+**Files removed**: `assets/hdt-section-password.css` (0 bytes, already empty),
+`assets/video_with_text2.css` (2,338 bytes), `assets/day.js` (8,377 bytes).
+
+**Before, verified twice, independently**: (1) a repo-wide grep for each filename (quoted, as
+`asset_url`/`stylesheet_tag`/`script src` would reference it) across every `.liquid`/`.json` file
+— zero hits for all 3; (2) a broader unrestricted grep across the entire repository — zero real
+hits. `day.js`'s only textual match anywhere is a documentation-comment URL inside
+`assets/custom.js` (`https://day.js.org/docs/en/display/format`, a link to the third-party Day.js
+library's own docs site) — not a reference to the local asset file.
+
+**Why safe**: none of the 3 files are referenced by any `asset_url`, `stylesheet_tag`, or
+`<script src>` call anywhere in the theme. Removing them changes zero rendered output.
+
+**Deploy safety**: `shopify theme pull --only <3 paths>` + `diff --strip-trailing-cr` — zero drift
+confirmed before deleting. Deleted locally, then `shopify theme push --allow-live --only <3 paths>
+--force` (scoped, matching the R1/R3.5/R5 pattern). Re-pulled the same 3 exact paths afterward:
+confirmed all 3 gone live.
+
+**After — Theme Check**: 343 files/1,350 offenses/80 files/1,161 errors/189 warnings — unchanged.
+Theme Check has no equivalent of its `OrphanedSnippet` check for CSS/JS assets, so an unchanged
+count here is expected and correct, not evidence of "no change made" — the repo-grep evidence
+above is the authoritative verification for this removal, not Theme Check's own count.
+
 ## Related
 
 [AUDIT_LEDGER.md](AUDIT_LEDGER.md), [VERIFIED_ISSUES.md](VERIFIED_ISSUES.md).
