@@ -180,6 +180,12 @@ independently-verified work. No further action is required to consider this seri
 closed — remaining items are genuine business decisions, external-access-gated checks, or
 deliberately out-of-scope future work, not unfinished engineering.
 
+**Later phases** (added 2026-07-31, not a rewrite of this report): Phase 6 (Performance
+Engineering), Phase 6.5 (Handoff & Readiness Review), Phase 7.0 (Pre-flight Reconciliation), and
+Phase 7.1 (Technical SEO) all continue from this report's certified state — see
+`docs/PERFORMANCE_FINAL_REPORT.md`, `docs/PHASE7_READY.md`, and `docs/TECHNICAL_SEO_MASTER.md`
+respectively for their own scope and findings.
+
 ## Related
 
 [LIQUID_ARCHITECTURE_AUDIT.md](LIQUID_ARCHITECTURE_AUDIT.md), [TEMPLATE_CENSUS.md](TEMPLATE_CENSUS.md),

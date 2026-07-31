@@ -995,6 +995,40 @@ verified). Root vs. `design/` documentation lacked symmetric cross-references �
 **Verification**: full repo-wide duplicate-filename scan, every hit read before classification;
 live pull-diff of the 4 Phase A files; git status clean at commit time; no theme file touched.
 
+## 2026-07-31 — Phase 7.1: Enterprise Technical SEO Engine
+
+**Files**: 11 new docs (`docs/TECHNICAL_SEO_MASTER.md`, `TECHNICAL_SEO_AUDIT.md`, `CRAWL_REPORT.md`,
+`INDEXABILITY_REPORT.md`, `CANONICAL_REPORT.md`, `ROBOTS_REPORT.md`, `SITEMAP_REPORT.md`,
+`URL_ARCHITECTURE.md`, `INTERNAL_LINKING_AUDIT.md`, `SEO_CHANGELOG.md`,
+`TECHNICAL_SEO_SCORECARD.md`). No theme file changed. One live production change: 25 URL
+redirects, via Admin API (not a theme deploy).
+
+**What was done**: full technical SEO audit — URL architecture, canonical URLs, robots.txt,
+sitemap, pagination, breadcrumbs, indexability, redirects/broken-links, internal linking, heading
+hierarchy, image ALT handling, OpenGraph/Twitter Cards, meta robots/viewport/lang/hreflang, crawl
+budget, semantic HTML, mobile readiness.
+
+**Real fix implemented**: found 2 confirmed redirect chains via exhaustive review of all 825
+`urlRedirects` (not sampled) — `/collections/theme-cakes-1` → `theme-cakes` → `designer-theme-cakes`
+(2-hop), and 24 separate product redirects all silently chaining through `/collections/flowers` →
+`/collections/cake-hampers`. Collapsed all 25 to direct 1-hop redirects via `urlRedirectUpdate`,
+4 batches of ≤8, zero `userErrors`, re-verified after. **User approval explicitly requested and
+obtained** before executing — a live production URL-routing change, correctly flagged by the
+auto-mode classifier for confirmation rather than run autonomously.
+
+**Real finding, not fixed (corroborates prior evidence)**: the homepage has a confirmed duplicate
+`<h1>` (a hardcoded heading inside a custom-liquid block) — this directly corroborates root
+`CHANGELOG.md`'s own Phase A promotion-verification record, which already logged "homepage H1
+count = 2" as pre-existing. Not fixed here — it's inside a content-bearing block belonging to the
+separate homepage-build workstream, out of this phase's "never modify business content" scope.
+
+**Honest limitation, not fabricated**: no live Core Web Vitals, robots.txt/sitemap served-content,
+404/broken-link, or duplicate-title/description verification was performed — the password gate
+blocks every one of these, stated explicitly in each relevant report rather than estimated.
+
+**Verification**: Theme Check run (unchanged, since no theme file was touched); git status clean
+except the 11 new docs; redirect fix re-verified via Admin API re-query, zero remaining chains.
+
 ## Related
 
 [AUDIT_LEDGER.md](AUDIT_LEDGER.md), [VERIFIED_ISSUES.md](VERIFIED_ISSUES.md).
