@@ -4222,6 +4222,13 @@ details[open] > summary > .hdt-btn-open-sub::before {
   justify-content: space-between;
   margin-bottom: 2.4rem;
 }
+.hdt-product__modal::part(close-button):focus-visible,
+.hdt-modal__compare-color::part(close-button):focus-visible,
+.hdt-quick-view-modal::part(close-button):focus-visible,
+.hdt-quick-add-modal::part(close-button):focus-visible{
+  outline: 0.2rem solid rgb(var(--color-focus));
+  outline-offset: 2px;
+}
 .hdt-product__modal::part(close-button){
   color: rgb(var(--color-foreground));
   background: transparent;

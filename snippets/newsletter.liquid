@@ -12,7 +12,7 @@
     <div class="hdt-newsletter__fields">
        <div class="hdt-newsletter__inner hdt-flex hdt-oh hdt-justify-center {{ attr }}">
           <div class="{{ class_email }} is--col-email hdt-flex">
-           <input type="email" name="contact[email]" placeholder="{{ 'sections.newsletter_form.email_placeholder' | t }}"  value="{% if customer %}{{ customer.email }}{% endif %}" class="{{ class_ip }} hdt-newsletter__email hdt-flex hdt-align-center hdt-input" required="required">
+           <input type="email" name="contact[email]" placeholder="{{ 'sections.newsletter_form.email_placeholder' | t }}" aria-label="{{ 'sections.newsletter_form.email_placeholder' | t }}" value="{% if customer %}{{ customer.email }}{% endif %}" class="{{ class_ip }} hdt-newsletter__email hdt-flex hdt-align-center hdt-input" required="required">
          </div>
           <div class="{{ class_btn }} is--col-btn hdt-b hdt-flex ">
             <button {{ aria_label_btn }} data-agreeMail-btn type="submit" class="hdt-w-100 hdt-newsletter__submit hdt-truncate hdt-btn-loading__svg hdt-flex hdt-align-center hdt-btn hdt-btn-solid hdt-button hdt-font-{{ btn_fw }} hdt-oh hdt-relative">

@@ -12,7 +12,7 @@ Aggregated from every phase's own scorecard/report. Real, evidence-based, not es
 | Shopify SEO Readiness (Phase 7.2) | **2.8/5** | `docs/SHOPIFY_SEO_SCORECARD.md` — dragged down almost entirely by the 84% duplicate-description finding |
 | Structured Data / Schema (Phase 7.3, partial) | 4/5 (architecture) — 1 real open item | `docs/STRUCTURED_DATA_REPORT.md` |
 | Security | **3/5** | `docs/SECURITY_AUDIT.md` — 1 real XSS closed, 1 high-severity vendor phone-home escalated (unresolved) |
-| Accessibility | Not yet independently scored | Only performance-linked accessibility checked (Phase 6); no dedicated WCAG pass completed |
+| Accessibility | **3.6/5** (Phase 7.5) | `docs/ACCESSIBILITY_AUDIT.md`, `ACCESSIBILITY_SCORECARD.md` — 6 real live-impacting defects found and fixed (focus-visible, unlabeled controls/forms, broken cart image, duplicate table IDs, unlabeled account nav); 1 real defect escalated (missing date-picker input on 2 non-default product templates); not live-tested, password gate blocks real screen-reader/contrast tools |
 | AI Search / GEO / AEO architecture | 4–4.5/5 (architecture only) | Phase 6 readiness docs; real-world effect blocked entirely by the password gate |
 
 ## Overall Program Score: **3.7/5** (weighted toward the two lowest, highest-impact dimensions)

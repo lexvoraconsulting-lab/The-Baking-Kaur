@@ -1165,6 +1165,45 @@ creates zero schema-coverage gap. Deploy safety: pull → diff-confirm zero drif
 `--only` push → re-pull → diff-confirm byte-identical live. Theme Check unchanged
 (343/1,351/80/1,161/190) — no regression.
 
+## 2026-08-01 — Phase 7.5: first dedicated accessibility (WCAG) pass, 6 defects fixed live
+
+**Files**: `sections/main-product-premium-v2.liquid`, `assets/theme.css`, `snippets/newsletter.liquid`,
+`snippets/item-cart.liquid`, `snippets/item-cart-page.liquid`, `sections/main-account.liquid`,
+`sections/main-addresses.liquid`, `sections/main-order.liquid`. New docs: `docs/ACCESSIBILITY_AUDIT.md`,
+`docs/ACCESSIBILITY_SCORECARD.md`. `docs/PROJECT_SCORECARD.md` updated from "not yet independently
+scored" to 3.6/5.
+
+Static-code-evidence audit (no browser/screen-reader tooling available; storefront remains
+password-gated) surfaced 7 real, live-impacting findings; 6 fixed this phase, 1 correctly escalated
+rather than guessed at:
+
+- **A11Y-001**: default product template's delivery-date/time-slot buttons had no accessible name
+  until a value was picked — fixed with static `aria-label`s.
+- **A11Y-002**: modal close buttons (quick view/add, compare) live in a shadow-DOM `::part()` the
+  theme's global focus-visible rule can't reach — fixed with one shared CSS rule covering all 4.
+- **A11Y-003**: newsletter email input relied on placeholder-only labeling (shared by 3 live
+  sections) — fixed with `aria-label` in the one shared snippet.
+- **A11Y-004**: `<imgsrc="...">` (missing space) in the cart drawer/page silently dropped the
+  customer's own uploaded reference photo entirely — not accessibility-only, nobody could see it —
+  fixed with the missing space, in both files sharing the bug.
+- **A11Y-005**: static `id="RowOrder"`/`id="RowDiscount"` inside `{% for %}` loops broke table
+  `headers`/`id` association for any customer with >1 order or discount — fixed with
+  `{{ forloop.index }}` interpolation.
+- **A11Y-006**: 3 account-area `nav` landmarks had no `aria-label`, ambiguous alongside header/footer
+  nav — fixed with a shared label pattern.
+
+**A11Y-OPEN-001 (found, not fixed)**: `main-product.liquid` and `main-product-premium.liquid` (2 of
+3 product templates) have a "Date:" label pointing at a nonexistent input, and their own JS expects
+a date-picker element that was never built in either file's markup — a real functional gap, not
+just a labeling bug. Not fixed: building the missing input is a visible UX/flow change, and which
+fix is correct (build the same date-picker UI as the default template, or something else) is a
+product decision this phase can't make. Documented with full evidence in `ACCESSIBILITY_AUDIT.md`.
+
+All 8 changed files verified via the established deploy-safety cycle (pull → diff-confirm zero
+drift → edit → single scoped `--only` push for all 8 files → re-pull → diff-confirm byte-identical
+live). Theme Check unchanged (343/1,351/80/1,161/190) — no regression. Every fix is additive-only
+(`aria-*`, an interpolated id, one CSS rule, one missing space) — zero visual/layout/flow changes.
+
 ## Related
 
 [AUDIT_LEDGER.md](AUDIT_LEDGER.md), [VERIFIED_ISSUES.md](VERIFIED_ISSUES.md).

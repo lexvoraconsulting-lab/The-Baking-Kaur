@@ -334,7 +334,7 @@ top:auto;
               <div class="tbk-date-time-row">
                 <div class="hdt-product-form_value is-type-block">
                     <label class="hdt-product-form__label hdt-s-text">Delivery Date</label>
-                    <button type="button" class="tbk-slot-trigger tbk-date-trigger" data-date-trigger="{{ section.id }}" aria-haspopup="dialog"><span data-date-display></span></button>
+                    <button type="button" class="tbk-slot-trigger tbk-date-trigger" data-date-trigger="{{ section.id }}" aria-haspopup="dialog" aria-label="Delivery Date"><span data-date-display></span></button>
                     <input type="hidden" form="{{ product_form_id }}" id="delivery-date-{{ section.id }}" name="properties[Delivery Date]" data-date-input="{{ section.id }}" required>
 
                     <div class="tbk-slot-modal tbk-date-modal" data-date-modal="{{ section.id }}" hidden>
@@ -371,7 +371,7 @@ top:auto;
                 </div>
                 <div class="hdt-product-form_value is-type-block">
                     <label class="hdt-product-form__label hdt-s-text">Delivery Time Slot</label>
-                    <button type="button" class="tbk-slot-trigger" data-slot-trigger="{{ section.id }}" aria-haspopup="dialog">
+                    <button type="button" class="tbk-slot-trigger" data-slot-trigger="{{ section.id }}" aria-haspopup="dialog" aria-label="Delivery Time Slot">
                       <span data-slot-display></span>
                     </button>
                     <input type="hidden" form="{{ product_form_id }}" id="delivery-slot-{{ section.id }}" name="properties[Delivery Time Slot]" data-slot-input="{{ section.id }}">
