@@ -7,7 +7,7 @@
           <div class="hdt-search-results-part">
             <div class="hdt-flex hdt-justify-between hdt-align-center hdt-search-content-title">
               <h6 class="hdt-font-medium hdt-text-2xl">{{- 'templates.search.products' | t -}}</h6>
-              <a href="/search?type=product&options%5Bunavailable_products%5D=&options%5Bprefix%5D=last&q={{ predictive_search.terms }}" class="hdt-viewall-pr hdt-inline-flex hdt-align-center 
+              <a href="/search?type=product&options%5Bunavailable_products%5D=&options%5Bprefix%5D=last&q={{ predictive_search.terms | url_encode }}" class="hdt-viewall-pr hdt-inline-flex hdt-align-center 
               hdt-justify-center hdt-relative">
                 {{ 'sections.featured_collection.view_all' | t }}
                 <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8" fill="currentColor">

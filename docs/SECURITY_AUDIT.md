@@ -35,20 +35,49 @@ Affected, Recommended Action, Verification Status, Sprint, Commit Reference, Cur
   page load, via code deliberately obscured from casual review — is a real trust and privacy
   concern regardless of the vendor's legitimacy.
 - **Files Affected**: `assets/custom.js`.
-- **Recommended Action**: **Do NOT remove unilaterally.** This is a **Level 3/4 decision** — it
-  concerns the store's licensing relationship with a paid third-party theme vendor, not a pure
-  technical defect. Removing it could trigger vendor-side tamper detection (some licensing schemes
-  degrade functionality or display warnings if their check is stripped) or could constitute a
-  license-terms violation depending on the vendor's actual agreement. Recommend the business: (1)
-  confirm the theme's license status directly with the vendor/original purchase records, (2)
-  decide whether continued phone-home behavior is acceptable given the merchant email exposure, and
-  (3) only then decide on removal, replacement, or acceptance.
-- **Verification Status**: AUDITED — root cause and payload fully decoded and confirmed; live
-  network behavior (whether this fetch actually fires on the current production theme, and what
-  response it receives) not independently observed (would require live browser network inspection,
-  additionally blocked by the password gate).
-- **Sprint**: Enterprise Certification continuation (this sprint).
-- **Commit Reference**: N/A — no code changed for this issue.
+
+### Update (Phase 7.4, 2026-07-31): execution-gate found — materially lowers customer-facing risk
+
+Re-read the full surrounding block (`assets/custom.js:2170-2280`) that was not fully traced in the
+original pass. The entire mechanism — the `fetch()` call, the merchant-email/domain/theme/purchase-
+code payload, and the "ACTIVATED SUCCESSFULLY" banner it injects — is nested inside a single outer
+conditional:
+
+```js
+if(Shopify.designMode){
+  // ... everything described above, including the fetch() to lic.the4.co, lives entirely here ...
+}
+```
+
+`Shopify.designMode` is a Shopify-platform global that is `true` **only** while a store admin/staff
+member has the theme open in the Admin's Theme Editor (Customize / preview mode) — it is `false` for
+every ordinary storefront page view. This means the original finding's wording, "sends real merchant
+data ... on every qualifying page load," **overstated the exposure**: this code cannot fire during
+normal customer browsing at all. It only runs when someone with Shopify Admin access is actively
+customizing the theme, and the data sent (store domain, store's own email, theme name, purchase
+code) describes the *store itself*, not any customer or visitor — no customer PII is read or sent
+anywhere in this code path.
+
+**Revised assessment**: this is the standard license-activation check used by ThemeForest/Envato-
+style commercial theme marketplaces (this theme is built on the "The4" framework) — functionally
+equivalent to a WordPress premium theme/plugin phoning home to verify a purchase code when an admin
+opens its settings screen. The obfuscation (shuffled-character-array URL, double base64 on the
+shop-email global, base64-wrapped JSON body) is unusual for a same-vendor legitimate check but is
+also a known anti-tamper pattern in this exact marketplace segment, not unique to malicious code.
+
+**Recommended action (unchanged conclusion, now evidence-backed rather than precautionary)**:
+**Do NOT remove.** Per this decision's own test ("prove it is unnecessary OR introduces unacceptable
+risk") — neither holds: it is not proven unnecessary (removing a marketplace theme's license check
+without confirming license terms/tamper-detection behavior is exactly the risk `docs/CLAUDE.md`
+already flags), and the customer/privacy risk is now shown to be effectively nil (customers never
+trigger this path). The narrower, lower-risk action available to the business, if this remains a
+concern, is confirming the theme's own purchase/license record with the vendor — not patching the
+check out.
+- **Verification Status**: AUDITED, execution gate confirmed by direct code read (not live network
+  inspection — still blocked by the password gate, unchanged limitation). Payload/URL decoding from
+  the original pass re-confirmed unchanged.
+- **Sprint**: Phase 7.4 (this sprint) — correction of Enterprise Certification continuation finding.
+- **Commit Reference**: N/A — no code changed for this issue; documentation-only correction.
 - **Current Status**: **CLASSIFIED**, escalated to Level 3/4 (business/vendor decision required).
   Not implemented, not closed.
 
@@ -98,13 +127,10 @@ Affected, Recommended Action, Verification Status, Sprint, Commit Reference, Cur
 | `.env`/credentials files tracked in git | None found |
 | `.gitignore` coverage for generated sensitive output | Adequate — `seo-ops/*.csv`, `*.jsonl`, `*.log` excluded |
 | `eval()`/`exec()`/`os.system()`/`subprocess(..., shell=True)` in `seo-ops/*.py` | None found |
-| Other raw, unescaped Liquid `echo`/`{{ }}` of user-controlled input (search/predictive-search) | None found beyond SEC-002 — `predictive_search.terms` usages found are either inside a URL query-string context (`?q={{ predictive_search.terms }}`, which needs `url_encode` more than `escape`; not independently re-verified as a separate issue this pass) or passed through the `t:` translation filter (auto-escaped by Shopify's translation system) |
+| Other raw, unescaped Liquid `echo`/`{{ }}` of user-controlled input (search/predictive-search) | **SEC-003, FIXED (Phase 7.4)** — `?q={{ predictive_search.terms }}` in `hdt_predictive-search.liquid:10` (the live drawer search, referenced from `snippets/search-form.liquid`) had no encoding at all: a literal `"` in the search term would break out of the `href="..."` attribute. Fixed by adding `\| url_encode`, which both restores query-string correctness and closes the attribute-breakout vector (percent-encoding turns `"` into `%22`, which cannot break the surrounding attribute). Deployed via scoped `--only` push, re-pulled byte-identical, Theme Check unchanged (343/1,351/80/1,161/190). Remaining `predictive_search.terms` usages are passed through the `t:` translation filter (auto-escaped by Shopify's translation system) — no further action needed. |
 
 ## Not audited this pass (flagged, not silently skipped)
 
-- Whether `?q={{ predictive_search.terms }}` (found during this audit, `hdt_predictive-search.liquid:10`)
-  needs a `url_encode` filter for correctness/safety — noted but not independently confirmed as a
-  vulnerability or fixed; flagged as a follow-up item, not closed.
 - Live network-request inspection to confirm `SEC-001`'s actual behavior on the current production
   theme (password gate blocks this).
 - Dependency-vulnerability scanning for `seo-ops/`'s Python dependencies (no internet-connected
