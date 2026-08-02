@@ -10,8 +10,6 @@ Lightweight work tracking for The Baking Kaur.
 
 ## Open — SEO / catalog (owner: automated tooling + review)
 
-- [ ] Finish the description **occasion-mismatch** fix across the catalogue (~100+ products beyond Baby Girl). Tool ready: `../seo-ops/fix_description_occasion.py` (dry-run → review CSV → `--apply`). Needs `SHOPIFY_TOKEN` set, or continue via the MCP path.
-- [ ] Review the hardcoded price range ("from Rs.1,700 to Rs.2,900") that appears in every generated description — verify against real per-product min/max and correct where wrong. TODO: confirm scope.
 - [ ] Product images: add stills to the 2 drafted products (Velvet Crown, Handcrafted) and ~9 video-only products, then reassess status. *Blocked on client photos.*
 - [ ] Variant option typos (`fruit-cocoktail`, `chocolate-moouse`, `lotus-biscoffStrawberry Vanila`) — deliberately untouched; need a metaobject fix first (variant-surgery risk).
 
@@ -33,5 +31,7 @@ Lightweight work tracking for The Baking Kaur.
 - [x] Published 5 landing pages (eggless, midnight, photo, theme, 30-min).
 - [x] Fixed broken Product JSON-LD (`| json`) and deployed to live theme.
 - [x] Corrected occasion mismatch on the Baby Girl collection (18 products).
+- [x] Finished the description occasion-mismatch fix catalogue-wide (2026-08-01, Phase 7.7): 70 more products fixed live, 0 remaining.
+- [x] Reviewed the hardcoded-looking price range in generated descriptions (2026-08-01) — checked all 1,235 products (not just active): 893 carry a "from Rs.X to Rs.Y" sentence, and every single one matches the product's real `priceRangeV2` min/max exactly. Not a defect; no fix needed.
 
 TODO: this list is reconstructed from session history; reconcile against `CHANGELOG.md` for anything missing.

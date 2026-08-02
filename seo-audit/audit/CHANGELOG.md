@@ -1317,6 +1317,12 @@ one sample's full diff before applying - confirmed only the occasion word change
 birthday, wedding -> birthday), nothing else in the description touched. Applied live in 9 batches
 of ≤8, zero `userErrors`. Re-scanned afterward: 0 remaining.
 
+**Also reviewed** (tasks/README.md's "hardcoded price range" concern): checked all 1,235 products
+(active + draft) for the "Pricing varies by size and finish, from Rs.X to Rs.Y" sentence pattern in
+descriptionHtml against each product's real priceRangeV2 min/max. 893 products carry the sentence;
+0 mismatches. Confirmed correct, no action needed - a negative result, reported as such rather than
+reframed into a finding.
+
 ## Related
 
 [AUDIT_LEDGER.md](AUDIT_LEDGER.md), [VERIFIED_ISSUES.md](VERIFIED_ISSUES.md).
