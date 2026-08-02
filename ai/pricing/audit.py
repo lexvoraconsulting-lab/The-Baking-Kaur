@@ -27,13 +27,15 @@ from pathlib import Path
 
 from ai.pricing.ids import compute_audit_id
 from ai.pricing.models import CostResult, ExecutionAuditRecord, TokenUsage
+from ai.pricing.observability import NullObserver, PricingObserver
 
 DEFAULT_LOG_PATH = Path(__file__).resolve().parents[1] / "logs" / "pricing_audit.jsonl"
 
 
 class AuditEngine:
-    def __init__(self, log_path: Path | str = DEFAULT_LOG_PATH):
+    def __init__(self, log_path: Path | str = DEFAULT_LOG_PATH, observer: PricingObserver | None = None):
         self._log_path = Path(log_path)
+        self._observer = observer or NullObserver()
 
     def record(self, usage: TokenUsage, cost: CostResult) -> ExecutionAuditRecord:
         """Always succeeds in producing a record, regardless of cost.status -
@@ -49,6 +51,7 @@ class AuditEngine:
             recorded_at=usage.recorded_at,
         )
         self._append(record)
+        self._observer.on_usage_recorded(usage, cost)
         return record
 
     def _append(self, record: ExecutionAuditRecord) -> None:

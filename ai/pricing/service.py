@@ -16,8 +16,16 @@ WHY calculate_cost NEVER RAISES
   called this (e.g. the vision pipeline finishing a real, billable API call).
   Every failure mode collapses to CostResult.pending(reason), never an
   exception escaping this method.
+
+WHY observer IS A THIRD OPTIONAL COLLABORATOR, NOT A NEW METHOD PARAMETER
+  Same constructor-injection shape as repository/strategy (Dependency
+  Inversion, not a service locator) - PricingService depends on the
+  PricingObserver abstraction, never a concrete logger. Defaults to
+  NullObserver so every existing caller (ai.vision.python.pipeline calls
+  PricingService() with no arguments) is unaffected.
 """
 from ai.pricing.models import CostResult, TokenUsage
+from ai.pricing.observability import NullObserver, PricingObserver
 from ai.pricing.repository import FileConfigPricingRepository, PricingRepositoryBase
 from ai.pricing.strategy import CostCalculationStrategy, StandardTokenCostStrategy
 
@@ -27,23 +35,34 @@ class PricingService:
         self,
         repository: PricingRepositoryBase | None = None,
         strategy: CostCalculationStrategy | None = None,
+        observer: PricingObserver | None = None,
     ):
         self._repository = repository or FileConfigPricingRepository()
         self._strategy = strategy or StandardTokenCostStrategy()
+        self._observer = observer or NullObserver()
 
     def calculate_cost(self, usage: TokenUsage, as_of: str | None = None) -> CostResult:
         as_of = as_of or usage.recorded_at
         try:
             pricing = self._repository.get_pricing(usage.provider, usage.model, as_of)
         except Exception as exc:  # noqa: BLE001 - deliberately broad, see module docstring
-            return CostResult.pending(f"pricing lookup failed: {exc}")
+            return self._pending(usage, f"pricing lookup failed: {exc}")
 
         if pricing is None:
-            return CostResult.pending(
-                f"no pricing on file for provider={usage.provider!r} model={usage.model!r} as_of={as_of!r}"
+            return self._pending(
+                usage,
+                f"no pricing on file for provider={usage.provider!r} model={usage.model!r} as_of={as_of!r}",
             )
 
         try:
-            return self._strategy.calculate(usage, pricing)
+            result = self._strategy.calculate(usage, pricing)
         except Exception as exc:  # noqa: BLE001 - deliberately broad, see module docstring
-            return CostResult.pending(f"cost calculation failed: {exc}")
+            return self._pending(usage, f"cost calculation failed: {exc}")
+
+        self._observer.on_cost_calculated(usage, result)
+        return result
+
+    def _pending(self, usage: TokenUsage, reason: str) -> CostResult:
+        result = CostResult.pending(reason)
+        self._observer.on_cost_pending(usage, result)
+        return result
