@@ -1204,6 +1204,46 @@ drift → edit → single scoped `--only` push for all 8 files → re-pull → d
 live). Theme Check unchanged (343/1,351/80/1,161/190) — no regression. Every fix is additive-only
 (`aria-*`, an interpolated id, one CSS rule, one missing space) — zero visual/layout/flow changes.
 
+## 2026-08-01 — Phase 7.6: catalogue-wide mojibake/title-mismatch repair engine built, blocked on live access
+
+**Files (new, not run against live data yet)**: `seo-ops/fix_mojibake.py`, `test_fix_mojibake.py`.
+
+Addresses `CLAUDE.md`'s standing "Live defects #1": the Motu Patlu bestseller's `<title>`
+mismatch plus a catalogue-wide sweep for mojibake across `title`/`seo.title`/`seo.description`/
+`descriptionHtml` on all 1,235 products (not just the 602 active ones Phase 7.4 touched).
+
+**Blocked before execution**: the Shopify MCP connector disconnected mid-session and has not
+reconnected (`/mcp reconnect all` confirmed 0/10 connected); no `SHOPIFY_TOKEN` is present in this
+environment either. Per this program's own stop conditions ("external credentials required"), the
+live sweep itself did not run. What was still possible without live access — and is now complete —
+was building and proving the reusable engine so it runs immediately once access returns:
+
+- **Repair, not just detection**: `seo-ops/title_utils.py` already had mojibake *detection*
+  (`MOJI`, `is_broken()`) from an earlier pass, flagged as "kept as a utility for future imports"
+  but never wired up. `descriptionHtml` is real content — "repair encoding, never strip" rules out
+  detect-and-discard. `repair_mojibake()` reverses UTF-8 bytes mis-decoded as Latin-1, iteratively
+  (bounded, stops on no further change or on producing U+FFFD), which correctly unwinds 1-3 layers
+  of this store's real corruption pattern (matching the corrupted forms already hand-mapped in
+  `assets/custom.js`'s client-side cleanup script) while never touching already-clean text.
+- **Encoding-transport safety**: while writing the script, several literal corrupted/control
+  characters typed directly into tool calls were silently altered or dropped in transit through
+  this environment's own tool pipeline (same class of risk as the em-dash issue caught in Phase
+  7.4) — resolved by keeping the entire file pure-ASCII, using `\x80`/`�`-style escapes instead
+  of literal bytes anywhere corruption-adjacent text needs to appear in source.
+- **Title-mismatch detection**: `title_mismatch()` catches the Motu-Patlu class of defect (an
+  `seo.title` naming an unrelated product) conservatively — only when neither string is a prefix of
+  the other, so legitimate truncation is never flagged — and rebuilds via the existing
+  `fix_seo_snippets.build_title()`, guarded so it never runs off a product title that's itself still
+  corrupted (would otherwise propagate the corruption into the "fixed" field).
+- **Verified**: `test_fix_mojibake.py` self-check (0 failures) plus an end-to-end dry-run smoke test
+  against synthetic products reproducing all three real scenarios (clean/untouched,
+  `descriptionHtml`-only corruption repaired in place, and the exact Motu-Patlu mismatch correctly
+  rebuilt) — all three behaved exactly as designed.
+
+**Not yet done**: the actual live scan/fix of the 1,235-product catalogue — needs Shopify access
+restored (MCP reconnect or a `SHOPIFY_TOKEN`), at which point `python fix_mojibake.py` (dry run,
+review CSV) then `--apply` completes this per the same batched-mutation pattern as Phase 7.4.
+
 ## Related
 
 [AUDIT_LEDGER.md](AUDIT_LEDGER.md), [VERIFIED_ISSUES.md](VERIFIED_ISSUES.md).
