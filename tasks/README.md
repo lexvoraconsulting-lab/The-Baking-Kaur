@@ -21,7 +21,7 @@ Lightweight work tracking for The Baking Kaur.
 ## Open — blueprint phases (see ../PROJECT_ROADMAP.md)
 
 - [x] ~~Promote **Phase A** (footer restore + schema dedup) from preview to the live theme.~~ Stale — already promoted 2026-07-14 (commit `77861b3`), re-verified live 2026-07-31 (Phase 7.0) and again against the live theme this session. See `CLAUDE.md`'s "build track" section.
-- [ ] Act on the **collection audit** dispositions (redirects / merges / populate).
+- [ ] Act on the **collection audit** dispositions (redirects / merges / populate). **Investigated 2026-08-01, awaiting approval — see `docs/COLLECTION_STRATEGY_EVIDENCE_REPORT.md`.** Key finding: there is no single audit — four separate ones (2026-07-16, 07-18/20, 07-24, 07-30) proposed different, sometimes contradictory dispositions for the same collections, none executed. The report reconciles all four against a fresh live re-query and recommends an execution order (safest first: an unnamed collection, two broken utility-collection rules, one mislabeled collection, one rule tightening — then the higher-risk 5-collection duplicate-content cluster, which needs a GSC/QR/paid-ad check and a business decision on which 1-2 to keep before any redirect is made).
 - [ ] Phases **B–J**: design foundation, homepage build, collections redesign, header/footer, SEO/GEO completion, missing pages, performance (Lighthouse 95+, CWV), accessibility (WCAG 2.2 AA), analytics.
 
 ## Recently done (2026-07)

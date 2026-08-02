@@ -1323,6 +1323,33 @@ descriptionHtml against each product's real priceRangeV2 min/max. 893 products c
 0 mismatches. Confirmed correct, no action needed - a negative result, reported as such rather than
 reframed into a finding.
 
+## 2026-08-01 — Phase 7.8: collection-strategy investigation (read-only, no production changes)
+
+**New doc**: `docs/COLLECTION_STRATEGY_EVIDENCE_REPORT.md`. Investigation only, per explicit
+instruction - no collection merged, redirected, renamed, or otherwise modified.
+
+`tasks/README.md`'s "act on the collection audit dispositions" item assumed one audit exists. It
+doesn't - four independent audits over two weeks (`CATALOG_ARCHITECTURE.md` 07-16,
+`SEO_AUDIT_LEDGER.md` 07-18/20, `docs/blog-os/` 07-24, `seo-audit/final/` 07-30) proposed different,
+sometimes directly contradictory dispositions for the same collections, and none was ever executed.
+Root cause: an undocumented parallel/mobile session converted 8 manual collections to smart
+collections with overlapping rules (five ended up sharing the literal rule `TYPE contains "Cake"`)
+- every audit since has been re-diagnosing the same underlying event from scratch because it was
+never written down anywhere query-able.
+
+Reconciled all four audits against a fresh, exhaustive live re-query (36 collections, single page,
+`hasNextPage: false`) and the live navigation graph (9 menus; only 6 of 36 collections are in any
+live menu). Confirmed the 2026-07-30 audit's numbers are current (the 5-collection duplicate
+cluster is real and unchanged); confirmed the 2026-07-16 audit's "these are empty" premise is stale
+for every collection it covers - most concretely, `showstopper-wedding-cake` (recommended for
+removal when it had 0 products) now holds 78 real, distinct products under a mismatched
+title/handle/rule, which a blind redirect would have silently discarded. Surfaced one collection
+(`gourmet-cookies-meerut`) never given a disposition by any of the four audits - title is its own
+raw handle, same pattern as the ~62 unnamed products found in Phase 7.6.
+
+Delivered a consolidated per-collection disposition table, root-cause analysis, and a recommended
+execution order (safest first) - explicitly not implemented. Ends with a request for approval.
+
 ## Related
 
 [AUDIT_LEDGER.md](AUDIT_LEDGER.md), [VERIFIED_ISSUES.md](VERIFIED_ISSUES.md).
