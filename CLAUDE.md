@@ -19,7 +19,7 @@ The Baking Kaur — a 100% eggless cake studio in Meerut. The repo holds the liv
 
 Two paths:
 
-1. **Admin GraphQL API** — for data (products, collections, pages, redirects, metafields). In this environment it is reached through the connected MCP Shopify server. The `seo-ops/` scripts reach the same API via `requests` and a `SHOPIFY_TOKEN` (an Admin API access token, `shpat_…`, with `read_products`/`write_products` etc.).
+1. **Admin GraphQL API** — for data (products, collections, pages, redirects, metafields). In this environment it is normally reached through the connected MCP Shopify server. The `seo-ops/` scripts reach the same API via `requests` and a `SHOPIFY_TOKEN` (an Admin API access token, `shpat_…`, with `read_products`/`write_products` etc.). **If MCP is down and no token is set**, `shopify store auth --store ae86ba-2a.myshopify.com --scopes read_products,write_products` (one-time, opens a browser) followed by `shopify store execute --store ae86ba-2a.myshopify.com --query-file <f> [--variable-file <f>] [--allow-mutations] --json` reaches the identical Admin GraphQL API through the authenticated CLI session — no token typed or stored. `fix_mojibake.py`'s `gql_via_cli()` wires this in automatically whenever `SHOPIFY_TOKEN` is unset.
 2. **Shopify CLI** — for theme files.
 
 ### Deploy the theme
@@ -57,12 +57,16 @@ plan — the ideas already agreed, in priority order. Sources: `PROJECT_ROADMAP.
 
 ### Live defects — fix before anything cosmetic
 
-1. **Wrong `<title>` on the #1 bestseller.** `/products/motu-patlu-designer-birthday-cake-meerut`
-   has an H1 of *Motu Patlu Designer Birthday Cake* but a `<title>` naming a different cake
-   (*Celestial Charm*), plus mojibake. Google shows the wrong product name today. Fix is data-only,
-   no theme deploy. Sweep the full catalogue (1,235 products, `title`/`seo.title`/`seo.description`/
-   `descriptionHtml`) for both faults — the 8 known mojibake drafts and 1 live mismatch surfaced
-   incidentally, assume more. **Repair encoding, never strip.** Never rename a handle here.
+1. ~~Wrong `<title>` on the #1 bestseller + catalogue-wide mojibake.~~ — **resolved 2026-08-01**
+   (Phase 7.6, `seo-ops/fix_mojibake.py`). Full live sweep of all 1,235 products: 0 mojibake found
+   anywhere; the Motu Patlu bestseller's `<title>` already matched its H1 (fixed by an earlier
+   phase's active-product rollout, this item had gone stale). The sweep did surface one different
+   real defect — a product's own raw handle leaked into its `seo.title`/`seo.description`/visible
+   body copy — fixed live. Two smaller findings came out of this pass and are now their own open
+   items: an ambiguous product name (`a-touch-of-elegance-hamper`, title vs `seo.title` disagree
+   with no body content to arbitrate) and ~62 products where `title` is literally the raw handle
+   (never named) — both need business/content input, not further engineering. See
+   `seo-audit/audit/CHANGELOG.md` (Phase 7.6) for full evidence.
 2. ~~Unverified "★ 4.9 Rated" in the site header (`tbk_header_main`)~~ — **already resolved live**,
    confirmed 2026-07-30 via a live theme pull/diff of `sections/tbk-header.liquid` and
    `sections/header-group.json`; no rating content exists in either. This item was carried in the

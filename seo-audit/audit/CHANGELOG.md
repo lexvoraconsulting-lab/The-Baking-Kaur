@@ -1244,6 +1244,61 @@ was building and proving the reusable engine so it runs immediately once access 
 restored (MCP reconnect or a `SHOPIFY_TOKEN`), at which point `python fix_mojibake.py` (dry run,
 review CSV) then `--apply` completes this per the same batched-mutation pattern as Phase 7.4.
 
+## 2026-08-01 — Phase 7.6 continued: live sweep executed, 1 real defect fixed, findings mostly negative
+
+**Access restored via Shopify CLI, not MCP**: MCP stayed disconnected, but `shopify store auth
+--scopes read_products,write_products` + `shopify store execute` gives the identical Admin GraphQL
+API through the already-authenticated CLI session — no token typed or stored. `fix_mojibake.py`
+gained a `gql_via_cli()` fallback (dispatches here whenever `SHOPIFY_TOKEN` is unset) so the script
+now has two independent execution paths, not one blocked on a single connector.
+
+**Full dry-run (1,235 products) result — mostly a clean bill of health**:
+- **Mojibake: 0 found**, across every field, on every product. Either already fully resolved by
+  earlier phases, or never as widespread as feared. A negative result, reported as such rather than
+  reframed as a finding.
+- **Motu Patlu bestseller: already fixed.** Live-checked directly - `seo.title` already reads
+  `"Motu Patlu Designer Birthday Cake - Eggless | Meerut"`, matching the H1. `CLAUDE.md`'s "Live
+  defect #1" description of this product is now stale and should be updated.
+- **`title_mismatch()` flagged 73 candidates — manual review found 68 were false positives**: same
+  product, pre-existing messy title formatting (the raw `title` field itself already embeds
+  `"in Meerut-The Baking Kaur"`), not a Motu-Patlu-class wrong-product defect. Rebuilding these via
+  `build_title()` would have produced *worse* output (duplicated "Meerut" mentions) - correctly
+  **not applied**. 3 more were minor hamper-product wording differences, not defects. This is a real
+  calibration gap in `title_mismatch()` for real-world legacy-formatted titles (it assumes a clean
+  product name to compare against) - noted as a limitation, not silently patched over.
+- **1 genuinely ambiguous case, left untouched**: `a-touch-of-elegance-hamper`, product title
+  "Nutella Cookie Tin", `seo.title` "A Touch of Elegance Hamper" - no body content exists to
+  determine which name is correct. Flagged for a business/content decision, not guessed at.
+- **1 real, verified defect, fixed live**: `together-forever-couple-anniversary-cake` - a properly
+  named draft product whose own raw URL handle had leaked verbatim into `seo.title`,
+  `seo.description`, *and* the visible body copy ("...together-forever-couple-anniversary-cake is
+  finished individually by hand"). Fixed by replacing the handle with the real product title in all
+  three fields (surgical string replacement, not a rebuild - `seo.title` alone was rebuilt via
+  `build_title()` since that field needed full format compliance anyway). Applied via
+  `productUpdate`, zero `userErrors`, re-verified live byte-for-byte.
+
+**New defect class discovered, scoped, not fixed**: a quick catalogue-wide scan for "does the raw
+handle appear inside this product's own content" surfaced ~62 products (handles like `b2`, `ch76`)
+where `title` **is** the raw handle - these were never given a real product name at all. This is a
+content-authorship gap, not a repair task; inventing names for them would violate "never fabricate."
+Left entirely untouched, flagged for the business.
+
+**Bug fixed at the source while constructing the one real mutation**: `fix_seo_snippets.esc()`
+escaped backslashes and quotes but not literal newline characters - fine for every field this
+script had touched until now (titles, short descriptions), but `descriptionHtml` legitimately
+contains real embedded `\n` bytes inside `<ul>\n<li>` blocks, and an unescaped raw newline inside a
+GraphQL string literal is a syntax error. Fixed once in the shared function (all scripts importing
+`esc()` benefit), regression test added.
+
+**Verification**: live re-fetch of the fixed product confirms all three fields correct and nothing
+else disturbed; `test_fix_seo_snippets.py` and `test_fix_mojibake.py` both 0 failures after the
+`esc()` fix.
+
+**Net effect on "Live defect #1"**: functionally resolved. The mojibake sweep is clean, the named
+bestseller is already fixed, and the one real handle-leak instance the sweep actually surfaced is
+now fixed too. What remains open is two *new*, smaller, business-input-gated findings (1 ambiguous
+title, ~62 unnamed products) - not a continuation of the original defect.
+
 ## Related
 
 [AUDIT_LEDGER.md](AUDIT_LEDGER.md), [VERIFIED_ISSUES.md](VERIFIED_ISSUES.md).

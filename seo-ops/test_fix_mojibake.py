@@ -31,6 +31,19 @@ for original in ('…', '\u2019', '\u201c', '\u2014', '°'):
         chk(ok is True and out == original,
             'repairs depth-%d corruption of %r -> got %r' % (depth, original, out))
 
+# --- is_definitely_corrupted: must NOT flag ordinary legitimate copy as corrupted ---
+# Regression test for a real bug caught during the live dry-run: using looks_corrupted()
+# (the permissive "any non-ASCII" pre-filter) for the post-repair "still broken" signal
+# flagged every product with a real em-dash/curly quote as unrepairable - pure noise.
+real_copy = 'White Love Designer Anniversary Cake — completely eggless, made to order.'
+chk(m.is_definitely_corrupted(real_copy) is False,
+    'a real em-dash in legitimate copy is not flagged as corrupted')
+chk(m.is_definitely_corrupted('Simple clean text') is False, 'plain ASCII not flagged')
+chk(m.is_definitely_corrupted(corrupt_once('’')) is True,
+    'actual corruption is still flagged by the strict detector')
+chk(m.looks_corrupted(real_copy) is True,
+    'the permissive pre-filter DOES flag real em-dashes (by design - safety is in repair_mojibake, not here)')
+
 # --- repair inside a realistic sentence, not just a bare character ---
 sentence = 'Cake ' + '\u2014' + ' Eggless, made fresh'
 corrupted_sentence = corrupt_once(sentence)

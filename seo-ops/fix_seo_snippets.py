@@ -243,8 +243,17 @@ def build_desc(name: str, hook: str, price: float, sizes: int) -> str:
 
 
 def esc(value: str) -> str:
-    """GraphQL string literal."""
-    return '"' + value.replace("\\", "\\\\").replace('"', '\\"') + '"'
+    """GraphQL string literal.
+
+    Backslash must be escaped first (or its own escaping would double-escape the
+    backslashes just inserted for \\n/\\r/\\t). Titles/short descriptions never hit the
+    newline path until descriptionHtml (real body content, which legitimately contains
+    literal newlines inside e.g. <ul>\\n<li> blocks) started being sent here too - a raw
+    newline inside a GraphQL string literal is a syntax error, not just a formatting nit.
+    """
+    out = value.replace("\\", "\\\\").replace('"', '\\"')
+    out = out.replace("\n", "\\n").replace("\r", "\\r").replace("\t", "\\t")
+    return '"' + out + '"'
 
 
 def main() -> None:
