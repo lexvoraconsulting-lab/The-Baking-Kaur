@@ -1350,6 +1350,31 @@ raw handle, same pattern as the ~62 unnamed products found in Phase 7.6.
 Delivered a consolidated per-collection disposition table, root-cause analysis, and a recommended
 execution order (safest first) - explicitly not implemented. Ends with a request for approval.
 
+## 2026-08-01 — Phase 7.9: Enterprise Collection Architecture design (documentation only)
+
+**New doc**: `docs/ENTERPRISE_COLLECTION_ARCHITECTURE.md`. Documentation only, no production
+changes - explicit instruction, same governance as Phase 7.8.
+
+Where Phase 7.8 reconciled four contradictory historical audits against live data, this phase
+designs the permanent target architecture from scratch, treating that history as evidence only.
+Formalizes the three real axes already implicit in the live catalogue (Occasion primary, Theme
+secondary, Flavor filter-only) into a two-tier hierarchy with metafield-declared parent/child
+relationships (Shopify collections don't nest natively). Root-causes every broken/duplicate smart-
+collection rule found in Phase 7.8 to one pattern - title/type substring matching - and specifies
+the permanent fix: every rule keys on `product_type` (controlled vocabulary) and standardized tags
+(`occasion:*`/`theme:*`/`flavor:*`) instead. Covers navigation, breadcrumbs, internal linking, AI
+Search/GEO/AEO entity hierarchy (explicitly noting zero live effect while the password gate holds),
+Merchant Center category mapping (product-type-derived, no numeric taxonomy IDs invented per
+"never guess"), faceted navigation, URL/canonical strategy (no handle changes proposed - the
+existing deferred handle-optimization process is unchanged), and a proposed `classify_product.py`
+automation script following this project's own established dry-run/CSV/`--apply` convention.
+
+Delivers a 6-phase execution roadmap sequenced so every phase before the (business-gated,
+externally-dependent) duplicate-cluster resolution is additive or reversible, a priority matrix, a
+migration strategy with a built-in verification gate for smart-collection conversion (directly
+preventing a repeat of how the duplicate cluster was created in the first place), and a
+verification checklist. Ends on a request for approval; nothing implemented.
+
 ## Related
 
 [AUDIT_LEDGER.md](AUDIT_LEDGER.md), [VERIFIED_ISSUES.md](VERIFIED_ISSUES.md).
