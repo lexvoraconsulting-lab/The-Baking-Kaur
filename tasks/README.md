@@ -20,7 +20,7 @@ Lightweight work tracking for The Baking Kaur.
 
 ## Open — blueprint phases (see ../PROJECT_ROADMAP.md)
 
-- [ ] Promote **Phase A** (footer restore + schema dedup) from preview to the live theme.
+- [x] ~~Promote **Phase A** (footer restore + schema dedup) from preview to the live theme.~~ Stale — already promoted 2026-07-14 (commit `77861b3`), re-verified live 2026-07-31 (Phase 7.0) and again against the live theme this session. See `CLAUDE.md`'s "build track" section.
 - [ ] Act on the **collection audit** dispositions (redirects / merges / populate).
 - [ ] Phases **B–J**: design foundation, homepage build, collections redesign, header/footer, SEO/GEO completion, missing pages, performance (Lighthouse 95+, CWV), accessibility (WCAG 2.2 AA), analytics.
 
