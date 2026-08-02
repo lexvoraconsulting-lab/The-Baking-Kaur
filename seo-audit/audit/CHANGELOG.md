@@ -1299,6 +1299,24 @@ bestseller is already fixed, and the one real handle-leak instance the sweep act
 now fixed too. What remains open is two *new*, smaller, business-input-gated findings (1 ambiguous
 title, ~62 unnamed products) - not a continuation of the original defect.
 
+## 2026-08-01 — Phase 7.7: occasion-mismatch descriptions fixed, live (70 products)
+
+**Files**: `seo-ops/fix_description_occasion.py`, `test_fix_description_occasion.py` (refactored to
+use the shared `shopify_gql.gql()`/`fix_seo_snippets.esc()` rather than local duplicates - the
+local `esc()` had the exact same missing-newline bug already fixed once this phase in
+`fix_seo_snippets.py`; removing the duplicate means it can't regress independently a second time).
+New shared module: `seo-ops/shopify_gql.py` (extracted from `fix_mojibake.py`'s inline CLI-fallback
+code, now used by both scripts instead of being duplicated a third time).
+
+`CLAUDE.md`'s item #3: theme/flavour cake descriptions (e.g. "Strawberry Love Premium Cake")
+frequently had "anniversary"/"wedding" baked into the generated copy despite the product itself
+being neither - detection is zero-false-positive by construction (only flags when the description
+names an occasion the product's own title contradicts; real anniversary/wedding products keep the
+word in their title and are never touched). Dry run: 70 of 602 active products affected. Verified
+one sample's full diff before applying - confirmed only the occasion word changed (anniversary ->
+birthday, wedding -> birthday), nothing else in the description touched. Applied live in 9 batches
+of ≤8, zero `userErrors`. Re-scanned afterward: 0 remaining.
+
 ## Related
 
 [AUDIT_LEDGER.md](AUDIT_LEDGER.md), [VERIFIED_ISSUES.md](VERIFIED_ISSUES.md).

@@ -50,12 +50,9 @@ import sys
 import time
 from typing import Dict, Iterator, List, Optional, Tuple
 
-import requests
-
-STORE = os.environ.get("SHOPIFY_STORE", "")
-TOKEN = os.environ.get("SHOPIFY_TOKEN", "")
-API_VERSION = "2025-01"
-ENDPOINT = f"https://{STORE}/admin/api/{API_VERSION}/graphql.json"
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from shopify_gql import gql  # noqa: E402
+from fix_seo_snippets import esc  # noqa: E402
 
 BATCH = 8  # the HTTP layer gets unhappy well above ~15 aliased mutations
 
@@ -91,28 +88,6 @@ WEDDING_REPLACERS: List[Tuple[re.Pattern, str]] = [
 ]
 
 
-def gql(query: str, variables: Optional[Dict] = None, attempt: int = 1) -> Dict:
-    if not STORE or not TOKEN:
-        sys.exit("Set SHOPIFY_STORE and SHOPIFY_TOKEN environment variables.")
-    resp = requests.post(
-        ENDPOINT,
-        headers={"X-Shopify-Access-Token": TOKEN, "Content-Type": "application/json"},
-        json={"query": query, "variables": variables or {}},
-        timeout=60,
-    )
-    if resp.status_code == 429 and attempt <= 6:
-        time.sleep(2 ** attempt)
-        return gql(query, variables, attempt + 1)
-    resp.raise_for_status()
-    body = resp.json()
-    if "errors" in body:
-        if attempt <= 6:
-            time.sleep(2 ** attempt)
-            return gql(query, variables, attempt + 1)
-        raise RuntimeError(body["errors"])
-    return body["data"]
-
-
 def iter_active() -> Iterator[Dict]:
     cursor = None
     while True:
@@ -139,11 +114,6 @@ def plan_fix(title: str, desc: str) -> Optional[str]:
         for pat, repl in WEDDING_REPLACERS:
             new = pat.sub(repl, new)
     return new if new != desc else None
-
-
-def esc(value: str) -> str:
-    """GraphQL string literal - escape backslash and double quote."""
-    return '"' + value.replace("\\", "\\\\").replace('"', '\\"') + '"'
 
 
 def main() -> None:

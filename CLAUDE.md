@@ -72,8 +72,12 @@ plan — the ideas already agreed, in priority order. Sources: `PROJECT_ROADMAP.
    `sections/header-group.json`; no rating content exists in either. This item was carried in the
    roadmap after the underlying fix (`36e1b0c`) had already shipped — verify against the live theme
    before re-actioning stale roadmap items like this one.
-3. **Occasion mismatch in descriptions** — ~100+ products still labelled "anniversary" wrongly.
-   Tool is written: `seo-ops/fix_description_occasion.py` (dry-run → CSV → `--apply`).
+3. ~~Occasion mismatch in descriptions.~~ — **resolved 2026-08-01** (Phase 7.7,
+   `seo-ops/fix_description_occasion.py --apply`). 70 of 602 active products had "anniversary"/
+   "wedding" wrongly baked into the description (theme/flavour cakes, not real anniversary or
+   wedding products — titles confirmed the mismatch, so detection had zero false-positive risk).
+   Fixed live, re-scanned afterward: 0 remaining. Only the occasion word changed in each
+   description (verified via diff on a sample before applying); no other content touched.
 
 ### The build track (Phase A promoted; design tokens unlocked)
 

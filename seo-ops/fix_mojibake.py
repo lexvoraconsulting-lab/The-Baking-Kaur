@@ -57,62 +57,15 @@ USAGE
 """
 import argparse
 import csv
-import json
 import os
 import re
-import shutil
-import subprocess
 import sys
-import tempfile
-import time
 from typing import Dict, Iterator, List, Optional, Tuple
-
-import requests
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from title_utils import MOJI  # noqa: E402
 from fix_seo_snippets import build_title, esc  # noqa: E402
-
-STORE = os.environ.get("SHOPIFY_STORE", "")
-TOKEN = os.environ.get("SHOPIFY_TOKEN", "")
-API_VERSION = "2025-01"
-ENDPOINT = f"https://{STORE}/admin/api/{API_VERSION}/graphql.json"
-
-# Fallback path: when no SHOPIFY_TOKEN is set (e.g. the MCP connector is down and no Admin
-# API app token exists in this environment), fall back to the authenticated Shopify CLI's
-# `store execute` command, which runs the same Admin GraphQL API under `shopify store auth`'s
-# stored session - no token needs to be typed or stored by this script either way.
-CLI_STORE = os.environ.get("SHOPIFY_STORE_CLI", "ae86ba-2a.myshopify.com")
-
-
-def gql_via_cli(query: str, variables: Optional[Dict] = None) -> Dict:
-    query_path = var_path = None
-    try:
-        with tempfile.NamedTemporaryFile(
-            "w", suffix=".graphql", delete=False, encoding="utf-8"
-        ) as qf:
-            qf.write(query)
-            query_path = qf.name
-        shopify_bin = shutil.which("shopify") or "shopify"  # resolves .cmd shims on Windows
-        cmd = [shopify_bin, "store", "execute", "--store", CLI_STORE,
-               "--query-file", query_path, "--json"]
-        if query.strip().startswith("mutation"):
-            cmd.append("--allow-mutations")
-        if variables:
-            with tempfile.NamedTemporaryFile(
-                "w", suffix=".json", delete=False, encoding="utf-8"
-            ) as vf:
-                json.dump(variables, vf)
-                var_path = vf.name
-            cmd += ["--variable-file", var_path]
-        result = subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8")
-        if result.returncode != 0:
-            raise RuntimeError(f"shopify store execute failed: {result.stderr.strip()}")
-        return json.loads(result.stdout)
-    finally:
-        for p in (query_path, var_path):
-            if p and os.path.exists(p):
-                os.unlink(p)
+from shopify_gql import gql  # noqa: E402
 
 BATCH = 8  # HTTP/MCP layer gets unhappy well above ~15 aliased mutations
 MAX_REPAIR_ITERS = 5
@@ -145,33 +98,6 @@ MUTATION_LINE_DESC_HTML = (
     'p{i}: productUpdate(product: {{id: "{gid}", descriptionHtml: {html}}}) '
     "{{ product {{ id }} userErrors {{ field message }} }}"
 )
-
-
-def gql(query: str, variables: Optional[Dict] = None, attempt: int = 1) -> Dict:
-    if not TOKEN:
-        return gql_via_cli(query, variables)
-    if not STORE:
-        sys.exit("Set SHOPIFY_STORE and SHOPIFY_TOKEN environment variables.")
-    resp = requests.post(
-        ENDPOINT,
-        headers={"X-Shopify-Access-Token": TOKEN, "Content-Type": "application/json"},
-        json={"query": query, "variables": variables or {}},
-        timeout=60,
-    )
-    if resp.status_code == 429 and attempt <= 6:
-        time.sleep(2 ** attempt)
-        return gql(query, variables, attempt + 1)
-    resp.raise_for_status()
-    body = resp.json()
-    if "errors" in body:
-        if attempt <= 6:
-            time.sleep(2 ** attempt)
-            return gql(query, variables, attempt + 1)
-        raise RuntimeError(body["errors"])
-    cost = body.get("extensions", {}).get("cost", {})
-    if cost.get("throttleStatus", {}).get("currentlyAvailable", 1000) < 300:
-        time.sleep(1.5)
-    return body["data"]
 
 
 def iter_all_products() -> Iterator[Dict]:
