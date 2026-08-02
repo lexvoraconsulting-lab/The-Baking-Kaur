@@ -1,0 +1,27 @@
+{
+  "provider": "ollama",
+  "source_note": "Verified, not illustrative: Ollama is a local runtime with no per-token API billing, so $0 is a fact about the provider, not a looked-up rate card figure.",
+  "records": [
+    {
+      "provider": "ollama",
+      "model": "qwen2.5vl:3b",
+      "version": "local-1.0",
+      "effective_date": "2026-01-01",
+      "currency": "USD",
+      "input_price": {
+        "unit_price": 0.0,
+        "unit": "per_1m_tokens"
+      },
+      "output_price": {
+        "unit_price": 0.0,
+        "unit": "per_1m_tokens"
+      },
+      "categories": {
+        "image": {
+          "unit_price": 0.0,
+          "unit": "per_1m_tokens"
+        }
+      }
+    }
+  ]
+}

@@ -15,3 +15,6 @@ ai/vision/images/*
 !ai/vision/images/2.png
 !ai/vision/images/3.png
 !ai/vision/images/README.md
+
+# ai/pricing — the audit trail is runtime-generated, not source.
+ai/logs/*.jsonl

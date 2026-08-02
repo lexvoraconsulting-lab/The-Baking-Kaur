@@ -3,11 +3,20 @@ Vision pipeline orchestration: load image + prompt, call the configured
 provider, return a VisionResult carrying the response plus identity/version
 metadata every downstream module (embeddings, OCR, vector DB, Shopify sync,
 ERP, CRM, JARVIS) is expected to key off. See docs/AI/VisionPipeline.md.
+
+WHY THIS MODULE, NOT providers.py, IMPORTS ai.pricing
+  providers.py only knows how to call a specific vision backend; it has no
+  business constructing a cross-cutting TokenUsage/CostResult. This module
+  already orchestrates "provider response -> VisionResult" and is the
+  natural place to also do "provider response -> recorded, priced usage" -
+  see docs/AI/PricingService.md.
 """
 import hashlib
 from dataclasses import dataclass
+from datetime import UTC, datetime
 from pathlib import Path
 
+from ai.pricing import AuditEngine, CostResult, PricingService, TokenUsage
 from ai.vision.python.providers import get_provider
 
 _FALLBACK_PROMPT = """
@@ -40,6 +49,8 @@ class VisionResult:
     provider_name: str
     model: str
     response: str
+    token_usage: TokenUsage
+    cost: CostResult
 
 
 def compute_image_id(image_bytes: bytes) -> str:
@@ -68,7 +79,17 @@ def run_vision_pipeline(cfg: dict) -> VisionResult:
     image_bytes = image_path.read_bytes()
     prompt = _load_prompt(cfg["prompt_file"])
     provider = get_provider(cfg)
-    response = provider.analyze(image_bytes, prompt, timeout=cfg["provider"]["timeout"])
+    provider_response = provider.analyze(image_bytes, prompt, timeout=cfg["provider"]["timeout"])
+
+    usage = TokenUsage(
+        provider=cfg["provider"]["name"],
+        model=cfg["provider"]["model"],
+        input_tokens=provider_response.input_tokens,
+        output_tokens=provider_response.output_tokens,
+        recorded_at=datetime.now(UTC).isoformat(),
+    )
+    cost = PricingService().calculate_cost(usage)
+    AuditEngine().record(usage, cost)  # always records usage, even if cost is Pending
 
     return VisionResult(
         image_id=compute_image_id(image_bytes),
@@ -77,5 +98,7 @@ def run_vision_pipeline(cfg: dict) -> VisionResult:
         taxonomy_version=cfg["taxonomy_version"],
         provider_name=cfg["provider"]["name"],
         model=cfg["provider"]["model"],
-        response=response,
+        response=provider_response.text,
+        token_usage=usage,
+        cost=cost,
     )

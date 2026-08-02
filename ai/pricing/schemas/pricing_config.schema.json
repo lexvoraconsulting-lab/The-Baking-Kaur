@@ -1,0 +1,119 @@
+{
+  "$defs": {
+    "PriceComponentModel": {
+      "properties": {
+        "unit_price": {
+          "minimum": 0,
+          "title": "Unit Price",
+          "type": "number"
+        },
+        "unit": {
+          "default": "per_1m_tokens",
+          "enum": [
+            "per_token",
+            "per_1k_tokens",
+            "per_1m_tokens"
+          ],
+          "title": "Unit",
+          "type": "string"
+        }
+      },
+      "required": [
+        "unit_price"
+      ],
+      "title": "PriceComponentModel",
+      "type": "object"
+    },
+    "PricingRecordModel": {
+      "properties": {
+        "provider": {
+          "minLength": 1,
+          "title": "Provider",
+          "type": "string"
+        },
+        "model": {
+          "minLength": 1,
+          "title": "Model",
+          "type": "string"
+        },
+        "version": {
+          "minLength": 1,
+          "title": "Version",
+          "type": "string"
+        },
+        "effective_date": {
+          "minLength": 1,
+          "title": "Effective Date",
+          "type": "string"
+        },
+        "currency": {
+          "pattern": "^[A-Z]{3}$",
+          "title": "Currency",
+          "type": "string"
+        },
+        "input_price": {
+          "$ref": "#/$defs/PriceComponentModel"
+        },
+        "output_price": {
+          "$ref": "#/$defs/PriceComponentModel"
+        },
+        "categories": {
+          "additionalProperties": {
+            "$ref": "#/$defs/PriceComponentModel"
+          },
+          "title": "Categories",
+          "type": "object"
+        },
+        "pricing_id": {
+          "default": "",
+          "title": "Pricing Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "provider",
+        "model",
+        "version",
+        "effective_date",
+        "currency",
+        "input_price",
+        "output_price"
+      ],
+      "title": "PricingRecordModel",
+      "type": "object"
+    }
+  },
+  "description": "One ai/pricing/config/<provider>.json file: every historical + current\nrate-card entry for that provider, across all its models.",
+  "properties": {
+    "provider": {
+      "minLength": 1,
+      "title": "Provider",
+      "type": "string"
+    },
+    "records": {
+      "items": {
+        "$ref": "#/$defs/PricingRecordModel"
+      },
+      "title": "Records",
+      "type": "array"
+    },
+    "source_note": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Source Note"
+    }
+  },
+  "required": [
+    "provider",
+    "records"
+  ],
+  "title": "PricingConfigFileModel",
+  "type": "object"
+}

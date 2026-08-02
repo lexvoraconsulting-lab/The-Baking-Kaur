@@ -1,0 +1,48 @@
+{
+  "provider": "openai",
+  "source_note": "ILLUSTRATIVE STRUCTURE ONLY - unit_price figures are round placeholders demonstrating the record shape (multi-category pricing, dated versions), not verified against OpenAI's live pricing page. Confirm real rates before any --apply-equivalent cost calculation is trusted for real spend.",
+  "records": [
+    {
+      "provider": "openai",
+      "model": "gpt-4o",
+      "version": "example-2026-01",
+      "effective_date": "2026-01-01",
+      "currency": "USD",
+      "input_price": {
+        "unit_price": 2.5,
+        "unit": "per_1m_tokens"
+      },
+      "output_price": {
+        "unit_price": 10.0,
+        "unit": "per_1m_tokens"
+      },
+      "categories": {
+        "cached": {
+          "unit_price": 1.25,
+          "unit": "per_1m_tokens"
+        }
+      }
+    },
+    {
+      "provider": "openai",
+      "model": "gpt-4o-mini",
+      "version": "example-2026-01",
+      "effective_date": "2026-01-01",
+      "currency": "USD",
+      "input_price": {
+        "unit_price": 0.15,
+        "unit": "per_1m_tokens"
+      },
+      "output_price": {
+        "unit_price": 0.6,
+        "unit": "per_1m_tokens"
+      },
+      "categories": {
+        "cached": {
+          "unit_price": 0.075,
+          "unit": "per_1m_tokens"
+        }
+      }
+    }
+  ]
+}

@@ -35,6 +35,11 @@ def main():
     print("MODEL RESPONSE")
     print("========================\n")
     print(result.response)
+    print(f"\nTokens: {result.token_usage.input_tokens} in / {result.token_usage.output_tokens} out")
+    if result.cost.status == "calculated":
+        print(f"Cost: {result.cost.total_cost} {result.cost.currency}")
+    else:
+        print(f"Cost: pending ({result.cost.reason})")
 
 
 if __name__ == "__main__":

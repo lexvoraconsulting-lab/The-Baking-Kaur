@@ -1,0 +1,22 @@
+{
+  "provider": "openrouter",
+  "source_note": "ILLUSTRATIVE STRUCTURE ONLY - OpenRouter proxies many underlying models at marked-up rates that change frequently; this file demonstrates the record shape only. Confirm real rates via OpenRouter's own API/pricing page before any real cost calculation is trusted for real spend.",
+  "records": [
+    {
+      "provider": "openrouter",
+      "model": "openrouter/auto",
+      "version": "example-2026-01",
+      "effective_date": "2026-01-01",
+      "currency": "USD",
+      "input_price": {
+        "unit_price": 1.0,
+        "unit": "per_1m_tokens"
+      },
+      "output_price": {
+        "unit_price": 3.0,
+        "unit": "per_1m_tokens"
+      },
+      "categories": {}
+    }
+  ]
+}
