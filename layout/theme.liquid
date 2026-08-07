@@ -41,6 +41,14 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     {%- comment -%}
+      OPTIMIZATION #9: Preconnect to Shopify CDN
+      - Enables faster connection to Shopify image/asset CDN
+      - Expected gain: -50-100ms LCP
+    {%- endcomment -%}
+    <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+    <link rel="dns-prefetch" href="//cdn.shopify.com">
+
+    {%- comment -%}
       OPTIMIZATION: Defer Google Fonts CSS from render-blocking path
       - Use preload + onload to load font CSS asynchronously
       - Fonts download in parallel with page render, not sequentially
