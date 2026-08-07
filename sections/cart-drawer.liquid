@@ -71,6 +71,13 @@
           {%- endif -%}
         </div>
         <div class="hdt-mini-cart__bottom-wrap">
+          <div class="hdt-cart-drawer-discount hdt-mb-3">
+            <form method="POST" action="/cart/update.js" id="drawer-discount-form" accept-charset="UTF-8" class="hdt-flex hdt-gap-1 hdt-text-xs">
+              <input type="hidden" name="return_to" value="{{ request.path }}">
+              <input type="text" name="discount" placeholder="Discount code" aria-label="Discount code" class="hdt-flex-1 hdt-p-2 hdt-border hdt-rounded hdt-text-xs" maxlength="30">
+              <button type="submit" class="hdt-btn hdt-btn-solid hdt-px-2 hdt-py-2 hdt-text-xs hdt-font-medium hdt-rounded" disabled>Apply</button>
+            </form>
+          </div>
           {%- for block in section.blocks -%}
             {%- case block.type -%}
               {%- when 'subtotal' -%}

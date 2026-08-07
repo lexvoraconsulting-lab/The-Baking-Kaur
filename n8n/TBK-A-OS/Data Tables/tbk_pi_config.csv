@@ -1,0 +1,27 @@
+﻿id,config_key,config_group,config_value,value_type,taxonomy_version,status,notes,createdAt,updatedAt
+1,product_type,product,Cake,string,v1,active,Default product type,2026-08-04T17:29:05.206Z,2026-08-04T17:29:05.206Z
+2,product_category,product,Cakes,string,v1,active,Default category,2026-08-04T17:29:05.206Z,2026-08-04T17:29:05.206Z
+3,vendor,shopify,The Baking Kaur,string,v1,active,Shopify vendor,2026-08-04T17:29:05.206Z,2026-08-04T17:29:05.206Z
+4,google_product_category,shopify,"Food, Beverages & Tobacco > Food Items > Bakery > Cakes",string,v1,active,Google Merchant taxonomy,2026-08-04T17:29:05.206Z,2026-08-04T17:29:05.206Z
+5,default_status,shopify,draft,string,v1,active,Never auto-publish; BUILD-307 owns publish,2026-08-04T17:29:05.206Z,2026-08-04T17:29:05.206Z
+6,requires_shipping,shopify,true,boolean,v1,active,,2026-08-04T17:29:05.206Z,2026-08-04T17:29:05.206Z
+7,taxable,shopify,true,boolean,v1,active,,2026-08-04T17:29:05.206Z,2026-08-04T17:29:05.206Z
+8,gift_card,shopify,false,boolean,v1,active,,2026-08-04T17:29:05.206Z,2026-08-04T17:29:05.206Z
+9,occasions,product,"[""Birthday"",""Anniversary"",""Wedding"",""Baby Shower"",""Valentine"",""Congratulations"",""Custom""]",json,v1,active,Allowed occasion vocabulary for AI/derivation,2026-08-04T17:29:05.206Z,2026-08-04T17:29:05.206Z
+10,recipients,product,"[""Him"",""Her"",""Kids"",""Couple"",""Family"",""Colleague""]",json,v1,active,,2026-08-04T17:29:05.206Z,2026-08-04T17:29:05.206Z
+11,flavour_options,product,"[""Chocolate"",""Vanilla"",""Red Velvet"",""Butterscotch"",""Black Forest"",""Fresh Fruit"",""Coffee""]",json,v1,active,,2026-08-04T17:29:05.206Z,2026-08-04T17:29:05.206Z
+12,weight_options,product,"[""0.5 kg"",""1 kg"",""1.5 kg"",""2 kg"",""3 kg""]",json,v1,active,,2026-08-04T17:29:05.206Z,2026-08-04T17:29:05.206Z
+13,servings_per_kg,product,8,number,v1,active,Approx servings per kg for servings estimate,2026-08-04T17:29:05.206Z,2026-08-04T17:29:05.206Z
+14,eggless_available,product,true,boolean,v1,active,,2026-08-04T17:29:05.206Z,2026-08-04T17:29:05.206Z
+15,allergens_default,product,"[""Gluten"",""Dairy"",""Eggs"",""Nuts (may contain)""]",json,v1,active,,2026-08-04T17:29:05.206Z,2026-08-04T17:29:05.206Z
+16,storage,product,Refrigerate; best consumed within 24 hours,string,v1,active,,2026-08-04T17:29:05.206Z,2026-08-04T17:29:05.206Z
+17,preparation_time,product,24-48 hours,string,v1,active,,2026-08-04T17:29:05.206Z,2026-08-04T17:29:05.206Z
+18,delivery_type,product,"[""Standard"",""Same-Day"",""Midnight""]",json,v1,active,,2026-08-04T17:29:05.206Z,2026-08-04T17:29:05.206Z
+19,luxury_levels,product,"[""Everyday"",""Premium"",""Luxury"",""Signature""]",json,v1,active,,2026-08-04T17:29:05.206Z,2026-08-04T17:29:05.206Z
+20,site_base_url,seo,https://thebakingkaur.com,string,v1,active,For canonical URL + slug,2026-08-04T17:29:05.206Z,2026-08-04T17:29:05.206Z
+21,brand_name,seo,The Baking Kaur,string,v1,active,,2026-08-04T17:29:05.206Z,2026-08-04T17:29:05.206Z
+22,seo_model,ai,gpt-4o-mini,string,v1,active,OpenAI model for SEO copy,2026-08-04T17:29:05.206Z,2026-08-04T17:29:05.206Z
+23,ai_enabled,ai,true,boolean,v1,active,Toggle AI SEO generation without editing the workflow,2026-08-04T17:29:05.206Z,2026-08-04T17:29:05.206Z
+24,inventory_class,erp,FRESH_BAKERY,string,v1,active,,2026-08-04T17:29:05.206Z,2026-08-04T17:29:05.206Z
+25,pricing_group,erp,STANDARD,string,v1,active,,2026-08-04T17:29:05.206Z,2026-08-04T17:29:05.206Z
+26,production_category,erp,CUSTOM_CAKE,string,v1,active,,2026-08-04T17:29:05.206Z,2026-08-04T17:29:05.206Z

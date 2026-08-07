@@ -1,0 +1,645 @@
+{
+  "name": "TBK Vision Master Orchestrator",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "tbk-vision-batch-upload",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "d904a366-b7ef-4d71-99a4-564099c6bae2",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        192
+      ],
+      "webhookId": "46b12b53-5f1f-454b-8c9e-aab41a7d0c9b"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "has_batch",
+              "leftValue": "={{ $json.body.batch_id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "has_files",
+              "leftValue": "={{ $json.body.file_urls }}",
+              "rightValue": "",
+              "operator": {
+                "type": "array",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "a13f6878-9af4-4cce-b485-006dc6710ac9",
+      "name": "Validate Batch Input",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        224,
+        192
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "batch_id",
+              "name": "batch_id",
+              "value": "={{ $json.body.batch_id }}",
+              "type": "string"
+            },
+            {
+              "id": "source",
+              "name": "source",
+              "value": "={{ $json.body.source || \"api\" }}",
+              "type": "string"
+            },
+            {
+              "id": "execution_id",
+              "name": "execution_id",
+              "value": "={{ $execution.id }}",
+              "type": "string"
+            },
+            {
+              "id": "started_at",
+              "name": "started_at",
+              "value": "={{ $now.toISO() }}",
+              "type": "string"
+            },
+            {
+              "id": "file_count",
+              "name": "file_count",
+              "value": "={{ $json.body.file_urls.length }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "6651652c-74de-43cf-9786-d3ea1cb21d19",
+      "name": "Prepare Context",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        448,
+        96
+      ]
+    },
+    {
+      "parameters": {
+        "dataTableId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "NE6xl3sWlgkxVzWO",
+          "cachedResultName": "tbk_batches"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "batch_id": "={{ $json.batch_id }}",
+            "source": "={{ $json.source }}",
+            "file_count": "={{ $json.file_count }}",
+            "status": "processing",
+            "execution_id": "={{ $json.execution_id }}"
+          },
+          "schema": [
+            {
+              "id": "batch_id",
+              "displayName": "batch_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "source",
+              "displayName": "source",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "file_count",
+              "displayName": "file_count",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "execution_id",
+              "displayName": "execution_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "dc08e68e-4de4-4e16-9b86-dc5cd227dbd6",
+      "name": "Create Batch Record",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        672,
+        96
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const urls = $('Webhook').first().json.body.file_urls || [];\nconst ctx = $('Prepare Context').first().json;\nreturn urls.map(u => ({ json: { batch_id: ctx.batch_id, file_url: u, source: ctx.source } }));"
+      },
+      "id": "67dd7465-5129-494d-a6f4-6f3577bbff30",
+      "name": "Split Files",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        896,
+        96
+      ]
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "5hEH58XkAbd1wemJ",
+          "cachedResultName": "TBK Input & Validation"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "batch_id": "={{ $json.batch_id }}",
+            "file_url": "={{ $json.file_url }}",
+            "source": "={{ $json.source }}"
+          },
+          "schema": [
+            {
+              "id": "batch_id",
+              "displayName": "batch_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "file_url",
+              "displayName": "file_url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "source",
+              "displayName": "source",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ]
+        },
+        "mode": "each",
+        "options": {}
+      },
+      "id": "790c72e9-1146-4d80-a9d0-bb6a04b07cbe",
+      "name": "Validate Files",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.3,
+      "position": [
+        1120,
+        96
+      ]
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "K2oRedpVRGMoHgu4",
+          "cachedResultName": "TBK Audit Logger"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "image_id": "={{ $json.image_id }}",
+            "batch_id": "={{ $json.batch_id }}",
+            "stage": "02_validation",
+            "status": "={{ $json.status }}",
+            "latency_ms": 0
+          },
+          "schema": [
+            {
+              "id": "image_id",
+              "displayName": "image_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "batch_id",
+              "displayName": "batch_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "stage",
+              "displayName": "stage",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "latency_ms",
+              "displayName": "latency_ms",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            }
+          ]
+        },
+        "mode": "each",
+        "options": {}
+      },
+      "id": "e6e1ede1-255c-4f47-8613-35abeadc4c18",
+      "name": "Log Validation Audit",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.3,
+      "position": [
+        1344,
+        96
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const results = $('Validate Files').all().map(i => i.json);\nconst validated = results.filter(r => r.validated === true).length;\nconst rejected = results.length - validated;\nlet status = 'partial';\nif (validated === 0) { status = 'failed'; }\nelse if (rejected === 0) { status = 'success'; }\nconst ctx = $('Prepare Context').first().json;\nconst started = new Date(ctx.started_at).getTime();\nconst duration_ms = Date.now() - started;\nreturn [{ json: {\n  batch_id: ctx.batch_id,\n  status,\n  validated_count: validated,\n  rejected_count: rejected,\n  duration_ms\n} }];"
+      },
+      "id": "1d75fd74-21ac-41fd-86aa-c7dfd3d50050",
+      "name": "Aggregate Results",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1568,
+        96
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": []
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "id": "89a94534-0085-4c58-a458-4bd15a0df18b",
+      "name": "Future Stages: Qwen/SEO/Shopify",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1792,
+        96
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "NE6xl3sWlgkxVzWO",
+          "cachedResultName": "tbk_batches"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "batch_id",
+              "keyValue": "={{ $json.batch_id }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "status": "={{ $json.status }}",
+            "processed_count": "={{ $json.validated_count }}",
+            "error_count": "={{ $json.rejected_count }}",
+            "completed_at": "={{ $now.toISO() }}",
+            "duration_ms": "={{ $json.duration_ms }}"
+          },
+          "schema": [
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "processed_count",
+              "displayName": "processed_count",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "error_count",
+              "displayName": "error_count",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "completed_at",
+              "displayName": "completed_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "duration_ms",
+              "displayName": "duration_ms",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "4d2fd584-41ba-4a4b-82f2-0600b9ff0633",
+      "name": "Update Batch Record",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        2016,
+        96
+      ]
+    },
+    {
+      "parameters": {
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "",
+          "cachedResultName": "Select TBK pipeline channel"
+        },
+        "text": "=TBK batch {{ $(\"Aggregate Results\").first().json.batch_id }} finished — status: {{ $(\"Aggregate Results\").first().json.status }} | validated: {{ $(\"Aggregate Results\").first().json.validated_count }} | rejected: {{ $(\"Aggregate Results\").first().json.rejected_count }} | {{ $(\"Aggregate Results\").first().json.duration_ms }}ms",
+        "otherOptions": {}
+      },
+      "id": "779793ed-42e8-492c-962b-0daca1c56ed1",
+      "name": "Slack Batch Summary",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.5,
+      "position": [
+        2240,
+        0
+      ],
+      "executeOnce": true,
+      "webhookId": "0439b27c-7474-4ddb-bfe4-2c380852889e",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify($(\"Aggregate Results\").first().json) }}",
+        "options": {}
+      },
+      "id": "d5cf2900-4d6b-49de-8e1b-aa9abfc6ea08",
+      "name": "Respond Success",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        2240,
+        192
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({ validated: false, error: \"batch_id and a non-empty file_urls array are required\" }) }}",
+        "options": {
+          "responseCode": 400
+        }
+      },
+      "id": "1820fc3a-89c8-4c64-9f76-3ccaf30c63a2",
+      "name": "Respond Error",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        448,
+        288
+      ]
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Validate Batch Input",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validate Batch Input": {
+      "main": [
+        [
+          {
+            "node": "Prepare Context",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Respond Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Context": {
+      "main": [
+        [
+          {
+            "node": "Create Batch Record",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Batch Record": {
+      "main": [
+        [
+          {
+            "node": "Split Files",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Files": {
+      "main": [
+        [
+          {
+            "node": "Validate Files",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validate Files": {
+      "main": [
+        [
+          {
+            "node": "Log Validation Audit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Log Validation Audit": {
+      "main": [
+        [
+          {
+            "node": "Aggregate Results",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate Results": {
+      "main": [
+        [
+          {
+            "node": "Future Stages: Qwen/SEO/Shopify",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Future Stages: Qwen/SEO/Shopify": {
+      "main": [
+        [
+          {
+            "node": "Update Batch Record",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Batch Record": {
+      "main": [
+        [
+          {
+            "node": "Slack Batch Summary",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Respond Success",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "764ccdce-7abb-46d2-a563-a6bea99f3471",
+  "meta": {
+    "instanceId": "9acba552e049a19e69f51439fb1ace1512073f1e7a2cb7e135f6805cf39a5192"
+  },
+  "nodeGroups": [],
+  "id": "DFkCQLDSytQpdo5j",
+  "tags": []
+}

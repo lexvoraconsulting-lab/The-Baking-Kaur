@@ -1,0 +1,24 @@
+﻿id,synonym,canonical_id,attribute_type,match_type,confidence,taxonomy_version,status,createdAt,updatedAt
+1,butter cream,frost_buttercream,frosting_type,alias,0.95,v1,active,2026-08-04T16:57:29.268Z,2026-08-04T16:57:29.268Z
+2,buttercreme,frost_buttercream,frosting_type,spelling,0.9,v1,active,2026-08-04T16:57:29.268Z,2026-08-04T16:57:29.268Z
+3,bc,frost_buttercream,frosting_type,abbreviation,0.8,v1,active,2026-08-04T16:57:29.268Z,2026-08-04T16:57:29.268Z
+4,sugar paste,frost_fondant,frosting_type,synonym,0.9,v1,active,2026-08-04T16:57:29.268Z,2026-08-04T16:57:29.268Z
+5,rolled fondant,frost_fondant,frosting_type,alias,0.95,v1,active,2026-08-04T16:57:29.268Z,2026-08-04T16:57:29.268Z
+6,chocolate ganache,frost_ganache,frosting_type,alias,0.95,v1,active,2026-08-04T16:57:29.268Z,2026-08-04T16:57:29.268Z
+7,whipped,frost_whipped_cream,frosting_type,synonym,0.85,v1,active,2026-08-04T16:57:29.268Z,2026-08-04T16:57:29.268Z
+8,fresh cream,frost_whipped_cream,frosting_type,synonym,0.85,v1,active,2026-08-04T16:57:29.268Z,2026-08-04T16:57:29.268Z
+9,cream-cheese,frost_cream_cheese,frosting_type,spelling,0.9,v1,active,2026-08-04T16:57:29.268Z,2026-08-04T16:57:29.268Z
+10,off-white,color_white,color,synonym,0.85,v1,active,2026-08-04T16:57:29.268Z,2026-08-04T16:57:29.268Z
+11,ivory,color_white,color,synonym,0.85,v1,active,2026-08-04T16:57:29.268Z,2026-08-04T16:57:29.268Z
+12,rose,color_pink,color,synonym,0.8,v1,active,2026-08-04T16:57:29.268Z,2026-08-04T16:57:29.268Z
+13,crimson,color_red,color,synonym,0.85,v1,active,2026-08-04T16:57:29.268Z,2026-08-04T16:57:29.268Z
+14,brown,color_chocolate,color,synonym,0.8,v1,active,2026-08-04T16:57:29.268Z,2026-08-04T16:57:29.268Z
+15,golden,color_gold,color,spelling,0.85,v1,active,2026-08-04T16:57:29.268Z,2026-08-04T16:57:29.268Z
+16,floral,deco_flowers,decoration,synonym,0.9,v1,active,2026-08-04T16:57:29.268Z,2026-08-04T16:57:29.268Z
+17,flower,deco_flowers,decoration,spelling,0.95,v1,active,2026-08-04T16:57:29.268Z,2026-08-04T16:57:29.268Z
+18,sugar flowers,deco_flowers,decoration,alias,0.9,v1,active,2026-08-04T16:57:29.268Z,2026-08-04T16:57:29.268Z
+19,sprinkle,deco_sprinkles,decoration,spelling,0.95,v1,active,2026-08-04T16:57:29.268Z,2026-08-04T16:57:29.268Z
+20,jimmies,deco_sprinkles,decoration,synonym,0.85,v1,active,2026-08-04T16:57:29.268Z,2026-08-04T16:57:29.268Z
+21,berries,deco_fruit,decoration,synonym,0.85,v1,active,2026-08-04T16:57:29.268Z,2026-08-04T16:57:29.268Z
+22,lettering,deco_text,decoration,synonym,0.9,v1,active,2026-08-04T16:57:29.268Z,2026-08-04T16:57:29.268Z
+23,message,deco_text,decoration,synonym,0.8,v1,active,2026-08-04T16:57:29.268Z,2026-08-04T16:57:29.268Z

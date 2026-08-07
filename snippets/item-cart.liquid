@@ -38,6 +38,9 @@
                 <a href="{{ file }}" target="_blank">
                   <img src="{{ file }}?w=120"
                     alt="Uploaded image"
+                    width="70"
+                    height="70"
+                    loading="lazy"
                     style="width:70px;height:auto;border-radius:6px;border:1px solid #e5c3d1;"
                   >
                 </a>
@@ -72,7 +75,7 @@
           {%- endif -%}
         {%- endfor -%}
       </ul>
-<button type='button' style='display: none;' class='edit_cart_option btn btn--primary button' data-product_id='{{item.product_id}}' data-key='{{item.key}}' data-variant_id='{{item.variant_id}}' data-quantity='{{item.quantity}}'>Edit Options</button>
+<button type='button' class='edit_cart_option btn btn--primary button' data-product_id='{{item.product_id}}' data-key='{{item.key}}' data-variant_id='{{item.variant_id}}' data-quantity='{{item.quantity}}'>Edit Options</button>
     {%- endif -%}
     {%- if item.line_level_discount_allocations.size != 0 -%}
       <ul class="hdt-discounts hdt-mini-cart__discount-price hdt-s-text2 hdt-font-normal hdt-cart_discounts">

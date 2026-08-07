@@ -1,0 +1,1248 @@
+{%- comment -%}
+  sections/tbk-header.liquid
+  The Baking Kaur — Design System Header v4
+  Desktop: [Burger | Logo] [     Search     ] [Wishlist | Account | Cart]
+  Mobile:  [Burger | Logo | Wishlist | Account | Cart] + [Full-width search row]
+{%- endcomment -%}
+
+{%- assign s      = section.settings -%}
+{%- assign sid    = section.id -%}
+{%- assign nav    = linklists[s.main_menu] -%}
+{%- assign logo2x = s.logo_width | times: 2 -%}
+
+{%- comment -%}
+  Mobile search row: border(1) + pt(10) + field(48) + pb(12) = 71 px → reserve 72
+{%- endcomment -%}
+{%- assign search_row_h = 72 -%}
+
+{%- style -%}
+  :root {
+    --tbk-hdr-h:    {{ s.header_height }}px;
+    --tbk-hdr-h-mb: {{ s.mobile_header_height }}px;
+    --tbk-srch-row: {{ search_row_h }}px;
+  }
+  @media (max-width: 1023px) {
+    #tbk-spacer-{{ sid }} {
+      height: calc(var(--tbk-hdr-h-mb) + var(--tbk-srch-row)) !important;
+    }
+  }
+{%- endstyle -%}
+
+{%- render 'tbk-tokens' -%}
+
+<style>
+  /* ── Merchant-customisable overrides (from schema settings) ── */
+  #tbk-hdr-{{ sid }} {
+  --c-bg: var(--tbk-surface);
+  --c-fg: var(--tbk-ink);
+  --c-border: var(--tbk-border);
+  font-family: var(--tbk-font-ui);
+}
+
+  /* ── Scoped reset ── */
+  #tbk-hdr-{{ sid }} *, #tbk-drawer-{{ sid }} * { box-sizing: border-box; }
+  #tbk-hdr-{{ sid }} a { color: inherit; text-decoration: none; }
+  #tbk-hdr-{{ sid }} button,
+  #tbk-drawer-{{ sid }} button {
+    font: inherit; cursor: pointer;
+    border: 0; background: none; padding: 0; color: inherit;
+  }
+  #tbk-hdr-{{ sid }} ul, #tbk-hdr-{{ sid }} li,
+  #tbk-drawer-{{ sid }} ul, #tbk-drawer-{{ sid }} li {
+    list-style: none; margin: 0; padding: 0;
+  }
+  #tbk-hdr-{{ sid }} svg, #tbk-drawer-{{ sid }} svg { display: block; }
+  #tbk-hdr-{{ sid }} img, #tbk-drawer-{{ sid }} img { display: block; }
+
+  /* ── Spacer — holds document flow before JS runs ── */
+  .tbk-hdr-spacer { display: block; width: 100%; }
+
+  /* ══ STICKY WRAPPER ══════════════════════════════════════════ */
+  .tbk-hdr-sticky-always .tbk-hdr-fixed,
+  .tbk-hdr-sticky-scroll_up .tbk-hdr-fixed {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: var(--tbk-z-hdr);
+    will-change: transform;
+    transition:
+      transform   0.30s var(--tbk-ease),
+      box-shadow  0.28s var(--tbk-ease);
+  }
+  #tbk-hdr-{{ sid }}.tbk-hdr-scrolled .tbk-hdr-fixed {
+   box-shadow:
+0 4px 20px rgba(35,25,15,.08);
+  }
+  .tbk-hdr-sticky-scroll_up.tbk-hdr-hidden .tbk-hdr-fixed {
+    transform: translateY(-100%);
+    box-shadow: none !important;
+  }
+
+  /* ══ BAR SHELL ═══════════════════════════════════════════════ */
+  #tbk-hdr-{{ sid }} .tbk-hdr-bar {
+    background: var(--tbk-surface);
+   border-bottom:1px solid rgba(25,25,25,.06);
+    color: var(--c-fg);
+    width: 100%;
+  }
+
+  /* ══ INNER CONTAINER ═════════════════════════════════════════ */
+  #tbk-hdr-{{ sid }} .tbk-hdr-inner {
+    max-width: {{ s.container_width }}px;
+    margin: 0 auto;
+    padding:0 48px;
+    height: var(--tbk-hdr-h);
+    display: flex;
+    align-items: center;
+   gap:40px;
+  }
+  @media (max-width: 1023px) {
+    #tbk-hdr-{{ sid }} .tbk-hdr-inner {
+      height: var(--tbk-hdr-h-mb);
+      padding: 0 var(--tbk-sp-4);
+      gap: var(--tbk-sp-3);
+    }
+  }
+
+  /* ══ UNIVERSAL ICON BUTTON ═══════════════════════════════════ */
+  #tbk-hdr-{{ sid }} .tbk-btn-icon {
+    width:  var(--tbk-touch);
+    height: var(--tbk-touch);
+    border-radius: var(--tbk-r-md);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    position: relative;
+    color: var(--c-fg);
+    transition:
+      color       var(--tbk-dur-fast) var(--tbk-ease),
+      background  var(--tbk-dur-fast) var(--tbk-ease);
+  }
+  #tbk-hdr-{{ sid }} .tbk-btn-icon:hover {
+    color: var(--tbk-pink);
+    background: var(--tbk-tint-1);
+  }
+  #tbk-hdr-{{ sid }} .tbk-btn-icon svg {
+    width:  var(--tbk-icon-base);
+    height: var(--tbk-icon-base);
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    pointer-events: none;
+  }
+
+  /* ══ LEFT: BURGER + LOGO ═════════════════════════════════════ */
+  #tbk-hdr-{{ sid }} .tbk-hdr-left {
+    display: flex;
+    align-items: center;
+    gap: var(--tbk-sp-3);
+    flex: 0 0 auto;
+  }
+  @media (max-width: 1023px) {
+    #tbk-hdr-{{ sid }} .tbk-hdr-left { gap: var(--tbk-sp-2); }
+  }
+
+  /* Burger */
+  #tbk-hdr-{{ sid }} .tbk-hdr-burger { border-radius: var(--tbk-r-sm); }
+  #tbk-hdr-{{ sid }} .tbk-hdr-burger svg {
+    width: 20px; height: 14px;
+    stroke-width: 2;
+  }
+
+  /* Logo */
+ #tbk-hdr-{{ sid }} .tbk-hdr-logo {
+      display: flex;
+    align-items: center;
+    gap: 14px;
+    text-decoration: none;
+    flex: 0 0 auto;
+    transition: opacity var(--tbk-dur-fast) var(--tbk-ease);
+}
+}
+  #tbk-hdr-{{ sid }} .tbk-hdr-logo:hover { opacity: 0.84; }
+
+  #tbk-hdr-{{ sid }} .tbk-hdr-logo img {
+    width: {{ s.logo_width }}px;
+    height: auto;
+    object-fit: contain;
+  }
+  #tbk-hdr-{{ sid }} .tbk-hdr-logo-text{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+}
+  @media (max-width: 1023px) {
+    #tbk-hdr-{{ sid }} .tbk-hdr-logo img { #tbk-hdr-{{ sid }} .tbk-hdr-logo-text{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    line-height:1;
+}}
+  }
+
+  #tbk-hdr-{{ sid }} #tbk-hdr-{{ sid }} .tbk-hdr-logo-name{
+    font-family: var(--tbk-font-display);
+    font-weight: 400;
+    font-size: 44px;
+    color: #C81E63;
+    line-height: .92;
+    letter-spacing: .2px;
+    white-space: nowrap;
+}
+
+  #tbk-hdr-{{ sid }} #tbk-hdr-{{ sid }} .tbk-hdr-logo-tag{
+    font-family: var(--tbk-font-ui);
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 2.4px;
+    text-transform: uppercase;
+    color: #7A6D66;
+    margin-top: 3px;
+    white-space: nowrap;
+}
+ @media (max-width:1023px){
+
+    #tbk-hdr-{{ sid }} .tbk-hdr-logo-text{
+        display:none;
+    }
+
+} {
+    #tbk-hdr-{{ sid }} .tbk-hdr-logo-tag { display: none; }
+  }
+
+  /* ══ CENTER: SEARCH (desktop only) ══════════════════════════ */
+  #tbk-hdr-{{ sid }} .tbk-hdr-center {
+    flex: 1 1 auto;
+    min-width: 0;
+    max-width: 720px;
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  @media (max-width: 1023px) {
+    #tbk-hdr-{{ sid }} .tbk-hdr-center { display: none; }
+  }
+
+  /* ── Search wrap ── */
+  #tbk-hdr-{{ sid }} .tbk-search-wrap { position: relative; width: 100%; }
+
+  /* ── Search pill ── */
+  #tbk-hdr-{{ sid }} .tbk-search-field {
+    display: flex;
+    align-items: center;
+    height: var(--tbk-search-h);
+    background: var(--tbk-surface-el);
+    border: 1.5px solid var(--tbk-border-subtle);
+    border-radius: var(--tbk-r-full);
+    padding: 0 var(--tbk-sp-2) 0 var(--tbk-sp-5);
+    gap: var(--tbk-sp-3);
+    cursor: text;
+    transition:
+      border-color  var(--tbk-dur-base) var(--tbk-ease),
+      box-shadow    var(--tbk-dur-base) var(--tbk-ease),
+      background    var(--tbk-dur-base) var(--tbk-ease);
+  }
+  #tbk-hdr-{{ sid }} .tbk-search-field:hover {
+    border-color: var(--tbk-border);
+    background: var(--tbk-surface-el);
+  }
+  #tbk-hdr-{{ sid }} .tbk-search-field:focus-within {
+    border-color: var(--tbk-pink);
+    background: var(--tbk-surface-el);
+   box-shadow:
+0 0 0 4px rgba(192,20,87,.08);
+  }
+
+  /* Glass icon (left inside pill) */
+  #tbk-hdr-{{ sid }} .tbk-search-field .s-ico {
+    width: var(--tbk-icon-base);
+    height: var(--tbk-icon-base);
+    flex: 0 0 auto;
+    fill: none;
+    stroke: var(--tbk-muted-light);
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    pointer-events: none;
+    transition: stroke var(--tbk-dur-fast) var(--tbk-ease);
+  }
+  #tbk-hdr-{{ sid }} .tbk-search-field:focus-within .s-ico { stroke: var(--tbk-pink); }
+
+  /* Input */
+  #tbk-hdr-{{ sid }} .tbk-search-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-family: var(--tbk-font-ui);
+    font-size: var(--tbk-text-base);
+    font-weight: 400;
+    color: var(--tbk-ink);
+    min-width: 0;
+    letter-spacing: 0.15px;
+  }
+  #tbk-hdr-{{ sid }} .tbk-search-input::placeholder {
+    color: var(--tbk-muted-light);
+    font-weight: 400;
+  }
+
+  /* Submit (right inside pill) */
+  #tbk-hdr-{{ sid }} .tbk-search-submit {
+    flex: 0 0 auto;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--tbk-pink);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition:
+      background  var(--tbk-dur-fast) var(--tbk-ease),
+      transform   var(--tbk-dur-fast) var(--tbk-ease-spring);
+  }
+  #tbk-hdr-{{ sid }} .tbk-search-submit:hover {
+    background: var(--tbk-pink-mid);
+    transform: scale(1.08);
+  }
+  #tbk-hdr-{{ sid }} .tbk-search-submit:active { transform: scale(0.94); }
+  #tbk-hdr-{{ sid }} .tbk-search-submit svg {
+    width: 15px; height: 15px;
+    fill: none;
+    stroke: #fff;
+    stroke-width: 2.2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  /* ══ PREDICTIVE DROPDOWN ═════════════════════════════════════ */
+  #tbk-hdr-{{ sid }} .tbk-search-drop {
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 0; right: 0;
+    background: var(--tbk-surface-el);
+    border-radius: var(--tbk-r-xl);
+    border: 1px solid var(--tbk-border);
+    box-shadow:0 4px 20px rgba(0,0,0,.06);
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-6px);
+    transition:
+      opacity    var(--tbk-dur-base) var(--tbk-ease),
+      transform  var(--tbk-dur-base) var(--tbk-ease),
+      visibility var(--tbk-dur-base);
+    z-index: 300;
+  }
+  #tbk-hdr-{{ sid }} .tbk-search-drop.is-open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  #tbk-hdr-{{ sid }} .tbk-drop-list { padding: var(--tbk-sp-2); }
+
+  #tbk-hdr-{{ sid }} .tbk-drop-item {
+    display: flex;
+    align-items: center;
+    gap: var(--tbk-sp-3);
+    padding: 10px var(--tbk-sp-3);
+    border-radius: var(--tbk-r-md);
+    text-decoration: none;
+    color: var(--tbk-ink);
+    transition: background var(--tbk-dur-fast) var(--tbk-ease);
+    cursor: pointer;
+  }
+  #tbk-hdr-{{ sid }} .tbk-drop-item:hover { background: var(--tbk-tint-1); }
+
+  #tbk-hdr-{{ sid }} .tbk-drop-thumb {
+    width: 52px; height: 52px;
+    border-radius: var(--tbk-r-md);
+    object-fit: cover;
+    flex: 0 0 auto;
+    background: var(--tbk-tint-1);
+  }
+  #tbk-hdr-{{ sid }} .tbk-drop-thumb-ph {
+    width: 52px; height: 52px;
+    border-radius: var(--tbk-r-md);
+    background: var(--tbk-tint-1);
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--tbk-border-strong);
+  }
+  #tbk-hdr-{{ sid }} .tbk-drop-thumb-ph svg {
+    width: 22px; height: 22px;
+    fill: currentColor; stroke: none;
+  }
+
+  #tbk-hdr-{{ sid }} .tbk-drop-info { flex: 1; min-width: 0; }
+  #tbk-hdr-{{ sid }} .tbk-drop-name {
+    font-size: var(--tbk-text-sm);
+    font-weight: 600;
+    color: var(--tbk-ink);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.3;
+  }
+  #tbk-hdr-{{ sid }} .tbk-drop-price {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--tbk-gold);
+    margin-top: 3px;
+    letter-spacing: 0.2px;
+  }
+
+  #tbk-hdr-{{ sid }} .tbk-drop-footer {
+    display: flex;
+    align-items: center;
+    gap: var(--tbk-sp-2);
+    padding: var(--tbk-sp-3) var(--tbk-sp-5);
+    border-top: 1px solid var(--tbk-border);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--tbk-pink);
+    text-decoration: none;
+    transition: background var(--tbk-dur-fast) var(--tbk-ease);
+  }
+  #tbk-hdr-{{ sid }} .tbk-drop-footer:hover { background: var(--tbk-tint-1); }
+  #tbk-hdr-{{ sid }} .tbk-drop-footer svg {
+    width: 13px; height: 13px;
+    fill: none; stroke: currentColor;
+    stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+  }
+  #tbk-hdr-{{ sid }} .tbk-drop-empty {
+    padding: 20px var(--tbk-sp-5);
+    font-size: var(--tbk-text-sm);
+    color: var(--tbk-muted);
+    text-align: center;
+  }
+
+  /* ══ RIGHT: ICON CLUSTER ═════════════════════════════════════ */
+  #tbk-hdr-{{ sid }} .tbk-hdr-right {
+    display: flex;
+    align-items: center;
+    gap: var(--tbk-sp-2);
+    flex: 0 0 auto;
+    margin-left: auto;
+  }
+  @media (max-width: 1023px) {
+    #tbk-hdr-{{ sid }} .tbk-hdr-right { gap: var(--tbk-sp-1); }
+  }
+
+  /* Cart badge */
+  #tbk-hdr-{{ sid }} .tbk-hdr-badge {
+    position: absolute;
+    top: 4px; right: 2px;
+    min-width: 16px; height: 16px;
+    border-radius: 8px;
+    padding: 0 3.5px;
+    background: var(--tbk-pink);
+    color: #fff;
+    font-size: 9px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    pointer-events: none;
+    border: 1.5px solid var(--c-bg);
+    transition: transform 0.24s var(--tbk-ease-spring);
+  }
+  #tbk-hdr-{{ sid }} .tbk-hdr-badge[data-count="0"] { transform: scale(0); }
+
+  /* ══ MOBILE SEARCH ROW ═══════════════════════════════════════ */
+  #tbk-hdr-{{ sid }} .tbk-hdr-mob-search {
+    display: none;
+   border:1px solid var(--tbk-border);
+    border-top: 1px solid var(--c-border);
+    padding: 10px var(--tbk-sp-4) 12px;
+  }
+  #tbk-hdr-{{ sid }} .tbk-hdr-mob-search form { position: relative; }
+  @media (max-width: 1023px) {
+    #tbk-hdr-{{ sid }} .tbk-hdr-mob-search { display: block; }
+    #tbk-hdr-{{ sid }} .tbk-hdr-mob-search .tbk-search-field {
+      height: var(--tbk-search-h-mb);
+    }
+  }
+
+  /* ══ DRAWER ══════════════════════════════════════════════════ */
+  #tbk-drawer-{{ sid }} {
+    position: fixed;
+    inset: 0;
+    z-index: var(--tbk-z-drawer);
+    pointer-events: none;
+  }
+  #tbk-drawer-{{ sid }}.is-open { pointer-events: auto; }
+
+  /* Overlay */
+  #tbk-drawer-{{ sid }} .tbk-drawer-ov {
+    position: absolute;
+    inset: 0;
+    background: rgba(26, 8, 16, 0.62);
+    backdrop-filter: blur(3px);
+    opacity: 0;
+    transition: opacity var(--tbk-dur-drawer) var(--tbk-ease);
+  }
+  #tbk-drawer-{{ sid }}.is-open .tbk-drawer-ov { opacity: 1; }
+
+  /* Panel */
+  #tbk-drawer-{{ sid }} .tbk-drawer-panel {
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: min(340px, 90vw);
+    background: var(--tbk-surface);
+    transform: translateX(-100%);
+    transition: transform var(--tbk-dur-drawer) var(--tbk-ease);
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    box-shadow: var(--tbk-shadow-lg);
+  }
+  #tbk-drawer-{{ sid }}.is-open .tbk-drawer-panel { transform: translateX(0); }
+
+  /* Drawer head */
+  #tbk-drawer-{{ sid }} .tbk-drawer-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--tbk-sp-5) var(--tbk-sp-5) var(--tbk-sp-4);
+    border-bottom: 1px solid var(--tbk-border);
+    flex: 0 0 auto;
+  }
+  #tbk-drawer-{{ sid }} .tbk-drawer-brand {
+    display: flex;
+    align-items: center;
+    gap: var(--tbk-sp-3);
+  }
+  #tbk-drawer-{{ sid }} .tbk-drawer-brand img {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    object-fit: contain;
+    flex: 0 0 auto;
+  }
+  #tbk-drawer-{{ sid }} .tbk-drawer-brand .nm {
+    font-family: var(--tbk-font-display);
+    font-weight: 800;
+    font-size: 15px;
+    color: var(--tbk-pink);
+    line-height: 1.2;
+  }
+  #tbk-drawer-{{ sid }} .tbk-drawer-brand .tg {
+    font-family: var(--tbk-font-ui);
+    font-size: var(--tbk-text-2xs);
+    letter-spacing: 2.2px;
+    text-transform: uppercase;
+    color: var(--tbk-muted);
+    margin-top: 2px;
+    line-height: 1;
+  }
+  #tbk-drawer-{{ sid }} .tbk-drawer-close {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: var(--tbk-tint-1);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--tbk-pink);
+    flex: 0 0 auto;
+    transition: background var(--tbk-dur-fast) var(--tbk-ease);
+  }
+  #tbk-drawer-{{ sid }} .tbk-drawer-close:hover { background: var(--tbk-tint-2); }
+  #tbk-drawer-{{ sid }} .tbk-drawer-close svg {
+    width: 11px; height: 11px;
+    fill: currentColor; stroke: none;
+  }
+
+  /* Nav */
+  #tbk-drawer-{{ sid }} .tbk-drawer-nav { flex: 1 1 auto; padding: var(--tbk-sp-2) 0; }
+  #tbk-drawer-{{ sid }} .tbk-mob-item { border-bottom: 1px solid rgba(237,216,227,0.5); }
+
+  #tbk-drawer-{{ sid }} .tbk-mob-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px var(--tbk-sp-5);
+    font-size: var(--tbk-text-base);
+    font-weight: 600;
+    color: var(--tbk-ink);
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+      color       var(--tbk-dur-fast) var(--tbk-ease),
+      background  var(--tbk-dur-fast) var(--tbk-ease);
+  }
+  #tbk-drawer-{{ sid }} .tbk-mob-link:hover {
+    color: var(--tbk-pink);
+    background: var(--tbk-tint-1);
+  }
+  #tbk-drawer-{{ sid }} details[open] > .tbk-mob-link { color: var(--tbk-pink); }
+  #tbk-drawer-{{ sid }} details[open] > .tbk-mob-link svg { transform: rotate(180deg); }
+  #tbk-drawer-{{ sid }} .tbk-mob-link svg {
+    width: 14px; height: 14px;
+    fill: none; stroke: currentColor;
+    stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+    transition: transform var(--tbk-dur-base) var(--tbk-ease);
+    flex: 0 0 auto;
+  }
+
+  #tbk-drawer-{{ sid }} .tbk-mob-sub { background: var(--tbk-tint-1); padding: 4px 0; }
+  #tbk-drawer-{{ sid }} .tbk-mob-sub a {
+    display: block;
+    padding: 12px var(--tbk-sp-5) 12px 38px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--tbk-ink-soft);
+    text-decoration: none;
+    transition:
+      color       var(--tbk-dur-fast) var(--tbk-ease),
+      background  var(--tbk-dur-fast) var(--tbk-ease);
+  }
+  #tbk-drawer-{{ sid }} .tbk-mob-sub a:hover { color: var(--tbk-pink); background: var(--tbk-tint-2); }
+
+  /* Footer */
+  #tbk-drawer-{{ sid }} .tbk-drawer-foot {
+    flex: 0 0 auto;
+    padding: var(--tbk-sp-5);
+    border-top: 1px solid var(--tbk-border);
+    display: flex;
+    flex-direction: column;
+    gap: var(--tbk-sp-3);
+  }
+  #tbk-drawer-{{ sid }} .tbk-foot-row {
+    display: flex;
+    align-items: center;
+    gap: var(--tbk-sp-3);
+    font-size: var(--tbk-text-sm);
+    font-weight: 500;
+    color: var(--tbk-muted);
+  }
+  #tbk-drawer-{{ sid }} .tbk-foot-row svg {
+    width: var(--tbk-icon-xs); height: var(--tbk-icon-xs);
+    fill: none; stroke: currentColor;
+    stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+    flex: 0 0 auto;
+  }
+  #tbk-drawer-{{ sid }} .tbk-foot-row a {
+    color: var(--tbk-ink-soft);
+    text-decoration: none;
+    transition: color var(--tbk-dur-fast) var(--tbk-ease);
+  }
+  #tbk-drawer-{{ sid }} .tbk-foot-row a:hover { color: var(--tbk-pink); }
+
+  #tbk-drawer-{{ sid }} .tbk-drawer-socials {
+    display: flex;
+    gap: var(--tbk-sp-2);
+    margin-top: var(--tbk-sp-1);
+  }
+  #tbk-drawer-{{ sid }} .tbk-drawer-socials a {
+    width: var(--tbk-touch); height: var(--tbk-touch);
+    border-radius: var(--tbk-r-md);
+    background: var(--tbk-tint-1);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--tbk-pink);
+    text-decoration: none;
+    transition: background var(--tbk-dur-fast) var(--tbk-ease);
+  }
+  #tbk-drawer-{{ sid }} .tbk-drawer-socials a:hover { background: var(--tbk-tint-2); }
+  #tbk-drawer-{{ sid }} .tbk-drawer-socials svg {
+    width: 18px; height: 18px;
+    fill: currentColor; stroke: none;
+  }
+
+  /* ══ ACCESSIBILITY ═══════════════════════════════════════════ */
+  #tbk-hdr-{{ sid }} :focus-visible,
+  #tbk-drawer-{{ sid }} :focus-visible {
+    outline: 2px solid var(--tbk-pink);
+    outline-offset: 3px;
+    border-radius: var(--tbk-r-sm);
+  }
+</style>
+
+{%- comment -%} CLS spacer — height = header + search row (on mobile) {%- endcomment -%}
+{%- if s.sticky_type != 'none' -%}
+  <div class="tbk-hdr-spacer"
+       id="tbk-spacer-{{ sid }}"
+       aria-hidden="true"
+       style="height: {{ s.header_height }}px"></div>
+{%- endif -%}
+
+<div id="tbk-hdr-{{ sid }}" class="tbk-hdr-sticky-{{ s.sticky_type }}">
+  <div class="tbk-hdr-fixed" role="banner">
+    <div class="tbk-hdr-bar">
+
+      {%- comment -%} ── MAIN ROW ── {%- endcomment -%}
+      <div class="tbk-hdr-inner">
+
+        {%- comment -%} LEFT: burger + logo {%- endcomment -%}
+        <div class="tbk-hdr-left">
+
+          <button class="tbk-btn-icon tbk-hdr-burger"
+                  aria-controls="tbk-drawer-{{ sid }}"
+                  aria-expanded="false"
+                  aria-label="{{ 'general.accessibility.nav_menu' | t | default: 'Open menu' }}">
+            <svg viewBox="0 0 20 14" fill="none" aria-hidden="true">
+              <line x1="0" y1="1"  x2="20" y2="1"/>
+              <line x1="0" y1="7"  x2="20" y2="7"/>
+              <line x1="0" y1="13" x2="20" y2="13"/>
+            </svg>
+          </button>
+
+      <a href="{{ routes.root_url }}"
+   class="tbk-hdr-logo"
+   aria-label="{{ shop.name }}">
+
+  {% if s.logo %}
+    <img
+      src="{{ s.logo | image_url: width: logo2x }}"
+      width="{{ s.logo_width }}"
+      height="auto"
+      alt="{{ shop.name }}"
+      loading="eager"
+      fetchpriority="high">
+  {% endif %}
+
+  <div class="tbk-hdr-logo-text">
+
+      <div class="tbk-hdr-logo-name">
+          {{ s.logo_text | default: shop.name }}
+      </div>
+
+      {% if s.logo_tagline != blank %}
+          <div class="tbk-hdr-logo-tag">
+              {{ s.logo_tagline }}
+          </div>
+      {% endif %}
+
+  </div>
+
+</a>
+
+        </div>
+
+        {%- comment -%} CENTER: inline search (desktop) {%- endcomment -%}
+        {%- if s.show_search -%}
+          <div class="tbk-hdr-center">
+            <div class="tbk-search-wrap" id="tbk-sdsk-{{ sid }}">
+              <form action="{{ routes.search_url }}" method="get" role="search" autocomplete="off">
+                <input type="hidden" name="type" value="product">
+                <div class="tbk-search-field">
+                  <svg class="s-ico" viewBox="0 0 24 24" aria-hidden="true">
+                    <circle cx="11" cy="11" r="7"/>
+                    <path d="m21 21-4.35-4.35"/>
+                  </svg>
+                  <input class="tbk-search-input"
+                         id="tbk-search-input-desk-{{ sid }}"
+                         type="search"
+                         name="q"
+                         placeholder="{{ s.search_placeholder | default: 'Find your perfect cake…' }}"
+                         autocomplete="off"
+                         autocorrect="off"
+                         spellcheck="false"
+                         aria-label="{{ 'general.search.search' | t | default: 'Search' }}"
+                         aria-haspopup="listbox"
+                         aria-expanded="false"
+                         aria-controls="tbk-predict-desk-{{ sid }}"
+                         role="combobox">
+                  <button type="submit"
+                          class="tbk-search-submit"
+                          aria-label="{{ 'general.search.search' | t | default: 'Search' }}">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path d="M5 12h14M13 6l6 6-6 6"/>
+                    </svg>
+                  </button>
+                </div>
+              </form>
+              <div class="tbk-search-drop"
+                   id="tbk-predict-desk-{{ sid }}"
+                   role="listbox"
+                   aria-label="Search suggestions">
+              </div>
+            </div>
+          </div>
+        {%- endif -%}
+
+        {%- comment -%} RIGHT: icon cluster {%- endcomment -%}
+        <div class="tbk-hdr-right">
+
+          {%- if s.show_wishlist -%}
+            <a href="{{ routes.root_url }}pages/wishlist"
+               class="tbk-btn-icon"
+               aria-label="{{ 'general.wishlist.wishlist_text' | t | default: 'Wishlist' }}">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/>
+              </svg>
+            </a>
+          {%- endif -%}
+
+          {%- if s.show_account -%}
+            <a href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}"
+               class="tbk-btn-icon"
+               aria-label="{% if customer %}{{ 'customer.account.title' | t | default: 'Account' }}{% else %}{{ 'customer.account.login' | t | default: 'Sign in' }}{% endif %}">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="8" r="4"/>
+                <path d="M20 21a8 8 0 10-16 0"/>
+              </svg>
+            </a>
+          {%- endif -%}
+
+          <a href="{{ routes.cart_url }}"
+             class="tbk-btn-icon"
+             {% if request.page_type != 'cart' %}aria-controls="CartDrawer"{% endif %}
+             aria-label="{{ 'sections.cart.title' | t | default: 'Cart' }}">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M19 7H5a1 1 0 00-1 1v11a1 1 0 001 1h14a1 1 0 001-1V8a1 1 0 00-1-1z"/>
+              <path d="M16 7V5a4 4 0 00-8 0v2"/>
+            </svg>
+            <span class="tbk-hdr-badge"
+                  id="tbk-cart-count-{{ sid }}"
+                  data-count="{{ cart.item_count }}"
+                  aria-hidden="true">{{- cart.item_count -}}</span>
+          </a>
+
+        </div>
+      </div>
+
+      {%- comment -%} ── MOBILE SEARCH ROW ── {%- endcomment -%}
+      {%- if s.show_search -%}
+        <div class="tbk-hdr-mob-search" id="tbk-smob-{{ sid }}">
+          <form action="{{ routes.search_url }}" method="get" role="search" autocomplete="off">
+            <input type="hidden" name="type" value="product">
+            <div class="tbk-search-field">
+              <svg class="s-ico" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="11" cy="11" r="7"/>
+                <path d="m21 21-4.35-4.35"/>
+              </svg>
+              <input class="tbk-search-input"
+                     id="tbk-search-input-mob-{{ sid }}"
+                     type="search"
+                     name="q"
+                     placeholder="{{ s.search_placeholder | default: 'Find your perfect cake…' }}"
+                     autocomplete="off"
+                     autocorrect="off"
+                     spellcheck="false"
+                     aria-label="{{ 'general.search.search' | t | default: 'Search' }}"
+                     aria-haspopup="listbox"
+                     aria-expanded="false"
+                     aria-controls="tbk-predict-mob-{{ sid }}"
+                     role="combobox">
+              <button type="submit"
+                      class="tbk-search-submit"
+                      aria-label="{{ 'general.search.search' | t | default: 'Search' }}">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M5 12h14M13 6l6 6-6 6"/>
+                </svg>
+              </button>
+            </div>
+            <div class="tbk-search-drop"
+                 id="tbk-predict-mob-{{ sid }}"
+                 role="listbox"
+                 aria-label="Search suggestions">
+            </div>
+          </form>
+        </div>
+      {%- endif -%}
+
+    </div>
+  </div>
+</div>
+
+{%- comment -%} Drawer — rendered outside the sticky wrapper for correct z-index stacking {%- endcomment -%}
+<div id="tbk-drawer-{{ sid }}"
+     role="dialog"
+     aria-modal="true"
+     aria-label="{{ 'general.accessibility.nav_menu' | t | default: 'Navigation' }}"
+     aria-hidden="true">
+
+  <div class="tbk-drawer-ov" data-tbk-close aria-hidden="true"></div>
+
+  <div class="tbk-drawer-panel">
+
+    <div class="tbk-drawer-head">
+      <div class="tbk-drawer-brand">
+        {%- if s.logo -%}
+          <img src="{{ s.logo | image_url: width: 90 }}"
+               alt="{{ shop.name }}"
+               width="44"
+               height="44"
+               loading="lazy">
+        {%- endif -%}
+        <div>
+          <div class="nm">{{ s.logo_text | default: shop.name }}</div>
+          {%- if s.logo_tagline != blank -%}
+            <div class="tg">{{ s.logo_tagline }}</div>
+          {%- endif -%}
+        </div>
+      </div>
+
+      <button class="tbk-drawer-close"
+              data-tbk-close
+              aria-label="{{ 'accessibility.close' | t | default: 'Close menu' }}">
+        <svg viewBox="0 0 12 12" aria-hidden="true">
+          <path d="M12 1.2L10.8 0 6 4.8 1.2 0 0 1.2 4.8 6 0 10.8 1.2 12 6 7.2 10.8 12 12 10.8 7.2 6z"/>
+        </svg>
+      </button>
+    </div>
+
+    <nav class="tbk-drawer-nav"
+         aria-label="{{ 'general.accessibility.nav_menu' | t | default: 'Main navigation' }}">
+      <ul role="list">
+        {%- for link in nav.links -%}
+          <li class="tbk-mob-item">
+            {%- if link.links.size > 0 -%}
+              <details>
+                <summary class="tbk-mob-link">
+                  {{- link.title -}}
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <polyline points="6 9 12 15 18 9"/>
+                  </svg>
+                </summary>
+                <ul class="tbk-mob-sub" role="list">
+                  {%- for child in link.links -%}
+                    <li>
+                      <a href="{{ child.url }}"
+                         {% if child.active %}aria-current="page"{% endif %}>
+                        {{- child.title -}}
+                      </a>
+                    </li>
+                  {%- endfor -%}
+                </ul>
+              </details>
+            {%- else -%}
+              <a href="{{ link.url }}"
+                 class="tbk-mob-link"
+                 {% if link.active %}aria-current="page"{% endif %}>
+                {{- link.title -}}
+              </a>
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+    </nav>
+
+    <div class="tbk-drawer-foot">
+      {%- if s.mobile_phone != blank -%}
+        <div class="tbk-foot-row">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.09 9.81 19.79 19.79 0 0102 1.18 2 2 0 014 2v3a2 2 0 001.72 2c.96.127 1.903.361 2.81.7a2 2 0 01.45 2.11L7.91 11a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
+          </svg>
+          <a href="tel:{{ s.mobile_phone | remove: ' ' | remove: '-' }}">{{ s.mobile_phone }}</a>
+        </div>
+      {%- endif -%}
+      {%- if s.mobile_email != blank -%}
+        <div class="tbk-foot-row">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+            <polyline points="22,6 12,13 2,6"/>
+          </svg>
+          <a href="mailto:{{ s.mobile_email }}">{{ s.mobile_email }}</a>
+        </div>
+      {%- endif -%}
+
+      <div class="tbk-drawer-socials">
+        {%- if settings.social_instagram_link != blank -%}
+          <a href="{{ settings.social_instagram_link }}"
+             target="_blank" rel="noopener"
+             aria-label="Instagram">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+        {%- endif -%}
+        {%- if s.whatsapp_number != blank -%}
+          <a href="https://wa.me/{{ s.whatsapp_number }}"
+             target="_blank" rel="noopener"
+             aria-label="WhatsApp">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          </a>
+        {%- endif -%}
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  var ROOT   = document.getElementById('tbk-hdr-{{ sid }}');
+  var SPACER = document.getElementById('tbk-spacer-{{ sid }}');
+  var DRAWER = document.getElementById('tbk-drawer-{{ sid }}');
+  var CARTCT = document.getElementById('tbk-cart-count-{{ sid }}');
+  if (!ROOT) return;
+
+  var fixed      = ROOT.querySelector('.tbk-hdr-fixed');
+  var BURGER     = ROOT.querySelector('.tbk-hdr-burger');
+  var stickyType = '{{ s.sticky_type }}';
+
+  /* ── Sticky + scroll-up behaviour ──────────────────────── */
+  if (stickyType === 'always' || stickyType === 'scroll_up') {
+
+    var annEl = document.querySelector('.tbk-ann-section');
+
+    function annBottom() {
+      return annEl ? Math.max(0, annEl.getBoundingClientRect().bottom) : 0;
+    }
+
+    function syncSpacer() {
+      if (SPACER) SPACER.style.height = (fixed.offsetHeight + annBottom()) + 'px';
+    }
+    syncSpacer();
+    window.addEventListener('resize', syncSpacer, { passive: true });
+
+    fixed.style.top = annBottom() + 'px';
+
+    if (stickyType === 'scroll_up') {
+      var lastY = 0, ticking = false;
+
+      function onFrame() {
+        var y    = window.scrollY;
+        var annH = annBottom();
+
+        fixed.style.top = annH + 'px';
+
+        if (annH === 0) {
+          ROOT.classList.toggle('tbk-hdr-hidden', y > lastY && y > fixed.offsetHeight + 10);
+        } else {
+          ROOT.classList.remove('tbk-hdr-hidden');
+        }
+
+        lastY   = Math.max(0, y);
+        ticking = false;
+      }
+
+      window.addEventListener('scroll', function () {
+        if (!ticking) { requestAnimationFrame(onFrame); ticking = true; }
+      }, { passive: true });
+
+    } else {
+      var annT = false;
+      window.addEventListener('scroll', function () {
+        if (!annT) {
+          requestAnimationFrame(function () { fixed.style.top = annBottom() + 'px'; annT = false; });
+          annT = true;
+        }
+      }, { passive: true });
+    }
+  }
+
+  /* ── Scrolled-shadow class ──────────────────────────────── */
+  function updateScrolled() {
+    ROOT.classList.toggle('tbk-hdr-scrolled', window.scrollY > 32);
+  }
+  window.addEventListener('scroll', updateScrolled, { passive: true });
+  updateScrolled();
+
+  /* ── Drawer ─────────────────────────────────────────────── */
+  function openDrawer() {
+    DRAWER.classList.add('is-open');
+    DRAWER.setAttribute('aria-hidden', 'false');
+    if (BURGER) BURGER.setAttribute('aria-expanded', 'true');
+    document.documentElement.style.overflow = 'hidden';
+    var first = DRAWER.querySelector('a, button, [tabindex="0"]');
+    if (first) setTimeout(function () { first.focus(); }, 50);
+  }
+  function closeDrawer() {
+    DRAWER.classList.remove('is-open');
+    DRAWER.setAttribute('aria-hidden', 'true');
+    if (BURGER) { BURGER.setAttribute('aria-expanded', 'false'); BURGER.focus(); }
+    document.documentElement.style.overflow = '';
+  }
+
+  if (BURGER) BURGER.addEventListener('click', openDrawer);
+  DRAWER.querySelectorAll('[data-tbk-close]').forEach(function (el) {
+    el.addEventListener('click', closeDrawer);
+  });
+  DRAWER.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') { closeDrawer(); return; }
+    if (e.key !== 'Tab') return;
+    var focusable = Array.from(
+      DRAWER.querySelectorAll('a, button:not([disabled]), input, [tabindex="0"]')
+    ).filter(function (el) { return el.offsetParent !== null; });
+    if (!focusable.length) return;
+    var first = focusable[0], last = focusable[focusable.length - 1];
+    if (e.shiftKey && document.activeElement === first)      { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  });
+
+  /* ── Predictive Search ──────────────────────────────────── */
+  function initSearch(inputEl, dropEl) {
+    if (!inputEl || !dropEl) return;
+
+    var debounceTimer = null;
+    var lastQuery     = '';
+
+    function rupees(cents) {
+      return '₹' + (cents / 100).toLocaleString('en-IN', {
+        minimumFractionDigits: 0, maximumFractionDigits: 0
+      });
+    }
+
+    function openDrop()  { dropEl.classList.add('is-open');    inputEl.setAttribute('aria-expanded', 'true'); }
+    function closeDrop() { dropEl.classList.remove('is-open'); inputEl.setAttribute('aria-expanded', 'false'); }
+
+    function esc(str) {
+      return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+
+    function renderResults(data) {
+      var products = (data.resources && data.resources.results && data.resources.results.products) || [];
+      var html = '';
+
+      if (products.length) {
+        html += '<div class="tbk-drop-list" role="group">';
+        products.slice(0, 5).forEach(function (p) {
+          var thumb = p.featured_image
+            ? '<img class="tbk-drop-thumb" src="' + p.featured_image.url + '" alt="" loading="lazy" width="52" height="52">'
+            : '<span class="tbk-drop-thumb-ph" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M19 7H5c-.6 0-1 .4-1 1v11c0 .6.4 1 1 1h14c.6 0 1-.4 1-1V8c0-.6-.4-1-1-1z"/><path d="M16 7V5a4 4 0 00-8 0v2"/></svg></span>';
+          var price = p.price ? '<div class="tbk-drop-price">' + rupees(p.price) + '</div>' : '';
+          html += '<a href="' + p.url + '" class="tbk-drop-item" role="option" tabindex="-1">'
+                + thumb
+                + '<div class="tbk-drop-info">'
+                + '<div class="tbk-drop-name">' + esc(p.title) + '</div>'
+                + price
+                + '</div></a>';
+        });
+        html += '</div>';
+        html += '<a href="/search?q=' + encodeURIComponent(inputEl.value) + '&type=product" '
+              + 'class="tbk-drop-footer" role="option" tabindex="-1">'
+              + 'View all results for &ldquo;' + esc(inputEl.value) + '&rdquo;'
+              + '<svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>'
+              + '</a>';
+      } else {
+        html = '<p class="tbk-drop-empty">No results for &ldquo;' + esc(inputEl.value) + '&rdquo;</p>';
+      }
+
+      dropEl.innerHTML = html;
+      openDrop();
+    }
+
+    function doSearch(q) {
+      if (q.length < 2)   { closeDrop(); return; }
+      if (q === lastQuery) { openDrop(); return; }
+      lastQuery = q;
+
+      fetch('/search/suggest.json?q=' + encodeURIComponent(q)
+          + '&resources[type]=product&resources[limit]=5'
+          + '&resources[fields]=title,variants.price,featured_image')
+        .then(function (r) { return r.json(); })
+        .then(function (d) { renderResults(d); })
+        .catch(function ()  { closeDrop(); });
+    }
+
+    inputEl.addEventListener('input', function () {
+      clearTimeout(debounceTimer);
+      var q = inputEl.value.trim();
+      if (!q) { closeDrop(); return; }
+      debounceTimer = setTimeout(function () { doSearch(q); }, 200);
+    });
+    inputEl.addEventListener('focus', function () {
+      if (inputEl.value.trim().length >= 2) openDrop();
+    });
+
+    document.addEventListener('click', function (e) {
+      if (!dropEl.contains(e.target) && e.target !== inputEl) closeDrop();
+    });
+
+    inputEl.addEventListener('keydown', function (e) {
+      if (!dropEl.classList.contains('is-open')) return;
+      var items = Array.from(dropEl.querySelectorAll('[role="option"]'));
+      if (!items.length) return;
+      var idx = items.indexOf(document.activeElement);
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        (items[idx + 1] || items[0]).focus();
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        (items[idx - 1] || items[items.length - 1]).focus();
+      } else if (e.key === 'Escape') {
+        closeDrop(); inputEl.focus();
+      }
+    });
+  }
+
+  initSearch(
+    document.getElementById('tbk-search-input-desk-{{ sid }}'),
+    document.getElementById('tbk-predict-desk-{{ sid }}')
+  );
+  initSearch(
+    document.getElementById('tbk-search-input-mob-{{ sid }}'),
+    document.getElementById('tbk-predict-mob-{{ sid }}')
+  );
+
+  /* ── Cart count live updates ────────────────────────────── */
+  function setCount(n) {
+    if (!CARTCT) return;
+    CARTCT.textContent = n;
+    CARTCT.dataset.count = n;
+  }
+  document.addEventListener('cart:updated',      function (e) { if (e.detail && e.detail.cart) setCount(e.detail.cart.item_count); });
+  document.addEventListener('theme:cart:update', function (e) { if (e.detail && e.detail.cart) setCount(e.detail.cart.item_count); });
+
+})();
+</script>
+
+{% schema %}
+{
+  "name": "TBK Header",
+  "tag":   "section",
+  "class": "tbk-hdr-section",
+  "limit": 1,
+  "enabled_on": { "groups": ["header"] },
+  "settings": [
+    { "type": "header", "content": "Logo" },
+    { "type": "image_picker", "id": "logo",              "label": "Logo image" },
+    { "type": "range",        "id": "logo_width",        "label": "Logo width — desktop", "min": 40,  "max": 200, "step": 2,  "unit": "px", "default": 110 },
+    { "type": "range",        "id": "logo_width_mobile", "label": "Logo width — mobile",  "min": 40,  "max": 140, "step": 2,  "unit": "px", "default": 68 },
+    { "type": "text",         "id": "logo_text",    "label": "Brand name (text fallback)", "default": "The Baking Kaur" },
+    { "type": "text",         "id": "logo_tagline", "label": "Tagline below logo",         "default": "Luxury Eggless Creations" },
+
+    { "type": "header", "content": "Navigation" },
+    { "type": "link_list", "id": "main_menu", "label": "Navigation menu", "default": "main-menu" },
+
+    { "type": "header", "content": "Icons & Search" },
+    { "type": "checkbox", "id": "show_search",      "label": "Show search bar",            "default": true },
+    { "type": "checkbox", "id": "show_wishlist",    "label": "Show wishlist icon",          "default": true },
+    { "type": "checkbox", "id": "show_account",     "label": "Show account icon",           "default": true },
+    { "type": "text",     "id": "whatsapp_number",  "label": "WhatsApp number (digits only)", "default": "918218862928" },
+    { "type": "text",     "id": "search_placeholder","label": "Search placeholder",         "default": "Find your perfect cake…" },
+
+    { "type": "header", "content": "Colors & Layout" },
+    { "type": "range", "id": "header_height",        "label": "Height — desktop", "min": 64,  "max": 116, "step": 2, "unit": "px", "default": 110 },
+    { "type": "range", "id": "mobile_header_height", "label": "Height — mobile",  "min": 54,  "max": 88,  "step": 2, "unit": "px", "default": 74 },
+    { "type": "range", "id": "container_width",      "label": "Max container width", "min": 900, "max": 1600, "step": 20, "unit": "px", "default": 1440 },
+    { "type": "color", "id": "header_bg",           "label": "Background",    "default": "#FDFAF8" },
+    { "type": "color", "id": "header_fg",           "label": "Text & icons",  "default": "#1A0810" },
+    { "type": "color", "id": "header_border_color", "label": "Bottom border", "default": "#EDD8E3" },
+
+    { "type": "header", "content": "Sticky" },
+    {
+      "type": "select",
+      "id": "sticky_type",
+      "label": "Sticky mode",
+      "default": "scroll_up",
+      "options": [
+        { "value": "none",      "label": "Not sticky" },
+        { "value": "always",    "label": "Always fixed" },
+        { "value": "scroll_up", "label": "Show on scroll up" }
+      ]
+    },
+
+    { "type": "header", "content": "Drawer — Contact" },
+    { "type": "text", "id": "mobile_phone", "label": "Phone", "default": "+91-8218862928" },
+    { "type": "text", "id": "mobile_email", "label": "Email", "default": "thebakingkaur@gmail.com" }
+  ],
+  "presets": [
+    {
+      "name": "TBK Header",
+      "settings": {
+        "main_menu":    "main-menu",
+        "logo_tagline": "Luxury Eggless Creations",
+        "sticky_type":  "scroll_up"
+      }
+    }
+  ]
+}
+{% endschema %}

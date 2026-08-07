@@ -28,10 +28,6 @@
         endif
       else
         echo page_title | escape
-        if request.page_type == "policy"
-          assign tagName = "p"
-          echo "<style>.shopify-policy__title{display: none !important}</style>"
-        endif
     endcase
   endcapture
 -%}

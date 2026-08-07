@@ -14,7 +14,7 @@
     "name": "{{ collection.title | escape }}",
     "numberOfItems": {{ collection.products_count }},
     "itemListElement": [
-      {%- for product in collection.products limit: 20 -%}
+      {%- for product in collection.products limit: 50 -%}
       {
         "@type": "ListItem",
         "position": {{ forloop.index }},

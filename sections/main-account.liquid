@@ -106,7 +106,7 @@
                 {%- if customer.default_address.city != blank -%}
                 <tr>
                   <td><strong>{{ 'customer.addresses.country' | t }}</strong></td>
-                  <td data-label="{{ 'customer.addresses.country' | t }}">{{ customer.default_address.city }}, {% if customer_address.province_code %}{{ customer.default_address.province_code }}, {% endif %}{{ customer.default_address.country }}</td>
+                  <td data-label="{{ 'customer.addresses.country' | t }}">{{ customer.default_address.city }}, {% if customer.default_address.province_code %}{{ customer.default_address.province_code }}, {% endif %}{{ customer.default_address.country }}</td>
                 </tr>
                 {%- endif -%}
                 {%- if customer.default_address.zip != blank -%}

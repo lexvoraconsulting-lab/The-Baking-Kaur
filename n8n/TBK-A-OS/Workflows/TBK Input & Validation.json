@@ -1,0 +1,530 @@
+{
+  "name": "TBK Input & Validation",
+  "nodes": [
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "batch_id"
+            },
+            {
+              "name": "file_url"
+            },
+            {
+              "name": "source"
+            }
+          ]
+        }
+      },
+      "id": "9515fb97-d024-4658-9797-00b68f75b690",
+      "name": "When Called",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        192
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "has_batch",
+              "leftValue": "={{ $json.batch_id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "has_file",
+              "leftValue": "={{ $json.file_url }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "0168cf36-1f28-43b3-b4e6-bf214f9cda19",
+      "name": "Validate Input",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        224,
+        192
+      ]
+    },
+    {
+      "parameters": {
+        "action": "generate"
+      },
+      "id": "214cf2a4-eae6-4861-9879-7154bcda8be0",
+      "name": "Generate Image ID",
+      "type": "n8n-nodes-base.crypto",
+      "typeVersion": 2,
+      "position": [
+        448,
+        96
+      ]
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.file_url }}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "text",
+              "outputPropertyName": "body"
+            }
+          },
+          "timeout": 15000
+        }
+      },
+      "id": "4176d446-7b94-40ee-8822-36d919616feb",
+      "name": "Download Image",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        672,
+        96
+      ],
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "value": "={{ $json.body }}",
+        "dataPropertyName": "file_hash"
+      },
+      "id": "84d7b014-afc1-48a7-8761-d2b45515892a",
+      "name": "Hash Content",
+      "type": "n8n-nodes-base.crypto",
+      "typeVersion": 2,
+      "position": [
+        896,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "8JaKWB5XO4RlKJCL",
+          "cachedResultName": "tbk_image_hashes"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "file_hash",
+              "keyValue": "={{ $json.file_hash }}"
+            }
+          ]
+        },
+        "returnAll": true
+      },
+      "id": "b65acc24-188f-45e5-98dc-7addfe16f736",
+      "name": "Check Duplicate",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        1120,
+        0
+      ],
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "jsCode": "const rows = $input.all().filter(i => i.json && Object.keys(i.json).length > 0 && i.json.file_hash);\nconst duplicate = rows.length > 0;\nconst imageId = $('Generate Image ID').first().json.data;\nconst t = $('When Called').first().json;\nconst fileHash = $('Hash Content').first().json.file_hash;\nreturn [{ json: {\n  image_id: imageId,\n  batch_id: t.batch_id,\n  file_hash: fileHash,\n  s3_path: t.file_url,\n  status: duplicate ? 'rejected' : 'queued',\n  validated: !duplicate,\n  rejection_reason: duplicate ? 'duplicate_hash_exists' : null\n} }];"
+      },
+      "id": "bb158c20-f980-4ded-927a-b48f2a56b649",
+      "name": "Decide Result",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1344,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "dataTableId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "8JaKWB5XO4RlKJCL",
+          "cachedResultName": "tbk_image_hashes"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "image_id": "={{ $json.image_id }}",
+            "batch_id": "={{ $json.batch_id }}",
+            "file_hash": "={{ $json.file_hash }}",
+            "s3_path": "={{ $json.s3_path }}",
+            "status": "={{ $json.status }}",
+            "rejection_reason": "={{ $json.rejection_reason }}"
+          },
+          "schema": [
+            {
+              "id": "image_id",
+              "displayName": "image_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "batch_id",
+              "displayName": "batch_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "file_hash",
+              "displayName": "file_hash",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "s3_path",
+              "displayName": "s3_path",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "rejection_reason",
+              "displayName": "rejection_reason",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "1c91ef22-963b-485d-b179-baf254b9dd49",
+      "name": "Record Image",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        1568,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{ json: $('Decide Result').first().json }];"
+      },
+      "id": "189bde0f-5841-4bb2-b32d-5b8e5735b61e",
+      "name": "Return Result",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1792,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const t = $('When Called').first().json;\nconst imageId = $('Generate Image ID').first().json.data;\nreturn [{ json: {\n  image_id: imageId,\n  batch_id: t.batch_id,\n  file_hash: '',\n  s3_path: t.file_url,\n  status: 'rejected',\n  validated: false,\n  rejection_reason: 'corrupted_or_unreachable'\n} }];"
+      },
+      "id": "7d9bbb33-21a5-46d6-bc39-e13f466eedcf",
+      "name": "Build Download Failure",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        896,
+        192
+      ]
+    },
+    {
+      "parameters": {
+        "dataTableId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "8JaKWB5XO4RlKJCL",
+          "cachedResultName": "tbk_image_hashes"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "image_id": "={{ $json.image_id }}",
+            "batch_id": "={{ $json.batch_id }}",
+            "file_hash": "={{ $json.file_hash }}",
+            "s3_path": "={{ $json.s3_path }}",
+            "status": "={{ $json.status }}",
+            "rejection_reason": "={{ $json.rejection_reason }}"
+          },
+          "schema": [
+            {
+              "id": "image_id",
+              "displayName": "image_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "batch_id",
+              "displayName": "batch_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "file_hash",
+              "displayName": "file_hash",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "s3_path",
+              "displayName": "s3_path",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "rejection_reason",
+              "displayName": "rejection_reason",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "81c5afcf-5be7-43a3-83ba-3becef373909",
+      "name": "Record Failure",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        1120,
+        192
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{ json: $('Build Download Failure').first().json }];"
+      },
+      "id": "f530d54d-49c0-495e-8efd-0b59e1d3d6ff",
+      "name": "Return Failure",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1344,
+        192
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const t = $('When Called').first().json;\nreturn [{ json: {\n  image_id: '',\n  batch_id: t.batch_id || '',\n  file_hash: '',\n  s3_path: t.file_url || '',\n  status: 'rejected',\n  validated: false,\n  rejection_reason: 'invalid_input'\n} }];"
+      },
+      "id": "89e95ed5-9cdb-4f9f-a028-c1743870c4af",
+      "name": "Invalid Result",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        448,
+        288
+      ]
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When Called": {
+      "main": [
+        [
+          {
+            "node": "Validate Input",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validate Input": {
+      "main": [
+        [
+          {
+            "node": "Generate Image ID",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Invalid Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Image ID": {
+      "main": [
+        [
+          {
+            "node": "Download Image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download Image": {
+      "main": [
+        [
+          {
+            "node": "Hash Content",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Build Download Failure",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Hash Content": {
+      "main": [
+        [
+          {
+            "node": "Check Duplicate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Duplicate": {
+      "main": [
+        [
+          {
+            "node": "Decide Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Decide Result": {
+      "main": [
+        [
+          {
+            "node": "Record Image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Record Image": {
+      "main": [
+        [
+          {
+            "node": "Return Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Download Failure": {
+      "main": [
+        [
+          {
+            "node": "Record Failure",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Record Failure": {
+      "main": [
+        [
+          {
+            "node": "Return Failure",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "3eade5f0-1199-42b2-a0a8-12f681a07d31",
+  "meta": {
+    "instanceId": "9acba552e049a19e69f51439fb1ace1512073f1e7a2cb7e135f6805cf39a5192"
+  },
+  "nodeGroups": [],
+  "id": "5hEH58XkAbd1wemJ",
+  "tags": []
+}

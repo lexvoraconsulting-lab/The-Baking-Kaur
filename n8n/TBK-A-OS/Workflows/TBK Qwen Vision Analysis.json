@@ -1,0 +1,1034 @@
+{
+  "name": "TBK Qwen Vision Analysis",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "Vision Provider Router (extension point)\n\nSelects the vision provider from the VISION_PROVIDER env var (default: qwen2.5-vl).\nBUILD-304 implements ONLY the qwen2.5-vl adapter. The other outputs\n(gpt-4.1-vision, gemini-vision, claude-vision, clip, florence-2, internvl) and\nthe unknown-provider fallback route to the Future Provider Adapter. Add a real\nadapter branch per provider later WITHOUT changing downstream workflows — every\nadapter returns the same structured shape.\n\nOllama base URL is read from the OLLAMA_BASE_URL env var (never hardcoded).\nn8n Cloud cannot reach localhost — OLLAMA_BASE_URL must be publicly reachable.",
+        "height": 240,
+        "width": 460
+      },
+      "id": "162f1de6-8ea2-4c09-9c06-b72fa71063d4",
+      "name": "Sticky Note 162f1de6",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        896,
+        496
+      ]
+    },
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "image_id"
+            },
+            {
+              "name": "batch_id"
+            },
+            {
+              "name": "s3_path"
+            }
+          ]
+        }
+      },
+      "id": "44ae4b97-b8a1-414c-bbcd-6878b856b88e",
+      "name": "When Called",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        224
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "provider",
+              "name": "provider",
+              "value": "={{ ($env.VISION_PROVIDER || \"qwen2.5-vl\").toLowerCase() }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "id": "4467a22b-f96a-45d2-8fd6-019f676c4104",
+      "name": "Resolve Provider",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        224,
+        224
+      ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": false,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                },
+                "combinator": "and",
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.provider }}",
+                    "rightValue": "qwen2.5-vl",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ]
+              },
+              "renameOutput": true,
+              "outputKey": "qwen2.5-vl"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": false,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                },
+                "combinator": "and",
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.provider }}",
+                    "rightValue": "gpt-4.1-vision",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ]
+              },
+              "renameOutput": true,
+              "outputKey": "gpt-4.1-vision"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": false,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                },
+                "combinator": "and",
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.provider }}",
+                    "rightValue": "gemini-vision",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ]
+              },
+              "renameOutput": true,
+              "outputKey": "gemini-vision"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": false,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                },
+                "combinator": "and",
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.provider }}",
+                    "rightValue": "claude-vision",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ]
+              },
+              "renameOutput": true,
+              "outputKey": "claude-vision"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": false,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                },
+                "combinator": "and",
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.provider }}",
+                    "rightValue": "clip",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ]
+              },
+              "renameOutput": true,
+              "outputKey": "clip"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": false,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                },
+                "combinator": "and",
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.provider }}",
+                    "rightValue": "florence-2",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ]
+              },
+              "renameOutput": true,
+              "outputKey": "florence-2"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": false,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                },
+                "combinator": "and",
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.provider }}",
+                    "rightValue": "internvl",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ]
+              },
+              "renameOutput": true,
+              "outputKey": "internvl"
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra",
+          "renameFallbackOutput": "unknown-provider"
+        }
+      },
+      "id": "96a81d13-0f1e-41be-9cd3-4c379553d08a",
+      "name": "Vision Provider Router",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4,
+      "position": [
+        448,
+        128
+      ]
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.s3_path }}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "file"
+            }
+          },
+          "timeout": 20000
+        }
+      },
+      "id": "42200237-1db1-475e-a644-ab89be9e957d",
+      "name": "Download Image",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        672,
+        128
+      ],
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "operation": "binaryToPropery",
+        "destinationKey": "image_b64",
+        "options": {}
+      },
+      "id": "dd8823f8-8675-4d7f-8e57-50bac3fb6093",
+      "name": "Image To Base64",
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1.1,
+      "position": [
+        896,
+        48
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.OLLAMA_BASE_URL }}/api/generate",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ model: \"qwen2.5vl\", prompt: \"You are a cake product analyst. Analyze the cake image and return ONLY a JSON object with keys: layers (integer), frosting_type (string), decorations (array of strings), colors (array of strings), quality_score (float 0-1), confidence (float 0-1). No prose.\", images: [$json.image_b64], stream: false, format: \"json\" }) }}",
+        "options": {
+          "timeout": 120000
+        }
+      },
+      "id": "4ca3a8ae-e216-401f-948d-e04d0455763d",
+      "name": "Qwen Vision (Ollama)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        1120,
+        48
+      ],
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const t = $('When Called').first().json;\nconst resp = $json || {};\nconst raw = resp.response || '';\nlet v = {};\ntry { v = JSON.parse(raw); } catch (e) { v = {}; }\nconst ok = raw && v && Object.keys(v).length > 0;\nreturn [{ json: {\n  image_id: t.image_id,\n  batch_id: t.batch_id,\n  layers: (v.layers === undefined ? null : v.layers),\n  frosting_type: v.frosting_type || \"\",\n  decorations: JSON.stringify(v.decorations || []),\n  colors: JSON.stringify(v.colors || []),\n  quality_score: (v.quality_score === undefined ? null : v.quality_score),\n  confidence: (v.confidence === undefined ? null : v.confidence),\n  model_version: resp.model || \"qwen2.5vl\",\n  latency_ms: resp.total_duration ? Math.round(resp.total_duration / 1000000) : 0,\n  status: ok ? \"success\" : \"parse_error\",\n  raw_response: raw\n} }];"
+      },
+      "id": "5bf9baa4-b4a9-4de6-876d-03c97c48cbf9",
+      "name": "Parse Vision Output",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1344,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "dataTableId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "IENpZBWeLgqSnnGR",
+          "cachedResultName": "tbk_vision_results"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "image_id": "={{ $json.image_id }}",
+            "batch_id": "={{ $json.batch_id }}",
+            "layers": "={{ $json.layers }}",
+            "frosting_type": "={{ $json.frosting_type }}",
+            "decorations": "={{ $json.decorations }}",
+            "colors": "={{ $json.colors }}",
+            "quality_score": "={{ $json.quality_score }}",
+            "confidence": "={{ $json.confidence }}",
+            "model_version": "={{ $json.model_version }}",
+            "latency_ms": "={{ $json.latency_ms }}",
+            "status": "={{ $json.status }}",
+            "raw_response": "={{ $json.raw_response }}"
+          },
+          "schema": [
+            {
+              "id": "image_id",
+              "displayName": "image_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "batch_id",
+              "displayName": "batch_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "layers",
+              "displayName": "layers",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "frosting_type",
+              "displayName": "frosting_type",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "decorations",
+              "displayName": "decorations",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "colors",
+              "displayName": "colors",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "quality_score",
+              "displayName": "quality_score",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "confidence",
+              "displayName": "confidence",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "model_version",
+              "displayName": "model_version",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "latency_ms",
+              "displayName": "latency_ms",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "raw_response",
+              "displayName": "raw_response",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "78733def-fd4c-4b0d-a285-e6db8f92925a",
+      "name": "Record Vision Result",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        1568,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{ json: $('Parse Vision Output').first().json }];"
+      },
+      "id": "9d8889da-ca1e-4beb-8777-5cdecdbb2eff",
+      "name": "Return Result",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1792,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const t = $('When Called').first().json;\nreturn [{ json: {\n  image_id: t.image_id,\n  batch_id: t.batch_id,\n  layers: null,\n  frosting_type: \"\",\n  decorations: \"[]\",\n  colors: \"[]\",\n  quality_score: null,\n  confidence: null,\n  model_version: \"qwen2.5vl\",\n  latency_ms: 0,\n  status: \"failed\",\n  raw_response: \"\"\n} }];"
+      },
+      "id": "adc76c09-f2c1-4ae2-b3fd-dfa2d729d744",
+      "name": "Build Vision Failure",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1344,
+        224
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const t = $('When Called').first().json;\nconst provider = $json.provider || 'unknown';\nreturn [{ json: {\n  image_id: t.image_id,\n  batch_id: t.batch_id,\n  layers: null,\n  frosting_type: \"\",\n  decorations: \"[]\",\n  colors: \"[]\",\n  quality_score: null,\n  confidence: null,\n  model_version: provider,\n  latency_ms: 0,\n  status: \"provider_not_implemented\",\n  raw_response: \"\"\n} }];"
+      },
+      "id": "4f0246f5-cc83-47e1-afba-7e62db9a6190",
+      "name": "Future Provider Adapter",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        672,
+        432
+      ]
+    },
+    {
+      "parameters": {
+        "dataTableId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "IENpZBWeLgqSnnGR",
+          "cachedResultName": "tbk_vision_results"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "image_id": "={{ $json.image_id }}",
+            "batch_id": "={{ $json.batch_id }}",
+            "layers": "={{ $json.layers }}",
+            "frosting_type": "={{ $json.frosting_type }}",
+            "decorations": "={{ $json.decorations }}",
+            "colors": "={{ $json.colors }}",
+            "quality_score": "={{ $json.quality_score }}",
+            "confidence": "={{ $json.confidence }}",
+            "model_version": "={{ $json.model_version }}",
+            "latency_ms": "={{ $json.latency_ms }}",
+            "status": "={{ $json.status }}",
+            "raw_response": "={{ $json.raw_response }}"
+          },
+          "schema": [
+            {
+              "id": "image_id",
+              "displayName": "image_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "batch_id",
+              "displayName": "batch_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "layers",
+              "displayName": "layers",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "frosting_type",
+              "displayName": "frosting_type",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "decorations",
+              "displayName": "decorations",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "colors",
+              "displayName": "colors",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "quality_score",
+              "displayName": "quality_score",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "confidence",
+              "displayName": "confidence",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "model_version",
+              "displayName": "model_version",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "latency_ms",
+              "displayName": "latency_ms",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "raw_response",
+              "displayName": "raw_response",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "7926c53d-b279-4340-9324-eef2b3b2fb37",
+      "name": "Record Unsupported Result",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        896,
+        432
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{ json: $('Future Provider Adapter').first().json }];"
+      },
+      "id": "7d10bf59-6ad7-4765-8a27-3414308b8b07",
+      "name": "Return Unsupported",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1120,
+        432
+      ]
+    },
+    {
+      "parameters": {
+        "dataTableId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "IENpZBWeLgqSnnGR",
+          "cachedResultName": "tbk_vision_results"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "image_id": "={{ $json.image_id }}",
+            "batch_id": "={{ $json.batch_id }}",
+            "layers": "={{ $json.layers }}",
+            "frosting_type": "={{ $json.frosting_type }}",
+            "decorations": "={{ $json.decorations }}",
+            "colors": "={{ $json.colors }}",
+            "quality_score": "={{ $json.quality_score }}",
+            "confidence": "={{ $json.confidence }}",
+            "model_version": "={{ $json.model_version }}",
+            "latency_ms": "={{ $json.latency_ms }}",
+            "status": "={{ $json.status }}",
+            "raw_response": "={{ $json.raw_response }}"
+          },
+          "schema": [
+            {
+              "id": "image_id",
+              "displayName": "image_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "batch_id",
+              "displayName": "batch_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "layers",
+              "displayName": "layers",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "frosting_type",
+              "displayName": "frosting_type",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "decorations",
+              "displayName": "decorations",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "colors",
+              "displayName": "colors",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "quality_score",
+              "displayName": "quality_score",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "confidence",
+              "displayName": "confidence",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "model_version",
+              "displayName": "model_version",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "latency_ms",
+              "displayName": "latency_ms",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "raw_response",
+              "displayName": "raw_response",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "22b7feab-768e-4b07-8ec0-2c4840dbf680",
+      "name": "Record Vision Failure",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        1568,
+        224
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{ json: $('Build Vision Failure').first().json }];"
+      },
+      "id": "d7c09df0-65ab-4b65-a054-41bc23055797",
+      "name": "Return Failure",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1792,
+        224
+      ]
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When Called": {
+      "main": [
+        [
+          {
+            "node": "Resolve Provider",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Resolve Provider": {
+      "main": [
+        [
+          {
+            "node": "Vision Provider Router",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Vision Provider Router": {
+      "main": [
+        [
+          {
+            "node": "Download Image",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Future Provider Adapter",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Future Provider Adapter",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Future Provider Adapter",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Future Provider Adapter",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Future Provider Adapter",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Future Provider Adapter",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Future Provider Adapter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download Image": {
+      "main": [
+        [
+          {
+            "node": "Image To Base64",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Build Vision Failure",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Image To Base64": {
+      "main": [
+        [
+          {
+            "node": "Qwen Vision (Ollama)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Qwen Vision (Ollama)": {
+      "main": [
+        [
+          {
+            "node": "Parse Vision Output",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Build Vision Failure",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Vision Output": {
+      "main": [
+        [
+          {
+            "node": "Record Vision Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Record Vision Result": {
+      "main": [
+        [
+          {
+            "node": "Return Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Vision Failure": {
+      "main": [
+        [
+          {
+            "node": "Record Vision Failure",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Future Provider Adapter": {
+      "main": [
+        [
+          {
+            "node": "Record Unsupported Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Record Unsupported Result": {
+      "main": [
+        [
+          {
+            "node": "Return Unsupported",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Record Vision Failure": {
+      "main": [
+        [
+          {
+            "node": "Return Failure",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "2da659b1-4001-44f0-8ee6-c4d7fe33f425",
+  "meta": {
+    "instanceId": "9acba552e049a19e69f51439fb1ace1512073f1e7a2cb7e135f6805cf39a5192"
+  },
+  "nodeGroups": [],
+  "id": "7o1hFBPTpcUwZopc",
+  "tags": []
+}

@@ -109,7 +109,20 @@
 
   
                   {%- when 'subtotal' -%}
-                    <div class="hdt-cart-totals-discounts" {{ block.shopify_attributes }}>
+                    <div class="hdt-cart-discount-form" {{ block.shopify_attributes }}>
+                      <form method="POST" action="/cart/update.js" id="discount-form" accept-charset="UTF-8" class="hdt-flex hdt-gap-2 hdt-mb-4">
+                        <input type="hidden" name="return_to" value="{{ request.path }}">
+                        <input type="text" name="discount" placeholder="{{ 'sections.cart.discount_code_placeholder' | t | default: 'Enter discount code' }}" aria-label="{{ 'sections.cart.discount_code_label' | t | default: 'Discount code' }}" class="hdt-flex-1 hdt-p-2 hdt-border hdt-rounded hdt-text-sm" maxlength="30">
+                        <button type="submit" class="hdt-btn hdt-btn-solid hdt-px-4 hdt-py-2 hdt-text-sm hdt-font-medium hdt-rounded" disabled>{{ 'sections.cart.apply_discount' | t | default: 'Apply' }}</button>
+                      </form>
+                      <script>
+                        document.getElementById('discount-form')?.addEventListener('submit', function(e) {
+                          const btn = this.querySelector('button[type="submit"]');
+                          btn.disabled = false;
+                        });
+                      </script>
+                    </div>
+                    <div class="hdt-cart-totals-discounts">
                       {%- if cart.cart_level_discount_applications.size > 0 -%}
                         <ul class="hdt-discounts hdt-cart_discounts" role="list" aria-label="{{ 'customer.order.discount' | t }}">
                           {%- for discount in cart.cart_level_discount_applications -%}
@@ -121,7 +134,7 @@
                           {%- endfor -%}
                         </ul>
                       {%- endif -%}
-                      <div class="hdt-s-text-note"><p><b>**Note:</b> You have {{ item_count }} products in your cart. So, estimated cost will be higher than shown. </p> </div>
+                      <div class="hdt-s-text-note"><p><b>Note:</b> Local delivery available in Meerut within 15 km radius. Shipping cost calculated at checkout based on delivery distance. Minimum order: ₹350.</p> </div>
 
                       <div class="hdt-totals hdt-page-cart__totals hdt-flex hdt-align-center hdt-justify-between" role="status">
                         <h3 class="hdt-totals__total hdt-page-cart__total hdt-text-2xl hdt-font-normal">{{ 'sections.cart.subtotal' | t }}</h3>

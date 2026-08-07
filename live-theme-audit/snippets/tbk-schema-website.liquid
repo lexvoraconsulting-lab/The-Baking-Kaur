@@ -1,0 +1,57 @@
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://thebakingkaur.com/#website",
+      "url": "https://thebakingkaur.com",
+      "name": "The Baking Kaur",
+      "description": "Custom cakes, wedding cakes and luxury desserts delivered in Meerut",
+      "inLanguage": "en-IN",
+      "publisher": {
+        "@id": "https://thebakingkaur.com/#organization"
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://thebakingkaur.com/search?q={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
+      }
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://thebakingkaur.com/#organization",
+      "name": "The Baking Kaur",
+      "url": "https://thebakingkaur.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "{{ settings.logo | image_url: width: 600 }}",
+        "width": 600,
+        "height": 200
+      },
+      "image": "{{ settings.logo | image_url: width: 600 }}",
+      "telephone": "+918218862928",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Fateh Complex, 390/1, Lane Number 7, opposite Ice Factory, Thapar Nagar Gali Number 7 Lajpat Bazaar Thapar Nagar",
+        "addressLocality": "Meerut",
+        "addressRegion": "Uttar Pradesh",
+        "postalCode": "250001",
+        "addressCountry": "IN"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "28.9897017",
+        "longitude": "77.7044604"
+      },
+      "sameAs": [
+        "https://www.instagram.com/thebakingkaur",
+        "https://www.facebook.com/thebakingkaur"
+      ]
+    }
+  ]
+}
+</script>

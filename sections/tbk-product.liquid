@@ -261,7 +261,7 @@
     {%- for related in related_products -%}
       <a href="{{ related.url }}" class="tbk-related-card">
         <div class="tbk-related-image">
-          <img src="{{ related.featured_image | img_url: '600x600' }}" alt="{{ related.title }}">
+          <img src="{{ related.featured_image | img_url: '600x600' }}" alt="{{ related.title }}" width="600" height="600" loading="lazy">
         </div>
         <div class="tbk-related-body">
           <div class="tbk-related-title-card">{{ related.title }}</div>

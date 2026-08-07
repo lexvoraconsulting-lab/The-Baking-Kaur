@@ -55,7 +55,7 @@
       {%- if image != blank -%}
         <div class="hdt-product-media__main hdt-ratio--{{ section.settings.image_ratio }}{% unless section.settings.image_size %} hdt-ratio--contain{% endunless %}">
           <div class="hdt-ratio hdt-product__media" style="{% if section.settings.image_ratio == 'adapt_image' %}--aspect-ratioapt:{{ image.aspect_ratio }};{% endif %}--mw-media:{{ image.width }}px">
-            {{ image | image_url: width: image.width | image_tag: sizes: sizes, widths: '246, 493, 600, 713, 823, 990, 1100, 1206, 1346, 1426, 1646, 1946', hdt-el: '' }}
+            {{ image | image_url: width: image.width | image_tag: sizes: sizes, widths: '246, 493, 600, 713, 823, 990, 1100, 1206, 1346, 1426, 1646, 1946', hdt-el: '', loading: 'eager', fetchpriority: 'high', width: image.width, height: image.height }}
           </div>
         </div>
       {%- endif -%}

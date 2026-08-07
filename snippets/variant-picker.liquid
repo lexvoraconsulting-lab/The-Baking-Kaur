@@ -9,13 +9,9 @@
   - product_form_id: {String} Id of the product form to which the variant picker is associated.
   - update_url: {Boolean} whether or not to update url when changing variants. If false, the url isn't updated. Default: true (optional).
   - hide_update_value {Boolean} if set true will hidden block update value
+
   Usage:
   {% render 'variant-picker', product: product, block: block, product_form_id: product_form_id %}
-
-  [
-    {"mid":35633981718802,"option":1,"value":0},{"mid":35633981751570,"option":1,"value":0},
-    {"mid":35633981784338,"option":1,"value":1},{"mid":35633981817106,"option":1,"value":1}
-  ]
 {%- endcomment -%}
 {%- unless product.has_only_default_variant -%}
   {%- liquid

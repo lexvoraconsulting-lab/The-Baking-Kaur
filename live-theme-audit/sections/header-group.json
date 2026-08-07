@@ -1,0 +1,255 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "type": "header",
+  "name": "Header Group",
+  "sections": {
+    "tbk_announcement_bar_main": {
+      "type": "tbk-announcement-bar",
+      "blocks": {
+        "pill_1": {
+          "type": "trust_pill",
+          "settings": {
+            "icon": "♡",
+            "text": "100% Eggless"
+          }
+        },
+        "pill_2": {
+          "type": "trust_pill",
+          "settings": {
+            "icon": "✦",
+            "text": "Premium Ingredients"
+          }
+        },
+        "pill_3": {
+          "type": "trust_pill",
+          "settings": {
+            "icon": "🎂",
+            "text": "Handcrafted with Love"
+          }
+        }
+      },
+      "block_order": [
+        "pill_1",
+        "pill_2",
+        "pill_3"
+      ],
+      "settings": {
+        "bg_color": "#C01457",
+        "bg_color_2": "#8E0E40",
+        "use_gradient": true,
+        "text_color": "#FFFFFF",
+        "bar_height": 40,
+        "container_width": 1280,
+        "delivery_text": "Same Day Delivery in Meerut"
+      }
+    },
+    "tbk_header_main": {
+      "type": "tbk-header",
+      "settings": {
+        "logo": "shopify://shop_images/Logo_Baking_Kaur-removebg-preview_3dae9c18-4faf-4d1d-acdf-f95b02488965.png",
+        "logo_width": 88,
+        "logo_width_mobile": 70,
+        "logo_text": "The Baking Kaur",
+        "logo_tagline": "Luxury Eggless Creations",
+        "main_menu": "main-menu",
+        "show_search": true,
+        "show_wishlist": true,
+        "show_account": true,
+        "whatsapp_number": "918218862928",
+        "search_placeholder": "Find your perfect cake…",
+        "header_height": 88,
+        "mobile_header_height": 68,
+        "container_width": 1280,
+        "header_bg": "#FDFAF8",
+        "header_fg": "#1A0810",
+        "header_border_color": "#EDD8E3",
+        "sticky_type": "scroll_up",
+        "mobile_phone": "+91-8218862928",
+        "mobile_email": "thebakingkaur@gmail.com"
+      }
+    },
+    "announcement_bar_Bp4ab7": {
+      "type": "announcement-bar",
+      "blocks": {
+        "announcement_gdG8T8": {
+          "type": "announcement",
+          "disabled": true,
+          "settings": {
+            "text": "LIMITED TIME OFFER: DIWALI SPECIAL"
+          }
+        }
+      },
+      "block_order": [
+        "announcement_gdG8T8"
+      ],
+      "disabled": true,
+      "settings": {
+        "design": "marquee",
+        "color_scheme": "scheme-67a7ca9f-3333-4245-b79f-2e9849d7e615",
+        "show_close_btn": true,
+        "show_line_separator": true,
+        "adding_border": true,
+        "au_time": 10,
+        "slider_pause_when_hover": false,
+        "speed": 0.3,
+        "direction": "rtl",
+        "marquee_pause_when_hover": true
+      }
+    },
+    "header_e_commerce_JeQNpz": {
+      "type": "header-e-commerce",
+      "blocks": {
+        "mega_page_cKBy4n": {
+          "type": "mega_page",
+          "disabled": true,
+          "settings": {
+            "title": "Title",
+            "mega_menu_colors": "",
+            "mega_position": "bottom",
+            "mega_width": "full",
+            "mega_custom_width": 1200
+          }
+        },
+        "mega_shop_bntz4K": {
+          "type": "mega_shop",
+          "disabled": true,
+          "settings": {
+            "title": "Categories",
+            "collection_list": [
+              "anniversary-cakes",
+              "birthday-cakes",
+              "designer-theme-cakes",
+              "cake-hampers",
+              "wedding-cakes"
+            ],
+            "image_ratio": "adapt_image",
+            "image_size": true,
+            "endable_slider_layout": true,
+            "navUI": true,
+            "mega_menu_colors": "",
+            "mega_position": "bottom",
+            "mega_width": "full",
+            "mega_custom_width": 1200
+          }
+        }
+      },
+      "block_order": [
+        "mega_page_cKBy4n",
+        "mega_shop_bntz4K"
+      ],
+      "disabled": true,
+      "settings": {
+        "header_fullwidth": false,
+        "logo": "shopify://shop_images/Logo_Baking_Kaur-removebg-preview_3dae9c18-4faf-4d1d-acdf-f95b02488965.png",
+        "logo_width": 80,
+        "brand_transform": true,
+        "header_height": 62,
+        "header_colors": "scheme-1",
+        "enabled_user": true,
+        "enabled_compare": false,
+        "enabled_wishlist": false,
+        "header_bottom_height": 61,
+        "lazy_mn": true,
+        "menu_position": "center",
+        "menu_size": "lg",
+        "menu_weight": "bold",
+        "text_transform": true,
+        "dropdown_arrow": true,
+        "active_link": false,
+        "spacing_nav": 30,
+        "open_event": "hover",
+        "header_menu_colors": "",
+        "header_border": "top_bottom",
+        "lazy_mn_mb": false,
+        "header_height_mb": 120,
+        "logo_width_mb": 80,
+        "only_click_icon": true,
+        "header_mobile_colors": "scheme-2",
+        "note_mobile": "<span class=\"hdt-inline-flex hdt-text-base hdt-font-medium\" style=\"color: rgb(var(--color-foreground));border-bottom: solid 1px rgb(var(--color-foreground));margin-bottom: 11px;\">Need help ?</span><span class=\"hdt-flex hdt-flex-col hdt-text-base hdt-font-normal\" style=\"line-height: 24px;\"><span>390/1, Lane Number 7,Thapar Nagar,<br> Meerut, Uttar Pradesh 250001,  </span><span>Email: <b>thebakingkaur@gmail.com</b></span><span>Phone: <b>+91-8218862928</b></span></span>",
+        "sticky_type": "on_scroll_up"
+      }
+    },
+    "header_menu_bottom_hulkapps_backup_kgkQBL": {
+      "type": "header-menu-bottom-hulkapps-backup",
+      "blocks": {
+        "mega_shop_gCfWn9": {
+          "type": "mega_shop",
+          "settings": {
+            "title": "Categories",
+            "collection_list": [
+              "anniversary-cakes",
+              "birthday-cakes",
+              "cake-hampers",
+              "designer-theme-cakes",
+              "wedding-cakes"
+            ],
+            "image_ratio": "adapt_image",
+            "image_size": true,
+            "navUI": true,
+            "mega_menu_colors": "",
+            "mega_position": "default",
+            "mega_width": "full",
+            "mega_custom_width": 1200
+          }
+        }
+      },
+      "block_order": [
+        "mega_shop_gCfWn9"
+      ],
+      "disabled": true,
+      "name": "t:sections.header.header_bottom.presets.name",
+      "settings": {
+        "header_layout": "logo_left",
+        "header_fullwidth": true,
+        "logo_width": 136,
+        "header_height": 68,
+        "header_colors": "",
+        "enabled_user": true,
+        "enabled_compare": false,
+        "enabled_wishlist": true,
+        "search_only_product": true,
+        "header_bottom_height": 60,
+        "main_menu": "header",
+        "lazy_mn": true,
+        "menu_position": "center",
+        "menu_size": "lg",
+        "menu_weight": "medium",
+        "text_transform": true,
+        "dropdown_arrow": true,
+        "active_link": false,
+        "spacing_nav": 30,
+        "open_event": "hover",
+        "header_menu_colors": "",
+        "header_categories": true,
+        "title_categories": "Browse All Categories",
+        "menu_categories": "header",
+        "other_content": "",
+        "header_border": "none",
+        "header_height_mb": 60,
+        "logo_width_mb": 130,
+        "main_menu_mobile": "main-menu",
+        "lazy_mn_mb": true,
+        "only_click_icon": false,
+        "header_mobile_colors": "",
+        "note_mobile": "<span class=\"hdt-inline-flex hdt-text-base hdt-font-medium\" style=\"color: rgb(var(--color-foreground));border-bottom: solid 1px rgb(var(--color-foreground));margin-bottom: 11px;\">Need help ?</span><span class=\"hdt-flex hdt-flex-col hdt-text-base hdt-font-normal\" style=\"line-height: 24px;\"><span>390/1, Lane Number 7,Thapar Nagar,<br> Meerut, Uttar Pradesh 250001,  </span><span>Email: <b>thebakingkaur@gmail.com</b></span><span>Phone: <b>+91-8218862928</b></span></span>",
+        "sticky_type": "on_scroll_up",
+        "sticky_glass": true
+      }
+    }
+  },
+  "order": [
+    "tbk_announcement_bar_main",
+    "tbk_header_main",
+    "announcement_bar_Bp4ab7",
+    "header_e_commerce_JeQNpz",
+    "header_menu_bottom_hulkapps_backup_kgkQBL"
+  ]
+}

@@ -1,0 +1,453 @@
+{%- comment -%}
+  The Baking Kaur — custom product layout
+  Drop this in /sections, then assign the template product.tbk.json to a single product.
+  Scoped under .tbk-page so it won't affect the rest of your theme.
+{%- endcomment -%}
+
+{%- assign p = product -%}
+{%- assign cur = p.selected_or_first_available_variant -%}
+
+<div class="tbk-page" id="tbk-{{ section.id }}">
+<style>
+  #tbk-{{ section.id }}{
+    --magenta:#C01457;--magenta-dark:#8E0E40;--magenta-soft:#FDE6EF;
+    --pink-bg:#FFF4F8;--pink-card:#FFEAF1;--gold:#F5A623;--ink:#2B2230;--muted:#7A7080;--line:#F2DCE6;
+    --radius:26px;--shadow:0 30px 120px rgba(140,20,70,.14);
+    font-family:'Poppins',-apple-system,system-ui,sans-serif;color:var(--ink);max-width:1240px;margin:0 auto;padding:0 20px 110px;
+    background:#fff;
+  }
+  #tbk-{{ section.id }} *{box-sizing:border-box;}
+  #tbk-{{ section.id }} button{font-family:inherit;cursor:pointer;border:none;background:none;}
+  #tbk-{{ section.id }} a{color:inherit;text-decoration:none;}
+  #tbk-{{ section.id }} svg{display:block;}
+
+  #tbk-{{ section.id }} .tbk-hero{display:grid;grid-template-columns:minmax(0,1fr);gap:32px;padding:32px 0 0;}
+  @media(min-width:900px){#tbk-{{ section.id }} .tbk-hero{grid-template-columns:1fr .92fr;gap:40px;padding:44px 0 0;}}
+
+  #tbk-{{ section.id }} .tbk-gallery-card{border-radius:42px;overflow:hidden;border:1px solid rgba(192,20,87,.08);box-shadow:0 40px 140px rgba(140,20,70,.14);background:#fff;max-width:720px;margin:0 auto;}
+  #tbk-{{ section.id }} .tbk-gallery{display:grid;gap:18px;}
+  #tbk-{{ section.id }} .tbk-gallery-stage{position:relative;border-radius:42px;overflow:hidden;aspect-ratio:5/6;min-height:420px;max-height:520px;border:1px solid rgba(192,20,87,.08);box-shadow:0 24px 82px rgba(0,0,0,.12);background:#FDF2F7;transition:transform .35s ease,box-shadow .35s ease;}
+  #tbk-{{ section.id }} .tbk-gallery-stage:hover{transform:translateY(-3px);box-shadow:0 34px 100px rgba(0,0,0,.18);}
+  #tbk-{{ section.id }} .tbk-gallery-stage img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s ease;}
+  #tbk-{{ section.id }} .tbk-gallery-stage:hover img{transform:scale(1.04);}
+  #tbk-{{ section.id }} .tbk-gallery-stage .tbk-counter{position:absolute;top:20px;right:20px;background:rgba(255,255,255,.96);color:var(--ink);font-size:13px;font-weight:700;padding:10px 14px;border-radius:999px;box-shadow:0 16px 40px rgba(0,0,0,.12);}
+  #tbk-{{ section.id }} .tbk-gallery-stage .tbk-zoom{position:absolute;bottom:20px;right:20px;background:rgba(0,0,0,.78);color:#fff;font-size:12px;padding:10px 15px;border-radius:999px;display:flex;align-items:center;gap:8px;}
+  #tbk-{{ section.id }} .tbk-gallery-thumbs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;}
+  @media(max-width:760px){#tbk-{{ section.id }} .tbk-gallery-thumbs{grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;}}
+  #tbk-{{ section.id }} .tbk-thumb{border-radius:22px;overflow:hidden;border:1px solid rgba(192,20,87,.1);position:relative;cursor:pointer;aspect-ratio:1/1;background:#fff;box-shadow:0 16px 46px rgba(0,0,0,.06);transition:border-color .3s ease,transform .3s ease,box-shadow .3s ease;}
+  #tbk-{{ section.id }} .tbk-thumb:hover{transform:translateY(-2px);box-shadow:0 22px 52px rgba(0,0,0,.1);}
+  #tbk-{{ section.id }} .tbk-thumb img{width:100%;height:100%;object-fit:cover;}
+  #tbk-{{ section.id }} .tbk-thumb.is-active{border-color:var(--magenta);box-shadow:0 24px 60px rgba(192,20,87,.14);}
+
+  #tbk-{{ section.id }} .tbk-details-card{display:grid;gap:30px;}
+  #tbk-{{ section.id }} .tbk-summary{display:grid;gap:24px;padding:0;}
+  #tbk-{{ section.id }} .tbk-meta{display:grid;gap:18px;}
+  #tbk-{{ section.id }} .tbk-rating{display:flex;flex-wrap:wrap;align-items:center;gap:12px;font-size:13px;color:var(--muted);}
+  #tbk-{{ section.id }} .tbk-topline{font-size:12px;font-weight:700;color:var(--magenta);letter-spacing:.28em;text-transform:uppercase;}
+  #tbk-{{ section.id }} .tbk-title{font-family:'Playfair Display',Georgia,serif;font-weight:800;color:var(--magenta-dark);font-size:42px;line-height:1.02;margin:0;letter-spacing:-.03em;}
+  @media(min-width:900px){#tbk-{{ section.id }} .tbk-title{font-size:56px;}}
+  #tbk-{{ section.id }} .tbk-price-row{display:flex;flex-wrap:wrap;gap:18px;align-items:flex-end;}
+  #tbk-{{ section.id }} .tbk-price{font-size:44px;font-weight:900;color:transparent;line-height:1;margin:0;background:linear-gradient(135deg,#D81B63,#8E0E40);-webkit-background-clip:text;background-clip:text;}
+  @media(min-width:900px){#tbk-{{ section.id }} .tbk-price{font-size:58px;}}
+  #tbk-{{ section.id }} .tbk-pill-list{display:flex;flex-wrap:wrap;gap:14px;margin:0;}
+  #tbk-{{ section.id }} .tbk-pill{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;padding:12px 18px;border-radius:999px;background:rgba(192,20,87,.08);border:1px solid rgba(192,20,87,.15);box-shadow:0 18px 44px rgba(192,20,87,.06);}
+
+  #tbk-{{ section.id }} .tbk-buybox-wrapper{padding:0;}
+  #tbk-{{ section.id }} .tbk-buybox{background:linear-gradient(180deg,rgba(255,255,255,1),rgba(254,244,248,.96));border-radius:36px;box-shadow:0 42px 148px rgba(193,20,87,.14);padding:34px;display:grid;gap:28px;border:1px solid rgba(192,20,87,.14);}
+  @media(max-width:600px){#tbk-{{ section.id }} .tbk-buybox{padding:28px;}}
+  #tbk-{{ section.id }} .tbk-buybox-head{display:grid;gap:16px;}
+  #tbk-{{ section.id }} .tbk-buybox-head .tbk-eyebrow{font-size:12px;font-weight:700;letter-spacing:.35em;text-transform:uppercase;color:var(--magenta);}
+  #tbk-{{ section.id }} .tbk-buybox-head .tbk-buybox-copy{font-size:15.5px;color:#53485C;line-height:1.75;margin:0;}
+  #tbk-{{ section.id }} .tbk-configurator{display:grid;gap:22px;}
+  @media(min-width:700px){#tbk-{{ section.id }} .tbk-configurator{grid-template-columns:1fr 1fr;}}
+  #tbk-{{ section.id }} .tbk-customization{display:grid;gap:18px;}
+  #tbk-{{ section.id }} .tbk-field{display:grid;gap:8px;}
+  #tbk-{{ section.id }} .tbk-field label{font-size:12px;font-weight:600;color:#6F6170;letter-spacing:.08em;text-transform:uppercase;}
+  #tbk-{{ section.id }} .tbk-control{display:flex;align-items:center;gap:12px;padding:16px 18px;border-radius:24px;border:1px solid #F1DEE8;background:#fff;transition:border-color .3s ease,box-shadow .3s ease;}
+  #tbk-{{ section.id }} .tbk-control:focus-within{border-color:var(--magenta);box-shadow:0 0 0 3px rgba(192,20,87,.08);}
+  #tbk-{{ section.id }} .tbk-control select,#tbk-{{ section.id }} .tbk-control input,#tbk-{{ section.id }} .tbk-control textarea{border:none;outline:none;background:transparent;font:inherit;color:var(--ink);width:100%;}
+  #tbk-{{ section.id }} .tbk-control textarea{resize:vertical;min-height:96px;padding-top:4px;font-size:14px;line-height:1.6;}
+  #tbk-{{ section.id }} .tbk-control input[type="file"]{cursor:pointer;}
+  #tbk-{{ section.id }} .tbk-control .icon{font-size:18px;}
+  #tbk-{{ section.id }} .tbk-ctas{display:grid;gap:14px;margin-top:12px;}
+  @media(min-width:600px){#tbk-{{ section.id }} .tbk-ctas{grid-template-columns:1fr auto;}}
+  #tbk-{{ section.id }} .tbk-btn{height:62px;border-radius:26px;font-weight:700;font-size:16px;letter-spacing:.01em;display:inline-flex;align-items:center;justify-content:center;gap:12px;width:100%;transition:transform .2s ease,box-shadow .2s ease,background .2s ease;}
+  #tbk-{{ section.id }} .tbk-btn:hover{transform:translateY(-1px);}
+  #tbk-{{ section.id }} .tbk-btn-cart{background:linear-gradient(135deg,#D81B63,#8E0E40);color:#fff;box-shadow:0 24px 60px rgba(192,20,87,.28);text-transform:uppercase;letter-spacing:.08em;}
+  #tbk-{{ section.id }} .tbk-btn-cart[disabled]{opacity:.55;cursor:not-allowed;transform:none;box-shadow:none;}
+  #tbk-{{ section.id }} .tbk-btn-wa{background:#fff;color:var(--magenta-dark);border:1px solid rgba(192,20,87,.18);box-shadow:0 18px 48px rgba(192,20,87,.14);text-transform:uppercase;letter-spacing:.08em;}
+  #tbk-{{ section.id }} .tbk-btn-wa svg{fill:var(--magenta-dark);}
+  #tbk-{{ section.id }} .tbk-note{font-size:13px;color:#6F6170;line-height:1.7;margin:0;}
+
+  #tbk-{{ section.id }} .tbk-breadcrumb{font-size:12px;color:var(--muted);letter-spacing:.3px;padding:0 18px 18px;display:block;}
+  #tbk-{{ section.id }} .tbk-breadcrumb a{color:var(--muted);}
+  #tbk-{{ section.id }} .tbk-breadcrumb .sep{margin:0 8px;}
+
+  #tbk-{{ section.id }} .tbk-trust{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:0 18px 28px;}
+  @media(min-width:600px){#tbk-{{ section.id }} .tbk-trust{grid-template-columns:repeat(3,minmax(0,1fr));margin:0 24px 30px;}}
+  @media(min-width:900px){#tbk-{{ section.id }} .tbk-trust{grid-template-columns:repeat(5,minmax(0,1fr));margin:0;}}
+  #tbk-{{ section.id }} .tbk-trust-card{display:flex;align-items:center;gap:14px;padding:18px 22px;border-radius:28px;background:rgba(255,255,255,.98);border:1px solid rgba(192,20,87,.12);box-shadow:0 18px 44px rgba(192,20,87,.08);}
+  #tbk-{{ section.id }} .tbk-trust-card .icon{font-size:22px;}
+  #tbk-{{ section.id }} .tbk-trust-card .title{font-size:13px;font-weight:800;color:var(--magenta-dark);}
+  #tbk-{{ section.id }} .tbk-trust-card .subtitle{font-size:12px;color:var(--muted);line-height:1.4;}
+
+  #tbk-{{ section.id }} .tbk-section-head{display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:center;}
+  #tbk-{{ section.id }} .tbk-section-index{width:42px;height:42px;border-radius:50%;background:var(--magenta);color:#fff;font-weight:800;display:grid;place-items:center;font-size:14px;}
+  #tbk-{{ section.id }} .tbk-section-title{font-size:18px;font-weight:800;color:var(--magenta-dark);text-transform:uppercase;letter-spacing:.06em;}
+  #tbk-{{ section.id }} .tbk-section-copy{margin:0;color:var(--muted);font-size:14px;line-height:1.6;}
+
+  #tbk-{{ section.id }} .tbk-delivery-checker{background:#fff;border-radius:34px;box-shadow:0 32px 90px rgba(140,20,70,.08);padding:34px;display:grid;gap:28px;}
+  #tbk-{{ section.id }} .tbk-delivery-grid{display:grid;grid-template-columns:1.4fr .95fr;gap:26px;align-items:center;}
+  #tbk-{{ section.id }} .tbk-delivery-info{display:grid;gap:18px;}
+  #tbk-{{ section.id }} .tbk-delivery-info .tbk-pill{margin:0;}
+  #tbk-{{ section.id }} .tbk-delivery-panel{background:var(--pink-bg);border-radius:28px;padding:26px;display:grid;gap:18px;}
+  #tbk-{{ section.id }} .tbk-delivery-panel strong{display:block;font-size:20px;color:var(--magenta-dark);}
+  #tbk-{{ section.id }} .tbk-delivery-form{display:grid;gap:16px;}
+  #tbk-{{ section.id }} .tbk-delivery-field{display:grid;gap:10px;}
+  #tbk-{{ section.id }} .tbk-delivery-field label{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;}
+  #tbk-{{ section.id }} .tbk-delivery-input{border:1px solid rgba(192,20,87,.16);border-radius:22px;padding:16px 20px;font-size:15px;color:var(--ink);width:100%;background:#fff;}
+  #tbk-{{ section.id }} .tbk-delivery-actions{display:flex;gap:14px;flex-wrap:wrap;}
+  #tbk-{{ section.id }} .tbk-delivery-btn{background:linear-gradient(135deg,#C01457,#8E0E40);color:#fff;border-radius:22px;padding:16px 24px;font-weight:700;cursor:pointer;min-width:170px;}
+  #tbk-{{ section.id }} .tbk-delivery-result{font-size:14px;color:var(--muted);line-height:1.6;}
+
+  #tbk-{{ section.id }} .tbk-related{display:grid;gap:20px;}
+  #tbk-{{ section.id }} .tbk-related-header{display:flex;justify-content:space-between;align-items:center;gap:14px;}
+  #tbk-{{ section.id }} .tbk-related-title{font-size:18px;font-weight:800;color:var(--magenta-dark);}
+  #tbk-{{ section.id }} .tbk-related-link{color:var(--magenta);font-weight:700;text-decoration:none;}
+  #tbk-{{ section.id }} .tbk-related-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;}
+  #tbk-{{ section.id }} .tbk-related-card{background:#fff;border-radius:30px;overflow:hidden;border:1px solid rgba(192,20,87,.1);box-shadow:0 18px 48px rgba(140,20,70,.06);transition:transform .25s ease,box-shadow .25s ease;}
+  #tbk-{{ section.id }} .tbk-related-card:hover{transform:translateY(-2px);box-shadow:0 26px 70px rgba(140,20,70,.12);}
+  #tbk-{{ section.id }} .tbk-related-image{aspect-ratio:1/1.05;overflow:hidden;background:#f8eef4;}
+  #tbk-{{ section.id }} .tbk-related-image img{width:100%;height:100%;object-fit:cover;display:block;}
+  #tbk-{{ section.id }} .tbk-related-body{padding:18px;display:grid;gap:10px;}
+  #tbk-{{ section.id }} .tbk-related-title-card{font-size:14px;font-weight:700;color:var(--ink);line-height:1.4;}
+  #tbk-{{ section.id }} .tbk-related-price{font-size:16px;font-weight:800;color:var(--magenta);}
+
+  #tbk-{{ section.id }} .tbk-reviews{display:grid;gap:20px;}
+  #tbk-{{ section.id }} .tbk-reviews-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;}
+  #tbk-{{ section.id }} .tbk-review-card{background:#fff;border-radius:30px;padding:26px;display:grid;gap:18px;box-shadow:0 28px 84px rgba(140,20,70,.08);}
+  #tbk-{{ section.id }} .tbk-review-stars{color:#F3C623;font-size:14px;}
+  #tbk-{{ section.id }} .tbk-review-author{font-weight:800;color:var(--magenta-dark);}
+  #tbk-{{ section.id }} .tbk-review-copy{font-size:13px;color:var(--muted);line-height:1.7;margin:0;}
+
+  #tbk-{{ section.id }} .tbk-info-grid{display:grid;grid-template-columns:1.2fr .95fr;gap:26px;}
+  #tbk-{{ section.id }} .tbk-about-card{background:#fff;border-radius:36px;padding:34px;box-shadow:0 30px 90px rgba(140,20,70,.08);display:grid;gap:20px;}
+  #tbk-{{ section.id }} .tbk-about-title{font-size:18px;font-weight:800;color:var(--magenta-dark);}
+  #tbk-{{ section.id }} .tbk-about-copy{font-size:15px;color:var(--ink);line-height:1.75;}
+  #tbk-{{ section.id }} .tbk-about-list{display:grid;gap:12px;padding:0;margin:0;list-style:none;}
+  #tbk-{{ section.id }} .tbk-about-list li{display:flex;justify-content:space-between;gap:12px;font-size:14px;color:var(--muted);}
+  #tbk-{{ section.id }} .tbk-about-list li strong{color:var(--ink);}
+
+  #tbk-{{ section.id }} .tbk-faq{display:grid;gap:16px;}
+  #tbk-{{ section.id }} .tbk-faq-title{font-size:18px;font-weight:800;color:var(--magenta-dark);}
+  #tbk-{{ section.id }} .tbk-accordion{display:grid;gap:14px;}
+  #tbk-{{ section.id }} .tbk-accordion-item{border-radius:26px;overflow:hidden;border:1px solid rgba(192,20,87,.16);background:#fff;}
+  #tbk-{{ section.id }} .tbk-accordion-item summary{cursor:pointer;list-style:none;padding:22px 26px;font-weight:700;color:var(--ink);font-size:15px;display:flex;justify-content:space-between;align-items:center;gap:14px;}
+  #tbk-{{ section.id }} .tbk-accordion-item summary::-webkit-details-marker{display:none;}
+  #tbk-{{ section.id }} .tbk-accordion-content{padding:0 26px 24px;font-size:14px;color:var(--muted);line-height:1.75;}
+
+  #tbk-{{ section.id }} .tbk-seo{background:#fff;border-radius:36px;padding:34px;box-shadow:0 32px 90px rgba(140,20,70,.08);display:grid;gap:20px;}
+  #tbk-{{ section.id }} .tbk-seo-title{font-size:18px;font-weight:800;color:var(--magenta-dark);}
+  #tbk-{{ section.id }} .tbk-seo-copy{font-size:14px;color:var(--muted);line-height:1.75;}
+  #tbk-{{ section.id }} .tbk-seo-links{display:grid;gap:10px;padding:0;margin:0;list-style:none;}
+  #tbk-{{ section.id }} .tbk-seo-links a{color:var(--magenta);font-weight:700;text-decoration:none;}
+
+  #tbk-{{ section.id }} .tbk-bottom-bar{display:none;position:fixed;left:0;right:0;bottom:0;z-index:999;background:#fff;border-top:1px solid rgba(192,20,87,.16);padding:16px 20px;box-shadow:0 -16px 40px rgba(0,0,0,.12);}
+  #tbk-{{ section.id }} .tbk-bottom-inner{display:flex;justify-content:space-between;align-items:center;gap:14px;max-width:1200px;margin:0 auto;}
+  #tbk-{{ section.id }} .tbk-bottom-info{display:grid;gap:4px;}
+  #tbk-{{ section.id }} .tbk-bottom-price{font-size:16px;font-weight:900;color:var(--magenta);}
+  #tbk-{{ section.id }} .tbk-bottom-cta{display:flex;gap:12px;flex:1;}
+  #tbk-{{ section.id }} .tbk-bottom-cta .tbk-btn{flex:1;}
+
+  @media(max-width:899px){
+    #tbk-{{ section.id }}{padding-bottom:150px;}
+    #tbk-{{ section.id }} .tbk-hero{gap:24px;}
+    #tbk-{{ section.id }} .tbk-gallery-stage{min-height:420px;}
+    #tbk-{{ section.id }} .tbk-delivery-grid{grid-template-columns:1fr;}
+    #tbk-{{ section.id }} .tbk-related-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
+    #tbk-{{ section.id }} .tbk-reviews-grid{grid-template-columns:1fr;}
+    #tbk-{{ section.id }} .tbk-info-grid{grid-template-columns:1fr;}
+    #tbk-{{ section.id }} .tbk-bottom-bar{display:block;}
+  }
+  @media(max-width:760px){
+    #tbk-{{ section.id }} .tbk-gallery-thumbs{grid-template-columns:repeat(5,minmax(0,1fr));}
+  }
+  @media(max-width:600px){
+    #tbk-{{ section.id }} .tbk-related-grid{grid-template-columns:1fr;}
+    #tbk-{{ section.id }} .tbk-delivery-panel{padding:20px;}
+    #tbk-{{ section.id }} .tbk-related-body{padding:14px;}
+    #tbk-{{ section.id }} .tbk-btn{height:58px;}
+    #tbk-{{ section.id }} .tbk-btn-cart{font-size:15px;}
+    #tbk-{{ section.id }} .tbk-btn-wa{font-size:15px;}
+  }
+</style>
+
+<div class="tbk-breadcrumb"><a href="{{ routes.root_url }}">Home</a><span class="sep">›</span>{%- if p.collections.size > 0 -%}<a href="{{ p.collections.first.url }}">{{ p.collections.first.title }}</a><span class="sep">›</span>{%- endif -%}<span>{{ p.title }}</span></div>
+
+<form method="post" action="{{ routes.cart_add_url }}" id="tbk-form-{{ section.id }}" enctype="multipart/form-data">
+  <section class="tbk-hero">
+    <div class="tbk-gallery-card">
+      {%- render 'tbk-gallery' -%}
+    </div>
+
+    <div class="tbk-details-card">
+      <div class="tbk-summary">
+        <div class="tbk-meta">
+          <div class="tbk-topline">The Baking Kaur</div>
+          <h1 class="tbk-title">{{ p.title }}</h1>
+          <div class="tbk-price-row">
+            <div class="tbk-price" data-tbk-price>{{ cur.price | money }}</div>
+            <div class="tbk-pill-list">
+              <span class="tbk-pill">Premium Cake</span>
+              <span class="tbk-pill">Handcrafted</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tbk-buybox-wrapper">
+        {%- render 'tbk-buy-box' -%}
+      </div>
+    </div>
+  </section>
+</form>
+
+{%- render 'tbk-trust-strip' -%}
+
+<section class="tbk-delivery-checker">
+  <div class="tbk-section-head">
+    <div class="tbk-section-index">2</div>
+    <div>
+      <div class="tbk-section-title">Check Delivery Availability</div>
+      <p class="tbk-section-copy">Enter your pincode to confirm delivery availability and expected shipping details for this cake.</p>
+    </div>
+  </div>
+  <div class="tbk-delivery-grid">
+    <div class="tbk-delivery-info">
+      <div class="tbk-delivery-panel">
+        <strong>Delivery Available</strong>
+        <div>Get your cake delivered within 2–4 hours in Meerut and nearby areas. Cutoff times apply for same-day and midnight delivery.</div>
+      </div>
+      <div class="tbk-delivery-actions">
+        <div class="tbk-delivery-field">
+          <label for="tbk-pincode-{{ section.id }}">Enter PIN code</label>
+          <input id="tbk-pincode-{{ section.id }}" class="tbk-delivery-input" type="text" maxlength="6" placeholder="e.g. 250002" aria-label="Enter PIN code">
+        </div>
+        <button id="tbk-pincode-btn-{{ section.id }}" class="tbk-delivery-btn" type="button">Check</button>
+      </div>
+      <div id="tbk-pincode-result-{{ section.id }}" class="tbk-delivery-result">We deliver across Meerut and selected nearby areas.</div>
+    </div>
+    <div class="tbk-delivery-panel">
+      <strong>{{ section.settings.city | default: 'Meerut' }}</strong>
+      <div>Available pincodes in your area may include express delivery, midnight drop and premium packaging support.</div>
+    </div>
+  </div>
+</section>
+
+<section class="tbk-related">
+  <div class="tbk-related-header">
+    <div class="tbk-related-title">You May Also Like</div>
+    <a href="{{ section.settings.related_collection.url | default: routes.collections_url }}" class="tbk-related-link">View all</a>
+  </div>
+  <div class="tbk-related-grid">
+    {%- assign related_collection = section.settings.related_collection -%}
+    {%- if related_collection != blank and related_collection.products.size > 0 -%}
+      {%- assign related_products = related_collection.products | where: "id", "!=", p.id | limit: 4 -%}
+    {%- elsif p.collections.size > 0 -%}
+      {%- assign related_products = p.collections.first.products | where: "id", "!=", p.id | limit: 4 -%}
+    {%- else -%}
+      {%- assign related_products = collections.all.products | where: "id", "!=", p.id | limit: 4 -%}
+    {%- endif -%}
+    {%- for related in related_products -%}
+      <a href="{{ related.url }}" class="tbk-related-card">
+        <div class="tbk-related-image">
+          <img src="{{ related.featured_image | img_url: '600x600' }}" alt="{{ related.title }}">
+        </div>
+        <div class="tbk-related-body">
+          <div class="tbk-related-title-card">{{ related.title }}</div>
+          <div class="tbk-related-price">{{ related.price | money }}</div>
+        </div>
+      </a>
+    {%- endfor -%}
+  </div>
+</section>
+
+<section class="tbk-info">
+  <div class="tbk-info-grid">
+    <div class="tbk-about-card">
+      <div class="tbk-about-title">About This Cake</div>
+      <p class="tbk-about-copy">{{ section.settings.about_text }}</p>
+      <ul class="tbk-about-list">
+        <li><span>Delivery city</span><strong>{{ section.settings.city }}</strong></li>
+        <li><span>Serves weight</span><strong>{{ section.settings.serves_weight }}</strong></li>
+        <li><span>Serves people</span><strong>{{ section.settings.serves_people }}</strong></li>
+      </ul>
+      {%- if section.settings.about_link != blank -%}
+        <a href="{{ section.settings.about_link }}" class="tbk-related-link">View ingredients</a>
+      {%- endif -%}
+    </div>
+
+    <div class="tbk-faq">
+      <div class="tbk-faq-title">Frequently Asked Questions</div>
+      <div class="tbk-accordion">
+        {%- for block in section.blocks -%}
+          <details class="tbk-accordion-item">
+            <summary>{{ block.settings.q }}</summary>
+            <div class="tbk-accordion-content">{{ block.settings.a }}</div>
+          </details>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="tbk-seo">
+  <div class="tbk-seo-title">Premium Cakes & Luxury Celebration Deliveries in {{ section.settings.city | default: 'Meerut' }}</div>
+  <p class="tbk-seo-copy">The Baking Kaur offers handcrafted, eggless celebration cakes made with premium ingredients and elegant presentation. Order now for same-day or midnight delivery, delicious flavor combinations, and beautiful gift-ready packaging.</p>
+  <ul class="tbk-seo-links">
+    <li><a href="/collections/birthday-cakes">Birthday Cakes</a></li>
+    <li><a href="/collections/designer-cakes">Designer Cakes</a></li>
+    <li><a href="/collections/luxury-cakes">Luxury Cakes</a></li>
+    <li><a href="/collections/premium-cakes">Premium Cakes</a></li>
+  </ul>
+</section>
+
+<div class="tbk-bottom-bar">
+  <div class="tbk-bottom-inner">
+    <div class="tbk-bottom-info">
+      <div class="tbk-bottom-price">{{ cur.price | money }}</div>
+      <div class="tbk-bottom-status">In stock • Fast delivery</div>
+    </div>
+    <div class="tbk-bottom-cta">
+      <button type="submit" form="tbk-form-{{ section.id }}" class="tbk-btn tbk-btn-cart">ADD TO CART</button>
+      <a href="https://wa.me/{{ section.settings.whatsapp_number }}?text={{ 'Hi! I would like to customize: ' | append: product.title | url_encode }}%20{{ shop.url | append: product.url | url_encode }}" class="tbk-btn tbk-btn-wa">WHATSAPP</a>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var root = document.getElementById('tbk-{{ section.id }}');
+  if(!root) return;
+  var variants = {{ p.variants | json }};
+  var selects = root.querySelectorAll('[data-tbk-option]');
+  var vid = document.getElementById('tbk-vid-{{ section.id }}');
+  var priceEls = root.querySelectorAll('[data-tbk-price]');
+  var addBtn = document.getElementById('tbk-add-{{ section.id }}');
+  var addLabel = root.querySelector('[data-tbk-addlabel]');
+  var addPriceEls = root.querySelectorAll('[data-tbk-addprice]');
+
+  function money(cents){ return '₹' + (cents/100).toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2}); }
+  function chosen(){ return Array.prototype.map.call(selects, function(s){ return s.value; }); }
+  function match(){
+    var c = chosen();
+    return variants.filter(function(v){
+      for(var i=0;i<c.length;i++){ if(String(v.options[i]) !== String(c[i])) return false; }
+      return true;
+    })[0];
+  }
+  function update(){
+    var v = match();
+    if(!v){ if(addBtn){addBtn.disabled=true;} if(addLabel){addLabel.textContent='UNAVAILABLE';} return; }
+    vid.value = v.id;
+    priceEls.forEach(function(el){ el.textContent = money(v.price); });
+    addPriceEls.forEach(function(el){ el.textContent = money(v.price); });
+    if(addBtn){ addBtn.disabled = !v.available; }
+    if(addLabel){ addLabel.textContent = v.available ? 'ADD TO CART' : 'SOLD OUT'; }
+  }
+  selects.forEach(function(s){ s.addEventListener('change', update); });
+  update();
+
+  var main = root.querySelector('[data-tbk-main]');
+  var thumbs = root.querySelectorAll('[data-tbk-thumb]');
+  var counter = root.querySelector('[data-tbk-counter]');
+  var current = 0;
+  var images = [{%- for img in p.images -%}{{ img | image_url: width: 1200 | json }}{%- unless forloop.last -%},{%- endunless -%}{%- endfor -%}];
+
+  function setImage(index){
+    current = (index + images.length) % images.length;
+    if(main) main.src = images[current];
+    if(counter) counter.textContent = (current + 1) + ' / ' + images.length;
+    thumbs.forEach(function(btn,n){ btn.classList.toggle('is-active', n===current); });
+  }
+
+  thumbs.forEach(function(btn){
+    btn.addEventListener('click', function(){ setImage(parseInt(btn.getAttribute('data-tbk-thumb'),10)); });
+  });
+
+  var stage = root.querySelector('[data-tbk-carousel]');
+  if(stage && images.length>1){
+    var startX = 0;
+    stage.addEventListener('touchstart', function(e){ if(e.touches.length===1){ startX = e.touches[0].clientX; } }, {passive:true});
+    stage.addEventListener('touchend', function(e){ if(e.changedTouches.length===1){ var diff = e.changedTouches[0].clientX - startX; if(Math.abs(diff) > 40){ setImage(diff < 0 ? current + 1 : current - 1); } } }, {passive:true});
+  }
+
+  var mainWrap = root.querySelector('.tbk-gallery-stage');
+  if(mainWrap){
+    mainWrap.addEventListener('click', function(){ window.open(images[current], '_blank'); });
+  }
+
+  var pincodeInput = root.querySelector('#tbk-pincode-{{ section.id }}');
+  var pincodeResult = root.querySelector('#tbk-pincode-result-{{ section.id }}');
+  var pincodeButton = root.querySelector('#tbk-pincode-btn-{{ section.id }}');
+
+  function updatePincodeResult(){
+    if(!pincodeInput || !pincodeResult) return;
+    var value = pincodeInput.value.trim();
+    if(/^\d{6}$/.test(value)){
+      pincodeResult.innerHTML = '<strong>Delivery available!</strong> We can deliver this cake to PIN ' + value + ' within 2–4 hours.';
+    } else if(value.length > 0){
+      pincodeResult.innerHTML = '<strong>Invalid PIN code.</strong> Please enter a 6-digit code.';
+    } else {
+      pincodeResult.innerHTML = 'Enter your PIN code to check delivery availability.';
+    }
+  }
+
+  if(pincodeButton){
+    pincodeButton.addEventListener('click', function(e){
+      e.preventDefault();
+      updatePincodeResult();
+    });
+  }
+
+  if(pincodeInput){
+    pincodeInput.addEventListener('input', function(){
+      if(this.value.length === 6){
+        updatePincodeResult();
+      }
+    });
+  }
+})();
+</script>
+
+</div>
+
+{% schema %}
+{
+  "name": "TBK Product",
+  "settings": [
+    { "type": "text", "id": "whatsapp_number", "label": "WhatsApp number (with country code, no +)", "default": "919999999999" },
+    { "type": "text", "id": "rating", "label": "Rating", "default": "4.8" },
+    { "type": "text", "id": "reviews_label", "label": "Reviews label (trust strip)", "default": "500+ Reviews" },
+    { "type": "text", "id": "customers_label", "label": "Rating label (top)", "default": "500+ Happy Customers" },
+    { "type": "checkbox", "id": "show_bestseller", "label": "Show BESTSELLER badge", "default": true },
+    { "type": "text", "id": "city", "label": "Delivery city", "default": "Meerut" },
+    { "type": "text", "id": "serves_weight", "label": "Serves weight", "default": "1 Kg" },
+    { "type": "text", "id": "serves_people", "label": "Serves people", "default": "8–10 People" },
+    { "type": "textarea", "id": "about_text", "label": "About text", "default": "Premium eggless cake crafted with fresh ingredients and luxurious presentation. Perfect for birthdays, anniversaries and all special celebrations." },
+    { "type": "url", "id": "about_link", "label": "View ingredients link" },
+    { "type": "collection", "id": "related_collection", "label": "You May Also Like collection" }
+  ],
+  "blocks": [
+    {
+      "type": "faq",
+      "name": "FAQ item",
+      "settings": [
+        { "type": "text", "id": "q", "label": "Question", "default": "Are your products 100% eggless?" },
+        { "type": "textarea", "id": "a", "label": "Answer", "default": "Yes — every cake we bake is 100% eggless, with no compromise on taste or texture." }
+      ]
+    }
+  ],
+  "presets": [ { "name": "TBK Product" } ]
+}
+{% endschema %}

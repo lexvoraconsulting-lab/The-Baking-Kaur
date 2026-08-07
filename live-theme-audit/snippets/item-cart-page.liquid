@@ -1,0 +1,77 @@
+{%- comment -%}
+  Renders a item cart page
+
+  Accepts:
+  - item: {Object} (required)
+  - form_id: {String} (required)
+
+  Usage:
+  {%- render 'item-cart-page', item: item, form_id: form_id -%}
+{%- endcomment -%}
+{%- assign image  = item.image | default: settings.placeholder_img -%}
+<hdt-line-item class="hdt-line-item{% if item.variant.id == gift_wrap_pr_id %} is-gift-wrap{% endif %}" data-hulkapps-lineitem >
+  <div class="hdt-page-cart__infos-wrap hdt-flex">
+    <div class="hdt-page-cart__image">
+      <a href="{{ item.url }}" class="hdt-page-cart__img hdt-block hdt-relative hdt-oh hdt-ratio" style="--aspect-ratioapt:{{ image.aspect_ratio | default: 0.6811989100817438 }}">
+        {%- if image != blank -%}
+          {{ image | image_url: width: image.width | image_tag: loading: 'lazy', width: image.width, height: image.height, sizes: '(max-width: 767px) 80px, 160px', widths: '80, 160' }}
+        {%- else -%}
+          <span class="hdt-page-cart__img-placeholder"></span>
+        {%- endif -%}
+      </a>
+    </div>
+   <div class="hdt-page-cart__info">
+
+  <a href="{{ item.url }}" class="hdt-page-cart__title hdt-s-text">
+    {{ item.product.title }}
+  </a>
+
+{% if item.properties and item.properties.size > 0 %}
+  <div class="cart-properties" style="margin-top:8px;">
+    {% for property in item.properties %}
+      {% if property.last != blank %}
+        <div class="cart-property" style="margin-bottom:6px;">
+          <strong>{{ property.first }}:</strong>
+
+          {% if property.last contains 'http' %}
+            {% assign files = property.last | split: ',' %}
+            <div style="margin-top:6px; display:flex; gap:8px; flex-wrap:wrap;">
+              {% for file in files %}
+                <a href="{{ file }}" target="_blank">
+                  <img src="{{ file }}?w=120"
+                    alt="Uploaded image"
+                    style="width:70px;height:auto;border-radius:6px;border:1px solid #e5c3d1;"
+                  >
+                </a>
+              {% endfor %}
+            </div>
+          {% else %}
+            <span>{{ property.last }}</span>
+          {% endif %}
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+{% endif %}
+
+</a>
+
+            {%- unless item.product.has_only_default_variant -%}<div class="hdt-page-cart__meta-variant hdt-text-sm hdt-font-normal hdt-s-text2 hdt-block">{{ item.variant.title | escape }}</div>{%- endunless -%}
+      {% comment %} {%- if item_pr.has_only_default_variant == false -%}
+        <div class="hdt-page-cart__edit">
+          <a href="{{ item.url }}" rel="nofollow" class="hdt-inline-block hdt-s-text" data-action-quickshop data-no-instant><svg viewBox="0 0 14 16" width="14" height="16"><use href="#icon-cart-edit"/></svg></a>
+        </div>
+      {%- endif -%} {% endcomment %}
+       <button type='button' style='display: none;' class='edit_cart_option btn btn--primary button' data-product_id='{{item.product_id}}' data-key='{{item.key}}' data-variant_id='{{item.variant_id}}' data-quantity='{{item.quantity}}'>Edit Options</button>
+          {%- if item.line_level_discount_allocations.size != 0 -%}
+        <ul class="hdt-discounts hdt-cart_discounts hdt-font-normal" role="list" aria-label="{{ 'customer.order.discount' | t }}">
+          {%- for discount in item.line_level_discount_allocations -%}
+            <li class="hdt-discounts__discount hdt-page-cart-discount_item">{% render 'icon' with 'discount' %} {{ discount.discount_application.title }}</li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+      {%- if item.selling_plan_allocation != null %}<p class="hdt-product-option">{{ item.selling_plan_allocation.selling_plan.name }}</p>{% endif -%}
+      <wrapp-remove-item-oncart placement="none" class="hdt-contents" data-index="{{ item.index | plus: 1 }}" form="id:{{ form_id }}"><a href="{{ routes.cart_change_url }}?line={{ item.index | plus: 1 }}&quantity=0" class="hdt-page-cart__remove hdt-inline-block hdt-s-text"><span aria-label="{{ 'sections.cart.remove_title' | t: title: item.title | escape }}">{{ 'sections.cart.remove' | t }}</span></a></wrapp-remove-item-oncart>
+    </div>
+  </div>
+</hdt-line-item>

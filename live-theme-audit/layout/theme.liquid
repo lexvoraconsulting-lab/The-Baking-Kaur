@@ -1,0 +1,290 @@
+<!doctype html>
+  {%- liquid
+    assign iso_code  = request.locale.iso_code
+    assign config_rtl  = settings.right_to_left | default: 'enable-with-list'
+    assign is_rtl = false
+    assign dir = 'ltr'
+    if config_rtl == 'enable-with-list'
+      assign iso_code_ck = iso_code | split: '-' | first | append: ';' | prepend: ';'
+      assign lis_rtl = ';ae;ar;arc;bqi;ckb;dv;fa;glk;ha;he;kwh;ks;ku;mzn;nqo;pnb;ps;sd;ug;ur;yi;'
+      if lis_rtl contains iso_code_ck
+        assign is_rtl = true
+        assign dir = 'rtl'
+      endif
+    elsif config_rtl == 'enable'
+      assign is_rtl = true
+      assign dir = 'rtl'
+    endif
+  -%}
+<html class="no-js hdt-pr-img__effect-{{ settings.effect_secondary_image }} hdt-badge__shape-{{ settings.badge_shape }} dir--{{ dir }}{% if request.design_mode %} shopify-design-mode{% endif %}{% if settings.minimal_products %} hdt-minimal-products{% endif %}{% if settings.hidden_badges %} hdt-hidden-pr-badges{% endif %}{% if settings.hidden_quickview %} hdt-hidden-products-quickview{% endif %}{% if settings.hidden_wishlist %} hdt-hidden-products-wishlist{% endif %}{% if settings.hidden_compare %} hdt-hidden-products-compare{% endif %}{% if settings.uppercase_title %} hdt-pr-uppercase_title{% endif %}" lang="{{ request.locale.iso_code }}" dir="{{ dir }}">
+  <head>
+   <meta charset="utf-8">
+  
+ <meta name="facebook-domain-verification" content="9mrsifvdqhda9mn4m1bjxnqpb7h6rz" />
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="">
+    <link rel="canonical" href="{{ canonical_url }}">
+
+    {%- if settings.favicon != blank -%}
+      <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
+      <link rel="apple-touch-icon" href="{{ settings.favicon | image_url: width: 48, height: 48 }}">
+    {%- endif -%}
+    {%- if settings.library_font == "shopify" -%}
+      {%- unless settings.type_header_font.system? and settings.type_body_font.system? -%}
+        <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
+      {%- endunless -%}
+    {%- endif -%}
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,500&family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+
+    {% render 'bk-local-business' %}
+
+    <title>
+      {{ page_title }}
+      {%- if current_tags %} &ndash; {{ 'general.meta.tag' | t }} "{{ current_tags | join: ', ' }}"{% endif -%}
+      {%- if current_page != 1 %} &ndash; {{ 'general.meta.page' | t }} {{ current_page }}{% endif -%}
+      {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
+    </title>
+
+    {%- if page_description %}<meta name="description" content="{{ page_description | escape }}">{% endif %}
+
+    {%- liquid
+      render 'social-meta-tags'
+      render 'css-variables', is_rtl: is_rtl
+      render 'tbk-tokens'
+      render 'tbk-components'
+      echo 'theme.css' | asset_url | stylesheet_tag
+      if request.page_type == "policy"
+      echo 'hdt-policy.css' | asset_url | stylesheet_tag
+      endif
+      render 'js-head'
+    -%}
+    {{ content_for_header }}
+    
+
+  {% include 'hulk_po_vd' %}
+
+{%- comment -%}
+  SEO-024 / Phase 7.4: this global FAQPage block was found (Phase 7.3, docs/STRUCTURED_DATA_REPORT.md)
+  to have no matching visible content anywhere on the site - its 9 questions do not appear on the
+  homepage, any product/collection page, or even the 2 dedicated FAQ pages (whose real, much larger
+  FAQ content covers different questions entirely, verified against templates/page.faq-01.json).
+  The FAQ pages already carry their own correct, content-matched FAQPage/Question/Answer Microdata
+  via sections/accordion.liquid and accordion_inline.liquid - removing this block creates zero
+  schema gap. Removed entirely per the approved decision to keep structured data strictly aligned
+  with visible content, not excluded-and-orphaned.
+{%- endcomment -%}
+
+<script>
+  UPLOADCARE_PUBLIC_KEY = "5af3ec24e8ba61a78957";
+</script>
+<script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.full.min.js" charset="utf-8"></script>
+{{ 'tbk-footer.css' | asset_url | stylesheet_tag }}
+
+</head>
+
+  <body class="hdt-page-type-{{ request.page_type }}{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %} template-{{ template.name }}">
+    {%- render 'js-variables' -%}
+    {%- unless template == 'product.only_config' and request.design_mode == false -%}
+    {%- if request.page_type == "index" or request.page_type == "policy" -%}
+    <h1 class="hdt-hidden">{{ page_title | default: shop.name }}</h1>
+    {%- endif -%}
+    {%- render 's-dom-temp' -%}
+    <a class="skip-to-content-link button sr-only" href="#MainContent">{{ 'accessibility.skip_to_text' | t }}</a>
+    {%- sections 'header-group' -%}
+    {%- endunless -%}
+    <main id="MainContent" class="content-for-layout focus-none" role="main" tabindex="-1">
+      {%- if request.page_type == "policy" -%}
+        {%- section 'main-heading' -%}
+      {%- endif -%}
+      {{ content_for_layout }}
+    </main>
+
+    {%- unless template == 'product.only_config' and request.design_mode == false -%}
+    {%- sections 'footer-group' -%}
+
+    {%- liquid
+      sections 'system-group'
+      if settings.enable_compare_popup
+        render 'compare-offcanvas'
+      endif
+      # theme-check-disable NestedSnippet
+      render 'system-bottom'
+      # theme-check-enable NestedSnippet
+      render 'structured-data'
+    -%}
+    {%- endunless -%}
+  
+	 {% include 'shine-trust.liquid' %} 
+
+
+	 
+<!-- WebSite + Organization Schema -->
+{%- render 'tbk-schema-website' -%}
+
+<!-- LocalBusiness (Bakery) schema — SINGLE SOURCE: snippets/bk-local-business.liquid (rendered once in the head).
+     Phase A: inline duplicate Bakery entity removed here to stop conflicting geo/hours from being emitted twice per page. -->
+
+<!-- BreadcrumbList Schema -->
+{%- render 'tbk-schema-breadcrumb' -%}
+<!-- TBK Sticky WhatsApp Button -->
+<a href="https://wa.me/918218862928?text=Hi%20I%20want%20to%20order%20a%20cake"
+   class="tbk-sticky-whatsapp"
+   target="_blank">
+  💬 WhatsApp
+</a>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    if (window.location.pathname.includes("/products/")) {
+      var waBtn = document.querySelector(".tbk-sticky-whatsapp");
+      if (waBtn) {
+        waBtn.style.display = "none";
+      }
+    }
+  });
+</script>
+
+               <script>
+(function () {
+
+  function removeStickyATC() {
+    var selectors = [
+      '.tbk-sticky-atc',
+      '.tbk-sticky-btn',
+      '.sticky-atc',
+      '.sticky-cart',
+      '[class*="sticky"][class*="cart"]'
+    ];
+
+    selectors.forEach(function(selector) {
+      document.querySelectorAll(selector).forEach(function(el) {
+        el.remove();
+      });
+    });
+  }
+
+  // Run immediately
+  removeStickyATC();
+
+  // Also watch for dynamically injected elements
+  var observer = new MutationObserver(function () {
+    removeStickyATC();
+  });
+
+  observer.observe(document.body, {
+    childList: true,
+    subtree: true
+  });
+
+})();
+</script>
+
+<script>
+(function () {
+  function removePrevArrows() {
+    document.querySelectorAll(
+      '.hdt-prev, .hdt-nav-prev, .hdt-slider-prev, .swiper-button-prev, button, span'
+    ).forEach(el => {
+      if (el.innerText && el.innerText.trim() === '<') {
+        el.remove();
+      }
+    });
+  }
+
+  removePrevArrows();
+
+  const obs = new MutationObserver(removePrevArrows);
+  obs.observe(document.body, { childList: true, subtree: true });
+})();
+</script>
+<script src="{{ 'hamper-addons.js' | asset_url }}" defer></script>
+<script>
+  UPLOADCARE_PUBLIC_KEY = "5af3ec24e8ba61a78957";
+  UPLOADCARE_TABS = "file camera url";
+  UPLOADCARE_MULTIPLE = true;
+  UPLOADCARE_IMAGES_ONLY = true;
+  UPLOADCARE_IMAGE_SHRINK = "1600x1600";
+</script>
+
+<script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.full.min.js"></script>
+
+<script>
+(function () {
+
+  const map = [
+    [/ÃƒÂ¢Ã‚Â€Ã‚Â¦/g, '…'],
+    [/Ã¢Â€Â¦/g, '…'],
+    [/ÃƒÂ¢Ã‚Â€Ã‚Â™/g, '’'],
+    [/Ã¢Â€Â™/g, '’'],
+    [/ÃƒÂ¢Ã‚Â€Ã‚Âœ/g, '“'],
+    [/ÃƒÂ¢Ã‚Â€Ã‚Â�/g, '”'],
+    [/Ã¢Â€Âœ/g, '“'],
+    [/Ã¢Â€Â�/g, '”'],
+    [/ÃƒÂ¢Ã‚Â€Ã‚Â“/g, '–'],
+    [/ÃƒÂ¢Ã‚Â€Ã‚Â—/g, '—'],
+    [/Ã¢Â€Â“/g, '–'],
+    [/Ã¢Â€Â—/g, '—'],
+    [/Ã‚Â°/g, '°'],
+    [/Ã‚Â/g, '']
+  ];
+
+  function fix(node) {
+  if (node.nodeType === 3) {
+    let text = node.nodeValue;
+
+    map.forEach(rule => {
+      while (rule[0].test(text)) {
+        text = text.replace(rule[0], rule[1]);
+      }
+    });
+
+    node.nodeValue = text;
+  }
+}
+
+
+  function walk(el) {
+    el.childNodes.forEach(child => {
+      fix(child);
+      walk(child);
+    });
+  }
+
+  function runFix() {
+    walk(document.body);
+  }
+
+  // Shopify-safe delayed execution
+  window.addEventListener('load', function () {
+    setTimeout(runFix, 500);
+    setTimeout(runFix, 1500);
+  });
+
+})();
+// 🔍 Observe future DOM changes (Shopify / Apps / Sections)
+const observer = new MutationObserver(mutations => {
+  mutations.forEach(mutation => {
+    mutation.addedNodes.forEach(node => {
+      if (node.nodeType === 1) {
+        walk(node);
+      }
+    });
+  });
+});
+
+// Start observing after page load
+window.addEventListener('load', () => {
+  observer.observe(document.body, {
+    childList: true,
+    subtree: true
+  });
+});
+
+</script>
+
+</body>
+  </html>

@@ -1,0 +1,876 @@
+{
+  "name": "TBK Attribute Intelligence Engine",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "BUILD-305 Attribute Intelligence Engine (deterministic)\n\nConsumes BUILD-304 standardized Vision JSON and normalizes every detected\nattribute against the versioned Taxonomy (single source of truth) via the\nreusable TBK Taxonomy Lookup sub-workflow (id yvbx8ctmtVEI6H2B). Preserves raw\nvalue, confidence, source model, mapping rule and validation status. Unknown\nattributes are never discarded (written to tbk_unmapped_attributes AND a\ncanonical row with validation_status=unmapped). Conflicts on single-valued\nattributes are recorded, not silently overwritten. Output = canonical Attribute\nJSON, the input contract for Product Intelligence, Knowledge Graph, Cake Genome,\nSEO and Shopify workflows. No taxonomy values are hardcoded in Code nodes.",
+        "height": 260,
+        "width": 520
+      },
+      "id": "6734aa9f-a8a4-417d-9263-2b0f6ca3c2c3",
+      "name": "About",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        784,
+        544
+      ]
+    },
+    {
+      "parameters": {
+        "content": "AI Validation (optional) — OFF by default\n\nDeterministic mapping is the PRIMARY execution path. This disabled extension\npoint is reserved for later use to improve low-confidence mappings via the\nseparate optional AI Validation sub-workflow. It never runs unless a human\nexplicitly enables it.",
+        "width": 360
+      },
+      "id": "13c815f2-f741-4411-a591-10c0d28f39d2",
+      "name": "AI Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        784,
+        544
+      ]
+    },
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "image_id"
+            },
+            {
+              "name": "batch_id"
+            },
+            {
+              "name": "frosting_type"
+            },
+            {
+              "name": "decorations"
+            },
+            {
+              "name": "colors"
+            },
+            {
+              "name": "layers",
+              "type": "number"
+            },
+            {
+              "name": "quality_score",
+              "type": "number"
+            },
+            {
+              "name": "confidence",
+              "type": "number"
+            },
+            {
+              "name": "model_version"
+            },
+            {
+              "name": "status"
+            },
+            {
+              "name": "raw_response"
+            },
+            {
+              "name": "taxonomy_version"
+            }
+          ]
+        }
+      },
+      "id": "1649e878-0964-472e-a668-deca2f7478b4",
+      "name": "When Called",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        288
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const t = $json || {};\nconst image_id = t.image_id || \"\";\nconst batch_id = t.batch_id || \"\";\nconst taxonomy_version = t.taxonomy_version || \"v1\";\nconst source_model = t.model_version || \"\";\nconst items = [];\nfunction push(attribute_type, raw) {\n  if (raw === undefined || raw === null) return;\n  const v = String(raw).trim();\n  if (!v) return;\n  items.push({ json: { image_id, batch_id, taxonomy_version, source_model, attribute_type, raw_value: v, _empty: false } });\n}\nfunction parseArr(s) { try { const a = JSON.parse(s); return Array.isArray(a) ? a : []; } catch (e) { return []; } }\npush(\"frosting_type\", t.frosting_type);\nparseArr(t.decorations).forEach(function (d) { push(\"decoration\", d); });\nparseArr(t.colors).forEach(function (c) { push(\"color\", c); });\nif (items.length === 0) {\n  items.push({ json: { image_id, batch_id, taxonomy_version, source_model, attribute_type: \"\", raw_value: \"\", _empty: true } });\n}\nreturn items;"
+      },
+      "id": "1f579855-5720-475b-98e1-93743d75a693",
+      "name": "Explode Attributes",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        224,
+        288
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "has_raw",
+              "leftValue": "={{ $json.raw_value }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "e5e20f37-139c-4768-a43b-d6120bd40f2a",
+      "name": "Has Attributes",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        448,
+        288
+      ]
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "yvbx8ctmtVEI6H2B",
+          "cachedResultName": "TBK Taxonomy Lookup"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "raw_value": "={{ $json.raw_value }}",
+            "attribute_type": "={{ $json.attribute_type }}",
+            "taxonomy_version": "={{ $json.taxonomy_version }}"
+          },
+          "schema": [
+            {
+              "id": "raw_value",
+              "displayName": "raw_value",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "attribute_type",
+              "displayName": "attribute_type",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "taxonomy_version",
+              "displayName": "taxonomy_version",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ]
+        },
+        "mode": "each",
+        "options": {
+          "waitForSubWorkflow": true
+        }
+      },
+      "id": "70efa50b-dbef-4805-8cc0-d308ab98b40c",
+      "name": "Taxonomy Lookup",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.3,
+      "position": [
+        672,
+        192
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const lookups = $input.all().map(function (i) { return i.json; });\nconst src = $(\"Explode Attributes\").all().map(function (i) { return i.json; }).filter(function (r) { return r && r._empty !== true; });\n// Structural config (NOT taxonomy data): which attribute types are single-valued and therefore conflict-eligible.\nconst SINGLE_VALUED = [\"frosting_type\"];\nconst now = new Date().toISOString();\nconst recs = lookups.map(function (lk, idx) {\n  const s = src[idx] || {};\n  const matched = !!lk.matched;\n  const conf = Number(lk.confidence) || 0;\n  const raw = (lk.raw_value !== undefined ? lk.raw_value : s.raw_value) || \"\";\n  const normalized = (lk.normalized_value !== undefined && lk.normalized_value !== \"\") ? lk.normalized_value : raw;\n  return {\n    image_id: s.image_id || \"\",\n    batch_id: s.batch_id || \"\",\n    taxonomy_version: s.taxonomy_version || lk.taxonomy_version || \"v1\",\n    attribute_type: lk.attribute_type || s.attribute_type || \"\",\n    raw_value: raw,\n    canonical_id: matched ? (lk.canonical_id || \"\") : \"\",\n    normalized_value: normalized,\n    confidence: matched ? conf : 0,\n    source_model: s.source_model || \"\",\n    mapping_rule: lk.mapping_rule || \"none\",\n    matched: matched,\n    conflict_flag: false,\n    _unmatched: !matched,\n    _conflict_loser: false,\n    created_by: \"TBK_Attribute_Intelligence\",\n    validation_status: matched ? (conf >= 0.85 ? \"auto_validated\" : \"low_confidence\") : \"unmapped\",\n    occurrence_count: 1,\n    status: \"pending_review\",\n    suggested_canonical_id: \"\",\n    first_seen: now,\n    last_seen: now,\n    detected_date: now,\n    existing_value: \"\",\n    existing_confidence: 0,\n    incoming_value: \"\",\n    incoming_confidence: 0,\n    resolution: \"\"\n  };\n});\nSINGLE_VALUED.forEach(function (type) {\n  const group = recs.filter(function (r) { return r.attribute_type === type && r.matched; });\n  const distinct = [];\n  group.forEach(function (r) { if (distinct.indexOf(r.canonical_id) === -1) distinct.push(r.canonical_id); });\n  if (group.length > 1 && distinct.length > 1) {\n    let winner = group[0];\n    group.forEach(function (r) { if (r.confidence > winner.confidence) winner = r; });\n    winner.conflict_flag = true;\n    group.forEach(function (r) {\n      if (r !== winner) {\n        r._conflict_loser = true;\n        r.existing_value = winner.normalized_value;\n        r.existing_confidence = winner.confidence;\n        r.incoming_value = r.normalized_value;\n        r.incoming_confidence = r.confidence;\n        r.resolution = \"kept_higher_confidence\";\n      }\n    });\n  }\n});\nreturn recs.map(function (r) { return { json: r }; });"
+      },
+      "id": "9daa01cd-2040-4bf6-8f8a-029a19884794",
+      "name": "Classify Result",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        896,
+        192
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "e2bb62ae-599b-4738-a67f-fab88ff48640",
+      "name": "AI Validation (optional)",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        1120,
+        0
+      ],
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "loser",
+              "leftValue": "={{ $json._conflict_loser }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "41765d32-827c-48f9-9cb9-b4b0d1417645",
+      "name": "Is Conflict Loser",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1120,
+        192
+      ]
+    },
+    {
+      "parameters": {
+        "dataTableId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "SuFhzWs7bkQUgQuL",
+          "cachedResultName": "tbk_attribute_conflicts"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "image_id": "={{ $json.image_id }}",
+            "batch_id": "={{ $json.batch_id }}",
+            "attribute_type": "={{ $json.attribute_type }}",
+            "existing_value": "={{ $json.existing_value }}",
+            "incoming_value": "={{ $json.incoming_value }}",
+            "existing_confidence": "={{ $json.existing_confidence }}",
+            "incoming_confidence": "={{ $json.incoming_confidence }}",
+            "resolution": "={{ $json.resolution }}",
+            "created_by": "={{ $json.created_by }}",
+            "detected_date": "={{ $json.detected_date }}"
+          },
+          "schema": [
+            {
+              "id": "image_id",
+              "displayName": "image_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "batch_id",
+              "displayName": "batch_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "attribute_type",
+              "displayName": "attribute_type",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "existing_value",
+              "displayName": "existing_value",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "incoming_value",
+              "displayName": "incoming_value",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "existing_confidence",
+              "displayName": "existing_confidence",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "incoming_confidence",
+              "displayName": "incoming_confidence",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "resolution",
+              "displayName": "resolution",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "created_by",
+              "displayName": "created_by",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "detected_date",
+              "displayName": "detected_date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "2f2d9815-e0d5-46b8-9119-93832f1d3d14",
+      "name": "Insert Conflict",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        1344,
+        96
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const recs = $(\"Classify Result\").all().map(function (i) { return i.json; });\nconst kept = recs.filter(function (r) { return !r._conflict_loser; });\nconst attributes = kept.map(function (r) {\n  return {\n    attribute_type: r.attribute_type,\n    raw_value: r.raw_value,\n    canonical_id: r.canonical_id,\n    normalized_value: r.normalized_value,\n    confidence: r.confidence,\n    mapping_rule: r.mapping_rule,\n    validation_status: r.validation_status,\n    conflict_flag: r.conflict_flag\n  };\n});\nconst mapped = kept.filter(function (r) { return r.matched; }).length;\nconst unmapped = kept.filter(function (r) { return !r.matched; }).length;\nconst conflicts = recs.filter(function (r) { return r._conflict_loser; }).length;\nconst first = recs[0] || {};\nreturn [{ json: {\n  image_id: first.image_id || \"\",\n  batch_id: first.batch_id || \"\",\n  taxonomy_version: first.taxonomy_version || \"v1\",\n  attributes: attributes,\n  counts: { mapped: mapped, unmapped: unmapped, conflicts: conflicts },\n  source_model: first.source_model || \"\",\n  created_by: \"TBK_Attribute_Intelligence\"\n} }];"
+      },
+      "id": "7c0b50cc-ec95-438a-8d79-c4c482dd87fa",
+      "name": "Build Summary",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1568,
+        288
+      ],
+      "executeOnce": true
+    },
+    {
+      "parameters": {
+        "dataTableId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "9yJtMCuZXeKFlvTE",
+          "cachedResultName": "tbk_canonical_attributes"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "image_id": "={{ $json.image_id }}",
+            "batch_id": "={{ $json.batch_id }}",
+            "attribute_type": "={{ $json.attribute_type }}",
+            "raw_value": "={{ $json.raw_value }}",
+            "canonical_id": "={{ $json.canonical_id }}",
+            "normalized_value": "={{ $json.normalized_value }}",
+            "confidence": "={{ $json.confidence }}",
+            "source_model": "={{ $json.source_model }}",
+            "mapping_rule": "={{ $json.mapping_rule }}",
+            "validation_status": "={{ $json.validation_status }}",
+            "conflict_flag": "={{ $json.conflict_flag }}",
+            "taxonomy_version": "={{ $json.taxonomy_version }}",
+            "created_by": "={{ $json.created_by }}"
+          },
+          "schema": [
+            {
+              "id": "image_id",
+              "displayName": "image_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "batch_id",
+              "displayName": "batch_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "attribute_type",
+              "displayName": "attribute_type",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "raw_value",
+              "displayName": "raw_value",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "canonical_id",
+              "displayName": "canonical_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "normalized_value",
+              "displayName": "normalized_value",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "confidence",
+              "displayName": "confidence",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "source_model",
+              "displayName": "source_model",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "mapping_rule",
+              "displayName": "mapping_rule",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "validation_status",
+              "displayName": "validation_status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "conflict_flag",
+              "displayName": "conflict_flag",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "taxonomy_version",
+              "displayName": "taxonomy_version",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "created_by",
+              "displayName": "created_by",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "03ded7ae-cc9d-4c64-b60c-6c9d41a64cc1",
+      "name": "Insert Canonical",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        1344,
+        288
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "unmatched",
+              "leftValue": "={{ $json._unmatched }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "b16aa91d-85a1-452f-b458-7f25b2f59ff9",
+      "name": "Filter Unmatched",
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        1120,
+        480
+      ]
+    },
+    {
+      "parameters": {
+        "dataTableId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "KU0DaiyeiThNLAGU",
+          "cachedResultName": "tbk_unmapped_attributes"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "raw_value": "={{ $json.raw_value }}",
+            "attribute_type": "={{ $json.attribute_type }}",
+            "image_id": "={{ $json.image_id }}",
+            "batch_id": "={{ $json.batch_id }}",
+            "source_model": "={{ $json.source_model }}",
+            "occurrence_count": "={{ $json.occurrence_count }}",
+            "suggested_canonical_id": "={{ $json.suggested_canonical_id }}",
+            "status": "={{ $json.status }}",
+            "first_seen": "={{ $json.first_seen }}",
+            "last_seen": "={{ $json.last_seen }}"
+          },
+          "schema": [
+            {
+              "id": "raw_value",
+              "displayName": "raw_value",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "attribute_type",
+              "displayName": "attribute_type",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "image_id",
+              "displayName": "image_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "batch_id",
+              "displayName": "batch_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "source_model",
+              "displayName": "source_model",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "occurrence_count",
+              "displayName": "occurrence_count",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "suggested_canonical_id",
+              "displayName": "suggested_canonical_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "first_seen",
+              "displayName": "first_seen",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "last_seen",
+              "displayName": "last_seen",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "2b49e830-ae2f-4d39-b5cc-9c12acd247fc",
+      "name": "Insert Unmapped",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        1344,
+        480
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const t = $(\"When Called\").first().json;\nreturn [{ json: {\n  image_id: t.image_id || \"\",\n  batch_id: t.batch_id || \"\",\n  taxonomy_version: t.taxonomy_version || \"v1\",\n  attributes: [],\n  counts: { mapped: 0, unmapped: 0, conflicts: 0 },\n  source_model: t.model_version || \"\",\n  created_by: \"TBK_Attribute_Intelligence\"\n} }];"
+      },
+      "id": "626f43fb-33a0-4cec-ad8c-1ca180d64ac2",
+      "name": "Build Empty Summary",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        672,
+        384
+      ],
+      "executeOnce": true
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When Called": {
+      "main": [
+        [
+          {
+            "node": "Explode Attributes",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Explode Attributes": {
+      "main": [
+        [
+          {
+            "node": "Has Attributes",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Has Attributes": {
+      "main": [
+        [
+          {
+            "node": "Taxonomy Lookup",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Build Empty Summary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Taxonomy Lookup": {
+      "main": [
+        [
+          {
+            "node": "Classify Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Classify Result": {
+      "main": [
+        [
+          {
+            "node": "AI Validation (optional)",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Is Conflict Loser",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Filter Unmatched",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is Conflict Loser": {
+      "main": [
+        [
+          {
+            "node": "Insert Conflict",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Insert Canonical",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Insert Conflict": {
+      "main": [
+        [
+          {
+            "node": "Build Summary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Insert Canonical": {
+      "main": [
+        [
+          {
+            "node": "Build Summary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter Unmatched": {
+      "main": [
+        [
+          {
+            "node": "Insert Unmapped",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Insert Unmapped": {
+      "main": [
+        [
+          {
+            "node": "Build Summary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "10b5c9d3-a2b0-4046-9c7e-32e24023d0be",
+  "meta": {
+    "instanceId": "9acba552e049a19e69f51439fb1ace1512073f1e7a2cb7e135f6805cf39a5192"
+  },
+  "nodeGroups": [],
+  "id": "oylg7Gf5dbDKx1zY",
+  "tags": []
+}

@@ -1,0 +1,33 @@
+{% comment %}
+  The Baking Kaur — Date + Time-slot picker
+  Renders as line-item properties on the product form.
+  Values are captured as properties[Delivery Date] / properties[Time Slot].
+{% endcomment %}
+<div class='bk-dt'>
+  <div class='bk-dt__field'>
+    <label class='bk-dt__label' for='bk-dt-date'>Delivery Date</label>
+    <input class='bk-dt__input' type='date' id='bk-dt-date'
+           name='properties[Delivery Date]'
+           min='{{ 'now' | date: '%Y-%m-%d' }}' required>
+  </div>
+  <div class='bk-dt__field'>
+    <label class='bk-dt__label' for='bk-dt-slot'>Time Slot</label>
+    <select class='bk-dt__input' id='bk-dt-slot' name='properties[Time Slot]' required>
+      <option value=''>Select Time Slot</option>
+      <option value='12-3 PM'>12 – 3 PM</option>
+      <option value='3-6 PM'>3 – 6 PM</option>
+      <option value='6-9 PM'>6 – 9 PM</option>
+      <option value='Midnight'>Midnight (12 AM)</option>
+    </select>
+  </div>
+</div>
+
+<style>
+  .bk-dt{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:6px 0 18px}
+  .bk-dt__field{position:relative;border:1.5px solid #f2d6dd;border-radius:12px;background:#fff7f8;padding:9px 14px}
+  .bk-dt__label{display:block;font-size:11px;font-weight:600;color:#b07a90;margin-bottom:2px;letter-spacing:.02em}
+  .bk-dt__input{border:none;background:none;width:100%;font-family:inherit;font-size:14px;font-weight:600;color:#7a2147;padding:0;-webkit-appearance:none;appearance:none;cursor:pointer}
+  .bk-dt__input:focus{outline:none}
+  .bk-dt select.bk-dt__input{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' stroke='%23b0002d' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 6l4 4 4-4'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right center;padding-right:20px}
+  @media (max-width:600px){.bk-dt{grid-template-columns:1fr 1fr}}
+</style>

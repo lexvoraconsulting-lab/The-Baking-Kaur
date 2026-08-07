@@ -1,0 +1,271 @@
+{
+  "name": "TBK Audit Logger",
+  "nodes": [
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "image_id"
+            },
+            {
+              "name": "batch_id"
+            },
+            {
+              "name": "stage"
+            },
+            {
+              "name": "status"
+            },
+            {
+              "name": "latency_ms",
+              "type": "number"
+            },
+            {
+              "name": "error_message"
+            },
+            {
+              "name": "model_version"
+            },
+            {
+              "name": "confidence_score",
+              "type": "number"
+            }
+          ]
+        }
+      },
+      "id": "11d518e2-9ef1-40df-bc5b-10a1a747628e",
+      "name": "When Called",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "action": "generate"
+      },
+      "id": "f603bf3d-fe99-4529-b6d4-116a0be4c3df",
+      "name": "Generate Audit ID",
+      "type": "n8n-nodes-base.crypto",
+      "typeVersion": 2,
+      "position": [
+        224,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const t = $('When Called').first().json || {};\nconst auditId = $('Generate Audit ID').first().json.data;\nconst imageId = t.image_id || \"\";\nconst stage = t.stage || \"\";\nlet status = t.status || \"unknown\";\nif (!imageId || !stage) { status = \"incomplete_metadata\"; }\nconst latency = (t.latency_ms === undefined || t.latency_ms === null) ? 0 : t.latency_ms;\nconst confidence = (t.confidence_score === undefined || t.confidence_score === null) ? null : t.confidence_score;\nreturn [{ json: {\n  audit_id: auditId,\n  image_id: imageId,\n  batch_id: t.batch_id || \"\",\n  stage: stage,\n  status: status,\n  latency_ms: latency,\n  error_message: t.error_message || \"\",\n  model_version: t.model_version || \"\",\n  confidence_score: confidence,\n  created_by: \"TBK_Vision_Orchestrator\"\n} }];"
+      },
+      "id": "5e570793-cd46-4a6d-a136-f63b70f57032",
+      "name": "Normalize Audit",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        448,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "dataTableId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "gQli8pkFViYjkF4m",
+          "cachedResultName": "tbk_pipeline_audits"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "audit_id": "={{ $json.audit_id }}",
+            "image_id": "={{ $json.image_id }}",
+            "batch_id": "={{ $json.batch_id }}",
+            "stage": "={{ $json.stage }}",
+            "status": "={{ $json.status }}",
+            "latency_ms": "={{ $json.latency_ms }}",
+            "error_message": "={{ $json.error_message }}",
+            "model_version": "={{ $json.model_version }}",
+            "confidence_score": "={{ $json.confidence_score }}",
+            "created_by": "={{ $json.created_by }}"
+          },
+          "schema": [
+            {
+              "id": "audit_id",
+              "displayName": "audit_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "image_id",
+              "displayName": "image_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "batch_id",
+              "displayName": "batch_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "stage",
+              "displayName": "stage",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "latency_ms",
+              "displayName": "latency_ms",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "error_message",
+              "displayName": "error_message",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "model_version",
+              "displayName": "model_version",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "confidence_score",
+              "displayName": "confidence_score",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "created_by",
+              "displayName": "created_by",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "d6a579ba-55ef-4e9d-93c3-e27a145ac8c2",
+      "name": "Record Audit",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        672,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const auditId = $('Normalize Audit').first().json.audit_id;\nreturn [{ json: { audits_logged: 1, audit_id: auditId } }];"
+      },
+      "id": "9fe86bcc-1756-46e9-9185-2619f8942e8d",
+      "name": "Return Result",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        896,
+        0
+      ]
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When Called": {
+      "main": [
+        [
+          {
+            "node": "Generate Audit ID",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Audit ID": {
+      "main": [
+        [
+          {
+            "node": "Normalize Audit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalize Audit": {
+      "main": [
+        [
+          {
+            "node": "Record Audit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Record Audit": {
+      "main": [
+        [
+          {
+            "node": "Return Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "35f5569e-07f5-4ab0-a663-e7e1badad5b3",
+  "meta": {
+    "instanceId": "9acba552e049a19e69f51439fb1ace1512073f1e7a2cb7e135f6805cf39a5192"
+  },
+  "nodeGroups": [],
+  "id": "K2oRedpVRGMoHgu4",
+  "tags": []
+}

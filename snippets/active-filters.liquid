@@ -41,7 +41,7 @@
   <div class="hdt-active-filters hdt-flex" color-scheme="{{ settings.color_scheme_dialog }}">
     <div class="hdt-filters_count hdt-s-text">{{ 'products.facets.results_with_count_html' | t: count: results_count }}</div>
     {{- filters_value -}}
-    {%- if total_active_values > 1 %}
+    {%- if total_active_values > 0 %}
       <wrapp-hdt-facet-url><a href="{{ results_url }}" class="hdt-active-filters__clear-all hdt-relative">{{ 'products.facets.clear_all' | t }}</a></wrapp-hdt-facet-url>
     {% endif -%}
   </div>

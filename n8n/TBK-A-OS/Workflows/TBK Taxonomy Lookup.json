@@ -1,0 +1,208 @@
+{
+  "name": "TBK Taxonomy Lookup",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "Reusable Taxonomy Lookup (single source of truth)\n\nResolves one raw attribute value to its canonical taxonomy entry using ONLY the\nData Tables tbk_taxonomy_attributes + tbk_taxonomy_synonyms. No taxonomy values\nare hardcoded. Deterministic match order: exact canonical_value, then synonym.\nAlways returns exactly one item; never throws. Reused by every downstream TBK\nworkflow (Attribute Intelligence, Product Intelligence, Cake Genome, SEO,\nShopify, Recommendations).",
+        "height": 220,
+        "width": 460
+      },
+      "id": "40162be4-79d9-4aad-8997-b89159d6c326",
+      "name": "About",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        448,
+        64
+      ]
+    },
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "raw_value"
+            },
+            {
+              "name": "attribute_type"
+            },
+            {
+              "name": "taxonomy_version"
+            }
+          ]
+        }
+      },
+      "id": "17593e1a-4238-47dd-bf1b-beb12487a546",
+      "name": "When Called",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const inp = $json || {};\nconst raw = (inp.raw_value === undefined || inp.raw_value === null) ? \"\" : String(inp.raw_value);\nreturn [{ json: {\n  raw_value: raw,\n  attribute_type: inp.attribute_type || \"\",\n  taxonomy_version: inp.taxonomy_version || \"v1\"\n} }];"
+      },
+      "id": "4228eeac-23ac-4c94-a431-7e20084759be",
+      "name": "Prepare",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        224,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "Y9R28YMaZhNziqGk",
+          "cachedResultName": "tbk_taxonomy_attributes"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "attribute_type",
+              "keyValue": "={{ $(\"Prepare\").first().json.attribute_type }}"
+            },
+            {
+              "keyName": "taxonomy_version",
+              "keyValue": "={{ $(\"Prepare\").first().json.taxonomy_version }}"
+            },
+            {
+              "keyName": "status",
+              "keyValue": "active"
+            }
+          ]
+        },
+        "returnAll": true
+      },
+      "id": "8ee366f7-f217-4d2d-94aa-33b5acb8c69a",
+      "name": "Get Attribute Candidates",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        448,
+        0
+      ],
+      "executeOnce": true,
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "mkOSZFCTl5N55qNa",
+          "cachedResultName": "tbk_taxonomy_synonyms"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "attribute_type",
+              "keyValue": "={{ $(\"Prepare\").first().json.attribute_type }}"
+            },
+            {
+              "keyName": "taxonomy_version",
+              "keyValue": "={{ $(\"Prepare\").first().json.taxonomy_version }}"
+            },
+            {
+              "keyName": "status",
+              "keyValue": "active"
+            }
+          ]
+        },
+        "returnAll": true
+      },
+      "id": "52ea50bb-b3f6-4be8-8716-d46c88324530",
+      "name": "Get Synonym Candidates",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        672,
+        0
+      ],
+      "executeOnce": true,
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "jsCode": "const t = $(\"When Called\").first().json;\nconst p = $(\"Prepare\").first().json;\nconst raw = (t.raw_value === undefined || t.raw_value === null) ? \"\" : String(t.raw_value);\nconst norm = raw.trim().toLowerCase();\nconst attrType = p.attribute_type;\nconst version = p.taxonomy_version;\n\nconst attrRows = $(\"Get Attribute Candidates\").all().map(i => i.json).filter(r => r && r.canonical_id);\nconst synRows = $(\"Get Synonym Candidates\").all().map(i => i.json).filter(r => r && r.canonical_id && r.synonym);\n\nconst result = {\n  raw_value: raw,\n  attribute_type: attrType,\n  taxonomy_version: version,\n  matched: false,\n  canonical_id: \"\",\n  canonical_value: raw,\n  normalized_value: raw,\n  confidence: 0,\n  mapping_rule: \"none\",\n  category: \"\"\n};\n\nif (norm) {\n  const exact = attrRows.find(r => String(r.canonical_value || \"\").trim().toLowerCase() === norm);\n  if (exact) {\n    result.matched = true;\n    result.canonical_id = exact.canonical_id;\n    result.canonical_value = exact.canonical_value;\n    result.normalized_value = exact.canonical_value;\n    result.confidence = (exact.default_confidence === undefined || exact.default_confidence === null) ? 0.9 : exact.default_confidence;\n    result.mapping_rule = \"exact\";\n    result.category = exact.category || \"\";\n  } else {\n    const syn = synRows.find(r => String(r.synonym || \"\").trim().toLowerCase() === norm);\n    if (syn) {\n      const canon = attrRows.find(r => r.canonical_id === syn.canonical_id);\n      result.matched = true;\n      result.canonical_id = syn.canonical_id;\n      result.canonical_value = canon ? canon.canonical_value : syn.canonical_id;\n      result.normalized_value = canon ? canon.canonical_value : syn.canonical_id;\n      result.confidence = (syn.confidence === undefined || syn.confidence === null) ? 0.8 : syn.confidence;\n      result.mapping_rule = \"synonym:\" + (syn.match_type || \"match\");\n      result.category = canon ? (canon.category || \"\") : \"\";\n    }\n  }\n}\n\nreturn [{ json: result }];"
+      },
+      "id": "a193b9c6-67e0-42da-b676-d35bac4fbc27",
+      "name": "Match",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        896,
+        0
+      ]
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When Called": {
+      "main": [
+        [
+          {
+            "node": "Prepare",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare": {
+      "main": [
+        [
+          {
+            "node": "Get Attribute Candidates",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Attribute Candidates": {
+      "main": [
+        [
+          {
+            "node": "Get Synonym Candidates",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Synonym Candidates": {
+      "main": [
+        [
+          {
+            "node": "Match",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "eabece0b-7054-4743-bbb5-3886c78eb20d",
+  "meta": {
+    "instanceId": "9acba552e049a19e69f51439fb1ace1512073f1e7a2cb7e135f6805cf39a5192"
+  },
+  "nodeGroups": [],
+  "id": "yvbx8ctmtVEI6H2B",
+  "tags": []
+}

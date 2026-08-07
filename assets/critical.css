@@ -1,0 +1,185 @@
+/* CRITICAL CSS - Above-the-fold styling only
+   Generated: 2026-08-07
+   Purpose: Improve FCP/LCP by loading essential hero, header, and button styles synchronously
+   Size target: < 12KB
+   Rest of styles load asynchronously via theme.css
+*/
+
+/* GENERAL UTILITIES */
+html {
+	scroll-behavior: smooth;
+}
+
+/* BUTTON STYLES - Essential for CTA visibility */
+.hdt-btn {
+  font-size: var(--hdt-btn-size);
+  transition: background-color 0.25s ease-in-out, color 0.25s ease-in-out, border 0.25s ease-in-out;
+  will-change: background-color, color, border;
+  min-height: calc(var(--hdt-pd-y) * 2 + var(--hdt-border-w) * 2 + var(--hdt-btn-size) * var(--button-line-height));
+  border: var(--hdt-border-w) solid var(--hdt-border-color);
+  padding: 0 var(--hdt-pd-x);
+  --hdt-btn-size: var(--text-base, 1.4rem);
+  --hdt-pd-y: var(--spacing-1);
+  --hdt-pd-x: var(--spacing-2-4);
+  color: var(--btn-color);
+  background-color: var(--btn-background-color);
+  pointer-events: auto;
+  overflow: hidden;
+}
+
+.hdt-btn-solid {
+  --hdt-border-w: 1px;
+  --hdt-border-color: rgb(var(--color-button-border));
+  --btn-color: rgb(var(--color-button-text));
+  --btn-background-color: rgb(var(--color-button));
+}
+
+.hdt-btn span {
+  z-index: 1;
+  color: inherit;
+}
+
+/* HEADER ESSENTIALS - Navigation and header structure */
+header ~ header {
+	display: none;
+}
+
+header [data-header-height] {
+  min-height: var(--header-height2);
+}
+
+.hdt-main-header.hdt-header-tranparent-false,
+.hdt-header-menu-bottom .hdt-main-header,
+.scrolled-past-header .hdt-header-tranparent-true {
+	background-color: rgb(var(--color-background));
+}
+
+.hdt-menu-bar {
+	color: rgb(var(--color-foreground));
+	width: 40px;
+  height: 40px;
+  justify-content: flex-start;
+}
+
+#hdt-nav-ul {
+	column-gap: var(--spacing-menu-item, 3rem);
+  row-gap: min(calc(var(--spacing-menu-item, 3rem) / 3), 1rem);
+  flex-wrap: wrap;
+}
+
+#hdt-nav-ul > li:first-child {
+	margin-inline-start: 0;
+}
+
+#hdt-nav-ul > li:last-child {
+	margin-inline-end: 0;
+}
+
+#hdt-nav-ul li .hdt-menu-link {
+	color: rgb(var(--color-foreground2));
+	line-height: var(--font-heading-line-height);
+	justify-content: space-between;
+	width: 100%;
+}
+
+#hdt-nav-ul > li > .hdt-menu-link {
+  color: #F4ECE9;
+}
+
+/* SITE TOP NAVIGATION */
+.hdt-site-top_nav {
+	gap: 14px;
+}
+
+.hdt-site-top_nav .hdt-site-nav_icon a {
+	color: rgb(var(--color-foreground));
+}
+
+.hdt-site-top_nav .hdt-site-nav_icon a svg {
+	fill: currentcolor;
+}
+
+.hdt-site-top_nav .hdt-site-nav_icon a .hdt-count-box {
+	line-height: 18px;
+	height: 18px;
+	min-width: 18px;
+	text-align: center;
+	padding: 0 3px;
+	font-size: 10px;
+	font-weight: 500;
+	border-radius: var(--rounded-full);
+  white-space: nowrap;
+	position: absolute;
+	z-index: 2;
+	top: -8px;
+	right: -10px;
+	color: var(--color-light,#ffffff);
+	background-color: rgb(var(--color-accent));
+}
+
+/* SEARCH FORM - Visible in header */
+.hdt-search_form .hdt-search_inner {
+	border: solid 1px rgb(var(--color-line-border));
+	padding: 5px;
+	border-radius: var(--rounded-input);
+}
+
+.hdt-search_form .hdt-search_input {
+	width: 100%;
+	padding: 0 15px;
+	height: 36px;
+	background-color: transparent;
+	border-top-left-radius: var(--rounded-input);
+	border-bottom-left-radius: var(--rounded-input);
+	border: none;
+	font-size: var(--text-lg);
+}
+
+.hdt-search_form .hdt-search_submit {
+	width: 81px;
+	height: 36px;
+	background-color: rgb(var(--color-button));
+	color: rgb(var(--color-button-text));
+	border-radius: var(--rounded-input);
+}
+
+/* MOBILE MENU ESSENTIAL */
+@media (max-width:767px) {
+  .hdt-btn.hdt-text-xs,
+  .hdt-btn.hdt-text-sm {
+    --hdt-btn-size: var(--text-base, 1.4rem);
+  }
+
+  .hdt-btn.hdt-text-xl,
+  .hdt-btn.hdt-text-lg {
+    --hdt-btn-size: var(--text-lg, 1.6rem);
+  }
+}
+
+@media (min-width: 768px) {
+  .hdt-btn {
+    --hdt-pd-y: var(--spacing-1-4);
+    --hdt-pd-x: var(--spacing-3);
+  }
+
+  .hdt-btn.hdt-text-base {
+    --hdt-btn-size: var(--text-base, 1.4rem);
+  }
+
+  .hdt-btn.hdt-text-xl {
+    --hdt-btn-size: var(--text-xl, 1.8rem);
+  }
+}
+
+/* UTILITY CLASSES */
+.hdt-d-none {
+  display: none !important;
+}
+
+.hdt-flex-wrap {
+  flex-wrap: wrap;
+}
+
+form[action^="/contact"]:not(.on-live) .hdt-form__message {
+  display: none;
+}

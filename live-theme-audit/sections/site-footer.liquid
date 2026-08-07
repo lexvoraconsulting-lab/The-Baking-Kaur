@@ -1,0 +1,280 @@
+{%- comment -%}
+  sections/site-footer.liquid
+  The Baking Kaur — production footer (Phase A restore, refined to enterprise quality).
+
+  Premium-minimal: elevated type hierarchy (Cormorant display + Manrope),
+  generous spacing rhythm, thin-line SVG icons (no emoji), refined contact block,
+  trust indicators, and local-SEO reinforcement. Brand tokens only
+  (snippets/tbk-tokens.liquid) — no gradients, no glass, no flashy motion.
+  All content real: policies via native shop.*_policy, verified page links,
+  editable NAP/socials/service-areas via section settings.
+{%- endcomment -%}
+
+{%- liquid
+  assign s = section.settings
+-%}
+
+<footer class="tbk-ft" role="contentinfo" aria-labelledby="tbk-ft-h">
+  <h2 id="tbk-ft-h" class="tbk-ft__sr">{{ shop.name }} — footer</h2>
+
+  <div class="tbk-ft__inner">
+
+    {%- comment -%} ── Brand + contact ── {%- endcomment -%}
+    <div class="tbk-ft__brand">
+      <a href="{{ routes.root_url }}" class="tbk-ft__logo" aria-label="{{ shop.name }} — home">
+        {%- if settings.logo != blank -%}
+          <img src="{{ settings.logo | image_url: width: 220 }}" width="110" height="auto" alt="{{ shop.name }}" loading="lazy">
+        {%- else -%}
+          <span class="tbk-ft__wordmark">{{ shop.name }}</span>
+        {%- endif -%}
+      </a>
+
+      {%- if s.brand_statement != blank -%}
+        <p class="tbk-ft__statement">{{ s.brand_statement }}</p>
+      {%- endif -%}
+
+      <address class="tbk-ft__contact">
+        {%- if s.address != blank -%}
+        <span class="tbk-ft__crow">
+          <svg class="tbk-ft__ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6-5.3-6-10a6 6 0 1 1 12 0c0 4.7-6 10-6 10z"/><circle cx="12" cy="11" r="2.3"/></svg>
+          <span>{{ s.address }}</span>
+        </span>
+        {%- endif -%}
+        {%- if s.phone != blank -%}
+        <a class="tbk-ft__crow" href="tel:{{ s.phone | remove: ' ' | remove: '-' }}">
+          <svg class="tbk-ft__ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 4h3l1.4 3.9-2 1.4a11 11 0 0 0 5 5l1.4-2 3.9 1.4v3a2 2 0 0 1-2.1 2A15.9 15.9 0 0 1 4.5 6.1 2 2 0 0 1 6.5 4z"/></svg>
+          <span>{{ s.phone }}</span>
+        </a>
+        {%- endif -%}
+        {%- if s.email != blank -%}
+        <a class="tbk-ft__crow" href="mailto:{{ s.email }}">
+          <svg class="tbk-ft__ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M4 7.5l8 5.5 8-5.5"/></svg>
+          <span>{{ s.email }}</span>
+        </a>
+        {%- endif -%}
+      </address>
+
+      <ul class="tbk-ft__social">
+        {%- if s.instagram_url != blank -%}
+        <li><a href="{{ s.instagram_url }}" target="_blank" rel="noopener" aria-label="Follow {{ shop.name }} on Instagram">
+          <svg class="tbk-ft__ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></svg>
+        </a></li>
+        {%- endif -%}
+        {%- if s.whatsapp_url != blank -%}
+        <li><a href="{{ s.whatsapp_url }}" target="_blank" rel="noopener" aria-label="Message {{ shop.name }} on WhatsApp">
+          <svg class="tbk-ft__ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.2a8.8 8.8 0 0 0-7.5 13.4L3 21l4.6-1.4A8.8 8.8 0 1 0 12 3.2z"/><path d="M8.7 8.4c.3-.6 1-.6 1.3-.1l.7 1.3-.8.9c.5 1.2 1.4 2.1 2.6 2.6l.9-.8 1.3.7c.5.3.5 1 0 1.3-1.6 1-3.6.4-5.1-1.1S7.7 10 8.7 8.4z"/></svg>
+        </a></li>
+        {%- endif -%}
+      </ul>
+    </div>
+
+    {%- comment -%} ── Nav columns ── {%- endcomment -%}
+    <nav class="tbk-ft__col" aria-label="Company">
+      <h3 class="tbk-ft__title">Company</h3>
+      <ul>
+        <li><a href="/pages/about-us">About Us</a></li>
+        <li><a href="/pages/why-choose-the-baking-kaur">Why Choose Us</a></li>
+        <li><a href="/pages/contact">Contact Us</a></li>
+        <li><a href="/pages/store-locator">Store Locator</a></li>
+        <li><a href="/pages/frequently-asked-questions-faqs">FAQs</a></li>
+      </ul>
+    </nav>
+
+    <nav class="tbk-ft__col" aria-label="Delivery and gifting">
+      <h3 class="tbk-ft__title">Delivery &amp; Gifting</h3>
+      <ul>
+        <li><a href="/pages/delivery-information">Delivery Information</a></li>
+        <li><a href="/pages/midnight-surprise-delivery">Midnight &amp; Surprise Delivery</a></li>
+        <li><a href="/pages/cake-delivery-in-meerut">Cake Delivery in Meerut</a></li>
+        <li><a href="/pages/corporate-gifting-solutions">Corporate Gifting</a></li>
+        <li><a href="/pages/gift-hampers">Gift Hampers</a></li>
+      </ul>
+    </nav>
+
+    <nav class="tbk-ft__col" aria-label="Support and policies">
+      <h3 class="tbk-ft__title">Support</h3>
+      <ul>
+        {%- if shop.privacy_policy != blank -%}<li><a href="{{ shop.privacy_policy.url }}">{{ shop.privacy_policy.title }}</a></li>{%- endif -%}
+        {%- if shop.terms_of_service != blank -%}<li><a href="{{ shop.terms_of_service.url }}">{{ shop.terms_of_service.title }}</a></li>
+        {%- else -%}<li><a href="/pages/terms-and-conditions">Terms &amp; Conditions</a></li>{%- endif -%}
+        {%- if shop.refund_policy != blank -%}<li><a href="{{ shop.refund_policy.url }}">{{ shop.refund_policy.title }}</a></li>
+        {%- else -%}<li><a href="/pages/return-refund-replacement-policy">Return &amp; Refund Policy</a></li>{%- endif -%}
+        {%- if shop.shipping_policy != blank -%}<li><a href="{{ shop.shipping_policy.url }}">{{ shop.shipping_policy.title }}</a></li>{%- endif -%}
+      </ul>
+    </nav>
+  </div>
+
+  {%- comment -%} ── Trust indicators ── {%- endcomment -%}
+  {%- if s.show_trust -%}
+    <ul class="tbk-ft__trust" aria-label="Our promise">
+      <li>100% Eggless</li>
+      {%- if s.fssai_text != blank -%}<li>{{ s.fssai_text }}</li>{%- endif -%}
+      <li>Same-Day &amp; Midnight Delivery</li>
+      <li>Freshly Baked to Order</li>
+    </ul>
+  {%- endif -%}
+
+  {%- comment -%} ── Local SEO reinforcement ── {%- endcomment -%}
+  {%- if s.service_areas != blank -%}
+    <p class="tbk-ft__local">{{ s.service_areas }}</p>
+  {%- endif -%}
+
+  {%- comment -%} ── Bottom bar ── {%- endcomment -%}
+  <div class="tbk-ft__bottom">
+    <p class="tbk-ft__copy">&copy; {{ 'now' | date: '%Y' }} {{ shop.name }} · Meerut, India · All rights reserved.</p>
+    <nav class="tbk-ft__legal" aria-label="Legal">
+      <a href="{% if shop.privacy_policy != blank %}{{ shop.privacy_policy.url }}{% else %}/pages/data-sale-opt-out{% endif %}">Privacy</a>
+      <a href="/pages/terms-and-conditions">Terms</a>
+      {%- if shop.refund_policy != blank -%}<a href="{{ shop.refund_policy.url }}">Refunds</a>{%- endif -%}
+    </nav>
+  </div>
+</footer>
+
+<style>
+  .tbk-ft{
+    background: var(--tbk-surface, #FDFAF8);
+    color: var(--tbk-ink-soft, #3B1F2E);
+    border-top: 1px solid var(--tbk-border, #EDD8E3);
+    font-family: var(--tbk-font-ui, 'Manrope', system-ui, sans-serif);
+    font-size: var(--tbk-text-base, 14px);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  .tbk-ft__sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0;}
+
+  .tbk-ft__inner{
+    max-width:1280px;margin:0 auto;
+    padding: clamp(48px,7vw,88px) clamp(20px,5vw,48px) clamp(32px,4vw,48px);
+    display:grid;gap: clamp(32px,4vw,56px) clamp(40px,6vw,80px);
+    grid-template-columns: 1.5fr repeat(3, 1fr);
+  }
+
+  /* Brand */
+  .tbk-ft__logo{display:inline-block;text-decoration:none;}
+  .tbk-ft__wordmark{
+    font-family:var(--tbk-font-display,'Cormorant Garamond',Georgia,serif);
+    font-size: clamp(26px,3vw,32px);font-weight:600;letter-spacing:.005em;
+    color:var(--tbk-ink,#1A0810);line-height:1.1;
+  }
+  .tbk-ft__statement{
+    margin:16px 0 22px;max-width:36ch;color:var(--tbk-ink-soft,#3B1F2E);
+    font-size:var(--tbk-text-md,15px);line-height:1.7;
+  }
+  .tbk-ft__contact{font-style:normal;display:flex;flex-direction:column;gap:12px;margin:0 0 20px;}
+  .tbk-ft__crow{display:flex;align-items:flex-start;gap:10px;color:var(--tbk-ink-soft,#3B1F2E);text-decoration:none;}
+  a.tbk-ft__crow:hover,a.tbk-ft__crow:focus-visible{color:var(--tbk-pink,#C01457);}
+  .tbk-ft__ico{width:18px;height:18px;flex:0 0 18px;margin-top:2px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;}
+  .tbk-ft__social{display:flex;gap:12px;list-style:none;padding:0;margin:0;}
+  .tbk-ft__social a{
+    display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;
+    border:1px solid var(--tbk-border,#EDD8E3);border-radius:var(--tbk-r-full,100px);
+    color:var(--tbk-ink-soft,#3B1F2E);transition:color 160ms ease,border-color 160ms ease;
+  }
+  .tbk-ft__social a:hover,.tbk-ft__social a:focus-visible{color:var(--tbk-pink,#C01457);border-color:var(--tbk-border-strong,#D4ADC0);}
+  .tbk-ft__social .tbk-ft__ico{width:19px;height:19px;flex:none;margin:0;}
+
+  /* Nav columns */
+  .tbk-ft__title{
+    font-size:var(--tbk-text-sm,12.5px);font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--tbk-ink,#1A0810);margin:0 0 18px;padding-bottom:11px;position:relative;
+  }
+  .tbk-ft__title::after{content:"";position:absolute;left:0;bottom:0;width:26px;height:2px;background:var(--tbk-pink,#C01457);}
+  .tbk-ft__col ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:12px;}
+  .tbk-ft__col a{color:var(--tbk-ink-soft,#3B1F2E);text-decoration:none;font-size:var(--tbk-text-base,14px);transition:color 160ms ease;}
+  .tbk-ft__col a:hover,.tbk-ft__col a:focus-visible{color:var(--tbk-pink,#C01457);}
+
+  /* Focus */
+  .tbk-ft a:focus-visible{outline:2px solid var(--tbk-pink,#C01457);outline-offset:3px;border-radius:3px;}
+
+  /* Trust */
+  .tbk-ft__trust{
+    max-width:1280px;margin:0 auto;list-style:none;
+    padding:20px clamp(20px,5vw,48px);
+    display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:12px 0;
+    border-top:1px solid var(--tbk-border-subtle, rgba(237,216,227,.55));
+    font-size:var(--tbk-text-sm,12.5px);font-weight:600;letter-spacing:.01em;
+    color:var(--tbk-ink,#1A0810);
+  }
+  .tbk-ft__trust li{padding:0 clamp(14px,2.4vw,26px);position:relative;}
+  .tbk-ft__trust li + li::before{content:"";position:absolute;left:0;top:50%;transform:translateY(-50%);width:1px;height:13px;background:var(--tbk-border-strong,#D4ADC0);}
+
+  /* Local SEO line */
+  .tbk-ft__local{
+    max-width:960px;margin:0 auto;padding:2px clamp(20px,5vw,48px) 4px;text-align:center;
+    font-size:var(--tbk-text-xs,11px);line-height:1.6;color:var(--tbk-muted,#876575);
+  }
+
+  /* Bottom */
+  .tbk-ft__bottom{
+    max-width:1280px;margin:0 auto;margin-top:8px;
+    padding:20px clamp(20px,5vw,48px);
+    display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-between;align-items:center;
+    border-top:1px solid var(--tbk-border, #EDD8E3);
+    font-size:var(--tbk-text-sm,12.5px);color:var(--tbk-ink-soft,#3B1F2E);
+  }
+  .tbk-ft__copy{margin:0;}
+  .tbk-ft__legal{display:flex;gap:20px;align-items:center;}
+  .tbk-ft__legal a{color:var(--tbk-ink-soft,#3B1F2E);text-decoration:none;transition:color 160ms ease;}
+  .tbk-ft__legal a:hover,.tbk-ft__legal a:focus-visible{color:var(--tbk-pink,#C01457);}
+
+  /* Tablet */
+  @media (max-width: 900px){
+    .tbk-ft__inner{grid-template-columns:1fr 1fr;gap:40px;}
+    .tbk-ft__brand{grid-column:1 / -1;max-width:520px;}
+  }
+  /* Mobile — brand full-width, nav columns kept 3-up in one frame */
+  @media (max-width: 560px){
+    .tbk-ft__inner{grid-template-columns:repeat(3, 1fr);gap:26px 14px;padding-top:44px;}
+    .tbk-ft__brand{grid-column:1 / -1;padding-bottom:30px;border-bottom:1px solid var(--tbk-border-subtle, rgba(237,216,227,.55));}
+    .tbk-ft__title{font-size:10px;letter-spacing:.1em;margin-bottom:12px;}
+    .tbk-ft__col a{font-size:12.5px;overflow-wrap:break-word;}
+    .tbk-ft__col ul{gap:10px;}
+    /* Trust: compact wrapped rows over ~2 lines (no scroll); bar separators dropped on mobile */
+    .tbk-ft__trust{flex-wrap:wrap;justify-content:center;white-space:normal;gap:8px 10px;font-size:10px;padding-left:12px;padding-right:12px;}
+    .tbk-ft__trust li{white-space:nowrap;padding:0;}
+    .tbk-ft__trust li + li::before{display:none;}
+    .tbk-ft__local{text-align:left;}
+    .tbk-ft__bottom{flex-direction:column;align-items:flex-start;gap:14px;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .tbk-ft *{transition:none !important;}
+  }
+</style>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SiteNavigationElement",
+  "name": ["About Us","Contact Us","FAQs","Delivery Information","Gift Hampers","Corporate Gifting"],
+  "url": [
+    "{{ shop.url }}/pages/about-us",
+    "{{ shop.url }}/pages/contact",
+    "{{ shop.url }}/pages/frequently-asked-questions-faqs",
+    "{{ shop.url }}/pages/delivery-information",
+    "{{ shop.url }}/pages/gift-hampers",
+    "{{ shop.url }}/pages/corporate-gifting-solutions"
+  ]
+}
+</script>
+
+{% schema %}
+{
+  "name": "Footer (minimal)",
+  "settings": [
+    { "type": "paragraph", "content": "Production footer. Elegant, minimal, brand-token styled." },
+    { "type": "text", "id": "brand_statement", "label": "Brand statement", "default": "100% eggless luxury cakes, handcrafted in Meerut — with same-day and midnight delivery for every celebration." },
+    { "type": "header", "content": "Business info (NAP)" },
+    { "type": "text", "id": "address", "label": "Address", "default": "Fateh Complex, 390/1, Lane Number 7, opposite Ice Factory, Thapar Nagar Gali Number 7 Lajpat Bazaar Thapar Nagar, Meerut, Uttar Pradesh 250001" },
+    { "type": "text", "id": "phone", "label": "Phone", "default": "+91 82188 62928" },
+    { "type": "text", "id": "email", "label": "Email", "default": "thebakingkaur@gmail.com" },
+    { "type": "header", "content": "Social" },
+    { "type": "text", "id": "instagram_url", "label": "Instagram URL", "default": "https://www.instagram.com/thebakingkaur" },
+    { "type": "text", "id": "whatsapp_url", "label": "WhatsApp URL", "default": "https://wa.me/918218862928" },
+    { "type": "header", "content": "Trust & Local SEO" },
+    { "type": "checkbox", "id": "show_trust", "label": "Show trust indicators", "default": true },
+    { "type": "text", "id": "fssai_text", "label": "FSSAI label (blank to hide)", "default": "FSSAI Approved" },
+    { "type": "text", "id": "service_areas", "label": "Service-area line (local SEO)", "default": "Same-day & midnight cake delivery across Meerut — Thapar Nagar, Shastri Nagar, Sadar Bazaar, Civil Lines, Pallavpuram, Ganga Nagar & nearby areas." }
+  ],
+  "presets": [{ "name": "Footer (minimal)" }]
+}
+{% endschema %}

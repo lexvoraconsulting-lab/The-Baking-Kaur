@@ -1,0 +1,26 @@
+{%- if search.performed and search.results_count > 0 -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SearchResultsPage",
+  "@id": "{{ shop.url }}{{ request.path }}#searchpage",
+  "name": "{{ 'search.title' | t: terms: search.terms | escape }}",
+  "url": "{{ shop.url }}{{ request.path }}",
+  "mainEntity": {
+    "@type": "ItemList",
+    "name": "{{ 'search.title' | t: terms: search.terms | escape }}",
+    "numberOfItems": {{ search.results_count }},
+    "itemListElement": [
+      {%- for result in search.results limit: 50 -%}
+      {
+        "@type": "ListItem",
+        "position": {{ forloop.index }},
+        "url": "{{ shop.url }}{{ result.url }}",
+        "name": "{{ result.title | escape }}"
+      }{%- unless forloop.last -%},{%- endunless -%}
+      {%- endfor -%}
+    ]
+  }
+}
+</script>
+{%- endif -%}

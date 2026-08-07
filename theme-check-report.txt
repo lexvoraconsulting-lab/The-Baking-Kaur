@@ -1,0 +1,103 @@
+╭─ info ───────────────────────────────────────────────────────────────────────╮
+│                                                                              │
+│  :\Nav_Dev_Work\Shopify\The-Baking-Kaur\design_handoff_shopify_product\them  │
+│  e_files\sections\bk-faq.liquid                                              │
+│                                                                              │
+│                                                                              │
+│  [error]: MissingAsset                                                       │
+│  'assets/baking-kaur.css' does not exist                                     │
+│                                                                              │
+│  1  {{ 'baking-kaur.css' | asset_url | stylesheet_tag }}                     │
+│                                                                              │
+│                                                                              │
+│  [warning]: UndefinedObject                                                  │
+│  Unknown object 'section' used.                                              │
+│                                                                              │
+│  4  <h2 class="bk-faq__heading">{{ section.settings.heading }}</h2>          │
+│                                                                              │
+│                                                                              │
+│  [warning]: UndefinedObject                                                  │
+│  Unknown object 'section' used.                                              │
+│                                                                              │
+│  6  {%- for block in section.blocks -%}                                      │
+│                                                                              │
+│                                                                              │
+│  [warning]: UndefinedObject                                                  │
+│  Unknown object 'section' used.                                              │
+│                                                                              │
+│  24  {%- for block in section.blocks -%}                                     │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+
+╭─ info ───────────────────────────────────────────────────────────────────────╮
+│                                                                              │
+│  :\Nav_Dev_Work\Shopify\The-Baking-Kaur\design_handoff_shopify_product\them  │
+│  e_files\sections\bk-info-cards.liquid                                       │
+│                                                                              │
+│                                                                              │
+│  [error]: MissingAsset                                                       │
+│  'assets/baking-kaur.css' does not exist                                     │
+│                                                                              │
+│  1  {{ 'baking-kaur.css' | asset_url | stylesheet_tag }}                     │
+│                                                                              │
+│                                                                              │
+│  [warning]: UndefinedObject                                                  │
+│  Unknown object 'section' used.                                              │
+│                                                                              │
+│  6  <h3 class="bk-card__title">{{ section.settings.about_heading }}</h3>     │
+│                                                                              │
+│                                                                              │
+│  [warning]: UndefinedObject                                                  │
+│  Unknown object 'section' used.                                              │
+│                                                                              │
+│  7  <p class="bk-card__text">{{ section.settings.about_text }}</p>           │
+│                                                                              │
+│                                                                              │
+│  [warning]: UndefinedObject                                                  │
+│  Unknown object 'section' used.                                              │
+│                                                                              │
+│  18  {%- assign occ = section.settings.perfect_for | split: ',' -%}          │
+│                                                                              │
+│                                                                              │
+│  [warning]: UndefinedObject                                                  │
+│  Unknown object 'section' used.                                              │
+│                                                                              │
+│  28  {%- assign perks = section.settings.delivery_perks | split: ',' -%}     │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+
+╭─ info ───────────────────────────────────────────────────────────────────────╮
+│                                                                              │
+│  :\Nav_Dev_Work\Shopify\The-Baking-Kaur\design_handoff_shopify_product\them  │
+│  e_files\sections\bk-main-product.liquid                                     │
+│                                                                              │
+│                                                                              │
+│  [error]: ParserBlockingScript                                               │
+│  The script_tag filter is parser-blocking. Use a <script> tag with async or  │
+│   defer for better performance                                               │
+│                                                                              │
+│  210  {{ 'baking-kaur.js' | asset_url | script_tag }}                        │
+│                                                                              │
+│                                                                              │
+│  [error]: MissingAsset                                                       │
+│  'assets/baking-kaur.css' does not exist                                     │
+│                                                                              │
+│  13  {{ 'baking-kaur.css' | asset_url | stylesheet_tag }}                    │
+│                                                                              │
+│                                                                              │
+│  [error]: MissingAsset                                                       │
+│  'assets/baking-kaur.js' does not exist                                      │
+│                                                                              │
+│  210  {{ 'baking-kaur.js' | asset_url | script_tag }}                        │
+│                                                                              │
+│                                                                              │
+│  [warning]: UndefinedObject                                                  │
+│  Unknown object 'section' used.                                              │
+│                                                                              │
+│  42  {%- if section.settings.show_bestseller_badge -%}                       │
+│                                                                              │
+│                                                                              │
+│  [warning]: UndefinedObject                                                  │
+│  Unknown object 'section' used.                                              │
+│                                                                              │
+│  71  <span class="bk-rating__value

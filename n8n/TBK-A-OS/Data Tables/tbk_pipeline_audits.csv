@@ -1,0 +1,3 @@
+﻿id,audit_id,image_id,batch_id,stage,status,latency_ms,error_message,model_version,confidence_score,created_by,createdAt,updatedAt
+1,3093beca-4a7f-4009-8f5f-0c30e700366b,d4619261-d34f-4dbb-be81-d414106e6663,live_smoke_001,02_validation,queued,0,,,,TBK_Vision_Orchestrator,2026-08-04T16:33:11.604Z,2026-08-04T16:33:11.604Z
+2,c7afc9da-93a3-4851-a875-b79f753b463f,0c4618db-758f-4ff8-9ae1-a9b402a08bbb,live_smoke_001,02_validation,queued,0,,,,TBK_Vision_Orchestrator,2026-08-04T16:33:11.820Z,2026-08-04T16:33:11.820Z

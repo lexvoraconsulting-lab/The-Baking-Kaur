@@ -1,0 +1,19 @@
+﻿id,canonical_id,attribute_type,canonical_value,category,parent_id,taxonomy_version,status,default_confidence,validation_rule,description,createdAt,updatedAt
+1,frost_buttercream,frosting_type,Buttercream,frosting,,v1,active,0.95,,Buttercream frosting,2026-08-04T16:57:11.913Z,2026-08-04T16:57:11.913Z
+2,frost_fondant,frosting_type,Fondant,frosting,,v1,active,0.95,,Rolled fondant,2026-08-04T16:57:11.913Z,2026-08-04T16:57:11.913Z
+3,frost_ganache,frosting_type,Ganache,frosting,,v1,active,0.95,,Chocolate ganache,2026-08-04T16:57:11.913Z,2026-08-04T16:57:11.913Z
+4,frost_whipped_cream,frosting_type,Whipped Cream,frosting,,v1,active,0.95,,Whipped cream,2026-08-04T16:57:11.913Z,2026-08-04T16:57:11.913Z
+5,frost_cream_cheese,frosting_type,Cream Cheese,frosting,,v1,active,0.95,,Cream cheese frosting,2026-08-04T16:57:11.913Z,2026-08-04T16:57:11.913Z
+6,frost_royal_icing,frosting_type,Royal Icing,frosting,,v1,active,0.95,,Royal icing,2026-08-04T16:57:11.913Z,2026-08-04T16:57:11.913Z
+7,color_white,color,White,color,,v1,active,0.9,,,2026-08-04T16:57:11.913Z,2026-08-04T16:57:11.913Z
+8,color_pink,color,Pink,color,,v1,active,0.9,,,2026-08-04T16:57:11.913Z,2026-08-04T16:57:11.913Z
+9,color_red,color,Red,color,,v1,active,0.9,,,2026-08-04T16:57:11.913Z,2026-08-04T16:57:11.913Z
+10,color_blue,color,Blue,color,,v1,active,0.9,,,2026-08-04T16:57:11.913Z,2026-08-04T16:57:11.913Z
+11,color_chocolate,color,Chocolate Brown,color,,v1,active,0.9,,,2026-08-04T16:57:11.913Z,2026-08-04T16:57:11.913Z
+12,color_gold,color,Gold,color,,v1,active,0.9,,,2026-08-04T16:57:11.913Z,2026-08-04T16:57:11.913Z
+13,deco_flowers,decoration,Flowers,decoration,,v1,active,0.9,,,2026-08-04T16:57:11.913Z,2026-08-04T16:57:11.913Z
+14,deco_sprinkles,decoration,Sprinkles,decoration,,v1,active,0.9,,,2026-08-04T16:57:11.913Z,2026-08-04T16:57:11.913Z
+15,deco_fruit,decoration,Fresh Fruit,decoration,,v1,active,0.9,,,2026-08-04T16:57:11.913Z,2026-08-04T16:57:11.913Z
+16,deco_candles,decoration,Candles,decoration,,v1,active,0.9,,,2026-08-04T16:57:11.913Z,2026-08-04T16:57:11.913Z
+17,deco_figurine,decoration,Figurine,decoration,,v1,active,0.9,,,2026-08-04T16:57:11.913Z,2026-08-04T16:57:11.913Z
+18,deco_text,decoration,Text/Lettering,decoration,,v1,active,0.9,,,2026-08-04T16:57:11.913Z,2026-08-04T16:57:11.913Z

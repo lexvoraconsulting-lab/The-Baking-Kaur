@@ -1,0 +1,3 @@
+﻿id,image_id,batch_id,file_hash,s3_path,status,rejection_reason,createdAt,updatedAt
+1,d4619261-d34f-4dbb-be81-d414106e6663,live_smoke_001,e526a2902cd9ff6a83520b513390e02b0543e7c9ae4364e0a4af56425d60d06a,https://picsum.photos/id/10/200,queued,,2026-08-04T16:33:11.007Z,2026-08-04T16:33:11.007Z
+2,0c4618db-758f-4ff8-9ae1-a9b402a08bbb,live_smoke_001,47da918dc2429a0cb3b31628ed36161ae0a3dcef4d6b93d2df0aad6769147eec,https://picsum.photos/id/20/200,queued,,2026-08-04T16:33:11.362Z,2026-08-04T16:33:11.362Z

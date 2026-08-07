@@ -31,8 +31,8 @@
             {%- form 'customer_address', customer.new_address, aria-labelledBy: 'AddressNewHeading' -%}
               <div class="hdt-row-grid hdt-grid-cols-1 lg:hdt-grid-cols-2">
                 <div class="hdt-field hdt-relative">
-                  <input class="hdt-input" type="text" name="address[first_name]" value="{{ form.first_name }}" autocomplete="given-name"  id="AddressFirstNameNew}" placeholder="{{ 'customer.addresses.first_name' | t }}">
-                  <label class="hdt-absolute hdt-top-0 hdt-pe-none hdt-flex hdt-align-center" for="AddressFirstNameNew}">{{ 'customer.addresses.first_name' | t }}</label>
+                  <input class="hdt-input" type="text" name="address[first_name]" value="{{ form.first_name }}" autocomplete="given-name"  id="AddressFirstNameNew" placeholder="{{ 'customer.addresses.first_name' | t }}">
+                  <label class="hdt-absolute hdt-top-0 hdt-pe-none hdt-flex hdt-align-center" for="AddressFirstNameNew">{{ 'customer.addresses.first_name' | t }}</label>
                 </div>
                 <div class="hdt-field hdt-relative">
                   <input class="hdt-input" type="text" name="address[last_name]" value="{{ form.last_name }}" autocomplete="family-name" id="AddressLastNameNew" placeholder="{{ 'customer.addresses.last_name' | t }}">

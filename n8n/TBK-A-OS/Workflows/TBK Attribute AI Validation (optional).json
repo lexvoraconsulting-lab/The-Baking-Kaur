@@ -1,0 +1,315 @@
+{
+  "name": "TBK Attribute AI Validation (optional)",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "OPTIONAL AI Validation — OFF BY DEFAULT\n\nThis reusable sub-workflow can later improve LOW-CONFIDENCE or UNMAPPED\nattribute mappings by asking OpenAI to pick the best canonical id from the\ncandidate list READ FROM tbk_taxonomy_attributes (never hardcoded), constrained\nstrictly to allowed ids. It only SUGGESTS — it never writes to canonical/unmapped\ntables and is NOT wired into the Attribute Intelligence Engine primary path.\n\nDeterministic mapping in the Attribute Intelligence Engine remains the PRIMARY\nexecution path. The \"Call OpenAI\" node is DISABLED by default and its OpenAI\ncredential is left unresolved, so this workflow is inert and incurs no cost\nuntil a human explicitly enables the node and connects a credential.",
+        "height": 260,
+        "width": 520
+      },
+      "id": "29af4f4d-f855-49a7-a249-0680afae158f",
+      "name": "About",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        672,
+        352
+      ]
+    },
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "raw_value"
+            },
+            {
+              "name": "attribute_type"
+            },
+            {
+              "name": "current_canonical_id"
+            },
+            {
+              "name": "current_confidence",
+              "type": "number"
+            },
+            {
+              "name": "taxonomy_version"
+            }
+          ]
+        }
+      },
+      "id": "a173e41f-44c0-490a-a5b0-70a70f3f8a4b",
+      "name": "When Called",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        192
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const inp = $json || {};\nconst raw = (inp.raw_value === undefined || inp.raw_value === null) ? \"\" : String(inp.raw_value).trim();\nreturn [{ json: {\n  raw_value: raw,\n  attribute_type: inp.attribute_type || \"\",\n  current_canonical_id: inp.current_canonical_id || \"\",\n  current_confidence: (inp.current_confidence === undefined ? 0 : inp.current_confidence),\n  taxonomy_version: inp.taxonomy_version || \"v1\"\n} }];"
+      },
+      "id": "1972be8a-8f10-4b87-86d6-2bae45bd6fd9",
+      "name": "Prepare",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        224,
+        192
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "Y9R28YMaZhNziqGk",
+          "cachedResultName": "tbk_taxonomy_attributes"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "attribute_type",
+              "keyValue": "={{ $(\"Prepare\").first().json.attribute_type }}"
+            },
+            {
+              "keyName": "taxonomy_version",
+              "keyValue": "={{ $(\"Prepare\").first().json.taxonomy_version }}"
+            },
+            {
+              "keyName": "status",
+              "keyValue": "active"
+            }
+          ]
+        },
+        "returnAll": true
+      },
+      "id": "15cddc12-9c11-42a9-ba44-b19bd7cf3476",
+      "name": "Get Candidates",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        448,
+        192
+      ],
+      "executeOnce": true,
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "jsCode": "const p = $(\"Prepare\").first().json;\nconst rows = $(\"Get Candidates\").all().map(function (i) { return i.json; }).filter(function (r) { return r && r.canonical_id; });\nconst candidates = rows.map(function (r) { return { canonical_id: r.canonical_id, canonical_value: r.canonical_value }; });\nconst allowedIds = candidates.map(function (c) { return c.canonical_id; });\nconst sys = \"You map a raw product attribute value to exactly one canonical taxonomy id from a provided list. Respond ONLY with a compact JSON object: {\\\"canonical_id\\\":<id or \\\"none\\\">,\\\"confidence\\\":<0-1 float>,\\\"rationale\\\":<short string>}. You MUST pick an id from the allowed list or \\\"none\\\".\";\nconst user = \"attribute_type: \" + p.attribute_type + \"\\nraw_value: \" + p.raw_value + \"\\nallowed_candidates: \" + JSON.stringify(candidates);\nconst body = {\n  model: \"gpt-4o-mini\",\n  messages: [ { role: \"system\", content: sys }, { role: \"user\", content: user } ],\n  temperature: 0,\n  response_format: { type: \"json_object\" }\n};\nreturn [{ json: {\n  raw_value: p.raw_value,\n  attribute_type: p.attribute_type,\n  taxonomy_version: p.taxonomy_version,\n  allowed_ids: allowedIds,\n  candidates: candidates,\n  body_json: JSON.stringify(body)\n} }];"
+      },
+      "id": "bd22d5e1-b34e-4523-aa04-c6412730d581",
+      "name": "Build Prompt",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        672,
+        192
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "has_raw",
+              "leftValue": "={{ $json.raw_value }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "01b876e2-1dc0-40d7-a111-88cb070b6e0e",
+      "name": "Should Call AI",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        896,
+        192
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.openai.com/v1/chat/completions",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "openAiApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ $json.body_json }}",
+        "options": {
+          "timeout": 30000
+        }
+      },
+      "id": "30022e4d-6dca-418b-864a-65304045fa55",
+      "name": "Call OpenAI",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        1120,
+        96
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "BrS6Y5JE3HPb2n19",
+          "name": "n8n free OpenAI API credits"
+        }
+      },
+      "disabled": true,
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const ctx = $(\"Build Prompt\").first().json;\nconst allowed = ctx.allowed_ids || [];\nconst candidates = ctx.candidates || [];\nconst resp = $json || {};\nlet content = \"\";\ntry {\n  content = resp.choices && resp.choices[0] && resp.choices[0].message ? resp.choices[0].message.content : \"\";\n} catch (e) { content = \"\"; }\nlet parsed = {};\ntry { parsed = JSON.parse(content); } catch (e) { parsed = {}; }\nlet id = parsed.canonical_id || \"none\";\nif (id !== \"none\" && allowed.indexOf(id) === -1) { id = \"none\"; }\nconst found = candidates.find(function (c) { return c.canonical_id === id; });\nconst status = id === \"none\" ? \"ai_none\" : \"ai_suggested\";\nreturn [{ json: {\n  raw_value: ctx.raw_value,\n  attribute_type: ctx.attribute_type,\n  suggested_canonical_id: id === \"none\" ? \"\" : id,\n  suggested_value: found ? found.canonical_value : \"\",\n  ai_confidence: (parsed.confidence === undefined || parsed.confidence === null) ? 0 : parsed.confidence,\n  rationale: parsed.rationale || \"\",\n  status: status\n} }];"
+      },
+      "id": "9be6fa68-766b-41d4-ac58-a7d05b5fd7fd",
+      "name": "Parse AI Suggestion",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1344,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const ctx = $(\"Build Prompt\").first().json;\nreturn [{ json: {\n  raw_value: ctx.raw_value,\n  attribute_type: ctx.attribute_type,\n  suggested_canonical_id: \"\",\n  suggested_value: \"\",\n  ai_confidence: 0,\n  rationale: \"OpenAI call failed or node disabled\",\n  status: \"ai_error\"\n} }];"
+      },
+      "id": "618664c9-51cf-4a72-b961-0e262ba16d1f",
+      "name": "AI Error",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1344,
+        192
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const p = $(\"Prepare\").first().json;\nreturn [{ json: {\n  raw_value: p.raw_value,\n  attribute_type: p.attribute_type,\n  suggested_canonical_id: \"\",\n  suggested_value: \"\",\n  ai_confidence: 0,\n  rationale: \"empty raw_value; no AI call made\",\n  status: \"ai_none\"\n} }];"
+      },
+      "id": "695400b4-f85d-44b5-980d-8f2832e72e50",
+      "name": "AI None",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1120,
+        288
+      ]
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When Called": {
+      "main": [
+        [
+          {
+            "node": "Prepare",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare": {
+      "main": [
+        [
+          {
+            "node": "Get Candidates",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Candidates": {
+      "main": [
+        [
+          {
+            "node": "Build Prompt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Prompt": {
+      "main": [
+        [
+          {
+            "node": "Should Call AI",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Should Call AI": {
+      "main": [
+        [
+          {
+            "node": "Call OpenAI",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "AI None",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call OpenAI": {
+      "main": [
+        [
+          {
+            "node": "Parse AI Suggestion",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "AI Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "5083738c-8b9d-458b-8c3c-fd4e8510f4ce",
+  "meta": {
+    "instanceId": "9acba552e049a19e69f51439fb1ace1512073f1e7a2cb7e135f6805cf39a5192"
+  },
+  "nodeGroups": [],
+  "id": "7zKv9U1NjdWCEWjT",
+  "tags": []
+}
