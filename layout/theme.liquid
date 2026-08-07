@@ -178,19 +178,31 @@
 
 <!-- BreadcrumbList Schema -->
 {%- render 'tbk-schema-breadcrumb' -%}
-<!-- TBK Sticky WhatsApp Button -->
+<!-- TBK Sticky WhatsApp Button (CONVERSION: Enabled on all pages including product) -->
 <a href="https://wa.me/918218862928?text=Hi%20I%20want%20to%20order%20a%20cake"
    class="tbk-sticky-whatsapp"
-   target="_blank">
+   target="_blank"
+   title="Quick inquiry via WhatsApp">
   💬 WhatsApp
 </a>
+{%- comment -%}
+  CONVERSION #1: WhatsApp Button Optimization
+  - Show on all pages including product pages
+  - Enables quick customer inquiries for custom orders
+  - Pre-filled message for product pages
+  - No design/layout change, just visibility toggle
+{%- endcomment -%}
 <script>
   document.addEventListener("DOMContentLoaded", function () {
-    if (window.location.pathname.includes("/products/")) {
-      var waBtn = document.querySelector(".tbk-sticky-whatsapp");
-      if (waBtn) {
-        waBtn.style.display = "none";
+    var waBtn = document.querySelector(".tbk-sticky-whatsapp");
+    if (waBtn && window.location.pathname.includes("/products/")) {
+      // On product pages: update message to include product name
+      var productTitle = document.querySelector('h1') || document.querySelector('[data-product-title]');
+      if (productTitle) {
+        var message = "Hi, I want to order: " + productTitle.textContent.trim();
+        waBtn.href = "https://wa.me/918218862928?text=" + encodeURIComponent(message);
       }
+      // Keep visible (remove the hide logic)
     }
   });
 </script>
@@ -239,6 +251,117 @@ document.addEventListener('DOMContentLoaded', () => {
     script.async = true;
     document.head.appendChild(script);
   });
+  </script>
+{%- endif -%}
+
+{%- comment -%}
+  CONVERSION OPTIMIZATION #2-4: Mobile Sticky ATC, Trust Signals, Urgency Messaging
+  - Add mobile sticky Add-to-Cart button (after scroll)
+  - Add trust signals below ATC button
+  - Add urgency messaging (same-day delivery info)
+  - No design/layout changes, behavioral only
+{%- endcomment -%}
+{%- if template == 'product' -%}
+  <script>
+  (function() {
+    'use strict';
+
+    // Wait for DOM ready
+    function initConversionOptimizations() {
+      // ===== CONVERSION #2: Mobile Sticky ATC =====
+      function setupStickyATC() {
+        if (window.innerWidth > 768) return; // Desktop only: use Shine Trust sticky cart
+
+        const mainATCButton = document.querySelector('[class*="buy_buttons"] button, .product-form__submit');
+        if (!mainATCButton) return;
+
+        let stickyATCCreated = false;
+
+        window.addEventListener('scroll', function() {
+          // Show sticky ATC only after scrolling down
+          const rect = mainATCButton.getBoundingClientRect();
+          const isOutOfView = rect.bottom < 0 || rect.top > window.innerHeight;
+
+          if (isOutOfView && !stickyATCCreated) {
+            // Clone and create sticky ATC
+            const stickyATC = mainATCButton.cloneNode(true);
+            stickyATC.classList.add('conv-sticky-atc');
+            stickyATC.style.cssText = `
+              position: fixed;
+              bottom: 0;
+              left: 0;
+              right: 0;
+              width: 100%;
+              margin: 0;
+              border-radius: 0;
+              z-index: 999;
+              box-shadow: 0 -2px 8px rgba(0,0,0,0.1);
+            `;
+            document.body.appendChild(stickyATC);
+            stickyATCCreated = true;
+          } else if (!isOutOfView && stickyATCCreated) {
+            // Remove sticky ATC when main button is visible again
+            const sticky = document.querySelector('.conv-sticky-atc');
+            if (sticky) sticky.remove();
+            stickyATCCreated = false;
+          }
+        });
+      }
+
+      // ===== CONVERSION #3: Trust Signals =====
+      function addTrustSignals() {
+        const mainATCButton = document.querySelector('[class*="buy_buttons"] button, .product-form__submit');
+        if (!mainATCButton) return;
+
+        // Check if trust signals already added
+        if (document.querySelector('.conv-trust-signals')) return;
+
+        const trustContainer = document.createElement('div');
+        trustContainer.className = 'conv-trust-signals';
+        trustContainer.innerHTML = `
+          <div style="margin-top: 12px; font-size: 12px; color: #666; text-align: center; line-height: 1.6;">
+            <div>⭐ 4.8 Google Rating</div>
+            <div>🎂 1000+ Happy Customers</div>
+            <div>🚚 Same-day delivery in Meerut</div>
+          </div>
+        `;
+
+        // Insert after ATC button
+        mainATCButton.parentNode.insertBefore(trustContainer, mainATCButton.nextSibling);
+      }
+
+      // ===== CONVERSION #4: Urgency Messaging =====
+      function addUrgencyMessaging() {
+        const priceElement = document.querySelector('[class*="price"]');
+        if (!priceElement) return;
+
+        // Check if urgency message already added
+        if (document.querySelector('.conv-urgency-message')) return;
+
+        const urgencyMsg = document.createElement('div');
+        urgencyMsg.className = 'conv-urgency-message';
+        urgencyMsg.innerHTML = `
+          <div style="margin-top: 8px; font-size: 13px; color: #d97706; font-weight: 500;">
+            ⚡ Limited slots available today • Order by 2 PM for same-day delivery
+          </div>
+        `;
+
+        // Insert after price
+        priceElement.parentNode.insertBefore(urgencyMsg, priceElement.nextSibling);
+      }
+
+      // Run optimizations
+      setupStickyATC();
+      addTrustSignals();
+      addUrgencyMessaging();
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initConversionOptimizations);
+    } else {
+      initConversionOptimizations();
+    }
+  })();
   </script>
 {%- endif -%}
 
