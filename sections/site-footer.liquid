@@ -73,9 +73,7 @@
       <h3 class="tbk-ft__title">Company</h3>
       <ul>
         <li><a href="/pages/about-us">About Us</a></li>
-        <li><a href="/pages/why-choose-the-baking-kaur">Why Choose Us</a></li>
         <li><a href="/pages/contact">Contact Us</a></li>
-        <li><a href="/pages/store-locator">Store Locator</a></li>
         <li><a href="/pages/frequently-asked-questions-faqs">FAQs</a></li>
       </ul>
     </nav>
@@ -83,10 +81,7 @@
     <nav class="tbk-ft__col" aria-label="Delivery and gifting">
       <h3 class="tbk-ft__title">Delivery &amp; Gifting</h3>
       <ul>
-        <li><a href="/pages/delivery-information">Delivery Information</a></li>
-        <li><a href="/pages/midnight-surprise-delivery">Midnight &amp; Surprise Delivery</a></li>
         <li><a href="/pages/cake-delivery-in-meerut">Cake Delivery in Meerut</a></li>
-        <li><a href="/pages/corporate-gifting-solutions">Corporate Gifting</a></li>
         <li><a href="/pages/gift-hampers">Gift Hampers</a></li>
       </ul>
     </nav>
@@ -124,7 +119,7 @@
     <p class="tbk-ft__copy">&copy; {{ 'now' | date: '%Y' }} {{ shop.name }} · Meerut, India · All rights reserved.</p>
     <nav class="tbk-ft__legal" aria-label="Legal">
       <a href="{% if shop.privacy_policy != blank %}{{ shop.privacy_policy.url }}{% else %}/pages/data-sale-opt-out{% endif %}">Privacy</a>
-      <a href="/pages/terms-and-conditions">Terms</a>
+      <a href="{% if shop.terms_of_service != blank %}{{ shop.terms_of_service.url }}{% else %}/policies/terms-of-service{% endif %}">Terms</a>
       {%- if shop.refund_policy != blank -%}<a href="{{ shop.refund_policy.url }}">Refunds</a>{%- endif -%}
     </nav>
   </div>
