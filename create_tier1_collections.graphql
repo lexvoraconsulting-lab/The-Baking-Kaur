@@ -1,0 +1,21 @@
+mutation CreateSameDayDeliveryCollection {
+  collectionCreate(input: {
+    title: "Same Day Cake Delivery in Meerut"
+    handle: "same-day-cake-delivery-meerut"
+    descriptionHtml: "<h1>Same Day Cake Delivery in Meerut — Order Before 12 PM, Receive By Evening</h1><p>Need a fresh cake TODAY in Meerut? The Baking Kaur delivers fresh eggless cakes same-day. Order before 12 PM and receive your custom cake by evening.</p><h2>Why Choose The Baking Kaur for Same-Day Delivery?</h2><ul><li>✅ 100% Eggless Premium Cakes</li><li>✅ Freshly Baked Same-Day</li><li>✅ Never Stale Guarantee</li><li>✅ Custom Designs Available</li><li>✅ 4.8⭐ Trusted by 1000+ Customers</li><li>✅ On-Time Delivery Guarantee</li></ul><h2>Same-Day Delivery Coverage in Meerut</h2><p>We deliver fresh cakes same-day across Meerut including:</p><ul><li>Thapar Nagar</li><li>Shastri Nagar</li><li>Sadar Bazaar</li><li>Civil Lines</li><li>Pallavpuram</li><li>All other Meerut areas</li></ul><h2>Customization Options for Same-Day Orders</h2><ul><li>Custom cake designs</li><li>Any flavor combination</li><li>Photo cakes available</li><li>Theme cakes (Birthday, Anniversary, Wedding)</li><li>Custom messages and names</li><li>Personalized toppers</li></ul><h2>How Same-Day Delivery Works</h2><p>1. Order before 12 PM | 2. Confirm delivery area | 3. Choose your design | 4. Receive fresh cake by evening</p><h2>Trust & Guarantees</h2><p><strong>Freshly Baked Guarantee:</strong> Your cake is baked fresh on the day of delivery, never stale.</p><p><strong>On-Time Delivery Promise:</strong> We guarantee on-time delivery for all same-day orders.</p><p><strong>Quality Assurance:</strong> 100% eggless, premium ingredients, hygienically prepared.</p><h2>FAQ - Same Day Cake Delivery</h2><ul><li><strong>Can I get same-day delivery?</strong> Yes! Order before 12 PM for same-day delivery by evening.</li><li><strong>What's the latest order time for same-day?</strong> Latest order time is 12 PM for same-day delivery.</li><li><strong>Can I customize for same-day order?</strong> Yes, all customizations are available for same-day orders.</li><li><strong>What if same-day isn't available for my area?</strong> Contact us at +91 82188 62928 to confirm delivery availability.</li><li><strong>How fresh is the cake?</strong> Your cake is baked on the delivery day, guaranteed fresh.</li><li><strong>Do you offer midnight same-day delivery?</strong> Yes, check our Midnight Delivery collection for surprise deliveries.</li></ul><p><strong>Order Your Same-Day Cake Now!</strong> Don't delay celebrations. Choose from our premium eggless cakes and place your order before 12 PM today.</p>"
+    ruleSet: {
+      appliedDisjunctively: false
+    }
+  }) {
+    collection {
+      id
+      title
+      handle
+      description
+    }
+    userErrors {
+      field
+      message
+    }
+  }
+}
