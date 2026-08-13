@@ -151,45 +151,6 @@
     },
     "shop_by_moment": {
       "type": "featured-collection-grid",
-      "blocks": {
-        "collection_1": {
-          "type": "featured_collection",
-          "settings": {
-            "collection": "birthday-cakes"
-          }
-        },
-        "collection_2": {
-          "type": "featured_collection",
-          "settings": {
-            "collection": "anniversary-cakes"
-          }
-        },
-        "collection_3": {
-          "type": "featured_collection",
-          "settings": {
-            "collection": "romantic-cakes"
-          }
-        },
-        "collection_4": {
-          "type": "featured_collection",
-          "settings": {
-            "collection": "wedding-cakes"
-          }
-        },
-        "collection_5": {
-          "type": "featured_collection",
-          "settings": {
-            "collection": "kids-cakes"
-          }
-        },
-        "collection_6": {
-          "type": "featured_collection",
-          "settings": {
-            "collection": "surprise-hampers"
-          }
-        }
-      },
-      "block_order": ["collection_1", "collection_2", "collection_3", "collection_4", "collection_5", "collection_6"],
       "settings": {
         "title": "Celebrate Every Kind of Moment",
         "heading_size": "h2",
