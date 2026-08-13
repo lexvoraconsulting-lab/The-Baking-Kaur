@@ -7,14 +7,14 @@
           "type": "heading",
           "settings": {
             "heading": "Designer Cakes & Celebration Hampers",
-            "heading_size": "hdt-text-6xl",
+            "heading_fs": "h1",
             "heading_fw": "bold"
           }
         },
         "subheading": {
           "type": "text",
           "settings": {
-            "text": "<p>in Meerut</p>",
+            "text": "<p>100% eggless, freshly made to order, delivered across Meerut.</p>",
             "adding_border": false
           }
         },
@@ -23,10 +23,10 @@
           "settings": {
             "btn_label": "SHOP CAKES",
             "btn_link": "/collections/cakes",
-            "btn_style": "primary",
+            "btn_style": "solid",
             "btn_size": "base",
             "btn_fw": "semibold",
-            "btn_icon": "0",
+            "btn_icon": "none",
             "target": false
           }
         },
@@ -35,18 +35,22 @@
           "settings": {
             "btn_label": "SEND A SURPRISE",
             "btn_link": "/collections/cake-hampers",
-            "btn_style": "secondary",
+            "btn_style": "outline",
             "btn_size": "base",
             "btn_fw": "semibold",
-            "btn_icon": "0",
+            "btn_icon": "none",
             "target": false
           }
         }
       },
-      "block_order": ["heading", "subheading", "cta_1", "cta_2"],
+      "block_order": [
+        "heading",
+        "subheading",
+        "cta_1",
+        "cta_2"
+      ],
       "settings": {
         "image": "shopify://shop_images/classic-strawberry-whipped-cream-cake-meerut-the-baking-kaur_webp.webp",
-        "image_mb": "",
         "image_height": "fixed",
         "fixed_height": 780,
         "image_height_mb": "fixed",
@@ -56,15 +60,14 @@
         "image_behavior": "none",
         "use_overlay": true,
         "content_position": "center",
-        "content_position_mb": "center",
         "content_align": "center",
+        "content_position_mb": "center",
         "content_align_mb": "center",
         "use_bg_content": false,
         "color_scheme": "scheme-1",
-        "padding_top": 60,
-        "padding_bottom": 60,
-        "padding_rate": 75,
-        "link_img": ""
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_rate": 75
       }
     },
     "hero_trust": {
@@ -73,80 +76,161 @@
         "item_1": {
           "type": "item",
           "settings": {
-            "icon": "check-circle",
-            "heading": "Same-Day Delivery",
-            "text": "<p>Across Meerut</p>",
-            "link_label": "",
-            "link": ""
+            "title": "Same-Day Delivery",
+            "text": "<p>Across Meerut</p>"
           }
         },
         "item_2": {
           "type": "item",
           "settings": {
-            "icon": "palette",
-            "heading": "Custom Designs",
-            "text": "<p>Pinterest to Reality</p>",
-            "link_label": "",
-            "link": ""
+            "title": "Custom Designs",
+            "text": "<p>Pinterest to reality</p>"
           }
         },
         "item_3": {
           "type": "item",
           "settings": {
-            "icon": "award",
-            "heading": "Premium Quality Ingredients",
-            "text": "<p>100% Eggless & Fresh</p>",
-            "link_label": "",
-            "link": ""
+            "title": "Premium Quality Ingredients",
+            "text": "<p>100% eggless &amp; fresh</p>"
           }
         },
         "item_4": {
           "type": "item",
           "settings": {
-            "icon": "star",
-            "heading": "4.8+ Google Rating",
-            "text": "<p>Trusted by Meerut</p>",
-            "link_label": "",
-            "link": ""
+            "title": "4.8+ Google Rating",
+            "text": "<p>Trusted by Meerut</p>"
           }
         },
         "item_5": {
           "type": "item",
           "settings": {
-            "icon": "users",
-            "heading": "10,000+ Trusted Customers",
-            "text": "<p>Celebrating Every Occasion</p>",
-            "link_label": "",
-            "link": ""
+            "title": "10,000+ Trusted Customers",
+            "text": "<p>Celebrating every occasion</p>"
           }
         }
       },
-      "block_order": ["item_1", "item_2", "item_3", "item_4", "item_5"],
+      "block_order": [
+        "item_1",
+        "item_2",
+        "item_3",
+        "item_4",
+        "item_5"
+      ],
       "settings": {
-        "heading": "",
-        "heading_alignment": "center",
-        "heading_size": "h2",
-        "image_width": "small",
-        "image_ratio": "square",
-        "columns_desktop": 4,
-        "column_alignment": "center",
-        "background_style": "primary",
-        "button_label": "",
-        "button_link": "",
+        "heading_align": "center",
+        "sec_heading": "",
+        "heading_tag": "h2",
+        "heading_size": "h3",
+        "col_dk": "4",
+        "col_tb": "2",
+        "col_mb": "1",
         "color_scheme": "scheme-1",
-        "container_color_scheme": "scheme-2",
         "padding_top": 40,
         "padding_bottom": 40
       }
     },
     "shop_by_moment": {
-      "type": "featured-collection-grid",
+      "type": "collections-list-manual",
+      "blocks": {
+        "occasion_1": {
+          "type": "collection_item",
+          "settings": {
+            "collection": "birthday-cakes",
+            "title": "Birthday Cakes",
+            "column_width": "4",
+            "tb_column_width": "6",
+            "mb_column_width": "2",
+            "row_count": 1,
+            "tb_row_count": 1,
+            "mb_row_count": 1
+          }
+        },
+        "occasion_2": {
+          "type": "collection_item",
+          "settings": {
+            "collection": "anniversary-cakes",
+            "title": "Anniversary Cakes",
+            "column_width": "4",
+            "tb_column_width": "6",
+            "mb_column_width": "2",
+            "row_count": 1,
+            "tb_row_count": 1,
+            "mb_row_count": 1
+          }
+        },
+        "occasion_3": {
+          "type": "collection_item",
+          "settings": {
+            "collection": "wedding-cakes",
+            "title": "Wedding Cakes",
+            "column_width": "4",
+            "tb_column_width": "6",
+            "mb_column_width": "2",
+            "row_count": 1,
+            "tb_row_count": 1,
+            "mb_row_count": 1
+          }
+        },
+        "occasion_4": {
+          "type": "collection_item",
+          "settings": {
+            "collection": "cake-hampers",
+            "title": "Celebration Hampers",
+            "column_width": "4",
+            "tb_column_width": "6",
+            "mb_column_width": "2",
+            "row_count": 1,
+            "tb_row_count": 1,
+            "mb_row_count": 1
+          }
+        },
+        "occasion_5": {
+          "type": "collection_item",
+          "settings": {
+            "collection": "designer-theme-cakes",
+            "title": "Designer & Theme Cakes",
+            "column_width": "4",
+            "tb_column_width": "6",
+            "mb_column_width": "2",
+            "row_count": 1,
+            "tb_row_count": 1,
+            "mb_row_count": 1
+          }
+        },
+        "occasion_6": {
+          "type": "collection_item",
+          "settings": {
+            "collection": "baby-girl",
+            "title": "Baby Girl Cakes",
+            "column_width": "4",
+            "tb_column_width": "6",
+            "mb_column_width": "2",
+            "row_count": 1,
+            "tb_row_count": 1,
+            "mb_row_count": 1
+          }
+        }
+      },
+      "block_order": [
+        "occasion_1",
+        "occasion_2",
+        "occasion_3",
+        "occasion_4",
+        "occasion_5",
+        "occasion_6"
+      ],
       "settings": {
-        "title": "Celebrate Every Kind of Moment",
-        "heading_size": "h2",
-        "description": "",
-        "image_ratio": "square",
-        "columns_desktop": 3,
+        "heading_align": "center",
+        "sec_heading": "Celebrate Every Kind of Moment",
+        "heading_tag": "h2",
+        "heading_size": "h3",
+        "content_position": "center",
+        "row_height": 320,
+        "row_height_tb": 260,
+        "row_height_mb": 220,
+        "space_items": "20",
+        "space_items_tb": "15",
+        "space_items_mb": "15",
         "color_scheme": "scheme-1",
         "padding_top": 60,
         "padding_bottom": 60
@@ -155,22 +239,19 @@
     "best_sellers": {
       "type": "featured-collection-carousel",
       "settings": {
+        "heading_align": "center",
+        "sec_heading": "Loved by Meerut",
+        "heading_tag": "h2",
+        "heading_size": "h3",
         "collection": "best-selling-products",
-        "heading": "Loved by Meerut",
-        "heading_size": "h2",
-        "description": "",
-        "image_ratio": "adapt_image",
-        "show_secondary_image": false,
-        "add_image_padding": false,
-        "text_alignment": "center",
-        "show_text_below_image": true,
-        "show_collection_link": false,
+        "image_ratio": "square",
+        "col_dk": "4",
+        "col_tb": "2",
+        "col_mb": "1",
+        "products_count": 8,
+        "navUI": true,
+        "dotUI": false,
         "color_scheme": "scheme-1",
-        "image_size": "medium",
-        "columns_mobile": 1,
-        "columns_tablet": 2,
-        "columns_desktop": 4,
-        "rows_desktop": 1,
         "padding_top": 60,
         "padding_bottom": 60
       }
@@ -181,41 +262,46 @@
         "cake": {
           "type": "item",
           "settings": {
-            "heading": "Designer Cakes",
+            "title": "Designer Cakes",
             "text": "<p>Beautifully crafted cakes for meaningful celebrations.</p>"
           }
         },
         "flowers": {
           "type": "item",
           "settings": {
-            "heading": "Flowers",
+            "title": "Flowers",
             "text": "<p>Elegant floral additions for gifting and celebrations.</p>"
           }
         },
         "balloons": {
           "type": "item",
           "settings": {
-            "heading": "Balloons",
+            "title": "Balloons",
             "text": "<p>Premium balloon arrangements for surprise moments.</p>"
           }
         },
         "hampers": {
           "type": "item",
           "settings": {
-            "heading": "Celebration Hampers",
+            "title": "Celebration Hampers",
             "text": "<p>Curated combinations of cakes, flowers, balloons and gifts.</p>"
           }
         }
       },
-      "block_order": ["cake", "flowers", "balloons", "hampers"],
+      "block_order": [
+        "cake",
+        "flowers",
+        "balloons",
+        "hampers"
+      ],
       "settings": {
-        "heading": "More Than Just Cake",
-        "heading_alignment": "center",
-        "heading_size": "h2",
-        "columns_desktop": 4,
-        "column_alignment": "center",
-        "button_label": "CREATE YOUR CELEBRATION",
-        "button_link": "/collections/cake-hampers",
+        "heading_align": "center",
+        "sec_heading": "More Than Just Cake",
+        "heading_tag": "h2",
+        "heading_size": "h3",
+        "col_dk": "4",
+        "col_tb": "2",
+        "col_mb": "1",
         "color_scheme": "scheme-1",
         "padding_top": 60,
         "padding_bottom": 60
@@ -224,22 +310,19 @@
     "hampers_section": {
       "type": "featured-collection-carousel",
       "settings": {
+        "heading_align": "center",
+        "sec_heading": "Surprise, Curated by Us",
+        "heading_tag": "h2",
+        "heading_size": "h3",
         "collection": "cake-hampers",
-        "heading": "Surprise, Curated by Us",
-        "heading_size": "h2",
-        "description": "",
-        "image_ratio": "adapt_image",
-        "show_secondary_image": false,
-        "add_image_padding": false,
-        "text_alignment": "center",
-        "show_text_below_image": true,
-        "show_collection_link": false,
+        "image_ratio": "square",
+        "col_dk": "3",
+        "col_tb": "2",
+        "col_mb": "1",
+        "products_count": 8,
+        "navUI": true,
+        "dotUI": false,
         "color_scheme": "scheme-1",
-        "image_size": "medium",
-        "columns_mobile": 1,
-        "columns_tablet": 2,
-        "columns_desktop": 3,
-        "rows_desktop": 1,
         "padding_top": 60,
         "padding_bottom": 60
       }
@@ -247,7 +330,7 @@
     "custom_cake_studio": {
       "type": "custom-liquid",
       "settings": {
-        "custom_liquid": "<div style=\"max-width:1200px;margin:80px auto;padding:0 20px;text-align:center;background:linear-gradient(135deg,#faf7f5,#f5f0ed);border-radius:24px;padding:80px 40px;\">\n<h2 style=\"font-size:48px;font-weight:700;color:#6a003c;margin-bottom:20px;\">Have an Idea? We'll Bake It.</h2>\n<p style=\"font-size:18px;color:#555;max-width:700px;margin:0 auto 40px;line-height:1.8;\">Share your inspiration and let us turn it into a cake designed around your celebration.</p>\n<a href=\"https://wa.me/918218862928\" style=\"display:inline-block;background:linear-gradient(135deg,#E0447E,#C01457);color:white;padding:16px 36px;border-radius:12px;text-decoration:none;font-weight:600;font-size:16px;\">CUSTOMIZE MY CAKE</a>\n</div>"
+        "custom_liquid": "<div class=\"tbk-studio\"><h2>Have an Idea? We'll Bake It.</h2><p>Share your inspiration and let us turn it into a cake designed around your celebration.</p><a class=\"tbk-studio__cta\" href=\"https://wa.me/918218862928\" target=\"_blank\" rel=\"noopener\">CUSTOMIZE MY CAKE</a></div>"
       }
     },
     "meerut_delivery": {
@@ -256,39 +339,46 @@
         "service_1": {
           "type": "item",
           "settings": {
-            "heading": "Same-Day Delivery",
+            "title": "Same-Day Delivery",
             "text": "<p>Order before 12 PM for same-day delivery across Meerut.</p>"
           }
         },
         "service_2": {
           "type": "item",
           "settings": {
-            "heading": "Custom Cakes",
+            "title": "Custom Cakes",
             "text": "<p>Freshly prepared custom designs based on your inspiration.</p>"
           }
         },
         "service_3": {
           "type": "item",
           "settings": {
-            "heading": "Gift Combinations",
-            "text": "<p>Cakes + Flowers + Balloons + Surprises curated for you.</p>"
+            "title": "Gift Combinations",
+            "text": "<p>Cakes, flowers, balloons and surprises curated for you.</p>"
           }
         },
         "service_4": {
           "type": "item",
           "settings": {
-            "heading": "Local Expertise",
-            "text": "<p>Meerut-based team with 5+ years of celebration experience.</p>"
+            "title": "Local Expertise",
+            "text": "<p>A Meerut-based team who know the city and its celebrations.</p>"
           }
         }
       },
-      "block_order": ["service_1", "service_2", "service_3", "service_4"],
+      "block_order": [
+        "service_1",
+        "service_2",
+        "service_3",
+        "service_4"
+      ],
       "settings": {
-        "heading": "Cakes & Celebrations, Delivered Across Meerut",
-        "heading_alignment": "center",
-        "heading_size": "h2",
-        "columns_desktop": 2,
-        "column_alignment": "center",
+        "heading_align": "center",
+        "sec_heading": "Cakes &amp; Celebrations, Delivered Across Meerut",
+        "heading_tag": "h2",
+        "heading_size": "h3",
+        "col_dk": "2",
+        "col_tb": "2",
+        "col_mb": "1",
         "color_scheme": "scheme-1",
         "padding_top": 60,
         "padding_bottom": 60
@@ -300,53 +390,47 @@
         "pillar_1": {
           "type": "item",
           "settings": {
-            "heading": "Crafted With Care",
+            "title": "Crafted With Care",
             "text": "<p>Every celebration deserves thoughtful design.</p>"
           }
         },
         "pillar_2": {
           "type": "item",
           "settings": {
-            "heading": "Made to Order",
+            "title": "Made to Order",
             "text": "<p>Freshly prepared for your occasion.</p>"
           }
         },
         "pillar_3": {
           "type": "item",
           "settings": {
-            "heading": "Designed Around You",
+            "title": "Designed Around You",
             "text": "<p>Custom designs and reference-based cakes.</p>"
           }
         },
         "pillar_4": {
           "type": "item",
           "settings": {
-            "heading": "Delivered With Love",
+            "title": "Delivered With Love",
             "text": "<p>Carefully prepared and delivered across Meerut.</p>"
           }
         }
       },
-      "block_order": ["pillar_1", "pillar_2", "pillar_3", "pillar_4"],
+      "block_order": [
+        "pillar_1",
+        "pillar_2",
+        "pillar_3",
+        "pillar_4"
+      ],
       "settings": {
-        "heading": "Made for Moments That Matter",
-        "heading_alignment": "center",
-        "heading_size": "h2",
-        "columns_desktop": 4,
-        "column_alignment": "center",
+        "heading_align": "center",
+        "sec_heading": "Made for Moments That Matter",
+        "heading_tag": "h2",
+        "heading_size": "h3",
+        "col_dk": "4",
+        "col_tb": "2",
+        "col_mb": "1",
         "color_scheme": "scheme-1",
-        "container_color_scheme": "scheme-2",
-        "padding_top": 60,
-        "padding_bottom": 60
-      }
-    },
-    "testimonials": {
-      "type": "testimonials",
-      "settings": {
-        "heading": "Loved by Our Customers",
-        "heading_size": "h2",
-        "color_scheme": "scheme-1",
-        "image_size": "medium",
-        "show_rating": true,
         "padding_top": 60,
         "padding_bottom": 60
       }
@@ -354,49 +438,61 @@
     "faq_section": {
       "type": "accordion",
       "blocks": {
+        "faq_title": {
+          "type": "title",
+          "settings": {
+            "title": "Frequently Asked Questions"
+          }
+        },
         "faq_1": {
           "type": "accordion_item",
           "settings": {
-            "heading": "Do you deliver cakes in Meerut?",
-            "richtext": "<p>Yes, we deliver cakes and celebration hampers across Meerut with same-day delivery available for orders placed before 12 PM.</p>"
+            "title": "Do you deliver cakes in Meerut?",
+            "content": "Yes. We deliver cakes and celebration hampers across Meerut, with same-day delivery available for orders placed before 12 PM."
           }
         },
         "faq_2": {
           "type": "accordion_item",
           "settings": {
-            "heading": "Can I order a custom cake?",
-            "richtext": "<p>Absolutely! Share your inspiration via Pinterest, Instagram, or reference images on WhatsApp and we'll create a custom design based on your theme, colours, and preferences.</p>"
+            "title": "Can I order a custom cake?",
+            "content": "Yes. Share your inspiration on WhatsApp and we'll create a design based on your theme, colours and preferences."
           }
         },
         "faq_3": {
           "type": "accordion_item",
           "settings": {
-            "heading": "Do you offer midnight delivery?",
-            "richtext": "<p>Yes, we offer midnight surprise delivery for birthdays and anniversaries. Contact us on WhatsApp to book your midnight celebration.</p>"
+            "title": "Do you offer midnight delivery?",
+            "content": "Yes, we offer midnight surprise delivery for birthdays and anniversaries. Contact us on WhatsApp to book one."
           }
         },
         "faq_4": {
           "type": "accordion_item",
           "settings": {
-            "heading": "Can I combine cakes with flowers and balloons?",
-            "richtext": "<p>Yes! We offer premium gift combinations: Cake + Flowers, Cake + Balloons, and Cake + Flowers + Balloons. Perfect for surprise deliveries.</p>"
+            "title": "Can I combine cakes with flowers and balloons?",
+            "content": "Yes. We offer combinations of cake with flowers, cake with balloons, and cake with both — ideal for surprise deliveries."
           }
         },
         "faq_5": {
           "type": "accordion_item",
           "settings": {
-            "heading": "How do I place a custom cake order?",
-            "richtext": "<p>Share your cake inspiration on WhatsApp at +91-8218862928, discuss design details with our team, confirm sizing and flavour, and we'll prepare it fresh for your celebration.</p>"
+            "title": "Are all your cakes eggless?",
+            "content": "Yes. Every cake we make is 100% eggless, without exception."
           }
         }
       },
-      "block_order": ["faq_1", "faq_2", "faq_3", "faq_4", "faq_5"],
+      "block_order": [
+        "faq_title",
+        "faq_1",
+        "faq_2",
+        "faq_3",
+        "faq_4",
+        "faq_5"
+      ],
       "settings": {
-        "heading": "Frequently Asked Questions",
-        "heading_alignment": "center",
-        "heading_size": "h2",
+        "accordion_position": "start",
+        "accordion_icon": "1",
+        "open_first": true,
         "color_scheme": "scheme-1",
-        "container_color_scheme": "scheme-2",
         "padding_top": 60,
         "padding_bottom": 60
       }
@@ -404,27 +500,39 @@
     "final_cta": {
       "type": "banner",
       "blocks": {
-        "banner_content": {
+        "cta": {
           "type": "banner_1",
           "settings": {
-            "icon": "",
+            "image": "shopify://shop_images/classic-strawberry-whipped-cream-cake-meerut-the-baking-kaur_webp.webp",
             "heading": "Make Their Day Extraordinary",
-            "subheading": "From a beautifully designed cake to a complete surprise, create a celebration they'll remember.",
-            "button_label_1": "SHOP CAKES",
-            "button_link_1": "/collections/cakes",
-            "button_label_2": "SEND A SURPRISE",
-            "button_link_2": "/collections/cake-hampers",
-            "text_color": "#fff",
-            "button_style": "secondary"
+            "heading_fs": "h3",
+            "heading_fw": "bold",
+            "sub_heading": "From a beautifully designed cake to a complete surprise, create a celebration they will remember.",
+            "sub_heading_fs": "base",
+            "sub_heading_fw": "normal",
+            "btn_label": "SHOP CAKES",
+            "btn_link": "/collections/cakes",
+            "btn_style": "solid",
+            "btn_size": "base",
+            "btn_fw": "semibold",
+            "btn_icon": "none",
+            "content_position": "center",
+            "alignment": "center",
+            "content_position_mb": "center",
+            "alignment_mb": "center"
           }
         }
       },
-      "block_order": ["banner_content"],
+      "block_order": [
+        "cta"
+      ],
       "settings": {
-        "image_overlay_opacity": 50,
-        "image_height": "medium",
-        "desktop_text_box_position": "middle-center",
-        "color_scheme": "scheme-2",
+        "full_width": true,
+        "col_dk": "1",
+        "col_tb": "1",
+        "row_height": 420,
+        "row_height_tb": 360,
+        "row_height_mb": 320,
         "padding_top": 60,
         "padding_bottom": 60
       }
@@ -440,7 +548,6 @@
     "custom_cake_studio",
     "meerut_delivery",
     "why_tbk",
-    "testimonials",
     "faq_section",
     "final_cta"
   ]

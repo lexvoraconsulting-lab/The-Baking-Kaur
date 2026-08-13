@@ -158,8 +158,57 @@
   box-shadow: 0 16px 32px rgba(0,0,0,0.1);
 }
 
+/* CUSTOM CAKE STUDIO */
+.tbk-studio {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 80px 40px;
+  text-align: center;
+  background: linear-gradient(135deg, var(--tbk-blush), var(--tbk-ivory));
+  border-radius: 24px;
+}
+
+.tbk-studio h2 {
+  font-size: 40px;
+  font-weight: 700;
+  color: var(--tbk-primary);
+  margin-bottom: 20px;
+}
+
+.tbk-studio p {
+  font-size: 18px;
+  color: var(--tbk-muted);
+  max-width: 700px;
+  margin: 0 auto 40px;
+  line-height: 1.8;
+}
+
+.tbk-studio__cta {
+  display: inline-block;
+  background: linear-gradient(135deg, #E0447E, var(--tbk-accent));
+  color: #fff;
+  padding: 16px 36px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 16px;
+}
+
 /* MOBILE */
 @media (max-width: 768px) {
+  .tbk-studio {
+    padding: 48px 20px;
+  }
+
+  .tbk-studio h2 {
+    font-size: 28px;
+  }
+
+  .tbk-studio p {
+    font-size: 16px;
+    margin-bottom: 28px;
+  }
+
   .slideshow__heading {
     font-size: 36px !important;
   }
