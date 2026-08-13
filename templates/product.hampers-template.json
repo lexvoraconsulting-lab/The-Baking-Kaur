@@ -20,7 +20,7 @@
       }
     },
     "main": {
-      "type": "main-product",
+      "type": "main-product-premium-v2",
       "blocks": {
         "custom_liquid_wYK9Dy": {
           "type": "custom_liquid",
