@@ -51,7 +51,8 @@
               echo '<source media="(max-width: 767px)" srcset="' | append: srcset | replace_first: 'style=', 'data-none='
             endunless
           endif
-          echo hero_image | image_url: width: hero_image.width | image_tag: loading: loading, fetchpriority: fetchpriority, sizes: '100vw', class: class_object_mb, widths: '400,600,800,1000,1200,1400,1600,1800,2000,2200,2400,2600,2800,3000,3200', alt: 'The Baking Kaur Premium Cakes'
+          assign hero_alt = hero_image.alt | default: 'The Baking Kaur Premium Cakes'
+          echo hero_image | image_url: width: hero_image.width | image_tag: loading: loading, fetchpriority: fetchpriority, sizes: '100vw', class: class_object_mb, widths: '400,600,800,1000,1200,1400,1600,1800,2000,2200,2400,2600,2800,3000,3200', alt: hero_alt
           echo '</picture>'
         else
           echo '<div class="hdt-media-wrapper" style="background: linear-gradient(135deg, #faf7f5 0%, #f5f0ed 50%, #fff6f9 100%); min-height: 500px;"></div>'
