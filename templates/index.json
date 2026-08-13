@@ -28,7 +28,7 @@
             "button_link_2": "/collections/hampers",
             "image_position": "center",
             "desktop_text_box_position": "middle-left",
-            "color_scheme": "scheme-custom-hero"
+            "color_scheme": "scheme-1"
           }
         }
       },
@@ -36,7 +36,7 @@
       "settings": {
         "slide_height": "medium",
         "allow_transparent_header": false,
-        "color_scheme": "scheme-custom-hero"
+        "color_scheme": "scheme-1"
       }
     },
     "hero_trust": {
@@ -425,7 +425,7 @@
         "image_overlay_opacity": 50,
         "image_height": "medium",
         "desktop_text_box_position": "middle-center",
-        "color_scheme": "scheme-accent",
+        "color_scheme": "scheme-2",
         "padding_top": 60,
         "padding_bottom": 60
       }
