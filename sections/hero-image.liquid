@@ -13,31 +13,14 @@
 
   if hero_image == blank
     comment
-      FALLBACK CHAIN (hero must NEVER render blank):
-      1. Anniversary cakes collection (has active products with images)
-      2. Birthday cakes collection (fallback)
-      3. Emergency gradient (never blank)
+      FALLBACK: Use best-selling-products collection (smart collection, verified products)
+      If empty, fall back to gradient (never blank)
     endcomment
 
-    assign anniversary_collection = collections['anniversary-cakes']
-    if anniversary_collection and anniversary_collection.products.size > 0
-      for product in anniversary_collection.products
-        if product.featured_image
-          assign hero_image = product.featured_image
-          break
-        endif
-      endfor
-    endif
-
-    if hero_image == blank
-      assign birthday_collection = collections['birthday-cakes']
-      if birthday_collection and birthday_collection.products.size > 0
-        for product in birthday_collection.products
-          if product.featured_image
-            assign hero_image = product.featured_image
-            break
-          endif
-        endfor
+    if collections.best-selling-products.products.size > 0
+      assign fallback_product = collections.best-selling-products.products | first
+      if fallback_product and fallback_product.featured_image
+        assign hero_image = fallback_product.featured_image
       endif
     endif
   endif
