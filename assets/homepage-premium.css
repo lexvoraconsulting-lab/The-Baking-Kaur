@@ -1,254 +1,422 @@
-/* TBK PREMIUM HOMEPAGE STYLING */
+/* ============================================================
+   TBK PREMIUM HOMEPAGE
+   Visual target: approved TBK homepage reference.
+   Palette is warm ivory / blush / champagne with espresso type.
+   Rose is an ACCENT only — never a page background.
+   ============================================================ */
 
 :root {
-  --tbk-primary: #6a003c;
-  --tbk-accent: #C01457;
-  --tbk-blush: #faf7f5;
-  --tbk-ivory: #f5f0ed;
-  --tbk-cream: #f8f4f2;
-  --tbk-text: #1A0810;
-  --tbk-muted: #555;
-  --tbk-gold: #d4af37;
+  --tbk-espresso: #3B1F2B;   /* headings, body */
+  --tbk-rose: #C1436B;       /* accent, CTA */
+  --tbk-rose-deep: #A32E55;
+  --tbk-blush: #F7E7EA;      /* soft section tint */
+  --tbk-ivory: #FDF8F5;      /* page ground */
+  --tbk-champagne: #F3E4D7;
+  --tbk-line: #E8D5D9;       /* hairline borders */
+  --tbk-muted: #7A6068;      /* secondary text */
+  --tbk-serif: "Cormorant Garamond", "Playfair Display", Georgia, serif;
 }
 
-/* HERO SECTION */
-.slideshow__slide {
-  background: linear-gradient(135deg, #faf7f5 0%, #f5f0ed 50%, #fff6f9 100%) !important;
-  min-height: 600px;
+/* ---------- Section rhythm ---------- */
+.tbk-section-icon-row,
+.hdt-section-hero-image + * {
+  background: var(--tbk-ivory);
 }
 
-.slideshow__heading {
-  font-size: 56px !important;
-  font-weight: 700 !important;
-  color: var(--tbk-primary) !important;
-  line-height: 1.2 !important;
+/* ============================================================
+   HERO — editorial, text over the photo's negative space
+   ============================================================ */
+.hdt-section-hero-image .hdt-hero-image__content-box {
+  max-width: 560px;
+}
+
+.hdt-section-hero-image .hdt-hero-image__heading {
+  font-family: var(--tbk-serif);
+  font-size: clamp(2.25rem, 4.4vw, 4rem);
+  font-weight: 600;
+  line-height: 1.08;
   letter-spacing: -0.5px;
+  color: var(--tbk-espresso);
+  text-wrap: balance;
 }
 
-.slideshow__subheading {
-  font-size: 24px !important;
-  font-style: italic;
-  color: var(--tbk-accent) !important;
-  margin-top: 10px;
+/* Hero has two text blocks: 1st = "in Meerut" script accent, 2nd = body copy */
+.hdt-section-hero-image .hdt-hero-image__text:nth-of-type(1) {
+  font-family: "Brush Script MT", "Segoe Script", cursive;
+  font-size: clamp(2rem, 3.4vw, 3.1rem);
+  font-weight: 400;
+  line-height: 1.1;
+  color: var(--tbk-rose);
+  margin-top: 0.1em;
 }
 
-.slideshow__text {
-  font-size: 18px !important;
-  color: var(--tbk-muted) !important;
-  line-height: 1.8;
-  max-width: 650px;
+/* Thin rule + heart divider under the script accent, per the reference */
+.hdt-section-hero-image .hdt-hero-image__text:nth-of-type(1)::after {
+  content: "";
+  display: block;
+  width: 180px;
+  height: 1px;
+  margin: 1.1rem 0 0;
+  background: var(--tbk-line);
 }
 
-.slideshow__buttons .button {
-  border-radius: 12px !important;
-  font-weight: 600 !important;
-  padding: 16px 36px !important;
-  font-size: 15px !important;
-  letter-spacing: 0.5px;
-  transition: all 0.3s ease;
+.hdt-section-hero-image .hdt-hero-image__text:nth-of-type(2) {
+  font-family: inherit;
+  font-size: clamp(0.95rem, 1.1vw, 1.0625rem);
+  line-height: 1.75;
+  color: var(--tbk-espresso);
+  max-width: 34ch;
+  margin-top: 1.25rem;
 }
 
-.slideshow__buttons .button:first-child {
-  background: linear-gradient(135deg, #E0447E, #C01457) !important;
-  color: white !important;
-  border: none !important;
+/* Legibility scrim so type never sits unreadably on the cake itself */
+.hdt-section-hero-image .hdt-hero-image__inner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    100deg,
+    rgba(253, 248, 245, 0.94) 0%,
+    rgba(253, 248, 245, 0.80) 30%,
+    rgba(253, 248, 245, 0.28) 52%,
+    rgba(253, 248, 245, 0) 68%
+  );
 }
 
-.slideshow__buttons .button:first-child:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 28px rgba(192, 20, 87, 0.25);
+.hdt-section-hero-image .hdt-hero-image__content-wrap {
+  position: relative;
+  z-index: 2;
 }
 
-.slideshow__buttons .button:last-child {
-  background: white !important;
-  color: var(--tbk-accent) !important;
-  border: 2px solid var(--tbk-accent) !important;
+/* ---------- Buttons ---------- */
+.hdt-section-hero-image .hdt-hero-image__button {
+  border-radius: 6px;
+  padding: 15px 30px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
 }
 
-.slideshow__buttons .button:last-child:hover {
-  background: var(--tbk-cream) !important;
+.hdt-section-hero-image .hdt-btn-solid {
+  background: var(--tbk-rose);
+  color: #fff;
+  border: 1px solid var(--tbk-rose);
 }
 
-/* TRUST STRIPS */
-.feature-columns {
-  background: white !important;
-  padding: 60px 20px !important;
+.hdt-section-hero-image .hdt-btn-solid:hover {
+  background: var(--tbk-rose-deep);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(163, 46, 85, 0.22);
 }
 
-.feature-columns__heading {
-  font-size: 40px !important;
-  font-weight: 700 !important;
-  color: var(--tbk-primary) !important;
-  margin-bottom: 50px !important;
+.hdt-section-hero-image .hdt-btn-outline {
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--tbk-rose);
+  border: 1px solid var(--tbk-rose);
 }
 
-.feature-columns__item {
+.hdt-section-hero-image .hdt-btn-outline:hover {
+  background: #fff;
+  transform: translateY(-1px);
+}
+
+/* ============================================================
+   ICON ROW — trust panel + value pillars
+   ============================================================ */
+.tbk-icon-row {
+  padding: var(--tbk-row-pt, 48px) 20px var(--tbk-row-pb, 48px);
+  background: var(--tbk-ivory);
+}
+
+.tbk-icon-row__container {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.tbk-icon-row__heading {
+  font-family: var(--tbk-serif);
+  font-size: clamp(1.75rem, 2.6vw, 2.5rem);
+  font-weight: 600;
+  color: var(--tbk-espresso);
   text-align: center;
-  padding: 30px;
+  margin: 0 0 0.5rem;
 }
 
-.feature-columns__item-title {
-  font-size: 18px !important;
-  font-weight: 600 !important;
-  color: var(--tbk-primary) !important;
-  margin-bottom: 10px;
-}
-
-.feature-columns__item-text {
-  font-size: 14px !important;
-  color: var(--tbk-muted) !important;
-  line-height: 1.6;
-}
-
-/* COLLECTIONS */
-.featured-collection-grid {
-  background: white !important;
-  padding: 60px 20px !important;
-}
-
-.featured-collection-grid__heading {
-  font-size: 40px !important;
-  font-weight: 700 !important;
-  color: var(--tbk-primary) !important;
-  text-align: center !important;
-  margin-bottom: 50px !important;
-}
-
-.featured-collection-grid__item {
-  border-radius: 16px !important;
-  overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.featured-collection-grid__item:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-}
-
-.featured-collection-grid__item-title {
-  font-size: 20px !important;
-  font-weight: 600 !important;
-  color: var(--tbk-primary) !important;
-  padding: 20px !important;
+.tbk-icon-row__subheading {
   text-align: center;
+  color: var(--tbk-muted);
+  margin: 0 auto 2.5rem;
+  max-width: 60ch;
+  line-height: 1.7;
 }
 
-/* CAROUSELS */
-.featured-collection-carousel {
-  background: white !important;
-  padding: 60px 20px !important;
+.tbk-icon-row__heading + .tbk-icon-row__list {
+  margin-top: 2.5rem;
 }
 
-.featured-collection-carousel__heading {
-  font-size: 40px !important;
-  font-weight: 700 !important;
-  color: var(--tbk-primary) !important;
-  text-align: center !important;
-  margin-bottom: 50px !important;
+.tbk-icon-row__list {
+  display: grid;
+  grid-template-columns: repeat(var(--tbk-row-cols, 4), minmax(0, 1fr));
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
-.product-card {
-  border-radius: 12px !important;
+/* Trust panel: one bordered strip with hairline dividers, per the reference */
+.tbk-icon-row--panel .tbk-icon-row__list {
+  background: #fff;
+  border: 1px solid var(--tbk-line);
+  border-radius: 14px;
+  box-shadow: 0 2px 18px rgba(59, 31, 43, 0.05);
   overflow: hidden;
-  transition: all 0.3s ease;
 }
 
-.product-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 16px 32px rgba(0,0,0,0.1);
+.tbk-icon-row--panel .tbk-icon-row__item + .tbk-icon-row__item {
+  border-left: 1px solid var(--tbk-line);
 }
 
-/* CUSTOM CAKE STUDIO */
+.tbk-icon-row--plain .tbk-icon-row__list {
+  gap: 28px 24px;
+}
+
+.tbk-icon-row__item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 26px 20px;
+  min-height: 44px;
+  text-align: left;
+}
+
+.tbk-icon-row__icon {
+  flex: 0 0 auto;
+  width: 30px;
+  height: 30px;
+  color: var(--tbk-rose);
+}
+
+.tbk-icon-row__icon svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.tbk-icon-row__text {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.tbk-icon-row__title {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--tbk-espresso);
+}
+
+.tbk-icon-row__subtitle {
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  color: var(--tbk-muted);
+}
+
+/* ============================================================
+   SECTION HEADINGS (theme sections)
+   ============================================================ */
+.hdt-section .hdt-section-head__heading,
+.tbk-section-icon-row .tbk-icon-row__heading {
+  font-family: var(--tbk-serif);
+  font-weight: 600;
+  color: var(--tbk-espresso);
+  letter-spacing: -0.2px;
+}
+
+/* ============================================================
+   OCCASION / COLLECTION CARDS
+   Reference: photo dominant, small understated label BELOW the image.
+   ============================================================ */
+.hdt-collections-list .hdt-collection-item__title,
+.hdt-collection-item__content .hdt-collection-item__title {
+  font-family: var(--tbk-serif);
+  font-size: 1.0625rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--tbk-espresso);
+}
+
+/* ============================================================
+   CUSTOM CAKE STUDIO
+   ============================================================ */
 .tbk-studio {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 80px 40px;
+  padding: 72px 40px;
   text-align: center;
-  background: linear-gradient(135deg, var(--tbk-blush), var(--tbk-ivory));
-  border-radius: 24px;
+  background: linear-gradient(135deg, var(--tbk-blush), var(--tbk-champagne));
+  border-radius: 20px;
 }
 
 .tbk-studio h2 {
-  font-size: 40px;
-  font-weight: 700;
-  color: var(--tbk-primary);
-  margin-bottom: 20px;
+  font-family: var(--tbk-serif);
+  font-size: clamp(1.75rem, 3vw, 2.75rem);
+  font-weight: 600;
+  color: var(--tbk-espresso);
+  margin: 0 0 14px;
 }
 
 .tbk-studio p {
-  font-size: 18px;
+  font-size: 1.0625rem;
   color: var(--tbk-muted);
-  max-width: 700px;
-  margin: 0 auto 40px;
-  line-height: 1.8;
+  max-width: 60ch;
+  margin: 0 auto 32px;
+  line-height: 1.75;
+}
+
+/* Numbered 1–4 process, per the reference */
+.tbk-studio__steps {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 24px;
+  max-width: 900px;
+  margin: 0 auto 36px;
+  padding: 0;
+  list-style: none;
+}
+
+.tbk-studio__step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.875rem;
+  color: var(--tbk-espresso);
+}
+
+.tbk-studio__num {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--tbk-rose);
+  color: var(--tbk-rose);
+  font-family: var(--tbk-serif);
+  font-size: 1.125rem;
+  font-weight: 600;
 }
 
 .tbk-studio__cta {
   display: inline-block;
-  background: linear-gradient(135deg, #E0447E, var(--tbk-accent));
+  background: var(--tbk-rose);
   color: #fff;
-  padding: 16px 36px;
-  border-radius: 12px;
+  padding: 15px 34px;
+  border-radius: 6px;
   text-decoration: none;
   font-weight: 600;
-  font-size: 16px;
+  font-size: 0.8125rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  transition: background-color 0.25s ease, transform 0.25s ease;
 }
 
-/* MOBILE */
+.tbk-studio__cta:hover {
+  background: var(--tbk-rose-deep);
+  transform: translateY(-1px);
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 1024px) {
+  .tbk-icon-row__list {
+    grid-template-columns: repeat(var(--tbk-row-cols-tb, 3), minmax(0, 1fr));
+  }
+
+  /* Dividers only apply to a single row; drop them once it wraps */
+  .tbk-icon-row--panel .tbk-icon-row__item + .tbk-icon-row__item {
+    border-left: none;
+  }
+
+  .tbk-icon-row--panel .tbk-icon-row__item {
+    border-top: 1px solid var(--tbk-line);
+  }
+
+  .tbk-studio__steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 @media (max-width: 768px) {
+  .hdt-section-hero-image .hdt-hero-image__content-box {
+    max-width: 100%;
+  }
+
+  /* Portrait crop on mobile: scrim from the top so type stays legible */
+  .hdt-section-hero-image .hdt-hero-image__inner::before {
+    background: linear-gradient(
+      180deg,
+      rgba(253, 248, 245, 0.93) 0%,
+      rgba(253, 248, 245, 0.72) 38%,
+      rgba(253, 248, 245, 0.18) 62%,
+      rgba(253, 248, 245, 0) 80%
+    );
+  }
+
+  .hdt-section-hero-image .hdt-hero-image__text:nth-of-type(2) {
+    max-width: 100%;
+  }
+
+  .hdt-section-hero-image .hdt-hero-image__text:nth-of-type(1)::after {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .tbk-icon-row {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .tbk-icon-row__list {
+    grid-template-columns: repeat(var(--tbk-row-cols-mb, 2), minmax(0, 1fr));
+  }
+
+  .tbk-icon-row__item {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 10px;
+    padding: 22px 12px;
+  }
+
   .tbk-studio {
     padding: 48px 20px;
-  }
-
-  .tbk-studio h2 {
-    font-size: 28px;
-  }
-
-  .tbk-studio p {
-    font-size: 16px;
-    margin-bottom: 28px;
-  }
-
-  .slideshow__heading {
-    font-size: 36px !important;
-  }
-
-  .slideshow__subheading {
-    font-size: 18px !important;
-  }
-
-  .feature-columns__heading,
-  .featured-collection-grid__heading,
-  .featured-collection-carousel__heading {
-    font-size: 28px !important;
-  }
-
-  .slideshow__buttons {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .slideshow__buttons .button {
-    width: 100%;
+    border-radius: 16px;
   }
 }
 
 @media (max-width: 480px) {
-  .slideshow__heading {
-    font-size: 28px !important;
+  .hdt-section-hero-image .hdt-hero-image__button {
+    width: 100%;
+    padding: 14px 20px;
   }
 
-  .slideshow__subheading {
-    font-size: 16px !important;
+  .tbk-icon-row__title {
+    font-size: 0.875rem;
   }
 
-  .slideshow__text {
-    font-size: 15px !important;
+  .tbk-icon-row__subtitle {
+    font-size: 0.75rem;
   }
 
-  .slideshow__buttons .button {
-    padding: 14px 28px !important;
-    font-size: 13px !important;
+  .tbk-studio__steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
   }
 }
