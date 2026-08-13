@@ -18,3 +18,5 @@ ai/vision/images/*
 
 # ai/pricing — the audit trail is runtime-generated, not source.
 ai/logs/*.jsonl
+templates/index.json.bak
+templates/index.json.backup
