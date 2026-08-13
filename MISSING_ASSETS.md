@@ -1,82 +1,123 @@
-# Missing Assets for TBK Homepage
+# Missing Assets — TBK Homepage
 
-**Status:** BLOCKING — Hero image configuration incomplete
-
-## Hero Image (Priority: CRITICAL)
-
-**Official Specification Reference:** `HOMEPAGE_SPECIFICATION.md` §S1 (Editorial Hero v1.2)
-
-**Current State:**
-- Hero section configured for image (hero-image.liquid)
-- No image currently selected in Shopify Admin
-- Will render with placeholder text only until image is configured
-
-**Requirement:**
-Configure the hero image via Shopify Admin by selecting the image for product **b32** (Classic Strawberry Whipped Cream Cake).
-
-### Source
-**Product:** b32 — Classic Strawberry Whipped Cream Cake  
-**Rationale:** This is the official TEMPORARY PRODUCTION HERO per the approved spec (see PROJECT_ROADMAP.md). Product b32 was selected because no other compliant designer-cake photography exists in the catalogue (all others carry watermarks, customer names, or third-party branding).
-
-### Specifications
-- **Product Handle:** b32
-- **Image Source:** Shopify product image (first/featured image from product b32)
-- **Desktop Dimensions:** 1196×1600px (portrait, 3:4 aspect ratio)
-- **Format:** WebP with responsive srcset [600, 900, 1200, 1600px]
-- **Loading:** Eager load + high fetchpriority (LCP optimization)
-- **Alt Text:** "Classic Strawberry Whipped Cream Cake by The Baking Kaur"
-- **Mobile Image:** Same image, mobile-optimized crop (optional separate image)
-
-### Configuration Steps
-1. Go to Shopify Admin → Themes → Current Theme → Theme Editor
-2. Click "Homepage" (index)
-3. Click "Hero" section
-4. In section settings, select image from:
-   - **Option A (Recommended):** Pick product b32 image directly
-   - **Option B:** Upload custom image (dimensions: 1196×1600+, landscape or portrait acceptable)
-5. Save
-
-### Text Overlay (Already Configured)
-- Heading: "Designer Cakes & Celebration Hampers"
-- Subheading: "in Meerut"
-- CTA 1: "SHOP CAKES" → /collections/cakes
-- CTA 2: "SEND A SURPRISE" → /collections/hampers
-
-### Visual Treatment
-The image will display with:
-- Responsive srcset for desktop/tablet/mobile
-- Focal point handling (center default, adjustable)
-- Text overlay with heading, subheading, CTAs
-- No text overlay opacity/gradient (relying on text color contrast only)
+**Last updated:** 2026-08-14
+**Homepage status:** Built and rendering. Hero is image-led. No blank hero.
 
 ---
 
-## Future Photography (Backlog)
+## 1. Hero image — RESOLVED (interim)
 
-Per PROJECT_ROADMAP.md and COMPONENT_LIBRARY.md:
+**Status:** ✅ Wired and verified rendering.
 
-**Flagship Hero Photoshoot** — Planned upgrade from b32 product image to a dedicated premium hero lifestyle shot. Timeline: TBD.
+The hero now renders real TBK photography, sourced from the store's own Shopify
+Files library:
 
-Requirements for final hero:
-- Premium designer/occasion cake (no customer names, no watermarks, no third-party branding)
-- Warm ivory/cream/blush background OR natural studio setting
-- Professional lighting (editorial quality)
-- Lifestyle composition (cake + flowers + celebration elements optional)
-- High resolution (3000px+ wide recommended)
-- Source: TBK studio shoot or commissioned professional photography
+| Field | Value |
+|---|---|
+| Asset | `shopify://shop_images/classic-strawberry-whipped-cream-cake-meerut-the-baking-kaur_webp.webp` |
+| Origin | Featured image of product `b32` — Classic Strawberry Whipped Cream Cake |
+| Dimensions | 1196 × 1600 (portrait, 3:4) |
+| Format | WebP |
+| Alt text | Inherited from the asset: "Classic Strawberry Whipped Cream Cake — eggless anniversary cake by The Baking Kaur, Meerut" |
+| Loading | `eager` + `fetchpriority="high"` (LCP) |
+| Responsive | srcset 400–3200px, `sizes="100vw"` |
+| Desktop height | Fixed 780px |
+| Mobile height | Fixed 560px |
+
+**Why fixed heights, not `adapt_image`:** the asset is portrait (0.75 ratio). At
+full-bleed width with `adapt_image`, a 1920px viewport would render a ~2560px-tall
+hero. Fixed heights + `object-fit` crop keep the hero at a usable height on every
+breakpoint.
+
+**Why this asset:** it is the only catalogue image verified free of Zomato/TWC
+watermarks, piped customer names, and third-party branding. Selected per the
+approved spec as the official *temporary* production hero.
+
+**No local repository photography exists.** `assets/` contains only UI assets
+(`flavor-icons.png`, `no-image.svg`). `ai/vision/images/{1,2,3}.png` are
+vision-model smoke-test samples, explicitly not a production image store
+(see `ai/vision/images/README.md`). `design/` and
+`design_handoff_shopify_product/` contain documentation and code only — no imagery.
 
 ---
 
-## Deployment Impact
+## 2. Flagship hero photography — STILL REQUIRED
 
-**Current Status:** Homepage will display with placeholder text only.  
-**Critical Path:** Requires image selection in Shopify Admin before launch.  
-**Fix Effort:** ~2 minutes (select image in theme editor).  
-**Blocker:** YES — hero must have an image to match approved visual design.
+The current hero is a product shot standing in for a real hero. It works, but it
+is not an editorial hero composition. Replacing it is a settings change with
+**zero code cost** — set the image in the theme editor, or update
+`templates/index.json` → `sections.hero.settings.image`.
+
+### Exact requirement
+
+| Spec | Value |
+|---|---|
+| Filename | `tbk-homepage-hero-desktop.webp` |
+| Desktop dimensions | 2880 × 1620 minimum (16:9 landscape) |
+| Mobile variant | `tbk-homepage-hero-mobile.webp`, 1080 × 1350 (4:5 portrait) |
+| Aspect ratio | 16:9 desktop · 4:5 mobile |
+| Subject | One premium designer or occasion cake, hero-lit, as the single focal object |
+| Composition | Cake positioned right-of-centre (desktop) / lower third (mobile) |
+| Focal point | On the cake's top tier |
+| Text-safe area | Left 45% (desktop) / top 40% (mobile) kept low-detail for the H1, subheading and two CTAs |
+| Background | Warm ivory / cream / soft blush, or a clean natural studio set |
+| Lighting | Soft directional key, editorial quality, no harsh flash |
+| Must not contain | Watermarks, customer names, third-party branding, other studios' marks |
+| Alt text | `Designer eggless celebration cake by The Baking Kaur, Meerut` |
+
+Once supplied: upload to Shopify Files, then set `sections.hero.settings.image`
+(and `image_mb` for the mobile crop). With a 16:9 asset, `image_height` may be
+returned to `adapt_image`.
 
 ---
 
-**Last Updated:** 2026-08-13  
-**Assigned To:** TBK Shopify Admin / Store Manager  
-**Action Required:** Select product b32 image in Shopify Theme Editor  
-**Timeline:** Before final homepage publication (QA/preview testing can continue with placeholder)
+## 3. Testimonials — BLOCKED, section removed from the homepage
+
+**Status:** ⛔ Not on the page.
+
+Zero verified customer reviews exist. Per the standing project rule, fabricated
+testimonials are permanently off the table, and a testimonials section with no
+quotes renders as an empty band. The section has therefore been **left out of
+`templates/index.json` `order`** rather than shipped empty.
+
+**To enable:** supply at least 3 real reviews (transcribed Google Business Profile
+reviews with `source_url`, or Judge.me verified-buyer reviews). Then re-add a
+`testimonials` section with `quote` blocks — the section type exists and is ready.
+
+---
+
+## 4. Collections referenced but not present in Shopify
+
+The original homepage draft pointed at four collections that do not exist. Those
+references were replaced with real, populated collections so no section renders
+empty:
+
+| Originally referenced | Exists? | Now using | Products |
+|---|---|---|---|
+| `romantic-cakes` | ✗ | `wedding-cakes` | 134 |
+| `kids-cakes` | ✗ | `designer-theme-cakes` | 165 |
+| `surprise-hampers` | ✗ | `cake-hampers` | 119 |
+| `celebration-hampers` | ✗ | `cake-hampers` | 119 |
+| `best-sellers` | ✗ | `best-selling-products` | 1235 |
+| `hampers` (CTA target) | ✗ | `cake-hampers` | 119 |
+
+If the missing collections are later created, swap the handles back in
+`templates/index.json`. No code change needed.
+
+---
+
+## 5. FSSAI licence number — STILL REQUIRED
+
+The storefront claims "FSSAI approved" with no number. This is a checkable entity
+fact and high trust-per-effort. Supply the licence number to display it.
+
+---
+
+## Deployment status
+
+| Item | Status |
+|---|---|
+| Hero renders a real image | ✅ Verified in preview |
+| Blank hero possible? | ❌ No — image set; gradient emergency fallback retained |
+| Shopify validation errors | ✅ 0 |
+| Blocking for launch | Flagship photography (quality), FSSAI number (trust), reviews (S5) |
