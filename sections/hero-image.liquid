@@ -11,13 +11,16 @@
 
   assign hero_image = section.settings.image
   if hero_image == blank
-    assign fallback_product = all_products['b32']
-    if fallback_product
+    assign fallback_product = shop.products | where: "handle", "b32" | first
+    if fallback_product and fallback_product.featured_image
       assign hero_image = fallback_product.featured_image
     endif
   endif
 
-  assign object_pos = section.settings.image_mb.presentation.focal_point
+  assign object_pos = ""
+  if section.settings.image_mb != blank and section.settings.image_mb.presentation
+    assign object_pos = section.settings.image_mb.presentation.focal_point
+  endif
   assign class_object_mb = ''
   if section.index == 1
   assign loading = 'eager'
