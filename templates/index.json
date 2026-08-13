@@ -81,9 +81,19 @@
             "link_label": "",
             "link": ""
           }
+        },
+        "item_5": {
+          "type": "text",
+          "settings": {
+            "icon": "users",
+            "heading": "10,000+ Customers",
+            "text": "Celebrating With Us",
+            "link_label": "",
+            "link": ""
+          }
         }
       },
-      "block_order": ["item_1", "item_2", "item_3", "item_4"],
+      "block_order": ["item_1", "item_2", "item_3", "item_4", "item_5"],
       "settings": {
         "heading": "",
         "heading_alignment": "center",
