@@ -1,0 +1,205 @@
+/* TBK PREMIUM HOMEPAGE STYLING */
+
+:root {
+  --tbk-primary: #6a003c;
+  --tbk-accent: #C01457;
+  --tbk-blush: #faf7f5;
+  --tbk-ivory: #f5f0ed;
+  --tbk-cream: #f8f4f2;
+  --tbk-text: #1A0810;
+  --tbk-muted: #555;
+  --tbk-gold: #d4af37;
+}
+
+/* HERO SECTION */
+.slideshow__slide {
+  background: linear-gradient(135deg, #faf7f5 0%, #f5f0ed 50%, #fff6f9 100%) !important;
+  min-height: 600px;
+}
+
+.slideshow__heading {
+  font-size: 56px !important;
+  font-weight: 700 !important;
+  color: var(--tbk-primary) !important;
+  line-height: 1.2 !important;
+  letter-spacing: -0.5px;
+}
+
+.slideshow__subheading {
+  font-size: 24px !important;
+  font-style: italic;
+  color: var(--tbk-accent) !important;
+  margin-top: 10px;
+}
+
+.slideshow__text {
+  font-size: 18px !important;
+  color: var(--tbk-muted) !important;
+  line-height: 1.8;
+  max-width: 650px;
+}
+
+.slideshow__buttons .button {
+  border-radius: 12px !important;
+  font-weight: 600 !important;
+  padding: 16px 36px !important;
+  font-size: 15px !important;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+}
+
+.slideshow__buttons .button:first-child {
+  background: linear-gradient(135deg, #E0447E, #C01457) !important;
+  color: white !important;
+  border: none !important;
+}
+
+.slideshow__buttons .button:first-child:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(192, 20, 87, 0.25);
+}
+
+.slideshow__buttons .button:last-child {
+  background: white !important;
+  color: var(--tbk-accent) !important;
+  border: 2px solid var(--tbk-accent) !important;
+}
+
+.slideshow__buttons .button:last-child:hover {
+  background: var(--tbk-cream) !important;
+}
+
+/* TRUST STRIPS */
+.feature-columns {
+  background: white !important;
+  padding: 60px 20px !important;
+}
+
+.feature-columns__heading {
+  font-size: 40px !important;
+  font-weight: 700 !important;
+  color: var(--tbk-primary) !important;
+  margin-bottom: 50px !important;
+}
+
+.feature-columns__item {
+  text-align: center;
+  padding: 30px;
+}
+
+.feature-columns__item-title {
+  font-size: 18px !important;
+  font-weight: 600 !important;
+  color: var(--tbk-primary) !important;
+  margin-bottom: 10px;
+}
+
+.feature-columns__item-text {
+  font-size: 14px !important;
+  color: var(--tbk-muted) !important;
+  line-height: 1.6;
+}
+
+/* COLLECTIONS */
+.featured-collection-grid {
+  background: white !important;
+  padding: 60px 20px !important;
+}
+
+.featured-collection-grid__heading {
+  font-size: 40px !important;
+  font-weight: 700 !important;
+  color: var(--tbk-primary) !important;
+  text-align: center !important;
+  margin-bottom: 50px !important;
+}
+
+.featured-collection-grid__item {
+  border-radius: 16px !important;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.featured-collection-grid__item:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+
+.featured-collection-grid__item-title {
+  font-size: 20px !important;
+  font-weight: 600 !important;
+  color: var(--tbk-primary) !important;
+  padding: 20px !important;
+  text-align: center;
+}
+
+/* CAROUSELS */
+.featured-collection-carousel {
+  background: white !important;
+  padding: 60px 20px !important;
+}
+
+.featured-collection-carousel__heading {
+  font-size: 40px !important;
+  font-weight: 700 !important;
+  color: var(--tbk-primary) !important;
+  text-align: center !important;
+  margin-bottom: 50px !important;
+}
+
+.product-card {
+  border-radius: 12px !important;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 32px rgba(0,0,0,0.1);
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .slideshow__heading {
+    font-size: 36px !important;
+  }
+
+  .slideshow__subheading {
+    font-size: 18px !important;
+  }
+
+  .feature-columns__heading,
+  .featured-collection-grid__heading,
+  .featured-collection-carousel__heading {
+    font-size: 28px !important;
+  }
+
+  .slideshow__buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .slideshow__buttons .button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .slideshow__heading {
+    font-size: 28px !important;
+  }
+
+  .slideshow__subheading {
+    font-size: 16px !important;
+  }
+
+  .slideshow__text {
+    font-size: 15px !important;
+  }
+
+  .slideshow__buttons .button {
+    padding: 14px 28px !important;
+    font-size: 13px !important;
+  }
+}
