@@ -1,68 +1,82 @@
 # Missing Assets for TBK Homepage
 
-**Status:** BLOCKING — Hero section incomplete
+**Status:** BLOCKING — Hero image configuration incomplete
 
 ## Hero Image (Priority: CRITICAL)
 
+**Official Specification Reference:** `HOMEPAGE_SPECIFICATION.md` §S1 (Editorial Hero v1.2)
+
 **Current State:**
-- Hero section using CSS gradient background only
-- No product photography configured
-- Visual appearance is placeholder-level
+- Hero section configured for image (hero-image.liquid)
+- No image currently selected in Shopify Admin
+- Will render with placeholder text only until image is configured
 
 **Requirement:**
-A premium horizontal hero image featuring:
+Configure the hero image via Shopify Admin by selecting the image for product **b32** (Classic Strawberry Whipped Cream Cake).
+
+### Source
+**Product:** b32 — Classic Strawberry Whipped Cream Cake  
+**Rationale:** This is the official TEMPORARY PRODUCTION HERO per the approved spec (see PROJECT_ROADMAP.md). Product b32 was selected because no other compliant designer-cake photography exists in the catalogue (all others carry watermarks, customer names, or third-party branding).
 
 ### Specifications
-- **Aspect Ratio:** 16:9 (landscape)
-- **Minimum Width:** 1440px
-- **Desktop Size:** 1440×810px
-- **Mobile Size:** 750×420px (or responsive srcset)
-- **Format:** WebP + JPG fallback
+- **Product Handle:** b32
+- **Image Source:** Shopify product image (first/featured image from product b32)
+- **Desktop Dimensions:** 1196×1600px (portrait, 3:4 aspect ratio)
+- **Format:** WebP with responsive srcset [600, 900, 1200, 1600px]
+- **Loading:** Eager load + high fetchpriority (LCP optimization)
+- **Alt Text:** "Classic Strawberry Whipped Cream Cake by The Baking Kaur"
+- **Mobile Image:** Same image, mobile-optimized crop (optional separate image)
 
-### Visual Composition
-Must match approved design direction:
-- **Subject:** Luxury TBK cake product / celebration lifestyle
-- **Background:** Warm ivory, soft blush, or cream (NO strong primary burgundy)
-- **Lighting:** Natural, editorial-quality, professional photography
-- **Elements:** Designer cake, flowers, celebration items
-- **Text Overlay:** Hero typography overlay (heading + subheading)
-- **CTA Zone:** Space for primary and secondary buttons
+### Configuration Steps
+1. Go to Shopify Admin → Themes → Current Theme → Theme Editor
+2. Click "Homepage" (index)
+3. Click "Hero" section
+4. In section settings, select image from:
+   - **Option A (Recommended):** Pick product b32 image directly
+   - **Option B:** Upload custom image (dimensions: 1196×1600+, landscape or portrait acceptable)
+5. Save
 
-### Design Direction (Approved)
-```
-Warm Ivory / Cream / White (primary backgrounds)
-+ Soft Blush
-+ Dusty Rose (accents only, not dominant)
-+ Champagne (highlights)
-+ Espresso Text
-```
+### Text Overlay (Already Configured)
+- Heading: "Designer Cakes & Celebration Hampers"
+- Subheading: "in Meerut"
+- CTA 1: "SHOP CAKES" → /collections/cakes
+- CTA 2: "SEND A SURPRISE" → /collections/hampers
 
-**DO NOT:** 
-- Invent or fabricate a fake TBK image
-- Use Ecomus demo content
-- Use generic celebration stock photos
-- Exceed 500KB file size
-
-**DO:** 
-- Use real The Baking Kaur cake photography
-- Ensure professional quality suitable for homepage hero
-- Optimize for web (performance)
-- Provide mobile-specific crop if different focal point
+### Visual Treatment
+The image will display with:
+- Responsive srcset for desktop/tablet/mobile
+- Focal point handling (center default, adjustable)
+- Text overlay with heading, subheading, CTAs
+- No text overlay opacity/gradient (relying on text color contrast only)
 
 ---
 
-## Source
-Contact TBK directly for:
-1. Studio photography from recent photoshoot
-2. Hero lifestyle shot (cake + flowers + celebration setup)
-3. Mobile-optimized crop variant
+## Future Photography (Backlog)
+
+Per PROJECT_ROADMAP.md and COMPONENT_LIBRARY.md:
+
+**Flagship Hero Photoshoot** — Planned upgrade from b32 product image to a dedicated premium hero lifestyle shot. Timeline: TBD.
+
+Requirements for final hero:
+- Premium designer/occasion cake (no customer names, no watermarks, no third-party branding)
+- Warm ivory/cream/blush background OR natural studio setting
+- Professional lighting (editorial quality)
+- Lifestyle composition (cake + flowers + celebration elements optional)
+- High resolution (3000px+ wide recommended)
+- Source: TBK studio shoot or commissioned professional photography
+
+---
 
 ## Deployment Impact
-Homepage cannot be considered production-ready until hero image is replaced.
-Current CSS gradient is acceptable for QA/preview only.
+
+**Current Status:** Homepage will display with placeholder text only.  
+**Critical Path:** Requires image selection in Shopify Admin before launch.  
+**Fix Effort:** ~2 minutes (select image in theme editor).  
+**Blocker:** YES — hero must have an image to match approved visual design.
 
 ---
 
 **Last Updated:** 2026-08-13  
-**Assigned To:** TBK Studio / Marketing  
-**Timeline:** Before final homepage publication
+**Assigned To:** TBK Shopify Admin / Store Manager  
+**Action Required:** Select product b32 image in Shopify Theme Editor  
+**Timeline:** Before final homepage publication (QA/preview testing can continue with placeholder)

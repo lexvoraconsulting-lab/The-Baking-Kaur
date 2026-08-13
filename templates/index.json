@@ -13,30 +13,68 @@
       }
     },
     "hero": {
-      "type": "slideshow",
+      "type": "hero-image",
       "blocks": {
-        "slide_1": {
-          "type": "slide",
+        "heading": {
+          "type": "heading",
           "settings": {
             "heading": "Designer Cakes & Celebration Hampers",
-            "heading_size": "h0",
-            "subheading": "in Meerut",
-            "subheading_size": "bodytext",
-            "button_label_1": "SHOP CAKES",
-            "button_link_1": "/collections/cakes",
-            "button_label_2": "SEND A SURPRISE",
-            "button_link_2": "/collections/hampers",
-            "image_position": "center",
-            "desktop_text_box_position": "middle-left",
-            "color_scheme": "scheme-1"
+            "heading_size": "hdt-text-6xl",
+            "heading_fw": "bold"
+          }
+        },
+        "subheading": {
+          "type": "text",
+          "settings": {
+            "text": "in Meerut",
+            "adding_border": false
+          }
+        },
+        "cta_1": {
+          "type": "button",
+          "settings": {
+            "btn_label": "SHOP CAKES",
+            "btn_link": "/collections/cakes",
+            "btn_style": "primary",
+            "btn_size": "base",
+            "btn_fw": "semibold",
+            "btn_icon": "0",
+            "target": false
+          }
+        },
+        "cta_2": {
+          "type": "button",
+          "settings": {
+            "btn_label": "SEND A SURPRISE",
+            "btn_link": "/collections/hampers",
+            "btn_style": "secondary",
+            "btn_size": "base",
+            "btn_fw": "semibold",
+            "btn_icon": "0",
+            "target": false
           }
         }
       },
-      "block_order": ["slide_1"],
+      "block_order": ["heading", "subheading", "cta_1", "cta_2"],
       "settings": {
-        "slide_height": "medium",
-        "allow_transparent_header": false,
-        "color_scheme": "scheme-1"
+        "image": "",
+        "image_mb": "",
+        "image_height": "adapt_image",
+        "image_height_mb": "adapt_image",
+        "full_width": true,
+        "boxed_fullwidth": false,
+        "image_behavior": "none",
+        "use_overlay": "custom",
+        "content_position": "center",
+        "content_position_mb": "center",
+        "content_align": "center",
+        "content_align_mb": "center",
+        "use_bg_content": "false",
+        "color_scheme": "scheme-1",
+        "padding_top": 60,
+        "padding_bottom": 60,
+        "padding_rate": 75,
+        "link_img": ""
       }
     },
     "hero_trust": {
