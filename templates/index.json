@@ -204,7 +204,7 @@
     "best_sellers": {
       "type": "featured-collection-carousel",
       "settings": {
-        "collection": "best-sellers",
+        "collection": "best-selling-products",
         "heading": "Loved by Meerut",
         "heading_size": "h2",
         "description": "",
