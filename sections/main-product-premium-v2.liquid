@@ -1821,6 +1821,71 @@ width:100%;
   position:relative; width:100%; max-width:640px; max-height:92vh; overflow-y:auto;
   background:#fff6f9; border-radius:22px 22px 0 0; padding:18px 8px 18px; box-shadow:0 -8px 40px rgba(0,0,0,.25);
 }
+@media (max-width: 414px) {
+  .tbk-slot-modal {
+    align-items: stretch !important;
+  }
+  .tbk-slot-modal__sheet {
+    display: flex !important;
+    flex-direction: column !important;
+    max-height: 100dvh !important;
+    max-height: 100svh !important;
+    overflow: hidden !important;
+    padding: 0 !important;
+    border-radius: 24px 24px 0 0 !important;
+    max-width: 100% !important;
+  }
+  .tbk-slot-modal__x {
+    position: fixed !important;
+    top: 14px !important;
+    right: 14px !important;
+    z-index: 10 !important;
+  }
+  .tbk-fancy-pop__head {
+    flex: 0 0 auto !important;
+    padding: 16px 18px 8px !important;
+    border-bottom: 1px solid #f0e2e8 !important;
+  }
+  .tbk-cal-nav {
+    flex: 0 0 auto !important;
+    padding: 6px 14px 2px !important;
+  }
+  .tbk-cal-dow {
+    flex: 0 0 auto !important;
+    padding: 2px 12px 0 !important;
+  }
+  .tbk-cal-grid {
+    flex: 1 1 auto !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    padding: 2px 12px 6px !important;
+    min-height: 120px !important;
+  }
+  .tbk-slot-fresh {
+    flex: 0 0 auto !important;
+    margin: 8px 12px !important;
+    padding: 12px 14px !important;
+  }
+  .tbk-fancy-pop__foot {
+    flex: 0 0 auto !important;
+    padding: 0 12px 8px !important;
+    border-top: 1px solid #f0e2e8 !important;
+  }
+  .tbk-date-actions {
+    flex: 0 0 auto !important;
+    padding: 8px 14px !important;
+    padding-bottom: max(8px, env(safe-area-inset-bottom)) !important;
+    border-top: 1px solid #f0e2e8 !important;
+    background: #fff6f9 !important;
+    gap: 10px !important;
+  }
+  .tbk-slot-modal[hidden] {
+    display: none !important;
+  }
+  body:has(.tbk-slot-modal:not([hidden])) {
+    overflow: hidden !important;
+  }
+}
 .tbk-slot-modal__x{ position:absolute; top:14px; right:14px; width:34px; height:34px; border-radius:50%; background:#fff; border:1px solid #eee; font-size:13px; color:#7a2147; cursor:pointer; z-index:2; }
 .tbk-slot-list{ padding:6px 12px; }
 .tbk-slot-opt{ align-items:center; }
