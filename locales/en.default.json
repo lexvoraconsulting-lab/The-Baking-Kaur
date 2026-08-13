@@ -9,6 +9,9 @@
 */
 {
   "general": {
+    "accessibility": {
+      "nav_menu": "Main navigation"
+    },
     "meta": {
       "tag": "Tagged",
       "page": "Page"

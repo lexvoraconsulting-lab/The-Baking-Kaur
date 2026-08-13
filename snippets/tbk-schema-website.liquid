@@ -1,3 +1,9 @@
+{%- liquid
+  assign tbk_logo = settings.logo | default: shop.brand.logo
+  if tbk_logo
+    assign tbk_logo_url = tbk_logo | image_url: width: 600
+  endif
+-%}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -26,13 +32,15 @@
       "@id": "https://thebakingkaur.com/#organization",
       "name": "The Baking Kaur",
       "url": "https://thebakingkaur.com",
+      {%- if tbk_logo_url -%}
       "logo": {
         "@type": "ImageObject",
-        "url": "{{ settings.logo | image_url: width: 600 }}",
+        "url": {{ tbk_logo_url | json }},
         "width": 600,
         "height": 200
       },
-      "image": "{{ settings.logo | image_url: width: 600 }}",
+      "image": {{ tbk_logo_url | json }},
+      {%- endif -%}
       "telephone": "+918218862928",
       "address": {
         "@type": "PostalAddress",
