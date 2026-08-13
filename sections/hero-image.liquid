@@ -43,7 +43,22 @@
   <div class="{{ class}}">
     <hdt-effect-img eff="{% if section.settings.image_behavior == 'ambient' %}ambient{% endif %}" class="hdt-hero-image__inner hdt-animate--{{ section.settings.image_behavior }} hdt-hero-image__overlay--{{ section.settings.use_overlay }} hdt-media-overlap-content{% if section.settings.image_behavior == 'parallax' %} hdt-animate--parallax{% endif %} {{ rounded }}"{% if object_pos != blank %}{% assign class_object_mb = 'hdt-object-pos-mb' %} style="--object-pos-mb: {{ object_pos }}"{% endif %}>
       {%- liquid
-        if hero_image != blank
+        comment
+          Theme-asset hero: lets a file dropped into assets/ be used as the hero
+          without going through Shopify Files. Takes priority over the image
+          picker so a designer reference can be swapped in instantly.
+        endcomment
+        assign asset_hero = section.settings.image_asset | strip
+        if asset_hero != blank
+          assign asset_src = asset_hero | asset_url
+          echo '<picture class="hdt-media-wrapper">'
+          if section.settings.image_asset_mb != blank
+            assign asset_src_mb = section.settings.image_asset_mb | strip | asset_url
+            echo '<source media="(max-width: 767px)" srcset="' | append: asset_src_mb | append: '">'
+          endif
+          echo '<img src="' | append: asset_src | append: '" alt="' | append: section.settings.image_asset_alt | escape | append: '" loading="' | append: loading | append: '" fetchpriority="' | append: fetchpriority | append: '" class="' | append: class_object_mb | append: '">'
+          echo '</picture>'
+        elsif hero_image != blank
           echo '<picture class="hdt-media-wrapper">'
           if section.settings.image_mb != blank and section.settings.image_mb != section.settings.image
             assign srcset = section.settings.image_mb | image_url: width: section.settings.image_mb.width | image_tag: widths: '200,400,600,800,1000', alt: null | split: 'srcset="' | last
@@ -188,6 +203,24 @@
       "unit": "px",
       "label": "t:sections.hero-image.settings.fixed_height_mb.label",
       "default": 300
+    },
+    {
+      "type": "text",
+      "id": "image_asset",
+      "label": "Hero image — theme asset filename",
+      "info": "Filename of an image in assets/ (e.g. hero-home.jpg). Overrides the image picker below. Use this to drop in a design reference without uploading to Shopify Files."
+    },
+    {
+      "type": "text",
+      "id": "image_asset_mb",
+      "label": "Mobile hero — theme asset filename",
+      "info": "Optional. Falls back to the desktop asset."
+    },
+    {
+      "type": "text",
+      "id": "image_asset_alt",
+      "label": "Hero image alt text",
+      "default": "Designer eggless celebration cakes by The Baking Kaur, Meerut"
     },
     {
       "type": "image_picker",

@@ -58,6 +58,8 @@
         "cta_2"
       ],
       "settings": {
+        "image_asset": "hero-home.jpg",
+        "image_asset_alt": "Designer eggless celebration cakes by The Baking Kaur, Meerut",
         "image": "shopify://shop_images/classic-strawberry-whipped-cream-cake-meerut-the-baking-kaur_webp.webp",
         "image_height": "fixed",
         "fixed_height": 720,
