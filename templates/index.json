@@ -68,7 +68,7 @@
         "image_behavior": "none",
         "use_overlay": false,
         "content_position": "center-start",
-        "content_align": "start",
+        "content_align": "left",
         "content_position_mb": "center",
         "content_align_mb": "center",
         "use_bg_content": false,
