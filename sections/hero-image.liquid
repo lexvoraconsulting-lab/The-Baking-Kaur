@@ -1,6 +1,22 @@
 <!-- sections/hero-image.liquid -->
 {{ 'hdt-hero.css' | asset_url | stylesheet_tag }}
 {%- liquid
+  comment
+    TBK HERO IMAGE FALLBACK (v1.0):
+    - If no hero image is configured in section settings, automatically use product b32
+    - Product b32 = Classic Strawberry Whipped Cream Cake (official temporary production hero)
+    - Fallback allows robust hero rendering without manual Theme Editor configuration
+    - Theme Editor product picker remains the primary/preferred option
+  endcomment
+
+  assign hero_image = section.settings.image
+  if hero_image == blank
+    assign fallback_product = all_products['b32']
+    if fallback_product
+      assign hero_image = fallback_product.featured_image
+    endif
+  endif
+
   assign object_pos = section.settings.image_mb.presentation.focal_point
   assign class_object_mb = ''
   if section.index == 1
@@ -13,7 +29,7 @@
   assign image_height =  section.settings.image_height
   assign image_height_mb =  section.settings.image_height_mb
 
-  assign image_mb = section.settings.image_mb | default: section.settings.image
+  assign image_mb = section.settings.image_mb | default: hero_image
   assign class = "hdt-container"
   assign rounded = 'hdt-rounded'
   if section.settings.full_width
@@ -25,12 +41,12 @@
     endif
   endif
 -%}
-{%- style -%}#Image-{{section.id}}{ {% if image_height=='adapt_image' or image_height=='fixed' %}--aspect-ratioapt-md:{% if image_height=='fixed' %}{{section.settings.fixed_height}}px{% else %}{{section.settings.image.aspect_ratio | default:2}}{% endif %};{% endif %}{% if image_height_mb=='adapt_image' or image_height_mb=='fixed' %}--aspect-ratioapt:{% if image_height_mb=='fixed' %}{{section.settings.fixed_height_mb}}px{% else %}{{image_mb.aspect_ratio | default:2}}{% endif %};{% endif %}}#shopify-section-{{section.id}}{--section-pt:{{section.settings.padding_top}}px;--section-pb:{{section.settings.padding_bottom}}px;--section-prate:{{section.settings.padding_rate}}}{%- endstyle -%}
+{%- style -%}#Image-{{section.id}}{ {% if image_height=='adapt_image' or image_height=='fixed' %}--aspect-ratioapt-md:{% if image_height=='fixed' %}{{section.settings.fixed_height}}px{% else %}{{hero_image.aspect_ratio | default:2}}{% endif %};{% endif %}{% if image_height_mb=='adapt_image' or image_height_mb=='fixed' %}--aspect-ratioapt:{% if image_height_mb=='fixed' %}{{section.settings.fixed_height_mb}}px{% else %}{{image_mb.aspect_ratio | default:2}}{% endif %};{% endif %}}#shopify-section-{{section.id}}{--section-pt:{{section.settings.padding_top}}px;--section-pb:{{section.settings.padding_bottom}}px;--section-prate:{{section.settings.padding_rate}}}{%- endstyle -%}
 <div id="Image-{{ section.id }}" class="hdt-hero-image hdt-section-spacing md:hdt-height--{{ image_height }} hdt-height--{{ image_height_mb }}" color-scheme="{{ section.settings.color_scheme }}">
   <div class="{{ class}}">
     <hdt-effect-img eff="{% if section.settings.image_behavior == 'ambient' %}ambient{% endif %}" class="hdt-hero-image__inner hdt-animate--{{ section.settings.image_behavior }} hdt-hero-image__overlay--{{ section.settings.use_overlay }} hdt-media-overlap-content{% if section.settings.image_behavior == 'parallax' %} hdt-animate--parallax{% endif %} {{ rounded }}"{% if object_pos != blank %}{% assign class_object_mb = 'hdt-object-pos-mb' %} style="--object-pos-mb: {{ object_pos }}"{% endif %}>
       {%- liquid
-        if section.settings.image != blank
+        if hero_image != blank
           echo '<picture class="hdt-media-wrapper">'
           if section.settings.image_mb != blank and section.settings.image_mb != section.settings.image
             assign srcset = section.settings.image_mb | image_url: width: section.settings.image_mb.width | image_tag: widths: '200,400,600,800,1000', alt: null | split: 'srcset="' | last
@@ -38,12 +54,10 @@
               echo '<source media="(max-width: 767px)" srcset="' | append: srcset | replace_first: 'style=', 'data-none='
             endunless
           endif
-          echo section.settings.image | image_url: width: section.settings.image.width | image_tag: loading: loading, fetchpriority: fetchpriority, sizes: '100vw', class: class_object_mb, widths: '400,600,800,1000,1200,1400,1600,1800,2000,2200,2400,2600,2800,3000,3200'
+          echo hero_image | image_url: width: hero_image.width | image_tag: loading: loading, fetchpriority: fetchpriority, sizes: '100vw', class: class_object_mb, widths: '400,600,800,1000,1200,1400,1600,1800,2000,2200,2400,2600,2800,3000,3200', alt: 'The Baking Kaur Premium Cakes'
           echo '</picture>'
         else
-          echo '<div class="hdt-media-wrapper">'
-          echo 'hero-apparel-1' | placeholder_svg_tag: 'placeholder-svg hdt-placeholder'
-          echo '</div>'
+          echo '<div class="hdt-media-wrapper" style="background: linear-gradient(135deg, #faf7f5 0%, #f5f0ed 50%, #fff6f9 100%); min-height: 500px;"></div>'
         endif
       -%}
       {%- if section.settings.link_img != blank -%}<a href="{{ section.settings.link_img }}" target="{% if section.settings.target %}_blank{% else %}_self{% endif %}"></a>{%- endif -%}
