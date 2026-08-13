@@ -596,43 +596,64 @@
       }
     },
     "final_cta": {
-      "type": "banner",
+      "type": "image-with-text",
       "blocks": {
-        "cta": {
-          "type": "banner_1",
+        "h": {
+          "type": "heading",
           "settings": {
-            "image": "shopify://shop_images/classic-strawberry-whipped-cream-cake-meerut-the-baking-kaur_webp.webp",
             "heading": "Make Every Moment Special",
-            "heading_fs": "h3",
-            "heading_fw": "bold",
-            "sub_heading": "From a beautifully designed cake to a complete surprise, we make celebrations unforgettable.",
-            "sub_heading_fs": "base",
-            "sub_heading_fw": "normal",
+            "heading_fs": "h3"
+          }
+        },
+        "t": {
+          "type": "text",
+          "settings": {
+            "text": "<p>From a beautifully designed cake to a complete surprise, we make celebrations unforgettable.</p>"
+          }
+        },
+        "b1": {
+          "type": "button",
+          "settings": {
             "btn_label": "SHOP CAKES",
             "btn_link": "/collections/cakes",
             "btn_style": "solid",
             "btn_size": "base",
             "btn_fw": "semibold",
             "btn_icon": "none",
-            "content_position": "center-start",
-            "alignment": "left",
-            "content_position_mb": "center",
-            "alignment_mb": "center"
+            "target": false
+          }
+        },
+        "b2": {
+          "type": "button",
+          "settings": {
+            "btn_label": "SEND A SURPRISE",
+            "btn_link": "/collections/cake-hampers",
+            "btn_style": "outline",
+            "btn_size": "base",
+            "btn_fw": "semibold",
+            "btn_icon": "none",
+            "target": false
           }
         }
       },
       "block_order": [
-        "cta"
+        "h",
+        "t",
+        "b1",
+        "b2"
       ],
       "settings": {
-        "full_width": true,
-        "col_dk": "1",
-        "col_tb": "1",
-        "row_height": 400,
-        "row_height_tb": 340,
-        "row_height_mb": 300,
-        "padding_top": 0,
-        "padding_bottom": 0
+        "image": "shopify://shop_images/classic-strawberry-whipped-cream-cake-meerut-the-baking-kaur_webp.webp",
+        "style_image": "1",
+        "image_effect": "lunc",
+        "image_last": true,
+        "content_position": "center",
+        "alignment": "left",
+        "content_position_mb": "center",
+        "alignment_mb": "center",
+        "color_scheme": "scheme-1",
+        "padding_top": 64,
+        "padding_bottom": 64
       }
     }
   },
