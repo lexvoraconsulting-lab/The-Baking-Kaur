@@ -1821,7 +1821,7 @@ width:100%;
   position:relative; width:100%; max-width:640px; max-height:92vh; overflow-y:auto;
   background:#fff6f9; border-radius:22px 22px 0 0; padding:18px 8px 18px; box-shadow:0 -8px 40px rgba(0,0,0,.25);
 }
-@media (max-width: 414px) {
+@media (max-width: 768px) {
   .tbk-slot-modal {
     align-items: stretch !important;
   }
@@ -1884,6 +1884,12 @@ width:100%;
   }
   body:has(.tbk-slot-modal:not([hidden])) {
     overflow: hidden !important;
+  }
+}
+@media (max-width: 1023px) {
+  .tbk-slot-modal__sheet {
+    max-width: 90vw !important;
+    max-height: 90vh !important;
   }
 }
 .tbk-slot-modal__x{ position:absolute; top:14px; right:14px; width:34px; height:34px; border-radius:50%; background:#fff; border:1px solid #eee; font-size:13px; color:#7a2147; cursor:pointer; z-index:2; }
