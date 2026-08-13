@@ -454,7 +454,7 @@
       "type": "banner",
       "blocks": {
         "banner_content": {
-          "type": "banner_content",
+          "type": "banner_1",
           "settings": {
             "icon": "",
             "heading": "Make Their Day Extraordinary",
