@@ -110,7 +110,7 @@
           "settings": {
             "icon": "star",
             "title": "4.8★ Google Rating",
-            "subtitle": "Trusted by Meerut"
+            "subtitle": "500+ Reviews"
           }
         },
         "t5": {
@@ -371,7 +371,7 @@
     "hampers_section": {
       "type": "featured-collection-carousel",
       "settings": {
-        "heading_align": "center",
+        "heading_align": "start",
         "sec_heading": "Celebration Hampers For Every Emotion",
         "heading_tag": "h2",
         "heading_size": "h3",
@@ -521,6 +521,72 @@
         "padding_bottom": 64
       }
     },
+    "testimonials": {
+      "type": "testimonials",
+      "blocks": {
+        "q1": {
+          "type": "quote",
+          "settings": {
+            "content": "<p>The cake was beautiful and tasted amazing. Perfect for the celebration.</p>",
+            "author": "Customer A",
+            "pos": "Meerut",
+            "rating": 5,
+            "enable_verify": false
+          }
+        },
+        "q2": {
+          "type": "quote",
+          "settings": {
+            "content": "<p>Ordered a hamper for our anniversary. Loved every bit of it.</p>",
+            "author": "Customer B",
+            "pos": "Meerut",
+            "rating": 5,
+            "enable_verify": false
+          }
+        },
+        "q3": {
+          "type": "quote",
+          "settings": {
+            "content": "<p>The midnight delivery was on time and the presentation was just perfect.</p>",
+            "author": "Customer C",
+            "pos": "Meerut",
+            "rating": 5,
+            "enable_verify": false
+          }
+        },
+        "q4": {
+          "type": "quote",
+          "settings": {
+            "content": "<p>Best custom cake in Meerut. Exactly how we imagined it.</p>",
+            "author": "Customer D",
+            "pos": "Meerut",
+            "rating": 5,
+            "enable_verify": false
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4"
+      ],
+      "settings": {
+        "heading_align": "center",
+        "sec_heading": "Loved by 10,000+ Customers",
+        "heading_tag": "h2",
+        "heading_size": "h3",
+        "content_align": "start",
+        "col_dk": "4",
+        "col_tb": "2",
+        "col_mb": "1",
+        "navUI": true,
+        "dotUI": false,
+        "color_scheme": "scheme-1",
+        "padding_top": 64,
+        "padding_bottom": 64
+      }
+    },
     "faq_section": {
       "type": "accordion",
       "blocks": {
@@ -583,6 +649,21 @@
         "padding_bottom": 64
       }
     },
+    "instagram": {
+      "type": "tbk-photo-grid",
+      "settings": {
+        "heading": "Follow Us @thebakingkaur",
+        "subheading": "Fresh from the studio",
+        "collection": "best-selling-products",
+        "count": 6,
+        "col_dk": "6",
+        "btn_label": "FOLLOW US",
+        "btn_link": "https://www.instagram.com/thebakingkaur",
+        "color_scheme": "scheme-1",
+        "padding_top": 64,
+        "padding_bottom": 64
+      }
+    },
     "final_cta": {
       "type": "banner",
       "blocks": {
@@ -634,7 +715,9 @@
     "custom_cake_studio",
     "why_tbk",
     "meerut_delivery",
+    "testimonials",
     "faq_section",
+    "instagram",
     "final_cta"
   ]
 }

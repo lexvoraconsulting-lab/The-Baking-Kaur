@@ -1,0 +1,95 @@
+{%- comment -%}
+  TBK Photo Grid — Instagram-style photographic grid.
+
+  Pulls real product photography straight from a collection, so the grid is
+  never filled with placeholder artwork. Ecomus's `image-gallery-manual` falls
+  back to `hero-apparel-*` placeholder SVGs when a block has no uploaded image;
+  this section has no such path — if the collection is empty it renders nothing.
+
+  Swap `source` to a real Instagram feed later without changing the markup.
+{%- endcomment -%}
+
+{%- liquid
+  assign coll = collections[section.settings.collection]
+  assign limit = section.settings.count | plus: 0
+-%}
+
+{%- style -%}
+  #shopify-section-{{ section.id }} {
+    --tbk-grid-cols: {{ section.settings.col_dk }};
+    --tbk-grid-pt: {{ section.settings.padding_top }}px;
+    --tbk-grid-pb: {{ section.settings.padding_bottom }}px;
+  }
+{%- endstyle -%}
+
+<div class="tbk-photo-grid" color-scheme="{{ section.settings.color_scheme }}">
+  <div class="tbk-photo-grid__container">
+    {%- if section.settings.heading != blank -%}
+      <h2 class="tbk-photo-grid__heading">{{ section.settings.heading | escape }}</h2>
+    {%- endif -%}
+
+    {%- if section.settings.subheading != blank -%}
+      <p class="tbk-photo-grid__subheading">{{ section.settings.subheading | escape }}</p>
+    {%- endif -%}
+
+    {%- if coll.products.size > 0 -%}
+      <ul class="tbk-photo-grid__list" role="list">
+        {%- for product in coll.products limit: limit -%}
+          {%- if product.featured_image -%}
+            <li class="tbk-photo-grid__item">
+              <a href="{{ product.url }}" class="tbk-photo-grid__link">
+                {{
+                  product.featured_image
+                  | image_url: width: 600
+                  | image_tag:
+                    loading: 'lazy',
+                    widths: '200,300,400,600',
+                    sizes: '(max-width: 767px) 45vw, 16vw',
+                    alt: product.featured_image.alt | default: product.title,
+                    class: 'tbk-photo-grid__img'
+                }}
+              </a>
+            </li>
+          {%- endif -%}
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+
+    {%- if section.settings.btn_label != blank and section.settings.btn_link != blank -%}
+      <a class="tbk-photo-grid__cta" href="{{ section.settings.btn_link }}" target="_blank" rel="noopener">
+        {{ section.settings.btn_label | escape }}
+      </a>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "TBK Photo Grid",
+  "class": "hdt-section tbk-section-photo-grid",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Follow Us" },
+    { "type": "text", "id": "subheading", "label": "Subheading" },
+    { "type": "collection", "id": "collection", "label": "Photo source collection" },
+    { "type": "range", "id": "count", "min": 4, "max": 12, "step": 1, "label": "Number of photos", "default": 6 },
+    {
+      "type": "select",
+      "id": "col_dk",
+      "label": "Columns (desktop)",
+      "default": "6",
+      "options": [
+        { "value": "4", "label": "4" },
+        { "value": "5", "label": "5" },
+        { "value": "6", "label": "6" }
+      ]
+    },
+    { "type": "text", "id": "btn_label", "label": "Button label" },
+    { "type": "url", "id": "btn_link", "label": "Button link" },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Colors" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "Padding top", "default": 64 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "Padding bottom", "default": 64 }
+  ],
+  "presets": [{ "name": "TBK Photo Grid" }]
+}
+{% endschema %}
