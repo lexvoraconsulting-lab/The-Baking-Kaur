@@ -10,20 +10,7 @@
   endcomment
 
   assign hero_image = section.settings.image
-
-  if hero_image == blank
-    comment
-      FALLBACK: Use best-selling-products collection (smart collection, verified products)
-      If empty, fall back to gradient (never blank)
-    endcomment
-
-    if collections.best-selling-products.products.size > 0
-      assign fallback_product = collections.best-selling-products.products | first
-      if fallback_product and fallback_product.featured_image
-        assign hero_image = fallback_product.featured_image
-      endif
-    endif
-  endif
+  comment Hero image is set via section settings. If blank, CSS gradient fallback renders. endcomment
 
   assign object_pos = ""
   if section.settings.image_mb != blank and section.settings.image_mb.presentation
