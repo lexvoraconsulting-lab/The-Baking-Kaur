@@ -81,7 +81,7 @@
       "type": "feature_columns",
       "blocks": {
         "item_1": {
-          "type": "text",
+          "type": "item",
           "settings": {
             "icon": "check-circle",
             "heading": "Same-Day Delivery",
@@ -91,7 +91,7 @@
           }
         },
         "item_2": {
-          "type": "text",
+          "type": "item",
           "settings": {
             "icon": "palette",
             "heading": "Custom Designs",
@@ -101,7 +101,7 @@
           }
         },
         "item_3": {
-          "type": "text",
+          "type": "item",
           "settings": {
             "icon": "award",
             "heading": "Premium Quality Ingredients",
@@ -111,7 +111,7 @@
           }
         },
         "item_4": {
-          "type": "text",
+          "type": "item",
           "settings": {
             "icon": "star",
             "heading": "4.8+ Google Rating",
@@ -121,7 +121,7 @@
           }
         },
         "item_5": {
-          "type": "text",
+          "type": "item",
           "settings": {
             "icon": "users",
             "heading": "10,000+ Trusted Customers",
@@ -228,28 +228,28 @@
       "type": "feature_columns",
       "blocks": {
         "cake": {
-          "type": "text",
+          "type": "item",
           "settings": {
             "heading": "Designer Cakes",
             "text": "Beautifully crafted cakes for meaningful celebrations."
           }
         },
         "flowers": {
-          "type": "text",
+          "type": "item",
           "settings": {
             "heading": "Flowers",
             "text": "Elegant floral additions for gifting and celebrations."
           }
         },
         "balloons": {
-          "type": "text",
+          "type": "item",
           "settings": {
             "heading": "Balloons",
             "text": "Premium balloon arrangements for surprise moments."
           }
         },
         "hampers": {
-          "type": "text",
+          "type": "item",
           "settings": {
             "heading": "Celebration Hampers",
             "text": "Curated combinations of cakes, flowers, balloons and gifts."
@@ -303,28 +303,28 @@
       "type": "feature_columns",
       "blocks": {
         "service_1": {
-          "type": "text",
+          "type": "item",
           "settings": {
             "heading": "Same-Day Delivery",
             "text": "Order before 12 PM for same-day delivery across Meerut."
           }
         },
         "service_2": {
-          "type": "text",
+          "type": "item",
           "settings": {
             "heading": "Custom Cakes",
             "text": "Freshly prepared custom designs based on your inspiration."
           }
         },
         "service_3": {
-          "type": "text",
+          "type": "item",
           "settings": {
             "heading": "Gift Combinations",
             "text": "Cakes + Flowers + Balloons + Surprises curated for you."
           }
         },
         "service_4": {
-          "type": "text",
+          "type": "item",
           "settings": {
             "heading": "Local Expertise",
             "text": "Meerut-based team with 5+ years of celebration experience."
@@ -347,28 +347,28 @@
       "type": "feature_columns",
       "blocks": {
         "pillar_1": {
-          "type": "text",
+          "type": "item",
           "settings": {
             "heading": "Crafted With Care",
             "text": "Every celebration deserves thoughtful design."
           }
         },
         "pillar_2": {
-          "type": "text",
+          "type": "item",
           "settings": {
             "heading": "Made to Order",
             "text": "Freshly prepared for your occasion."
           }
         },
         "pillar_3": {
-          "type": "text",
+          "type": "item",
           "settings": {
             "heading": "Designed Around You",
             "text": "Custom designs and reference-based cakes."
           }
         },
         "pillar_4": {
-          "type": "text",
+          "type": "item",
           "settings": {
             "heading": "Delivered With Love",
             "text": "Carefully prepared and delivered across Meerut."
