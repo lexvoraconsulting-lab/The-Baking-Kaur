@@ -1,0 +1,137 @@
+{%- comment -%}
+  TBK Collection Grid — photographic category cards.
+
+  Two reasons this exists rather than Ecomus's `collections-list-manual`:
+
+  1. Label placement. That section renders the title as an absolutely-positioned
+     pill *over* the image. The approved reference places a plain serif label
+     BELOW the image on the page ground.
+  2. Imagery. It falls back to `collection.image`, and several TBK collection
+     images are AI-generated art (`ChatGPTImage*.png`) or raw phone uploads
+     (`rn-image_picker_lib_temp_*`). This section prefers the collection's first
+     product photograph — real, art-directed TBK catalogue imagery — and only
+     uses `collection.image` if a block explicitly opts in.
+
+  Renders nothing for a block whose collection has no usable image, rather than
+  substituting placeholder artwork.
+{%- endcomment -%}
+
+{%- style -%}
+  #shopify-section-{{ section.id }} {
+    --tbk-cg-cols: {{ section.settings.col_dk }};
+    --tbk-cg-height: {{ section.settings.row_height }}px;
+    --tbk-cg-height-tb: {{ section.settings.row_height_tb }}px;
+    --tbk-cg-height-mb: {{ section.settings.row_height_mb }}px;
+    --tbk-cg-pt: {{ section.settings.padding_top }}px;
+    --tbk-cg-pb: {{ section.settings.padding_bottom }}px;
+  }
+{%- endstyle -%}
+
+<div class="tbk-collection-grid" color-scheme="{{ section.settings.color_scheme }}">
+  <div class="tbk-collection-grid__container">
+    {%- if section.settings.heading != blank -%}
+      <h2 class="tbk-collection-grid__heading">{{ section.settings.heading | escape }}</h2>
+    {%- endif -%}
+
+    <ul class="tbk-collection-grid__list" role="list">
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign coll = collections[block.settings.collection]
+
+          assign img = blank
+          if block.settings.use_collection_image and coll.image
+            assign img = coll.image
+          endif
+          if img == blank
+            for p in coll.products limit: 6
+              if p.featured_image
+                assign img = p.featured_image
+                break
+              endif
+            endfor
+          endif
+          if img == blank and coll.image
+            assign img = coll.image
+          endif
+
+          assign label = block.settings.title | default: coll.title
+        -%}
+
+        {%- if img != blank -%}
+          <li class="tbk-collection-grid__item" {{ block.shopify_attributes }}>
+            <a class="tbk-collection-grid__link" href="{{ coll.url | default: '/collections/all' }}">
+              <span class="tbk-collection-grid__media">
+                {{
+                  img
+                  | image_url: width: 800
+                  | image_tag:
+                    loading: 'lazy',
+                    widths: '300,400,600,800',
+                    sizes: '(max-width: 767px) 45vw, 20vw',
+                    alt: label,
+                    class: 'tbk-collection-grid__img'
+                }}
+              </span>
+              <span class="tbk-collection-grid__label">{{ label | escape }}</span>
+            </a>
+          </li>
+        {%- endif -%}
+      {%- endfor -%}
+    </ul>
+
+    {%- if section.settings.btn_label != blank and section.settings.btn_link != blank -%}
+      <a class="tbk-collection-grid__cta" href="{{ section.settings.btn_link }}">
+        {{ section.settings.btn_label | escape }}
+      </a>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "TBK Collection Grid",
+  "class": "hdt-section tbk-section-collection-grid",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading" },
+    {
+      "type": "select",
+      "id": "col_dk",
+      "label": "Columns (desktop)",
+      "default": "6",
+      "options": [
+        { "value": "3", "label": "3" },
+        { "value": "4", "label": "4" },
+        { "value": "5", "label": "5" },
+        { "value": "6", "label": "6" }
+      ]
+    },
+    { "type": "range", "id": "row_height", "min": 160, "max": 480, "step": 10, "unit": "px", "label": "Image height (desktop)", "default": 260 },
+    { "type": "range", "id": "row_height_tb", "min": 140, "max": 400, "step": 10, "unit": "px", "label": "Image height (tablet)", "default": 220 },
+    { "type": "range", "id": "row_height_mb", "min": 120, "max": 360, "step": 10, "unit": "px", "label": "Image height (mobile)", "default": 180 },
+    { "type": "text", "id": "btn_label", "label": "Button label" },
+    { "type": "url", "id": "btn_link", "label": "Button link" },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Colors" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "Padding top", "default": 64 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "Padding bottom", "default": 64 }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Category",
+      "settings": [
+        { "type": "collection", "id": "collection", "label": "Collection" },
+        { "type": "text", "id": "title", "label": "Label", "info": "Defaults to the collection title." },
+        {
+          "type": "checkbox",
+          "id": "use_collection_image",
+          "label": "Use the collection image",
+          "info": "Off by default — several TBK collection images are AI art or raw phone uploads. Leave off to use the first product photograph.",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "presets": [{ "name": "TBK Collection Grid" }]
+}
+{% endschema %}

@@ -142,84 +142,54 @@
       }
     },
     "shop_by_occasion": {
-      "type": "collections-list-manual",
+      "type": "tbk-collection-grid",
       "blocks": {
         "o1": {
-          "type": "collection_item",
+          "type": "item",
           "settings": {
             "collection": "birthday-cakes",
             "title": "Birthday",
-            "column_width": "4",
-            "tb_column_width": "6",
-            "mb_column_width": "2",
-            "row_count": 1,
-            "tb_row_count": 1,
-            "mb_row_count": 1
+            "use_collection_image": false
           }
         },
         "o2": {
-          "type": "collection_item",
+          "type": "item",
           "settings": {
             "collection": "anniversary-cakes",
             "title": "Anniversary",
-            "column_width": "4",
-            "tb_column_width": "6",
-            "mb_column_width": "2",
-            "row_count": 1,
-            "tb_row_count": 1,
-            "mb_row_count": 1
+            "use_collection_image": false
           }
         },
         "o3": {
-          "type": "collection_item",
+          "type": "item",
           "settings": {
             "collection": "designer-theme-cakes",
-            "title": "Designer & Theme",
-            "column_width": "4",
-            "tb_column_width": "6",
-            "mb_column_width": "2",
-            "row_count": 1,
-            "tb_row_count": 1,
-            "mb_row_count": 1
+            "title": "Romantic",
+            "use_collection_image": false
           }
         },
         "o4": {
-          "type": "collection_item",
+          "type": "item",
           "settings": {
             "collection": "wedding-cakes",
             "title": "Wedding",
-            "column_width": "4",
-            "tb_column_width": "6",
-            "mb_column_width": "2",
-            "row_count": 1,
-            "tb_row_count": 1,
-            "mb_row_count": 1
+            "use_collection_image": false
           }
         },
         "o5": {
-          "type": "collection_item",
+          "type": "item",
           "settings": {
             "collection": "baby-girl",
             "title": "Kids",
-            "column_width": "4",
-            "tb_column_width": "6",
-            "mb_column_width": "2",
-            "row_count": 1,
-            "tb_row_count": 1,
-            "mb_row_count": 1
+            "use_collection_image": false
           }
         },
         "o6": {
-          "type": "collection_item",
+          "type": "item",
           "settings": {
             "collection": "cake-hampers",
             "title": "Surprise",
-            "column_width": "4",
-            "tb_column_width": "6",
-            "mb_column_width": "2",
-            "row_count": 1,
-            "tb_row_count": 1,
-            "mb_row_count": 1
+            "use_collection_image": false
           }
         }
       },
@@ -232,91 +202,59 @@
         "o6"
       ],
       "settings": {
-        "heading_align": "center",
-        "sec_heading": "Shop by Occasion",
-        "heading_tag": "h2",
-        "heading_size": "h3",
-        "content_position": "end",
-        "collection_des": "1",
-        "content_size": "base",
-        "content_weight": "semibold",
-        "row_height": 300,
-        "row_height_tb": 240,
-        "row_height_mb": 200,
-        "space_items": "20",
-        "space_items_tb": "15",
-        "space_items_mb": "15",
+        "heading": "Shop by Occasion",
+        "col_dk": "6",
+        "row_height": 260,
+        "row_height_tb": 221,
+        "row_height_mb": 182,
+        "btn_label": "EXPLORE ALL OCCASIONS",
+        "btn_link": "/collections/all",
         "color_scheme": "scheme-1",
         "padding_top": 64,
         "padding_bottom": 64
       }
     },
     "signature_collections": {
-      "type": "collections-list-manual",
+      "type": "tbk-collection-grid",
       "blocks": {
         "s1": {
-          "type": "collection_item",
+          "type": "item",
           "settings": {
             "collection": "designer-theme-cakes",
             "title": "Designer Cakes",
-            "column_width": "4",
-            "tb_column_width": "6",
-            "mb_column_width": "2",
-            "row_count": 1,
-            "tb_row_count": 1,
-            "mb_row_count": 1
+            "use_collection_image": false
           }
         },
         "s2": {
-          "type": "collection_item",
+          "type": "item",
           "settings": {
-            "collection": "anniversary-cakes",
+            "collection": "birthday-cakes",
             "title": "Chocolate Collection",
-            "column_width": "4",
-            "tb_column_width": "6",
-            "mb_column_width": "2",
-            "row_count": 1,
-            "tb_row_count": 1,
-            "mb_row_count": 1
+            "use_collection_image": false
           }
         },
         "s3": {
-          "type": "collection_item",
+          "type": "item",
           "settings": {
             "collection": "cake-hampers",
             "title": "Celebration Hampers",
-            "column_width": "4",
-            "tb_column_width": "6",
-            "mb_column_width": "2",
-            "row_count": 1,
-            "tb_row_count": 1,
-            "mb_row_count": 1
+            "use_collection_image": false
           }
         },
         "s4": {
-          "type": "collection_item",
+          "type": "item",
           "settings": {
             "collection": "wedding-cakes",
-            "title": "Wedding Tiers",
-            "column_width": "4",
-            "tb_column_width": "6",
-            "mb_column_width": "2",
-            "row_count": 1,
-            "tb_row_count": 1,
-            "mb_row_count": 1
+            "title": "Fresh Flowers",
+            "use_collection_image": false
           }
         },
         "s5": {
-          "type": "collection_item",
+          "type": "item",
           "settings": {
-            "collection": "birthday-cakes",
-            "title": "Birthday Favourites",
-            "column_width": "4",
-            "tb_column_width": "6",
-            "mb_column_width": "2",
-            "row_count": 1,
-            "tb_row_count": 1,
-            "mb_row_count": 1
+            "collection": "anniversary-cakes",
+            "title": "Balloons & Décor",
+            "use_collection_image": false
           }
         }
       },
@@ -328,20 +266,13 @@
         "s5"
       ],
       "settings": {
-        "heading_align": "center",
-        "sec_heading": "Our Signature Collections",
-        "heading_tag": "h2",
-        "heading_size": "h3",
-        "content_position": "end",
-        "collection_des": "1",
-        "content_size": "base",
-        "content_weight": "semibold",
-        "row_height": 260,
-        "row_height_tb": 220,
-        "row_height_mb": 190,
-        "space_items": "20",
-        "space_items_tb": "15",
-        "space_items_mb": "15",
+        "heading": "Our Signature Collections",
+        "col_dk": "5",
+        "row_height": 240,
+        "row_height_tb": 204,
+        "row_height_mb": 168,
+        "btn_label": "EXPLORE ALL COLLECTIONS",
+        "btn_link": "/collections/all",
         "color_scheme": "scheme-1",
         "padding_top": 64,
         "padding_bottom": 64

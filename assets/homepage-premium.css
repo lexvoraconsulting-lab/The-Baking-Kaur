@@ -332,6 +332,89 @@
 }
 
 /* ============================================================
+   COLLECTION GRID — photo card, plain serif label BELOW the image
+   ============================================================ */
+.tbk-collection-grid {
+  padding: var(--tbk-cg-pt, 64px) 20px var(--tbk-cg-pb, 64px);
+  background: var(--tbk-ivory);
+  text-align: center;
+}
+
+.tbk-collection-grid__container {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.tbk-collection-grid__heading {
+  font-family: var(--tbk-serif);
+  font-size: clamp(1.75rem, 2.6vw, 2.5rem);
+  font-weight: 600;
+  color: var(--tbk-espresso);
+  margin: 0 0 2.25rem;
+}
+
+.tbk-collection-grid__list {
+  display: grid;
+  grid-template-columns: repeat(var(--tbk-cg-cols, 6), minmax(0, 1fr));
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tbk-collection-grid__link {
+  display: block;
+  text-decoration: none;
+}
+
+.tbk-collection-grid__media {
+  display: block;
+  height: var(--tbk-cg-height, 260px);
+  overflow: hidden;
+  border-radius: 12px;
+  background: var(--tbk-champagne);
+}
+
+.tbk-collection-grid__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.45s ease;
+}
+
+.tbk-collection-grid__link:hover .tbk-collection-grid__img {
+  transform: scale(1.04);
+}
+
+.tbk-collection-grid__label {
+  display: block;
+  margin-top: 0.85rem;
+  font-family: var(--tbk-serif);
+  font-size: 1.0625rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--tbk-espresso);
+}
+
+.tbk-collection-grid__cta {
+  display: inline-block;
+  margin-top: 2.25rem;
+  background: var(--tbk-rose);
+  color: #fff;
+  padding: 13px 30px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.75rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.tbk-collection-grid__cta:hover {
+  background: var(--tbk-rose-deep);
+}
+
+/* ============================================================
    PHOTO GRID (Instagram-style)
    ============================================================ */
 .tbk-photo-grid {
@@ -474,6 +557,14 @@
    RESPONSIVE
    ============================================================ */
 @media (max-width: 1024px) {
+  .tbk-collection-grid__list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .tbk-collection-grid__media {
+    height: var(--tbk-cg-height-tb, 220px);
+  }
+
   .tbk-icon-row__list {
     grid-template-columns: repeat(var(--tbk-row-cols-tb, 3), minmax(0, 1fr));
   }
@@ -542,6 +633,19 @@
   .tbk-photo-grid__list {
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 8px;
+  }
+
+  .tbk-collection-grid__list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  .tbk-collection-grid__media {
+    height: var(--tbk-cg-height-mb, 180px);
+  }
+
+  .tbk-collection-grid__label {
+    font-size: 0.9375rem;
   }
 }
 
