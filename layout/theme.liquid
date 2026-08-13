@@ -111,6 +111,11 @@
     <link rel="preload" as="style" href="{{ 'tbk-footer.css' | asset_url }}" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="{{ 'tbk-footer.css' | asset_url }}"></noscript>
 
+    {%- if request.page_type == "index" -%}
+      <link rel="preload" as="style" href="{{ 'homepage-premium.css' | asset_url }}" onload="this.onload=null;this.rel='stylesheet'">
+      <noscript><link rel="stylesheet" href="{{ 'homepage-premium.css' | asset_url }}"></noscript>
+    {%- endif -%}
+
     {%- liquid
       render 'js-head'
     -%}
