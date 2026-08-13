@@ -1,17 +1,5 @@
 {
   "sections": {
-    "announcement_bar": {
-      "type": "tbk-announcement-bar",
-      "settings": {
-        "bg_color": "#C01457",
-        "bg_color_2": "#8E0E40",
-        "use_gradient": true,
-        "text_color": "#FFFFFF",
-        "bar_height": 40,
-        "container_width": 1280,
-        "delivery_text": "Freshly Crafted Happiness • Delivered Across Meerut"
-      }
-    },
     "hero": {
       "type": "hero-image",
       "blocks": {
@@ -438,14 +426,9 @@
         "padding_top": 60,
         "padding_bottom": 60
       }
-    },
-    "footer": {
-      "type": "tbk-footer",
-      "settings": {}
     }
   },
   "order": [
-    "announcement_bar",
     "hero",
     "hero_trust",
     "shop_by_moment",
@@ -457,7 +440,6 @@
     "why_tbk",
     "testimonials",
     "faq_section",
-    "final_cta",
-    "footer"
+    "final_cta"
   ]
 }
