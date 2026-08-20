@@ -6,6 +6,12 @@ This index does not cover the separate `ai/` enterprise-attribute-system documen
 (`docs/10_Taxonomy/`, `docs/20_Attribute_Language/`, etc.) — that is a distinct subsystem, out of
 scope here.
 
+**That subsystem has its own index:** [docs/00_Foundation/FOUNDATION_v1.md](00_Foundation/FOUNDATION_v1.md)
+(§7 ADR index, §7A architecture and contract documents, §8 repository structure), with
+[docs/00_Foundation/GLOSSARY.md](00_Foundation/GLOSSARY.md) as the cross-program terminology
+authority. New platform documents are registered there, not here — recorded 2026-08-20 so the
+boundary between the two indexes is explicit rather than merely implied.
+
 ## Entry points (read these first)
 
 | Document | Purpose |

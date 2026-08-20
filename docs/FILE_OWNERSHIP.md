@@ -33,6 +33,12 @@ log it in the more specific one and add a one-line cross-reference in the other.
 | `docs/CANONICAL_SOURCES.md` | Update whenever a new duplicate-filename or conflicting-claim situation is found and resolved |
 | `docs/DOCUMENTATION_INDEX.md` | Update whenever a new canonical document is created |
 | `CLAUDE.md` | The living entry point — update its roadmap section whenever a phase status changes (this is the file Phase 7.0 found most out of date; keep it current going forward) |
+| `docs/00_Foundation/FOUNDATION_v1.md` | **The index for the `ai/` platform tree** — §7 (ADR index), §7A (architecture/contract documents), §8 (repository structure), §11 (Build status). Update whenever an ADR is accepted, a canonical platform document is created, or a Build's status changes. Per its own §14, when it disagrees with a linked source the linked source wins and this file is corrected |
+| `docs/00_Foundation/GLOSSARY.md` | Cross-program terminology — update when a term is introduced, aliased, or ruled non-canonical across the platform / storefront / SEO programs |
+| `docs/30_Enterprise_Program_Roadmap/ECP-*.md` | Architecture reviews and gap analyses. **Immutable once complete** — a superseding review gets a new ECP number; corrections to a closed review are added as in-place notes, never by rewriting its findings |
+| `docs/30_Enterprise_Program_Roadmap/IMPLEMENTATION_DEPENDENCY_MAP.md` | Work-item sequencing (D0–D15) — update when an item completes, is added, or its dependencies change |
+| `docs/80_Dynamic_Structure_Discovery/*` | The discovery/proposal specification — update only alongside a corresponding change to the reused upstream contracts (`ai.eal`, `ai.ear`, `ai.taxonomy`), never independently of them |
+| `docs/AI/VisionExtractionContract.md` | Build-008's extraction contract — update when the extraction envelope, prompt structure, or provider requirements change. The prompt/schema *content* it specifies lives in `ai/vision/prompts/` and `ai/vision/schemas/`, not here |
 
 ## Anti-pattern this document exists to prevent
 

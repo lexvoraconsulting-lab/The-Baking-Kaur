@@ -33,6 +33,49 @@
 Both version fields are required keys, not optional — `config.py` raises `KeyError` if either is
 missing, matching its "no silent defaults" stance for anything that must exist to run.
 
+## Environment overrides: `OLLAMA_BASE_URL` and `OLLAMA_MODEL`
+
+The inference runtime is not the machine this repository is edited on. `vision.json` therefore keeps
+a **localhost default and never contains a deployment host**; the environment supplies the rest.
+
+| Variable | Example | Effect |
+|---|---|---|
+| `OLLAMA_BASE_URL` | `http://127.0.0.1:11434` | Replaces `provider.url`. A **base** (scheme://host:port) — `/api/generate` is appended by `config.py`, so no environment repeats the path |
+| `OLLAMA_MODEL` | `qwen3.5:4b` | Replaces `provider.model` |
+
+Unset or empty leaves the file value untouched. Applied in
+[`ai/vision/python/config.py`](../../ai/vision/python/config.py)'s `load_config()` — the single
+point `providers.get_provider()`, `pipeline.run_vision_pipeline()` and `cake_genome.run_phase1`
+all read through.
+
+**On the deployment host**, the pipeline runs beside Ollama:
+
+```bash
+export OLLAMA_BASE_URL=http://127.0.0.1:11434
+export OLLAMA_MODEL=qwen3.5:4b
+python -m ai.cake_genome.run_phase1 --image ai/vision/images/1.png --out output/vps_001
+```
+
+Port 11434 stays bound to loopback and is never exposed publicly.
+
+**For local development against that host**, use an SSH tunnel — never a public URL in config:
+
+```bash
+ssh -N -L 11434:127.0.0.1:11434 <user>@<host>     # separate terminal
+export OLLAMA_BASE_URL=http://127.0.0.1:11434     # identical value, now tunnelled
+```
+
+The same `127.0.0.1:11434` is correct in both places, so one configuration covers both environments
+with no public endpoint and no credential in a tracked file.
+
+Every run prints its resolved runtime and the source of each value:
+
+```
+runtime : http://127.0.0.1:11434/api/generate [OLLAMA_BASE_URL] model=qwen3.5:4b [OLLAMA_MODEL]
+```
+
+That line exists to prevent a "passing" regression that silently hit the wrong host or model.
+
 ## Secrets: environment variables only, never in vision.json
 
 `vision.json` is a tracked file in this repo. Ollama needs no credential, so this hasn't mattered

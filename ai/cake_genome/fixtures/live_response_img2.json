@@ -1,0 +1,46 @@
+{
+    "observations": [
+        {
+            "group": "Decoration",
+            "attribute": "decoration_type",
+            "value": "Fresh Flowers, Sugar Flowers",
+            "value_state": "present",
+            "confidence": 0.95,
+            "evidence": "The cake is decorated with white roses and gold balls."
+        },
+        {
+            "group": "Writing",
+            "attribute": "visible_text",
+            "value": "Let the Adventure Begin",
+            "value_state": "present",
+            "confidence": 1.0,
+            "evidence": "The text is clearly visible on top of the cake."
+        }
+    ],
+    "unmatched": [
+        {
+            "observed": "a highly reflective poured mirror-glaze finish with a drip edge",
+            "why_unmatched": "no term in the Finish vocabulary describes a poured reflective glaze",
+            "suggested_kind": "term", "suggested_label": "Mirror Glaze", "confidence": 0.78
+        }
+    ],
+    "relationships": [
+        {
+            "type": "ON",
+            "source": "cake",
+            "target": "flowers",
+            "confidence": 0.95,
+            "evidence": "The flowers are placed on the cake."
+        },
+        {
+            "type": "BEHIND",
+            "source": "light string",
+            "target": "cake",
+            "confidence": 0.87,
+            "evidence": "The light string is behind the cake, illuminating it from within."
+        }
+    ],
+    "unparsed": [
+        ""
+    ]
+}

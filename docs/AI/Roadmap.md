@@ -17,6 +17,12 @@ document's own Phase numbering predates the Build sequence. Build-008 shares Arc
 [AR011_GATE_PACKAGE.md](../60_Enterprise_Attribute_Distribution/AR011_GATE_PACKAGE.md) for the
 already-submitted Build-004 half.
 
+**The contract for this work is now specified**: see
+[VisionExtractionContract.md](VisionExtractionContract.md) (2026-08-20) — the two-channel output
+envelope (matched `observations[]` + `unmatched[]` proposals + `unparsed[]`), prompt-template
+construction against the live taxonomy, provider requirements, and versioning. The three files
+below are still 0 bytes; that document says what goes in them.
+
 - Author real content for `ai/vision/prompts/extractor_v1.md`,
   `ai/vision/schemas/taxonomy_v1.json`, and `ai/vision/schemas/tbk_image_schema_v1.json`.
 - Parse the provider's response into structured JSON validated against the schema, instead of

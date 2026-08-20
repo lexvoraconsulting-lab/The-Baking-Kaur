@@ -20,3 +20,9 @@ ai/vision/images/*
 ai/logs/*.jsonl
 templates/index.json.bak
 templates/index.json.backup
+
+# ai/cake_genome/output — per-run pipeline artifacts (raw responses, genomes,
+# validation reports). Reproducible from the image + prompt_version, and every
+# run writes a new set. The fixtures/ directory IS tracked: replay inputs are
+# test material, not output.
+ai/cake_genome/output/

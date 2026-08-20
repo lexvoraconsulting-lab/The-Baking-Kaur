@@ -309,7 +309,10 @@ Taxonomy. See §17 and §18 for how to avoid this.
 - **Vision's `response` field is unstructured** — a known, acknowledged gap (Build-008), not
   something introduced this sprint.
 - **`ai/knowledge/`, `ai/embeddings/`, `ai/vectordb/`, `ai/automation/`, `ai/api/` are empty
-  directories** — correctly so per VIG-002's "no folder without a tenant" principle, but they are
+  directories** — *Correction (2026-08-20): none of these directories exists on disk; git does not
+  track empty directories. `ai/knowledge/` was subsequently created and populated by Build-302
+  ([ADR 0009](../adr/2026-08-02-product-knowledge-graph.md)). The reserved-name caution below still
+  applies.* — correctly so per VIG-002's "no folder without a tenant" principle, but they are
   reserved names other designs (including a Product Intelligence Platform) must not silently
   colonize without going through the same Build-numbering governance.
 - **The Collection Architecture's Phase 0 (tagging prerequisite) is unstarted** — Product
@@ -410,7 +413,16 @@ Where a future Product Intelligence Platform would attach to existing code, once
 ## 20. Cake Genome Entry Points
 
 "Cake Genome" was not found named anywhere in this repository's existing documentation (distinct
-from "Product Genome," which is named in VIG-003). Treating it, per this sprint's own framing, as a
+from "Product Genome," which is named in VIG-003).
+
+> **Correction (2026-08-20, documentation integration pass).** This finding is factually wrong.
+> [Enterprise_Program_Roadmap_v1.md](Enterprise_Program_Roadmap_v1.md) §02 defines **Cake Genome™**
+> in a dedicated subsection dated 2026-07-27, five days before this review. Cake Genome is the
+> Bakery Domain's authored *content* (Category tree, Attribute Groups, Vocabularies, Terms);
+> Product Genome is the product *aggregate read model*. They are two layers, not two names for one
+> thing, so §20's recommendation against introducing a third name still stands — its premise does
+> not. See [GLOSSARY.md](../00_Foundation/GLOSSARY.md). Text left unedited above, per this
+> repository's convention of correcting in place rather than deleting. Treating it, per this sprint's own framing, as a
 Baking-Kaur-specific specialization of Product Genome/Product Intelligence for cake products
 specifically (design attributes, recipe references, manufacturing attributes) — its entry points are
 a subset of §19's:
@@ -511,6 +523,10 @@ This review recommends proceeding to draft the Business Entity specification (§
 next concrete deliverable, gated on approval of this document. **STOP. Waiting for approval.**
 
 ## Related
+
+**Successor:** [ECP-200 Architecture Gap Analysis](ECP-200_Architecture_Gap_Analysis.md)
+(2026-08-20) — extends this review across the n8n program this one scoped out, and carries the
+gap register forward.
 
 `docs/00_Governance/VIG-003-Data-Principles.md` (Product Genome's origin), `docs/10_Taxonomy/Entity_Model.md`
 and `Relationship_Model.md` (Business Entity's origin), `docs/adr/2026-07-27-workstream-id-convention.md`

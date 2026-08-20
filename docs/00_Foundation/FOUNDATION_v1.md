@@ -195,8 +195,26 @@ Links only — no ADR content is duplicated here, per this document's own instru
 | [0005](../adr/2026-07-27-build-003-renumbering.md) | Build-003 Renumbering — Enterprise Attribute Definitions | Why "EAD" means Definitions, not Distribution, and the full Build/AR renumbering mapping |
 | [0006](../adr/2026-07-27-workstream-id-convention.md) | Workstream ID Convention + Build-004 Relabeling | The standing BUILD-xxx / Workstream ID / Title convention; Build-004 has no acronym |
 | [0007](../adr/2026-07-28-build-005-007-resequencing.md) | Build-005 through Build-007 Resequencing | Master Taxonomy to Build-005, new Validation Engine as Build-006, Knowledge Graph to Build-007 |
+| [0008](../adr/2026-08-02-product-intelligence-engine.md) | Product Intelligence Engine as the "Product Genome" / "Business Entity" implementation | One concept, not a third name; the engine owns no business data |
+| [0009](../adr/2026-08-02-product-knowledge-graph.md) | Product Knowledge Graph scope — semantic layer now, persistence later | `ai/knowledge/` is Phase 1 of VIG-003's vision: in-memory, no lineage, no storage-tech decision |
+| [0010](../adr/2026-08-02-attribute-intelligence-engine.md) | Attribute Intelligence Engine — multi-source reconciliation, not a new catalog | Resolves VALUES for attributes EAR/EAD already define |
+| [0011](../adr/2026-08-20-n8n-python-system-of-record.md) | n8n / Python system of record — Python owns the contract, n8n owns execution | Ownership split, three API boundaries, failure/retry/provenance/versioning rules |
 
 ---
+
+## 7A. Architecture and Contract Documents
+
+Links only, per §14 and [VIG-008](../00_Governance/VIG-008-Documentation-Standard.md). Added
+2026-08-20 by the documentation integration pass that followed the n8n/Python reconciliation.
+
+| Document | Covers | Status |
+|---|---|---|
+| [ECP-100 Architecture Review](../30_Enterprise_Program_Roadmap/ECP-100_Architecture_Review.md) | Repository architecture review; found the missing product-aggregate concept | Complete (2026-08-02) |
+| [ECP-200 Architecture Gap Analysis](../30_Enterprise_Program_Roadmap/ECP-200_Architecture_Gap_Analysis.md) | Current vs. required system across both programs; how the architecture handles fixed/dynamic attributes, unknowns, discovery, evolution, versioning, confidence, provenance, verification, relationships, visual features; gap register X-1…X-14 | Analysis (2026-08-20) |
+| [Implementation Dependency Map](../30_Enterprise_Program_Roadmap/IMPLEMENTATION_DEPENDENCY_MAP.md) | Work items D0–D15, dependency graph, critical path, recommended waves, BUILD-3xx reconciliation | Plan (2026-08-20) |
+| [Dynamic Visual Structure Discovery](../80_Dynamic_Structure_Discovery/README.md) | Proposing new attributes/values/groups/relationships/structures from observations that no taxonomy element fits | Proposed (2026-08-20) |
+| [Vision Extraction Contract](../AI/VisionExtractionContract.md) | Build-008's output contract: two channels (matched observations + unmatched proposals), prompt construction, provider requirements, versioning | Proposed (2026-08-20) |
+| [Cross-Program Glossary](GLOSSARY.md) | Which term is canonical for what across all three programs sharing this repository; accepted aliases; numbering-scheme separation | Current (2026-08-20) |
 
 ## 8. Repository Structure Overview
 
@@ -207,10 +225,18 @@ ai/
   ear/        Build-002 — Enterprise Attribute Registry
   ead/        Build-003 — Enterprise Attribute Definitions
   attribute_distribution/  Build-004 — Enterprise Attribute Distribution (Workstream ATTR)
-  api/ automation/ embeddings/ knowledge/ ollama/ vectordb/   empty, pre-existing local
-              scaffolding not yet populated by any committed Build — see
-              docs/AI/Roadmap.md's "documented, not scaffolded" principle; these are not part
-              of Foundation v1
+  taxonomy/   Build-005 — Enterprise Master Taxonomy (Workstream TAX) — frozen, real content
+  knowledge/  Build-302 — Product Knowledge Graph, semantic layer only (ADR 0009)
+  product_intelligence/    ECP-300 — Product Genome / Business Entity (ADR 0008)
+  attribute_intelligence/  Build-303 — multi-source attribute reconciliation (ADR 0010)
+  pricing/    Enterprise Pricing Intelligence Engine (unnumbered — see ECP-100 §1)
+
+  Corrected 2026-08-20: this list previously named api/ automation/ embeddings/ knowledge/
+  ollama/ vectordb/ as "empty pre-existing scaffolding". Verified on disk — none of those
+  directories exists (git does not track empty directories), and knowledge/ is now populated.
+  Only the ten packages above exist. Build-006 (Validation Engine), Build-009 (Embeddings +
+  Vector Search) and Build-010 onward have no package, correctly, per docs/AI/Roadmap.md's
+  "documented, not scaffolded" principle.
 
 docs/
   00_Foundation/                    this document
@@ -221,7 +247,10 @@ docs/
   40_Enterprise_Attribute_Registry/ Build-002 (EAR) spec + docs
   50_Enterprise_Attribute_Definitions/  Build-003 (EAD) spec + docs
   60_Enterprise_Attribute_Distribution/ Build-004 spec + docs (complete)
-  AI/                                Vision Engine architecture docs (Sprint 1)
+  70_Enterprise_Master_Taxonomy/    Build-005 spec + docs (frozen)
+  80_Dynamic_Structure_Discovery/   Dynamic Visual Structure Discovery spec (proposed, unnumbered)
+  AI/                                Vision Engine architecture docs (Sprint 1) + the
+                                     Build-008 Vision Extraction Contract (proposed)
   adr/                               all Architecture Decision Records
   blog-os/                           separate SEO content-factory initiative, not part of this platform
 ```
@@ -293,9 +322,9 @@ Summary only:
 | Build | Name | Status |
 |---|---|---|
 | Build-004 | Enterprise Attribute Distribution (the write path to Shopify/ERP) | **Complete**, awaiting AR-011 |
-| Build-005 | Enterprise Master Taxonomy (Sprint 2.2) | Not started |
-| Build-006 | Enterprise Validation Engine | Not started |
-| Build-007 | Enterprise Knowledge Graph (physical implementation) | Not started |
+| Build-005 | Enterprise Master Taxonomy (Sprint 2.2) | **Frozen** — complete, awaiting AR-007 |
+| Build-006 | Enterprise Validation Engine | Not started — no package exists |
+| Build-007 | Enterprise Knowledge Graph (physical implementation) | **Phase 1 shipped** as Build-302 (`ai/knowledge/`, semantic layer, in-memory). Persistence + lineage not started — see [ADR 0009](../adr/2026-08-02-product-knowledge-graph.md) |
 | Build-008 | Vision Engine structured extraction (Sprint 2.3) | Not started |
 | Build-009 | Embeddings + Vector Search | Not started |
 | Build-010 | ERP + Shopify Distribution at volume | Not started |
@@ -305,8 +334,14 @@ Summary only:
 Resequenced 2026-07-28 — see
 [docs/adr/2026-07-28-build-005-007-resequencing.md](../adr/2026-07-28-build-005-007-resequencing.md).
 
-Build-005 onward have not started. This document does not restate their objectives, dependencies,
-or risks — see the EPR sections linked above.
+**Status column corrected 2026-08-20**, per §14's rule that this document is updated to match its
+linked sources rather than the reverse. The previous "Build-005 onward have not started" line was
+written 2026-07-28 and was overtaken by Build-005's freeze and by the ECP-300/302/303 work of
+2026-08-02. Three further engines shipped outside this Build sequence entirely
+(`ai/product_intelligence/`, `ai/attribute_intelligence/`, `ai/pricing/`) — see §7A and
+[ECP-200](../30_Enterprise_Program_Roadmap/ECP-200_Architecture_Gap_Analysis.md) §2.1 for their
+verified state. This document does not restate any Build's objectives, dependencies, or risks — see
+the EPR sections linked above.
 
 ---
 

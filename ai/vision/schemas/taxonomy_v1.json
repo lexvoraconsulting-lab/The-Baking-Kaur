@@ -1,0 +1,825 @@
+{
+  "taxonomy_version": "1.0",
+  "domain": "bakery",
+  "source": "ai/taxonomy/content/bakery_v1.json",
+  "categories": [
+    "Cakes",
+    "Birthday Cakes",
+    "Character Cakes",
+    "Wedding Cakes",
+    "Corporate Cakes",
+    "Custom Photo Cakes"
+  ],
+  "groups": [
+    {
+      "group": "Classification",
+      "attributes": []
+    },
+    {
+      "group": "Geometry",
+      "attributes": [
+        {
+          "name": "shape",
+          "data_type": "enum",
+          "vocabulary": "Shape",
+          "terms": [
+            {
+              "label": "Round",
+              "synonyms": []
+            },
+            {
+              "label": "Square",
+              "synonyms": []
+            },
+            {
+              "label": "Heart",
+              "synonyms": []
+            },
+            {
+              "label": "Number",
+              "synonyms": []
+            },
+            {
+              "label": "Custom",
+              "synonyms": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group": "Colour",
+      "attributes": [
+        {
+          "name": "primary_colour",
+          "data_type": "enum",
+          "vocabulary": "Colour Name",
+          "terms": [
+            {
+              "label": "Red",
+              "synonyms": [
+                "Scarlet"
+              ]
+            },
+            {
+              "label": "Pink",
+              "synonyms": [
+                "Rose"
+              ]
+            },
+            {
+              "label": "Pastel Pink",
+              "synonyms": []
+            },
+            {
+              "label": "Blue",
+              "synonyms": []
+            },
+            {
+              "label": "Gold",
+              "synonyms": []
+            },
+            {
+              "label": "White",
+              "synonyms": []
+            },
+            {
+              "label": "Black",
+              "synonyms": []
+            },
+            {
+              "label": "Ivory",
+              "synonyms": []
+            },
+            {
+              "label": "Rose Gold",
+              "synonyms": [
+                "Blush Gold",
+                "Metallic Pink",
+                "Champagne Gold"
+              ]
+            },
+            {
+              "label": "Champagne",
+              "synonyms": [
+                "Champagne Gold-Beige"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "secondary_colour",
+          "data_type": "enum",
+          "vocabulary": "Colour Name",
+          "terms": [
+            {
+              "label": "Red",
+              "synonyms": [
+                "Scarlet"
+              ]
+            },
+            {
+              "label": "Pink",
+              "synonyms": [
+                "Rose"
+              ]
+            },
+            {
+              "label": "Pastel Pink",
+              "synonyms": []
+            },
+            {
+              "label": "Blue",
+              "synonyms": []
+            },
+            {
+              "label": "Gold",
+              "synonyms": []
+            },
+            {
+              "label": "White",
+              "synonyms": []
+            },
+            {
+              "label": "Black",
+              "synonyms": []
+            },
+            {
+              "label": "Ivory",
+              "synonyms": []
+            },
+            {
+              "label": "Rose Gold",
+              "synonyms": [
+                "Blush Gold",
+                "Metallic Pink",
+                "Champagne Gold"
+              ]
+            },
+            {
+              "label": "Champagne",
+              "synonyms": [
+                "Champagne Gold-Beige"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group": "Material",
+      "attributes": []
+    },
+    {
+      "group": "Texture",
+      "attributes": [
+        {
+          "name": "texture",
+          "data_type": "enum",
+          "vocabulary": "Texture",
+          "terms": [
+            {
+              "label": "Smooth",
+              "synonyms": []
+            },
+            {
+              "label": "Rustic Swirl",
+              "synonyms": []
+            },
+            {
+              "label": "Ruffled",
+              "synonyms": []
+            },
+            {
+              "label": "Basket Weave",
+              "synonyms": []
+            },
+            {
+              "label": "Sprinkled",
+              "synonyms": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group": "Decoration",
+      "attributes": [
+        {
+          "name": "decoration_type",
+          "data_type": "string"
+        },
+        {
+          "name": "decoration_style",
+          "data_type": "enum",
+          "vocabulary": "Decoration Style",
+          "terms": [
+            {
+              "label": "Fresh Flowers",
+              "synonyms": []
+            },
+            {
+              "label": "Sugar Flowers",
+              "synonyms": []
+            },
+            {
+              "label": "Edible Print",
+              "synonyms": []
+            },
+            {
+              "label": "Fondant Figures",
+              "synonyms": []
+            },
+            {
+              "label": "Piped Rosettes",
+              "synonyms": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group": "Characters",
+      "attributes": [
+        {
+          "name": "character_name",
+          "data_type": "string"
+        }
+      ]
+    },
+    {
+      "group": "Writing",
+      "attributes": [
+        {
+          "name": "visible_text",
+          "data_type": "string"
+        }
+      ]
+    },
+    {
+      "group": "Occasion",
+      "attributes": [
+        {
+          "name": "occasion",
+          "data_type": "enum",
+          "vocabulary": "Occasion",
+          "terms": [
+            {
+              "label": "Birthday",
+              "synonyms": []
+            },
+            {
+              "label": "Wedding",
+              "synonyms": []
+            },
+            {
+              "label": "Anniversary",
+              "synonyms": []
+            },
+            {
+              "label": "Corporate",
+              "synonyms": []
+            },
+            {
+              "label": "Festival",
+              "synonyms": []
+            },
+            {
+              "label": "Baby Shower",
+              "synonyms": []
+            },
+            {
+              "label": "Farewell",
+              "synonyms": []
+            },
+            {
+              "label": "Congratulations",
+              "synonyms": []
+            },
+            {
+              "label": "Gifting",
+              "synonyms": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group": "Theme",
+      "attributes": [
+        {
+          "name": "theme",
+          "data_type": "enum",
+          "vocabulary": "Theme",
+          "terms": [
+            {
+              "label": "Classic",
+              "synonyms": []
+            },
+            {
+              "label": "Rustic",
+              "synonyms": []
+            },
+            {
+              "label": "Modern",
+              "synonyms": []
+            },
+            {
+              "label": "Floral",
+              "synonyms": []
+            },
+            {
+              "label": "Superhero",
+              "synonyms": []
+            },
+            {
+              "label": "Cartoon",
+              "synonyms": []
+            },
+            {
+              "label": "Elegant",
+              "synonyms": []
+            },
+            {
+              "label": "Minimalist",
+              "synonyms": []
+            },
+            {
+              "label": "Luxury",
+              "synonyms": []
+            },
+            {
+              "label": "Seasonal",
+              "synonyms": []
+            },
+            {
+              "label": "Regional",
+              "synonyms": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group": "Packaging",
+      "attributes": [
+        {
+          "name": "packaging_type",
+          "data_type": "enum",
+          "vocabulary": "Packaging Type",
+          "terms": [
+            {
+              "label": "Standard Box",
+              "synonyms": []
+            },
+            {
+              "label": "Premium Box",
+              "synonyms": []
+            },
+            {
+              "label": "Basket",
+              "synonyms": []
+            },
+            {
+              "label": "Acrylic Display Box",
+              "synonyms": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group": "Business",
+      "attributes": []
+    },
+    {
+      "group": "Recipient",
+      "attributes": [
+        {
+          "name": "recipient",
+          "data_type": "enum",
+          "vocabulary": "Recipient",
+          "terms": [
+            {
+              "label": "Him",
+              "synonyms": []
+            },
+            {
+              "label": "Her",
+              "synonyms": []
+            },
+            {
+              "label": "Kids",
+              "synonyms": []
+            },
+            {
+              "label": "Couple",
+              "synonyms": []
+            },
+            {
+              "label": "Colleague",
+              "synonyms": []
+            },
+            {
+              "label": "Family",
+              "synonyms": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group": "Style",
+      "attributes": [
+        {
+          "name": "style",
+          "data_type": "enum",
+          "vocabulary": "Style",
+          "terms": [
+            {
+              "label": "Hand-Painted",
+              "synonyms": []
+            },
+            {
+              "label": "Sculpted 3D",
+              "synonyms": []
+            },
+            {
+              "label": "Geometric",
+              "synonyms": []
+            },
+            {
+              "label": "Watercolour",
+              "synonyms": []
+            },
+            {
+              "label": "Ombre",
+              "synonyms": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group": "Finish",
+      "attributes": [
+        {
+          "name": "finish",
+          "data_type": "enum",
+          "vocabulary": "Finish",
+          "terms": [
+            {
+              "label": "Matte",
+              "synonyms": []
+            },
+            {
+              "label": "Glossy",
+              "synonyms": []
+            },
+            {
+              "label": "Satin",
+              "synonyms": []
+            },
+            {
+              "label": "Mirror Glaze",
+              "synonyms": []
+            },
+            {
+              "label": "Semi-Naked",
+              "synonyms": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group": "Flowers",
+      "attributes": [
+        {
+          "name": "flower_type",
+          "data_type": "enum",
+          "vocabulary": "Flower",
+          "terms": [
+            {
+              "label": "Rose",
+              "synonyms": []
+            },
+            {
+              "label": "Peony",
+              "synonyms": []
+            },
+            {
+              "label": "Hydrangea",
+              "synonyms": []
+            },
+            {
+              "label": "Orchid",
+              "synonyms": []
+            },
+            {
+              "label": "Baby's Breath",
+              "synonyms": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group": "Topper",
+      "attributes": []
+    },
+    {
+      "group": "Tier",
+      "attributes": [
+        {
+          "name": "tier_count",
+          "data_type": "integer"
+        },
+        {
+          "name": "tier_style",
+          "data_type": "enum",
+          "vocabulary": "Tier Style",
+          "terms": [
+            {
+              "label": "Single Tier",
+              "synonyms": []
+            },
+            {
+              "label": "Double Tier",
+              "synonyms": []
+            },
+            {
+              "label": "Triple Tier",
+              "synonyms": []
+            },
+            {
+              "label": "Cascading Tier",
+              "synonyms": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group": "Board",
+      "attributes": [
+        {
+          "name": "board_shape",
+          "data_type": "enum",
+          "vocabulary": "Shape",
+          "terms": [
+            {
+              "label": "Round",
+              "synonyms": []
+            },
+            {
+              "label": "Square",
+              "synonyms": []
+            },
+            {
+              "label": "Heart",
+              "synonyms": []
+            },
+            {
+              "label": "Number",
+              "synonyms": []
+            },
+            {
+              "label": "Custom",
+              "synonyms": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group": "Size",
+      "attributes": []
+    },
+    {
+      "group": "Weight",
+      "attributes": [
+        {
+          "name": "weight_grams",
+          "data_type": "float"
+        }
+      ]
+    },
+    {
+      "group": "Servings",
+      "attributes": [
+        {
+          "name": "servings_count",
+          "data_type": "integer"
+        }
+      ]
+    },
+    {
+      "group": "Flavour",
+      "attributes": []
+    },
+    {
+      "group": "Sponge",
+      "attributes": [
+        {
+          "name": "sponge_flavour",
+          "data_type": "enum",
+          "vocabulary": "Flavour",
+          "terms": [
+            {
+              "label": "Chocolate",
+              "synonyms": []
+            },
+            {
+              "label": "Vanilla",
+              "synonyms": []
+            },
+            {
+              "label": "Red Velvet",
+              "synonyms": []
+            },
+            {
+              "label": "Butterscotch",
+              "synonyms": []
+            },
+            {
+              "label": "Black Forest",
+              "synonyms": []
+            },
+            {
+              "label": "Pineapple",
+              "synonyms": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group": "Filling",
+      "attributes": [
+        {
+          "name": "filling_flavour",
+          "data_type": "enum",
+          "vocabulary": "Flavour",
+          "terms": [
+            {
+              "label": "Chocolate",
+              "synonyms": []
+            },
+            {
+              "label": "Vanilla",
+              "synonyms": []
+            },
+            {
+              "label": "Red Velvet",
+              "synonyms": []
+            },
+            {
+              "label": "Butterscotch",
+              "synonyms": []
+            },
+            {
+              "label": "Black Forest",
+              "synonyms": []
+            },
+            {
+              "label": "Pineapple",
+              "synonyms": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group": "Cream",
+      "attributes": [
+        {
+          "name": "icing_type",
+          "data_type": "enum",
+          "vocabulary": "Cream & Icing",
+          "terms": [
+            {
+              "label": "Buttercream",
+              "synonyms": []
+            },
+            {
+              "label": "Whipped Cream",
+              "synonyms": []
+            },
+            {
+              "label": "Fondant",
+              "synonyms": []
+            },
+            {
+              "label": "Cream Cheese Frosting",
+              "synonyms": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group": "Ganache",
+      "attributes": [
+        {
+          "name": "ganache_type",
+          "data_type": "enum",
+          "vocabulary": "Ganache",
+          "terms": [
+            {
+              "label": "Dark Chocolate Ganache",
+              "synonyms": []
+            },
+            {
+              "label": "White Chocolate Ganache",
+              "synonyms": []
+            },
+            {
+              "label": "Milk Chocolate Ganache",
+              "synonyms": []
+            },
+            {
+              "label": "Caramel Ganache",
+              "synonyms": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group": "Dietary",
+      "attributes": [
+        {
+          "name": "dietary_labels",
+          "data_type": "enum",
+          "vocabulary": "Dietary",
+          "terms": [
+            {
+              "label": "Eggless",
+              "synonyms": []
+            },
+            {
+              "label": "Vegan",
+              "synonyms": []
+            },
+            {
+              "label": "Gluten-Free",
+              "synonyms": []
+            },
+            {
+              "label": "Sugar-Free",
+              "synonyms": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group": "Allergens",
+      "attributes": []
+    },
+    {
+      "group": "Delivery",
+      "attributes": [
+        {
+          "name": "delivery_attribute",
+          "data_type": "enum",
+          "vocabulary": "Delivery Attribute",
+          "terms": [
+            {
+              "label": "Same-Day Eligible",
+              "synonyms": []
+            },
+            {
+              "label": "Requires Refrigeration",
+              "synonyms": []
+            },
+            {
+              "label": "Fragile - Handle With Care",
+              "synonyms": []
+            },
+            {
+              "label": "Standard Handling",
+              "synonyms": []
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "relationship_types": [
+    "AVAILABLE_IN",
+    "BELONGS_TO",
+    "COMPLEMENTS",
+    "CONTRASTS_WITH",
+    "IS_A",
+    "MATCHES",
+    "NEAR",
+    "ON",
+    "PAIRS_WITH",
+    "PART_OF",
+    "RELATED_TO",
+    "SUITABLE_FOR",
+    "USES"
+  ]
+}

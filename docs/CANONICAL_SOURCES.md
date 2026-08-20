@@ -17,6 +17,19 @@ or confirmed to be a legitimately separate, non-competing document.
 | **Font render-blocking / Uploadcare notes** | `SHOPIFY_ARCHITECTURE.md` (root) | Updated to reflect Phase 6's actual findings: the `fonts.gstatic.com` preconnect gap this file already flagged is now closed (P6.6); the "duplicate Uploadcare" item this file already flagged was independently re-investigated and confirmed NOT a true duplicate (P6.5) — both findings cross-referenced to `docs/PERFORMANCE_FINAL_REPORT.md` rather than restated. |
 | **`CLAUDE.md`'s Phase A status claim** | `CLAUDE.md` | Corrected: claimed Phase A was "not promoted"; commit `77861b3` (2026-07-14) and a live pull-diff performed during this reconciliation confirm it was promoted and remains live and in sync. Also noted: design-token restoration (the roadmap's "unlocks the homepage build" step) is also done, via R0. |
 
+## 2026-08-20 — platform-tree conflicts found and resolved
+
+Added by the documentation integration pass following the n8n/Python reconciliation. These sit in
+the `ai/` platform tree, which the 2026-07-31 pass above explicitly scoped out.
+
+| Topic | Files | Resolution |
+|---|---|---|
+| **System of record — n8n vs. Python** | `docs/30_Enterprise_Program_Roadmap/Enterprise_Program_Roadmap_v1.md` §03 vs. `n8n/TBK-A-OS/*` + `n8n/tbk-vision-workflow-complete/*` | **Real conflict.** EPR §03 scoped n8n as orchestration that would "never be a second write path"; the delivered n8n build owns extraction, taxonomy content, conflict resolution, product assembly and persistence. Resolved by [ADR 0011](adr/2026-08-20-n8n-python-system-of-record.md): Python owns the contract, n8n owns execution, PostgreSQL holds bytes under a Python-defined schema. EPR §03's *when vs. what* split is upheld; its assumption that persistence would sit on the platform side is corrected. |
+| **"Cake Genome" naming** | `ECP-100_Architecture_Review.md` §20 vs. `Enterprise_Program_Roadmap_v1.md` §02 | **Real conflict.** ECP-100 §20 stated Cake Genome "was not found named anywhere"; EPR §02 defines Cake Genome™ in a dedicated subsection five days earlier. **EPR wins** (older, more specific, dedicated section). ECP-100 is a closed review, so it carries an in-place correction note rather than an edited finding. Canonical relationship recorded in [00_Foundation/GLOSSARY.md](00_Foundation/GLOSSARY.md). |
+| **Two taxonomies** | `ai/taxonomy/content/bakery_v1.json` vs. `n8n/TBK-A-OS/Data Tables/tbk_taxonomy_attributes.csv` + `tbk_taxonomy_synonyms.csv` | **Real conflict, NOT yet resolved.** 26 attributes / 96 terms vs. 17 rows / 3 attribute types, unrelated identifier schemes. `bakery_v1.json` is canonical per ADR 0011 — but the n8n tables hold typed synonym data that exists nowhere else, so a one-way export would destroy content. Sequenced as work item **D1** with an explicit ordering constraint; see [IMPLEMENTATION_DEPENDENCY_MAP.md](30_Enterprise_Program_Roadmap/IMPLEMENTATION_DEPENDENCY_MAP.md). |
+| **Empty-directory claims** | `ECP-100` §15, `00_Foundation/FOUNDATION_v1.md` §8 | **Stale fact, corrected.** Both described `ai/api/`, `ai/automation/`, `ai/embeddings/`, `ai/vectordb/`, `ai/ollama/` as empty directories. None exists on disk — git does not track empty directories. FOUNDATION_v1 §8 corrected; ECP-100 carries an in-place note. |
+| **Build status staleness** | `00_Foundation/FOUNDATION_v1.md` §11 | **Stale, corrected in place** per that document's own §14 ("the linked source is correct and this document should be updated to match it"). Build-005 shown as "Not started" was frozen and complete; Build-007 shown as "Not started" had its semantic Phase 1 shipped as Build-302. |
+
 ## Confirmed NOT conflicts (checked, no action needed)
 
 | Topic | Files | Why no conflict |

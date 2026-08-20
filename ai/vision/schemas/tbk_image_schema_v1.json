@@ -1,0 +1,101 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "tbk_image_schema_v1.json",
+  "title": "TBK Vision Extraction Output v1",
+  "description": "The two-channel extraction contract from docs/AI/VisionExtractionContract.md section 3. Channel one (observations) carries facts the model could name in taxonomy terms; channel two (unmatched) carries facts it saw but could not place. Neither is optional. Provenance fields mirror ai.eal.models.Provenance exactly - this is not a second provenance scheme.",
+  "type": "object",
+  "required": ["extraction_version", "observations", "unmatched"],
+  "additionalProperties": false,
+  "properties": {
+    "extraction_version": { "type": "string", "const": "1.0" },
+    "image_id": {
+      "type": "string",
+      "pattern": "^TBK-[0-9a-f]{16}$",
+      "description": "TBK_IMAGE_ID - sha256 content hash of the image bytes (ai/vision/python/pipeline.py). Set by the pipeline, not by the model."
+    },
+    "taxonomy_version": { "type": "string" },
+    "schema_version": { "type": "string" },
+    "prompt_version": { "type": ["string", "null"] },
+    "provider": { "type": ["string", "null"] },
+    "model": { "type": ["string", "null"] },
+    "model_version": { "type": ["string", "null"] },
+    "extracted_at": { "type": ["string", "null"], "description": "ISO 8601" },
+    "observations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["group", "attribute", "value_state"],
+        "additionalProperties": false,
+        "properties": {
+          "group": { "type": "string", "description": "Attribute Group name from the taxonomy digest" },
+          "attribute": { "type": "string", "description": "TaxonomyAttribute name from the digest" },
+          "value": { "description": "Any JSON type, or null. MUST be null unless value_state is 'present'." },
+          "value_state": {
+            "type": "string",
+            "enum": ["present", "null", "unknown"],
+            "description": "ai.eal.models.ValueState. 'null' = does not apply; 'unknown' = applies but undetermined. Collapsing these loses the distinction the pipeline exists to preserve."
+          },
+          "data_type": {
+            "type": ["string", "null"],
+            "enum": ["string", "integer", "float", "boolean", "enum", "date", "datetime", "array", "object", "vector", "reference", null]
+          },
+          "vocabulary": { "type": ["string", "null"] },
+          "confidence": {
+            "type": ["number", "null"],
+            "minimum": 0.0,
+            "maximum": 1.0,
+            "description": "MUST be null when value_state is not 'present' - there is nothing to be confident about. Enforced by EALAttributeRecordModel._value_state_consistency downstream."
+          },
+          "evidence": { "type": ["string", "null"], "description": "The model's own words for why. Never paraphrased downstream." },
+          "region": { "type": ["object", "null"] },
+          "entity_type": { "type": ["string", "null"], "enum": ["image", "region", "object", null] }
+        }
+      }
+    },
+    "unmatched": {
+      "type": "array",
+      "description": "The capability that does not exist in either implementation today. An empty array is a valid result; a missing key is not.",
+      "items": {
+        "type": "object",
+        "required": ["observed", "why_unmatched"],
+        "additionalProperties": false,
+        "properties": {
+          "observed": { "type": "string" },
+          "closest_group": { "type": ["string", "null"] },
+          "closest_attribute": { "type": ["string", "null"] },
+          "closest_term": { "type": ["string", "null"] },
+          "why_unmatched": { "type": "string", "description": "Required. The difference between a usable proposal and a stray string." },
+          "suggested_kind": {
+            "type": ["string", "null"],
+            "enum": ["attribute", "term", "vocabulary", "attribute_group", "category", "relationship", "relationship_type", "entity_type", null],
+            "description": "ProposalKind, docs/80_Dynamic_Structure_Discovery/SPECIFICATION.md section 7.2"
+          },
+          "suggested_label": { "type": ["string", "null"] },
+          "confidence": { "type": ["number", "null"], "minimum": 0.0, "maximum": 1.0 },
+          "region": { "type": ["object", "null"] }
+        }
+      }
+    },
+    "relationships": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["type", "source", "target"],
+        "additionalProperties": false,
+        "properties": {
+          "type": { "type": "string" },
+          "source": { "type": "string" },
+          "target": { "type": "string" },
+          "confidence": { "type": ["number", "null"], "minimum": 0.0, "maximum": 1.0 },
+          "evidence": { "type": ["string", "null"] }
+        }
+      }
+    },
+    "unparsed": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Model output that became neither an observation nor an unmatched item. Retained rather than dropped - the only signal that makes prompt regression visible."
+    },
+    "extraction_notes": { "type": ["string", "null"] }
+  }
+}

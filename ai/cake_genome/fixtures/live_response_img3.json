@@ -1,0 +1,46 @@
+{
+    "observations": [
+        {
+            "group": "Decoration",
+            "attribute": "decoration_type",
+            "value": "Edible Print",
+            "value_state": "present",
+            "confidence": 0.95,
+            "evidence": "the cake is decorated with chocolate and gold elements that appear to be printed or applied"
+        },
+        {
+            "group": "Flowers",
+            "attribute": "flower_type",
+            "value": "Baby's Breath",
+            "value_state": "present",
+            "confidence": 0.98,
+            "evidence": "the flowers are small, white, and delicate, resembling baby's breath"
+        }
+    ],
+    "unmatched": [
+        {
+            "observed": "a highly reflective poured mirror-glaze finish with a drip edge",
+            "why_unmatched": "no term in the Finish vocabulary describes a poured reflective glaze",
+            "suggested_kind": "term", "suggested_label": "Mirror Glaze", "confidence": 0.78
+        }
+    ],
+    "relationships": [
+        {
+            "type": "ON",
+            "source": "cake",
+            "target": "flowers",
+            "confidence": 0.95,
+            "evidence": "the flowers are placed on top of the cake"
+        },
+        {
+            "type": "NEAR",
+            "source": "cake",
+            "target": "vase with roses",
+            "confidence": 0.87,
+            "evidence": "a vase containing white roses is visible next to the cake"
+        }
+    ],
+    "unparsed": [
+        ""
+    ]
+}
