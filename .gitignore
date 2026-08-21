@@ -26,3 +26,21 @@ templates/index.json.backup
 # run writes a new set. The fixtures/ directory IS tracked: replay inputs are
 # test material, not output.
 ai/cake_genome/output/
+
+# Secrets — nothing credential-bearing is tracked today (verified), and this
+# keeps it that way now the repo is on GitHub and deploys to a VPS.
+# CLAUDE.md rule: SHOPIFY_TOKEN and every API key come from the environment.
+.env
+.env.*
+*.pem
+*.key
+*_token
+*_secret
+.shopify/
+
+# Stray images at repo root. ai/vision/images/ is the smoke-test location and
+# is allowlisted to 1-3.png on purpose (see its README: "not a dataset store").
+# Root-level images are neither source nor sample — ignored, not deleted.
+/test-cake.png
+/*.png
+!ai/vision/images/*.png
