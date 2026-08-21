@@ -2,7 +2,7 @@
   "provider": {
     "name": "ollama",
     "model": "qwen2.5vl:3b",
-    "url": "http://localhost:11434/api/generate",
+    "url": "http://127.0.0.1:11434/api/generate",
     "timeout": 600,
     "options": {
       "num_predict": 3072,
@@ -18,3 +18,4 @@
   "schema_file": "ai/vision/schemas/tbk_image_schema_v1.json",
   "image_path": "ai/vision/images/1.png"
 }
+
