@@ -1,0 +1,41 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "type": "header",
+  "name": "Header Group",
+  "sections": {
+    "tbk_header_main": {
+      "type": "tbk-header",
+      "settings": {
+        "logo":"shopify://shop_images/Logo_Baking_Kaur-removebg-preview_3dae9c18-4faf-4d1d-acdf-f95b02488965.png",
+        "logo_width":110,
+        "logo_width_mobile":68,
+        "logo_text":"The Baking Kaur",
+        "logo_tagline":"Luxury Eggless Creations",
+        "main_menu":"header",
+        "show_search":true,
+        "show_wishlist":true,
+        "show_account":true,
+        "whatsapp_number":"918218862928",
+        "search_placeholder":"Find your perfect cake...",
+        "header_height":100,
+        "mobile_header_height":68,
+        "container_width":1440,
+        "header_bg":"#FDFAF8",
+        "header_fg":"#1A0810",
+        "header_border_color":"#EDD8E3",
+        "sticky_type":"none",
+        "mobile_phone":"+91-8218862928",
+        "mobile_email":"thebakingkaur@gmail.com"
+      }
+    }
+  },
+  "order": ["tbk_header_main"]
+}

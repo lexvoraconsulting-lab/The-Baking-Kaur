@@ -1,0 +1,10 @@
+<section class="tbk-celebration-hamper-image-fix" aria-hidden="true"></section>
+<style>
+/* Celebration hamper row — force four identical image boxes */
+.tbk-art .tbk-feature .tbk-four{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:8px!important;width:100%!important}
+.tbk-art .tbk-feature .tbk-four>*{min-width:0!important;width:100%!important}
+.tbk-art .tbk-feature .tbk-four img{display:block!important;width:100%!important;height:220px!important;aspect-ratio:1/1!important;object-fit:cover!important;object-position:center!important;background:#f8eeeb!important;border-radius:7px!important}
+@media(max-width:900px){.tbk-art .tbk-feature .tbk-four{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:8px!important}.tbk-art .tbk-feature .tbk-four img{width:100%!important;height:auto!important;aspect-ratio:1/1!important;object-fit:cover!important}}
+</style>
+<script>(function(){function apply(){var r=document.querySelector('[data-tbk-art]');if(!r)return;var imgs=r.querySelectorAll('.tbk-feature .tbk-four img');var items=[['https://cdn.shopify.com/s/files/1/0667/9930/4873/files/celebration-hamper-birthday.jpg?v=1786813455','Birthday Celebration Hamper'],['https://cdn.shopify.com/s/files/1/0667/9930/4873/files/celebration-hamper-love.jpg?v=1786813472','Love Celebration Hamper'],['https://cdn.shopify.com/s/files/1/0667/9930/4873/files/celebration-hamper-memories.jpg?v=1786813487','Memories Celebration Hamper'],['https://cdn.shopify.com/s/files/1/0667/9930/4873/files/celebration-hamper-flowers.jpg?v=1786813500','Flowers Celebration Hamper']];items.forEach(function(x,i){if(imgs[i]){imgs[i].src=x[0];imgs[i].removeAttribute('srcset');imgs[i].sizes='25vw';imgs[i].alt=x[1];imgs[i].loading='lazy';}})}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',apply)}else{apply()}setTimeout(apply,250)})();</script>
+{% schema %}{"name":"Hamper Image Fix","settings":[],"presets":[{"name":"Hamper Image Fix"}]}{% endschema %}

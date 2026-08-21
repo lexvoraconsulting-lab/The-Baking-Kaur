@@ -1,0 +1,74 @@
+{% comment %}
+  The Baking Kaur — LocalBusiness (Bakery) structured data
+  ---------------------------------------------------------
+  INSTALL: place this file in your theme's snippets/ folder,
+  then add ONE line inside the <head> of layout/theme.liquid:
+
+      {% render 'bk-local-business' %}
+
+  It renders on every page (correct for site-wide business info).
+  Address/geo updated 2026-07-30 (B3) to match the Shopify Admin billing address
+  (shop.billingAddress) - the merchant's own account-of-record, the most
+  authoritative source available this pass. This is NOT a human-confirmed fresh
+  Google Maps pin-drop; ADDRESS_AUDIT.md's original recommendation was to also get
+  one of those before finalizing. Recommend a visual spot-check against the real
+  signage/lease next, but this value is a real, sourced improvement over the prior
+  unsourced schema value it replaces.
+
+  🚫 DO NOT ADD aggregateRating HERE.
+  A hardcoded "4.8 / 500 reviews" was removed on 2026-07-16: it was not
+  backed by any real review data, and this snippet renders in <head> on
+  EVERY page, so it declared an unverifiable rating site-wide.
+  Google requires aggregate ratings to come from genuine user ratings that
+  are visible on the page; a hardcoded value is spammy structured markup
+  and risks a manual action.
+  AggregateRating may only ever be emitted from a verified review source,
+  computed from real entries — never typed in. See REVIEW_STRATEGY.md.
+{% endcomment %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Bakery",
+  "name": "The Baking Kaur",
+  "description": "100% eggless premium designer cake studio in Meerut. Handcrafted celebration cakes with same-day & midnight delivery across the city.",
+  "url": "https://thebakingkaur.com",
+  "telephone": "+918218862928",
+  "priceRange": "₹₹",
+  "servesCuisine": "Eggless Cakes & Desserts",
+  "image": "https://thebakingkaur.com/cdn/shop/files/storefront.jpg",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Fateh Complex, 390/1, Lane Number 7, opposite Ice Factory, Thapar Nagar Gali Number 7 Lajpat Bazaar Thapar Nagar",
+    "addressLocality": "Meerut",
+    "addressRegion": "Uttar Pradesh",
+    "postalCode": "250001",
+    "addressCountry": "IN"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": "28.9897017",
+    "longitude": "77.7044604"
+  },
+  "areaServed": {
+    "@type": "City",
+    "name": "Meerut"
+  },
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+      "opens": "09:00",
+      "closes": "23:59"
+    }
+  ],
+  "makesOffer": {
+    "@type": "Offer",
+    "itemOffered": { "@type": "Service", "name": "Midnight Cake Delivery" },
+    "areaServed": "Meerut"
+  },
+  "sameAs": [
+    "https://www.instagram.com/thebakingkaur",
+    "https://www.facebook.com/thebakingkaur"
+  ]
+}
+</script>

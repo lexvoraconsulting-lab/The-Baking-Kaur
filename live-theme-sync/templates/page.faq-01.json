@@ -1,0 +1,280 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "heading": {
+      "type": "main-heading",
+      "blocks": {
+        "5ecb9555-19e4-433b-8817-1ccaa3a41384": {
+          "type": "1",
+          "settings": {
+            "heading": "",
+            "heading_size": "h4"
+          }
+        }
+      },
+      "block_order": [
+        "5ecb9555-19e4-433b-8817-1ccaa3a41384"
+      ],
+      "settings": {
+        "color_scheme": "scheme-375b8f36-85a2-40e9-9198-bac5f650c728",
+        "spacing_hd": 0,
+        "padding_top": 25,
+        "padding_bottom": 25,
+        "padding_rate": 75
+      }
+    },
+    "08421e50-b348-46a3-bbb7-5b26be196b6c": {
+      "type": "accordion",
+      "blocks": {
+        "faq_title_cakes": {
+          "type": "title",
+          "settings": { "title": "Custom &amp; Designer Cakes" }
+        },
+        "faq_item_custom": {
+          "type": "accordion_item",
+          "settings": {
+            "title": "Do you make custom cakes?",
+            "content": "Yes. Every cake at The Baking Kaur is made to order, and we offer a personalised consultation to help you choose the design, size and flavour for your celebration. Share your design idea &mdash; including a Pinterest reference or photo &mdash; over WhatsApp and our team will guide you through customisation."
+          }
+        },
+        "faq_item_designer": {
+          "type": "accordion_item",
+          "settings": {
+            "title": "Do you make designer and theme cakes?",
+            "content": "Yes. Designer, theme and sculpted cakes are one of our specialities, including tiered and detailed designer work &mdash; and every one of them is still 100% eggless."
+          }
+        },
+        "faq_item_flavours": {
+          "type": "accordion_item",
+          "settings": {
+            "title": "What cake flavours do you offer?",
+            "content": "Flavours vary by cake and are listed as options on each product page. If you're looking for a specific flavour or combination for a custom order, message us on WhatsApp and we'll confirm availability."
+          }
+        },
+        "faq_title_occasions": {
+          "type": "title",
+          "settings": { "title": "Wedding, Birthday, Anniversary &amp; Bento Cakes" }
+        },
+        "faq_item_wedding": {
+          "type": "accordion_item",
+          "settings": {
+            "title": "Do you make wedding cakes?",
+            "content": "Yes. We specialise in bespoke, luxury wedding cakes crafted with premium ingredients, including tiered designs, and can work with your venue on setup depending on the requirement."
+          }
+        },
+        "faq_item_birthday": {
+          "type": "accordion_item",
+          "settings": {
+            "title": "Do you make birthday cakes?",
+            "content": "Yes. Birthday cakes are one of our most popular categories, from simple ready designs available for same-day delivery to fully custom designer cakes that need advance booking."
+          }
+        },
+        "faq_item_anniversary": {
+          "type": "accordion_item",
+          "settings": {
+            "title": "Do you make anniversary cakes?",
+            "content": "Yes. Our anniversary cakes range from elegant simple designs to custom romantic themes, with same-day and midnight delivery options available."
+          }
+        },
+        "faq_item_bento": {
+          "type": "accordion_item",
+          "settings": {
+            "title": "Do you offer bento cakes?",
+            "content": "Yes, we offer bento-style cakes &mdash; smaller, personal-sized cakes &mdash; available on their own or as part of our gift hampers."
+          }
+        },
+        "faq_title_eggless": {
+          "type": "title",
+          "settings": { "title": "Eggless Cakes" }
+        },
+        "faq_item_eggless_all": {
+          "type": "accordion_item",
+          "settings": {
+            "title": "Are all your cakes eggless?",
+            "content": "Yes. Every cake we bake is 100% eggless &mdash; it isn't a separate range or a special request, it's simply how we bake for every customer, every day. There are no eggs on our premises at all. Read more on our <a href=\"/pages/100-percent-eggless-bakery\">100% eggless page</a>."
+          }
+        },
+        "faq_item_veg": {
+          "type": "accordion_item",
+          "settings": {
+            "title": "Are your cakes pure-vegetarian?",
+            "content": "Yes. All our cakes are pure-vegetarian and suitable for vegetarian households."
+          }
+        },
+        "faq_item_eggless_texture": {
+          "type": "accordion_item",
+          "settings": {
+            "title": "Does eggless mean the cake is dry or less soft?",
+            "content": "No. Our recipes are built to be eggless from the start rather than adapted from egg-based ones, so the texture stays soft and moist, even on tiered and designer work."
+          }
+        },
+        "faq_title_delivery": {
+          "type": "title",
+          "settings": { "title": "Delivery in Meerut" }
+        },
+        "faq_item_areas": {
+          "type": "accordion_item",
+          "settings": {
+            "title": "What areas in Meerut do you deliver to?",
+            "content": "We deliver across major areas of Meerut including Thapar Nagar, Shastri Nagar, Ganga Nagar, Partapur, Jagriti Vihar and nearby localities, within a service radius of roughly 15 km. Availability can vary by time slot and product &mdash; contact us on WhatsApp to confirm your area, or see our <a href=\"/pages/cake-delivery-in-meerut\">full delivery page</a> for more."
+          }
+        },
+        "faq_item_sameday": {
+          "type": "accordion_item",
+          "settings": {
+            "title": "Do you offer same-day delivery?",
+            "content": "Yes. Same-day delivery is available for most designs when ordered within our daily cut-off time. Message us on WhatsApp to confirm the current cut-off and availability for your date."
+          }
+        },
+        "faq_item_midnight": {
+          "type": "accordion_item",
+          "settings": {
+            "title": "Do you offer midnight delivery?",
+            "content": "Yes. Book in advance and choose a midnight slot at checkout &mdash; your cake is baked fresh and delivered around midnight on your chosen date, within our Meerut delivery zones. Advance booking is recommended for custom or tiered cakes."
+          }
+        },
+        "faq_item_minorder": {
+          "type": "accordion_item",
+          "settings": {
+            "title": "Is there a minimum order value or delivery fee?",
+            "content": "Yes &mdash; delivery is fee-based on distance within our Meerut service area, with a &#8377;350 minimum order for delivery. Contact us on WhatsApp to confirm the fee for your address."
+          }
+        },
+        "faq_title_orders": {
+          "type": "title",
+          "settings": { "title": "Payment, Cancellations &amp; Refunds" }
+        },
+        "faq_item_payment": {
+          "type": "accordion_item",
+          "settings": {
+            "title": "How do I pay for my order?",
+            "content": "Payment is completed securely online at checkout. If you have a question about a specific payment method before ordering, message us on WhatsApp."
+          }
+        },
+        "faq_item_cancel": {
+          "type": "accordion_item",
+          "settings": {
+            "title": "Can I cancel or change my order?",
+            "content": "Please see our <a href=\"/pages/refund-return-policy\">Refund &amp; Return Policy</a> page for our current cancellation window, or contact us as early as possible on WhatsApp &mdash; the sooner you reach out, the more options we have before your cake goes into production."
+          }
+        },
+        "faq_item_refund": {
+          "type": "accordion_item",
+          "settings": {
+            "title": "What is your refund policy?",
+            "content": "Full details are on our <a href=\"/pages/refund-return-policy\">Refund &amp; Return Policy</a> page. Because every cake is fresh and made to order, please contact us as soon as possible if there's a problem with your delivery so we can review it and make it right."
+          }
+        },
+        "faq_title_care": {
+          "type": "title",
+          "settings": { "title": "Storage &amp; Freshness" }
+        },
+        "faq_item_freshness": {
+          "type": "accordion_item",
+          "settings": {
+            "title": "How fresh are your cakes?",
+            "content": "Every cake is baked fresh to order &mdash; nothing is made in advance and held in stock. For midnight and same-day orders, baking happens on the day itself."
+          }
+        },
+        "faq_item_storage": {
+          "type": "accordion_item",
+          "settings": {
+            "title": "How should I store my cake?",
+            "content": "Cakes are perishable and taste best enjoyed soon after delivery. Ask our team for storage guidance specific to your cake when you place your order."
+          }
+        },
+        "faq_title_corporate": {
+          "type": "title",
+          "settings": { "title": "Corporate Orders, Hampers &amp; Bulk Orders" }
+        },
+        "faq_item_corporate": {
+          "type": "accordion_item",
+          "settings": {
+            "title": "Do you take corporate orders?",
+            "content": "Yes. We create corporate gifting solutions including employee appreciation hampers, festive gifting boxes, and client or event gifting, tailored to your business's requirements."
+          }
+        },
+        "faq_item_hampers": {
+          "type": "accordion_item",
+          "settings": {
+            "title": "What's in your gift hampers?",
+            "content": "Our hampers are fully customisable and can include cakes, cake jars, bento cakes, brownies, cookies, chocolates, flowers, dry fruits and more, for occasions from birthdays to festivals. See our <a href=\"/pages/gift-hampers\">full Gift Hampers page</a> for the complete range."
+          }
+        },
+        "faq_item_bulk": {
+          "type": "accordion_item",
+          "settings": {
+            "title": "Can I place a bulk order?",
+            "content": "Yes &mdash; for bulk or large-quantity orders, contact us in advance on WhatsApp or email so we can plan quantity, timeline and any customisation with you."
+          }
+        },
+        "faq_other_content": {
+          "type": "other_content",
+          "settings": {
+            "heading": "Still have a question?",
+            "content": "<p>If your question isn't covered here, message us directly on WhatsApp or email &mdash; we're quick to respond.</p>",
+            "solid_btn_label": "Contact us",
+            "solid_btn_link": "shopify://pages/contact",
+            "underline_btn_label": "WhatsApp us",
+            "underline_btn_link": "https://wa.me/918218862928?text=Hi%20The%20Baking%20Kaur%2C%20I%20have%20a%20question."
+          }
+        }
+      },
+      "block_order": [
+        "faq_title_cakes",
+        "faq_item_custom",
+        "faq_item_designer",
+        "faq_item_flavours",
+        "faq_title_occasions",
+        "faq_item_wedding",
+        "faq_item_birthday",
+        "faq_item_anniversary",
+        "faq_item_bento",
+        "faq_title_eggless",
+        "faq_item_eggless_all",
+        "faq_item_veg",
+        "faq_item_eggless_texture",
+        "faq_title_delivery",
+        "faq_item_areas",
+        "faq_item_sameday",
+        "faq_item_midnight",
+        "faq_item_minorder",
+        "faq_title_orders",
+        "faq_item_payment",
+        "faq_item_cancel",
+        "faq_item_refund",
+        "faq_title_care",
+        "faq_item_freshness",
+        "faq_item_storage",
+        "faq_title_corporate",
+        "faq_item_corporate",
+        "faq_item_hampers",
+        "faq_item_bulk",
+        "faq_other_content"
+      ],
+      "settings": {
+        "accordion_position": "start",
+        "accordion_icon": "1",
+        "open_first": true,
+        "enable_link_list": false,
+        "section_fullwidth": false,
+        "color_scheme": "scheme-f1da3d09-0651-4d7e-95e4-da5341ca228d",
+        "padding_top": 35,
+        "padding_bottom": 35,
+        "padding_rate": 75
+      }
+    }
+  },
+  "order": [
+    "heading",
+    "08421e50-b348-46a3-bbb7-5b26be196b6c"
+  ]
+}

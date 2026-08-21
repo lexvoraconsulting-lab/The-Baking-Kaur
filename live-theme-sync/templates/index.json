@@ -1,0 +1,19 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "tbk_art_home": {"type":"tbk-homepage-art","settings":{}},
+    "tbk_homepage_qa_fixes": {"type":"tbk-homepage-qa-fixes","settings":{}},
+    "tbk_occasion_mock_size_fix": {"type":"tbk-occasion-mock-size-fix","settings":{}},
+    "tbk_occasion_single_row": {"type":"tbk-occasion-single-row","settings":{}},
+    "tbk_sig_best_carousel": {"type":"tbk-sig-best-carousel","settings":{}},
+    "tbk_love_mobile": {"type":"tbk-love-mobile","settings":{}},
+    "tbk_celebration_hamper_image_fix": {"type":"tbk-celebration-hamper-image-fix","settings":{}},
+    "tbk_custom_studio_image_remove": {"type":"tbk-custom-studio-image-remove","settings":{}},
+    "tbk_final_card_fix": {"type":"tbk-final-card-fix","settings":{}}
+  },
+  "order": ["tbk_art_home","tbk_homepage_qa_fixes","tbk_occasion_mock_size_fix","tbk_occasion_single_row","tbk_sig_best_carousel","tbk_love_mobile","tbk_celebration_hamper_image_fix","tbk_custom_studio_image_remove","tbk_final_card_fix"]
+}

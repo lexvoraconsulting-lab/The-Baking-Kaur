@@ -1,0 +1,91 @@
+{%- assign s=section.settings -%}
+<style>
+#tbk-header-{{ section.id }}{--pink:#a90b4f;--ink:#181316;--line:#eadfe2;background:#fffdfc;color:var(--ink);position:relative;z-index:100;font-family:Arial,sans-serif}
+#tbk-header-{{ section.id }} .tbk-main{background:#fffdfc;border-bottom:1px solid var(--line)}
+#tbk-header-{{ section.id }} .tbk-main-in{max-width:1440px;height:96px;margin:0 auto;padding:0 38px;display:flex;align-items:center;gap:28px}
+#tbk-header-{{ section.id }} .tbk-brand{display:flex;align-items:center;gap:12px;flex:0 0 auto;text-decoration:none;color:var(--ink)}
+#tbk-header-{{ section.id }} .tbk-brand-mark{width:48px;height:58px;display:grid;place-items:center;color:#e8a8bd}
+#tbk-header-{{ section.id }} .tbk-brand-mark svg{width:48px;height:54px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+#tbk-header-{{ section.id }} .tbk-brand-copy{display:flex;flex-direction:column;line-height:1}
+#tbk-header-{{ section.id }} .tbk-brand-name{font-family:Georgia,'Times New Roman',serif;font-size:29px;letter-spacing:.2px;white-space:nowrap}
+#tbk-header-{{ section.id }} .tbk-brand-tag{font-size:11px;letter-spacing:1.35px;margin-top:7px;white-space:nowrap}
+#tbk-header-{{ section.id }} .tbk-nav{display:flex;align-items:center;justify-content:center;gap:25px;flex:1;white-space:nowrap;height:100%}
+#tbk-header-{{ section.id }} .tbk-nav a{font-size:13px;font-weight:500;color:var(--ink);text-decoration:none;position:relative;padding:39px 0 37px}
+#tbk-header-{{ section.id }} .tbk-nav a:hover,#tbk-header-{{ section.id }} .tbk-nav a[aria-current="page"]{color:var(--pink)}
+#tbk-header-{{ section.id }} .tbk-nav a[aria-current="page"]:after{content:"";position:absolute;left:0;right:0;bottom:27px;height:2px;background:var(--pink)}
+#tbk-header-{{ section.id }} .tbk-icons{display:flex;align-items:center;gap:4px;flex:0 0 auto}
+#tbk-header-{{ section.id }} .tbk-icon{width:40px;height:40px;border:0;background:transparent;display:grid;place-items:center;color:var(--ink);position:relative;text-decoration:none}
+#tbk-header-{{ section.id }} .tbk-icon svg{width:23px;height:23px;fill:none;stroke:currentColor;stroke-width:1.65;stroke-linecap:round;stroke-linejoin:round}
+#tbk-header-{{ section.id }} .tbk-badge{position:absolute;top:1px;right:0;background:var(--pink);color:#fff;min-width:17px;height:17px;border-radius:9px;display:grid;place-items:center;font-size:9px;font-weight:700}
+#tbk-header-{{ section.id }} .tbk-mobile-row{display:none}
+@media(max-width:1200px) and (min-width:1024px){#tbk-header-{{ section.id }} .tbk-main-in{padding:0 20px;gap:15px}#tbk-header-{{ section.id }} .tbk-brand{flex-basis:290px}#tbk-header-{{ section.id }} .tbk-brand-name{font-size:25px}#tbk-header-{{ section.id }} .tbk-nav{gap:15px}#tbk-header-{{ section.id }} .tbk-nav a{font-size:12px}}
+@media(max-width:1023px){
+#tbk-header-{{ section.id }} .tbk-main-in{height:68px;padding:0 16px;gap:7px}
+#tbk-header-{{ section.id }} .tbk-brand{flex:0 0 auto;gap:0}
+#tbk-header-{{ section.id }} .tbk-brand-mark{display:none}
+#tbk-header-{{ section.id }} .tbk-brand-copy{display:none}
+#tbk-header-{{ section.id }} .tbk-brand img{display:block;width:58px;height:58px;object-fit:contain;border-radius:50%}
+#tbk-header-{{ section.id }} .tbk-nav{display:none}
+#tbk-header-{{ section.id }} .tbk-icons{margin-left:auto;gap:0}
+#tbk-header-{{ section.id }} .tbk-icon{width:42px;height:42px}
+#tbk-header-{{ section.id }} .tbk-mobile-row{display:flex;align-items:center;gap:2px}
+#tbk-header-{{ section.id }} .tbk-burger{width:42px;height:42px;border:0;background:none;display:grid;place-items:center}
+#tbk-header-{{ section.id }} .tbk-burger svg{width:24px;height:20px;fill:none;stroke:#171116;stroke-width:2;stroke-linecap:round}
+}
+@media (max-width: 767px){
+  #tbk-header-{{ section.id }} .tbk-main-in{height:76px;padding:0 14px;gap:8px;width:100%;box-sizing:border-box}
+  #tbk-header-{{ section.id }} .tbk-mobile-row{flex:0 0 40px;gap:0}
+  #tbk-header-{{ section.id }} .tbk-burger{width:40px;height:40px;padding:0}
+  #tbk-header-{{ section.id }} .tbk-burger svg{width:26px;height:22px;stroke-width:1.9}
+  #tbk-header-{{ section.id }} .tbk-brand{flex:0 0 64px;width:64px;min-width:64px}
+  #tbk-header-{{ section.id }} .tbk-brand img{width:64px;height:64px}
+  #tbk-header-{{ section.id }} .tbk-icons{flex:1 1 auto;min-width:0;justify-content:flex-end;gap:2px;margin-left:auto}
+  #tbk-header-{{ section.id }} .tbk-icon{width:40px;height:40px;flex:0 0 40px}
+  #tbk-header-{{ section.id }} .tbk-icon svg{width:23px;height:23px;stroke-width:1.65}
+  #tbk-header-{{ section.id }} .tbk-badge{top:0;right:-1px;min-width:17px;height:17px;font-size:9px}
+  #tbk-header-{{ section.id }} .tbk-main{width:100%;overflow:hidden}
+}
+@media (max-width: 374px){
+  #tbk-header-{{ section.id }} .tbk-main-in{padding:0 10px;gap:5px}
+  #tbk-header-{{ section.id }} .tbk-mobile-row{flex-basis:38px}
+  #tbk-header-{{ section.id }} .tbk-burger{width:38px;height:38px}
+  #tbk-header-{{ section.id }} .tbk-brand{flex-basis:58px;width:58px;min-width:58px}
+  #tbk-header-{{ section.id }} .tbk-brand img{width:58px;height:58px}
+  #tbk-header-{{ section.id }} .tbk-icons{gap:0}
+  #tbk-header-{{ section.id }} .tbk-icon{width:38px;height:38px;flex-basis:38px}
+  #tbk-header-{{ section.id }} .tbk-icon svg{width:22px;height:22px}
+}
+#tbk-mobile-drawer-{{ section.id }}{position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:0;transition:opacity .2s}
+#tbk-mobile-drawer-{{ section.id }}.open{pointer-events:auto;opacity:1}
+#tbk-mobile-drawer-{{ section.id }} .ov{position:absolute;inset:0;background:#1a081099}
+#tbk-mobile-drawer-{{ section.id }} .panel{position:absolute;left:0;top:0;bottom:0;width:min(340px,88vw);background:#fffdfc;transform:translateX(-100%);transition:transform .25s ease;overflow:auto}
+#tbk-mobile-drawer-{{ section.id }}.open .panel{transform:translateX(0)}
+#tbk-mobile-drawer-{{ section.id }} .head{display:flex;align-items:center;justify-content:space-between;padding:18px;border-bottom:1px solid #eadfe2}
+#tbk-mobile-drawer-{{ section.id }} .brand{font:600 18px Georgia,serif;color:#8e1245}
+#tbk-mobile-drawer-{{ section.id }} .close{width:38px;height:38px;border:0;border-radius:50%;background:#fff1f5;color:#8e1245;font-size:24px}
+#tbk-mobile-drawer-{{ section.id }} nav a{display:block;padding:16px 20px;border-bottom:1px solid #f0e4e7;text-decoration:none;color:#251a1e;font-weight:600;font-size:14px}
+#tbk-mobile-drawer-{{ section.id }} nav .tbk-mobile-sub a{padding-left:38px;font-size:13px;font-weight:500}
+</style>
+<header id="tbk-header-{{ section.id }}">
+  <div class="tbk-main"><div class="tbk-main-in">
+    <div class="tbk-mobile-row"><button class="tbk-burger" type="button" aria-label="Open menu" onclick="document.getElementById('tbk-mobile-drawer-{{ section.id }}').classList.add('open')"><svg viewBox="0 0 24 20"><path d="M1 2h22M1 10h22M1 18h22"/></svg></button></div>
+    <a class="tbk-brand" href="{{ routes.root_url }}" aria-label="{{ shop.name }}">
+      {% if s.logo %}<img src="{{ s.logo | image_url: width: 180 }}" alt="{{ shop.name }}" width="58" height="58" loading="eager">{% endif %}
+      <span class="tbk-brand-mark" aria-hidden="true"><svg viewBox="0 0 48 54"><path d="M12 27h24l-2.5 19h-19Z"/><path d="M14 27c0-7 4-11 10-11s10 4 10 11"/><path d="M16 16c0-5 3-8 7-8s7 3 7 8"/><path d="M18 35h12M20 40h8"/><path d="M10 47c4 3 8 4 14 4s10-1 14-4"/></svg></span>
+      <span class="tbk-brand-copy"><span class="tbk-brand-name">THE BAKING KAUR</span><span class="tbk-brand-tag">CAKES • HAMPERS • FLOWERS • BALLOONS</span></span>
+    </a>
+    <nav class="tbk-nav" aria-label="Main navigation">
+      {% for link in linklists[s.main_menu].links %}
+        <a href="{{ link.url }}"{% if link.active %} aria-current="page"{% endif %}>{{ link.title }}</a>
+      {% endfor %}
+    </nav>
+    <div class="tbk-icons">{% if s.show_search %}<a class="tbk-icon" href="{{ routes.search_url }}" aria-label="Search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg></a>{% endif %}{% if s.show_wishlist %}<a class="tbk-icon" href="{{ routes.root_url }}pages/wishlist" aria-label="Wishlist"><svg viewBox="0 0 24 24"><path d="M20.8 8.6c0 5.5-8.8 10.7-8.8 10.7S3.2 14.1 3.2 8.6A4.6 4.6 0 0 1 12 6.3a4.6 4.6 0 0 1 8.8 2.3Z"/></svg></a>{% endif %}{% if s.show_account %}<a class="tbk-icon" href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}" aria-label="Account"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></a>{% endif %}<a class="tbk-icon" href="{{ routes.cart_url }}" aria-label="Cart"><svg viewBox="0 0 24 24"><path d="M5 8h14l-1 12H6L5 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>{% if cart.item_count > 0 %}<span class="tbk-badge">{{ cart.item_count }}</span>{% endif %}</a></div>
+  </div></div>
+</header>
+<div id="tbk-mobile-drawer-{{ section.id }}" aria-hidden="true"><div class="ov" onclick="document.getElementById('tbk-mobile-drawer-{{ section.id }}').classList.remove('open')"></div><div class="panel"><div class="head"><div class="brand">The Baking Kaur</div><button class="close" type="button" aria-label="Close menu" onclick="document.getElementById('tbk-mobile-drawer-{{ section.id }}').classList.remove('open')">×</button></div><nav aria-label="Mobile navigation">
+{% for link in linklists[s.main_menu].links %}
+  <a href="{{ link.url }}">{{ link.title }}</a>
+  {% if link.links != blank %}<div class="tbk-mobile-sub">{% for child_link in link.links %}<a href="{{ child_link.url }}">{{ child_link.title }}</a>{% endfor %}</div>{% endif %}
+{% endfor %}
+</nav></div></div>
+{% schema %}{"name":"TBK Header","tag":"section","class":"tbk-hdr-section","limit":1,"enabled_on":{"groups":["header"]},"settings":[{"type":"image_picker","id":"logo","label":"Logo image"},{"type":"range","id":"logo_width","label":"Logo width — desktop","min":40,"max":200,"step":2,"unit":"px","default":110},{"type":"range","id":"logo_width_mobile","label":"Logo width — mobile","min":40,"max":140,"step":2,"unit":"px","default":68},{"type":"text","id":"logo_text","label":"Brand name","default":"The Baking Kaur"},{"type":"text","id":"logo_tagline","label":"Tagline","default":"Luxury Eggless Creations"},{"type":"link_list","id":"main_menu","label":"Navigation menu","default":"main-menu"},{"type":"checkbox","id":"show_search","label":"Show search icon","default":true},{"type":"checkbox","id":"show_wishlist","label":"Show wishlist icon","default":true},{"type":"checkbox","id":"show_account","label":"Show account icon","default":true},{"type":"text","id":"whatsapp_number","label":"WhatsApp number","default":"918218862928"},{"type":"text","id":"search_placeholder","label":"Search placeholder","default":"Find your perfect cake..."},{"type":"range","id":"header_height","label":"Height — desktop","min":64,"max":116,"step":2,"unit":"px","default":96},{"type":"range","id":"mobile_header_height","label":"Height — mobile","min":54,"max":88,"step":2,"unit":"px","default":68},{"type":"range","id":"container_width","label":"Max container width","min":900,"max":1600,"step":20,"unit":"px","default":1440},{"type":"color","id":"header_bg","label":"Background","default":"#FDFAF8"},{"type":"color","id":"header_fg","label":"Text & icons","default":"#1A0810"},{"type":"color","id":"header_border_color","label":"Bottom border","default":"#EDD8E3"},{"type":"select","id":"sticky_type","label":"Sticky mode","default":"none","options":[{"value":"none","label":"Not sticky"},{"value":"always","label":"Always fixed"},{"value":"scroll_up","label":"Show on scroll up"}]},{"type":"text","id":"mobile_phone","label":"Phone","default":"+91-8218862928"},{"type":"text","id":"mobile_email","label":"Email","default":"thebakingkaur@gmail.com"}],"presets":[{"name":"TBK Header"}]}{% endschema %}

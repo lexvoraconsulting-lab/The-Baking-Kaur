@@ -1,0 +1,1 @@
+TBK blog hero image will be supplied from the article image CDN once uploaded.

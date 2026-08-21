@@ -1,0 +1,113 @@
+/* ================================
+   TBK FOOTER – MOBILE (BAKINGO STYLE)
+================================ */
+
+/* Force footer background */
+.hdt-footer-section,
+.hdt-footer-main {
+  background: linear-gradient(
+    135deg,
+    #fde6dc 0%,
+    #f9d3c4 50%,
+    #f6c1b2 100%
+  ) !important;
+}
+
+/* Remove white blocks */
+.hdt-footer-section *,
+.hdt-footer-main * {
+  background: transparent !important;
+}
+
+/* MOBILE LAYOUT */
+@media (max-width: 768px) {
+
+  .hdt-footer-main > div {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 26px 18px !important;
+  }
+
+  /* Brand full width */
+  .hdt-footer-main > div > :first-child {
+    grid-column: 1 / -1 !important;
+  }
+
+  /* Headings */
+  .hdt-footer h4 {
+    color: #c62828 !important;
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    margin-bottom: 10px !important;
+  }
+
+  /* Links */
+  .hdt-footer a,
+  .hdt-footer p,
+  .hdt-footer li {
+    color: #5a3a3a !important;
+    font-size: 14px !important;
+    line-height: 1.6 !important;
+  }
+
+  .hdt-footer-main {
+    padding: 36px 16px 24px !important;
+  }
+}
+
+/* Copyright */
+.hdt-footer-bottom {
+  border-top: 1px solid rgba(0,0,0,0.15) !important;
+  margin-top: 24px !important;
+  padding-top: 14px !important;
+  text-align: center !important;
+}
+/* =====================================
+   TBK FOOTER – BAKINGO STYLE (VISUAL)
+===================================== */
+
+.hdt-footer-section,
+.hdt-footer-main {
+  background: linear-gradient(
+    180deg,
+    #fde6dc 0%,
+    #f9d3c4 50%,
+    #f6c1b2 100%
+  ) !important;
+}
+
+/* Remove white cards */
+.hdt-footer-section *,
+.hdt-footer-main * {
+  background: transparent !important;
+}
+
+/* Headings */
+.hdt-footer h4 {
+  color: #c62828 !important;
+  font-weight: 700 !important;
+  font-size: 16px !important;
+  margin-bottom: 12px !important;
+}
+
+/* Links */
+.hdt-footer a,
+.hdt-footer li,
+.hdt-footer p {
+  color: #5a3a3a !important;
+  font-size: 14px !important;
+  line-height: 1.6 !important;
+}
+
+/* Section spacing */
+.hdt-footer-main {
+  padding: 40px 16px 24px !important;
+}
+
+/* Divider like Bakingo */
+.hdt-footer-bottom {
+  border-top: 1px solid rgba(0,0,0,0.15) !important;
+  margin-top: 24px !important;
+  padding-top: 14px !important;
+  text-align: center !important;
+}

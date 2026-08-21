@@ -1,0 +1,139 @@
+{%- comment -%}
+  snippets/tbk-button.liquid
+  Generic button renderer for the TBK platform.
+  No business logic, no entity assumptions.
+{%- endcomment -%}
+{%- liquid
+  assign button_label = label | default: text | default: ''
+  assign button_href = href | default: ''
+  assign button_type = type | default: 'button'
+  assign button_variant = variant | default: 'primary'
+  assign button_size = size | default: 'md'
+  assign button_weight = weight | default: 'semibold'
+  assign button_icon = icon | default: ''
+  assign button_icon_position = icon_position | default: 'right'
+  assign button_class = class | default: ''
+  assign button_aria_label = aria_label | default: ''
+  assign button_target = target | default: ''
+  assign button_rel = rel | default: ''
+  assign button_name = name | default: ''
+  assign button_value = value | default: ''
+  assign button_disabled = disabled | default: false
+
+  case button_variant
+    when 'solid', 'primary'
+      assign button_variant = 'primary'
+    when 'outline', 'secondary'
+      assign button_variant = 'secondary'
+    when 'ghost', 'link'
+      assign button_variant = button_variant
+    else
+      assign button_variant = 'primary'
+  endcase
+
+  if button_label == blank and button_aria_label == blank and button_icon_position == 'only'
+    assign button_aria_label = 'Action'
+  endif
+
+  capture button_classes
+    echo 'tbkx-btn tbkx-btn--'
+    echo button_variant
+    echo ' tbkx-btn--'
+    echo button_size
+    echo ' tbkx-btn--weight-'
+    echo button_weight
+    if block == true
+      echo ' tbkx-btn--block'
+    endif
+    if button_icon_position == 'only'
+      echo ' tbkx-btn--icon-only'
+    endif
+    if button_class != blank
+      echo ' '
+      echo button_class
+    endif
+  endcapture
+
+  capture button_icon_markup
+    if button_icon != blank
+      assign icon_name = button_icon
+      case button_icon
+        when '1', 'arrow-right'
+          assign icon_name = 'arrow-right'
+        when '2', 'external', 'external-link'
+          assign icon_name = 'external-link'
+        when 'arrow-left'
+          assign icon_name = 'arrow-left'
+        when 'chevron-left'
+          assign icon_name = 'chevron-left'
+        when 'chevron-right'
+          assign icon_name = 'chevron-right'
+        when 'plus'
+          assign icon_name = 'plus'
+        when 'minus'
+          assign icon_name = 'minus'
+      endcase
+
+      case icon_name
+        when 'arrow-left'
+          echo '<svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M10.5 3.5L6 8l4.5 4.5"/></svg>'
+        when 'chevron-left'
+          echo '<svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M9.5 3.5L5 8l4.5 4.5"/></svg>'
+        when 'chevron-right'
+          echo '<svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M6.5 3.5L11 8l-4.5 4.5"/></svg>'
+        when 'plus'
+          echo '<svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 3.5v9M3.5 8h9"/></svg>'
+        when 'minus'
+          echo '<svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 8h9"/></svg>'
+        when 'external-link'
+          echo '<svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M6.5 4.5h5v5"/><path d="M11.5 4.5L4.5 11.5"/><path d="M4.5 6.5V3.5h3"/></svg>'
+        else
+          echo '<svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 8h9"/><path d="M8.5 4.5L12 8l-3.5 3.5"/></svg>'
+      endcase
+    endif
+  endcapture
+-%}
+
+{%- if button_href != blank and button_disabled == false -%}
+  <a
+    class="{{ button_classes | strip }}"
+    href="{{ button_href }}"
+    {%- if button_target != blank -%} target="{{ button_target }}"{%- endif -%}
+    {%- if button_rel != blank -%} rel="{{ button_rel }}"{%- elsif button_target == '_blank' -%} rel="noopener noreferrer"{%- endif -%}
+    {%- if button_aria_label != blank -%} aria-label="{{ button_aria_label | escape }}"{%- endif -%}
+    {%- if button_disabled -%} aria-disabled="true" tabindex="-1"{%- endif -%}
+  >
+    {%- if button_icon != blank and button_icon_position == 'left' -%}
+      <span class="tbkx-btn__icon tbkx-btn__icon--left">{{ button_icon_markup }}</span>
+    {%- endif -%}
+    {%- if button_label != blank -%}
+      <span class="tbkx-btn__label">{{ button_label | escape }}</span>
+    {%- endif -%}
+    {%- if button_icon != blank and button_icon_position == 'right' -%}
+      <span class="tbkx-btn__icon tbkx-btn__icon--right">{{ button_icon_markup }}</span>
+    {%- elsif button_icon != blank and button_icon_position == 'only' -%}
+      <span class="tbkx-btn__icon tbkx-btn__icon--only">{{ button_icon_markup }}</span>
+    {%- endif -%}
+  </a>
+{%- else -%}
+  <button
+    class="{{ button_classes | strip }}"
+    type="{{ button_type }}"
+    {%- if button_name != blank -%} name="{{ button_name }}"{%- endif -%}
+    {%- if button_value != blank -%} value="{{ button_value | escape }}"{%- endif -%}
+    {%- if button_disabled -%} disabled{%- endif -%}
+    {%- if button_aria_label != blank -%} aria-label="{{ button_aria_label | escape }}"{%- endif -%}
+  >
+    {%- if button_icon != blank and button_icon_position == 'left' -%}
+      <span class="tbkx-btn__icon tbkx-btn__icon--left">{{ button_icon_markup }}</span>
+    {%- endif -%}
+    {%- if button_label != blank -%}
+      <span class="tbkx-btn__label">{{ button_label | escape }}</span>
+    {%- endif -%}
+    {%- if button_icon != blank and button_icon_position == 'right' -%}
+      <span class="tbkx-btn__icon tbkx-btn__icon--right">{{ button_icon_markup }}</span>
+    {%- elsif button_icon != blank and button_icon_position == 'only' -%}
+      <span class="tbkx-btn__icon tbkx-btn__icon--only">{{ button_icon_markup }}</span>
+    {%- endif -%}
+  </button>
+{%- endif -%}

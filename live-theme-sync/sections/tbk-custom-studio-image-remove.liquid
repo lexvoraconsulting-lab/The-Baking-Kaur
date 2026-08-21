@@ -1,0 +1,8 @@
+<style>
+/* TBK Custom Cake Studio — remove the decorative cake image on draft/test theme */
+.tbk-art .tbk-studio{grid-template-columns:1fr!important}
+.tbk-art .tbk-studio>div:last-child{display:none!important}
+.tbk-art .tbk-studio>div:first-child{width:100%!important;max-width:900px!important;margin:0 auto!important}
+@media(max-width:749px){.tbk-art .tbk-studio>div:first-child{max-width:none!important}}
+</style>
+{% schema %}{"name":"TBK Remove Studio Image","settings":[],"presets":[{"name":"TBK Remove Studio Image"}]}{% endschema %}

@@ -1,0 +1,211 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "heading": {
+      "type": "heading-collection",
+      "blocks": {
+        "9a1347b4-da62-490d-9fd4-427a03686ac2": {
+          "type": "heading",
+          "settings": {
+            "heading": ""
+          }
+        },
+        "6df762d7-beda-4452-bcf6-1242b294077c": {
+          "type": "description",
+          "settings": {
+            "description": "",
+            "short_des": false,
+            "limit_words": 15
+          }
+        }
+      },
+      "block_order": [
+        "9a1347b4-da62-490d-9fd4-427a03686ac2",
+        "6df762d7-beda-4452-bcf6-1242b294077c"
+      ],
+      "settings": {
+        "spacing_hd": 10,
+        "color_scheme": "scheme-375b8f36-85a2-40e9-9198-bac5f650c728",
+        "padding_top": 35,
+        "padding_bottom": 35,
+        "padding_rate": 75
+      }
+    },
+    "main": {
+      "type": "main-search",
+      "settings": {
+        "product_des": "1",
+        "image_ratio": "adapt_image",
+        "image_size": true,
+        "show_vendor": false,
+        "pr_border": "in_image",
+        "products_count": 10,
+        "col_dk": "4",
+        "col_tb": "4",
+        "col_mb": "2",
+        "pagination_type": "links",
+        "paginate_pos": "center",
+        "dis_pagination": 60,
+        "enable_sorting": true,
+        "enable_filtering": true,
+        "price_behavior": "auto",
+        "enable_num_cols_selector": true,
+        "section_fullwidth": false,
+        "color_scheme": "scheme-1",
+        "padding_top": 30,
+        "padding_bottom": 70,
+        "padding_rate": 75
+      }
+    },
+    "collections_list_XddAPb": {
+      "type": "collections-list",
+      "blocks": {
+        "collection_item_GtdmmQ": {
+          "type": "collection_item",
+          "settings": {
+            "collection": "",
+            "title": "Collection name",
+            "collection_link": ""
+          }
+        },
+        "collection_item_XHGxHM": {
+          "type": "collection_item",
+          "settings": {
+            "collection": "",
+            "title": "Collection name",
+            "collection_link": ""
+          }
+        },
+        "collection_item_kr4Wqz": {
+          "type": "collection_item",
+          "settings": {
+            "collection": "",
+            "title": "Collection name",
+            "collection_link": ""
+          }
+        },
+        "collection_item_LHUtd7": {
+          "type": "collection_item",
+          "settings": {
+            "collection": "",
+            "title": "Collection name",
+            "collection_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "collection_item_GtdmmQ",
+        "collection_item_XHGxHM",
+        "collection_item_kr4Wqz",
+        "collection_item_LHUtd7"
+      ],
+      "name": "t:sections.collection_list.name",
+      "settings": {
+        "heading_align": "center",
+        "sec_heading": "Search by categories",
+        "heading_tag": "h3",
+        "heading_size": "h4",
+        "sec_subheading": "",
+        "subheading_size": "xl",
+        "heading_reverse": false,
+        "btn_heading_collection": false,
+        "heading_gap": 20,
+        "sec_heading_spacing": 30,
+        "collection_list": [
+          "designer-theme-cakes",
+          "birthday-cakes",
+          "anniversary-cakes",
+          "for-him",
+          "for-her",
+          "showstopper-wedding-cake"
+        ],
+        "collection_des": "5",
+        "content_size": "xl",
+        "content_weight": "medium",
+        "text_transform": true,
+        "content_position": "center",
+        "content_padding": 30,
+        "image_ratio": "asos",
+        "image_size": true,
+        "col_dk": "4",
+        "col_tb": "2",
+        "col_mb": "1",
+        "space_items": "x",
+        "half_item": false,
+        "navUI": false,
+        "nav_des": "default",
+        "nav_pos": "middle_in",
+        "dotUI": false,
+        "dots_pos": "default",
+        "section_fullwidth": false,
+        "boxed_fullwidth": false,
+        "boxed_content": false,
+        "color_scheme": "scheme-b188001a-abbd-4381-bbf9-8b253fb4c083",
+        "padding_top": 25,
+        "padding_bottom": 52,
+        "padding_rate": 75
+      }
+    },
+    "newsletter_LRNpXg": {
+      "type": "newsletter",
+      "blocks": {
+        "heading_MdXaFa": {
+          "type": "heading",
+          "settings": {
+            "top_heading": "Season Collection",
+            "heading_tag": "h3",
+            "heading_size": "h4",
+            "margin_bottom": 30
+          }
+        },
+        "text_mhGfby": {
+          "type": "text",
+          "settings": {
+            "top_description": "<p>Be the first to know when we launch.</p>",
+            "subheading_size": "hdt-text-base",
+            "margin_bottom": 30
+          }
+        },
+        "newsletter_jEENit": {
+          "type": "newsletter",
+          "settings": {
+            "button_lb": "Subscribe",
+            "btn_fw": "normal",
+            "form_width": 500,
+            "agree_form": false,
+            "content": "I agree with the terms and conditions",
+            "margin_bottom": 30
+          }
+        }
+      },
+      "block_order": [
+        "heading_MdXaFa",
+        "text_mhGfby",
+        "newsletter_jEENit"
+      ],
+      "name": "Newsletter",
+      "settings": {
+        "content_align": "center",
+        "color_scheme": "",
+        "container_content": false,
+        "padding_top": 30,
+        "padding_bottom": 30,
+        "padding_rate": 75
+      }
+    }
+  },
+  "order": [
+    "heading",
+    "main",
+    "collections_list_XddAPb",
+    "newsletter_LRNpXg"
+  ]
+}

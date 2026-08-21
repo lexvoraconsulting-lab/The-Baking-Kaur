@@ -1,0 +1,69 @@
+{%- liquid
+  assign article_text = article.content | strip_html
+  assign word_count = article_text | split: ' ' | size
+  assign article_keywords = article.tags | join: ', '
+  assign article_description = article.summary | strip_html | default: article_text | truncate: 200
+  assign read_minutes = word_count | divided_by: 200
+  if read_minutes < 3
+    assign read_minutes = 3
+  endif
+-%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BlogPosting",
+      "@id": "{{ shop.url }}{{ article.url }}#article",
+      "headline": {{ article.title | json }},
+      "description": {{ article_description | json }},
+      "datePublished": "{{ article.published_at | date: '%Y-%m-%dT%H:%M:%S%z' }}",
+      "dateModified": "{{ article.updated_at | date: '%Y-%m-%dT%H:%M:%S%z' }}",
+      "url": "{{ shop.url }}{{ article.url }}",
+      "inLanguage": "en-IN",
+      "articleSection": {{ blog.title | json }},
+      "keywords": {{ article_keywords | json }},
+      "wordCount": {{ word_count }},
+      "timeRequired": "PT{{ read_minutes }}M",
+      "image": {%- if article.image -%}"{{ article.image | image_url: width: 1200 }}"{%- else -%}"{{ settings.logo | image_url: width: 1200 }}"{%- endif -%},
+      "author": {
+        "@type": "Organization",
+        "@id": "https://thebakingkaur.com/#organization",
+        "name": "The Baking Kaur",
+        "url": "https://thebakingkaur.com"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "@id": "https://thebakingkaur.com/#organization",
+        "name": "The Baking Kaur",
+        "url": "https://thebakingkaur.com",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "{{ settings.logo | image_url: width: 600 }}"
+        }
+      },
+      "mainEntityOfPage": {"@type":"WebPage","@id":"{{ shop.url }}{{ article.url }}"},
+      "isPartOf": {
+        "@type": "Blog",
+        "@id": "{{ shop.url }}/blogs/{{ blog.handle }}#blog",
+        "name": {{ blog.title | json }},
+        "url": "{{ shop.url }}/blogs/{{ blog.handle }}"
+      },
+      "about": [
+        {"@type":"Thing","name":"Birthday cakes"},
+        {"@type":"City","name":"Meerut","containedInPlace":{"@type":"State","name":"Uttar Pradesh"}}
+      ],
+      "areaServed": {"@type":"City","name":"Meerut"}
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "{{ shop.url }}{{ article.url }}#breadcrumb",
+      "itemListElement": [
+        {"@type":"ListItem","position":1,"name":"Home","item":"{{ shop.url }}"},
+        {"@type":"ListItem","position":2,"name":{{ blog.title | json }},"item":"{{ shop.url }}/blogs/{{ blog.handle }}"},
+        {"@type":"ListItem","position":3,"name":{{ article.title | json }},"item":"{{ shop.url }}{{ article.url }}"}
+      ]
+    }
+  ]
+}
+</script>

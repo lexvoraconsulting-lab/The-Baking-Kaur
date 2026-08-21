@@ -1,0 +1,184 @@
+body {
+  padding-bottom: var(--hdt-sticky-atc-height, 99px);
+}
+.hdt-sticky-btn-atc {
+  display: block;
+  position: fixed;
+  bottom: 0;
+  z-index: 100;
+  box-shadow: 0.4rem -0.4rem 0.5rem 0 rgb(var(--color-overlay, 0 0 0 / 0.03));
+  transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+  transform: translate3d(0, 100%, 0);
+  left: 0;
+  right: 0;
+}
+.hdt-sticky-btn-atc hdt-height-observer {
+  width: 100%;
+  padding: 1rem 0;
+  column-gap: 0.5rem;
+}
+.sticky-shown .hdt-sticky-btn-atc {
+  transform: translate3d(0, 0, 0)!important;;
+}
+.hdt-sticky-atc__product{
+  flex: 1 0 0%;
+  gap:1.5rem;
+}
+.hdt-sticky-atc__infos{
+  flex: 0 0 auto;
+  width: auto;
+}
+.hdt-sticky-atc__infos .hdt-sticky-atc__form,
+.hdt-sticky-atc__btns{
+  gap:1.2rem;
+}
+.hdt-sticky-atc__img{
+  width: 8rem; 
+  height: 8rem;
+  min-width: 8rem;
+}
+.hdt-sticky-atc__img-placeholder,
+.hdt-sticky-atc__img img{
+  position: absolute;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: var(--rounded-full);
+}
+.hdt-sticky-atc__img-placeholder{
+  background-color: #f5f5f5;
+}
+.hdt-sticky-atc__product-monney{
+  color: rgb(var(--color-pr-price));
+}
+.hdt-sticky-atc__qty-selector .hdt-quantity__rules,
+.hdt-sticky-atc__qty-selector .hdt-quantity__label{display: none;}
+.hdt-sticky-atc__submit{
+  min-width: 19rem;
+}
+.hdt-sticky-atc__variant-price .hdt-select{
+  height: 4.6rem;
+}
+@media(max-width: 1024px){
+  .hdt-sticky-atc__img{
+    width: 6.5rem; 
+    height: 6.5rem;
+    min-width: 6.5rem;
+  }
+  .hdt-sticky-atc__submit{
+    min-width: 15rem;
+  }
+}
+@media(max-width:767px){
+  .hdt-sticky-btn-atc .hdt-sticky-atc__product{
+    display: none;
+  }
+  .hdt-sticky-atc__submit{
+    width:100%;
+    min-height: 4.6rem;
+  }
+  .hdt-sticky-atc__btns, 
+  .hdt-sticky-btn-atc .hdt-select,
+  .hdt-sticky-btn-atc .hdt-sticky-atc__product-monney,
+  .hdt-sticky-atc__infos{
+    width:100%
+  }
+  .hdt-sticky-atc__infos .hdt-sticky-atc__form{
+    flex-direction: column;
+  }
+}
+
+/* TBK TEST — compact four-selector row: FLAVOR | WEIGHT | DATE | TIME */
+@media (max-width: 768px){
+  .tbk-product-content .hdt-product-info__list{
+    display:grid !important;
+    grid-template-columns:repeat(4,minmax(0,1fr)) !important;
+    gap:5px !important;
+    align-items:end !important;
+  }
+  .tbk-product-content .hdt-product-info__list > .hdt-product__title,
+  .tbk-product-content .hdt-product-info__list > .hdt-product__price,
+  .tbk-product-content .hdt-product-info__list > .hdt-product__buy-button{
+    grid-column:1 / -1 !important;
+  }
+  .tbk-product-content .hdt-product-info__list > .hdt-product__variant-picker,
+  .tbk-product-content .hdt-product-info__list > .hdt-product__variant-picker > variant-picker,
+  .tbk-product-content .hdt-product-info__list > .delivery-options,
+  .tbk-product-content .hdt-product-info__list > .delivery-options > .tbk-date-time-row{
+    display:contents !important;
+  }
+  .tbk-product-content .hdt-product-info__list > .hdt-product__variant-picker fieldset,
+  .tbk-product-content .hdt-product-info__list > .delivery-options .tbk-date-time-row > .hdt-product-form_value{
+    grid-column:auto !important;
+    width:auto !important;
+    min-width:0 !important;
+    margin:0 !important;
+    padding:0 !important;
+  }
+  .tbk-product-content .hdt-product-info__list > .delivery-options > .hdt-product-form_value{
+    grid-column:1 / -1 !important;
+  }
+  .tbk-product-content .hdt-product-info__list > .hdt-product__variant-picker legend,
+  .tbk-product-content .hdt-product-info__list > .hdt-product__variant-picker .hdt-product-form__label,
+  .tbk-product-content .hdt-product-info__list > .delivery-options label{
+    display:block !important;
+    height:14px !important;
+    margin:0 0 2px !important;
+    padding:0 !important;
+    font-size:9px !important;
+    line-height:14px !important;
+    white-space:nowrap !important;
+    overflow:hidden !important;
+    text-overflow:ellipsis !important;
+  }
+  .tbk-product-content .hdt-product-info__list > .hdt-product__variant-picker .hdt-select,
+  .tbk-product-content .hdt-product-info__list > .delivery-options .tbk-slot-trigger{
+    width:100% !important;
+    min-width:0 !important;
+    height:36px !important;
+    min-height:36px !important;
+    max-height:36px !important;
+    border-radius:8px !important;
+    font-size:9px !important;
+    line-height:36px !important;
+    white-space:nowrap !important;
+    overflow:hidden !important;
+    text-overflow:ellipsis !important;
+  }
+  .tbk-product-content .hdt-product-info__list > .hdt-product__variant-picker .hdt-select{
+    display:flex !important;
+    align-items:center !important;
+    padding-left:27px !important;
+    padding-right:16px !important;
+    background-size:13px 13px !important;
+    background-position:7px center !important;
+  }
+  .tbk-product-content .hdt-product-info__list > .delivery-options .tbk-slot-trigger{
+    padding-left:27px !important;
+    padding-right:16px !important;
+    background-size:13px 13px !important;
+    background-position:7px center !important;
+  }
+  .tbk-product-content .hdt-product-info__list > .delivery-options .tbk-slot-trigger::after{
+    right:6px !important;
+    width:5px !important;
+    height:5px !important;
+    border-width:1.5px !important;
+  }
+  /* The cake-message field stays full width below the four selectors. */
+  .tbk-product-content .hdt-product-info__list > .delivery-options > .hdt-product-form_value:last-of-type{
+    grid-column:1 / -1 !important;
+    margin-top:1px !important;
+  }
+  .tbk-product-content .hdt-product-info__list > .delivery-options > .hdt-product-form_value:last-of-type input[type="text"]{
+    height:40px !important;
+    min-height:40px !important;
+    font-size:12px !important;
+  }
+  .tbk-product-content .hdt-product-info__list > *{
+    margin-bottom:0 !important;
+  }
+}

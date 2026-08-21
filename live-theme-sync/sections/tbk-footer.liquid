@@ -1,0 +1,538 @@
+<!-- ================= PREMIUM BAKING KAUR FOOTER ================= -->
+<footer class="tbk-footer">
+
+  <!-- ===== Wave + Gradient Top ===== -->
+  <div class="tbk-wave">
+    <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
+      <path d="M0,40 C240,110 480,0 720,40 C960,80 1200,120 1440,30 L1440,0 L0,0 Z"></path>
+    </svg>
+  </div>
+
+
+
+  <!-- ===== Newsletter Band ===== -->
+  <section class="tbk-newsletter">
+    <h2>Subscribe To Our Newsletter</h2>
+
+    <form class="tbk-news-form">
+      <input type="email" placeholder="Enter your email address" required>
+      <button>Subscribe</button>
+    </form>
+  </section>
+
+
+
+  <!-- ===== Main Footer ===== -->
+  <section class="tbk-main">
+    <div class="tbk-container">
+
+      <!-- Brand -->
+      <div class="tbk-col brand">
+        <h3>The Baking Kaur</h3>
+        <p>Meerut’s trusted bakery for cakes, flowers & surprise gifts.</p>
+
+        <!-- Social Icons -->
+        <div class="tbk-social">
+          <a href="#">📘</a>
+          <a href="#">📸</a>
+          <a href="#">▶️</a>
+          <a href="#">💼</a>
+        </div>
+      </div>
+
+
+      <!-- Know Us -->
+      <div class="tbk-col">
+        <h4>Know Us</h4>
+        <a href="/pages/about-us">About Us</a>
+        <a href="/pages/contact">Contact Us</a>
+        <a href="/blogs/news">Blog</a>
+      </div>
+
+
+      <!-- Customer Care -->
+      <div class="tbk-col">
+        <h4>Customer Care</h4>
+        {% if shop.shipping_policy != blank %}<a href="{{ shop.shipping_policy.url }}">Shipping Policy</a>{% endif %}
+        {% if shop.privacy_policy != blank %}<a href="{{ shop.privacy_policy.url }}">Privacy Policy</a>{% endif %}
+        {% if shop.terms_of_service != blank %}<a href="{{ shop.terms_of_service.url }}">Terms & Conditions</a>{% endif %}
+        <a href="/pages/frequently-asked-questions-faqs">FAQ</a>
+      </div>
+
+
+      <!-- Quick Links -->
+      <div class="tbk-col">
+        <h4>Quick Links</h4>
+        <a href="/collections/all">All Cakes</a>
+        <a href="/collections/birthday-cakes">Birthday Cakes</a>
+        <a href="/collections/anniversary-cakes">Anniversary Cakes</a>
+        <a href="/collections/flowers">Flowers</a>
+      </div>
+
+
+      <!-- Contact -->
+      <div class="tbk-col">
+        <h4>Contact Us</h4>
+        <p>Fateh Complex, 390/1, Lane Number 7, opposite Ice Factory, Thapar Nagar<br>Meerut – 250001</p>
+        <p>📞 +91 82188 62928</p>
+        <p>💬 WhatsApp Available</p>
+      </div>
+
+    </div>
+  </section>
+
+
+
+  <!-- ===== Trust + Payments ===== -->
+  <section class="tbk-trust">
+    🚚 Same Day Delivery
+    <span>•</span>
+    🌙 Midnight Cakes
+    <span>•</span>
+    🔒 Secure Payments
+
+    <div class="tbk-payments">
+      💳 🏦 🅿️ 🟣 🟢
+    </div>
+  </section>
+
+
+
+  <!-- ===== Copyright ===== -->
+  <section class="tbk-copy">
+    © {{ 'now' | date: "%Y" }} The Baking Kaur — All rights reserved.
+  </section>
+
+</footer>
+
+
+
+<style>
+/* ================= BASE ================= */
+.tbk-footer{
+  font-family: system-ui, sans-serif;
+  background: linear-gradient(180deg,#5a0d2c,#2a0817);
+  color:#eee;
+}
+
+
+
+/* ================= WAVE ================= */
+.tbk-wave svg{
+  display:block;
+  width:100%;
+  height:90px;
+  fill:#5a0d2c;
+}
+
+
+
+/* ================= NEWSLETTER ================= */
+.tbk-newsletter{
+  padding:80px 20px;
+  text-align:center;
+  background: linear-gradient(90deg,#ff2b6d,#a0003c);
+}
+
+.tbk-newsletter h2{
+  font-size:28px;
+  margin-bottom:24px;
+  color:#fff;
+}
+
+.tbk-news-form{
+  display:flex;
+  justify-content:center;
+  gap:14px;
+}
+
+.tbk-news-form input{
+  width:420px;
+  height:52px;
+  border-radius:12px;
+  border:none;
+  padding:0 18px;
+}
+
+.tbk-news-form button{
+  height:52px;
+  padding:0 30px;
+  background:#111;
+  color:#fff;
+  border:none;
+  border-radius:12px;
+  font-weight:600;
+}
+
+
+
+/* ================= MAIN GRID ================= */
+.tbk-main{
+  padding:70px 0 50px;
+}
+
+.tbk-container{
+  max-width:1300px;
+  margin:auto;
+  padding:0 7%;
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:60px;
+}
+
+
+
+/* ================= TEXT ================= */
+.tbk-col h4{
+  font-size:16px;
+  margin-bottom:16px;
+  color:#fff;
+}
+
+.tbk-col a{
+  display:block;
+  font-size:13px;
+  color:#ccc;
+  margin-bottom:10px;
+  text-decoration:none;
+}
+
+.tbk-col a:hover{
+  color:#ff4d88;
+}
+
+
+
+/* brand */
+.brand h3{
+  color:#ff4d88;
+}
+
+.brand p{
+  font-size:13px;
+  color:#bbb;
+}
+
+
+
+/* social */
+.tbk-social{
+  margin-top:14px;
+  display:flex;
+  gap:12px;
+  font-size:20px;
+}
+
+
+
+/* ================= TRUST ================= */
+.tbk-trust{
+  border-top:1px solid rgba(255,255,255,.15);
+  text-align:center;
+  padding:22px 0;
+  font-size:13px;
+  color:#ccc;
+}
+
+.tbk-payments{
+  margin-top:10px;
+  font-size:20px;
+}
+
+
+
+/* ================= COPYRIGHT ================= */
+.tbk-copy{
+  text-align:center;
+  font-size:12px;
+  padding:18px 0 28px;
+  color:#888;
+}
+
+
+
+/* ================= MOBILE ================= */
+@media(max-width:1100px){
+  .tbk-container{
+    grid-template-columns:repeat(2,1fr);
+    gap:40px;
+  }
+}
+
+@media(max-width:600px){
+  .tbk-container{
+    grid-template-columns:1fr;
+  }
+
+  .tbk-news-form{
+    flex-direction:column;
+  }
+
+  .tbk-news-form input{
+    width:100%;
+  }
+}
+</style>
+<!-- ================= TBK PREMIUM MOBILE FOOTER ================= -->
+
+<footer class="tbk-footer">
+
+  <!-- ===== Wave Top ===== -->
+  <div class="tbk-wave">
+    <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
+      <path fill="#fff"
+      d="M0,80 C240,20 480,120 720,60 C960,0 1200,100 1440,50 L1440,0 L0,0 Z"></path>
+    </svg>
+  </div>
+
+
+
+  <!-- ===== Newsletter Pink Gradient ===== -->
+  <section class="tbk-news">
+    <h2>Subscribe To Our Newsletter</h2>
+
+    <form action="/contact#newsletter" method="post" class="tbk-form">
+      <input type="email" name="contact[email]" placeholder="Enter Email Address" required>
+      <button type="submit">Subscribe</button>
+    </form>
+  </section>
+
+
+
+  <!-- ===== Footer Content ===== -->
+  <section class="tbk-content">
+
+    <!-- Brand -->
+    <div class="tbk-brand">
+      <h3>The Baking Kaur</h3>
+      <p>Meerut’s trusted bakery for cakes, flowers & surprise gifts.</p>
+
+      <!-- Social Icons -->
+      <div class="tbk-social">
+        <a href="#">📘</a>
+        <a href="#">📸</a>
+        <a href="#">▶️</a>
+        <a href="#">💼</a>
+      </div>
+    </div>
+
+
+
+    <!-- Links Stack (Mobile first like Bakingo) -->
+    <div class="tbk-links">
+
+      <div>
+        <h4>Know Us</h4>
+        <a href="/pages/about-us">About Us</a>
+        <a href="/pages/contact">Contact Us</a>
+        <a href="/blogs/news">Blog</a>
+      </div>
+
+      <div>
+        <h4>Customer Care</h4>
+        {% if shop.shipping_policy != blank %}<a href="{{ shop.shipping_policy.url }}">Shipping Policy</a>{% endif %}
+        {% if shop.privacy_policy != blank %}<a href="{{ shop.privacy_policy.url }}">Privacy Policy</a>{% endif %}
+        {% if shop.terms_of_service != blank %}<a href="{{ shop.terms_of_service.url }}">Terms & Conditions</a>{% endif %}
+        <a href="/pages/frequently-asked-questions-faqs">FAQ</a>
+      </div>
+
+      <div>
+        <h4>Quick Links</h4>
+        <a href="/collections/all">All Cakes</a>
+        <a href="/collections/birthday-cakes">Birthday Cakes</a>
+        <a href="/collections/anniversary-cakes">Anniversary Cakes</a>
+        <a href="/collections/flowers">Flowers</a>
+      </div>
+
+      <div>
+        <h4>Contact Us</h4>
+        <p>Fateh Complex, 390/1, Lane Number 7, opposite Ice Factory, Thapar Nagar<br>Meerut – 250001</p>
+        <p>📞 +91 82188 62928</p>
+        <p>💬 WhatsApp Available</p>
+      </div>
+
+    </div>
+
+
+
+    <!-- Trust Badges -->
+    <div class="tbk-trust">
+      🚚 Same Day Delivery • 🌙 Midnight Cakes • 🔒 Secure Payments
+    </div>
+
+
+
+    <!-- Payment Icons -->
+    <div class="tbk-payments">
+      💳 🏦 🟡 🅿️ 🟠
+    </div>
+
+
+
+    <!-- Copyright -->
+    <div class="tbk-copy">
+      © {{ 'now' | date: "%Y" }} The Baking Kaur — All rights reserved.
+    </div>
+
+  </section>
+
+</footer>
+
+
+
+<style>
+/* ================= BASE ================= */
+.tbk-footer{
+  font-family:system-ui;
+  background:linear-gradient(180deg,#4b0f2a,#250814);
+  color:#fff;
+  position:relative;
+  overflow:hidden;
+}
+
+
+
+/* ================= WAVE ================= */
+.tbk-wave{
+  position:absolute;
+  top:-1px;
+  width:100%;
+}
+
+
+
+/* ================= NEWSLETTER ================= */
+.tbk-news{
+  background:linear-gradient(135deg,#ff2b6d,#ff6a9b);
+  padding:70px 20px;
+  text-align:center;
+  border-radius:0 0 40px 40px;
+}
+
+.tbk-news h2{
+  font-size:24px;
+  font-weight:700;
+  margin-bottom:25px;
+}
+
+.tbk-form{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.tbk-form input{
+  height:50px;
+  border-radius:12px;
+  border:none;
+  padding:0 18px;
+}
+
+.tbk-form button{
+  height:50px;
+  border-radius:12px;
+  border:none;
+  background:#000;
+  color:#fff;
+  font-weight:600;
+}
+
+
+
+/* ================= CONTENT ================= */
+.tbk-content{
+  padding:55px 22px 40px;
+}
+
+
+
+/* ================= BRAND ================= */
+.tbk-brand h3{
+  font-size:20px;
+  color:#ff4f8f;
+}
+
+.tbk-brand p{
+  opacity:.8;
+  margin:8px 0 18px;
+}
+
+.tbk-social a{
+  font-size:22px;
+  margin-right:12px;
+  text-decoration:none;
+}
+
+
+
+/* ================= LINKS ================= */
+.tbk-links{
+  display:flex;
+  flex-direction:column;
+  gap:42px;
+  margin-top:35px;
+}
+
+.tbk-links h4{
+  font-size:17px;
+  margin-bottom:14px;
+  font-weight:700;
+}
+
+.tbk-links a{
+  display:block;
+  font-size:14px;
+  opacity:.85;
+  margin-bottom:10px;
+  color:#fff;
+  text-decoration:none;
+}
+
+
+
+/* ================= TRUST ================= */
+.tbk-trust{
+  margin-top:40px;
+  text-align:center;
+  font-size:13px;
+  opacity:.75;
+}
+
+
+
+/* ================= PAYMENTS ================= */
+.tbk-payments{
+  text-align:center;
+  font-size:24px;
+  margin-top:20px;
+}
+
+
+
+/* ================= COPYRIGHT ================= */
+.tbk-copy{
+  text-align:center;
+  font-size:12px;
+  opacity:.6;
+  margin-top:20px;
+}
+
+
+
+/* ================= DESKTOP ================= */
+@media(min-width:900px){
+  .tbk-links{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+  }
+
+  .tbk-form{
+    flex-direction:row;
+    justify-content:center;
+  }
+
+  .tbk-form input{
+    width:350px;
+  }
+}
+</style>

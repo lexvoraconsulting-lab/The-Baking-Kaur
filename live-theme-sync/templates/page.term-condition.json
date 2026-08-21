@@ -1,0 +1,278 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "heading": {
+      "type": "main-heading",
+      "blocks": {
+        "5ecb9555-19e4-433b-8817-1ccaa3a41384": {
+          "type": "1",
+          "settings": {
+            "heading": "Terms & Conditions",
+            "heading_size": "h3"
+          }
+        }
+      },
+      "block_order": [
+        "5ecb9555-19e4-433b-8817-1ccaa3a41384"
+      ],
+      "settings": {
+        "color_scheme": "scheme-375b8f36-85a2-40e9-9198-bac5f650c728",
+        "spacing_hd": 0,
+        "padding_top": 25,
+        "padding_bottom": 25,
+        "padding_rate": 75
+      }
+    },
+    "custom_section_hbAg6j": {
+      "type": "custom-section",
+      "blocks": {
+        "parent_hP4QVj": {
+          "type": "parent",
+          "settings": {
+            "column_lg": "hdt-col-lg",
+            "column_md": "hdt-col-md",
+            "column": "col",
+            "color_scheme": "scheme-1",
+            "padding_top": 0,
+            "padding_right": 0,
+            "padding_bottom": 0,
+            "padding_left": 0,
+            "padding_rate": 75,
+            "class": ""
+          }
+        },
+        "heading_WHtjHw": {
+          "type": "heading",
+          "settings": {
+            "heading": "Terms and Service for The Bakery Kaur",
+            "tag": "h1",
+            "heading_size": "h5",
+            "alignment": "start"
+          }
+        },
+        "spacer_BM3pXe": {
+          "type": "spacer",
+          "settings": {
+            "space_lg": 10,
+            "space_md": 10,
+            "space": 10
+          }
+        },
+        "text_niXHmw": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Welcome to The Bakery Kaur! By placing an order with us, you agree to the following terms and conditions:</p>",
+            "text_size": "base",
+            "alignment": "start",
+            "alignment_mb": "start"
+          }
+        },
+        "spacer_w8m98c": {
+          "type": "spacer",
+          "settings": {
+            "space_lg": 20,
+            "space_md": 20,
+            "space": 20
+          }
+        },
+        "text_4XTfXY": {
+          "type": "text",
+          "settings": {
+            "text": "<h6>1. Order Confirmation<strong>:</strong></h6><p>Once you place an order, it is considered final. We do not accept cancellations or changes.</p>",
+            "text_size": "base",
+            "alignment": "start",
+            "alignment_mb": "start"
+          }
+        },
+        "spacer_ae93BM": {
+          "type": "spacer",
+          "settings": {
+            "space_lg": 20,
+            "space_md": 20,
+            "space": 20
+          }
+        },
+        "text_Bj3xA8": {
+          "type": "text",
+          "settings": {
+            "text": "<h6>2. Payment:</h6><p>All payments are processed through a secure payment gateway. We do not store your payment details.</p>",
+            "text_size": "base",
+            "alignment": "start",
+            "alignment_mb": "start"
+          }
+        },
+        "spacer_ckjzPb": {
+          "type": "spacer",
+          "settings": {
+            "space_lg": 20,
+            "space_md": 20,
+            "space": 20
+          }
+        },
+        "text_mtyAxL": {
+          "type": "text",
+          "settings": {
+            "text": "<h6>3. Delivery:</h6><p>We strive to deliver your order on time. However, delivery times are estimates and may vary due to unforeseen circumstances.</p>",
+            "text_size": "base",
+            "alignment": "start",
+            "alignment_mb": "start"
+          }
+        },
+        "spacer_PXxbxy": {
+          "type": "spacer",
+          "settings": {
+            "space_lg": 20,
+            "space_md": 20,
+            "space": 20
+          }
+        },
+        "text_EpCpPV": {
+          "type": "text",
+          "settings": {
+            "text": "<h6>4. Quality Assurance:</h6><p>We take great care in preparing our products. If you have concerns about the quality, please contact us within 2 hours of receipt. We do not offer refunds or replacements.</p>",
+            "text_size": "base",
+            "alignment": "start",
+            "alignment_mb": "start"
+          }
+        },
+        "spacer_WhcQ7p": {
+          "type": "spacer",
+          "settings": {
+            "space_lg": 20,
+            "space_md": 20,
+            "space": 20
+          }
+        },
+        "text_736pMa": {
+          "type": "text",
+          "settings": {
+            "text": "<h6>5. Personal Information:</h6><p>We collect personal information to process your orders and communicate with you. Your data is protected and handled securely. For more details, refer to our Privacy Policy.</p>",
+            "text_size": "base",
+            "alignment": "start",
+            "alignment_mb": "start"
+          }
+        },
+        "spacer_jpjyc7": {
+          "type": "spacer",
+          "settings": {
+            "space_lg": 20,
+            "space_md": 20,
+            "space": 20
+          }
+        },
+        "text_j44BqQ": {
+          "type": "text",
+          "settings": {
+            "text": "<h6>6. Liability:</h6><p>We are not liable for any indirect, incidental, or consequential damages resulting from the use of our products or services.</p>",
+            "text_size": "base",
+            "alignment": "start",
+            "alignment_mb": "start"
+          }
+        },
+        "spacer_VzDQ9F": {
+          "type": "spacer",
+          "settings": {
+            "space_lg": 20,
+            "space_md": 20,
+            "space": 20
+          }
+        },
+        "text_kThprK": {
+          "type": "text",
+          "settings": {
+            "text": "<h6>7. Policy Changes:</h6><p>We may update these terms from time to time. Continued use of our services implies acceptance of any changes.</p>",
+            "text_size": "base",
+            "alignment": "start",
+            "alignment_mb": "start"
+          }
+        },
+        "spacer_ERitY3": {
+          "type": "spacer",
+          "settings": {
+            "space_lg": 20,
+            "space_md": 20,
+            "space": 20
+          }
+        },
+        "text_TQBBQa": {
+          "type": "text",
+          "settings": {
+            "text": "<h6>8. Contact Us:<br/></h6><p>For any questions or concerns, please contact us at thebakingkaur@gmail.com</p><p>Thank you for choosing The Bakery Kaur. We look forward to serving you!</p><p><em><strong>The Bakery Kaur Team</strong></em></p>",
+            "text_size": "base",
+            "alignment": "start",
+            "alignment_mb": "start"
+          }
+        },
+        "spacer_J8ijJF": {
+          "type": "spacer",
+          "settings": {
+            "space_lg": 30,
+            "space_md": 30,
+            "space": 30
+          }
+        },
+        "button_bFCrF3": {
+          "type": "button",
+          "settings": {
+            "btn_label": "Write to \"The Baking Kaur Team\"",
+            "btn_link": "shopify://pages/contact",
+            "target": false,
+            "btn_size": "lg",
+            "btn_style": "solid",
+            "btn_fw": "normal",
+            "btn_icon": "1",
+            "alignment": "center"
+          }
+        }
+      },
+      "block_order": [
+        "parent_hP4QVj",
+        "heading_WHtjHw",
+        "spacer_BM3pXe",
+        "text_niXHmw",
+        "spacer_w8m98c",
+        "text_4XTfXY",
+        "spacer_ae93BM",
+        "text_Bj3xA8",
+        "spacer_ckjzPb",
+        "text_mtyAxL",
+        "spacer_PXxbxy",
+        "text_EpCpPV",
+        "spacer_WhcQ7p",
+        "text_736pMa",
+        "spacer_jpjyc7",
+        "text_j44BqQ",
+        "spacer_VzDQ9F",
+        "text_kThprK",
+        "spacer_ERitY3",
+        "text_TQBBQa",
+        "spacer_J8ijJF",
+        "button_bFCrF3"
+      ],
+      "name": "t:sections.custom_section.name",
+      "settings": {
+        "section_fullwidth": false,
+        "color_scheme": "",
+        "direction": "",
+        "justify": "",
+        "gap": false,
+        "space": 0,
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "padding_rate": 75
+      }
+    }
+  },
+  "order": [
+    "heading",
+    "custom_section_hbAg6j"
+  ]
+}

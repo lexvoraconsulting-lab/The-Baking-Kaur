@@ -1,0 +1,69 @@
+{% liquid
+  assign hero_image = collection.image
+  if hero_image == blank and collection.products.first.featured_image != blank
+    assign hero_image = collection.products.first.featured_image
+  endif
+  assign display_title = collection.title
+  assign related_handles = 'birthday-cakes,anniversary-cakes,wedding-cakes,designer-theme-cakes,photo-cakes,cake-hampers'
+  assign related_list = related_handles | split: ','
+%}
+
+<section class="tbk-col-ref" aria-label="{{ collection.title | escape }}">
+  <style>
+    .tbk-col-ref{--ink:#2f2926;--muted:#746963;--cream:#fbf5ed;--cream2:#f4e8db;--line:#dfd2c4;--accent:#b96561;background:#fffaf5;color:var(--ink);font-family:inherit}
+    .tbk-col-ref *{box-sizing:border-box}.tbk-col-ref a{text-decoration:none;color:inherit}
+    .tbk-col-ref .wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+    .tbk-col-ref .hero{margin:0 0 30px;position:relative;min-height:410px;overflow:hidden;background:var(--cream2)}
+    .tbk-col-ref .hero-media{position:absolute;inset:0}.tbk-col-ref .hero-media img{width:100%;height:100%;object-fit:cover;display:block}
+    .tbk-col-ref .hero-overlay{position:absolute;inset:0;background:linear-gradient(90deg,rgba(251,245,237,.96) 0%,rgba(251,245,237,.86) 38%,rgba(251,245,237,.12) 72%,rgba(251,245,237,0) 100%)}
+    .tbk-col-ref .hero-copy{position:relative;z-index:2;max-width:560px;padding:72px 20px 60px calc((100% - 1140px)/2);margin-left:0}
+    .tbk-col-ref .eyebrow{font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:12px}
+    .tbk-col-ref h1{font-family:Georgia,serif;font-size:48px;line-height:1.04;margin:0 0 16px;font-weight:500;letter-spacing:-.02em}.tbk-col-ref .hero-copy p{font-size:17px;line-height:1.65;max-width:480px;margin:0 0 24px;color:#4e4540}
+    .tbk-col-ref .cta{display:inline-flex;align-items:center;justify-content:center;background:#c97570;color:#fff;border-radius:5px;padding:12px 25px;font-size:13px;font-weight:700;letter-spacing:.05em;text-transform:uppercase}
+    .tbk-col-ref .mini-usps{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:26px;max-width:650px}.tbk-col-ref .mini-usps div{font-size:11px;font-weight:600;color:#4f4640;display:flex;align-items:center;gap:7px}.tbk-col-ref .mini-usps span{font-size:17px;color:#b78a50}
+    .tbk-col-ref .section-title{text-align:center;font-family:Georgia,serif;font-size:23px;font-weight:500;margin:34px 0 18px}.tbk-col-ref .section-title:after{content:'♡';display:block;color:var(--accent);font-size:14px;margin-top:4px}
+    .tbk-col-ref .cat-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}.tbk-col-ref .cat-card{border:1px solid var(--line);border-radius:9px;overflow:hidden;background:#fff;transition:.2s}.tbk-col-ref .cat-card:hover{transform:translateY(-2px)}
+    .tbk-col-ref .cat-card img{width:100%;aspect-ratio:1/1;object-fit:cover;display:block}.tbk-col-ref .cat-card .cat-copy{padding:10px 8px 12px;text-align:center}.tbk-col-ref .cat-card strong{font-size:12px;line-height:1.3;display:block}.tbk-col-ref .cat-card small{display:block;margin-top:6px;color:var(--accent);font-size:10px;font-weight:700;text-transform:uppercase}
+    .tbk-col-ref .products{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}.tbk-col-ref .product-card{border:1px solid var(--line);border-radius:9px;overflow:hidden;background:#fff}.tbk-col-ref .product-card img{width:100%;aspect-ratio:1/1;object-fit:cover;display:block}.tbk-col-ref .product-copy{padding:11px}.tbk-col-ref .product-title{font-size:13px;font-weight:650;line-height:1.35;min-height:35px}.tbk-col-ref .price{font-size:12px;color:#625751;margin-top:5px}.tbk-col-ref .product-btn{display:block;border:1px solid #d9c9bb;border-radius:4px;text-align:center;padding:8px 5px;margin-top:9px;color:var(--accent);font-size:10px;font-weight:700;text-transform:uppercase}
+    .tbk-col-ref .benefits{display:grid;grid-template-columns:repeat(5,1fr);margin:28px 0;background:#f7eee4;border:1px solid #eadbc9;border-radius:7px}.tbk-col-ref .benefit{padding:15px 12px;border-right:1px solid #e5d5c4;text-align:center}.tbk-col-ref .benefit:last-child{border-right:0}.tbk-col-ref .benefit b{display:block;font-size:11px}.tbk-col-ref .benefit span{display:block;color:#6f625b;font-size:10px;margin-top:4px}
+    .tbk-col-ref .delivery{display:flex;align-items:center;justify-content:space-between;gap:20px;background:#f8eee4;border-radius:7px;padding:15px 20px;margin:0 0 30px}.tbk-col-ref .delivery b{font-size:13px}.tbk-col-ref .delivery span{font-size:11px;color:#6d625c}.tbk-col-ref .delivery a{border:1px solid #c97570;color:#a95753;padding:9px 15px;border-radius:4px;font-size:10px;font-weight:700;text-transform:uppercase;white-space:nowrap}
+    .tbk-col-ref .info{display:grid;grid-template-columns:1fr 1fr;gap:30px;background:#f9f0e7;border:1px solid #eadccc;border-radius:8px;padding:24px;margin-bottom:30px}.tbk-col-ref .info h2{font-family:Georgia,serif;font-size:21px;font-weight:500;margin:0 0 10px}.tbk-col-ref .info p{font-size:12px;line-height:1.7;color:#655b55;margin:0 0 10px}.tbk-col-ref .checks{padding:0;margin:10px 0 0;list-style:none}.tbk-col-ref .checks li{font-size:11px;margin:7px 0;color:#514841}.tbk-col-ref .checks li:before{content:'✓';color:#b38b4c;font-weight:700;margin-right:7px}
+    .tbk-col-ref .faq{border-left:1px solid #dfd1c2;padding-left:24px}.tbk-col-ref details{border-bottom:1px solid #dfd1c2;padding:11px 0}.tbk-col-ref summary{font-size:12px;font-weight:600;cursor:pointer;list-style:none}.tbk-col-ref summary::-webkit-details-marker{display:none}.tbk-col-ref details p{margin:8px 0 0;font-size:11px}
+    .tbk-col-ref .trust{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;border-top:1px solid var(--line);padding:20px 0 28px;margin-top:18px}.tbk-col-ref .trust div{text-align:center}.tbk-col-ref .trust b{display:block;font-size:12px}.tbk-col-ref .trust span{display:block;font-size:10px;color:#6f645e;margin-top:4px}
+    @media(max-width:900px){.tbk-col-ref .hero-copy{padding:55px 28px}.tbk-col-ref h1{font-size:40px}.tbk-col-ref .cat-grid{grid-template-columns:repeat(3,1fr)}.tbk-col-ref .products{grid-template-columns:repeat(3,1fr)}.tbk-col-ref .benefits{grid-template-columns:repeat(2,1fr)}.tbk-col-ref .benefit:nth-child(2){border-right:0}.tbk-col-ref .benefit:nth-child(-n+3){border-bottom:1px solid #e5d5c4}.tbk-col-ref .info{grid-template-columns:1fr}.tbk-col-ref .faq{border-left:0;border-top:1px solid #dfd1c2;padding:20px 0 0}.tbk-col-ref .trust{grid-template-columns:repeat(3,1fr)}}
+    @media(max-width:600px){.tbk-col-ref .wrap{padding:0 12px}.tbk-col-ref .hero{min-height:430px;margin-bottom:20px}.tbk-col-ref .hero-media{height:100%}.tbk-col-ref .hero-overlay{background:linear-gradient(180deg,rgba(251,245,237,.72) 0%,rgba(251,245,237,.92) 58%,rgba(251,245,237,.98) 100%)}.tbk-col-ref .hero-copy{padding:42px 20px 30px;max-width:100%}.tbk-col-ref h1{font-size:34px}.tbk-col-ref .hero-copy p{font-size:14px}.tbk-col-ref .mini-usps{grid-template-columns:repeat(2,1fr);gap:9px}.tbk-col-ref .cat-grid{grid-template-columns:repeat(2,1fr);gap:9px}.tbk-col-ref .products{grid-template-columns:repeat(2,1fr);gap:9px}.tbk-col-ref .section-title{font-size:20px;margin:26px 0 14px}.tbk-col-ref .benefits{grid-template-columns:1fr;margin:20px 0}.tbk-col-ref .benefit,.tbk-col-ref .benefit:nth-child(2){border-right:0;border-bottom:1px solid #e5d5c4}.tbk-col-ref .benefit:last-child{border-bottom:0}.tbk-col-ref .delivery{align-items:flex-start;flex-direction:column;padding:14px}.tbk-col-ref .delivery a{width:100%;text-align:center}.tbk-col-ref .info{padding:18px}.tbk-col-ref .trust{grid-template-columns:repeat(2,1fr);gap:16px}.tbk-col-ref .cat-card strong{font-size:11px}.tbk-col-ref .product-title{font-size:12px}}
+  </style>
+
+  <div class="hero">
+    {% if hero_image != blank %}<div class="hero-media"><img src="{{ hero_image | image_url: width: 1800 }}" alt="{{ collection.title | escape }} - The Baking Kaur" loading="eager"></div>{% endif %}
+    <div class="hero-overlay"></div>
+    <div class="hero-copy">
+      <div class="eyebrow">The Baking Kaur · Meerut</div>
+      <h1>{{ display_title | escape }}</h1>
+      <p>Freshly baked, 100% eggless creations made with love. Choose your favourite design and order for same-day delivery across Meerut.</p>
+      <a class="cta" href="#tbk-products">Explore Collection</a>
+      <div class="mini-usps"><div><span>♧</span>100% Eggless</div><div><span>♨</span>Freshly Baked</div><div><span>♧</span>Custom Made</div><div><span>◷</span>Same-Day Delivery</div></div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <h2 class="section-title">Explore Our Collections</h2>
+    <div class="cat-grid">
+      {% for handle in related_list %}{% assign rel = collections[handle] %}{% if rel != blank and rel.handle != collection.handle and rel.image != blank %}<a class="cat-card" href="{{ rel.url }}"><img src="{{ rel.image | image_url: width: 600 }}" alt="{{ rel.title | escape }}" loading="lazy"><div class="cat-copy"><strong>{{ rel.title | truncate: 32 }}</strong><small>Explore →</small></div></a>{% endif %}{% endfor %}
+    </div>
+
+    <h2 class="section-title" id="tbk-products">Bestselling {{ collection.title | truncate: 45 }}</h2>
+    {% if collection.products_count > 0 %}<div class="products">{% for product in collection.products limit: 5 %}<a class="product-card" href="{{ product.url }}"><img src="{{ product.featured_image | image_url: width: 700 }}" alt="{{ product.title | escape }}" loading="lazy"><div class="product-copy"><div class="product-title">{{ product.title | escape }}</div><div class="price">From {{ product.price | money }}</div><span class="product-btn">Select Options</span></div></a>{% endfor %}</div>{% endif %}
+
+    <div class="benefits"><div class="benefit"><b>◷ Midnight Delivery</b><span>Delivering smiles even after 12 AM</span></div><div class="benefit"><b>◷ Late Night Delivery</b><span>Available for late-night surprises</span></div><div class="benefit"><b>♡ Surprise Delivery</b><span>We keep it a secret</span></div><div class="benefit"><b>▱ Same-Day Delivery</b><span>Express 2–4 hour delivery in Meerut</span></div><div class="benefit"><b>▱ Delivery Across Meerut</b><span>Fast & reliable local delivery</span></div></div>
+
+    <div class="delivery"><div><b>Order by 5 PM for Same-Day Delivery</b><br><span>Midnight & late-night delivery available on advance confirmation.</span></div><a href="/pages/delivery-availability">Check Delivery Availability</a></div>
+
+    <div class="info"><div><h2>{{ collection.title | escape }} in Meerut</h2><p>At The Baking Kaur, every order is prepared fresh with premium ingredients and careful finishing. We offer custom designs, doorstep delivery and surprise delivery options across Meerut.</p><ul class="checks"><li>100% Eggless & Pure Vegetarian</li><li>Freshly Baked to Order</li><li>Custom Designs & Personalization</li><li>Same-Day, Late Night & Midnight Delivery</li><li>Doorstep Delivery Across Meerut</li></ul></div><div class="faq"><h2>Frequently Asked Questions</h2><details><summary>How can I order from this collection?</summary><p>Choose a product, select the available options and place your order online. You can also contact us for custom requirements.</p></details><details><summary>Do you offer same-day delivery?</summary><p>Yes. Same-day delivery is available in selected Meerut areas, subject to preparation time and slot availability.</p></details><details><summary>Do you offer late-night or midnight delivery?</summary><p>Yes. Late-night and midnight surprise delivery is available on advance confirmation and selected slots.</p></details><details><summary>Are your products 100% eggless?</summary><p>Yes. The Baking Kaur is a 100% eggless bakery.</p></details><details><summary>Can I customize the design?</summary><p>Yes. Share your preferred design, message, colour or theme and our team can guide you.</p></details></div></div>
+
+    <h2 class="section-title">You May Also Like</h2>
+    <div class="cat-grid">{% for handle in related_list %}{% assign rel = collections[handle] %}{% if rel != blank and rel.handle != collection.handle and rel.image != blank %}<a class="cat-card" href="{{ rel.url }}"><img src="{{ rel.image | image_url: width: 600 }}" alt="{{ rel.title | escape }}" loading="lazy"><div class="cat-copy"><strong>{{ rel.title | truncate: 30 }}</strong><small>Explore →</small></div></a>{% endif %}{% endfor %}</div>
+
+    <div class="trust"><div><b>10,000+</b><span>Happy Customers</span></div><div><b>4.8 ★</b><span>Google Rating</span></div><div><b>100%</b><span>Secure Payments</span></div><div><b>✓</b><span>Hygienic Preparation</span></div><div><b>♡</b><span>Made With Love</span></div></div>
+  </div>
+</section>

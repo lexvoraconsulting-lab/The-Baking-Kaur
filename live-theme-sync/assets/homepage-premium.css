@@ -1,0 +1,316 @@
+/* HOMEPAGE PREMIUM REDESIGN CSS
+   TBK — The Baking Kaur Luxury Homepage
+   Scoped to homepage sections only
+   Last Updated: 2026-08-13
+*/
+
+/* ========================================================================
+   SECTION 1: HERO (custom_liquid_Jk7Yjj)
+   ======================================================================== */
+
+.shopify-section:has(.custom-liquid-hero) {
+  background: #fdfaf8;
+  padding: 60px 20px !important;
+}
+
+/* ========================================================================
+   SECTION 2: TRUST STRIP (icon_box_JfJQBV)
+   ======================================================================== */
+
+/* Make trust strip horizontal and compact on desktop */
+.shopify-section:has(.hdt-icon-box) .hdt-icon-box {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  justify-content: center !important;
+  gap: 12px !important;
+  padding: 40px 20px !important;
+  background: #fdfaf8;
+}
+
+.shopify-section:has(.hdt-icon-box) .hdt-icon-box .hdt-product-form_value {
+  flex: 0 1 auto !important;
+  width: auto !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+  padding: 10px 16px !important;
+  background: #f8f4f2;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 500;
+  color: #3a1020;
+}
+
+/* ========================================================================
+   SECTION 3: SHOP BY OCCASION (categories_section_m9EMCJ)
+   ======================================================================== */
+
+/* Premium category tiles */
+.shopify-section:has(.categories-section) .hdt-product-form_value {
+  aspect-ratio: 1 !important;
+  overflow: hidden !important;
+  border-radius: 12px !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08) !important;
+  transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+}
+
+.shopify-section:has(.categories-section) .hdt-product-form_value:hover {
+  transform: translateY(-4px) !important;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12) !important;
+}
+
+.shopify-section:has(.categories-section) .hdt-product-form_value img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+}
+
+.shopify-section:has(.categories-section) .hdt-product-form_value .hdt-product-form__label {
+  position: absolute !important;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.4), transparent) !important;
+  padding: 16px !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  color: white !important;
+}
+
+/* Desktop: 5 columns */
+@media (min-width: 1200px) {
+  .shopify-section:has(.categories-section) .hdt-product-form_value {
+    flex: 0 1 calc(20% - 12px) !important;
+  }
+}
+
+/* Tablet: 3 columns */
+@media (min-width: 768px) and (max-width: 1199px) {
+  .shopify-section:has(.categories-section) .hdt-product-form_value {
+    flex: 0 1 calc(33.333% - 12px) !important;
+  }
+}
+
+/* Mobile: 2 columns */
+@media (max-width: 767px) {
+  .shopify-section:has(.categories-section) .hdt-product-form_value {
+    flex: 0 1 calc(50% - 6px) !important;
+  }
+}
+
+/* ========================================================================
+   SECTION 4: BEST SELLERS (featured_collection_carousel_U8Ld6m)
+   ======================================================================== */
+
+/* Consistent product card styling */
+.shopify-section:has(.featured-collection-carousel) .product-card {
+  border-radius: 12px !important;
+  overflow: hidden !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08) !important;
+  transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+}
+
+.shopify-section:has(.featured-collection-carousel) .product-card:hover {
+  transform: translateY(-4px) !important;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12) !important;
+}
+
+.shopify-section:has(.featured-collection-carousel) .product-card img {
+  aspect-ratio: 1 !important;
+  object-fit: cover !important;
+  width: 100% !important;
+}
+
+/* ========================================================================
+   SECTION 8: CELEBRATION SERVICES (banner_qfQbew)
+   ======================================================================== */
+
+/* Asymmetric service grid */
+.shopify-section:has(.banner-section) {
+  padding: 60px 20px !important;
+  background: #fdfaf8;
+}
+
+.shopify-section:has(.banner-section) .banner-item {
+  border-radius: 12px !important;
+  overflow: hidden !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08) !important;
+  transition: transform 0.3s ease !important;
+}
+
+.shopify-section:has(.banner-section) .banner-item:hover {
+  transform: translateY(-4px) !important;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12) !important;
+}
+
+/* Desktop: 2 featured (larger) + 4 secondary (smaller) */
+@media (min-width: 1024px) {
+  .shopify-section:has(.banner-section) .banner-wrapper {
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 20px !important;
+  }
+
+  .shopify-section:has(.banner-section) .banner-item:nth-child(1),
+  .shopify-section:has(.banner-section) .banner-item:nth-child(2) {
+    grid-column: span 2 !important;
+    min-height: 300px !important;
+  }
+
+  .shopify-section:has(.banner-section) .banner-item:nth-child(n+3) {
+    min-height: 160px !important;
+  }
+}
+
+/* Mobile: Stack vertically */
+@media (max-width: 1023px) {
+  .shopify-section:has(.banner-section) .banner-wrapper {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 16px !important;
+  }
+
+  .shopify-section:has(.banner-section) .banner-item {
+    min-height: 200px !important;
+  }
+}
+
+/* ========================================================================
+   GLOBAL HOMEPAGE SPACING & RHYTHM
+   ======================================================================== */
+
+/* Consistent section spacing */
+.shopify-section {
+  margin: 0 !important;
+}
+
+.shopify-section + .shopify-section {
+  margin-top: 80px !important;
+}
+
+@media (max-width: 767px) {
+  .shopify-section + .shopify-section {
+    margin-top: 60px !important;
+  }
+}
+
+/* ========================================================================
+   TYPOGRAPHY & HIERARCHY
+   ======================================================================== */
+
+/* Consistent heading styles */
+.shopify-section h2 {
+  font-size: 36px !important;
+  font-weight: 700 !important;
+  color: #6a003c !important;
+  line-height: 1.2 !important;
+  margin-bottom: 16px !important;
+}
+
+.shopify-section .section-eyebrow {
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  letter-spacing: 1px !important;
+  text-transform: uppercase !important;
+  color: #c01457 !important;
+  margin-bottom: 8px !important;
+}
+
+.shopify-section .section-subheading {
+  font-size: 16px !important;
+  font-weight: 400 !important;
+  color: #666 !important;
+  line-height: 1.6 !important;
+  margin-bottom: 32px !important;
+}
+
+@media (max-width: 767px) {
+  .shopify-section h2 {
+    font-size: 28px !important;
+  }
+}
+
+/* ========================================================================
+   BUTTONS & CTAs
+   ======================================================================== */
+
+.homepage-cta {
+  display: inline-block;
+  padding: 14px 32px;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.homepage-cta.primary {
+  background: #6a003c;
+  color: white;
+}
+
+.homepage-cta.primary:hover {
+  background: #4a0028;
+  transform: translateY(-2px);
+}
+
+.homepage-cta.secondary {
+  background: #25D366;
+  color: white;
+}
+
+.homepage-cta.secondary:hover {
+  background: #1fae52;
+  transform: translateY(-2px);
+}
+
+/* ========================================================================
+   IMAGES & MEDIA
+   ======================================================================== */
+
+.homepage-section-image {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ========================================================================
+   RESPONSIVE UTILITIES
+   ======================================================================== */
+
+@media (max-width: 767px) {
+  /* Reduce padding on mobile */
+  .shopify-section {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+
+  /* Stack two-column layouts on mobile */
+  .homepage-two-column {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  .homepage-two-column > * {
+    width: 100% !important;
+    margin-bottom: 32px !important;
+  }
+}
+
+/* ========================================================================
+   ACCESSIBILITY
+   ======================================================================== */
+
+.homepage-cta:focus,
+.shopify-section a:focus {
+  outline: 2px solid #c01457;
+  outline-offset: 2px;
+}
+
+/* ========================================================================
+   END HOMEPAGE PREMIUM CSS
+   ======================================================================== */

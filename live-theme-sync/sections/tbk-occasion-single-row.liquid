@@ -1,0 +1,21 @@
+<style>
+/* TBK Shop by Occasion — MOBILE: 3 premium cards visible + horizontal scroll for additional collections. Full artwork is contained, never cropped. */
+@media(max-width:749px){
+.tbk-art .tbk-sec:has(.tbk-grid.six){padding:14px 10px 18px!important;text-align:center!important;overflow:visible!important}
+.tbk-art .tbk-sec:has(.tbk-grid.six)>h2{font-size:23px!important;line-height:1.1!important;margin:0 0 12px!important;padding-top:5px!important;color:#6f173f!important}
+.tbk-art .tbk-grid.six{display:flex!important;flex-wrap:nowrap!important;gap:9px!important;width:100%!important;overflow-x:auto!important;overflow-y:hidden!important;scroll-snap-type:x mandatory!important;scrollbar-width:none!important;-webkit-overflow-scrolling:touch!important;padding:0 1px 4px!important}
+.tbk-art .tbk-grid.six::-webkit-scrollbar{display:none!important}
+.tbk-art .tbk-grid.six .tbk-card{display:block!important;flex:0 0 calc((100% - 18px)/3)!important;width:calc((100% - 18px)/3)!important;min-width:calc((100% - 18px)/3)!important;height:auto!important;aspect-ratio:2/3!important;padding:0!important;margin:0!important;background-color:#fff!important;border:1px solid #ead6da!important;border-radius:12px!important;overflow:hidden!important;box-shadow:0 2px 9px rgba(91,45,57,.08)!important;background-position:center!important;background-size:contain!important;background-repeat:no-repeat!important;scroll-snap-align:start!important}
+.tbk-art .tbk-grid.six .tbk-card img,.tbk-art .tbk-grid.six .tbk-card b{display:none!important}
+.tbk-art .tbk-grid.six .tbk-card:nth-child(1){background-image:url('https://cdn.shopify.com/s/files/1/0667/9930/4873/files/tbk-occasion-birthday-collection.jpg?v=1786791097')!important}
+.tbk-art .tbk-grid.six .tbk-card:nth-child(2){background-image:url('https://cdn.shopify.com/s/files/1/0667/9930/4873/files/tbk-occasion-anniversary-collection.jpg?v=1786791116')!important}
+.tbk-art .tbk-grid.six .tbk-card:nth-child(3){background-image:url('https://cdn.shopify.com/s/files/1/0667/9930/4873/files/tbk-occasion-wedding-collection.jpg?v=1786791131')!important}
+.tbk-art .tbk-grid.six .tbk-card:nth-child(4){background-image:url('https://cdn.shopify.com/s/files/1/0667/9930/4873/files/tbk-occasion-theme-cakes-collection.jpg?v=1786791144')!important}
+.tbk-art .tbk-grid.six .tbk-card:nth-child(5){background-image:url('https://cdn.shopify.com/s/files/1/0667/9930/4873/files/tbk-occasion-hampers-collection.jpg?v=1786791157')!important}
+.tbk-art .tbk-grid.six .tbk-card:nth-child(n+6){display:none!important}
+.tbk-art .tbk-sec:has(.tbk-grid.six) .tbk-outline{display:block!important;margin:11px auto 0!important;padding:7px 14px!important;font-size:10px!important;line-height:1.1!important;border-radius:999px!important}
+}
+@media(max-width:380px){.tbk-art .tbk-grid.six{gap:7px!important}.tbk-art .tbk-grid.six .tbk-card{flex-basis:calc((100% - 14px)/3)!important;min-width:calc((100% - 14px)/3)!important;width:calc((100% - 14px)/3)!important}}
+</style>
+<script>(function(){var r=document.querySelector('[data-tbk-art]');if(!r)return;var c=r.querySelectorAll('.tbk-grid.six .tbk-card');var map=[['/collections/birthday-cakes','Birthday'],['/collections/anniversary-cakes','Anniversary'],['/collections/wedding-cakes','Wedding'],['/collections/designer-theme-cakes','Theme Cakes'],['/collections/cake-hampers','Hampers']];map.forEach(function(x,i){if(c[i]){c[i].href=x[0];var b=c[i].querySelector('b');if(b)b.textContent=x[1]}});})();</script>
+{% schema %}{"name":"Occasion Single Row","settings":[],"presets":[{"name":"Occasion Single Row"}]}{% endschema %}

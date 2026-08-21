@@ -1,0 +1,24 @@
+{% comment %} TBK Occasion V2 — ONE actual hero image per collection, no carousel. {% endcomment %}
+{% assign tbk_handle = collection.handle %}
+{% assign tbk_hero = blank %}
+{% assign tbk_alt = collection.title | append: ' in Meerut — The Baking Kaur' %}
+{% case tbk_handle %}
+  {% when 'birthday-cakes' %}{% assign tbk_hero = 'https://cdn.shopify.com/s/files/1/0667/9930/4873/files/tbk-birthday-collection.jpg?v=1787081306' %}
+  {% when 'anniversary-cakes' %}{% assign tbk_hero = 'https://cdn.shopify.com/s/files/1/0667/9930/4873/files/tbk-anniversary-collection.jpg?v=1787081332' %}
+  {% when 'wedding-cakes' %}{% assign tbk_hero = 'https://cdn.shopify.com/s/files/1/0667/9930/4873/files/tbk-wedding-collection.jpg?v=1787081293' %}
+  {% when 'cake-hampers' %}{% assign tbk_hero = 'https://cdn.shopify.com/s/files/1/0667/9930/4873/files/tbk-balloons-hampers-collection.jpg?v=1787081279' %}
+  {% when 'rakhi-raksha-bandhan-collection-in-meerut' %}{% assign tbk_hero = 'https://cdn.shopify.com/s/files/1/0667/9930/4873/files/raksha-bandhan-collection-meerut-hero.png?v=1787065822' %}
+  {% when 'designer-theme-cakes' %}{% assign tbk_hero = 'https://cdn.shopify.com/s/files/1/0667/9930/4873/files/tbk-designer-cakes-collection.jpg?v=1787081253' %}
+  {% when 'kids-birthday-cakes-meerut' %}{% assign tbk_hero = 'https://cdn.shopify.com/s/files/1/0667/9930/4873/files/tbk-theme-kids-collection.jpg?v=1787081226' %}
+  {% when 'balloons' %}{% assign tbk_hero = 'https://cdn.shopify.com/s/files/1/0667/9930/4873/files/tbk-balloons-collection.jpg?v=1787081239' %}
+  {% when 'cakes-balloons' %}{% assign tbk_hero = 'https://cdn.shopify.com/s/files/1/0667/9930/4873/files/tbk-cakes-balloons-collection.jpg?v=1787081319' %}
+{% endcase %}
+{% if tbk_hero != blank %}
+<section class="tbk-occasion-hero" aria-label="{{ tbk_alt | escape }}">
+  <img src="{{ tbk_hero }}" alt="{{ tbk_alt | escape }}" loading="eager" fetchpriority="high" width="1600" height="900">
+</section>
+<style>
+.tbk-occasion-hero{width:100%;margin:0 auto 28px;overflow:hidden;border-radius:0 0 18px 18px;background:#f8f1ef}.tbk-occasion-hero img{display:block;width:100%;height:auto;max-width:none}@media(max-width:749px){.tbk-occasion-hero{margin-bottom:18px;border-radius:0}.tbk-occasion-hero img{min-height:320px;object-fit:cover;object-position:center}}
+</style>
+{% endif %}
+{% schema %}{"name":"TBK Occasion V2","settings":[],"presets":[{"name":"TBK Occasion V2"}]}{% endschema %}

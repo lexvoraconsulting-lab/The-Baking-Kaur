@@ -1,0 +1,72 @@
+{% comment %}
+  TBK Occasion Carousel — shared premium hero for occasion collections.
+  Uses one image per slide to prevent duplicate/stacked hero rendering.
+{% endcomment %}
+
+{% assign tbk_handle = collection.handle %}
+{% assign tbk_show = false %}
+
+{% case tbk_handle %}
+  {% when 'birthday-cakes', 'anniversary-cakes', 'wedding-cakes', 'cake-hampers', 'rakhi-raksha-bandhan-collection-in-meerut', 'designer-theme-cakes', 'kids-birthday-cakes-meerut', 'balloons', 'cakes-balloons' %}
+    {% assign tbk_show = true %}
+{% endcase %}
+
+{% if tbk_show %}
+<section class="tbk-occasion-carousel" data-tbk-occasion-carousel data-collection="{{ tbk_handle }}">
+  <div class="tbk-occasion-carousel__viewport">
+    <div class="tbk-occasion-carousel__track">
+      {% case tbk_handle %}
+        {% when 'birthday-cakes' %}
+          <a class="tbk-occasion-carousel__slide is-active" href="{{ collection.url }}"><img src="https://cdn.shopify.com/s/files/1/0667/9930/4873/files/tbk-birthday-collection.jpg?v=1787081306" alt="Birthday Collection in Meerut — The Baking Kaur" loading="eager"></a>
+          <a class="tbk-occasion-carousel__slide" href="{{ collection.url }}"><img src="https://cdn.shopify.com/s/files/1/0667/9930/4873/files/tbk-cakes-balloons-collection.jpg?v=1787081319" alt="Cakes and Balloons for Birthday Celebrations in Meerut" loading="lazy"></a>
+          <a class="tbk-occasion-carousel__slide" href="{{ collection.url }}"><img src="https://cdn.shopify.com/s/files/1/0667/9930/4873/files/tbk-midnight-surprises.jpg?v=1787081265" alt="Midnight Birthday Surprises in Meerut — The Baking Kaur" loading="lazy"></a>
+        {% when 'anniversary-cakes' %}
+          <a class="tbk-occasion-carousel__slide is-active" href="{{ collection.url }}"><img src="https://cdn.shopify.com/s/files/1/0667/9930/4873/files/tbk-anniversary-collection.jpg?v=1787081332" alt="Anniversary Collection in Meerut — The Baking Kaur" loading="eager"></a>
+          <a class="tbk-occasion-carousel__slide" href="{{ collection.url }}"><img src="https://cdn.shopify.com/s/files/1/0667/9930/4873/files/tbk-cakes-balloons-collection.jpg?v=1787081319" alt="Anniversary Cakes and Balloons in Meerut" loading="lazy"></a>
+          <a class="tbk-occasion-carousel__slide" href="{{ collection.url }}"><img src="https://cdn.shopify.com/s/files/1/0667/9930/4873/files/tbk-midnight-surprises.jpg?v=1787081265" alt="Midnight Anniversary Surprise in Meerut" loading="lazy"></a>
+        {% when 'wedding-cakes' %}
+          <a class="tbk-occasion-carousel__slide is-active" href="{{ collection.url }}"><img src="https://cdn.shopify.com/s/files/1/0667/9930/4873/files/tbk-wedding-collection.jpg?v=1787081293" alt="Wedding Collection in Meerut — The Baking Kaur" loading="eager"></a>
+          <a class="tbk-occasion-carousel__slide" href="{{ collection.url }}"><img src="https://cdn.shopify.com/s/files/1/0667/9930/4873/files/tbk-designer-cakes-collection.jpg?v=1787081253" alt="Designer Wedding Cakes in Meerut" loading="lazy"></a>
+          <a class="tbk-occasion-carousel__slide" href="{{ collection.url }}"><img src="https://cdn.shopify.com/s/files/1/0667/9930/4873/files/tbk-cakes-balloons-collection.jpg?v=1787081319" alt="Wedding Cakes and Celebration Balloons in Meerut" loading="lazy"></a>
+        {% when 'cake-hampers' %}
+          <a class="tbk-occasion-carousel__slide is-active" href="{{ collection.url }}"><img src="https://cdn.shopify.com/s/files/1/0667/9930/4873/files/tbk-balloons-hampers-collection.jpg?v=1787081279" alt="Balloons and Hampers Collection in Meerut — The Baking Kaur" loading="eager"></a>
+          <a class="tbk-occasion-carousel__slide" href="{{ collection.url }}"><img src="https://cdn.shopify.com/s/files/1/0667/9930/4873/files/tbk-balloons-collection.jpg?v=1787081239" alt="Premium Balloons Collection in Meerut" loading="lazy"></a>
+          <a class="tbk-occasion-carousel__slide" href="{{ collection.url }}"><img src="https://cdn.shopify.com/s/files/1/0667/9930/4873/files/tbk-midnight-surprises.jpg?v=1787081265" alt="Midnight Gift and Hamper Surprises in Meerut" loading="lazy"></a>
+        {% when 'rakhi-raksha-bandhan-collection-in-meerut' %}
+          <a class="tbk-occasion-carousel__slide is-active" href="{{ collection.url }}"><img src="https://cdn.shopify.com/s/files/1/0667/9930/4873/files/raksha-bandhan-collection-meerut-hero.png?v=1787065822" alt="Rakhi and Raksha Bandhan Gifts in Meerut — The Baking Kaur" loading="eager"></a>
+          <a class="tbk-occasion-carousel__slide" href="{{ collection.url }}"><img src="https://cdn.shopify.com/s/files/1/0667/9930/4873/files/raksha-bandhan-collection-meerut-hero.jpg?v=1787066210" alt="Happy Raksha Bandhan Gifts and Hampers in Meerut" loading="lazy"></a>
+          <a class="tbk-occasion-carousel__slide" href="{{ collection.url }}"><img src="https://cdn.shopify.com/s/files/1/0667/9930/4873/files/choco-vanilla-bro-cake-n-evil-eye-rakhi--cake4049choc-b.jpg?v=1740509955" alt="Rakhi Cake Gift in Meerut — The Baking Kaur" loading="lazy"></a>
+        {% when 'designer-theme-cakes' %}
+          <a class="tbk-occasion-carousel__slide is-active" href="{{ collection.url }}"><img src="https://cdn.shopify.com/s/files/1/0667/9930/4873/files/tbk-designer-cakes-collection.jpg?v=1787081253" alt="Designer Cakes Collection in Meerut — The Baking Kaur" loading="eager"></a>
+          <a class="tbk-occasion-carousel__slide" href="{{ collection.url }}"><img src="https://cdn.shopify.com/s/files/1/0667/9930/4873/files/tbk-theme-kids-collection.jpg?v=1787081226" alt="Kids Theme Cake Collection in Meerut" loading="lazy"></a>
+          <a class="tbk-occasion-carousel__slide" href="{{ collection.url }}"><img src="https://cdn.shopify.com/s/files/1/0667/9930/4873/files/tbk-cakes-balloons-collection.jpg?v=1787081319" alt="Cakes and Balloons Collection in Meerut" loading="lazy"></a>
+        {% when 'kids-birthday-cakes-meerut' %}
+          <a class="tbk-occasion-carousel__slide is-active" href="{{ collection.url }}"><img src="https://cdn.shopify.com/s/files/1/0667/9930/4873/files/tbk-theme-kids-collection.jpg?v=1787081226" alt="Kids Theme Cake Collection in Meerut — The Baking Kaur" loading="eager"></a>
+          <a class="tbk-occasion-carousel__slide" href="{{ collection.url }}"><img src="https://cdn.shopify.com/s/files/1/0667/9930/4873/files/tbk-birthday-collection.jpg?v=1787081306" alt="Birthday Cake Collection in Meerut" loading="lazy"></a>
+          <a class="tbk-occasion-carousel__slide" href="{{ collection.url }}"><img src="https://cdn.shopify.com/s/files/1/0667/9930/4873/files/tbk-cakes-balloons-collection.jpg?v=1787081319" alt="Kids Birthday Cakes and Balloons in Meerut" loading="lazy"></a>
+        {% when 'balloons' %}
+          <a class="tbk-occasion-carousel__slide is-active" href="{{ collection.url }}"><img src="https://cdn.shopify.com/s/files/1/0667/9930/4873/files/tbk-balloons-collection.jpg?v=1787081239" alt="Balloons Collection in Meerut — The Baking Kaur" loading="eager"></a>
+          <a class="tbk-occasion-carousel__slide" href="{{ collection.url }}"><img src="https://cdn.shopify.com/s/files/1/0667/9930/4873/files/tbk-balloons-hampers-collection.jpg?v=1787081279" alt="Balloons and Hampers Collection in Meerut" loading="lazy"></a>
+          <a class="tbk-occasion-carousel__slide" href="{{ collection.url }}"><img src="https://cdn.shopify.com/s/files/1/0667/9930/4873/files/tbk-cakes-balloons-collection.jpg?v=1787081319" alt="Cakes and Balloons Collection in Meerut" loading="lazy"></a>
+        {% when 'cakes-balloons' %}
+          <a class="tbk-occasion-carousel__slide is-active" href="{{ collection.url }}"><img src="https://cdn.shopify.com/s/files/1/0667/9930/4873/files/tbk-cakes-balloons-collection.jpg?v=1787081319" alt="Cakes and Balloons Collection in Meerut — The Baking Kaur" loading="eager"></a>
+          <a class="tbk-occasion-carousel__slide" href="{{ collection.url }}"><img src="https://cdn.shopify.com/s/files/1/0667/9930/4873/files/tbk-birthday-collection.jpg?v=1787081306" alt="Birthday Cake Collection in Meerut" loading="lazy"></a>
+          <a class="tbk-occasion-carousel__slide" href="{{ collection.url }}"><img src="https://cdn.shopify.com/s/files/1/0667/9930/4873/files/tbk-balloons-collection.jpg?v=1787081239" alt="Balloons Collection in Meerut" loading="lazy"></a>
+      {% endcase %}
+    </div>
+    <button type="button" class="tbk-occasion-carousel__arrow tbk-occasion-carousel__arrow--prev" aria-label="Previous image">‹</button>
+    <button type="button" class="tbk-occasion-carousel__arrow tbk-occasion-carousel__arrow--next" aria-label="Next image">›</button>
+    <div class="tbk-occasion-carousel__dots" aria-label="Carousel navigation"></div>
+  </div>
+</section>
+<style>
+  .tbk-occasion-carousel{width:100%;margin:0 auto 28px;padding:0}.tbk-occasion-carousel__viewport{position:relative;overflow:hidden;width:100%;border-radius:0 0 18px 18px;background:#f8f1ef}.tbk-occasion-carousel__track{position:relative;width:100%;aspect-ratio:1600/900}.tbk-occasion-carousel__slide{position:absolute;inset:0;display:block;opacity:0;visibility:hidden;transition:opacity .45s ease;z-index:0}.tbk-occasion-carousel__slide.is-active{opacity:1;visibility:visible;z-index:1}.tbk-occasion-carousel__slide img{display:block;width:100%;height:100%;object-fit:cover}.tbk-occasion-carousel__arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:4;width:42px;height:42px;border:0;border-radius:50%;background:rgba(255,255,255,.92);color:#7b2349;box-shadow:0 4px 18px rgba(0,0,0,.12);font-size:30px;line-height:1;cursor:pointer}.tbk-occasion-carousel__arrow--prev{left:18px}.tbk-occasion-carousel__arrow--next{right:18px}.tbk-occasion-carousel__dots{position:absolute;z-index:5;left:50%;bottom:14px;transform:translateX(-50%);display:flex;gap:7px}.tbk-occasion-carousel__dot{width:9px;height:9px;padding:0;border:0;border-radius:50%;background:rgba(255,255,255,.72);box-shadow:0 1px 5px rgba(0,0,0,.18);cursor:pointer}.tbk-occasion-carousel__dot.is-active{width:24px;border-radius:10px;background:#c51f63}@media(max-width:749px){.tbk-occasion-carousel{margin-bottom:18px}.tbk-occasion-carousel__track{aspect-ratio:1/1}.tbk-occasion-carousel__slide img{object-fit:cover;object-position:center}.tbk-occasion-carousel__arrow{width:34px;height:34px;font-size:24px}.tbk-occasion-carousel__arrow--prev{left:10px}.tbk-occasion-carousel__arrow--next{right:10px}}
+</style>
+<script>
+(()=>{const init=root=>{if(!root||root.dataset.initialized==='true')return;root.dataset.initialized='true';const slides=[...root.querySelectorAll('.tbk-occasion-carousel__slide')],dotsWrap=root.querySelector('.tbk-occasion-carousel__dots'),prev=root.querySelector('.tbk-occasion-carousel__arrow--prev'),next=root.querySelector('.tbk-occasion-carousel__arrow--next');if(slides.length<2)return;let index=0,timer;const dots=slides.map((_,i)=>{const dot=document.createElement('button');dot.type='button';dot.className='tbk-occasion-carousel__dot'+(i===0?' is-active':'');dot.setAttribute('aria-label',`Go to image ${i+1}`);dot.addEventListener('click',()=>{index=i;render();restart()});dotsWrap.appendChild(dot);return dot});const render=()=>{slides.forEach((s,i)=>s.classList.toggle('is-active',i===index));dots.forEach((d,i)=>d.classList.toggle('is-active',i===index))};const move=d=>{index=(index+d+slides.length)%slides.length;render()};const restart=()=>{clearInterval(timer);timer=setInterval(()=>move(1),5000)};prev.addEventListener('click',()=>{move(-1);restart()});next.addEventListener('click',()=>{move(1);restart()});let startX=0;root.addEventListener('touchstart',e=>{startX=e.touches[0].clientX},{passive:true});root.addEventListener('touchend',e=>{const diff=e.changedTouches[0].clientX-startX;if(Math.abs(diff)>45){move(diff>0?-1:1);restart()}},{passive:true});render();restart()};document.querySelectorAll('[data-tbk-occasion-carousel]').forEach(init);document.addEventListener('shopify:section:load',e=>{const root=e.target.querySelector?.('[data-tbk-occasion-carousel]');if(root)init(root)})})();
+</script>
+{% endif %}
+
+{% schema %}
+{"name":"TBK Occasion Carousel","settings":[]}
+{% endschema %}
