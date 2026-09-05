@@ -13,14 +13,16 @@ tools-script/
 └── win/
     ├── tbk-menu.bat                # 1-Click launcher for Windows
     ├── tbk_cli.py                  # Master interactive console CLI (Python)
-    ├── theme_dev.ps1               # Shopify theme dev server runner (Preview theme #151370334377)
-    ├── theme_check.ps1             # Theme Liquid & JSON code health check
-    ├── theme_deploy_preview.ps1    # Deploy changes to Preview theme
-    ├── theme_deploy_live.ps1       # Guarded single-file live deploy with diff protocol (#151307485353)
-    ├── pdm_governance.ps1          # 12-point conformance audit runner
-    ├── pdm_tasks.ps1               # ProjectOps v2 task workflow runner
-    ├── seo_ops.ps1                 # Shopify Admin GraphQL ops (Dry-Run & Apply)
-    ├── ai_vision.ps1               # AI Cake Genome & Vision test harness
+    ├── theme_dev_server.py         # Intelligent theme dev server controller & auto-resolver
+    ├── theme_dev.bat               # Dev server launcher (Batch)
+    ├── theme_dev.ps1               # Dev server launcher (PowerShell, Preview theme #152070258857)
+    ├── theme_check.bat / .ps1      # Theme Liquid & JSON code health check
+    ├── theme_deploy_preview.bat    # Deploy changes to Preview theme (#152070258857)
+    ├── theme_deploy_live.bat       # Guarded single-file live deploy with diff protocol (#152071602345)
+    ├── pdm_governance.bat / .ps1   # 12-point conformance audit runner
+    ├── pdm_tasks.bat / .ps1        # ProjectOps v2 task workflow runner
+    ├── seo_ops.bat / .ps1          # Shopify Admin GraphQL ops (Dry-Run & Apply)
+    ├── ai_vision.bat / .ps1        # AI Cake Genome & Vision test harness
     ├── build_packager.py           # Compiles versioned theme packages into build/vX.Y.Z/
     └── release_manager.py          # Publishes structured releases into releases/v<Major>/v<Minor>/
 ```

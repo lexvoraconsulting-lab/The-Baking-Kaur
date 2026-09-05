@@ -167,18 +167,10 @@ class TBKConsoleCLI:
     # --- Subsystem Handlers ---
 
     def handle_theme_dev(self) -> None:
-        print("\n\033[94m▶ Launching Shopify Theme Development Server...\033[0m")
-        print("\033[90mStore: ae86ba-2a.myshopify.com | Directory: tbk-spfy-theme\033[0m")
-        print("\033[92mLocal Preview URL: http://127.0.0.1:9292\033[0m")
-        print("\033[90m(Press Ctrl+C inside the server to terminate and return to menu)\033[0m\n")
-        shopify_bin = resolve_executable("shopify")
+        dev_server_py = self.repo_root / "tools-script" / "win" / "theme_dev_server.py"
         try:
             subprocess.run(
-                [
-                    shopify_bin, "theme", "dev",
-                    "--store", "ae86ba-2a.myshopify.com",
-                    "--path", "tbk-spfy-theme"
-                ],
+                [sys.executable, str(dev_server_py)],
                 cwd=str(self.repo_root),
                 env=self.env,
             )

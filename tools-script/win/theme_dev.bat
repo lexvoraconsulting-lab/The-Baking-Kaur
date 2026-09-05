@@ -1,35 +1,24 @@
 @echo off
 setlocal
-cd /d %~dp0\..\..
-title The Baking Kaur ? Theme Dev Server
+cd /d "%~dp0\..\.."
+title The Baking Kaur -- Theme Dev Server
 
-set THEME_ID=151370334377
-set STORE=ae86ba-2a.myshopify.com
-
-echo ==========================================================
-echo  Starting Shopify Theme Local Development Server...
-echo  Store: %STORE%
-echo  Theme Directory: tbk-spfy-theme
-echo  Local Preview will be at: http://127.0.0.1:9292
-echo  (Press Ctrl+C to stop the server when finished)
-echo ==========================================================
-
-set "SHOPIFY_CMD=%APPDATA%\npm\shopify.cmd"
-if not exist "%SHOPIFY_CMD%" (
-    where shopify >nul 2>nul
+set "PYTHON_EXE=F:\frameworks\Python314\python.exe"
+if not exist "%PYTHON_EXE%" (
+    where python >nul 2>nul
     if %ERRORLEVEL% equ 0 (
-        set "SHOPIFY_CMD=shopify"
+        set "PYTHON_EXE=python"
     ) else (
-        echo [ERROR] Shopify CLI was not found.
-        pause
+        echo [ERROR] Python was not found at F:\frameworks\Python314 or in PATH.
+        if "%TBK_NO_PAUSE%"=="" pause
         exit /b 1
     )
 )
 
-call "%SHOPIFY_CMD%" theme dev --store %STORE% --path tbk-spfy-theme %*
+"%PYTHON_EXE%" tools-script\win\theme_dev_server.py %*
 if %ERRORLEVEL% neq 0 (
     echo.
     echo [ERROR] Theme dev server exited with code %ERRORLEVEL%.
-    pause
+    if "%TBK_NO_PAUSE%"=="" pause
 )
 endlocal

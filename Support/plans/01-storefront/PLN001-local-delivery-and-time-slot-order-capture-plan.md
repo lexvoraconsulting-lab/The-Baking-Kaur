@@ -29,7 +29,7 @@ The studio operates locally in Meerut (~15 km radius, ₹350 minimum order) deli
 - [ ] `SLOT-01.02` Deploy `snippets/bk-datetime.liquid` into local theme repository.
 - [ ] `SLOT-01.03` Connect `{% render 'bk-datetime' %}` into `"custom_liquid_4rGhVM"` within `templates/product.json`.
 - [ ] `SLOT-01.04` Validate line-item properties (`properties[Delivery Date]`, `properties[Time Slot]`, `properties[Cake Message]`) on product form submission.
-- [ ] `SLOT-01.05` Deploy scoped changes to preview theme `#151370334377` and verify zero visual regression on protected product page.
+- [ ] `SLOT-01.05` Deploy scoped changes to preview theme `#152070258857` and verify zero visual regression on protected product page.
 - [ ] `SLOT-01.06` Confirm properties display in cart drawer, checkout order summary, and Shopify Admin order details.
 
 ## Footer Navigation

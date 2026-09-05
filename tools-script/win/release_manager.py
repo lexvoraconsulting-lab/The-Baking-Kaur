@@ -133,7 +133,7 @@ def create_release(
 ## Verification & Deployment
 To verify and deploy this release:
 1. Validate checksum: `Get-FileHash {release_zip.name} -Algorithm SHA256`
-2. Deploy to Preview Theme: `shopify theme push --store ae86ba-2a.myshopify.com --theme 151370334377`
+2. Deploy to Preview Theme: `shopify theme push --store ae86ba-2a.myshopify.com --theme 152070258857`
 """
     notes_path.write_text(release_notes_content, encoding="utf-8")
 

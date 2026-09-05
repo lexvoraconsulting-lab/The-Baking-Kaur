@@ -1,6 +1,6 @@
-# Deploy Changes to Preview Theme (#151370334377)
+# Deploy Changes to Preview Theme (#152070258857)
 param (
-    [string]$ThemeId = "151370334377",
+    [string]$ThemeId = "152070258857",
     [string]$Store = "ae86ba-2a.myshopify.com"
 )
 

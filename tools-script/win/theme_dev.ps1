@@ -1,19 +1,35 @@
-# Theme Development Server Launcher
+# Theme Development Server Launcher (Intelligent Theme Resolver)
 param (
-    [string]$ThemeId = "151370334377",
-    [string]$Store = "ae86ba-2a.myshopify.com"
+    [string]$ThemeId = "152070258857",
+    [string]$Store = "ae86ba-2a.myshopify.com",
+    [switch]$Sync,
+    [switch]$ListThemes,
+    [int]$Port = 9292
 )
 
 $RepoRoot = Resolve-Path "$PSScriptRoot\..\.."
 Set-Location $RepoRoot
 
-Write-Host "==========================================================" -ForegroundColor Cyan
-Write-Host " Starting Shopify Theme Local Development Server..." -ForegroundColor Yellow
-Write-Host " Target Preview Theme: #$ThemeId on $Store" -ForegroundColor Gray
-Write-Host " Theme Directory: tbk-spfy-theme" -ForegroundColor Gray
-Write-Host " Local Preview will be available at: http://127.0.0.1:9292" -ForegroundColor Green
-Write-Host " (Press Ctrl+C to stop the server when finished)" -ForegroundColor Gray
-Write-Host "==========================================================" -ForegroundColor Cyan
+$pythonExe = "F:\frameworks\Python314\python.exe"
+if (-not (Test-Path $pythonExe)) {
+    $pythonCmd = Get-Command python.exe -ErrorAction SilentlyContinue
+    if ($pythonCmd) {
+        $pythonExe = $pythonCmd.Source
+    } else {
+        Write-Host "[ERROR] Python was not found at F:\frameworks\Python314 or in PATH." -ForegroundColor Red
+        exit 1
+    }
+}
 
-shopify theme dev --store $Store --theme $ThemeId --path tbk-spfy-theme
+$pyArgs = @("$PSScriptRoot\theme_dev_server.py")
+if ($ListThemes) {
+    $pyArgs += "--list-themes"
+} else {
+    if ($ThemeId) { $pyArgs += @("--theme", $ThemeId) }
+    if ($Sync) { $pyArgs += "--sync" }
+    if ($Port) { $pyArgs += @("--port", $Port) }
+}
+if ($args) { $pyArgs += $args }
+
+& $pythonExe $pyArgs
 
