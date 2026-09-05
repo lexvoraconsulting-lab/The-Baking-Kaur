@@ -11,3 +11,4 @@ if (-not (Test-Path $pythonExe)) {
 }
 
 & $pythonExe "$PSScriptRoot\tools-script\win\tbk_cli.py" $args
+

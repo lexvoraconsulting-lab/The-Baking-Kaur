@@ -12,13 +12,43 @@ import shutil
 import subprocess
 import sys
 import time
+import traceback
 from pathlib import Path
+
+# Enable ANSI escape sequences on Windows console
+if os.name == "nt":
+    os.system("")
 
 if sys.stdout and hasattr(sys.stdout, "reconfigure"):
     try:
         sys.stdout.reconfigure(encoding="utf-8", errors="replace")
     except Exception:
         pass
+
+
+def resolve_executable(name: str) -> str:
+    """Locate executable path, resolving .cmd/.bat extensions on Windows."""
+    resolved = shutil.which(name)
+    if resolved:
+        return resolved
+
+    # Check common Windows npm global tools directory
+    appdata = os.environ.get("APPDATA", "")
+    if appdata:
+        npm_cmd = Path(appdata) / "npm" / f"{name}.cmd"
+        if npm_cmd.exists():
+            return str(npm_cmd)
+        npm_bat = Path(appdata) / "npm" / f"{name}.bat"
+        if npm_bat.exists():
+            return str(npm_bat)
+
+    # Check Python Scripts directory
+    python_dir = Path(sys.executable).parent
+    script_tool = python_dir / "Scripts" / f"{name}.exe"
+    if script_tool.exists():
+        return str(script_tool)
+
+    return name
 
 
 class SessionLogger:
@@ -38,6 +68,7 @@ class SessionLogger:
             f"=== The Baking Kaur — Operations Session Log ===\n"
             f"Session Started: {datetime.datetime.now().isoformat()}\n"
             f"Repository: {self.repo_root}\n"
+            f"Python: {sys.executable}\n"
             f"=================================================\n\n"
         )
         self.session_log_path.write_text(header, encoding="utf-8")
@@ -50,9 +81,12 @@ class SessionLogger:
             pass
 
     def log(self, message: str) -> None:
-        with open(self.session_log_path, "a", encoding="utf-8", errors="replace") as f:
-            f.write(f"[{datetime.datetime.now().strftime('%H:%M:%S')}] {message}\n")
-        self.update_latest_pointer()
+        try:
+            with open(self.session_log_path, "a", encoding="utf-8", errors="replace") as f:
+                f.write(f"[{datetime.datetime.now().strftime('%H:%M:%S')}] {message}\n")
+            self.update_latest_pointer()
+        except Exception:
+            pass
 
 
 class TBKConsoleCLI:
@@ -64,9 +98,17 @@ class TBKConsoleCLI:
         self.logger = SessionLogger(repo_root)
         self.pdm_bin = Path(r"F:\GitRepos\LXC-AI-Skills\skills\projectops-v2\bin\pdm")
 
+        # Build clean execution environment with PYTHONPATH
+        self.env = os.environ.copy()
+        ai_dir = str(repo_root / "tbk-spfy-ai")
+        seo_dir = str(repo_root / "tbk-spfy-seo" / "ops")
+        root_dir = str(repo_root)
+        existing_pypath = self.env.get("PYTHONPATH", "")
+        self.env["PYTHONPATH"] = f"{root_dir};{ai_dir};{seo_dir}" + (f";{existing_pypath}" if existing_pypath else "")
+        self.env["PYTHONIOENCODING"] = "utf-8"
+
     def print_banner(self) -> None:
-        os.system("cls" if os.name == "nt" else "clear")
-        print("\033[93m" + "╔" + "═" * 70 + "╗")
+        print("\n\033[93m" + "╔" + "═" * 70 + "╗")
         print("║" + "       THE BAKING KAUR — MASTER OPERATIONS HUB".center(70) + "║")
         print("║" + "        100% Eggless Luxury Cake Studio · Meerut".center(70) + "║")
         print("╚" + "═" * 70 + "╝" + "\033[0m")
@@ -78,10 +120,14 @@ class TBKConsoleCLI:
         self.logger.log(f"COMMAND START: {' '.join(cmd)}")
 
         working_dir = cwd or self.repo_root
+        resolved_cmd = list(cmd)
+        resolved_cmd[0] = resolve_executable(resolved_cmd[0])
+
         try:
             process = subprocess.Popen(
-                cmd,
+                resolved_cmd,
                 cwd=str(working_dir),
+                env=self.env,
                 stdout=subprocess.PIPE,
                 stderr=subprocess.STDOUT,
                 text=True,
@@ -103,14 +149,14 @@ class TBKConsoleCLI:
                 return True
             else:
                 print("\r\033[91m✖  " + f"{title} [Failed with code {exit_code}]\033[0m")
-                print("\033[93m  Last lines from output:\033[0m")
-                for err_line in output_lines[-5:]:
+                print("\033[93m  Last output lines:\033[0m")
+                for err_line in output_lines[-6:]:
                     print(f"    \033[90m{err_line.strip()}\033[0m")
-                print(f"  \033[90mDetailed log available in: logs/latest_session.log\033[0m")
+                print(f"  \033[90mFull transcript recorded in: logs/latest_session.log\033[0m")
                 return False
         except Exception as ex:
             print("\r\033[91m✖  " + f"{title} [Error: {ex}]\033[0m")
-            self.logger.log(f"EXCEPTION: {ex}")
+            self.logger.log(f"EXCEPTION: {ex}\n{traceback.format_exc()}")
             return False
 
     def pause(self) -> None:
@@ -125,27 +171,34 @@ class TBKConsoleCLI:
         print("\033[90mTarget: Preview Theme #151370334377 on ae86ba-2a.myshopify.com\033[0m")
         print("\033[92mLocal Preview URL: http://127.0.0.1:9292\033[0m")
         print("\033[90m(Press Ctrl+C inside the server to terminate and return to menu)\033[0m\n")
-        subprocess.run(
-            [
-                "shopify", "theme", "dev",
-                "--store", "ae86ba-2a.myshopify.com",
-                "--theme", "151370334377",
-                "--path", "tbk-spfy-theme"
-            ],
-            cwd=str(self.repo_root)
-        )
+        shopify_bin = resolve_executable("shopify")
+        try:
+            subprocess.run(
+                [
+                    shopify_bin, "theme", "dev",
+                    "--store", "ae86ba-2a.myshopify.com",
+                    "--theme", "151370334377",
+                    "--path", "tbk-spfy-theme"
+                ],
+                cwd=str(self.repo_root),
+                env=self.env,
+            )
+        except Exception as ex:
+            print(f"\033[91mError launching theme dev server: {ex}\033[0m")
         self.pause()
 
     def handle_theme_check(self) -> None:
         print("\n\033[94m▶ Running Theme Linter & Code Health Check...\033[0m")
-        self.run_clean_step("Analyzing theme Liquid & JSON files", ["shopify", "theme", "check", "tbk-spfy-theme"])
+        shopify_bin = resolve_executable("shopify")
+        self.run_clean_step("Analyzing theme Liquid & JSON files", [shopify_bin, "theme", "check", "tbk-spfy-theme"])
         self.pause()
 
     def handle_theme_deploy_preview(self) -> None:
         print("\n\033[94m▶ Deploying to Preview Theme (#151370334377)...\033[0m")
+        shopify_bin = resolve_executable("shopify")
         success = self.run_clean_step(
             "Pushing theme code to Preview Theme #151370334377",
-            ["shopify", "theme", "push", "--store", "ae86ba-2a.myshopify.com", "--theme", "151370334377", "--path", "tbk-spfy-theme"]
+            [shopify_bin, "theme", "push", "--store", "ae86ba-2a.myshopify.com", "--theme", "151370334377", "--path", "tbk-spfy-theme"]
         )
         if success:
             print("\033[92m✔ Preview is ready: https://ae86ba-2a.myshopify.com/?preview_theme_id=151370334377\033[0m")
@@ -161,7 +214,7 @@ class TBKConsoleCLI:
 
     def handle_pdm_context(self) -> None:
         print("\n\033[94m▶ Checking Project Context & Active Delivery Tasks...\033[0m")
-        subprocess.run([sys.executable, str(self.pdm_bin), "context", "check"], cwd=str(self.repo_root))
+        subprocess.run([sys.executable, str(self.pdm_bin), "context", "check"], cwd=str(self.repo_root), env=self.env)
         self.pause()
 
     def handle_task_workflow(self) -> None:
@@ -200,15 +253,11 @@ class TBKConsoleCLI:
         )
         self.pause()
 
-    def handle_ai_vision(self) -> None:
-        print("\n\033[94m▶ Running AI Cake Genome & Vision Pipeline Tests...\033[0m")
+    def handle_tests(self) -> None:
+        print("\n\033[94m▶ Running Complete Test Suite (AI Vision + SEO Ops)...\033[0m")
         self.run_clean_step(
-            "Executing vision pipeline test harness",
-            [sys.executable, "-m", "unittest", "tbk-spfy-ai/ai/vision/python/test_vision.py"]
-        )
-        self.run_clean_step(
-            "Validating cake taxonomy & attributes",
-            [sys.executable, "-m", "unittest", "tbk-spfy-ai/ai/taxonomy/test_taxonomy.py"]
+            "Executing full pytest suite (233 tests)",
+            [sys.executable, "-m", "pytest", "-q"]
         )
         self.pause()
 
@@ -247,76 +296,81 @@ class TBKConsoleCLI:
         while True:
             self.print_banner()
             print("\033[97m[1] Storefront & Theme Operations\033[0m")
-            print("    1.1  Start Local Dev Server (Live Preview on #151370334377)")
-            print("    1.2  Run Theme Code Health Check (Linter)")
-            print("    1.3  Deploy to Preview Theme (#151370334377)")
-            print("    1.4  Deploy Single File to Live Theme (#151307485353) [Diff Protocol]")
+            print("     1.  Start Local Dev Server (Live Preview on #151370334377)")
+            print("     2.  Run Theme Code Health Check (Linter)")
+            print("     3.  Deploy to Preview Theme (#151370334377)")
+            print("     4.  Deploy Single File to Live Theme (#151307485353) [Diff Protocol]")
             print()
             print("\033[97m[2] Governance & Tasks (ProjectOps v2)\033[0m")
-            print("    2.1  Run 12-Point Conformance Audit")
-            print("    2.2  View Project Context & Task Summary")
-            print("    2.3  Manage Tasks (Start / Complete tasks)")
-            print("    2.4  Create Clean Git Governance Checkpoint")
+            print("     5.  Run 12-Point Conformance Audit")
+            print("     6.  View Project Context & Task Summary")
+            print("     7.  Manage Tasks (Start / Complete tasks)")
+            print("     8.  Create Clean Git Governance Checkpoint")
             print()
             print("\033[97m[3] Store Automation & SEO Operations\033[0m")
-            print("    3.1  Run SEO Title & Snippets (Safe Dry-Run Preview)")
-            print("    3.2  Apply SEO Snippet Fixes to Live Store")
+            print("     9.  Run SEO Title & Snippets (Safe Dry-Run Preview)")
+            print("    10.  Apply SEO Snippet Fixes to Live Store")
             print()
-            print("\033[97m[4] AI Cake Genome & Vision Pipeline\033[0m")
-            print("    4.1  Run Vision & Taxonomy Test Harness")
+            print("\033[97m[4] AI Cake Genome & Test Suite\033[0m")
+            print("    11.  Run Full Test Suite (pytest: AI Vision + SEO Ops)")
             print()
             print("\033[97m[5] Build & Release Management\033[0m")
-            print("    5.1  Package Versioned Theme Build (build/vX.Y.Z/)")
-            print("    5.2  Publish Major/Minor Release (releases/v<Major>/v<Minor>/)")
+            print("    12.  Package Versioned Theme Build (build/vX.Y.Z/)")
+            print("    13.  Publish Major/Minor Release (releases/v<Major>/v<Minor>/)")
             print()
-            print("\033[97m[L] View Current Session Log Summary\033[0m")
-            print("\033[91m[0] Exit\033[0m")
+            print("\033[97m    [L]  View Current Session Log Summary\033[0m")
+            print("\033[91m    [0]  Exit\033[0m")
             print("─" * 72)
 
             if self.test_mode:
                 print("Test mode enabled. Exiting menu loop.")
                 break
 
-            choice = input("\033[93mSelect option: \033[0m").strip().lower()
+            try:
+                choice = input("\033[93mSelect option [1-13, L, 0]: \033[0m").strip().lower()
+            except (KeyboardInterrupt, EOFError):
+                print("\n\033[92mExiting. Goodbye!\033[0m\n")
+                break
 
-            if choice == "0" or choice == "exit" or choice == "q":
+            if choice in ("0", "exit", "q"):
                 print("\n\033[92mExiting The Baking Kaur Operations Hub. Goodbye!\033[0m\n")
                 break
-            elif choice in ("1.1", "11"):
+            elif choice in ("1", "1.1", "11"):
                 self.handle_theme_dev()
-            elif choice in ("1.2", "12"):
+            elif choice in ("2", "1.2", "12"):
                 self.handle_theme_check()
-            elif choice in ("1.3", "13"):
+            elif choice in ("3", "1.3", "13"):
                 self.handle_theme_deploy_preview()
-            elif choice in ("1.4", "14"):
+            elif choice in ("4", "1.4", "14"):
                 file_to_deploy = input("Enter theme file relative path (e.g. sections/bk-trust-strip.liquid): ").strip()
                 if file_to_deploy:
                     deploy_script = self.repo_root / "tools-script" / "win" / "theme_deploy_live.ps1"
-                    subprocess.run(["powershell", "-ExecutionPolicy", "Bypass", "-File", str(deploy_script), "-File", file_to_deploy])
+                    ps_exe = resolve_executable("powershell")
+                    subprocess.run([ps_exe, "-ExecutionPolicy", "Bypass", "-File", str(deploy_script), "-File", file_to_deploy])
                     self.pause()
-            elif choice in ("2.1", "21"):
+            elif choice in ("5", "2.1", "21"):
                 self.handle_pdm_audit()
-            elif choice in ("2.2", "22"):
+            elif choice in ("6", "2.2", "22"):
                 self.handle_pdm_context()
-            elif choice in ("2.3", "23"):
+            elif choice in ("7", "2.3", "23"):
                 self.handle_task_workflow()
-            elif choice in ("2.4", "24"):
+            elif choice in ("8", "2.4", "24"):
                 self.handle_pdm_checkpoint()
-            elif choice in ("3.1", "31"):
+            elif choice in ("9", "3.1", "31"):
                 self.handle_seo_ops(apply_mode=False)
-            elif choice in ("3.2", "32"):
+            elif choice in ("10", "3.2", "32"):
                 self.handle_seo_ops(apply_mode=True)
-            elif choice in ("4.1", "41"):
-                self.handle_ai_vision()
-            elif choice in ("5.1", "51"):
+            elif choice in ("11", "4.1", "41"):
+                self.handle_tests()
+            elif choice in ("12", "5.1", "51"):
                 self.handle_build()
-            elif choice in ("5.2", "52"):
+            elif choice in ("13", "5.2", "52"):
                 self.handle_release()
-            elif choice == "l":
+            elif choice in ("l", "log", "logs"):
                 self.handle_view_log()
             else:
-                print("\n\033[91mInvalid selection. Please choose an option from the menu.\033[0m")
-                time.sleep(1)
+                print(f"\n\033[91mInvalid selection '{choice}'. Please choose a number from 1 to 13, L, or 0.\033[0m")
+                time.sleep(1.5)
 
 
 def main() -> None:
@@ -330,4 +384,9 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except Exception as ex:
+        print(f"\n[FATAL ERROR] An unexpected error occurred: {ex}")
+        traceback.print_exc()
+        input("\nPress Enter to close window...")
