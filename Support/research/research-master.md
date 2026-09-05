@@ -13,6 +13,7 @@ Unsettled investigation, options, spikes, and external references.
 | 1 | [`RSH_20260906_A`](./RSH_20260906_A_theme_performance_budget_ecomus.md) | Theme Performance Budget & Ecomus Optimization | `Exploring` |
 | 2 | [`RSH_20260906_B`](./RSH_20260906_B_vision_ai_pipeline_processing_latency.md) | Vision AI Pipeline Processing Latency & Throughput | `Exploring` |
 | 3 | [`RSH_20260906_C`](./RSH_20260906_C_localbusiness_precision_geo_coordinates.md) | LocalBusiness Precision Geo Coordinates & NAP Authority | `Exploring` |
+| 4 | [`RSH_20260906_D`](./RSH_20260906_D_developer_toolchain_centralized_runtime_and_console_ux.md) | Developer Toolchain Architecture, Centralized Runtime Isolation & Console Visual Ergonomics | `Exploring` |
 
 ## Footer Navigation
 

@@ -16,7 +16,8 @@ Index all committed delivery plans for `The-Baking-Kaur`.
 | 2 | [`02-operations/PLN002-verified-trust-framework-and-localbusiness-schema-plan.md`](./02-operations/PLN002-verified-trust-framework-and-localbusiness-schema-plan.md) | `TRST` | 6 | 6 | 0 | 0 | Active |
 | 3 | [`01-storefront/PLN003-homepage-editorial-rebuild-s1-s8-plan.md`](./01-storefront/PLN003-homepage-editorial-rebuild-s1-s8-plan.md) | `HOME` | 7 | 0 | 0 | 7 | Active |
 | 4 | [`03-ai-intelligence/PLN004-ai-cake-genome-and-vision-intelligence-pipeline-plan.md`](./03-ai-intelligence/PLN004-ai-cake-genome-and-vision-intelligence-pipeline-plan.md) | `CGV` | 6 | 6 | 0 | 0 | Active |
-| 5 | Total | — | **25** | **18** | **0** | **7** | Active |
+| 5 | [`02-operations/PLN005-developer-toolchain-and-master-operations-console-plan.md`](./02-operations/PLN005-developer-toolchain-and-master-operations-console-plan.md) | `TOOL` | 8 | 0 | 0 | 8 | Active |
+| 6 | Total | — | **33** | **18** | **0** | **15** | Active |
 
 ## Footer Navigation
 

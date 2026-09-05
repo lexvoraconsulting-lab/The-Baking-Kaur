@@ -1,7 +1,8 @@
 @echo off
+@chcp 65001 >nul
 setlocal
 cd /d "%~dp0\..\.."
-title The Baking Kaur — Operations Hub
+title The Baking Kaur — Atelier Operations Hub
 
 set "PYTHON_EXE=F:\frameworks\Python314\python.exe"
 if not exist "%PYTHON_EXE%" (
