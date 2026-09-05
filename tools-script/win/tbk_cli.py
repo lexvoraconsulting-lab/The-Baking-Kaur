@@ -344,9 +344,8 @@ class TBKConsoleCLI:
             elif choice in ("4", "1.4", "14"):
                 file_to_deploy = input("Enter theme file relative path (e.g. sections/bk-trust-strip.liquid): ").strip()
                 if file_to_deploy:
-                    deploy_script = self.repo_root / "tools-script" / "win" / "theme_deploy_live.ps1"
-                    ps_exe = resolve_executable("powershell")
-                    subprocess.run([ps_exe, "-ExecutionPolicy", "Bypass", "-File", str(deploy_script), "-File", file_to_deploy])
+                    deploy_script = self.repo_root / "tools-script" / "win" / "theme_deploy_live.bat"
+                    subprocess.run(["cmd.exe", "/c", str(deploy_script), file_to_deploy])
                     self.pause()
             elif choice in ("5", "2.1", "21"):
                 self.handle_pdm_audit()
