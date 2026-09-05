@@ -8,17 +8,17 @@ set STORE=ae86ba-2a.myshopify.com
 
 echo ==========================================================
 echo  Starting Shopify Theme Local Development Server...
-echo  Target Preview Theme: #%THEME_ID% on %STORE%
+echo  Store: %STORE%
 echo  Theme Directory: tbk-spfy-theme
 echo  Local Preview will be at: http://127.0.0.1:9292
 echo  (Press Ctrl+C to stop the server when finished)
 echo ==========================================================
 
-set SHOPIFY_CMD=%APPDATA%\npm\shopify.cmd
-if not exist %SHOPIFY_CMD% (
+set "SHOPIFY_CMD=%APPDATA%\npm\shopify.cmd"
+if not exist "%SHOPIFY_CMD%" (
     where shopify >nul 2>nul
     if %ERRORLEVEL% equ 0 (
-        set SHOPIFY_CMD=shopify
+        set "SHOPIFY_CMD=shopify"
     ) else (
         echo [ERROR] Shopify CLI was not found.
         pause
@@ -26,7 +26,7 @@ if not exist %SHOPIFY_CMD% (
     )
 )
 
-call %SHOPIFY_CMD% theme dev --store %STORE% --theme %THEME_ID% --path tbk-spfy-theme
+call "%SHOPIFY_CMD%" theme dev --store %STORE% --path tbk-spfy-theme %*
 if %ERRORLEVEL% neq 0 (
     echo.
     echo [ERROR] Theme dev server exited with code %ERRORLEVEL%.

@@ -40,17 +40,17 @@
 ## 5. Deployment, Staging & Verification Rules
 
 1. **Value Gate:** No change ships unless it measurably improves ≥ 1 of: UX, trust, conversion, SEO, GEO, accessibility, performance, maintainability, or scalability. No purely cosmetic changes without business value.
-2. **Preview First:** All theme work must be built and validated on the preview theme (`colorful-composition` `#151370334377`) before proposing live deployment.
+2. **Preview First:** All theme work must be built and validated on the preview theme (`#152070258857` or development theme `#152228004009`) before proposing live deployment.
 3. **Surgical Deploy Protocol:**
-   - Step 1: Pull live copy of the file from live theme `#151307485353` to a temp path and diff against local:
+   - Step 1: Pull live copy of the file from live theme `#152071602345` (or previous live `#151307485353`) to a temp path and diff against local:
      ```bash
-     shopify theme pull --theme 151307485353 --store ae86ba-2a.myshopify.com --only sections/<file>.liquid --path <tmp> --force
+     shopify theme pull --theme 152071602345 --store ae86ba-2a.myshopify.com --only sections/<file>.liquid --path <tmp> --force
      ```
    - Step 2: Push only that specific file to the live theme:
      ```bash
-     shopify theme push --theme 151307485353 --store ae86ba-2a.myshopify.com --only sections/<file>.liquid --allow-live --force
+     shopify theme push --theme 152071602345 --store ae86ba-2a.myshopify.com --only sections/<file>.liquid --allow-live --force
      ```
-4. **Bypass Cache on Verification:** Shopify CDN serves a full-page cache; verify live pushes with `?preview_theme_id=151307485353` and a cache-buster query parameter before declaring live verification complete.
+4. **Bypass Cache on Verification:** Shopify CDN serves a full-page cache; verify live pushes with `?preview_theme_id=152071602345` and a cache-buster query parameter before declaring live verification complete.
 5. **Rollback Restore Points:** Keep `theme_files/BACKUP-live-product.json` and git commit restore points intact before making theme adjustments.
 6. **Lean Code Discipline (`ponytail`):** Avoid extraneous third-party JavaScript libraries or heavy slider plugins when native browser primitives (e.g., CSS scroll-snap) or Liquid features suffice.
 
@@ -63,4 +63,12 @@
 5. **Taxonomy is Authoritative:** Visual features must map onto controlled vocabularies and standardized Shopify Metafields.
 6. **Knowledge Graph as System of Record:** Downstream modules consume normalized Product Genome data, never raw AI vendor output directly.
 7. **AI Providers are Interchangeable:** No module may depend on a specific AI vendor. Swapping models must not require rewriting consumer modules.
+
+## 7. Framework & Environment Governance (`ENV_FRM_01`)
+
+1. **Centralized Framework Toolchain Root:** All language runtimes, interpreters, and framework installations (including Python, Node, etc.) reside strictly within the dedicated frameworks directory: `F:\frameworks\` (e.g., `F:\frameworks\Python314`). Ad-hoc runtime installations across random paths or scattered virtual environments in the repository are strictly prohibited.
+2. **Authoritative Environment Variable Mapping:** System and User-level environment variables (`PATH`, `PYTHON_HOME`, `PYTHONHOME`, `PYTHONPATH`) must point directly to `F:\frameworks\...`. Every agent and contributor must verify that execution environments resolve from `F:\frameworks\` prior to running tasks.
+3. **Repository Tooling Invariant:** Every script in `tools-script/win/`, batch launcher (`.bat`), PowerShell runner (`.ps1`), Makefile, and automation harness must prioritize and target `F:\frameworks\` as the primary runtime path before falling back to system defaults.
+4. **Dependency Integrity:** All project dependencies, PyTorch vision toolchains, transformers, pytest harnesses, and Admin API packages must be maintained directly within the centralized framework environment (`F:\frameworks\Python314\Lib\site-packages`).
+
 

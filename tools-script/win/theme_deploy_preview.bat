@@ -3,7 +3,7 @@ setlocal
 cd /d "%~dp0\..\.."
 title The Baking Kaur -- Deploy Preview Theme
 
-set "THEME_ID=151370334377"
+set "THEME_ID=152070258857"
 set "STORE=ae86ba-2a.myshopify.com"
 
 echo ==========================================================

@@ -168,7 +168,7 @@ class TBKConsoleCLI:
 
     def handle_theme_dev(self) -> None:
         print("\n\033[94m▶ Launching Shopify Theme Development Server...\033[0m")
-        print("\033[90mTarget: Preview Theme #151370334377 on ae86ba-2a.myshopify.com\033[0m")
+        print("\033[90mStore: ae86ba-2a.myshopify.com | Directory: tbk-spfy-theme\033[0m")
         print("\033[92mLocal Preview URL: http://127.0.0.1:9292\033[0m")
         print("\033[90m(Press Ctrl+C inside the server to terminate and return to menu)\033[0m\n")
         shopify_bin = resolve_executable("shopify")
@@ -177,7 +177,6 @@ class TBKConsoleCLI:
                 [
                     shopify_bin, "theme", "dev",
                     "--store", "ae86ba-2a.myshopify.com",
-                    "--theme", "151370334377",
                     "--path", "tbk-spfy-theme"
                 ],
                 cwd=str(self.repo_root),
@@ -194,14 +193,15 @@ class TBKConsoleCLI:
         self.pause()
 
     def handle_theme_deploy_preview(self) -> None:
-        print("\n\033[94m▶ Deploying to Preview Theme (#151370334377)...\033[0m")
+        preview_theme_id = "152070258857"
+        print(f"\n\033[94m▶ Deploying to Preview Theme (#{preview_theme_id})...\033[0m")
         shopify_bin = resolve_executable("shopify")
         success = self.run_clean_step(
-            "Pushing theme code to Preview Theme #151370334377",
-            [shopify_bin, "theme", "push", "--store", "ae86ba-2a.myshopify.com", "--theme", "151370334377", "--path", "tbk-spfy-theme"]
+            f"Pushing theme code to Preview Theme #{preview_theme_id}",
+            [shopify_bin, "theme", "push", "--store", "ae86ba-2a.myshopify.com", "--theme", preview_theme_id, "--path", "tbk-spfy-theme"]
         )
         if success:
-            print("\033[92m✔ Preview is ready: https://ae86ba-2a.myshopify.com/?preview_theme_id=151370334377\033[0m")
+            print(f"\033[92m✔ Preview is ready: https://ae86ba-2a.myshopify.com/?preview_theme_id={preview_theme_id}\033[0m")
         self.pause()
 
     def handle_pdm_audit(self) -> None:
@@ -296,9 +296,9 @@ class TBKConsoleCLI:
         while True:
             self.print_banner()
             print("\033[97m[1] Storefront & Theme Operations\033[0m")
-            print("     1.  Start Local Dev Server (Live Preview on #151370334377)")
+            print("     1.  Start Local Dev Server (Live Preview on 127.0.0.1:9292)")
             print("     2.  Run Theme Code Health Check (Linter)")
-            print("     3.  Deploy to Preview Theme (#151370334377)")
+            print("     3.  Deploy to Preview Theme (#152070258857)")
             print("     4.  Deploy Single File to Live Theme (#151307485353) [Diff Protocol]")
             print()
             print("\033[97m[2] Governance & Tasks (ProjectOps v2)\033[0m")
