@@ -1,0 +1,56 @@
+{{ 'baking-kaur.css' | asset_url | stylesheet_tag }}
+<section class="bk-wrap" style="padding-top: 48px; padding-bottom: 48px;">
+  <div class="bk-reviews" style="padding-top: 0;">
+    <div class="bk-reviews__head">
+      <h2 class="bk-reviews__title">{{ section.settings.heading }}</h2>
+      <div class="bk-reviews__meta">
+        <span class="bk-stars">★★★★★</span>
+        <strong>{{ section.settings.rating_value }}</strong>
+        <span class="bk-reviews__dot"></span>
+        <span>Based on {{ section.settings.rating_count }}</span>
+      </div>
+    </div>
+
+    <div class="bk-reviews__grid">
+      {%- for block in section.blocks -%}
+        <figure class="bk-review" {{ block.shopify_attributes }}>
+          <div class="bk-stars">★★★★★</div>
+          <blockquote>“{{ block.settings.text }}”</blockquote>
+          <figcaption>
+            <span class="bk-review__avatar">{{ block.settings.name | slice: 0 }}</span>
+            <span class="bk-review__name">{{ block.settings.name }}</span>
+            <span class="bk-review__verified">✓ Verified</span>
+          </figcaption>
+        </figure>
+      {%- endfor -%}
+    </div>
+
+    {%- if section.settings.reviews_url != blank -%}
+      <a class="bk-btn bk-btn--outline bk-reviews__all" href="{{ section.settings.reviews_url }}">View All Reviews ›</a>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "BK Reviews",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "What Our Customers Say" },
+    { "type": "text", "id": "rating_value", "label": "Rating value", "default": "4.8" },
+    { "type": "text", "id": "rating_count", "label": "Rating count", "default": "500+ Google Reviews" },
+    { "type": "url", "id": "reviews_url", "label": "View all reviews URL" }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        { "type": "text", "id": "name", "label": "Customer name", "default": "Neha Sharma" },
+        { "type": "textarea", "id": "text", "label": "Review text", "default": "The cake was absolutely amazing! Super fresh & beautifully designed." }
+      ]
+    }
+  ],
+  "presets": [{ "name": "BK Reviews", "blocks": [{ "type": "review" }, { "type": "review" }] }]
+}
+{% endschema %}

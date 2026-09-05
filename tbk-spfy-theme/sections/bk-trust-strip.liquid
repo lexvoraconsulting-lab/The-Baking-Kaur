@@ -1,0 +1,70 @@
+{{ 'baking-kaur.css' | asset_url | stylesheet_tag }}
+<section class="bk-wrap" style="padding-top: 24px; padding-bottom: 24px;">
+  <div class="bk-trust-strip" style="background: var(--tbk-surface-el); border-radius: var(--tbk-r-xl); border: 1px solid var(--tbk-border); box-shadow: var(--tbk-shadow-xs); padding: 22px 18px;">
+    {%- for block in section.blocks -%}
+      <div class="bk-trust-strip__item" {{ block.shopify_attributes }}>
+        <span class="bk-trust-strip__icon" style="display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 50%; background: var(--tbk-tint-1); flex-shrink: 0;">
+          {%- case block.settings.icon -%}
+            {%- when 'leaf' -%}
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2E5339" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
+            {%- when 'truck' -%}
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C01457" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="6" width="13" height="11" rx="1.5"/><path d="M14 9h4l3 3.5V17h-7z"/><circle cx="5.5" cy="18.5" r="1.8"/><circle cx="17" cy="18.5" r="1.8"/></svg>
+            {%- when 'star' -%}
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="#BF9B43"><path d="M12 2l2.9 6.3 6.9.6-5.2 4.6 1.6 6.8L12 17.3 5.8 20.9l1.6-6.8L2.2 8.9l6.9-.6z"/></svg>
+            {%- when 'shield' -%}
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C01457" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.4-2.9 8.3-7 9.5C7.9 19.3 5 15.4 5 11V6z"/><path d="M9.5 12l2 2 3.5-4"/></svg>
+            {%- else -%}
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C01457" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16v-7H4z"/><path d="M4 13c0-2 2-3 4-3s2 1 4 1 2-1 4-1 4 1 4 3"/><path d="M12 6v3"/></svg>
+          {%- endcase -%}
+        </span>
+        <div>
+          <div class="bk-trust-strip__title" style="font-family: var(--tbk-font-ui); font-size: 14px; font-weight: 700; color: var(--tbk-ink);">{{ block.settings.title }}</div>
+          <div class="bk-trust-strip__sub" style="font-family: var(--tbk-font-ui); font-size: 12px; color: var(--tbk-muted); margin-top: 2px;">{{ block.settings.subtitle }}</div>
+        </div>
+      </div>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "BK Trust Strip",
+  "tag": "section",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Trust item",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "default": "leaf",
+          "options": [
+            { "value": "leaf", "label": "Pure Eggless Leaf" },
+            { "value": "truck", "label": "Delivery Truck" },
+            { "value": "star", "label": "5-Star Rating" },
+            { "value": "shield", "label": "Shield Guarantee" },
+            { "value": "cake", "label": "Handcrafted Cake" }
+          ]
+        },
+        { "type": "text", "id": "title", "label": "Title", "default": "100% Pure Eggless" },
+        { "type": "text", "id": "subtitle", "label": "Subtitle", "default": "Made fresh in our Meerut atelier" }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    {
+      "name": "BK Trust Strip",
+      "blocks": [
+        { "type": "item", "settings": { "icon": "leaf", "title": "100% Pure Eggless", "subtitle": "Always vegetarian, freshly baked" } },
+        { "type": "item", "settings": { "icon": "truck", "title": "Same-Day Delivery", "subtitle": "Across Meerut city (15 km)" } },
+        { "type": "item", "settings": { "icon": "star", "title": "4.8★ Google Business", "subtitle": "Over 500+ verified 5★ reviews" } },
+        { "type": "item", "settings": { "icon": "shield", "title": "Finest Ingredients", "subtitle": "Belgian chocolate, pure dairy butter" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

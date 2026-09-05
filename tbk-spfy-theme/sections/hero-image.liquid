@@ -38,7 +38,29 @@
     endif
   endif
 -%}
-{%- style -%}#Image-{{section.id}}{ {% if image_height=='adapt_image' or image_height=='fixed' %}--aspect-ratioapt-md:{% if image_height=='fixed' %}{{section.settings.fixed_height}}px{% else %}{{hero_image.aspect_ratio | default:2}}{% endif %};{% endif %}{% if image_height_mb=='adapt_image' or image_height_mb=='fixed' %}--aspect-ratioapt:{% if image_height_mb=='fixed' %}{{section.settings.fixed_height_mb}}px{% else %}{{image_mb.aspect_ratio | default:2}}{% endif %};{% endif %}}#shopify-section-{{section.id}}{--section-pt:{{section.settings.padding_top}}px;--section-pb:{{section.settings.padding_bottom}}px;--section-prate:{{section.settings.padding_rate}}}{%- endstyle -%}
+{%- style -%}
+#Image-{{section.id}}{ {% if image_height=='adapt_image' or image_height=='fixed' %}--aspect-ratioapt-md:{% if image_height=='fixed' %}{{section.settings.fixed_height}}px{% else %}{{hero_image.aspect_ratio | default:2}}{% endif %};{% endif %}{% if image_height_mb=='adapt_image' or image_height_mb=='fixed' %}--aspect-ratioapt:{% if image_height_mb=='fixed' %}{{section.settings.fixed_height_mb}}px{% else %}{{image_mb.aspect_ratio | default:2}}{% endif %};{% endif %}}
+#shopify-section-{{section.id}}{--section-pt:{{section.settings.padding_top}}px;--section-pb:{{section.settings.padding_bottom}}px;--section-prate:{{section.settings.padding_rate}}}
+#Image-{{section.id}} .hdt-hero-image__heading {
+  font-family: var(--tbk-font-display), Georgia, serif !important;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.08;
+  color: var(--tbk-ink);
+}
+#Image-{{section.id}} .hdt-hero-image__button {
+  border-radius: var(--tbk-r-full) !important;
+  font-family: var(--tbk-font-ui), sans-serif;
+  letter-spacing: 0.05em;
+  font-weight: 700;
+  box-shadow: var(--tbk-shadow-sm);
+  transition: transform var(--tbk-dur-fast) var(--tbk-ease), box-shadow var(--tbk-dur-fast) var(--tbk-ease);
+}
+#Image-{{section.id}} .hdt-hero-image__button:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--tbk-glow-rose);
+}
+{%- endstyle -%}
 <div id="Image-{{ section.id }}" class="hdt-hero-image hdt-section-spacing md:hdt-height--{{ image_height }} hdt-height--{{ image_height_mb }}" color-scheme="{{ section.settings.color_scheme }}">
   <div class="{{ class}}">
     <hdt-effect-img eff="{% if section.settings.image_behavior == 'ambient' %}ambient{% endif %}" class="hdt-hero-image__inner hdt-animate--{{ section.settings.image_behavior }} hdt-hero-image__overlay--{{ section.settings.use_overlay }} hdt-media-overlap-content{% if section.settings.image_behavior == 'parallax' %} hdt-animate--parallax{% endif %} {{ rounded }}"{% if object_pos != blank %}{% assign class_object_mb = 'hdt-object-pos-mb' %} style="--object-pos-mb: {{ object_pos }}"{% endif %}>
@@ -82,7 +104,13 @@
                 {%- when 'heading' -%}
                   {%- if block.settings.heading != blank -%}<h2 class="hdt-hero-image__heading hdt-{{ block.settings.heading_fs }} hdt-font-{{ block.settings.heading_fw }} hdt-s-text">{{ block.settings.heading }}</h2>{%- endif -%}
                 {%- when 'text' -%}
-                  {%- if block.settings.text != blank -%}<div class="hdt-hero-image__text hdt-s-text2{% if block.settings.adding_border %} hdt-rte{% else %} hdt-tag-list{% endif %}">{{ block.settings.text }}</div>{%- endif -%}
+                  {%- if block.settings.text != blank -%}
+                    {%- if block.settings.text contains 'ATELIER' -%}
+                      <div class="hdt-hero-image__text" style="margin-bottom: 14px;"><span class="tbkx-pill tbkx-pill--gold">{{ block.settings.text | strip_html }}</span></div>
+                    {%- else -%}
+                      <div class="hdt-hero-image__text hdt-s-text2{% if block.settings.adding_border %} hdt-rte{% else %} hdt-tag-list{% endif %}">{{ block.settings.text }}</div>
+                    {%- endif -%}
+                  {%- endif -%}
                 {%- when 'button' -%}
                   {%- if block.settings.btn_label != blank -%}
                     <a hdt-reveal="slide-in" timeline {% if block.settings.btn_link == blank %}

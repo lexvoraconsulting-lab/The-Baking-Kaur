@@ -194,6 +194,40 @@
     color: var(--tbk-ink);
   }
 
+  .tbkx-pill--gold {
+    background: var(--tbk-surface-el);
+    color: var(--tbk-gold);
+    border: 1px solid var(--tbk-border-gold);
+    box-shadow: 0 2px 8px rgba(191, 155, 67, 0.14);
+  }
+
+  .tbkx-pill--pistachio {
+    background: var(--tbk-pistachio-wash);
+    color: var(--tbk-pistachio);
+    border: 1px solid rgba(46, 83, 57, 0.24);
+  }
+
+  .tbkx-gold-accent {
+    background: var(--tbk-gold-foil);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+  }
+
+  .tbkx-card--editorial {
+    background: var(--tbk-surface-el);
+    border: 1px solid var(--tbk-border);
+    border-radius: var(--tbk-r-xl);
+    box-shadow: var(--tbk-shadow-sm);
+    transition: transform var(--tbk-dur-base) var(--tbk-ease), box-shadow var(--tbk-dur-base) var(--tbk-ease), border-color var(--tbk-dur-base) var(--tbk-ease);
+  }
+
+  .tbkx-card--editorial:hover {
+    transform: translateY(-3px);
+    border-color: var(--tbk-border-gold);
+    box-shadow: var(--tbk-glow-gold);
+  }
+
   .tbkx-badge {
     border: 1px solid var(--tbk-border);
     background: var(--tbk-surface-el);

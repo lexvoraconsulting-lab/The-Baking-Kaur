@@ -16,8 +16,8 @@
 
 | S.No. | Plan Scope | TL | PD | IP | CD |
 | ---: | --- | ---: | ---: | ---: | ---: |
-| 1 | `HOME` direct tasks | 7 | 7 | 0 | 0 |
-| 2 | Total | **7** | **7** | **0** | **0** |
+| 1 | `HOME` direct tasks | 7 | 0 | 0 | 7 |
+| 2 | Total | **7** | **0** | **0** | **7** |
 
 ## Context
 
@@ -25,13 +25,13 @@ Rebuild and elevate homepage sections S1–S8 using `stitch-design-taste` guidel
 
 ## 01. Homepage Rebuild Tasks
 
-- [ ] `HOME-01.01` Audit active sections in `templates/index.json` and create baseline snapshot.
-- [ ] `HOME-01.02` Refactor design tokens in `snippets/tbk-tokens.liquid` for Cormorant Garamond & Manrope typography.
-- [ ] `HOME-01.03` Implement Editorial Hero Canvas (S1) with artisanal heading typography and high-priority LCP preloading.
-- [ ] `HOME-01.04` Build Trust & Value Proposition Strip (S2) showcasing pure eggless craftsmanship.
-- [ ] `HOME-01.05` Construct Signature Curated Collections Grid (S3) with soft frames and hover micro-interactions.
-- [ ] `HOME-01.06` Build Artisanal Craft Story Section (S6) articulating ingredient purity and custom cake design philosophy.
-- [ ] `HOME-01.07` Deploy to preview theme `#151370334377` and perform cross-device visual QA.
+- [x] `HOME-01.01` Audit active sections in `templates/index.json` and create baseline snapshot.
+- [x] `HOME-01.02` Refactor design tokens in `snippets/tbk-tokens.liquid` for Cormorant Garamond & Manrope typography.
+- [x] `HOME-01.03` Implement Editorial Hero Canvas (S1) with artisanal heading typography and high-priority LCP preloading.
+- [x] `HOME-01.04` Build Trust & Value Proposition Strip (S2) showcasing pure eggless craftsmanship.
+- [x] `HOME-01.05` Construct Signature Curated Collections Grid (S3) with soft frames and hover micro-interactions.
+- [x] `HOME-01.06` Build Artisanal Craft Story Section (S6) articulating ingredient purity and custom cake design philosophy.
+- [x] `HOME-01.07` Deploy to preview theme `#152070258857` and perform cross-device visual QA.
 
 ## Footer Navigation
 

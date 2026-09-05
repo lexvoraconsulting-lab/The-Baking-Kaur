@@ -92,6 +92,8 @@
     {%- endcomment -%}
     {%- if template == 'product' -%}
       <link rel="preload" as="image" href="{{ product.featured_image | image_url: width: 800 }}" fetchpriority="high">
+    {%- elsif template.name == 'index' and page_image -%}
+      <link rel="preload" as="image" href="{{ page_image | image_url: width: 1200 }}" fetchpriority="high">
     {%- endif -%}
 
     {%- comment -%}

@@ -1,0 +1,50 @@
+{{ 'baking-kaur.css' | asset_url | stylesheet_tag }}
+<section class="bk-wrap" style="padding-top: 48px; padding-bottom: 48px;">
+  <div class="bk-info-cards" style="margin-top: 0;">
+
+    <div class="bk-card">
+      <h3 class="bk-card__title">{{ section.settings.about_heading }}</h3>
+      <p class="bk-card__text">{{ section.settings.about_text }}</p>
+      <div class="bk-card__tags">
+        <div class="bk-card__tag"><span>🌱</span>Fresh Ingredients</div>
+        <div class="bk-card__tag"><span>🎖</span>Premium Quality</div>
+        <div class="bk-card__tag"><span>❤</span>Made With Love</div>
+      </div>
+    </div>
+
+    <div class="bk-card">
+      <h3 class="bk-card__title">Perfect For</h3>
+      <ul class="bk-card__list" role="list">
+        {%- assign occ = section.settings.perfect_for | split: ',' -%}
+        {%- for o in occ -%}
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#B23A63" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>{{ o | strip }}</li>
+        {%- endfor -%}
+      </ul>
+    </div>
+
+    <div class="bk-card">
+      <h3 class="bk-card__title">Delivery in Meerut</h3>
+      <ul class="bk-card__list" role="list">
+        {%- assign perks = section.settings.delivery_perks | split: ',' -%}
+        {%- for p in perks -%}
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#B23A63" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>{{ p | strip }}</li>
+        {%- endfor -%}
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "BK Info Cards",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "about_heading", "label": "About heading", "default": "About This Cake" },
+    { "type": "textarea", "id": "about_text", "label": "About text", "default": "A luxurious eggless strawberry cake made with fresh strawberries, soft sponge & rich cream. Perfect for birthdays, anniversaries and all special celebrations." },
+    { "type": "textarea", "id": "perfect_for", "label": "Perfect for (comma separated)", "default": "Birthdays, Anniversaries, Surprises, Special Occasions" },
+    { "type": "textarea", "id": "delivery_perks", "label": "Delivery perks (comma separated)", "default": "Same Day Delivery, Midnight Delivery, Surprise Delivery, Pickup Available" }
+  ],
+  "presets": [{ "name": "BK Info Cards" }]
+}
+{% endschema %}

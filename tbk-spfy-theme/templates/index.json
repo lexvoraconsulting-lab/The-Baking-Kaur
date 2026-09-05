@@ -3,6 +3,13 @@
     "hero": {
       "type": "hero-image",
       "blocks": {
+        "atelier_pill": {
+          "type": "text",
+          "settings": {
+            "text": "<p>✨ 100% PURE EGGLESS ATELIER · MEERUT</p>",
+            "adding_border": false
+          }
+        },
         "heading": {
           "type": "heading",
           "settings": {
@@ -51,6 +58,7 @@
         }
       },
       "block_order": [
+        "atelier_pill",
         "heading",
         "accent",
         "copy",
@@ -77,69 +85,6 @@
         "padding_top": 0,
         "padding_bottom": 0,
         "padding_rate": 75
-      }
-    },
-    "hero_trust": {
-      "type": "tbk-icon-row",
-      "blocks": {
-        "t1": {
-          "type": "item",
-          "settings": {
-            "icon": "delivery",
-            "title": "Same-Day Delivery",
-            "subtitle": "Across Meerut"
-          }
-        },
-        "t2": {
-          "type": "item",
-          "settings": {
-            "icon": "palette",
-            "title": "Custom Designs",
-            "subtitle": "Made Just For You"
-          }
-        },
-        "t3": {
-          "type": "item",
-          "settings": {
-            "icon": "shield",
-            "title": "Premium Quality Ingredients",
-            "subtitle": "Always Fresh"
-          }
-        },
-        "t4": {
-          "type": "item",
-          "settings": {
-            "icon": "star",
-            "title": "4.8★ Google Rating",
-            "subtitle": "500+ Reviews"
-          }
-        },
-        "t5": {
-          "type": "item",
-          "settings": {
-            "icon": "heart",
-            "title": "10,000+ Trusted Customers",
-            "subtitle": "Celebrating With Us"
-          }
-        }
-      },
-      "block_order": [
-        "t1",
-        "t2",
-        "t3",
-        "t4",
-        "t5"
-      ],
-      "settings": {
-        "heading": "",
-        "subheading": "",
-        "layout": "panel",
-        "col_dk": "5",
-        "col_tb": "3",
-        "col_mb": "2",
-        "color_scheme": "scheme-1",
-        "padding_top": 40,
-        "padding_bottom": 40
       }
     },
     "shop_by_occasion": {
@@ -327,78 +272,6 @@
         "custom_liquid": "<div class=\"tbk-studio\"><h2>Custom Cake Studio</h2><p>Your idea. Our creativity. The perfect cake.</p><ol class=\"tbk-studio__steps\"><li class=\"tbk-studio__step\"><span class=\"tbk-studio__num\">1</span>Share Inspiration</li><li class=\"tbk-studio__step\"><span class=\"tbk-studio__num\">2</span>Discuss Design</li><li class=\"tbk-studio__step\"><span class=\"tbk-studio__num\">3</span>Select Options</li><li class=\"tbk-studio__step\"><span class=\"tbk-studio__num\">4</span>Confirm Order</li></ol><a class=\"tbk-studio__cta\" href=\"https://wa.me/918218862928\" target=\"_blank\" rel=\"noopener\">CREATE YOUR CUSTOM CAKE</a></div>"
       }
     },
-    "why_tbk": {
-      "type": "tbk-icon-row",
-      "blocks": {
-        "w1": {
-          "type": "item",
-          "settings": {
-            "icon": "cake",
-            "title": "Made Fresh Daily",
-            "subtitle": ""
-          }
-        },
-        "w2": {
-          "type": "item",
-          "settings": {
-            "icon": "leaf",
-            "title": "Premium Ingredients",
-            "subtitle": ""
-          }
-        },
-        "w3": {
-          "type": "item",
-          "settings": {
-            "icon": "shield",
-            "title": "Hygienic Preparation",
-            "subtitle": ""
-          }
-        },
-        "w4": {
-          "type": "item",
-          "settings": {
-            "icon": "clock",
-            "title": "On-Time Delivery",
-            "subtitle": ""
-          }
-        },
-        "w5": {
-          "type": "item",
-          "settings": {
-            "icon": "heart",
-            "title": "Personalised Touch",
-            "subtitle": ""
-          }
-        },
-        "w6": {
-          "type": "item",
-          "settings": {
-            "icon": "sparkle",
-            "title": "100% Satisfaction",
-            "subtitle": ""
-          }
-        }
-      },
-      "block_order": [
-        "w1",
-        "w2",
-        "w3",
-        "w4",
-        "w5",
-        "w6"
-      ],
-      "settings": {
-        "heading": "Why Choose The Baking Kaur?",
-        "subheading": "",
-        "layout": "plain",
-        "col_dk": "6",
-        "col_tb": "3",
-        "col_mb": "2",
-        "color_scheme": "scheme-1",
-        "padding_top": 64,
-        "padding_bottom": 64
-      }
-    },
     "meerut_delivery": {
       "type": "tbk-icon-row",
       "blocks": {
@@ -448,134 +321,6 @@
         "col_dk": "4",
         "col_tb": "3",
         "col_mb": "2",
-        "color_scheme": "scheme-1",
-        "padding_top": 64,
-        "padding_bottom": 64
-      }
-    },
-    "testimonials": {
-      "type": "testimonials",
-      "blocks": {
-        "q1": {
-          "type": "quote",
-          "settings": {
-            "content": "<p>The cake was beautiful and tasted amazing. Perfect for the celebration.</p>",
-            "author": "Customer A",
-            "pos": "Meerut",
-            "rating": 5,
-            "enable_verify": false
-          }
-        },
-        "q2": {
-          "type": "quote",
-          "settings": {
-            "content": "<p>Ordered a hamper for our anniversary. Loved every bit of it.</p>",
-            "author": "Customer B",
-            "pos": "Meerut",
-            "rating": 5,
-            "enable_verify": false
-          }
-        },
-        "q3": {
-          "type": "quote",
-          "settings": {
-            "content": "<p>The midnight delivery was on time and the presentation was just perfect.</p>",
-            "author": "Customer C",
-            "pos": "Meerut",
-            "rating": 5,
-            "enable_verify": false
-          }
-        },
-        "q4": {
-          "type": "quote",
-          "settings": {
-            "content": "<p>Best custom cake in Meerut. Exactly how we imagined it.</p>",
-            "author": "Customer D",
-            "pos": "Meerut",
-            "rating": 5,
-            "enable_verify": false
-          }
-        }
-      },
-      "block_order": [
-        "q1",
-        "q2",
-        "q3",
-        "q4"
-      ],
-      "settings": {
-        "heading_align": "center",
-        "sec_heading": "Loved by 10,000+ Customers",
-        "heading_tag": "h2",
-        "heading_size": "h3",
-        "content_align": "start",
-        "col_dk": "4",
-        "col_tb": "2",
-        "col_mb": "1",
-        "navUI": true,
-        "dotUI": false,
-        "color_scheme": "scheme-1",
-        "padding_top": 64,
-        "padding_bottom": 64
-      }
-    },
-    "faq_section": {
-      "type": "accordion",
-      "blocks": {
-        "ft": {
-          "type": "title",
-          "settings": {
-            "title": "Frequently Asked Questions"
-          }
-        },
-        "f1": {
-          "type": "accordion_item",
-          "settings": {
-            "title": "Do you deliver cakes in Meerut?",
-            "content": "Yes. We deliver cakes and celebration hampers across Meerut, with same-day delivery available for orders placed before 12 PM."
-          }
-        },
-        "f2": {
-          "type": "accordion_item",
-          "settings": {
-            "title": "Can I order a custom cake?",
-            "content": "Yes. Share your inspiration on WhatsApp and we'll create a design based on your theme, colours and preferences."
-          }
-        },
-        "f3": {
-          "type": "accordion_item",
-          "settings": {
-            "title": "Do you offer midnight delivery?",
-            "content": "Yes, we offer midnight surprise delivery for birthdays and anniversaries. Contact us on WhatsApp to book one."
-          }
-        },
-        "f4": {
-          "type": "accordion_item",
-          "settings": {
-            "title": "Can I combine cakes with flowers or balloons?",
-            "content": "Yes. We offer combinations of cake with flowers, cake with balloons, and cake with both — ideal for surprise deliveries."
-          }
-        },
-        "f5": {
-          "type": "accordion_item",
-          "settings": {
-            "title": "Are all your cakes eggless?",
-            "content": "Yes. Every cake we make is 100% eggless, without exception."
-          }
-        }
-      },
-      "block_order": [
-        "ft",
-        "f1",
-        "f2",
-        "f3",
-        "f4",
-        "f5"
-      ],
-      "settings": {
-        "accordion_position": "start",
-        "accordion_icon": "1",
-        "open_first": true,
         "color_scheme": "scheme-1",
         "padding_top": 64,
         "padding_bottom": 64
@@ -656,20 +401,160 @@
         "padding_top": 64,
         "padding_bottom": 64
       }
+    },
+    "bk_trust_strip": {
+      "type": "bk-trust-strip",
+      "blocks": {
+        "t1": {
+          "type": "item",
+          "settings": {
+            "icon": "leaf",
+            "title": "100% Pure Eggless",
+            "subtitle": "Always vegetarian, freshly baked"
+          }
+        },
+        "t2": {
+          "type": "item",
+          "settings": {
+            "icon": "truck",
+            "title": "Same-Day Delivery",
+            "subtitle": "Across Meerut city (15 km)"
+          }
+        },
+        "t3": {
+          "type": "item",
+          "settings": {
+            "icon": "star",
+            "title": "4.8★ Google Rating",
+            "subtitle": "500+ verified reviews"
+          }
+        },
+        "t4": {
+          "type": "item",
+          "settings": {
+            "icon": "shield",
+            "title": "Finest Ingredients",
+            "subtitle": "Belgian chocolate, pure dairy butter"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4"
+      ],
+      "settings": {}
+    },
+    "bk_info_cards": {
+      "type": "bk-info-cards",
+      "settings": {
+        "about_heading": "Artisanal Purity & Craft",
+        "about_text": "Every single creation at The Baking Kaur is crafted eggless from scratch in our Meerut studio. We pair rich European couverture with local farm-fresh ingredients to create cakes that celebrate your sweetest memories.",
+        "perfect_for": "Birthdays, Anniversaries, Romantic Surprises, Weddings, Festive Celebrations",
+        "delivery_perks": "Same-Day Delivery across Meerut, Midnight Delivery Available, Custom Photo & Designer Themes, 100% Pure Eggless Guarantee"
+      }
+    },
+    "bk_reviews": {
+      "type": "bk-reviews",
+      "blocks": {
+        "r1": {
+          "type": "review",
+          "settings": {
+            "name": "Pooja Verma",
+            "text": "The custom birthday cake for my daughter was beyond gorgeous! The strawberry fresh cream was so moist, light, and 100% eggless. Meerut's finest bakery without doubt."
+          }
+        },
+        "r2": {
+          "type": "review",
+          "settings": {
+            "name": "Rohit Singhal",
+            "text": "Ordered midnight delivery for my anniversary. The packaging, roses, and chocolate truffle cake arrived right on time and in flawless condition. 10/10 service!"
+          }
+        },
+        "r3": {
+          "type": "review",
+          "settings": {
+            "name": "Dr. Ananya Goel",
+            "text": "Best custom cake designer in Meerut. Exactly how we imagined our theme cake, with pure vegetarian assurance and heavenly taste. Everyone at the party raved about it."
+          }
+        },
+        "r4": {
+          "type": "review",
+          "settings": {
+            "name": "Siddharth Jain",
+            "text": "The surprise celebration hamper was stunning! Fresh flowers, balloons, and the best Belgium chocolate cake. My fiancée was overjoyed. Highly recommended!"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4"
+      ],
+      "settings": {
+        "heading": "Loved by 10,000+ Celebrations",
+        "rating_value": "4.8",
+        "rating_count": "500+ Google Reviews",
+        "reviews_url": "https://www.google.com/maps/search/?api=1&query=The+Baking+Kaur+Meerut"
+      }
+    },
+    "bk_faq": {
+      "type": "bk-faq",
+      "blocks": {
+        "faq_1": {
+          "type": "faq",
+          "settings": {
+            "question": "Are all your cakes and desserts 100% eggless?",
+            "answer": "Yes, absolutely. Every cake, cupcake, pastry, and hamper we craft is 100% pure eggless, made in a strictly vegetarian and hygienic atelier in Meerut."
+          }
+        },
+        "faq_2": {
+          "type": "faq",
+          "settings": {
+            "question": "Do you offer same-day cake delivery across Meerut?",
+            "answer": "Yes! Same-day delivery is available across Meerut (including Shastri Nagar, Sadar Bazaar, Thapar Nagar, Modipuram, and surrounding areas) for orders placed before 12 PM."
+          }
+        },
+        "faq_3": {
+          "type": "faq",
+          "settings": {
+            "question": "Can I request custom design, theme cakes, and midnight deliveries?",
+            "answer": "Yes. We specialize in custom designer theme cakes, tier cakes, and midnight surprise deliveries for birthdays and anniversaries. Simply connect with our chef directly via WhatsApp."
+          }
+        },
+        "faq_4": {
+          "type": "faq",
+          "settings": {
+            "question": "Can I combine cakes with flowers, chocolates, or balloons?",
+            "answer": "Yes. We offer curated celebration surprise hampers that combine your favorite artisanal cake with fresh rose bouquets, balloon decorations, and handwritten message cards."
+          }
+        }
+      },
+      "block_order": [
+        "faq_1",
+        "faq_2",
+        "faq_3",
+        "faq_4"
+      ],
+      "settings": {
+        "heading": "Frequently Asked Questions"
+      }
     }
   },
   "order": [
     "hero",
-    "hero_trust",
+    "bk_trust_strip",
     "shop_by_occasion",
     "signature_collections",
     "best_sellers",
+    "bk_info_cards",
     "hampers_section",
     "custom_cake_studio",
-    "why_tbk",
+    "bk_reviews",
     "meerut_delivery",
-    "testimonials",
-    "faq_section",
+    "bk_faq",
     "instagram",
     "final_cta"
   ]

@@ -14,9 +14,9 @@ Index all committed delivery plans for `The-Baking-Kaur`.
 | ---: | --- | --- | ---: | ---: | ---: | ---: | --- |
 | 1 | [`01-storefront/PLN001-local-delivery-and-time-slot-order-capture-plan.md`](./01-storefront/PLN001-local-delivery-and-time-slot-order-capture-plan.md) | `SLOT` | 6 | 6 | 0 | 0 | Active |
 | 2 | [`02-operations/PLN002-verified-trust-framework-and-localbusiness-schema-plan.md`](./02-operations/PLN002-verified-trust-framework-and-localbusiness-schema-plan.md) | `TRST` | 6 | 6 | 0 | 0 | Active |
-| 3 | [`01-storefront/PLN003-homepage-editorial-rebuild-s1-s8-plan.md`](./01-storefront/PLN003-homepage-editorial-rebuild-s1-s8-plan.md) | `HOME` | 7 | 7 | 0 | 0 | Active |
+| 3 | [`01-storefront/PLN003-homepage-editorial-rebuild-s1-s8-plan.md`](./01-storefront/PLN003-homepage-editorial-rebuild-s1-s8-plan.md) | `HOME` | 7 | 0 | 0 | 7 | Active |
 | 4 | [`03-ai-intelligence/PLN004-ai-cake-genome-and-vision-intelligence-pipeline-plan.md`](./03-ai-intelligence/PLN004-ai-cake-genome-and-vision-intelligence-pipeline-plan.md) | `CGV` | 6 | 6 | 0 | 0 | Active |
-| 5 | Total | — | **25** | **25** | **0** | **0** | Active |
+| 5 | Total | — | **25** | **18** | **0** | **7** | Active |
 
 ## Footer Navigation
 

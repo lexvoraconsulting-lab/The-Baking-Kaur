@@ -18,6 +18,7 @@
 | 10 | `build/` | Version-wise build folders with production zips and SHA-256 manifests | [x] | 2026-09-06 |
 | 11 | `logs/` | Session-based timestamped operations logs and diagnostics | [x] | 2026-09-06 |
 | 12 | `releases/` | Hierarchical Major/Minor releases (`v1/v1.0/`) with release notes | [x] | 2026-09-06 |
+| 13 | `skills/` | Module / directory surface | [ ] | 2026-09-06 |
 
 ## Pre-Existing Blueprint Crosswalk (`tbk-spfy-docs/`)
 

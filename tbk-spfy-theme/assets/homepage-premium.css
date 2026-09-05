@@ -399,47 +399,67 @@
   display: block;
   height: var(--tbk-cg-height, 260px);
   overflow: hidden;
-  border-radius: 12px;
+  border-radius: var(--tbk-r-xl, 18px);
   background: var(--tbk-champagne);
+  border: 1px solid var(--tbk-border-subtle, #EDD8E3);
+  box-shadow: var(--tbk-shadow-xs);
+  transition: transform var(--tbk-dur-base, 220ms) var(--tbk-ease, ease), box-shadow var(--tbk-dur-base, 220ms) var(--tbk-ease, ease), border-color var(--tbk-dur-base, 220ms) var(--tbk-ease, ease);
+}
+
+.tbk-collection-grid__link:hover .tbk-collection-grid__media {
+  border-color: var(--tbk-border-gold, #BF9B43);
+  box-shadow: var(--tbk-glow-gold, 0 8px 24px rgba(191, 155, 67, 0.20));
+  transform: translateY(-3px);
 }
 
 .tbk-collection-grid__img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.45s ease;
+  transition: transform 0.55s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 .tbk-collection-grid__link:hover .tbk-collection-grid__img {
-  transform: scale(1.04);
+  transform: scale(1.07);
 }
 
 .tbk-collection-grid__label {
   display: block;
-  margin-top: 0.85rem;
-  font-family: var(--tbk-serif);
-  font-size: 1.0625rem;
-  font-weight: 600;
+  margin-top: 1rem;
+  font-family: var(--tbk-serif, 'Cormorant Garamond', serif);
+  font-size: 1.18rem;
+  font-weight: 700;
   letter-spacing: 0.01em;
-  color: var(--tbk-espresso);
+  color: var(--tbk-ink, #1A0810);
+  transition: color var(--tbk-dur-fast, 140ms) ease;
+}
+
+.tbk-collection-grid__link:hover .tbk-collection-grid__label {
+  color: var(--tbk-pink, #C01457);
 }
 
 .tbk-collection-grid__cta {
-  display: inline-block;
-  margin-top: 2.25rem;
-  background: var(--tbk-rose);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2.5rem;
+  background: var(--tbk-rose-gradient, linear-gradient(135deg, #C01457 0%, #8E0E40 100%));
   color: #fff;
-  padding: 13px 30px;
-  border-radius: 6px;
+  padding: 14px 34px;
+  border-radius: var(--tbk-r-full, 999px);
   text-decoration: none;
-  font-weight: 600;
-  font-size: 0.75rem;
-  letter-spacing: 0.09em;
+  font-family: var(--tbk-font-ui, 'Manrope', sans-serif);
+  font-weight: 700;
+  font-size: 0.8125rem;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
+  box-shadow: var(--tbk-shadow-sm);
+  transition: transform var(--tbk-dur-fast) var(--tbk-ease), box-shadow var(--tbk-dur-fast) var(--tbk-ease);
 }
 
 .tbk-collection-grid__cta:hover {
-  background: var(--tbk-rose-deep);
+  transform: translateY(-2px);
+  box-shadow: var(--tbk-glow-rose, 0 8px 30px rgba(192, 20, 87, 0.25));
 }
 
 /* ============================================================
