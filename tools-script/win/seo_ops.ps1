@@ -37,3 +37,4 @@ if ($LASTEXITCODE -eq 0) {
 } else {
     Write-Host "`n✖ Operation encountered an error." -ForegroundColor Red
 }
+

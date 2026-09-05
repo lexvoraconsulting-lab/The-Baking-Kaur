@@ -1,0 +1,30 @@
+# Auto-detect text files and normalize line endings to LF in git repository
+* text=auto eol=lf
+
+# Explicit text types
+*.md text eol=lf
+*.liquid text eol=lf
+*.json text eol=lf
+*.py text eol=lf
+*.js text eol=lf
+*.css text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.ini text eol=lf
+
+# Windows specific scripts must preserve CRLF
+*.ps1 text eol=crlf
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# Binary formats
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.gif binary
+*.ico binary
+*.zip binary
+*.woff2 binary
+*.woff binary
+*.ttf binary

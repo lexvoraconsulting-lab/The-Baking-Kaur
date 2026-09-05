@@ -35,3 +35,4 @@ Or via direct script:
 ```powershell
 python tools-script/win/release_manager.py --version 1.0 --major 1
 ```
+

@@ -56,3 +56,4 @@ try {
         Remove-Item -Recurse -Force $tempDir
     }
 }
+

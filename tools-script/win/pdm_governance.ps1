@@ -38,3 +38,4 @@ if (-not $hasError) {
 } else {
     Write-Host "`n✖ Conformance violations detected. Check output above." -ForegroundColor Red
 }
+

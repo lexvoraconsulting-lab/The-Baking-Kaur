@@ -34,3 +34,4 @@ if ($Action -eq "list") {
         Write-Host "`n✔ Task $TaskId marked COMPLETED [x]" -ForegroundColor Green
     }
 }
+

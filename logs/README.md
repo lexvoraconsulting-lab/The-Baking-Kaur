@@ -22,3 +22,4 @@ logs/
 - **Timestamped Isolation:** Every launch of the Master Operations Hub (`tbk_cli.py`) creates a unique session log file.
 - **Verbose Redirection:** Subprocess output (stdout and stderr) is routed directly to the log file to keep console interactions clean and focused on high-level milestones.
 - **Diagnostics:** In the event of a failure, the console points the operator directly to `logs/latest_session.log`.
+

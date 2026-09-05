@@ -26,3 +26,4 @@ if (-not $hasErrors) {
 } else {
     Write-Host "`n⚠ Linter reported issues above." -ForegroundColor Yellow
 }
+

@@ -39,3 +39,4 @@ Double-click `tbk-menu.bat` or run from PowerShell/Terminal:
 2. **Noise Suppression:** Raw console churn and verbose output are suppressed and routed into session logs.
 3. **Layman-Friendly Progress:** Displays clear progress steps (`⏳ [1/2] Processing...` and `✔ [Success]`).
 4. **Session Logging:** Every execution is recorded into `logs/sessions/session_<timestamp>.log`.
+

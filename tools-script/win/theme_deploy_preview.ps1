@@ -20,3 +20,4 @@ if ($LASTEXITCODE -eq 0) {
 } else {
     Write-Host "`n✖ Push to preview theme encountered an error." -ForegroundColor Red
 }
+

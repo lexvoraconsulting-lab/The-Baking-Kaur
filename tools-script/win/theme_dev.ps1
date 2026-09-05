@@ -16,3 +16,4 @@ Write-Host " (Press Ctrl+C to stop the server when finished)" -ForegroundColor G
 Write-Host "==========================================================" -ForegroundColor Cyan
 
 shopify theme dev --store $Store --theme $ThemeId --path tbk-spfy-theme
+

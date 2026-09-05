@@ -27,7 +27,8 @@ from pathlib import Path
 from ai.taxonomy.catalog import TaxonomyCatalog
 from ai.taxonomy.loader import load_catalog
 
-CANONICAL_TAXONOMY_PATH = "ai/taxonomy/content/bakery_v1.json"
+_DEFAULT_TAXONOMY = Path(__file__).resolve().parent.parent.parent / "taxonomy" / "content" / "bakery_v1.json"
+CANONICAL_TAXONOMY_PATH = str(_DEFAULT_TAXONOMY) if _DEFAULT_TAXONOMY.exists() else "ai/taxonomy/content/bakery_v1.json"
 
 # Groups whose attributes are platform-level bookkeeping rather than things a
 # camera can see. Nothing in bakery_v1.json is currently tier="platform", but
@@ -35,10 +36,13 @@ CANONICAL_TAXONOMY_PATH = "ai/taxonomy/content/bakery_v1.json"
 _NON_VISUAL_TIERS = {"platform"}
 
 
-def load_canonical_catalog(path: str | Path = CANONICAL_TAXONOMY_PATH) -> TaxonomyCatalog:
+def load_canonical_catalog(path: str | Path | None = None) -> TaxonomyCatalog:
     """The one canonical Bakery vocabulary (ADR 0011: Python owns taxonomy
     content). Read-only - nothing in the extraction path writes to it."""
-    return load_catalog(path)
+    target_path = Path(path) if path is not None else Path(CANONICAL_TAXONOMY_PATH)
+    if not target_path.exists() and _DEFAULT_TAXONOMY.exists():
+        target_path = _DEFAULT_TAXONOMY
+    return load_catalog(target_path)
 
 
 def build_digest(catalog: TaxonomyCatalog) -> dict:
