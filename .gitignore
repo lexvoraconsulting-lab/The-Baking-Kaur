@@ -41,3 +41,12 @@ seo-ops/**/PROGRESS.txt
 /*.png
 **/logs/*.png
 !**/vision/images/*.png
+
+# Runtime Session Logs & Diagnostics
+logs/sessions/*.log
+logs/*.log
+
+# Build & Release Binary Packages
+build/**/*.zip
+releases/**/*.zip
+

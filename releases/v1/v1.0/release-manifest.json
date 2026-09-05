@@ -1,0 +1,18 @@
+{
+  "project": "The Baking Kaur",
+  "release_version": "1.0",
+  "release_tag": "v1.0",
+  "major_version": "v1",
+  "released_at": "2026-09-06T04:10:07.422484",
+  "git": {
+    "branch": "feature/vision-engine-v1",
+    "commit": "e33e6367c168b1f3e01df606eb895ee67c3e16a8"
+  },
+  "artifacts": [
+    {
+      "name": "the-baking-kaur-v1.0.zip",
+      "size_bytes": 1372153,
+      "sha256": "3246dce3e064b2dd87799b2037b32fbad1a055715e0c4ea3866ad3a707b70bb3"
+    }
+  ]
+}
