@@ -15,7 +15,7 @@ if not exist "%PYTHON_EXE%" (
     )
 )
 
-"%PYTHON_EXE%" "%~dp0..\python\tbk_cli.py" %*
+"%PYTHON_EXE%" "%~dp0..\python\cli\tbk_cli.py" %*
 if %ERRORLEVEL% neq 0 (
     echo.
     echo [ERROR] CLI exited with code %ERRORLEVEL%.

@@ -259,6 +259,7 @@ def esc(value: str) -> str:
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--apply", action="store_true", help="write to Shopify")
+    ap.add_argument("--dry-run", action="store_true", help="dry run without writing (default)")
     ap.add_argument("--limit", type=int, default=0, help="cap products processed")
     ap.add_argument("--csv", default="seo_snippets_review.csv")
     args = ap.parse_args()

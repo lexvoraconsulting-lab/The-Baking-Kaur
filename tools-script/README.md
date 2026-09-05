@@ -11,38 +11,53 @@ This directory houses the developer tooling, automated runners, and the Master M
 ```
 tools-script/
 ├── python/                         # Centralized Python automation engines & CLI
-│   ├── tbk_cli.py                  # Master interactive console operations CLI
-│   ├── theme_dev_server.py         # Intelligent theme dev server controller & auto-resolver
-│   ├── build_packager.py           # Compiles versioned theme packages into build/vX.Y.Z/
-│   └── release_manager.py          # Publishes structured releases into releases/v<Major>/v<Minor>/
+│   ├── cli/
+│   │   └── tbk_cli.py              # Master interactive console operations CLI
+│   ├── release/
+│   │   ├── build_packager.py       # Compiles versioned theme packages into build/vX.Y.Z/
+│   │   └── release_manager.py      # Publishes structured releases into releases/v<Major>/v<Minor>/
+│   └── theme/
+│       └── theme_dev_server.py     # Intelligent theme dev server controller & auto-resolver
 │
-├── win/                            # Windows automation scripts (Batch & PowerShell)
+├── win/                            # Windows automation scripts (organized by domain)
 │   ├── tbk-menu.bat                # 1-Click launcher for Windows
-│   ├── theme_dev.bat / .ps1        # Dev server launcher (defaults to preview #152070258857)
-│   ├── theme_check.bat / .ps1      # Theme Liquid & JSON code health check
-│   ├── theme_deploy_preview.bat    # Deploy changes to Preview theme (#152070258857)
-│   ├── theme_deploy_live.bat       # Guarded single-file live deploy with diff protocol (#152071602345)
-│   ├── pdm_governance.bat / .ps1   # 12-point conformance audit runner
-│   ├── pdm_tasks.bat / .ps1        # ProjectOps v2 task workflow runner
-│   ├── seo_ops.bat / .ps1          # Shopify Admin GraphQL ops (Dry-Run & Apply)
-│   ├── ai_vision.bat / .ps1        # AI Cake Genome & Vision test harness
-│   ├── build_package.bat           # Theme build packager runner
-│   ├── release_publish.bat         # Release publisher runner
-│   └── run_tests.bat               # Pytest suite runner (233 tests)
+│   ├── theme/
+│   │   ├── theme_dev.bat / .ps1            # Dev server launcher (preview #152070258857)
+│   │   ├── theme_check.bat / .ps1          # Theme Liquid & JSON health check
+│   │   ├── theme_deploy_preview.bat / .ps1 # Deploy to Preview theme (#152070258857)
+│   │   └── theme_deploy_live.bat / .ps1    # Guarded live deploy with diff protocol (#152071602345)
+│   ├── governance/
+│   │   ├── pdm_governance.bat / .ps1       # 12-point conformance audit runner
+│   │   └── pdm_tasks.bat / .ps1            # ProjectOps v2 task workflow runner
+│   ├── seo/
+│   │   └── seo_ops.bat / .ps1              # Shopify Admin GraphQL ops (Dry-Run & Apply)
+│   ├── ai/
+│   │   └── ai_vision.bat / .ps1            # AI Cake Genome & Vision test harness
+│   ├── release/
+│   │   ├── build_package.bat               # Theme build packager runner
+│   │   └── release_publish.bat             # Release publisher runner
+│   └── tests/
+│       └── run_tests.bat                   # Pytest suite runner (233 tests)
 │
 └── mac/                            # macOS & Linux automation shell scripts
     ├── tbk-menu.sh                 # Master CLI launcher for macOS / Linux
-    ├── theme_dev.sh                # Dev server launcher
-    ├── theme_check.sh              # Theme Liquid & JSON code health check
-    ├── theme_deploy_preview.sh     # Deploy changes to Preview theme (#152070258857)
-    ├── theme_deploy_live.sh        # Guarded single-file live deploy with diff protocol
-    ├── pdm_governance.sh           # PDM 12-point conformance audit runner
-    ├── pdm_tasks.sh                # ProjectOps v2 task workflow runner
-    ├── seo_ops.sh                  # SEO operations runner
-    ├── ai_vision.sh                # AI Vision test harness runner
-    ├── build_package.sh            # Theme build packager runner
-    ├── release_publish.sh          # Release publisher runner
-    └── run_tests.sh                # Pytest suite runner (233 tests)
+    ├── theme/
+    │   ├── theme_dev.sh            # Dev server launcher
+    │   ├── theme_check.sh          # Theme Liquid & JSON health check
+    │   ├── theme_deploy_preview.sh # Deploy to Preview theme (#152070258857)
+    │   └── theme_deploy_live.sh    # Guarded live deploy with diff protocol
+    ├── governance/
+    │   ├── pdm_governance.sh       # PDM 12-point conformance audit runner
+    │   └── pdm_tasks.sh            # ProjectOps v2 task workflow runner
+    ├── seo/
+    │   └── seo_ops.sh              # SEO operations runner
+    ├── ai/
+    │   └── ai_vision.sh            # AI Vision test harness runner
+    ├── release/
+    │   ├── build_package.sh        # Theme build packager runner
+    │   └── release_publish.sh      # Release publisher runner
+    └── tests/
+        └── run_tests.sh            # Pytest suite runner (233 tests)
 ```
 
 ---

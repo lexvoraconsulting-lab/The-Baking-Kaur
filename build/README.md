@@ -28,6 +28,6 @@ Using the Master Operations CLI:
 
 Or via direct script:
 ```powershell
-python tools-script/win/build_packager.py --version 1.0.0
+python tools-script/python/release/build_packager.py --version 1.0.0
 ```
 
