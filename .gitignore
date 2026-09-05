@@ -38,9 +38,10 @@ ai/cake_genome/output/
 *_secret
 .shopify/
 
-# Stray images at repo root. ai/vision/images/ is the smoke-test location and
+# Stray images at repo root and archive/logs. ai/vision/images/ is the smoke-test location and
 # is allowlisted to 1-3.png on purpose (see its README: "not a dataset store").
 # Root-level images are neither source nor sample — ignored, not deleted.
 /test-cake.png
 /*.png
+archive/logs/*.png
 !ai/vision/images/*.png
