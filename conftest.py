@@ -22,3 +22,4 @@ def setup_test_environment():
         os.chdir(AI_DIR)
     yield
     os.chdir(orig_cwd)
+
