@@ -8,26 +8,31 @@ Repository for **The Baking Kaur**, a 100% eggless luxury cake studio in Meerut,
 
 ```
 The-Baking-Kaur/
-├── assets/ config/ layout/ locales/ sections/ snippets/ templates/  # Active Shopify Theme (Online Store 2.0)
+├── tbk-spfy-theme/          # Active Shopify Theme (Online Store 2.0)
+│   └── assets/ config/ layout/ locales/ sections/ snippets/ templates/
 │
-├── ai/                                                              # AI Cake Genome & Vision Intelligence (Python)
-├── seo-ops/                                                         # Shopify Admin GraphQL Automation & SEO scripts
-├── n8n/                                                             # n8n workflows & automation packages
+├── tbk-spfy-ai/             # AI Cake Genome & Vision Intelligence (Python)
+├── tbk-spfy-seo/            # Shopify Admin GraphQL Automation & Audits (ops + audit)
+├── tbk-spfy-automations/    # n8n workflows & automation packages
+├── tbk-spfy-design/         # Design handoff, reference mockups & specs
 │
-├── docs/                                                            # Centralized Knowledge & Blueprint Hub
-│   ├── 00_START_HERE.md                                             # Foundation & reading order
-│   ├── specs/                                                       # Design System, Component Library, Liquid Specs
-│   ├── strategy/                                                    # Brand Guidelines, Business Master, Roadmaps, NAP
-│   ├── audits/                                                      # SEO Ledgers, 404 Audits, Accessibility & CWV
-│   └── operations/                                                  # Deployment guides, checklists, collections setup
+├── tbk-spfy-docs/           # Centralized Knowledge & Blueprint Hub
+│   ├── 00_START_HERE.md     # Foundation & reading order
+│   ├── TABLE_OF_CONTENTS.md # Master index
+│   ├── specs/               # Design System, Component Library, Liquid Specs
+│   ├── strategy/            # Brand Guidelines, Business Master, Roadmaps, NAP
+│   ├── audits/              # SEO Ledgers, 404 Audits, Accessibility & CWV
+│   ├── operations/          # Deployment guides, checklists, collections setup
+│   └── tasks/               # Task backlog & tracking
 │
-├── archive/                                                         # Historical & Staging Artifacts
-│   ├── theme-snapshots/                                             # Backups of downloaded live themes
-│   ├── verification-steps/                                          # Step-by-step verification staging artifacts
-│   └── logs/                                                        # Large theme-check logs & audit outputs
+├── tbk-spfy-archive/        # Historical & Staging Artifacts
+│   ├── theme-snapshots/     # Backups of downloaded live themes
+│   ├── verification-steps/  # Step-by-step verification staging artifacts
+│   └── logs/                # Large theme-check logs & audit outputs
 │
-├── CLAUDE.md                                                        # Agent guidance & golden rules
-└── README.md                                                        # Project entry point
+├── CLAUDE.md                # Agent guidance & golden rules
+├── README.md                # Project entry point
+└── pytest.ini               # Python test configuration
 ```
 
 ---
@@ -57,8 +62,8 @@ See [CLAUDE.md](CLAUDE.md) for full operational instructions.
 
 ## Documentation Index
 
-Start at [`docs/00_START_HERE.md`](docs/00_START_HERE.md) or explore key documentation categories:
-* **Design & Specs:** [`docs/specs/DESIGN_SYSTEM.md`](docs/specs/DESIGN_SYSTEM.md) · [`docs/specs/COMPONENT_LIBRARY.md`](docs/specs/COMPONENT_LIBRARY.md) · [`docs/specs/HOMEPAGE_SPECIFICATION.md`](docs/specs/HOMEPAGE_SPECIFICATION.md)
-* **Strategy & Brand:** [`docs/strategy/BUSINESS_MASTER.md`](docs/strategy/BUSINESS_MASTER.md) · [`docs/strategy/TBK_BRAND_GUIDELINES.md`](docs/strategy/TBK_BRAND_GUIDELINES.md) · [`docs/strategy/PROJECT_ROADMAP.md`](docs/strategy/PROJECT_ROADMAP.md)
-* **Audits & Ledgers:** [`docs/audits/SEO_AUDIT_LEDGER.md`](docs/audits/SEO_AUDIT_LEDGER.md) · [`docs/audits/404_AUDIT_COMPLETE.md`](docs/audits/404_AUDIT_COMPLETE.md)
-* **Operations & Deploy:** [`docs/operations/DEPLOYMENT_GUIDE.md`](docs/operations/DEPLOYMENT_GUIDE.md) · [`docs/operations/QA_CHECKLIST.md`](docs/operations/QA_CHECKLIST.md)
+Start at [`tbk-spfy-docs/00_START_HERE.md`](tbk-spfy-docs/00_START_HERE.md) or explore key documentation categories:
+* **Design & Specs:** [`tbk-spfy-docs/specs/DESIGN_SYSTEM.md`](tbk-spfy-docs/specs/DESIGN_SYSTEM.md) · [`tbk-spfy-docs/specs/COMPONENT_LIBRARY.md`](tbk-spfy-docs/specs/COMPONENT_LIBRARY.md) · [`tbk-spfy-docs/specs/HOMEPAGE_SPECIFICATION.md`](tbk-spfy-docs/specs/HOMEPAGE_SPECIFICATION.md)
+* **Strategy & Brand:** [`tbk-spfy-docs/strategy/BUSINESS_MASTER.md`](tbk-spfy-docs/strategy/BUSINESS_MASTER.md) · [`tbk-spfy-docs/strategy/TBK_BRAND_GUIDELINES.md`](tbk-spfy-docs/strategy/TBK_BRAND_GUIDELINES.md) · [`tbk-spfy-docs/strategy/PROJECT_ROADMAP.md`](tbk-spfy-docs/strategy/PROJECT_ROADMAP.md)
+* **Audits & Ledgers:** [`tbk-spfy-docs/audits/SEO_AUDIT_LEDGER.md`](tbk-spfy-docs/audits/SEO_AUDIT_LEDGER.md) · [`tbk-spfy-docs/audits/404_AUDIT_COMPLETE.md`](tbk-spfy-docs/audits/404_AUDIT_COMPLETE.md)
+* **Operations & Deploy:** [`tbk-spfy-docs/operations/DEPLOYMENT_GUIDE.md`](tbk-spfy-docs/operations/DEPLOYMENT_GUIDE.md) · [`tbk-spfy-docs/operations/QA_CHECKLIST.md`](tbk-spfy-docs/operations/QA_CHECKLIST.md)

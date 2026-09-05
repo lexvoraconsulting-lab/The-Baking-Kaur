@@ -3,33 +3,31 @@ __pycache__/
 
 # seo-ops generated outputs — dry-run review CSVs, mutation payloads, run logs.
 # Source (.py) and docs (.md) are NOT ignored.
+**/ops/*.csv
+**/ops/*.jsonl
+**/ops/*.log
+**/ops/**/PROGRESS.txt
 seo-ops/*.csv
 seo-ops/*.jsonl
 seo-ops/*.log
 seo-ops/**/PROGRESS.txt
 
-# ai/vision/images — local smoke-test images only (see ai/vision/images/README.md).
-# Ignore everything future, keep the 3 existing sample images tracked.
-ai/vision/images/*
-!ai/vision/images/1.png
-!ai/vision/images/2.png
-!ai/vision/images/3.png
-!ai/vision/images/README.md
+# ai/vision/images — local smoke-test images only
+**/vision/images/*
+!**/vision/images/1.png
+!**/vision/images/2.png
+!**/vision/images/3.png
+!**/vision/images/README.md
 
 # ai/pricing — the audit trail is runtime-generated, not source.
-ai/logs/*.jsonl
-templates/index.json.bak
-templates/index.json.backup
+**/ai/logs/*.jsonl
+**/templates/index.json.bak
+**/templates/index.json.backup
 
-# ai/cake_genome/output — per-run pipeline artifacts (raw responses, genomes,
-# validation reports). Reproducible from the image + prompt_version, and every
-# run writes a new set. The fixtures/ directory IS tracked: replay inputs are
-# test material, not output.
-ai/cake_genome/output/
+# ai/cake_genome/output — per-run pipeline artifacts
+**/cake_genome/output/
 
-# Secrets — nothing credential-bearing is tracked today (verified), and this
-# keeps it that way now the repo is on GitHub and deploys to a VPS.
-# CLAUDE.md rule: SHOPIFY_TOKEN and every API key come from the environment.
+# Secrets
 .env
 .env.*
 *.pem
@@ -38,10 +36,8 @@ ai/cake_genome/output/
 *_secret
 .shopify/
 
-# Stray images at repo root and archive/logs. ai/vision/images/ is the smoke-test location and
-# is allowlisted to 1-3.png on purpose (see its README: "not a dataset store").
-# Root-level images are neither source nor sample — ignored, not deleted.
+# Stray images
 /test-cake.png
 /*.png
-archive/logs/*.png
-!ai/vision/images/*.png
+**/logs/*.png
+!**/vision/images/*.png
