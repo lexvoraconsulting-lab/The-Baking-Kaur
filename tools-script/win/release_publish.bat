@@ -16,10 +16,10 @@ if not exist "%PYTHON_EXE%" (
 )
 
 echo ==========================================================
-echo  Release Manager (releases/v<Major>/v<Minor>/)
+echo  Release Manager (releases/v[Major]/v[Minor]/)
 echo ==========================================================
 
-"%PYTHON_EXE%" "%~dp0release_manager.py" %*
+"%PYTHON_EXE%" "%~dp0..\python\release_manager.py" %*
 if %ERRORLEVEL% equ 0 (
     echo.
     echo [SUCCESS] Release published successfully!

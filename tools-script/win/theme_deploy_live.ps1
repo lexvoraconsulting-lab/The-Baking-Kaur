@@ -1,8 +1,8 @@
-# Safe Guarded Single-File Deploy to Live Theme (#151307485353)
+# Safe Guarded Single-File Deploy to Live Theme (#152071602345)
 param (
     [Parameter(Mandatory=$true)]
     [string]$File,
-    [string]$LiveThemeId = "151307485353",
+    [string]$LiveThemeId = "152071602345",
     [string]$Store = "ae86ba-2a.myshopify.com"
 )
 

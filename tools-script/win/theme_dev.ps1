@@ -21,7 +21,7 @@ if (-not (Test-Path $pythonExe)) {
     }
 }
 
-$pyArgs = @("$PSScriptRoot\theme_dev_server.py")
+$pyArgs = @("$PSScriptRoot\..\python\theme_dev_server.py")
 if ($ListThemes) {
     $pyArgs += "--list-themes"
 } else {

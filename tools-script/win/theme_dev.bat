@@ -15,7 +15,7 @@ if not exist "%PYTHON_EXE%" (
     )
 )
 
-"%PYTHON_EXE%" tools-script\win\theme_dev_server.py %*
+"%PYTHON_EXE%" "%~dp0..\python\theme_dev_server.py" %*
 if %ERRORLEVEL% neq 0 (
     echo.
     echo [ERROR] Theme dev server exited with code %ERRORLEVEL%.

@@ -10,5 +10,5 @@ if (-not (Test-Path $pythonExe)) {
     }
 }
 
-& $pythonExe "$PSScriptRoot\tools-script\win\tbk_cli.py" $args
+& $pythonExe "$PSScriptRoot\tools-script\python\tbk_cli.py" $args
 

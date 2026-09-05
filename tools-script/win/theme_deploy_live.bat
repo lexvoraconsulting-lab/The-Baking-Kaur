@@ -3,7 +3,7 @@ setlocal
 cd /d "%~dp0\..\.."
 title The Baking Kaur -- Surgical Live Theme Deploy
 
-set "LIVE_THEME_ID=151307485353"
+set "LIVE_THEME_ID=152071602345"
 set "STORE=ae86ba-2a.myshopify.com"
 
 if "%~1"=="" (

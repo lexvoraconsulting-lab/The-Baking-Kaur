@@ -19,7 +19,7 @@ echo ==========================================================
 echo  Theme Build Packager (build/vX.Y.Z/)
 echo ==========================================================
 
-"%PYTHON_EXE%" "%~dp0build_packager.py" %*
+"%PYTHON_EXE%" "%~dp0..\python\build_packager.py" %*
 if %ERRORLEVEL% equ 0 (
     echo.
     echo [SUCCESS] Build packaging completed!

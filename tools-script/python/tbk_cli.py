@@ -167,7 +167,7 @@ class TBKConsoleCLI:
     # --- Subsystem Handlers ---
 
     def handle_theme_dev(self) -> None:
-        dev_server_py = self.repo_root / "tools-script" / "win" / "theme_dev_server.py"
+        dev_server_py = self.repo_root / "tools-script" / "python" / "theme_dev_server.py"
         try:
             subprocess.run(
                 [sys.executable, str(dev_server_py)],
@@ -256,7 +256,7 @@ class TBKConsoleCLI:
     def handle_build(self) -> None:
         print("\n\033[94m▶ Package Versioned Theme Build...\033[0m")
         version = input("Enter build version (e.g. 1.0.0): ").strip() or "1.0.0"
-        packager_path = self.repo_root / "tools-script" / "win" / "build_packager.py"
+        packager_path = self.repo_root / "tools-script" / "python" / "build_packager.py"
         self.run_clean_step(
             f"Packaging build v{version.lstrip('v')}",
             [sys.executable, str(packager_path), "--version", version]
@@ -267,7 +267,7 @@ class TBKConsoleCLI:
         print("\n\033[94m▶ Publish Major/Minor Release...\033[0m")
         version = input("Enter release version (e.g. 1.0): ").strip() or "1.0"
         major = input("Enter major release grouping (default: 1): ").strip() or "1"
-        release_path = self.repo_root / "tools-script" / "win" / "release_manager.py"
+        release_path = self.repo_root / "tools-script" / "python" / "release_manager.py"
         self.run_clean_step(
             f"Publishing release v{version.lstrip('v')} under releases/v{major}/",
             [sys.executable, str(release_path), "--version", version, "--major", major]
@@ -291,7 +291,7 @@ class TBKConsoleCLI:
             print("     1.  Start Local Dev Server (Live Preview on 127.0.0.1:9292)")
             print("     2.  Run Theme Code Health Check (Linter)")
             print("     3.  Deploy to Preview Theme (#152070258857)")
-            print("     4.  Deploy Single File to Live Theme (#151307485353) [Diff Protocol]")
+            print("     4.  Deploy Single File to Live Theme (#152071602345) [Diff Protocol]")
             print()
             print("\033[97m[2] Governance & Tasks (ProjectOps v2)\033[0m")
             print("     5.  Run 12-Point Conformance Audit")
