@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1200" viewBox="0 0 1200 1200" role="img" aria-labelledby="title desc">
+  <title id="title">GitHub callout theme severity map</title>
+  <desc id="desc">A themed visual map showing NOTE, TIP, IMPORTANT, WARNING, and CAUTION GitHub callouts with Lexvora Company and macOS Tahoe Liquid Glass accent colors.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#f7fbff"/>
+      <stop offset="0.45" stop-color="#fbf8f3"/>
+      <stop offset="1" stop-color="#fff2e8"/>
+    </linearGradient>
+    <radialGradient id="wash" cx="86%" cy="12%" r="70%">
+      <stop offset="0" stop-color="#ede9fe" stop-opacity="0.92"/>
+      <stop offset="0.45" stop-color="#fae8ff" stop-opacity="0.52"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="glass" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.92"/>
+      <stop offset="0.55" stop-color="#ffffff" stop-opacity="0.70"/>
+      <stop offset="1" stop-color="#f8fbff" stop-opacity="0.52"/>
+    </linearGradient>
+    <filter id="shadow" x="-16%" y="-16%" width="132%" height="132%">
+      <feDropShadow dx="0" dy="16" stdDeviation="20" flood-color="#101820" flood-opacity="0.12"/>
+    </filter>
+    <style>
+      .title{fill:#101820;font:760 42px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+      .subtitle{fill:#5c6670;font:540 19px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+      .col{fill:#101820;font:760 20px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+      .label{fill:#101820;font:780 19px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+      .body{fill:#5c6670;font:540 14px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+      .hex{fill:#475569;font:650 13px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+      .card{fill:url(#glass);stroke:#ffffff;filter:url(#shadow)}
+    </style>
+  </defs>
+
+  <rect width="1200" height="1200" fill="url(#bg)"/>
+  <rect width="1200" height="1200" fill="url(#wash)"/>
+  <text x="70" y="82" class="title">GitHub callout theme map</text>
+  <text x="70" y="120" class="subtitle">Use callouts only when the reader needs priority, risk, or success-condition signal.</text>
+
+  <text x="94" y="190" class="col">Lexvora Company</text>
+  <text x="650" y="190" class="col">macOS Tahoe Liquid Glass</text>
+
+  <g transform="translate(70 230)">
+    <rect width="500" height="130" rx="18" class="card"/>
+    <rect x="0" y="0" width="9" height="130" rx="4" fill="#102d40"/>
+    <text x="34" y="42" class="label">NOTE</text>
+    <text x="34" y="72" class="body">Context, provenance, scope, renderer limits.</text>
+    <text x="34" y="102" class="hex">#102d40</text>
+  </g>
+  <g transform="translate(630 230)">
+    <rect width="500" height="130" rx="22" class="card"/>
+    <rect x="0" y="0" width="9" height="130" rx="4" fill="#2f7dff"/>
+    <text x="34" y="42" class="label">NOTE</text>
+    <text x="34" y="72" class="body">Context, provenance, scope, renderer limits.</text>
+    <text x="34" y="102" class="hex">#2f7dff</text>
+  </g>
+
+  <g transform="translate(70 390)">
+    <rect width="500" height="130" rx="18" class="card"/>
+    <rect x="0" y="0" width="9" height="130" rx="4" fill="#0f6b4f"/>
+    <text x="34" y="42" class="label">TIP</text>
+    <text x="34" y="72" class="body">Optional shortcuts, easier workflows, quality advice.</text>
+    <text x="34" y="102" class="hex">#0f6b4f</text>
+  </g>
+  <g transform="translate(630 390)">
+    <rect width="500" height="130" rx="22" class="card"/>
+    <rect x="0" y="0" width="9" height="130" rx="4" fill="#00a676"/>
+    <text x="34" y="42" class="label">TIP</text>
+    <text x="34" y="72" class="body">Optional shortcuts, easier workflows, quality advice.</text>
+    <text x="34" y="102" class="hex">#00a676</text>
+  </g>
+
+  <g transform="translate(70 550)">
+    <rect width="500" height="130" rx="18" class="card"/>
+    <rect x="0" y="0" width="9" height="130" rx="4" fill="#7a3f9d"/>
+    <text x="34" y="42" class="label">IMPORTANT</text>
+    <text x="34" y="72" class="body">Required constraints, prerequisites, success rules.</text>
+    <text x="34" y="102" class="hex">#7a3f9d</text>
+  </g>
+  <g transform="translate(630 550)">
+    <rect width="500" height="130" rx="22" class="card"/>
+    <rect x="0" y="0" width="9" height="130" rx="4" fill="#7a3cff"/>
+    <text x="34" y="42" class="label">IMPORTANT</text>
+    <text x="34" y="72" class="body">Required constraints, prerequisites, success rules.</text>
+    <text x="34" y="102" class="hex">#7a3cff</text>
+  </g>
+
+  <g transform="translate(70 710)">
+    <rect width="500" height="130" rx="18" class="card"/>
+    <rect x="0" y="0" width="9" height="130" rx="4" fill="#b88445"/>
+    <text x="34" y="42" class="label">WARNING</text>
+    <text x="34" y="72" class="body">Risky actions, likely failures, irreversible steps.</text>
+    <text x="34" y="102" class="hex">#b88445</text>
+  </g>
+  <g transform="translate(630 710)">
+    <rect width="500" height="130" rx="22" class="card"/>
+    <rect x="0" y="0" width="9" height="130" rx="4" fill="#ff7a1a"/>
+    <text x="34" y="42" class="label">WARNING</text>
+    <text x="34" y="72" class="body">Risky actions, likely failures, irreversible steps.</text>
+    <text x="34" y="102" class="hex">#ff7a1a</text>
+  </g>
+
+  <g transform="translate(70 870)">
+    <rect width="500" height="130" rx="18" class="card"/>
+    <rect x="0" y="0" width="9" height="130" rx="4" fill="#9d2f2f"/>
+    <text x="34" y="42" class="label">CAUTION</text>
+    <text x="34" y="72" class="body">Data loss, security exposure, destructive output.</text>
+    <text x="34" y="102" class="hex">#9d2f2f</text>
+  </g>
+  <g transform="translate(630 870)">
+    <rect width="500" height="130" rx="22" class="card"/>
+    <rect x="0" y="0" width="9" height="130" rx="4" fill="#ff3b4f"/>
+    <text x="34" y="42" class="label">CAUTION</text>
+    <text x="34" y="72" class="body">Data loss, security exposure, destructive output.</text>
+    <text x="34" y="102" class="hex">#ff3b4f</text>
+  </g>
+
+  <text x="600" y="1090" text-anchor="middle" class="subtitle">Native GitHub rendering controls the callout block; use these accents for diagrams, legends, and parallel SVG callout treatments.</text>
+  <!-- lxc-attribution -->
+  <g class="lxc-attribution">
+    <rect x="1092" y="1178" width="96" height="15" rx="4" fill="#ffffff" fill-opacity="0.08"/>
+    <text x="1188" y="1190" text-anchor="end" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="9" fill="#8a5723" fill-opacity="0.5">Lexvora (LXC)</text>
+  </g>
+</svg>

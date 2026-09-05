@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="82" height="24" viewBox="0 0 82 24" role="img" aria-label="Active">
+  <title>Active</title>
+  <desc>Documentation status chip reading Active.</desc>
+  <rect x="0.5" y="0.5" width="81" height="23" rx="5" fill="#102d40" stroke="#b88445"/>
+  <circle cx="15.5" cy="12.0" r="3.4" fill="#ffffff" opacity=".92"/>
+  <text x="28" y="16.6" textLength="45" lengthAdjust="spacingAndGlyphs" font-family="system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="13" font-weight="600" fill="#ffffff">Active</text>
+</svg>

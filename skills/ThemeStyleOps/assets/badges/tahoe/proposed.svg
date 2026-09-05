@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="96" height="24" viewBox="0 0 96 24" role="img" aria-label="Proposed">
+  <title>Proposed</title>
+  <desc>Documentation status chip reading Proposed.</desc>
+  <rect x="0.5" y="0.5" width="95" height="23" rx="5" fill="#ff7a1a" stroke="#c85a08"/>
+  <path d="M15.5 7.0 l5 5 l-5 5 l-5-5 z" fill="#111827" opacity=".92"/>
+  <text x="28" y="16.6" textLength="59" lengthAdjust="spacingAndGlyphs" font-family="system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="13" font-weight="600" fill="#111827">Proposed</text>
+</svg>

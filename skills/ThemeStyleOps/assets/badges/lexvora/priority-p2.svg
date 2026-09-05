@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="53" height="24" viewBox="0 0 53 24" role="img" aria-label="P2">
+  <title>P2</title>
+  <desc>Documentation status chip reading P2.</desc>
+  <rect x="0.5" y="0.5" width="52" height="23" rx="5" fill="#b88445" stroke="#8a5723"/>
+  <path d="M15.5 7.0 l5 5 l-5 5 l-5-5 z" fill="#061421" opacity=".92"/>
+  <text x="28" y="16.6" textLength="16" lengthAdjust="spacingAndGlyphs" font-family="system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="13" font-weight="600" fill="#061421">P2</text>
+</svg>

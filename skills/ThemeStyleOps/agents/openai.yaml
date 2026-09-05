@@ -1,0 +1,3 @@
+interface:
+  display_name: "Documentation Visual Theme"
+  short_description: "Apply reusable themes to diagrams, GitHub callouts, SVGs, and math docs"

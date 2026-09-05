@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="118" height="24" viewBox="0 0 118 24" role="img" aria-label="Implemented">
+  <title>Implemented</title>
+  <desc>Documentation status chip reading Implemented.</desc>
+  <rect x="0.5" y="0.5" width="117" height="23" rx="5" fill="#0f6b4f" stroke="#0a4f3a"/>
+  <path d="M11.0 12.0 l3 3.2 l6-6.6" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="28" y="16.6" textLength="81" lengthAdjust="spacingAndGlyphs" font-family="system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="13" font-weight="600" fill="#ffffff">Implemented</text>
+</svg>

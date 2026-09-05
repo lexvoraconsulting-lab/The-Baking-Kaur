@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="118" height="24" viewBox="0 0 118 24" role="img" aria-label="Risk Medium">
+  <title>Risk Medium</title>
+  <desc>Documentation status chip reading Risk Medium.</desc>
+  <rect x="0.5" y="0.5" width="117" height="23" rx="5" fill="#ff7a1a" stroke="#c85a08"/>
+  <path d="M15.5 6.8 l5.4 9.4 h-10.8 z" fill="none" stroke="#111827" stroke-width="1.6" stroke-linejoin="round"/><path d="M15.5 10.6 v2.6" stroke="#111827" stroke-width="1.6" stroke-linecap="round"/><circle cx="15.5" cy="15.0" r="0.9" fill="#111827"/>
+  <text x="28" y="16.6" textLength="81" lengthAdjust="spacingAndGlyphs" font-family="system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="13" font-weight="600" fill="#111827">Risk Medium</text>
+</svg>

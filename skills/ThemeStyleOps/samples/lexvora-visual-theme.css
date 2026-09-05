@@ -1,0 +1,96 @@
+.markdown-preview-view.lexvora-visual-theme-sample,
+.markdown-source-view.mod-cm6.lexvora-visual-theme-sample {
+  --lxc-ink: #101820;
+  --lxc-muted: #5c6670;
+  --lxc-navy: #061421;
+  --lxc-blue: #102d40;
+  --lxc-brass: #b88445;
+  --lxc-brass-light: #d2a15f;
+  --lxc-cream: #fbf8f3;
+  --lxc-paper: #ffffff;
+  --lxc-border: rgba(184, 132, 69, 0.28);
+}
+
+.markdown-preview-view.lexvora-visual-theme-sample table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--lxc-ink);
+  border: 1px solid var(--lxc-border);
+}
+
+.markdown-preview-view.lexvora-visual-theme-sample th {
+  background: var(--lxc-blue);
+  color: var(--lxc-paper);
+  font-weight: 700;
+  border: 1px solid rgba(184, 132, 69, 0.36);
+  padding: 8px 10px;
+}
+
+.markdown-preview-view.lexvora-visual-theme-sample th:nth-child(4),
+.markdown-preview-view.lexvora-visual-theme-sample table:nth-of-type(5) td:nth-child(2) {
+  color: var(--lxc-brass-light);
+}
+
+.markdown-preview-view.lexvora-visual-theme-sample td {
+  border: 1px solid rgba(184, 132, 69, 0.22);
+  padding: 8px 10px;
+}
+
+.markdown-preview-view.lexvora-visual-theme-sample tr:nth-child(even) td {
+  background: var(--lxc-cream);
+}
+
+.markdown-preview-view.lexvora-visual-theme-sample tr:nth-child(odd) td {
+  background: var(--lxc-paper);
+}
+
+.markdown-preview-view.lexvora-visual-theme-sample td:first-child {
+  color: var(--lxc-muted);
+  text-align: right;
+}
+
+.markdown-preview-view.lexvora-visual-theme-sample td:nth-child(4) {
+  color: var(--lxc-blue);
+  font-weight: 700;
+}
+
+.markdown-preview-view.lexvora-visual-theme-sample code {
+  color: var(--lxc-blue);
+  background: rgba(184, 132, 69, 0.12);
+}
+
+.markdown-preview-view.lexvora-visual-theme-sample table:nth-of-type(5) tbody tr:nth-child(1) td {
+  font-size: 10px;
+}
+
+.markdown-preview-view.lexvora-visual-theme-sample table:nth-of-type(5) tbody tr:nth-child(2) td {
+  font-size: 11px;
+}
+
+.markdown-preview-view.lexvora-visual-theme-sample table:nth-of-type(5) tbody tr:nth-child(3) td {
+  font-size: 12px;
+}
+
+.markdown-preview-view.lexvora-visual-theme-sample table:nth-of-type(5) tbody tr:nth-child(4) td {
+  font-size: 13px;
+}
+
+.markdown-preview-view.lexvora-visual-theme-sample table:nth-of-type(5) tbody tr:nth-child(5) td {
+  font-size: 14px;
+}
+
+.markdown-preview-view.lexvora-visual-theme-sample table:nth-of-type(5) tbody tr:nth-child(6) td {
+  font-size: 15px;
+}
+
+.markdown-preview-view.lexvora-visual-theme-sample table:nth-of-type(5) tbody tr:nth-child(7) td {
+  font-size: 16px;
+}
+
+.markdown-preview-view.lexvora-visual-theme-sample table:nth-of-type(5) tbody tr:nth-child(8) td {
+  font-size: 18px;
+}

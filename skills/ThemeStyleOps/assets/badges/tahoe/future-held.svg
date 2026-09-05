@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="133" height="24" viewBox="0 0 133 24" role="img" aria-label="Future / Held">
+  <title>Future / Held</title>
+  <desc>Documentation status chip reading Future / Held.</desc>
+  <rect x="0.5" y="0.5" width="132" height="23" rx="5" fill="#475569" stroke="#334155"/>
+  <circle cx="15.5" cy="12.0" r="5" fill="none" stroke="#ffffff" stroke-width="1.6"/><path d="M15.5 9.2 v3.1 h2.4" fill="none" stroke="#ffffff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="28" y="16.6" textLength="96" lengthAdjust="spacingAndGlyphs" font-family="system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="13" font-weight="600" fill="#ffffff">Future / Held</text>
+</svg>

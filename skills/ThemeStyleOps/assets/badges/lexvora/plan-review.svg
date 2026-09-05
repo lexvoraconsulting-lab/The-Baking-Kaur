@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="82" height="24" viewBox="0 0 82 24" role="img" aria-label="Review">
+  <title>Review</title>
+  <desc>Documentation status chip reading Review.</desc>
+  <rect x="0.5" y="0.5" width="81" height="23" rx="5" fill="#b88445" stroke="#8a5723"/>
+  <path d="M15.5 7.0 l5 5 l-5 5 l-5-5 z" fill="#061421" opacity=".92"/>
+  <text x="28" y="16.6" textLength="45" lengthAdjust="spacingAndGlyphs" font-family="system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="13" font-weight="600" fill="#061421">Review</text>
+</svg>

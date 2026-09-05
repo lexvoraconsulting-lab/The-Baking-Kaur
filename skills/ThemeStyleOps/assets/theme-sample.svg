@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1200" viewBox="0 0 1200 1200" role="img" aria-labelledby="title desc">
+  <title id="title">Documentation Visual Theme sample</title>
+  <desc id="desc">A side-by-side preview of the Lexvora Company and macOS Tahoe Liquid Glass documentation visual themes.</desc>
+  <defs>
+    <linearGradient id="lexBg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#fffdf9"/>
+      <stop offset="0.56" stop-color="#fbf8f3"/>
+      <stop offset="1" stop-color="#f2ece3"/>
+    </linearGradient>
+    <linearGradient id="lexNavy" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#102d40"/>
+      <stop offset="1" stop-color="#061421"/>
+    </linearGradient>
+    <linearGradient id="lexBrass" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#d2a15f"/>
+      <stop offset="1" stop-color="#b88445"/>
+    </linearGradient>
+    <radialGradient id="glassBgA" cx="8%" cy="8%" r="82%">
+      <stop offset="0" stop-color="#d8f7ff"/>
+      <stop offset="0.4" stop-color="#f7fbff"/>
+      <stop offset="0.78" stop-color="#fff2e8"/>
+      <stop offset="1" stop-color="#ffffff"/>
+    </radialGradient>
+    <radialGradient id="glassBgB" cx="86%" cy="10%" r="74%">
+      <stop offset="0" stop-color="#ede9fe" stop-opacity="0.98"/>
+      <stop offset="0.46" stop-color="#fae8ff" stop-opacity="0.66"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="glassPanel" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.9"/>
+      <stop offset="0.52" stop-color="#ffffff" stop-opacity="0.64"/>
+      <stop offset="1" stop-color="#f8fbff" stop-opacity="0.42"/>
+    </linearGradient>
+    <filter id="shadow" x="-18%" y="-18%" width="136%" height="136%">
+      <feDropShadow dx="0" dy="18" stdDeviation="20" flood-color="#101820" flood-opacity="0.12"/>
+    </filter>
+    <marker id="lexArrow" viewBox="0 0 12 12" refX="10.2" refY="6" markerWidth="9" markerHeight="9" orient="auto">
+      <path d="M1 1 L11 6 L1 11 Z" fill="#102d40"/>
+    </marker>
+    <marker id="glassArrow" viewBox="0 0 12 12" refX="10.2" refY="6" markerWidth="9" markerHeight="9" orient="auto">
+      <path d="M1 1 L11 6 L1 11 Z" fill="#334155"/>
+    </marker>
+    <style>
+      .heading{font:760 34px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#101820}
+      .sub{font:520 17px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#5c6670}
+      .nodeText{font:720 18px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+      .small{font:560 14px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+      .label{font:760 22px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+      .panel{filter:url(#shadow)}
+    </style>
+  </defs>
+
+  <rect width="1200" height="1200" fill="#f6f8fb"/>
+  <text x="60" y="70" class="heading">Documentation visual themes</text>
+  <text x="60" y="104" class="sub">Reusable color, material, and SVG composition profiles for repository documentation.</text>
+
+  <g transform="translate(60 150)">
+    <rect width="510" height="520" rx="20" fill="url(#lexBg)" stroke="rgba(184,132,69,.32)" class="panel"/>
+    <text x="34" y="56" class="label" fill="#061421">Lexvora Company</text>
+    <text x="34" y="86" class="sub">Navy structure, brass highlights, warm paper.</text>
+    <rect x="34" y="128" width="442" height="82" rx="14" fill="url(#lexNavy)"/>
+    <text x="255" y="164" text-anchor="middle" class="nodeText" fill="#fffdf8">Source of truth</text>
+    <text x="255" y="188" text-anchor="middle" class="small" fill="#dce6ec">rules, architecture, decisions</text>
+    <path d="M255 210 V262" stroke="#102d40" stroke-width="3" marker-end="url(#lexArrow)"/>
+    <rect x="70" y="274" width="370" height="78" rx="12" fill="#ffffff" stroke="#b88445" stroke-width="2"/>
+    <text x="255" y="306" text-anchor="middle" class="nodeText" fill="#101820">Plan and worklog</text>
+    <text x="255" y="330" text-anchor="middle" class="small" fill="#5c6670">owned tasks, evidence, checkpoints</text>
+    <path d="M255 352 V404" stroke="#102d40" stroke-width="3" marker-end="url(#lexArrow)"/>
+    <rect x="70" y="416" width="370" height="62" rx="12" fill="url(#lexBrass)" stroke="#8b5927"/>
+    <text x="255" y="454" text-anchor="middle" class="nodeText" fill="#071421">Verified documentation</text>
+  </g>
+
+  <g transform="translate(630 150)">
+    <rect width="510" height="520" rx="28" fill="url(#glassBgA)" stroke="#ffffff" class="panel"/>
+    <rect width="510" height="520" rx="28" fill="url(#glassBgB)"/>
+    <text x="34" y="56" class="label" fill="#111827">Tahoe Liquid Glass</text>
+    <text x="34" y="86" class="sub" fill="#475569">Translucent panels, spectral wash, crisp text.</text>
+    <rect x="34" y="128" width="442" height="82" rx="20" fill="url(#glassPanel)" stroke="#2f7dff" stroke-width="2"/>
+    <path d="M56 136 H454 C418 160 356 168 255 168 C154 168 92 160 56 136 Z" fill="#ffffff" opacity="0.56"/>
+    <text x="255" y="164" text-anchor="middle" class="nodeText" fill="#111827">Theme choice</text>
+    <text x="255" y="188" text-anchor="middle" class="small" fill="#475569">tokens, material, accessibility</text>
+    <path d="M255 210 V262" stroke="#334155" stroke-width="3" marker-end="url(#glassArrow)"/>
+    <rect x="70" y="274" width="370" height="78" rx="20" fill="url(#glassPanel)" stroke="#00a676" stroke-width="2"/>
+    <path d="M92 282 H418 C390 304 340 310 255 310 C170 310 120 304 92 282 Z" fill="#ffffff" opacity="0.5"/>
+    <text x="255" y="306" text-anchor="middle" class="nodeText" fill="#111827">Diagram loop</text>
+    <text x="255" y="330" text-anchor="middle" class="small" fill="#475569">render, inspect, reconcile</text>
+    <path d="M255 352 V404" stroke="#334155" stroke-width="3" marker-end="url(#glassArrow)"/>
+    <rect x="70" y="416" width="370" height="62" rx="20" fill="url(#glassPanel)" stroke="#7a3cff" stroke-width="2"/>
+    <path d="M92 424 H418 C390 444 340 450 255 450 C170 450 120 444 92 424 Z" fill="#ffffff" opacity="0.48"/>
+    <text x="255" y="454" text-anchor="middle" class="nodeText" fill="#111827">Editable SVG master</text>
+  </g>
+  <!-- lxc-attribution -->
+  <g class="lxc-attribution">
+    <rect x="1092" y="1178" width="96" height="15" rx="4" fill="#ffffff" fill-opacity="0.08"/>
+    <text x="1188" y="1190" text-anchor="end" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="9" fill="#8a5723" fill-opacity="0.5">Lexvora (LXC)</text>
+  </g>
+</svg>

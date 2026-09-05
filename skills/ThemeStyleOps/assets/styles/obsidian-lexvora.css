@@ -1,0 +1,23 @@
+/* Lexvora Company Theme — Obsidian CSS Snippet (G_34) */
+
+.markdown-rendered picture {
+  display: block;
+  margin: 1.2rem 0;
+  text-align: center;
+}
+
+.markdown-rendered picture img {
+  border-radius: 6px;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Light / Dark Mode Handling */
+.theme-dark .markdown-rendered picture img {
+  filter: brightness(0.96) contrast(1.04);
+}
+
+.theme-light .markdown-rendered picture img {
+  filter: none;
+}
+

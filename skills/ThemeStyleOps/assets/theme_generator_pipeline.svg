@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 380" width="100%" height="100%">
+  <title>Documentation Visual Theme — Asset Generation Pipeline</title>
+  <desc>Architecture showing the automated pipeline generating banners, badge chips, and governance visual diagrams across Lexvora and macOS Tahoe profiles.</desc>
+  <defs>
+    <linearGradient id="tahoe-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f0f7ff"/>
+      <stop offset="30%" stop-color="#e8f4fe"/>
+      <stop offset="70%" stop-color="#f5f0ff"/>
+      <stop offset="100%" stop-color="#fff5f0"/>
+    </linearGradient>
+    <linearGradient id="glass-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#f8fafc" stop-opacity="0.85"/>
+    </linearGradient>
+    <filter id="glass-shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#0f172a" flood-opacity="0.08"/>
+    </filter>
+    <style>
+      .bg { fill: url(#tahoe-bg); stroke: #cbd5e1; stroke-width: 1px; }
+      .glass-card { fill: url(#glass-grad); stroke: #ffffff; stroke-width: 1.5px; rx: 10px; filter: url(#glass-shadow); }
+      .glass-inner { fill: #f8fafc; stroke: #e2e8f0; stroke-width: 1px; rx: 6px; }
+      .title { fill: #0f172a; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 17px; font-weight: 700; letter-spacing: -0.3px; }
+      .sub { fill: #475569; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 12px; }
+      .txt-hdr { fill: #0f172a; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 13px; font-weight: 700; }
+      .txt-blue { fill: #2563eb; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 11.5px; font-weight: 700; }
+      .txt-violet { fill: #7c3aed; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 11.5px; font-weight: 700; }
+      .txt-teal { fill: #0d9488; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 11.5px; font-weight: 700; }
+      .txt-body { fill: #1e293b; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 10.5px; }
+      .txt-muted { fill: #64748b; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 10px; }
+      .arrow { stroke: #3b82f6; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+      .arrow-head { fill: #3b82f6; }
+    </style>
+    <marker id="arr-blue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" class="arrow-head"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect width="920" height="380" class="bg" rx="14"/>
+
+  <!-- Header Block -->
+  <text x="32" y="36" class="title">Theme Generator &amp; Script Automation Pipeline</text>
+  <text x="32" y="54" class="sub">Automated generation of light/dark banners, status badges, and governed vector diagrams across visual profiles</text>
+
+  <!-- Column 1: Scripts in skills/ThemeStyleOps/scripts/ -->
+  <g transform="translate(30, 75)">
+    <rect width="265" height="275" class="glass-card" />
+    <text x="16" y="24" class="txt-hdr">1. Skill Scripts (scripts/)</text>
+    
+    <!-- Script A -->
+    <rect x="14" y="42" width="237" height="98" class="glass-inner" />
+    <text x="24" y="62" class="txt-blue">generate_theme_assets.py</text>
+    <text x="24" y="80" class="txt-body">• Generates 46 badge chips</text>
+    <text x="24" y="96" class="txt-body">• Generates 8 area banners</text>
+    <text x="24" y="112" class="txt-muted">Builds lexvora &amp; tahoe assets</text>
+    <text x="24" y="128" class="txt-muted">Outputs to assets/badges &amp; banners</text>
+
+    <!-- Script B -->
+    <rect x="14" y="152" width="237" height="98" class="glass-inner" />
+    <text x="24" y="172" class="txt-violet">generate_governance_visuals.py</text>
+    <text x="24" y="190" class="txt-body">• Architecture component maps</text>
+    <text x="24" y="206" class="txt-body">• Decision flow diagrams</text>
+    <text x="24" y="222" class="txt-body">• Concept lifecycle &amp; Gap SVGs</text>
+    <text x="24" y="238" class="txt-muted">Validates 100% clean XML</text>
+  </g>
+
+  <!-- Arrow 1 -> 2 -->
+  <path d="M 305 212 L 335 212" class="arrow" marker-end="url(#arr-blue)"/>
+
+  <!-- Column 2: Generator Engine & Token Pipeline -->
+  <g transform="translate(345, 75)">
+    <rect width="265" height="275" class="glass-card" />
+    <text x="16" y="24" class="txt-hdr">2. Palette &amp; Token Engine</text>
+
+    <rect x="14" y="42" width="237" height="215" class="glass-inner" />
+    <text x="24" y="64" class="txt-teal">Profile Resolution</text>
+    <text x="24" y="84" class="txt-body">• lexvora-company:</text>
+    <text x="34" y="100" class="txt-muted">Warm paper #fbf8f3 + Navy #061421</text>
+    <text x="34" y="116" class="txt-muted">Brass #b88445 + White #ffffff</text>
+    
+    <text x="24" y="140" class="txt-body">• macos-tahoe-liquid-glass:</text>
+    <text x="34" y="156" class="txt-muted">Translucent #ffffff.85 + Cyan wash</text>
+    <text x="34" y="172" class="txt-muted">Blue #2f7dff + Teal #00a676</text>
+
+    <text x="24" y="198" class="txt-teal">Contrast &amp; Overflow Gate</text>
+    <text x="24" y="216" class="txt-body">• Light-on-dark / Dark-on-light</text>
+    <text x="24" y="232" class="txt-body">• Bounded padding ≥ 15px</text>
+    <text x="24" y="248" class="txt-muted">Zero clipped monospace labels</text>
+  </g>
+
+  <!-- Arrow 2 -> 3 -->
+  <path d="M 620 212 L 650 212" class="arrow" marker-end="url(#arr-blue)"/>
+
+  <!-- Column 3: Generated Artifacts & Consumers -->
+  <g transform="translate(660, 75)">
+    <rect width="230" height="275" class="glass-card" />
+    <text x="16" y="24" class="txt-hdr">3. Output Assets</text>
+
+    <rect x="14" y="42" width="202" height="215" class="glass-inner" />
+    <text x="24" y="64" class="txt-blue">Committed Assets</text>
+    <text x="24" y="84" class="txt-body">• assets/banners/</text>
+    <text x="34" y="100" class="txt-muted">&lt;picture&gt; light / dark</text>
+    <text x="24" y="118" class="txt-body">• assets/badges/</text>
+    <text x="34" y="134" class="txt-muted">Status / Priority chips</text>
+    <text x="24" y="152" class="txt-body">• Support/*/assets/</text>
+    <text x="34" y="168" class="txt-muted">Architecture &amp; Gap SVGs</text>
+
+    <text x="24" y="198" class="txt-blue">Consumer Integration</text>
+    <text x="24" y="216" class="txt-body">• Obsidian CSS snippet</text>
+    <text x="24" y="232" class="txt-body">• GitHub README &amp; Docs</text>
+    <text x="24" y="248" class="txt-muted">Multi-viewer support</text>
+  </g>
+  <!-- lxc-attribution -->
+  <g class="lxc-attribution">
+    <rect x="812" y="358" width="96" height="15" rx="4" fill="#ffffff" fill-opacity="0.08"/>
+    <text x="908" y="370" text-anchor="end" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="9" fill="#8a5723" fill-opacity="0.5">Lexvora (LXC)</text>
+  </g>
+</svg>
+
