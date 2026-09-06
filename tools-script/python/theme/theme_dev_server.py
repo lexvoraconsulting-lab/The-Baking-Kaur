@@ -255,8 +255,8 @@ def start_server(
         "--path", str(DEFAULT_THEME_DIR),
         "--port", str(chosen_port)
     ]
-    if not auto_open:
-        cmd.append("--no-open")
+    if auto_open:
+        cmd.append("--open")
 
     try:
         proc = subprocess.run(cmd, cwd=str(repo_root))
