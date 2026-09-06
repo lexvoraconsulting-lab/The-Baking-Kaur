@@ -1,0 +1,15 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "tbk_art_home": {"type":"tbk-homepage-art","settings":{}},
+    "tbk_homepage_qa_fixes": {"type":"tbk-homepage-qa-fixes","settings":{}},
+    "tbk_occasion_mock_size_fix": {"type":"tbk-occasion-mock-size-fix","settings":{}},
+    "tbk_occasion_single_row": {"type":"tbk-occasion-single-row","settings":{}},
+    "tbk_love_mobile": {"type":"tbk-love-mobile","settings":{}}
+  },
+  "order": ["tbk_art_home","tbk_homepage_qa_fixes","tbk_occasion_mock_size_fix","tbk_occasion_single_row","tbk_love_mobile"]
+}

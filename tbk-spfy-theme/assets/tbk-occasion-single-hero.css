@@ -1,0 +1,12 @@
+/* TBK Occasion V2 — single hero image fix */
+.tbk-occasion-hero .swiper-wrapper,
+.tbk-occasion-hero .carousel__track,
+.tbk-occasion-hero .slider__track { transform: none !important; }
+.tbk-occasion-hero .swiper-slide:not(:first-child),
+.tbk-occasion-hero .carousel__slide:not(:first-child),
+.tbk-occasion-hero .slider__slide:not(:first-child) { display:none !important; }
+.tbk-occasion-hero [data-slide]:not([data-slide="0"]),
+.tbk-occasion-hero [data-index]:not([data-index="0"]) { display:none !important; }
+.tbk-occasion-hero .swiper-pagination,
+.tbk-occasion-hero .slider-buttons,
+.tbk-occasion-hero .carousel__controls { display:none !important; }

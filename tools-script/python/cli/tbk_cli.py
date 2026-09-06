@@ -1,19 +1,21 @@
 #!/usr/bin/env python3
 """
 The Baking Kaur — Master Atelier Operations CLI
-High-ergonomics interactive console operations hub for storefront theme,
-governance, SEO, AI Cake Genome, and release management.
+Executive luxury terminal interface for storefront theme, governance,
+SEO, AI Cake Genome, and release management.
 """
 from __future__ import annotations
 
 import argparse
 import datetime
 import os
+import re
 import shutil
 import subprocess
 import sys
 import time
 import traceback
+import unicodedata
 from pathlib import Path
 
 # Enable ANSI escape sequences and UTF-8 encoding on Windows console
@@ -28,47 +30,76 @@ if sys.stdout and hasattr(sys.stdout, "reconfigure"):
         pass
 
 
-# --- Atelier Luxury Terminal Palette ---
-C_RESET = "\033[0m"
-C_BOLD = "\033[1m"
-C_DIM = "\033[2m"
+# --- Atelier Haute Pâtisserie Palette (24-bit TrueColor) ---
+C_RESET        = "\033[0m"
+C_BOLD         = "\033[1m"
+C_DIM          = "\033[2m"
+C_ITALIC       = "\033[3m"
 
-# Brand colors (TrueColor with ANSI fallback)
-C_ROSE = "\033[38;2;192;20;87m"        # Atelier Velvet Rose (#C01457)
-C_ROSE_DEEP = "\033[38;2;122;33;71m"   # Deep Wine (#7A2147)
-C_GOLD = "\033[38;2;212;163;89m"       # Champagne Gold (#D4A359)
-C_GOLD_BRIGHT = "\033[38;2;243;229;171m"  # Shimmer Gold Light
-C_IVORY = "\033[38;2;253;242;244m"      # Pure Silk Ivory
-C_MINT = "\033[38;2;46;204;113m"        # Verification Emerald
-C_SKY = "\033[38;2;52;152;219m"         # Atelier Sky Blue
-C_AMBER = "\033[38;2;230;126;34m"       # Warning Amber
-C_LAVENDER = "\033[38;2;155;89;182m"    # Royal Lilac
-C_BORDER = "\033[38;2;180;130;145m"     # Subtle Rose-Gold Border
-C_MUTED = "\033[38;2;125;125;135m"      # Subtle Gray
-C_BG_ROSE = "\033[48;2;90;15;45m"       # Header Rose Background
+# Brand colors
+C_GOLD_SHIMMER = "\033[38;2;248;238;200m"  # Shimmer Gold Light
+C_GOLD_BRIGHT  = "\033[38;2;235;195;125m"  # Pale Champagne
+C_GOLD         = "\033[38;2;212;163;89m"   # Classic Patisserie Gold (#D4A359)
+C_ROSE_GOLD    = "\033[38;2;215;130;120m"  # Rose Gold Transition
+C_ROSE         = "\033[38;2;192;20;87m"    # Atelier Velvet Rose (#C01457)
+C_ROSE_DEEP    = "\033[38;2;140;22;65m"    # Deep Berry Wine (#8C1641)
+C_WINE         = "\033[38;2;100;15;45m"    # Dark Burgundy
+C_IVORY        = "\033[38;2;253;245;246m"  # Pure Silk Ivory
+C_MINT         = "\033[38;2;46;204;113m"   # Verification Emerald
+C_SKY          = "\033[38;2;52;152;219m"   # Atelier Sky Blue
+C_AMBER        = "\033[38;2;230;126;34m"   # Warning Amber
+C_LAVENDER     = "\033[38;2;175;110;200m"  # Royal Lilac
+C_BORDER       = "\033[38;2;160;105;125m"  # Subtle Velvet Rose Border
+C_BORDER_GOLD  = "\033[38;2;180;140;90m"   # Soft Gold Border
+C_MUTED        = "\033[38;2;135;135;145m"  # Elegant Slate Muted
+
+
+def vis_len(s: str) -> int:
+    """Calculate visible console width of a string, accounting for ANSI codes and wide glyphs."""
+    clean = re.sub(r"\x1b\[[0-9;]*m", "", s)
+    width = 0
+    for ch in clean:
+        ea = unicodedata.east_asian_width(ch)
+        if ea in ("W", "F"):
+            width += 2
+        else:
+            width += 1
+    return width
 
 
 def resolve_executable(name: str) -> str:
-    """Locate executable path, resolving .cmd/.bat extensions on Windows."""
+    """Locate executable path, resolving centralized F:\frameworks first, then PATH."""
+    # 1. Check centralized npm-global tools directory on F: drive
+    f_npm = Path(r"F:\frameworks\nodejs\npm-global")
+    if (f_npm / f"{name}.cmd").exists():
+        return str(f_npm / f"{name}.cmd")
+    if (f_npm / f"{name}.bat").exists():
+        return str(f_npm / f"{name}.bat")
+    if (f_npm / name).exists():
+        return str(f_npm / name)
+
+    # 2. Check centralized Python Scripts directory on F: drive
+    f_python_scripts = Path(r"F:\frameworks\python\python314\Scripts")
+    if (f_python_scripts / f"{name}.exe").exists():
+        return str(f_python_scripts / f"{name}.exe")
+
+    # 3. Check current python runtime directory
+    python_dir = Path(sys.executable).parent
+    if (python_dir / "Scripts" / f"{name}.exe").exists():
+        return str(python_dir / "Scripts" / f"{name}.exe")
+
+    # 4. Standard shutil.which fallback
     resolved = shutil.which(name)
     if resolved:
         return resolved
 
-    # Check common Windows npm global tools directory
+    # 5. Check APPDATA npm fallback
     appdata = os.environ.get("APPDATA", "")
     if appdata:
-        npm_cmd = Path(appdata) / "npm" / f"{name}.cmd"
-        if npm_cmd.exists():
-            return str(npm_cmd)
-        npm_bat = Path(appdata) / "npm" / f"{name}.bat"
-        if npm_bat.exists():
-            return str(npm_bat)
-
-    # Check Python Scripts directory
-    python_dir = Path(sys.executable).parent
-    script_tool = python_dir / "Scripts" / f"{name}.exe"
-    if script_tool.exists():
-        return str(script_tool)
+        if (Path(appdata) / "npm" / f"{name}.cmd").exists():
+            return str(Path(appdata) / "npm" / f"{name}.cmd")
+        if (Path(appdata) / "npm" / f"{name}.bat").exists():
+            return str(Path(appdata) / "npm" / f"{name}.bat")
 
     return name
 
@@ -96,6 +127,9 @@ class SessionLogger:
         self.session_log_path.write_text(header, encoding="utf-8")
         self.update_latest_pointer()
 
+    def update_latest_pointer() -> None:
+        pass
+
     def update_latest_pointer(self) -> None:
         try:
             shutil.copy2(self.session_log_path, self.latest_log_path)
@@ -114,7 +148,7 @@ class SessionLogger:
 class TBKConsoleCLI:
     """Executive luxury terminal interface for The Baking Kaur operations."""
 
-    WIDTH = 76
+    WIDTH = 92
 
     def __init__(self, repo_root: Path, test_mode: bool = False):
         self.repo_root = repo_root
@@ -135,6 +169,7 @@ class TBKConsoleCLI:
         existing_pypath = self.env.get("PYTHONPATH", "")
         self.env["PYTHONPATH"] = f"{root_dir};{ai_dir};{seo_dir}" + (f";{existing_pypath}" if existing_pypath else "")
         self.env["PYTHONIOENCODING"] = "utf-8"
+        self.env["PYTHONUSERBASE"] = r"F:\frameworks\python\python314"
 
     def clear_screen(self) -> None:
         """Clear console screen cleanly on interactive runs."""
@@ -142,93 +177,150 @@ class TBKConsoleCLI:
             os.system("cls" if os.name == "nt" else "clear")
 
     def print_banner(self) -> None:
-        """Render high-taste luxury atelier header and live system telemetry."""
+        """Render grand 5x sculpted typography and luxury patisserie header."""
         w = self.WIDTH
         inner = w - 2
+        border = C_BORDER_GOLD
+
+        baking_rows = [
+            ("  ██████╗   █████╗  ██╗  ██╗ ██╗ ███╗   ██╗  ██████╗  ", C_GOLD_SHIMMER),
+            ("  ██╔══██╗ ██╔══██╗ ██║ ██╔╝ ██║ ████╗  ██║ ██╔════╝  ", C_GOLD_BRIGHT),
+            ("  ██████╔╝ ███████║ █████═╝  ██║ ██╔██╗ ██║ ██║  ███╗ ", C_ROSE_GOLD),
+            ("  ██╔══██╗ ██╔══██║ ██╔═██╗  ██║ ██║╚██╗██║ ██║   ██║ ", C_ROSE),
+            ("  ██████╔╝ ██║  ██║ ██║ ╚██╗ ██║ ██║ ╚████║ ╚██████╔╝ ", C_ROSE_DEEP),
+        ]
 
         print()
-        print(f"{C_GOLD}╔{'═' * inner}╗{C_RESET}")
-        title = "✦   T H E   B A K I N G   K A U R   ·   A T E L I E R   S T U D I O   ✦"
-        print(f"{C_GOLD}║{C_BOLD}{C_ROSE}{title.center(inner)}{C_RESET}{C_GOLD}║{C_RESET}")
-        sub = "100% Pure Eggless Luxury Patisserie · Meerut, India"
-        print(f"{C_GOLD}║{C_MUTED}{sub.center(inner)}{C_RESET}{C_GOLD}║{C_RESET}")
-        print(f"{C_GOLD}╚{'═' * inner}╝{C_RESET}")
+        print(f"{border}╔{'═' * inner}╗{C_RESET}")
 
-        # Active System Telemetry Card
-        print(f"{C_BORDER}┌─ {C_GOLD}{C_BOLD}ACTIVE SYSTEM TELEMETRY{C_RESET}{C_BORDER} {'─' * (inner - 26)}┐{C_RESET}")
+        # Atelier header flourish
+        top_flourish = "◈  ──  ✧  ──  ❖   🍰   A T E L I E R   D E   P Â T I S S E R I E   🍰   ❖  ──  ✧  ──  ◈"
+        t_pad_l = (inner - vis_len(top_flourish)) // 2
+        t_pad_r = inner - vis_len(top_flourish) - t_pad_l
+        print(f"{border}║{C_RESET}{' ' * t_pad_l}{C_GOLD_SHIMMER}{top_flourish}{C_RESET}{' ' * t_pad_r}{border}║{C_RESET}")
+        print(f"{border}╠{'═' * inner}╣{C_RESET}")
 
-        def print_telemetry_line(label: str, value: str) -> None:
-            prefix = f"  {label:<12} "
-            vis = prefix + value
-            pad = max(0, inner - len(vis))
-            print(f"{C_BORDER}│{C_RESET}  {C_GOLD}{label:<12}{C_RESET} {C_IVORY}{value}{C_RESET}{' ' * pad}{C_BORDER}│{C_RESET}")
+        # Ivory Flourish above BAKING
+        the_line = "✦   T   H   E   ✦"
+        pad_l = (inner - vis_len(the_line)) // 2
+        pad_r = inner - vis_len(the_line) - pad_l
+        print(f"{border}║{C_RESET}{' ' * pad_l}{C_IVORY}{C_BOLD}{the_line}{C_RESET}{' ' * pad_r}{border}║{C_RESET}")
 
-        print_telemetry_line("Store:", self.store_domain)
-        print_telemetry_line("Target:", f"#{self.preview_theme_id} [TBK Birthday Collection V3 — Pastel]")
-        print_telemetry_line("Runtime:", f"Python {sys.version.split()[0]} (F:\\frameworks\\Python314)")
-        print_telemetry_line("Session:", f"logs/sessions/{self.logger.session_log_path.name}")
-        print(f"{C_BORDER}└{'─' * inner}┘{C_RESET}")
+        # 5x Sculpted BAKING Logo with vertical chromatic gradient
+        for row_text, color in baking_rows:
+            r_pad_l = (inner - vis_len(row_text)) // 2
+            r_pad_r = inner - vis_len(row_text) - r_pad_l
+            print(f"{border}║{C_RESET}{' ' * r_pad_l}{color}{C_BOLD}{row_text}{C_RESET}{' ' * r_pad_r}{border}║{C_RESET}")
+
+        # Velvet Rose Flourish below BAKING
+        kaur_line = "✧   K   A   U   R   ✧"
+        k_pad_l = (inner - vis_len(kaur_line)) // 2
+        k_pad_r = inner - vis_len(kaur_line) - k_pad_l
+        print(f"{border}║{C_RESET}{' ' * k_pad_l}{C_ROSE}{C_BOLD}{kaur_line}{C_RESET}{' ' * k_pad_r}{border}║{C_RESET}")
+
+        # Subtitle
+        sub1 = "100% PURE EGGLESS LUXURY PATISSERIE · MEERUT, INDIA"
+        s1_pad_l = (inner - vis_len(sub1)) // 2
+        s1_pad_r = inner - vis_len(sub1) - s1_pad_l
+        print(f"{border}║{C_RESET}{' ' * s1_pad_l}{C_GOLD}{sub1}{C_RESET}{' ' * s1_pad_r}{border}║{C_RESET}")
+
+        sub2 = "Haute Pâtisserie Française · Artisanal Confections · AI Cake Genome"
+        s2_pad_l = (inner - vis_len(sub2)) // 2
+        s2_pad_r = inner - vis_len(sub2) - s2_pad_l
+        print(f"{border}║{C_RESET}{' ' * s2_pad_l}{C_MUTED}{sub2}{C_RESET}{' ' * s2_pad_r}{border}║{C_RESET}")
+        print(f"{border}╚{'═' * inner}╝{C_RESET}")
+        print()
+
+        # Active System Telemetry Card (2-Column Structured Grid)
+        t_border = C_BORDER
+        card_w = inner
+        print(f"{t_border}╭─ {C_GOLD}{C_BOLD}SYSTEM TELEMETRY & RUNTIME STATE{C_RESET}{t_border} {'─' * (card_w - 35)}╮{C_RESET}")
+
+        telemetry_left = [
+            ("Store Domain", self.store_domain, C_MINT),
+            ("Preview Theme", f"#{self.preview_theme_id} (Birthday V3)", C_SKY),
+            ("Live Theme", f"#{self.live_theme_id} [Rule 2.1]", C_AMBER),
+        ]
+        telemetry_right = [
+            ("Python Engine", f"v{sys.version.split()[0]} (F:\\frameworks)", C_MINT),
+            ("Shopify CLI", "v4.7.1 (F:\\frameworks)", C_MINT),
+            ("Session Log", "logs/latest_session.log", C_IVORY),
+        ]
+
+        for (l_lbl, l_val, l_col), (r_lbl, r_val, r_col) in zip(telemetry_left, telemetry_right):
+            l_plain = f"  {l_lbl:<14} {l_val}"
+            l_pad = max(0, 44 - vis_len(l_plain))
+            l_display = f"  {C_GOLD}{l_lbl:<14}{C_RESET} {l_col}{l_val}{C_RESET}" + (" " * l_pad)
+
+            r_plain = f"{r_lbl:<14} {r_val}"
+            r_pad = max(0, 43 - vis_len(r_plain))
+            r_display = f"{C_GOLD}{r_lbl:<14}{C_RESET} {r_col}{r_val}{C_RESET}" + (" " * r_pad)
+
+            print(f"{t_border}│{C_RESET}{l_display}{t_border} │ {C_RESET}{r_display}{t_border}│{C_RESET}")
+
+        print(f"{t_border}╰{'─' * card_w}╯{C_RESET}")
         print()
 
     def print_menu_body(self) -> None:
-        """Render organized, luxury domain cards with clear visual cadence."""
+        """Render organized, luxury domain cards with intuitive operator UX."""
         w = self.WIDTH
         inner = w - 2
+        t_border = C_BORDER
 
         def section_header(icon: str, title: str) -> None:
-            header_text = f"{icon} {title}"
-            remaining = inner - len(header_text) - 4
-            print(f"{C_BORDER}├── {C_ROSE}{C_BOLD}{header_text}{C_RESET}{C_BORDER} {'─' * max(2, remaining)}┤{C_RESET}")
+            header_text = f" {icon}  {title} "
+            remaining = max(2, inner - 2 - vis_len(header_text))
+            print(f"{t_border}├──{C_ROSE}{C_BOLD}{header_text}{C_RESET}{t_border}{'─' * remaining}┤{C_RESET}")
 
         def menu_item(num: str, desc: str, detail: str = "") -> None:
-            vis_text = f"  {num:>3}   {desc}" + (f" ({detail})" if detail else "")
-            pad = max(0, inner - len(vis_text))
-            item_display = (
-                f"  {C_GOLD_BRIGHT}{C_BOLD}{num:>3}{C_RESET}   "
-                f"{C_IVORY}{desc}{C_RESET}"
-                + (f" {C_MUTED}({detail}){C_RESET}" if detail else "")
+            num_str = f"[{num:^3}]"
+            plain_line = f"   {num_str}  {desc:<28} {detail}"
+            pad = max(0, inner - vis_len(plain_line))
+            display_line = (
+                f"   {C_GOLD_BRIGHT}{C_BOLD}{num_str}{C_RESET}  "
+                f"{C_IVORY}{desc:<28}{C_RESET} "
+                f"{C_MUTED}{detail}{C_RESET}"
                 + (" " * pad)
             )
-            print(f"{C_BORDER}│{C_RESET}{item_display}{C_BORDER}│{C_RESET}")
+            print(f"{t_border}│{C_RESET}{display_line}{t_border}│{C_RESET}")
 
-        # Menu Box Top
-        print(f"{C_BORDER}┌── {C_GOLD}{C_BOLD}OPERATIONAL MODULES{C_RESET}{C_BORDER} {'─' * (inner - 22)}┐{C_RESET}")
+        print(f"{t_border}╭── {C_GOLD}{C_BOLD}OPERATIONAL MODULES{C_RESET}{t_border} {'─' * (inner - 24)}╮{C_RESET}")
 
         # Category 1: Storefront & Theme
-        section_header("🌸", "STOREFRONT & THEME STUDIO")
+        section_header("🌸", "01 · STOREFRONT & THEME STUDIO")
         menu_item("1", "Start Local Dev Server", f"Port 9292 -> Preview #{self.preview_theme_id}")
-        menu_item("2", "Run Theme Health Check", "Liquid & JSON integrity linter")
-        menu_item("3", "Deploy to Preview Theme", f"Push code to #{self.preview_theme_id}")
-        menu_item("4", "Deploy File to Live Theme", f"Live #{self.live_theme_id} · Diff protocol")
+        menu_item("2", "Run Theme Health Check", "Liquid syntax, schema & JSON integrity")
+        menu_item("3", "Deploy to Preview Theme", f"Direct push to Preview #{self.preview_theme_id}")
+        menu_item("4", "Deploy File to Live Theme", f"Live #{self.live_theme_id} · Rule 5.2 Differential Protocol")
 
         # Category 2: Governance & Tasks
-        section_header("🏛", "PROJECTOPS GOVERNANCE & PDM")
-        menu_item("5", "12-Point Conformance Audit", "pdm audit Support — 0 errors gate")
-        menu_item("6", "View Project Context", "Active delivery plans & current sprint")
-        menu_item("7", "Task Lifecycle Workflow", "Start, complete, or sync PDM tasks")
-        menu_item("8", "Create Git Checkpoint", "pdm checkpoint with clean commit")
+        section_header("🏛", "02 · PROJECTOPS GOVERNANCE & PDM")
+        menu_item("5", "12-Point Conformance Audit", "pdm audit Support (Strict 0 Errors Gate)")
+        menu_item("6", "View Project Context", "Active delivery plans & current sprint matrix")
+        menu_item("7", "Task Lifecycle Workflow", "pdm task start / complete / sync")
+        menu_item("8", "Create Git Checkpoint", "pdm checkpoint (Audit-Gated Commit & Push)")
 
         # Category 3: Store Automation & SEO
-        section_header("⚡", "STORE AUTOMATION & SEO ENGINE")
-        menu_item("9", "Run SEO Snippets Preview", "Safe read-only dry-run with CSV audit")
-        menu_item("10", "Apply SEO Fixes to Live Store", "GraphQL batch mutation update")
+        section_header("⚡", "03 · STORE AUTOMATION & SEO ENGINE")
+        menu_item("9", "Run SEO Snippets Preview", "Safe dry-run preview with CSV audit report")
+        menu_item("10", "Apply SEO Fixes to Live", "GraphQL batch mutation sync")
 
         # Category 4: AI Cake Genome
-        section_header("🧬", "AI CAKE GENOME & TEST SUITE")
-        menu_item("11", "Run Full Pytest Test Suite", "233 tests: Vision + Taxonomy + SEO")
+        section_header("🧬", "04 · AI CAKE GENOME & VISION PIPELINE")
+        menu_item("11", "Run Full Pytest Suite", "233 tests: Vision, Taxonomy & Storefront")
 
         # Category 5: Build & Release
-        section_header("📦", "BUILD & RELEASE MANAGEMENT")
-        menu_item("12", "Package Versioned Build", "Compile artifact into build/vX.Y.Z/")
+        section_header("📦", "05 · BUILD & RELEASE MANAGEMENT")
+        menu_item("12", "Package Versioned Build", "Compile archive into build/vX.Y.Z/")
         menu_item("13", "Publish Versioned Release", "Stage release into releases/v<Major>/")
 
         # Category 6: Observability & Exit
-        section_header("📊", "OBSERVABILITY & STUDIO UTILITIES")
-        menu_item("L", "View Session Log Summary", "Review last 25 operations in real-time")
-        menu_item("0", "Exit Atelier Operations Hub", "Gracefully terminate session")
+        section_header("📊", "06 · SYSTEM OBSERVABILITY & CONTROL")
+        menu_item("L", "View Session Log Summary", "Tail last 25 operations in real time")
+        menu_item("R", "Refresh Telemetry & Status", "Re-query Shopify CLI & Python runtimes")
+        menu_item("0", "Exit Atelier Operations", "Graceful session termination")
 
-        # Menu Box Bottom
-        print(f"{C_BORDER}└{'─' * inner}┘{C_RESET}")
+        print(f"{t_border}╰{'─' * inner}╯{C_RESET}")
         print()
 
     def run_clean_step(self, title: str, cmd: list[str], cwd: Path | None = None) -> bool:
@@ -237,11 +329,11 @@ class TBKConsoleCLI:
         inner = w - 2
         start_time = time.time()
 
-        print(f"{C_BORDER}┌─ {C_GOLD}EXECUTING OPERATION{C_RESET}{C_BORDER} {'─' * (inner - 22)}┐{C_RESET}")
+        print(f"{C_BORDER}╭─ {C_GOLD}EXECUTING OPERATION{C_RESET}{C_BORDER} {'─' * (inner - 22)}╮{C_RESET}")
         print(f"{C_BORDER}│{C_RESET}  {C_BOLD}{title}{C_RESET}")
         print(f"{C_BORDER}│{C_RESET}  {C_MUTED}Command: {' '.join(cmd[:4])}{'...' if len(cmd) > 4 else ''}{C_RESET}")
         print(f"{C_BORDER}│{C_RESET}")
-        print(f"{C_BORDER}│{C_RESET}  ⏳  {C_SKY}Processing step in background...{C_RESET}", end="", flush=True)
+        print(f"{C_BORDER}│{C_RESET}  ⏳  {C_SKY}Processing operation...{C_RESET}", end="", flush=True)
 
         self.logger.log(f"COMMAND START: {' '.join(cmd)}")
 
@@ -274,7 +366,7 @@ class TBKConsoleCLI:
 
             if exit_code == 0:
                 print(f"\r{C_BORDER}│{C_RESET}  {C_MINT}{C_BOLD}✔  Operation Completed Successfully{C_RESET} {C_MUTED}({elapsed:.2f}s){C_RESET}")
-                print(f"{C_BORDER}└{'─' * inner}┘{C_RESET}\n")
+                print(f"{C_BORDER}╰{'─' * inner}╯{C_RESET}\n")
                 return True
             else:
                 print(f"\r{C_BORDER}│{C_RESET}  {C_AMBER}{C_BOLD}✖  Failed with exit code {exit_code}{C_RESET} {C_MUTED}({elapsed:.2f}s){C_RESET}")
@@ -283,19 +375,19 @@ class TBKConsoleCLI:
                     clean_err = err_line.strip()[:inner - 6]
                     print(f"{C_BORDER}│{C_RESET}    {C_MUTED}{clean_err}{C_RESET}")
                 print(f"{C_BORDER}│{C_RESET}  {C_MUTED}Full audit log: logs/latest_session.log{C_RESET}")
-                print(f"{C_BORDER}└{'─' * inner}┘{C_RESET}\n")
+                print(f"{C_BORDER}╰{'─' * inner}╯{C_RESET}\n")
                 return False
         except Exception as ex:
             elapsed = time.time() - start_time
             print(f"\r{C_BORDER}│{C_RESET}  {C_AMBER}{C_BOLD}✖  Execution Exception: {ex}{C_RESET} {C_MUTED}({elapsed:.2f}s){C_RESET}")
-            print(f"{C_BORDER}└{'─' * inner}┘{C_RESET}\n")
+            print(f"{C_BORDER}╰{'─' * inner}╯{C_RESET}\n")
             self.logger.log(f"EXCEPTION: {ex}\n{traceback.format_exc()}")
             return False
 
     def pause(self) -> None:
         """Clean interactive pause prompt."""
         if not self.test_mode:
-            print(f"{C_MUTED}────────────────────────────────────────────────────────────────────────{C_RESET}")
+            print(f"{C_MUTED}──────────────────────────────────────────────────────────────────────────────────────────{C_RESET}")
             try:
                 input(f"{C_GOLD}Press Enter to return to Atelier Studio menu...{C_RESET}")
             except (KeyboardInterrupt, EOFError):
@@ -350,11 +442,11 @@ class TBKConsoleCLI:
         try:
             choice = input(f"\n{C_GOLD}Select action [0-2]: {C_RESET}").strip()
             if choice == "1":
-                task_id = input(f"{C_GOLD}Enter Task ID to start (e.g. TOOL-01.01, HOME-01.01): {C_RESET}").strip()
+                task_id = input(f"{C_GOLD}Enter Task ID to start (e.g. MENU-01.01, SLOT-01.01): {C_RESET}").strip()
                 if task_id:
                     self.run_clean_step(f"Starting task {task_id}", [sys.executable, str(self.pdm_bin), "worklog", "start", task_id])
             elif choice == "2":
-                task_id = input(f"{C_GOLD}Enter Task ID to complete (e.g. TOOL-01.01, HOME-01.01): {C_RESET}").strip()
+                task_id = input(f"{C_GOLD}Enter Task ID to complete (e.g. MENU-01.01, SLOT-01.01): {C_RESET}").strip()
                 if task_id:
                     self.run_clean_step(f"Completing task {task_id}", [sys.executable, str(self.pdm_bin), "task", "complete", task_id])
         except (KeyboardInterrupt, EOFError):
@@ -437,7 +529,8 @@ class TBKConsoleCLI:
                 break
 
             try:
-                choice = input(f"{C_ROSE}{C_BOLD}tbk-studio ❯ {C_RESET}").strip().lower()
+                prompt_line = f"{C_ROSE}{C_BOLD}tbk-atelier ❯ {C_RESET}"
+                choice = input(prompt_line).strip().lower()
             except (KeyboardInterrupt, EOFError):
                 print(f"\n\n{C_MINT}Exiting The Baking Kaur Studio. Goodbye!{C_RESET}\n")
                 break
@@ -445,6 +538,8 @@ class TBKConsoleCLI:
             if choice in ("0", "exit", "q"):
                 print(f"\n{C_MINT}Exiting The Baking Kaur Studio. Goodbye!{C_RESET}\n")
                 break
+            elif choice in ("r", "refresh"):
+                continue
             elif choice in ("1", "1.1"):
                 self.handle_theme_dev()
             elif choice in ("2", "1.2"):
@@ -481,7 +576,7 @@ class TBKConsoleCLI:
             elif choice in ("l", "log", "logs"):
                 self.handle_view_log()
             else:
-                print(f"\n{C_AMBER}Invalid selection '{choice}'. Please select an option from 1 to 13, L, or 0.{C_RESET}")
+                print(f"\n{C_AMBER}Invalid selection '{choice}'. Please select an option from 1 to 13, L, R, or 0.{C_RESET}")
                 time.sleep(1.2)
 
 

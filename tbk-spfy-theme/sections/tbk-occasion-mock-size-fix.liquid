@@ -1,0 +1,61 @@
+<style>
+/* TBK compact premium homepage overrides — final layer. */
+@media (min-width:750px){
+  .tbk-art .tbk-sec{padding:18px 20px!important}
+  .tbk-art .tbk-sec>h2{margin-bottom:14px!important;font-size:28px!important}
+  .tbk-art .tbk-grid.six,.tbk-art .tbk-grid.five{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:14px!important}
+  .tbk-art .tbk-products{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:14px!important}
+  .tbk-art .tbk-reviews{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:12px!important}
+  .tbk-art .tbk-social{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:10px!important}
+  .tbk-art .tbk-feature{margin-bottom:18px!important;padding:18px!important;gap:14px!important}
+  .tbk-art .tbk-studio{margin:18px auto!important}
+  .tbk-art .tbk-meerut-sec{margin:18px auto!important;padding:18px!important}
+  .tbk-art .tbk-final{margin-bottom:14px!important;padding:22px!important}
+  .tbk-art .tbk-love{margin-top:10px!important;margin-bottom:14px!important;padding:12px 20px 10px!important}
+}
+@media (max-width:749px){
+  /* Reduce the large blank vertical gaps between homepage blocks. */
+  .tbk-art .tbk-sec{padding:14px 10px 18px!important}
+  .tbk-art .tbk-sec.soft{padding-top:14px!important;padding-bottom:18px!important}
+  .tbk-art .tbk-sec>h2{font-size:23px!important;margin:0 0 10px!important;line-height:1.1!important}
+  .tbk-art .tbk-outline{margin-top:10px!important;padding:7px 14px!important}
+  .tbk-art .tbk-love{margin:8px 0 10px!important}
+  .tbk-art .tbk-feature{margin:6px 8px 12px!important;padding:10px!important;gap:10px!important}
+  .tbk-art .tbk-feature>div:first-child{padding:8px!important}
+  .tbk-art .tbk-feature h2{font-size:23px!important}
+  .tbk-art .tbk-feature p{font-size:11px!important;margin:5px 0 9px!important}
+  .tbk-art .tbk-four{gap:6px!important}
+  .tbk-art .tbk-four img{height:112px!important}
+  .tbk-art .tbk-studio{margin:8px!important;border-radius:8px!important}
+  .tbk-art .tbk-studio>div:first-child{padding:18px!important}
+  .tbk-art .tbk-studio h2{font-size:23px!important}
+  .tbk-art .tbk-studio ol{margin:12px 0!important;gap:6px!important}
+  .tbk-art .tbk-studio>div:last-child{min-height:190px!important}
+  .tbk-art .tbk-meerut-sec{margin:10px 8px!important;padding:15px!important;gap:10px!important}
+  .tbk-art .tbk-meerut-sec h2{font-size:23px!important}
+  .tbk-art .tbk-meerut-sec strong{height:70px!important}
+  .tbk-art .tbk-reviews{gap:8px!important}
+  .tbk-art .tbk-reviews article{padding:12px!important}
+  .tbk-art .faq-grid{gap:0!important}
+  .tbk-art .faq-grid summary{padding:11px 2px!important}
+  .tbk-art .tbk-social{gap:6px!important}
+  .tbk-art .tbk-final{margin:0 8px 10px!important;padding:16px!important;gap:8px!important}
+  .tbk-art .tbk-final h2{font-size:23px!important}
+
+  /* Premium 4-column card treatment where the content is compact enough. */
+  .tbk-art .tbk-love>.tbk-love-grid{grid-template-columns:repeat(5,minmax(0,1fr))!important}
+  .tbk-art .tbk-four{grid-template-columns:repeat(4,minmax(0,1fr))!important}
+
+  /* Shop by Occasion: keep the supplied artwork readable as premium 2-up cards on phones. */
+  .tbk-art .tbk-sec:has(.tbk-grid.six){padding:14px 10px 18px!important}
+  .tbk-art .tbk-sec:has(.tbk-grid.six)>h2{margin-bottom:10px!important;padding-top:10px!important;font-size:23px!important}
+  .tbk-art .tbk-grid.six{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:9px!important}
+  .tbk-art .tbk-grid.six .tbk-card{border-radius:12px!important;box-shadow:0 2px 9px rgba(91,45,57,.08)!important;padding:0!important}
+  .tbk-art .tbk-grid.six .tbk-card img{aspect-ratio:auto!important;object-fit:contain!important}
+  .tbk-art .tbk-grid.six .tbk-card b{height:0!important;min-height:0!important;padding:0!important;margin:0!important;overflow:hidden!important;font-size:0!important}
+  .tbk-art .tbk-grid.six .tbk-card:before,.tbk-art .tbk-grid.six .tbk-card:after{display:none!important}
+  .tbk-art .tbk-sec:has(.tbk-grid.six) .tbk-outline{margin-top:10px!important}
+}
+</style>
+<script>(function(){var r=document.querySelector('[data-tbk-art]');if(!r)return;var c=r.querySelectorAll('.tbk-grid.six .tbk-card');if(c[0]){c[0].href='/collections/birthday-cakes';c[0].querySelector('b').textContent='Birthday'}if(c[1]){c[1].href='/collections/anniversary-cakes';c[1].querySelector('b').textContent='Anniversary'}if(c[2]){c[2].href='/collections/designer-theme-cakes';c[2].querySelector('b').textContent='Theme Cakes'}if(c[3]){c[3].href='/collections/wedding-cakes';c[3].querySelector('b').textContent='Wedding'}if(c[4]){c[4].href='/collections/cake-hampers';c[4].querySelector('b').textContent='Hampers'}})();</script>
+{% schema %}{"name":"Occasion Mockups","settings":[],"presets":[{"name":"Occasion Mockups"}]}{% endschema %}

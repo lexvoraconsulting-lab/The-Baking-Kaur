@@ -10,13 +10,13 @@ param (
 $RepoRoot = Resolve-Path "$PSScriptRoot\..\..\.."
 Set-Location $RepoRoot
 
-$pythonExe = "F:\frameworks\Python314\python.exe"
+$pythonExe = "F:\frameworks\python\python314\python.exe"
 if (-not (Test-Path $pythonExe)) {
     $pythonCmd = Get-Command python.exe -ErrorAction SilentlyContinue
     if ($pythonCmd) {
         $pythonExe = $pythonCmd.Source
     } else {
-        Write-Host "[ERROR] Python was not found at F:\frameworks\Python314 or in PATH." -ForegroundColor Red
+        Write-Host "[ERROR] Python was not found at F:\frameworks\python\python314 or in PATH." -ForegroundColor Red
         exit 1
     }
 }

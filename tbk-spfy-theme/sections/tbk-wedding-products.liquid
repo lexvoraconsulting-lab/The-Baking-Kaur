@@ -1,0 +1,38 @@
+<section class="tbk-wedding-products" aria-label="Wedding Cakes">
+  <div class="tbk-wedding-products__inner">
+    <div class="tbk-wedding-products__eyebrow">OUR WEDDING CAKE COLLECTION</div>
+    <h2>Wedding Cakes</h2>
+    <div class="tbk-wedding-products__heart">♡</div>
+    {% paginate collection.products by 24 %}
+      {% if collection.products_count > 0 %}
+        <div class="tbk-wedding-grid">
+          {% for product in collection.products %}
+            <article class="tbk-wedding-card">
+              <a href="{{ product.url }}" class="tbk-wedding-card__image" aria-label="{{ product.title | escape }}">
+                {% if product.featured_image %}
+                  {{ product.featured_image | image_url: width: 700 | image_tag: loading: 'lazy', widths: '360,540,700', sizes: '(max-width: 749px) 50vw, 25vw', alt: product.featured_image.alt | default: product.title }}
+                {% endif %}
+              </a>
+              <div class="tbk-wedding-card__body">
+                <h3><a href="{{ product.url }}">{{ product.title }}</a></h3>
+                <div class="tbk-wedding-card__price">{{ product.price | money }}</div>
+                <a class="tbk-wedding-card__cta" href="{{ product.url }}">EXPLORE →</a>
+              </div>
+            </article>
+          {% endfor %}
+        </div>
+        {% if paginate.pages > 1 %}
+          <nav class="tbk-wedding-pagination" aria-label="Wedding products pagination">
+            {{ paginate | default_pagination }}
+          </nav>
+        {% endif %}
+      {% else %}
+        <p class="tbk-wedding-empty">Wedding cakes will appear here.</p>
+      {% endif %}
+    {% endpaginate %}
+  </div>
+</section>
+<style>
+.tbk-wedding-products{background:#fffdfa;padding:48px 20px 64px}.tbk-wedding-products__inner{max-width:1280px;margin:0 auto}.tbk-wedding-products__eyebrow{text-align:center;letter-spacing:.18em;font-size:12px;color:#b98587;font-weight:600;margin-bottom:8px}.tbk-wedding-products h2{text-align:center;font-family:Georgia,serif;font-size:clamp(30px,4vw,48px);font-weight:400;margin:0;color:#2d2523}.tbk-wedding-products__heart{text-align:center;color:#c98286;font-size:30px;line-height:1;margin:12px 0 28px}.tbk-wedding-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:22px}.tbk-wedding-card{background:#fff;border:1px solid #eee4df;border-radius:14px;overflow:hidden;box-shadow:0 5px 18px rgba(70,45,35,.06)}.tbk-wedding-card__image{display:block;aspect-ratio:1/1;overflow:hidden;background:#f7f2ee}.tbk-wedding-card__image img{display:block;width:100%;height:100%;object-fit:cover}.tbk-wedding-card__body{text-align:center;padding:16px 12px 18px}.tbk-wedding-card h3{font-size:16px;line-height:1.35;margin:0 0 8px}.tbk-wedding-card h3 a{color:#302825;text-decoration:none}.tbk-wedding-card__price{font-weight:600;margin-bottom:12px;color:#7e4e50}.tbk-wedding-card__cta{display:inline-block;color:#b56e72;border:1px solid #e7c7c8;border-radius:5px;padding:8px 18px;font-size:12px;font-weight:700;letter-spacing:.08em;text-decoration:none}.tbk-wedding-pagination{text-align:center;margin-top:32px}.tbk-wedding-empty{text-align:center}.tbk-wedding-pagination .page,.tbk-wedding-pagination a{margin:0 5px}@media(max-width:900px){.tbk-wedding-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}}@media(max-width:520px){.tbk-wedding-products{padding:36px 12px 48px}.tbk-wedding-grid{gap:10px}.tbk-wedding-card__body{padding:12px 8px 14px}.tbk-wedding-card h3{font-size:14px}.tbk-wedding-card__cta{padding:7px 12px;font-size:11px}}
+</style>
+{% schema %}{"name":"TBK Wedding Products","settings":[],"presets":[{"name":"TBK Wedding Products"}]}{% endschema %}

@@ -1,0 +1,18 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "wedding_header": {
+      "type": "tbk-wedding-reference-layout",
+      "settings": {}
+    },
+    "wedding_products": {
+      "type": "tbk-wedding-products",
+      "settings": {}
+    }
+  },
+  "order": ["wedding_header", "wedding_products"]
+}

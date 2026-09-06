@@ -1,0 +1,104 @@
+{%- assign tbk_handle = collection.handle -%}
+{%- if tbk_handle == 'designer-theme-cakes' -%}
+<section class="tbk-occasion-hero tbk-occasion-hero--theme" aria-labelledby="tbk-occasion-title-{{ section.id }}">
+  <div class="tbk-occasion-hero__inner">
+    <div class="tbk-occasion-hero__eyebrow">THE BAKING KAUR · MEERUT</div>
+    <h1 id="tbk-occasion-title-{{ section.id }}">Designer &amp; Theme<br> Cakes</h1>
+    <p class="tbk-occasion-hero__copy">Freshly baked, 100% eggless creations made with love.<br>Choose your favourite design and order for same-day delivery across Meerut.</p>
+    <a class="tbk-occasion-hero__cta" href="#{{ section.id }}-products">EXPLORE COLLECTION</a>
+    <div class="tbk-occasion-hero__trust" aria-label="The Baking Kaur highlights">
+      <div><span>♣</span><strong>100% Eggless</strong></div>
+      <div><span>♨</span><strong>Freshly Baked</strong></div>
+      <div><span>♣</span><strong>Custom Made</strong></div>
+      <div><span>◷</span><strong>Same-Day Delivery</strong></div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .tbk-occasion-hero--theme {
+    background: #fbf3ea;
+    color: #2b201d;
+    overflow: hidden;
+    position: relative;
+  }
+  .tbk-occasion-hero--theme::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 72% 18%, rgba(214,176,127,.14), transparent 35%), radial-gradient(circle at 12% 82%, rgba(196,116,105,.08), transparent 38%);
+    pointer-events: none;
+  }
+  .tbk-occasion-hero__inner {
+    position: relative;
+    z-index: 1;
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 58px 24px 48px;
+  }
+  .tbk-occasion-hero__eyebrow {
+    color: #a9625e;
+    font: 700 14px/1.2 Manrope, sans-serif;
+    letter-spacing: .14em;
+    margin-bottom: 24px;
+  }
+  .tbk-occasion-hero--theme h1 {
+    margin: 0;
+    color: #2b201d;
+    font: 600 clamp(46px, 10vw, 78px)/.9 "Cormorant Garamond", Georgia, serif;
+    letter-spacing: -.035em;
+  }
+  .tbk-occasion-hero__copy {
+    margin: 28px 0 28px;
+    color: #4d413d;
+    font: 400 17px/1.65 Manrope, sans-serif;
+  }
+  .tbk-occasion-hero__cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 58px;
+    width: min(100%, 342px);
+    padding: 0 24px;
+    border-radius: 8px;
+    background: #c9756d;
+    color: #fff;
+    font: 700 16px/1 Manrope, sans-serif;
+    letter-spacing: .04em;
+    text-decoration: none;
+  }
+  .tbk-occasion-hero__trust {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px 30px;
+    margin-top: 34px;
+  }
+  .tbk-occasion-hero__trust div {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #4b403c;
+    font: 600 14px/1.2 Manrope, sans-serif;
+  }
+  .tbk-occasion-hero__trust span {
+    color: #b8873d;
+    font-size: 20px;
+    width: 22px;
+    text-align: center;
+  }
+  #{{ section.id }}-products { scroll-margin-top: 90px; }
+  @media (max-width: 767px) {
+    .tbk-occasion-hero__inner { padding: 48px 33px 42px; }
+    .tbk-occasion-hero__eyebrow { font-size: 13px; margin-bottom: 24px; }
+    .tbk-occasion-hero--theme h1 { font-size: clamp(46px, 13vw, 64px); }
+    .tbk-occasion-hero__copy { font-size: 16px; margin-top: 24px; }
+    .tbk-occasion-hero__cta { width: 100%; }
+    .tbk-occasion-hero__trust { gap: 20px 14px; margin-top: 32px; }
+    .tbk-occasion-hero__trust div { font-size: 13px; }
+  }
+</style>
+{%- endif -%}
+
+{% schema %}
+{"name":"TBK Occasion V2","settings":[],"presets":[{"name":"TBK Occasion V2"}]}
+{% endschema %}

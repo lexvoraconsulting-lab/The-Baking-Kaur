@@ -1,0 +1,18 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "birthday_reference": {
+      "type": "tbk-birthday-reference-layout",
+      "settings": {}
+    },
+    "birthday_image_fix": {
+      "type": "tbk-birthday-image-fix",
+      "settings": {}
+    }
+  },
+  "order": ["birthday_reference", "birthday_image_fix"]
+}

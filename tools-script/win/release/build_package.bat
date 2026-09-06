@@ -3,7 +3,7 @@ setlocal
 cd /d "%~dp0\..\..\.."
 title The Baking Kaur -- Build Packager
 
-set "PYTHON_EXE=F:\frameworks\Python314\python.exe"
+set "PYTHON_EXE=F:\frameworks\python\python314\python.exe"
 if not exist "%PYTHON_EXE%" (
     where python >nul 2>nul
     if %ERRORLEVEL% equ 0 (

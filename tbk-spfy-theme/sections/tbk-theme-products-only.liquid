@@ -1,0 +1,40 @@
+{% comment %} TBK Theme Collection — header image + products only {% endcomment %}
+<div class="tbk-theme-collection">
+  <div class="tbk-theme-collection__header">
+    <img src="{{ 'tbk-theme-collection-header.webp' | asset_url }}" alt="Theme Cake Collection — The Baking Kaur Meerut" width="1024" height="340" loading="eager" fetchpriority="high">
+  </div>
+
+  <div class="tbk-theme-collection__products">
+    {% for product in collection.products %}
+      <article class="tbk-theme-card">
+        <a href="{{ product.url }}" class="tbk-theme-card__image">
+          {% if product.featured_image %}
+            <img src="{{ product.featured_image | image_url: width: 700 }}" alt="{{ product.title | escape }} in Meerut" loading="lazy" width="700" height="700">
+          {% endif %}
+        </a>
+        <div class="tbk-theme-card__body">
+          <a href="{{ product.url }}" class="tbk-theme-card__title">{{ product.title }}</a>
+          <div class="tbk-theme-card__price">{{ product.price | money }}</div>
+        </div>
+      </article>
+    {% endfor %}
+  </div>
+</div>
+
+<style>
+.tbk-theme-collection{background:#fffaf6;color:#2d2723}
+.tbk-theme-collection__header{width:100%;overflow:hidden;background:#f7eee7}
+.tbk-theme-collection__header img{display:block;width:100%;height:auto}
+.tbk-theme-collection__products{max-width:1500px;margin:0 auto;padding:24px 18px 50px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.tbk-theme-card{background:#fff;border:1px solid #eaded6;border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(60,35,25,.06)}
+.tbk-theme-card__image{display:block;aspect-ratio:1/1;background:#f5eee9;overflow:hidden}
+.tbk-theme-card__image img{display:block;width:100%;height:100%;object-fit:cover}
+.tbk-theme-card__body{padding:12px 13px 15px}
+.tbk-theme-card__title{display:block;color:#2d2723;text-decoration:none;font-family:Georgia,serif;font-size:16px;line-height:1.3;min-height:42px}
+.tbk-theme-card__price{margin-top:7px;color:#9b655c;font-size:14px;font-weight:700}
+@media(max-width:900px){.tbk-theme-collection__products{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;padding:18px 12px 36px}.tbk-theme-card__body{padding:10px 11px 13px}.tbk-theme-card__title{font-size:14px}}
+</style>
+
+{% schema %}
+{"name":"TBK Theme Products Only","settings":[],"presets":[{"name":"TBK Theme Products Only"}]}
+{% endschema %}

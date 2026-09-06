@@ -1,0 +1,29 @@
+{% liquid
+  assign header_url = 'tbk-theme-collection-header.webp' | asset_url
+  assign header_alt = 'Theme Cake Collection - The Baking Kaur Meerut'
+  if collection.handle == 'cake-hampers'
+    assign header_url = 'tbk-hamper-collection-banner.jpg' | asset_url
+    assign cache_bust = 'now' | date: '%s'
+    assign header_url = header_url | append: '&cb=' | append: cache_bust
+    assign header_alt = 'Balloons and Hampers Collection - The Baking Kaur Meerut'
+  endif
+%}
+<section class="tbk-theme-collection">
+  <div class="tbk-theme-header">
+    <img src="{{ header_url }}" alt="{{ header_alt }}" width="1536" height="1024" loading="eager" fetchpriority="high" decoding="sync">
+  </div>
+  <div class="tbk-theme-products">
+    {% paginate collection.products by 24 %}
+      {% for product in collection.products %}
+        <a class="tbk-theme-product" href="{{ product.url }}">
+          {% if product.featured_image %}<img class="tbk-theme-product-image" src="{{ product.featured_image | image_url: width: 700 }}" alt="{{ product.title | escape }}" loading="eager" decoding="async">{% endif %}
+          <div class="tbk-theme-product-info"><h2>{{ product.title | escape }}</h2><div class="tbk-theme-price">{{ product.price | money }}</div></div>
+        </a>
+      {% endfor %}
+      {% if paginate.pages > 1 %}<nav class="tbk-theme-pagination" aria-label="Pagination">{{ paginate | default_pagination }}</nav>{% endif %}
+    {% endpaginate %}
+  </div>
+</section>
+<style>
+.tbk-theme-collection{background:#fffaf6;color:#302825}.tbk-theme-header{width:100vw!important;max-width:none!important;height:66.6666667vw!important;max-height:none!important;min-height:0!important;overflow:visible!important;background:#f8eee5;position:relative}.tbk-theme-header img{display:block!important;position:absolute!important;inset:0!important;width:100%!important;height:100%!important;max-width:none!important;max-height:none!important;min-width:0!important;min-height:0!important;aspect-ratio:auto!important;object-fit:fill!important}.tbk-theme-products{max-width:1200px;margin:0 auto;padding:28px 18px 50px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}.tbk-theme-product{display:block;background:#fff;border:1px solid #eadbd0;border-radius:12px;overflow:hidden;text-decoration:none;color:inherit;box-shadow:0 2px 10px rgba(70,45,30,.05)}.tbk-theme-product-image{width:100%!important;height:auto!important;aspect-ratio:1/1;object-fit:cover;display:block!important}.tbk-theme-product-info{padding:12px 13px 15px}.tbk-theme-product h2{font-family:Georgia,serif;font-size:15px;line-height:1.35;font-weight:500;margin:0 0 6px}.tbk-theme-price{font-size:13px;color:#8b5f50;font-weight:600}.tbk-theme-pagination{grid-column:1/-1;text-align:center;padding-top:12px}.tbk-theme-pagination a,.tbk-theme-pagination span{display:inline-block;margin:0 4px;padding:8px 12px;border:1px solid #decfc4;border-radius:5px;text-decoration:none;color:#8b5f50}@media(max-width:900px){.tbk-theme-products{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;padding:20px 12px 40px}}@media(max-width:600px){.tbk-theme-products{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;padding:14px 9px 30px}.tbk-theme-product{border-radius:8px}.tbk-theme-product-info{padding:9px}.tbk-theme-product h2{font-size:12px}.tbk-theme-price{font-size:11px}.tbk-theme-product-image{aspect-ratio:1/1!important}}
+</style>

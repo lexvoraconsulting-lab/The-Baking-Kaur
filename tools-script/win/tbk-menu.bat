@@ -1,16 +1,17 @@
 @echo off
 @chcp 65001 >nul
+mode con: cols=94 lines=44 >nul 2>nul
 setlocal
 cd /d "%~dp0\..\.."
 title The Baking Kaur — Atelier Operations Hub
 
-set "PYTHON_EXE=F:\frameworks\Python314\python.exe"
+set "PYTHON_EXE=F:\frameworks\python\python314\python.exe"
 if not exist "%PYTHON_EXE%" (
     where python >nul 2>nul
     if %ERRORLEVEL% equ 0 (
         set "PYTHON_EXE=python"
     ) else (
-        echo [ERROR] Python 3 was not found at F:\frameworks\Python314 or in PATH.
+        echo [ERROR] Python 3 was not found at F:\frameworks\python\python314 or in PATH.
         pause
         exit /b 1
     )

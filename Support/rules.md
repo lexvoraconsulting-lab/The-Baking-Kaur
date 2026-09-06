@@ -66,10 +66,10 @@
 
 ## 7. Framework & Environment Governance (`ENV_FRM_01`)
 
-1. **Centralized Framework Toolchain Root:** All language runtimes, interpreters, and framework installations (including Python, Node, etc.) reside strictly within the dedicated frameworks directory: `F:\frameworks\` (e.g., `F:\frameworks\Python314`). Ad-hoc runtime installations across random paths or scattered virtual environments in the repository are strictly prohibited.
-2. **Authoritative Environment Variable Mapping:** System and User-level environment variables (`PATH`, `PYTHON_HOME`, `PYTHONHOME`, `PYTHONPATH`) must point directly to `F:\frameworks\...`. Every agent and contributor must verify that execution environments resolve from `F:\frameworks\` prior to running tasks.
-3. **Repository Tooling Invariant:** Every script in `tools-script/win/`, batch launcher (`.bat`), PowerShell runner (`.ps1`), Makefile, and automation harness must prioritize and target `F:\frameworks\` as the primary runtime path before falling back to system defaults.
-4. **Dependency Integrity:** All project dependencies, PyTorch vision toolchains, transformers, pytest harnesses, and Admin API packages must be maintained directly within the centralized framework environment (`F:\frameworks\Python314\Lib\site-packages`).
+1. **Two-Tier Centralized Framework Root:** All language runtimes, interpreters, and framework installations reside strictly within the dedicated frameworks directory on the `F:` drive using a two-tier hierarchy: `F:\frameworks\<framework-family>\<framework-version>\` (e.g., `F:\frameworks\python\python314`, `F:\frameworks\nodejs\node-v24`, `F:\frameworks\oracle-java\oracle_java10`). Ad-hoc runtime installations across random paths or scattered virtual environments in the repository are strictly prohibited.
+2. **Authoritative Environment Variable Mapping:** System and User-level environment variables (`PATH`, `PYTHONUSERBASE`, `NODE_PATH`) must point directly to `F:\frameworks\...`. Every agent and contributor must verify that execution environments resolve from `F:\frameworks\` prior to running tasks.
+3. **Repository Tooling Invariant:** Every script in `tools-script/win/`, batch launcher (`.bat`), PowerShell runner (`.ps1`), Makefile, and automation harness must prioritize and target `F:\frameworks\python\python314\python.exe` and `F:\frameworks\nodejs\node-v24\` as the primary runtime path.
+4. **Dependency Integrity:** All project dependencies, PyTorch vision toolchains, transformers, pytest harnesses, and Admin API packages must be maintained directly within the centralized framework environment (`F:\frameworks\python\python314\Lib\site-packages`), never on `C:\`.
 
 ## 8. Developer Toolchain & Script Hierarchy Invariant (`TOOL-001`)
 
