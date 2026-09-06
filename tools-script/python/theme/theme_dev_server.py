@@ -21,6 +21,11 @@ from pathlib import Path
 if os.name == "nt":
     os.system("")
 
+theme_mod_dir = str(Path(__file__).resolve().parent)
+if theme_mod_dir not in sys.path:
+    sys.path.insert(0, theme_mod_dir)
+from theme_manager import ensure_theme_directory, pull_theme_from_store, check_theme_directory
+
 if sys.stdout and hasattr(sys.stdout, "reconfigure"):
     try:
         sys.stdout.reconfigure(encoding="utf-8", errors="replace")
@@ -217,16 +222,12 @@ def start_server(
         except (KeyboardInterrupt, EOFError):
             print()
 
-    # Step 3: Check if local directory exists and has files
-    if not theme_dir.exists() or not any(theme_dir.iterdir()):
-        print(f"\n\033[93m[NOTICE] Local theme folder '{DEFAULT_THEME_DIR}' is empty or missing.\033[0m")
-        print("Initiating automatic download from Shopify remote theme...")
-        pull_success = pull_theme_code(STORE_DOMAIN, target_id, theme_dir, shopify_bin)
-        if not pull_success:
-            print("\033[91m[ERROR] Could not download theme files. Server cannot start.\033[0m")
-            return 1
+    # Step 3: Proactive theme directory pre-flight & self-healing
+    if not ensure_theme_directory(theme_dir, STORE_DOMAIN, target_id, interactive=allow_interactive, shopify_bin=shopify_bin):
+        print("\n\033[91m[ERROR] Theme directory verification failed. Dev server cannot start.\033[0m")
+        return 1
     elif sync_first:
-        pull_theme_code(STORE_DOMAIN, target_id, theme_dir, shopify_bin)
+        pull_theme_from_store(STORE_DOMAIN, target_id, theme_dir, shopify_bin)
 
     # Step 3: Check port availability
     chosen_port = port

@@ -31,6 +31,17 @@ if sys.stdout and hasattr(sys.stdout, "reconfigure"):
 
 
 # --- Atelier Haute Pâtisserie Palette (24-bit TrueColor) ---
+
+# Import centralized theme manager
+theme_module_dir = str(Path(__file__).resolve().parent.parent / "theme")
+if theme_module_dir not in sys.path:
+    sys.path.insert(0, theme_module_dir)
+
+try:
+    from theme_manager import ensure_theme_directory, pull_theme_from_store, check_theme_directory
+except Exception:
+    pass
+
 C_RESET        = "\033[0m"
 C_BOLD         = "\033[1m"
 C_DIM          = "\033[2m"
@@ -291,28 +302,29 @@ class TBKConsoleCLI:
         menu_item("1", "Start Local Dev Server", f"Port 9292 -> Preview #{self.preview_theme_id}")
         menu_item("2", "Run Theme Health Check", "Liquid syntax, schema & JSON integrity")
         menu_item("3", "Deploy to Preview Theme", f"Direct push to Preview #{self.preview_theme_id}")
-        menu_item("4", "Deploy File to Live Theme", f"Live #{self.live_theme_id} · Rule 5.2 Differential Protocol")
+        menu_item("4", "Pull / Sync Theme Files", f"Download latest from Shopify Preview/Live")
+        menu_item("5", "Deploy File to Live Theme", f"Live #{self.live_theme_id} · Rule 5.2 Differential Protocol")
 
         # Category 2: Governance & Tasks
         section_header("🏛", "02 · PROJECTOPS GOVERNANCE & PDM")
-        menu_item("5", "12-Point Conformance Audit", "pdm audit Support (Strict 0 Errors Gate)")
-        menu_item("6", "View Project Context", "Active delivery plans & current sprint matrix")
-        menu_item("7", "Task Lifecycle Workflow", "pdm task start / complete / sync")
-        menu_item("8", "Create Git Checkpoint", "pdm checkpoint (Audit-Gated Commit & Push)")
+        menu_item("6", "12-Point Conformance Audit", "pdm audit Support (Strict 0 Errors Gate)")
+        menu_item("7", "View Project Context", "Active delivery plans & current sprint matrix")
+        menu_item("8", "Task Lifecycle Workflow", "pdm task start / complete / sync")
+        menu_item("9", "Create Git Checkpoint", "pdm checkpoint (Audit-Gated Commit & Push)")
 
         # Category 3: Store Automation & SEO
         section_header("⚡", "03 · STORE AUTOMATION & SEO ENGINE")
-        menu_item("9", "Run SEO Snippets Preview", "Safe dry-run preview with CSV audit report")
-        menu_item("10", "Apply SEO Fixes to Live", "GraphQL batch mutation sync")
+        menu_item("10", "Run SEO Snippets Preview", "Safe dry-run preview with CSV audit report")
+        menu_item("11", "Apply SEO Fixes to Live", "GraphQL batch mutation sync")
 
         # Category 4: AI Cake Genome
         section_header("🧬", "04 · AI CAKE GENOME & VISION PIPELINE")
-        menu_item("11", "Run Full Pytest Suite", "233 tests: Vision, Taxonomy & Storefront")
+        menu_item("12", "Run Full Pytest Suite", "233 tests: Vision, Taxonomy & Storefront")
 
         # Category 5: Build & Release
         section_header("📦", "05 · BUILD & RELEASE MANAGEMENT")
-        menu_item("12", "Package Versioned Build", "Compile archive into build/vX.Y.Z/")
-        menu_item("13", "Publish Versioned Release", "Stage release into releases/v<Major>/")
+        menu_item("13", "Package Versioned Build", "Compile archive into build/vX.Y.Z/")
+        menu_item("14", "Publish Versioned Release", "Stage release into releases/v<Major>/")
 
         # Category 6: Observability & Exit
         section_header("📊", "06 · SYSTEM OBSERVABILITY & CONTROL")
@@ -396,6 +408,12 @@ class TBKConsoleCLI:
     # --- Operational Handlers ---
 
     def handle_theme_dev(self) -> None:
+        theme_dir = self.repo_root / "tbk-spfy-theme"
+        if not ensure_theme_directory(theme_dir, self.store_domain, self.preview_theme_id, interactive=not self.test_mode):
+            print(f"\n{C_AMBER}Theme directory verification cancelled or failed.{C_RESET}")
+            self.pause()
+            return
+
         dev_server_py = self.repo_root / "tools-script" / "python" / "theme" / "theme_dev_server.py"
         try:
             subprocess.run(
@@ -408,11 +426,23 @@ class TBKConsoleCLI:
         self.pause()
 
     def handle_theme_check(self) -> None:
+        theme_dir = self.repo_root / "tbk-spfy-theme"
+        if not ensure_theme_directory(theme_dir, self.store_domain, self.preview_theme_id, interactive=not self.test_mode):
+            print(f"\n{C_AMBER}Theme directory verification cancelled or failed.{C_RESET}")
+            self.pause()
+            return
+
         shopify_bin = resolve_executable("shopify")
         self.run_clean_step("Analyzing theme Liquid & JSON code health", [shopify_bin, "theme", "check", "--path", "tbk-spfy-theme"])
         self.pause()
 
     def handle_theme_deploy_preview(self) -> None:
+        theme_dir = self.repo_root / "tbk-spfy-theme"
+        if not ensure_theme_directory(theme_dir, self.store_domain, self.preview_theme_id, interactive=not self.test_mode):
+            print(f"\n{C_AMBER}Theme directory verification cancelled or failed.{C_RESET}")
+            self.pause()
+            return
+
         shopify_bin = resolve_executable("shopify")
         success = self.run_clean_step(
             f"Pushing theme code to Preview Theme #{self.preview_theme_id}",
@@ -421,6 +451,39 @@ class TBKConsoleCLI:
         if success:
             print(f"\n{C_MINT}✔ Preview is live: https://{self.store_domain}/?preview_theme_id={self.preview_theme_id}{C_RESET}")
         self.pause()
+
+    def handle_theme_pull(self) -> None:
+        theme_dir = self.repo_root / "tbk-spfy-theme"
+        print(f"\n{C_GOLD}{C_BOLD}▶ Pull / Synchronize Theme from Shopify:{C_RESET}")
+        print(f"  {C_GOLD_BRIGHT}[1]{C_RESET} Pull from Preview Theme #{self.preview_theme_id} (TBK Birthday V3) [Default]")
+        print(f"  {C_GOLD_BRIGHT}[2]{C_RESET} Pull from Live Theme #{self.live_theme_id}")
+        print(f"  {C_GOLD_BRIGHT}[3]{C_RESET} Pull specific Theme ID")
+        print(f"  {C_MUTED}[0] Cancel{C_RESET}")
+        try:
+            choice = input(f"\n{C_GOLD}Select theme source [0-3, default=1]: {C_RESET}").strip() or "1"
+            if choice == "1":
+                t_id = self.preview_theme_id
+            elif choice == "2":
+                t_id = self.live_theme_id
+            elif choice == "3":
+                t_id = input(f"{C_GOLD}Enter theme ID: {C_RESET}").strip()
+            else:
+                return
+            if t_id:
+                pull_theme_from_store(self.store_domain, t_id, theme_dir)
+        except (KeyboardInterrupt, EOFError):
+            print()
+        self.pause()
+
+    def handle_theme_deploy_live(self) -> None:
+        try:
+            file_to_deploy = input(f"\n{C_GOLD}Enter theme file relative path (e.g. sections/bk-trust-strip.liquid): {C_RESET}").strip()
+            if file_to_deploy:
+                deploy_script = self.repo_root / "tools-script" / "win" / "theme" / "theme_deploy_live.bat"
+                subprocess.run(["cmd.exe", "/c", str(deploy_script), file_to_deploy])
+                self.pause()
+        except (KeyboardInterrupt, EOFError):
+            print()
 
     def handle_pdm_audit(self) -> None:
         self.run_clean_step(
@@ -547,36 +610,31 @@ class TBKConsoleCLI:
             elif choice in ("3", "1.3"):
                 self.handle_theme_deploy_preview()
             elif choice in ("4", "1.4"):
-                try:
-                    file_to_deploy = input(f"\n{C_GOLD}Enter theme file relative path (e.g. sections/bk-trust-strip.liquid): {C_RESET}").strip()
-                    if file_to_deploy:
-                        deploy_script = self.repo_root / "tools-script" / "win" / "theme" / "theme_deploy_live.bat"
-                        subprocess.run(["cmd.exe", "/c", str(deploy_script), file_to_deploy])
-                        self.pause()
-                except (KeyboardInterrupt, EOFError):
-                    print()
-            elif choice in ("5", "2.1"):
+                self.handle_theme_pull()
+            elif choice in ("5", "1.5"):
+                self.handle_theme_deploy_live()
+            elif choice in ("6", "2.1"):
                 self.handle_pdm_audit()
-            elif choice in ("6", "2.2"):
+            elif choice in ("7", "2.2"):
                 self.handle_pdm_context()
-            elif choice in ("7", "2.3"):
+            elif choice in ("8", "2.3"):
                 self.handle_task_workflow()
-            elif choice in ("8", "2.4"):
+            elif choice in ("9", "2.4"):
                 self.handle_pdm_checkpoint()
-            elif choice in ("9", "3.1"):
+            elif choice in ("10", "3.1"):
                 self.handle_seo_ops(apply_mode=False)
-            elif choice in ("10", "3.2"):
+            elif choice in ("11", "3.2"):
                 self.handle_seo_ops(apply_mode=True)
-            elif choice in ("11", "4.1"):
+            elif choice in ("12", "4.1"):
                 self.handle_tests()
-            elif choice in ("12", "5.1"):
+            elif choice in ("13", "5.1"):
                 self.handle_build()
-            elif choice in ("13", "5.2"):
+            elif choice in ("14", "5.2"):
                 self.handle_release()
             elif choice in ("l", "log", "logs"):
                 self.handle_view_log()
             else:
-                print(f"\n{C_AMBER}Invalid selection '{choice}'. Please select an option from 1 to 13, L, R, or 0.{C_RESET}")
+                print(f"\n{C_AMBER}Invalid selection '{choice}'. Please select an option from 1 to 14, L, R, or 0.{C_RESET}")
                 time.sleep(1.2)
 
 

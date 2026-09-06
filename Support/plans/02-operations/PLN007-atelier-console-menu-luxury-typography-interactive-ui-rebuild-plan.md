@@ -10,6 +10,7 @@
 | 1 | `RUL` | [`../../rules.md`](../../rules.md) | Binding constraints (ENV_FRM_01, Rule 2.1, Rule 5.2) | Current |
 | 2 | `DEC` | [`../../decisions/DEC_20260906_D_atelier_console_menu_luxury_typography_and_interactive_ui.md`](../../decisions/DEC_20260906_D_atelier_console_menu_luxury_typography_and_interactive_ui.md) | Architectural decision record for 5x typography and 94-column canvas | Current |
 | 3 | `ARC` | [`../../architecture/ARC_20260906_E_developer_toolchain_and_operations_console.md`](../../architecture/ARC_20260906_E_developer_toolchain_and_operations_console.md) | Operations console architecture | Current |
+| 4 | `GAP` | [`../../gaps-issues/gap_cluster_active.md`](../../gaps-issues/gap_cluster_active.md) | G_01 Theme Directory Resilience & Pre-Flight Self-Healing Synchronization | Current |
 
 ## Statistics
 
@@ -17,12 +18,12 @@
 
 | S.No. | Plan Scope | TL | PD | IP | CD |
 | ---: | --- | ---: | ---: | ---: | ---: |
-| 1 | `MENU` direct tasks | 11 | 0 | 0 | 11 |
-| 2 | Total | **11** | **0** | **0** | **11** |
+| 1 | `MENU` direct tasks | 15 | 0 | 0 | 15 |
+| 2 | Total | **15** | **0** | **0** | **15** |
 
 ## Context
 
-Rebuild the developer console menu (`tbk_cli.py`) with a 5x larger sculpted multi-row ASCII art "BAKING" logo, luxury decorative patisserie styling, 94-column expanded canvas, responsive console launcher dimensioning, and an intuitive domain-driven interface. Address operational diagnostics including Shopify CLI argument discrepancies and orphaned global packages.
+Rebuild the developer console menu (`tbk_cli.py`) with a 5x larger sculpted multi-row ASCII art "BAKING" logo, luxury decorative patisserie styling, 94-column expanded canvas, responsive console launcher dimensioning, and an intuitive domain-driven interface. Address operational diagnostics including Shopify CLI argument discrepancies and orphaned global packages. Deliver proactive theme directory validation, automatic directory scaffolding, and self-healing synchronization from Shopify (`GAP001` / `G_01`).
 
 ## 01. Console Rebuild Tasks
 
@@ -40,6 +41,13 @@ Rebuild the developer console menu (`tbk_cli.py`) with a 5x larger sculpted mult
 - [x] `MENU-02.02` Enhance binary resolution in `theme_dev_server.py` to prioritize `F:\frameworks\nodejs\npm-global`.
 - [x] `MENU-02.03` Purge orphaned non-framework npm modules from `F:\frameworks\nodejs\npm-global\node_modules\` via robocopy mirror purge.
 - [x] `MENU-02.04` Execute regression verification across pytest (233 passed), test-mode CLI rendering, and PDM governance audit (0 errors, 0 warnings).
+
+## 03. Theme Directory Resilience & Self-Healing Tasks
+
+- [x] `MENU-03.01` Create centralized `tools-script/python/theme/theme_manager.py` with directory pre-flight inspection, scaffold automation, and remote theme pull capabilities.
+- [x] `MENU-03.02` Integrate pre-flight theme directory verification and self-healing into `theme_dev_server.py`.
+- [x] `MENU-03.03` Guard all theme handlers in `tbk_cli.py` with `ensure_theme_directory` and add Option `[ 4 ] Pull / Sync Theme Files`.
+- [x] `MENU-03.04` Validate full test suite (233 passed), non-interactive test mode, close `G_01`, and run `pdm audit Support`.
 
 ## Footer Navigation
 

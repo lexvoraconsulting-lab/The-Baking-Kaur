@@ -18,8 +18,8 @@ Index all committed delivery plans for `The-Baking-Kaur`.
 | 4 | [`03-ai-intelligence/PLN004-ai-cake-genome-and-vision-intelligence-pipeline-plan.md`](./03-ai-intelligence/PLN004-ai-cake-genome-and-vision-intelligence-pipeline-plan.md) | `CGV` | 6 | 6 | 0 | 0 | Active |
 | 5 | [`02-operations/PLN005-developer-toolchain-and-master-operations-console-plan.md`](./02-operations/PLN005-developer-toolchain-and-master-operations-console-plan.md) | `TOOL` | 8 | 0 | 0 | 8 | Active |
 | 6 | [`02-operations/PLN006-central-frameworks-consolidation-and-migration-plan.md`](./02-operations/PLN006-central-frameworks-consolidation-and-migration-plan.md) | `FRM` | 13 | 0 | 0 | 13 | Active |
-| 7 | [`02-operations/PLN007-atelier-console-menu-luxury-typography-interactive-ui-rebuild-plan.md`](./02-operations/PLN007-atelier-console-menu-luxury-typography-interactive-ui-rebuild-plan.md) | `MENU` | 11 | 0 | 0 | 11 | Active |
-| 8 | Total | — | **57** | **18** | **0** | **39** | Active |
+| 7 | [`02-operations/PLN007-atelier-console-menu-luxury-typography-interactive-ui-rebuild-plan.md`](./02-operations/PLN007-atelier-console-menu-luxury-typography-interactive-ui-rebuild-plan.md) | `MENU` | 15 | 0 | 0 | 15 | Active |
+| 8 | Total | — | **61** | **18** | **0** | **43** | Active |
 
 ## Footer Navigation
 
