@@ -17,8 +17,8 @@
 
 | S.No. | Plan Scope | TL | PD | IP | CD |
 | ---: | --- | ---: | ---: | ---: | ---: |
-| 1 | `FRM` direct tasks | 8 | 0 | 0 | 8 |
-| 2 | Total | **8** | **0** | **0** | **8** |
+| 1 | `FRM` direct tasks | 13 | 0 | 0 | 13 |
+| 2 | Total | **13** | **0** | **0** | **13** |
 
 ## Context
 
@@ -34,6 +34,14 @@ Consolidate all developer frameworks and dependencies from the `C:` drive into t
 - [x] `FRM-01.06` Update all workspace batch scripts, PowerShell runners, and CLI hub (`tbk_cli.py`) to target new `F:\frameworks` paths.
 - [x] `FRM-01.07` Execute full test suite (233 pytest), AI Vision tests (45 tests), and verify isolated `-s` loading.
 - [x] `FRM-01.08` Run PDM conformance audit (`pdm audit Support`) and close worklog with `pdm checkpoint`.
+
+## 02. Centralized Git Toolchain & Dependencies Tasks
+
+- [x] `FRM-02.01` Repair corrupted 0-byte `.git/index` and verify remote push to origin.
+- [x] `FRM-02.02` Install/Relocate Git for Windows into `F:\frameworks\git\git-v254\`.
+- [x] `FRM-02.03` Configure User PATH to resolve `F:\frameworks\git\git-v254\cmd` as primary Git binary.
+- [x] `FRM-02.04` Verify internet package installation capability across Python (PyPI) and Node (npm) on `F:\frameworks\`.
+- [x] `FRM-02.05` Run full test suite (233 pytest), PDM audit (`pdm audit Support`), and close worklog batch.
 
 ## Footer Navigation
 
