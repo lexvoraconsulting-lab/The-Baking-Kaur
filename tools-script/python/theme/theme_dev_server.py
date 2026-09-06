@@ -35,7 +35,15 @@ DEFAULT_PORT = 9292
 
 
 def resolve_executable(name: str) -> str:
-    """Locate executable path, resolving .cmd/.bat extensions on Windows."""
+    """Locate executable path, resolving F:\frameworks first, then PATH."""
+    f_npm = Path(r"F:\frameworks\nodejs\npm-global")
+    if (f_npm / f"{name}.cmd").exists():
+        return str(f_npm / f"{name}.cmd")
+    if (f_npm / f"{name}.bat").exists():
+        return str(f_npm / f"{name}.bat")
+    if (f_npm / name).exists():
+        return str(f_npm / name)
+
     resolved = shutil.which(name)
     if resolved:
         return resolved

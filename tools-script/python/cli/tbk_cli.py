@@ -409,7 +409,7 @@ class TBKConsoleCLI:
 
     def handle_theme_check(self) -> None:
         shopify_bin = resolve_executable("shopify")
-        self.run_clean_step("Analyzing theme Liquid & JSON code health", [shopify_bin, "theme", "check", "tbk-spfy-theme"])
+        self.run_clean_step("Analyzing theme Liquid & JSON code health", [shopify_bin, "theme", "check", "--path", "tbk-spfy-theme"])
         self.pause()
 
     def handle_theme_deploy_preview(self) -> None:

@@ -17,12 +17,12 @@
 
 | S.No. | Plan Scope | TL | PD | IP | CD |
 | ---: | --- | ---: | ---: | ---: | ---: |
-| 1 | `MENU` direct tasks | 7 | 0 | 0 | 7 |
-| 2 | Total | **7** | **0** | **0** | **7** |
+| 1 | `MENU` direct tasks | 11 | 0 | 0 | 11 |
+| 2 | Total | **11** | **0** | **0** | **11** |
 
 ## Context
 
-Rebuild the developer console menu (`tbk_cli.py`) with a 5x larger sculpted multi-row ASCII art "BAKING" logo, luxury decorative patisserie styling, 94-column expanded canvas, responsive console launcher dimensioning, and an intuitive domain-driven interface.
+Rebuild the developer console menu (`tbk_cli.py`) with a 5x larger sculpted multi-row ASCII art "BAKING" logo, luxury decorative patisserie styling, 94-column expanded canvas, responsive console launcher dimensioning, and an intuitive domain-driven interface. Address operational diagnostics including Shopify CLI argument discrepancies and orphaned global packages.
 
 ## 01. Console Rebuild Tasks
 
@@ -33,6 +33,13 @@ Rebuild the developer console menu (`tbk_cli.py`) with a 5x larger sculpted mult
 - [x] `MENU-01.05` Organize operational domain cards (Theme 🌸, Governance 🏛, SEO ⚡, AI Cake Genome 🧬, Release 📦) with intuitive hotkeys and clear visual hierarchy.
 - [x] `MENU-01.06` Validate non-interactive rendering with `--test-mode` and verify zero regressions across all 13 dispatch actions.
 - [x] `MENU-01.07` Execute full test suite (233 pytest), run PDM conformance audit (`pdm audit Support`), and close worklog.
+
+## 02. Operational Diagnostics & Theme Check Resolution Tasks
+
+- [x] `MENU-02.01` Diagnose 2-hour Shopify CLI theme check syntax error (`shopify theme check tbk-spfy-theme` -> `shopify theme check --path tbk-spfy-theme`).
+- [x] `MENU-02.02` Enhance binary resolution in `theme_dev_server.py` to prioritize `F:\frameworks\nodejs\npm-global`.
+- [x] `MENU-02.03` Purge orphaned non-framework npm modules from `F:\frameworks\nodejs\npm-global\node_modules\` via robocopy mirror purge.
+- [x] `MENU-02.04` Execute regression verification across pytest (233 passed), test-mode CLI rendering, and PDM governance audit (0 errors, 0 warnings).
 
 ## Footer Navigation
 
