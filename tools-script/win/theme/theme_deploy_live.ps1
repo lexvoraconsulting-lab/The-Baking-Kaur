@@ -25,9 +25,13 @@ if ($File -match "product\.json" -or $File -match "main-product-premium-v2\.liqu
 $tempDir = Join-Path $RepoRoot "temp_diff_$(Get-Date -Format 'yyyyMMdd_HHmmss')"
 New-Item -ItemType Directory -Path $tempDir -Force | Out-Null
 
-try {
+    $shopifyCmd = "F:\frameworks\nodejs\npm-global\shopify.cmd"
+    if (-not (Test-Path $shopifyCmd)) {
+        $shopifyCmd = "shopify"
+    }
+
     Write-Host "1. Pulling live version of $File for divergence check..." -ForegroundColor Yellow
-    shopify theme pull --store $Store --theme $LiveThemeId --only $File --path $tempDir --force
+    & $shopifyCmd theme pull --store $Store --theme $LiveThemeId --only $File --path $tempDir --force
 
     $liveFile = Join-Path $tempDir $File
     $localFile = Join-Path $RepoRoot "tbk-spfy-theme\$File"
@@ -46,7 +50,7 @@ try {
     $confirmation = Read-Host "`nDo you confirm pushing '$File' to LIVE THEME #$LiveThemeId? (type YES to proceed)"
     if ($confirmation -eq "YES") {
         Write-Host "3. Pushing verified file to live theme..." -ForegroundColor Yellow
-        shopify theme push --store $Store --theme $LiveThemeId --only $File --path tbk-spfy-theme --allow-live --force
+        & $shopifyCmd theme push --store $Store --theme $LiveThemeId --only $File --path tbk-spfy-theme --allow-live --force
         Write-Host "`n✔ Successfully deployed $File to live theme!" -ForegroundColor Green
     } else {
         Write-Host "`nDeployment cancelled by user. Live theme untouched." -ForegroundColor Yellow

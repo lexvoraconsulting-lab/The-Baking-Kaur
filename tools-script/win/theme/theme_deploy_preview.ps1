@@ -20,8 +20,12 @@ if (-not (Test-Path "tbk-spfy-theme\layout\theme.liquid")) {
         return
     }
 }
+$shopifyCmd = "F:\frameworks\nodejs\npm-global\shopify.cmd"
+if (-not (Test-Path $shopifyCmd)) {
+    $shopifyCmd = "shopify"
+}
 
-shopify theme push --store $Store --theme $ThemeId --path tbk-spfy-theme
+& $shopifyCmd theme push --store $Store --theme $ThemeId --path tbk-spfy-theme
 
 if ($LASTEXITCODE -eq 0) {
     Write-Host "`n✔ Preview theme successfully updated!" -ForegroundColor Green

@@ -28,13 +28,14 @@ if /i not "%CONFIRM%"=="y" (
     exit /b 0
 )
 
-set "SHOPIFY_CMD=%APPDATA%\npm\shopify.cmd"
+set "SHOPIFY_CMD=F:\frameworks\nodejs\npm-global\shopify.cmd"
+if not exist "%SHOPIFY_CMD%" set "SHOPIFY_CMD=%APPDATA%\npm\shopify.cmd"
 if not exist "%SHOPIFY_CMD%" (
     where shopify >nul 2>nul
     if %ERRORLEVEL% equ 0 (
         set "SHOPIFY_CMD=shopify"
     ) else (
-        echo [ERROR] Shopify CLI was not found.
+        echo [ERROR] Shopify CLI was not found at F:\frameworks\nodejs\npm-global or in PATH.
         if "%TBK_NO_PAUSE%"=="" pause
         exit /b 1
     )

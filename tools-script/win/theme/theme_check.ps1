@@ -15,8 +15,12 @@ if (-not (Test-Path "tbk-spfy-theme\layout\theme.liquid")) {
         return
     }
 }
+$shopifyCmd = "F:\frameworks\nodejs\npm-global\shopify.cmd"
+if (-not (Test-Path $shopifyCmd)) {
+    $shopifyCmd = "shopify"
+}
 
-$output = shopify theme check --path tbk-spfy-theme 2>&1
+$output = & $shopifyCmd theme check --path tbk-spfy-theme 2>&1
 
 $hasErrors = $false
 foreach ($line in $output) {
