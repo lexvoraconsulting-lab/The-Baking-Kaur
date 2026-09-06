@@ -11,13 +11,24 @@ echo  Deploying Theme Code to Preview Theme...
 echo  Target: Theme #%THEME_ID% on %STORE%
 echo ==========================================================
 
-set "SHOPIFY_CMD=%APPDATA%\npm\shopify.cmd"
+set "SHOPIFY_CMD=F:\frameworks\nodejs\npm-global\shopify.cmd"
+if not exist "%SHOPIFY_CMD%" set "SHOPIFY_CMD=%APPDATA%\npm\shopify.cmd"
 if not exist "%SHOPIFY_CMD%" (
     where shopify >nul 2>nul
     if %ERRORLEVEL% equ 0 (
         set "SHOPIFY_CMD=shopify"
     ) else (
-        echo [ERROR] Shopify CLI was not found.
+        echo [ERROR] Shopify CLI was not found at F:\frameworks\nodejs\npm-global or in PATH.
+        if "%TBK_NO_PAUSE%"=="" pause
+        exit /b 1
+    )
+)
+
+if not exist "tbk-spfy-theme\layout\theme.liquid" (
+    echo [NOTICE] Theme directory requires verification. Running pre-flight self-healing...
+    F:\frameworks\python\python314\python.exe tools-script\python\theme\theme_manager.py
+    if %ERRORLEVEL% neq 0 (
+        echo [ERROR] Theme directory verification cancelled or failed.
         if "%TBK_NO_PAUSE%"=="" pause
         exit /b 1
     )

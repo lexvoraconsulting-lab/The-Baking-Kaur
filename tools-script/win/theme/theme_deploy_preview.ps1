@@ -12,6 +12,15 @@ Write-Host " Deploying to Preview Theme..." -ForegroundColor Yellow
 Write-Host " Target: Theme #$ThemeId on $Store" -ForegroundColor Gray
 Write-Host "==========================================================" -ForegroundColor Cyan
 
+if (-not (Test-Path "tbk-spfy-theme\layout\theme.liquid")) {
+    Write-Host "[NOTICE] Theme directory requires verification. Running pre-flight self-healing..." -ForegroundColor Yellow
+    & "F:\frameworks\python\python314\python.exe" "tools-script\python\theme\theme_manager.py"
+    if ($LASTEXITCODE -ne 0) {
+        Write-Host "[ERROR] Theme directory verification cancelled or failed." -ForegroundColor Red
+        return
+    }
+}
+
 shopify theme push --store $Store --theme $ThemeId --path tbk-spfy-theme
 
 if ($LASTEXITCODE -eq 0) {
